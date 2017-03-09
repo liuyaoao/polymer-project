@@ -1,0 +1,256 @@
+
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+
+
+<dom-module id="cpoint-home">
+  <template>
+    <style>
+      h1,h2,h3,h4,h5,h6{
+        font-weight: normal;
+      }
+      .content{
+        background-color: #fff;
+      }
+      .content .container{
+        width: 1170px;
+        margin:0 auto;
+        font-family: microsoft yahei !important;
+
+      }
+      .banner,.banner_index{
+        height: 736px;
+        background-repeat: no-repeat;
+        background-size:cover;
+        font-family: microsoft yahei !important;
+
+      }
+      .banner{
+        font-size: 0;
+      }
+      .banner::before,
+      .banner_index .container::before{
+        content:"";
+        display: inline-block;
+        height: 100%;
+        line-height: 100%;
+        vertical-align: middle;
+      }
+      .banner h3{
+        display: inline-block;
+        width: 100%;
+        font-size: 36px;
+        color: #fff;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .banner_index .container{
+        height: 100%;
+        font-size: 0;
+      }
+      .banner_index .text{
+        text-align: left;
+        display: inline-block;
+        width:100%;
+
+        vertical-align: middle;
+      }
+      .banner_index .text h5{
+        font-size: 42px;
+        line-height: 48px;
+        color: #fff;
+        margin:0;
+      }
+      .banner_index .text h6{
+        font-size: 22px;
+        line-height: 24px;
+        margin:30px 0;
+        color: #fff;
+      }
+      .banner_index .contactus_btn{
+        width: 114px;
+        height: 37px;
+        line-height: 37px;
+        background-color: #1C69E6;
+        color: #fff;
+        text-align: center;
+        border:0;
+        border-radius: 2px;
+      }
+      .section1{
+        height: auto;
+        overflow: hidden;
+        background-color: #fff;
+        padding:55px 0;
+      }
+      .section2,.section3{
+        height: auto;
+        overflow: hidden;
+        padding:60px 0;
+      }
+      .section1 h2,
+      .section2 h2,.section3 h2{
+        font-size: 30px;
+        color:#000;
+        margin:0 0 30px;
+      }
+      .section2 h3,
+      .section3 h3{
+        font-size: 14px;
+        line-height: 22px;
+        color: #000;
+      }
+      .section1 h3{
+        font-size: 16px;
+        line-height: 25px;
+      }
+      .section1 .text-center{
+        width: 585px;
+        margin:0 auto;
+        text-align: center;
+      }
+      .section2{
+        background-color: #EFF3FD;
+      }
+      .section3{
+        background-color: #fff;
+      }
+      .section2 .col-md-7{
+        float: left;
+        width: 682px;
+      }
+      .section2 .pic,
+      .section3 .pic {
+        float: left;
+        width: 487px;
+        overflow: hidden;
+      }
+      .section3 .pic {
+        width: 585px;
+      }
+      .section2 .pic img,.section3 .pic img{
+        display: block;
+        max-width: 100%;
+        margin:0 auto;
+      }
+      .section2 .text,.section3 .text{
+          padding: 30px 0 0 30px;
+          width: 435px;
+          float: left;
+          text-align: left;
+      }
+      .section2 .text.left,.section3 .text.left{
+          padding: 30px 30px 0 0;
+      }
+      @media screen and (max-width:768px){
+        .content .container{
+          width:100%;
+        }
+        .section1 .text-center,
+        .section2 .col-md-7, .section3 .col-md-6,
+        .section2 .pic, .section3 .pic,
+        footer .left, footer .right{
+          width: 90%;
+          margin:0 5%;
+        }
+
+        .section2 .text, .section3 .text{
+          width: 100%;
+          padding:0;
+        }
+        .banner_index .text{
+          width: 90%;
+          margin-left: 5%;
+        }
+        .banner_index .text h5{
+          font-size: 24px;
+        }
+        .banner_index{height:500px;}
+        .section3 .pic{
+          margin-bottom: 30px;
+        }
+      }
+    </style>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}"></app-route>
+
+        <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
+          <div class="content">
+            <div class="banner_index" style="background-image:url(../images/b_01.jpg);">
+              <div class="container">
+                  <div class="text">
+                    <h5>专业的大数据分析工程师团队</h5>
+                    <h5>为您提供专属服务</h5>
+                    <h6>Turn Big Data Into Business Value</h6>
+                    <button class="contactus_btn ">联系我们</button>
+                </div>
+              </div>
+            </div>
+            <div class="section1">
+                <div class="container">
+                    <div class="row">
+                        <div class="text-center">
+                          <h2>临界点如何帮您提升效益？</h2>
+                          <h3>临界点为您提供的核心价值在于直观、多维、实时的方式展示和分析数据，并可在移动端实时查看和分享，全面激活大数据，提升您效益。</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section2">
+              <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="col-md-8 text">
+                          <h2>多数据源接入分析</h2>
+                          <h3>我们可以连接多种常见的数据库，包括mysql、SqlServer、Oracle、excel、API等数据源，也支持自定制的数据源。并将数据提供汇总后进行专业分析。</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-5 pic">
+                      <img src="../images/i_01.png" alt="">
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="section3">
+              <div class="container">
+                <div class="row">
+                    <div class="col-md-6 pic">
+                      <img src="../images/i_02.jpg" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-8 text right">
+                          <h2>灵活易用的可视化分析</h2>
+                          <h3>无需任何预处理即可对数据做任意维度的多维分析，简单点击、选择即可通过数据获得业务洞察，您也能自助分析数据。</h3>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="section2">
+              <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="col-md-8 text">
+                          <h2>多平台数据展示</h2>
+                          <h3>无缝支持PC、iPhone、iPad和Android，并在这些终端设备上保持一致、友好、易用的用户体验，您可以随时随地的查看、分析、分享数据，从而做出正确决策。</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-5 pic">
+                      <img src="../images/i_03.jpg" alt="">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'cpoint-home'
+    });
+  </script>
+</dom-module>

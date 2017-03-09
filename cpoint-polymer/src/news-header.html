@@ -1,0 +1,249 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+
+<dom-module id="news-header">
+
+  <template>
+    <style>
+      header .container{
+        width: 1170px;
+        margin:0 auto;
+      }
+      header,
+      .sticky-nav {
+        z-index: 10;
+      }
+      .logo {
+        text-align: left;
+      }
+      .date-line,
+      .article-headline {
+        text-align: center;
+        font-size: 11px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin: 0 16px;
+      }
+      .logo a {
+        font-weight: 600;
+        letter-spacing: 10px;
+        /* To offset letter-spacing for the last character. */
+        margin-right: -10px;
+        text-decoration: none;
+        /* required for IE 11, so this <a> can receive pointer events */
+        display: inline-block;
+        pointer-events: auto;
+      }
+      .sticky-nav {
+        position: fixed;
+        top: -1px;
+        left: 0;
+        right: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        transform: translate3d(0, -100%, 0);
+      }
+      .sticky-nav[threshold-triggered] {
+        visibility: visible;
+        pointer-events: auto;
+        transform: translate3d(0, 0, 0);
+      }
+      .mobile-toggle-drawer-btn{
+          display: none;
+      }
+      /* mobile */
+      @media (max-width: 767px) {
+        .mobile-toggle-drawer-btn{
+          color: #fff;
+          display: block;
+        }
+      }
+      header{
+        height: 64px;
+        border-bottom: solid 1px #8e8e8e;
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+        font-family: microsoft yahei !important;
+        background-color: rgba(0,0,0,.8);
+      }
+      header .container{
+        width: 1170px;
+        margin:0 auto;
+      }
+      header h1{
+        margin:12px 0;
+      }
+      header .menu-list{
+        float: right;
+        width: 430px;
+      }
+      header .menu-list a{
+        display: inline-block;
+        color: #fff;
+        padding: 21px 4px;
+        margin:0 15px;
+        text-decoration: none;
+        transition: all 0.01s 0.1s;
+      }
+      header .menu-list a.on,
+      header .menu-list a:hover,
+      header .menu-list a:focus{
+        background-color: rgba(0,0,0,0);
+        border-bottom: solid 3px #ddd;
+      }
+      header .menu-list a.special{
+        line-height: 30px;
+        padding: 0 8px;
+        border:solid 1px #cdcdcd;
+        color: #fff;
+        margin-top: 16px;
+      }
+      header .menu-list a.special:hover,
+      header .menu-list a.special:focus{
+        border:solid 1px #fff;
+      }
+      .logo-toolbar{
+        float: left;
+        width: 300px;
+      }
+    </style>
+
+    <!--
+      Header at the scroll top of the page.
+    -->
+    <header>
+      <div class="container">
+      <app-toolbar class="logo-toolbar">
+        <paper-icon-button class="mobile-toggle-drawer-btn" icon="menu"
+            on-click="_toggleDrawer" aria-label="Main navigation"></paper-icon-button>
+        <div class="logo" main-title>
+          <a href="/" aria-label$="[[_computeAppHomeLabel(appTitle)]]"><img src="../images/logo.png" /></a>
+        </div>
+      </app-toolbar>
+      <!-- <div class="date-line" role="heading">
+        [[category.title]] <span aria-hidden="true">&nbsp;&middot;&nbsp;</span> [[_currentTime()]]
+      </div> -->
+      <template is="dom-if" if="[[!smallScreen]]">
+        <iron-selector role="navigation" class="menu-list" selected="[[category.name]]"
+            attr-for-selected="name">
+          <template is="dom-repeat" items="[[categories]]" as="category" initial-count="9">
+            <a name="[[category.name]]" href="/[[category.name]]">[[category.title]]</a>
+          </template>
+        </iron-selector>
+      </template>
+
+      </div>
+    </header>
+
+    <!--
+      Sticky nav reveals when scrolled down on the page.
+    -->
+    <app-box role="banner" class="sticky-nav" threshold="[[_getScrollThreshold(smallScreen)]]">
+      <app-toolbar class="sticky-nav-toolbar">
+        <paper-icon-button
+          arial-label="Main navigation"
+          icon="[[_menuIcon(drawerOpened)]]" on-click="_toggleDrawer"></paper-icon-button>
+        <div class="sticky-nav-center">
+          <div class="logo">
+            <a href="/" aria-label$="[[_computeAppHomeLabel(appTitle)]]">[[appTitle]]</a>
+          </div>
+          <div class="date-line" role="heading">
+            [[category.title]] <span aria-hidden="true">&nbsp; &middot; &nbsp;</span> [[_currentTime()]]
+          </div>
+          <div class="article-headline">
+            <content></content>
+          </div>
+        </div>
+        <paper-icon-button icon="mail" aria-label="Send by mail"></paper-icon-button>
+        <paper-icon-button icon="share" aria-label="Share on social networks"></paper-icon-button>
+      </app-toolbar>
+      <div class="sticky-nav-menu" shown$="[[drawerOpened]]">
+        <iron-selector class="grid-container" role="navigation"
+            selected="[[category.name]]" attr-for-selected="name">
+          <template is="dom-repeat" items="[[categories]]" as="category" initial-count="9">
+            <a name="[[category.name]]" href="/[[category.name]]">[[category.title]]</a>
+          </template>
+        </iron-selector>
+      </div>
+    </app-box>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'news-header',
+
+      properties: {
+
+        appTitle: String,
+
+        page: {
+          type: String,
+          reflectToAttribute: true
+        },
+
+        categories: Array,
+
+        category: Object,
+
+        smallScreen: Boolean,
+
+        drawerOpened: {
+          type: Boolean,
+          notify: true
+        }
+
+      },
+
+      _menuIcon: function(drawerOpened) {
+        return drawerOpened ? 'close' : 'menu';
+      },
+
+      _currentTime: function() {
+        var monthNames = [
+          'January', 'February', 'March',
+          'April', 'May', 'June', 'July',
+          'August', 'September', 'October',
+          'November', 'December'
+        ];
+
+        var date = new Date();
+
+        return monthNames[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+      },
+
+      _toggleDrawer: function() {
+        this.drawerOpened = !this.drawerOpened;
+      },
+
+      _getScrollThreshold: function(smallScreen) {
+        return smallScreen ? window.innerHeight - 64 : 162;
+      },
+
+      _computeAppHomeLabel: function(appTitle) {
+        return appTitle + ' Home';
+      }
+
+    });
+
+  </script>
+
+</dom-module>

@@ -1,0 +1,28 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/news-app.html",
+  "fragments": [
+    "src/cpoint-home.html",
+    "src/cpoint-cooperate.html",
+    "src/cpoint-screenshot.html",
+    "src/cpoint-service.html",
+    "src/news-list.html",
+    "src/news-article.html",
+    "src/news-path-warning.html",
+    "src/lazy-resources.html"
+  ],
+  "sourceGlobs": [
+   "src/**/*",
+   "css/**/*",
+   "data/**/*",
+   "images/**/*",
+   "bower.json"
+  ],
+  "includeDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ],
+  "lint": {
+    "rules": ["polymer-2-hybrid"]
+  }
+}

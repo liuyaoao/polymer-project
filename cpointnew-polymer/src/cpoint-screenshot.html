@@ -1,0 +1,330 @@
+
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+
+
+<dom-module id="cpoint-screenshot">
+  <template>
+    <style>
+        h1,h2,h3,h4,h5,h6{
+          font-weight: normal;
+        }
+        .content .container{
+          width: 1170px;
+          margin:0 auto;
+          font-family: microsoft yahei !important;
+
+        }
+
+        .banner,.banner_index{
+          height: 736px;
+          background-repeat: no-repeat;
+          background-size:cover;
+          font-family: microsoft yahei !important;
+
+        }
+        .banner_index{
+          height: 736px;
+        }
+        .banner{
+          font-size: 0;
+        }
+        .banner::before,
+        .banner_index .container::before{
+          content:"";
+          display: inline-block;
+          height: 100%;
+          line-height: 100%;
+          vertical-align: middle;
+        }
+        .banner h3{
+          display: inline-block;
+          width: 100%;
+          font-size: 36px;
+          color: #fff;
+          text-align: center;
+          vertical-align: middle;
+        }
+        .banner_index .container{
+          height: 100%;
+          font-size: 0;
+        }
+        .banner_index .text{
+          text-align: left;
+          display: inline-block;
+          width:100%;
+
+          vertical-align: middle;
+        }
+        .banner_index .text h5{
+          font-size: 42px;
+          line-height: 48px;
+          color: #fff;
+          margin:0;
+        }
+        .banner_index .text h6{
+          font-size: 22px;
+          line-height: 24px;
+          margin:30px 0;
+          color: #fff;
+        }
+        .banner_index .contactus_btn{
+          width: 114px;
+          height: 37px;
+          line-height: 37px;
+          background-color: #1C69E6;
+          color: #fff;
+          text-align: center;
+          border:0;
+          border-radius: 2px;
+        }
+        .screenshots .container{
+            width: 1170px;
+            height: auto;
+            overflow: hidden;
+            padding:0 15px;
+            margin:12px auto 50px;
+            background: -webkit-linear-gradient(left, #fbfbfb , #f1f1f1); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(right, #fbfbfb, #f1f1f1); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(right, #fbfbfb, #f1f1f1); /* Firefox 3.6 - 15 */
+            background: linear-gradient(to right, #fbfbfb , #f1f1f1); /* 标准的语法（必须放在最后） */
+        }
+        .screenshots .title{
+          line-height: 50px;
+          margin-bottom: 20px;
+          font-size: 24px;
+          color: #000;
+          border-bottom:solid 1px #ddd;
+        }
+        .screenshots .text{
+          padding-left: 20px;
+          line-height: 25px;
+          margin-bottom: 10px;
+          background: url(../images/magnifier.png) 0 5px no-repeat;
+        }
+        .screenshots .fancybox{
+          display: block;
+          width: 100%;
+        }
+        .screenshots .fancybox img{
+          display: block;
+          width: 100%;
+        }
+        .screenshots .phone .item{
+          display: block;
+          float: left;
+          width: 15%;margin:0 2.5%;
+        }
+        .screenshots .container .col-md-6{
+          width: 50%;
+          float: left;
+          padding:0 15px;
+          box-sizing: border-box;
+
+        }
+        .screenshots .container .col-md-4{
+          float: left;
+          width: 25%;
+          box-sizing: border-box;
+          padding: 0 15px;
+        }
+
+        @media screen and (max-width:768px){
+          .container{
+            width:100% !important;
+          }
+          .screenshots .container{
+            padding: 0 0 0 15px;
+            box-sizing: border-box;
+          }
+          .screenshots .phone .item,
+          .screenshots .container .col-md-4{
+            width:30%;
+            margin:0 3% 0 0;
+          }
+          .screenshots .container .col-md-6{
+            padding-left:0;
+          }
+          .screenshots .container .col-md-4{
+            padding:0;
+          }
+          .screenshots .title{
+            margin-right: 15px;
+          }
+          .banner_index .text{
+            width: 90%;
+            margin-left: 5%;
+          }
+          .banner_index .text h5{
+            font-size: 28px;
+          }
+          .banner_index{height:500px;}
+        }
+
+
+    </style>
+
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}"></app-route>
+
+        <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
+          <div class="content">
+            <div class="banner_index" style="background-image:url(../images/b_01.jpg);">
+                <div class="container">
+                    <div class="text">
+                        <h5>快速实现人员、</h5>
+                        <h5>数据和流程的互联，</h5>
+                        <h5>以更全面地了解企业业务，</h5>
+                        <h5>并作出明智的决策。</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="screenshots">
+                <div class="container">
+                    <h4 class="title">经典案例截图--大屏展示</h4>
+                    <div class="row">
+                        <div class="col-md-6 item">
+                            <a href="../images/screenshots/01.jpg" class="fancybox">
+                              <img src="../images/screenshots/01.jpg" alt="">
+                            </a>
+                            <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="col-md-6 item">
+                            <a href="../images/screenshots/01.jpg" class="fancybox">
+                              <img src="../images/screenshots/01.jpg" alt="">
+                            </a>
+                            <div class="text">Index-KPIs</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <h4 class="title">经典案例截图</h4>
+                    <div class="row">
+                        <div class="col-md-4 item">
+                          <a href="../images/screenshots/01.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/s1.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="col-md-4 item">
+                          <a href="../images/screenshots/02.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/s2.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="col-md-4 item">
+                          <a href="../images/screenshots/03.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/s3.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="col-md-4 item">
+                          <a href="../images/screenshots/04.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/s4.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="col-md-4 item">
+                          <a href="../images/screenshots/05.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/s5.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="col-md-4 item">
+                          <a href="../images/screenshots/06.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/s6.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="col-md-4 item">
+                          <a href="../images/screenshots/07.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/s7.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="col-md-4 item">
+                          <a href="../images/screenshots/08.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/s8.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="col-md-4 item">
+                          <a href="../images/screenshots/09.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/s9.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container phone">
+                    <h4 class="title">经典案例截图</h4>
+                    <div class="row">
+                        <div class="item">
+                          <a href="../images/screenshots/ab1.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/a1.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="item">
+                          <a href="../images/screenshots/ab2.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/a2.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="item">
+                          <a href="../images/screenshots/ab3.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/a3.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="item">
+                          <a href="../images/screenshots/ab4.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/a4.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="item">
+                          <a href="../images/screenshots/ab5.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/a5.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="item">
+                          <a href="../images/screenshots/ab6.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/a6.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="item">
+                          <a href="../images/screenshots/ab7.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/a7.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                        <div class="item">
+                          <a href="../images/screenshots/ab8.png" class="fancybox"  data-fancybox-group="gallery">
+                            <img src="../images/screenshots/a8.png" alt="">
+                          </a>
+                          <div class="text">Index-KPIs</div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+          </div>
+        </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'cpoint-screenshot'
+    });
+  </script>
+</dom-module>

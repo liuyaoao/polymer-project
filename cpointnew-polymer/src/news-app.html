@@ -1,0 +1,386 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-layout/helpers/helpers.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="news-data.html">
+<link rel="import" href="news-nav.html">
+
+
+<link rel="import" href="cpoint-home.html">
+<link rel="import" href="cpoint-service.html">
+<link rel="import" href="cpoint-screenshot.html">
+<link rel="import" href="cpoint-cooperate.html">
+
+<dom-module id="news-app">
+
+  <template>
+
+  <style>
+    footer{
+      padding:25px 0 84px;
+      background-color: #000;
+      color: #7a7b7e;
+    }
+    footer .container{
+      width: 1170px;
+      height: auto;
+      overflow: hidden;
+      margin:0 auto;
+    }
+    footer .left,
+    footer .right{
+      width: 400px;
+      height: auto;
+      overflow: hidden;
+      float: left;
+    }
+    footer .right{
+      float: right;
+    }
+    footer img{
+      display: block;
+      margin-bottom: 32px;
+    }
+    footer a{
+      line-height: 30px;
+      color: #7a7b7e;
+      margin-right: 24px;
+    }
+    footer p{
+    line-height: 30px;
+    margin: 0;
+    }
+
+    @media screen and (max-width:768px){
+      .container{
+        width:100% !important;
+      }
+      footer img{
+        margin-left: 5%;
+      }
+      footer .left, footer .right{
+        width: 90%;
+        margin:0 5%;
+      }
+      footer .left{margin-bottom: 30px;}
+    }
+  </style>
+
+    <news-analytics key="UA-39334307-18"></news-analytics>
+
+    <!--
+      app-location and app-route elements provide the state of the URL for the app.
+    -->
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+    <!--
+      news-data provides the list of categories and the articles for the category.
+    -->
+    <news-data
+        id="data"
+        categories="{{categories}}"
+        category-name="[[categoryName]]"
+        category="{{category}}"
+        article-id="[[articleId]]"
+        article="{{article}}"
+        loading="{{loading}}"
+        offline="[[offline]]"
+        failure="{{failure}}"></news-data>
+
+    <news-nav
+        id="nav"
+        app-title="[[appTitle]]"
+        page="[[page]]"
+        categories="[[categories]]"
+        category="[[category]]"
+        load-complete="[[loadComplete]]">
+      [[articleHeadline]]
+    </news-nav>
+
+    <iron-pages role="main" selected="[[pageName]]" attr-for-selected="name" fallback-selection="path-warning">
+      <!-- list view of articles in a category -->
+      <!-- <news-list
+          id="list"
+          name="list"
+          route="[[subroute]]"
+          category-name="{{categoryName}}"
+          category="[[category]]"
+          loading="[[loading]]"
+          offline="[[offline]]"
+          failure="[[failure]]"></news-list> -->
+      <!-- article view -->
+      <!-- <news-article
+          name="article"
+          route="{{subroute}}"
+          category-name="{{categoryName}}"
+          category="[[category]]"
+          article-id="{{articleId}}"
+          article="[[article]]"
+          loading="[[loading]]"
+          offline="[[offline]]"
+          failure="[[failure]]"></news-article> -->
+      <!-- invalid top level paths -->
+      <!-- <news-path-warning name="path-warning"></news-path-warning> -->
+
+      <cpoint-home
+        name="home"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        failure="[[failure]]"></cpoint-home>
+      <cpoint-service name="service"></cpoint-service>
+      <cpoint-cooperate name="cooperate"></cpoint-cooperate>
+      <cpoint-screenshot name="screenshot"></cpoint-screenshot>
+      <news-path-warning name="path-warning"></news-path-warning>
+    </iron-pages>
+
+    <footer>
+      <div class="container">
+        <img src="../images/logo.png" alt="">
+        <div class="row">
+          <div class="left">
+            <a href="#">· 服务介绍</a>
+            <a href="#">· 解决方案</a>
+            <a href="#">· 关于我们</a>
+            <p>商务合作咨询：bd@cpoint.com</p>
+            <p>Copyright c 2017-2018 cpoint.com. </p>
+          </div>
+          <div class="right">
+            <p>地址：北京宣武门外大街6号庄胜广场北楼东翼3层</p>
+            <p>电话：4007050567 / 010-51655987-801</p>
+            <p>EMail：contact@cpoint.com</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'news-app',
+
+      properties: {
+
+        appTitle: String,
+
+        page: {
+          type: String,
+          observer: '_pageChanged'
+        },
+        pagepath: {
+          type: String,
+          observer: '_pagepathChanged'
+        },
+        pageName:String,
+        categories: Array,
+
+        categoryName: String,
+
+        category: Object,
+
+        articleId: String,
+
+        article: Object,
+
+        articleHeadline: {
+          type: String,
+          value: ''
+        },
+
+        offline: {
+          type: Boolean,
+          value: false,
+          readOnly: true
+        },
+
+        failure: Boolean,
+
+        loadComplete: Boolean
+
+      },
+
+      observers: [
+        '_routePageChanged(routeData.page)',
+        '_updateArticleHeadline(article.headline)',
+        '_updateDocumentTitle(page, category.title, articleHeadline, appTitle)'
+      ],
+
+      listeners: {
+        'refresh-data': '_refreshData'
+      },
+
+      _networkSnackbar: null,
+
+      created: function() {
+        // Custom elements polyfill safe way to indicate an element has been upgraded.
+        this.removeAttribute('unresolved');
+
+        // Chrome on iOS recomputes "vh" unit when URL bar goes off screen. Since we use "vh" unit
+        // to size the cover image and the title, those items will resize in response to the URL
+        // bar being shown or hidden. FWIW, this is not an issue in Chrome 56 on Android or iOS
+        // Safari. To workaround this on Chrome on iOS, we will use a
+        // fixed viewport height in places where normally relying on "vh" unit and replace them with
+        // custom property "--viewport-height".
+        var ua = navigator.userAgent;
+        var cMatch = navigator.userAgent.match(/Android.*Chrome[\/\s](\d+\.\d+)/);
+        if (ua.match('CriOS') || (cMatch && cMatch[0] && cMatch[1] < 56)) {
+          document.body.classList.add('fixed-viewport-height');
+        }
+      },
+
+      attached: function() {
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          this.listen(window, 'online', '_notifyNetworkStatus');
+          this.listen(window, 'offline', '_notifyNetworkStatus');
+        });
+      },
+
+      detached: function() {
+        this.unlisten(window, 'online', '_notifyNetworkStatus');
+        this.unlisten(window, 'offline', '_notifyNetworkStatus');
+      },
+
+      _routePageChanged: function(page) {
+        if (!page) {
+          // set default route if route path is empty
+          this.set('route.path', 'list/home');
+          return;
+        }
+        this.page = page;
+        this.pagepath =  this.route.path;
+        var remainingPieces = this.pagepath.split('/');
+        this.pageName = remainingPieces[2];
+
+        // Scroll to the top of the page on every *route* change. Use `Polymer.AppLayout.scroll`
+        // with `behavior: 'silent'` to disable header scroll effects during the scroll.
+        Polymer.AppLayout.scroll({ top: 0, behavior: 'silent' });
+        // Close the drawer - in case the *route* change came from a link in the drawer.
+        this.$.nav.closeDrawer();
+      },
+
+      _pageChanged: function(page, oldPage) {
+       var href;
+       var path = this.route;
+       switch(page) {
+         case 'list':
+           href = 'cpoint-home.html';
+         break;
+         case 'article':
+           href = 'news-article.html';
+         break;
+         default:
+           href = 'news-path-warning.html';
+         break;
+       };
+       this.importHref(
+           this.resolveUrl(href),
+           this._pageLoaded.bind(this, Boolean(oldPage)),
+           null,
+           true);
+      },
+
+      _pagepathChanged:function(pagepath, oldpagepath) {
+        var href;
+        // var path = this.route;
+        switch(pagepath) {
+          case '/list/home':
+            href = 'cpoint-home.html';
+          break;
+          case '/list/service':
+            href = 'cpoint-service.html';
+          break;
+          case '/list/screenshot':
+            href = 'cpoint-screenshot.html';
+          break;
+          case '/list/cooperate':
+            href = 'cpoint-cooperate.html';
+          break;
+          default:
+            href = 'cpoint-home.html';
+          break;
+        }
+        this.importHref(
+            this.resolveUrl(href),
+            this._pageLoaded.bind(this, Boolean(oldpagepath)),
+            null,
+            true);
+      },
+
+      _pageLoaded: function(shouldResetLayout) {
+        this._ensureLazyLoaded();
+      },
+
+      _ensureLazyLoaded: function() {
+        // load lazy resources after render and set `loadComplete` when done.
+        if (!this.loadComplete) {
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            this.importHref(this.resolveUrl('lazy-resources.html'), function() {
+              this._notifyNetworkStatus();
+              this.loadComplete = true;
+
+              // Load pre-caching Service Worker
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js');
+              }
+            });
+          });
+        }
+      },
+
+      _notifyNetworkStatus: function() {
+        var oldOffline = this.offline;
+        this._setOffline(!window.navigator.onLine);
+        // Show the snackbar if the user is offline when starting a new session
+        // or if the network status changed.
+        if (this.offline || (!this.offline && oldOffline === true)) {
+          if (!this._networkSnackbar) {
+            this._networkSnackbar = document.createElement('news-snackbar');
+            Polymer.dom(this.root).appendChild(this._networkSnackbar);
+          }
+          Polymer.dom(this._networkSnackbar).textContent = this.offline ?
+              'You are offline' : 'You are online';
+          this._networkSnackbar.open();
+        }
+      },
+
+      _updateArticleHeadline: function(articleHeadline) {
+        this.articleHeadline = articleHeadline;
+      },
+
+      // Elements in the app can notify section changes.
+      // Response by a11y announcing the section and syncronizing the category.
+      _updateDocumentTitle: function(page, categoryTitle, articleHeadline, appTitle) {
+        document.title = (page === 'list' ? categoryTitle : articleHeadline) + ' - ' + appTitle;
+      },
+
+      _refreshData: function() {
+        this.$.data.refresh();
+      }
+
+    });
+
+  </script>
+
+</dom-module>

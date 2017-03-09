@@ -1,0 +1,125 @@
+
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+
+
+<dom-module id="cpoint-cooperate">
+  <template>
+    <style>
+      .content{
+        background-color: #fff;
+      }
+      h1,h2,h3,h4,h5,h6{
+        font-weight: normal;
+      }
+      .content .container{
+        width: 1170px;
+        margin:0 auto;
+        font-family: microsoft yahei !important;
+      }
+      .banner,.banner_index{
+        height: 736px;
+        background-repeat: no-repeat;
+        background-size:cover;
+        font-family: microsoft yahei !important;
+      }
+      .banner_index{
+        height: 736px;
+      }
+      .banner{
+        font-size: 0;
+      }
+      .banner::before,
+      .banner_index .container::before{
+        content:"";
+        display: inline-block;
+        height: 100%;
+        line-height: 100%;
+        vertical-align: middle;
+      }
+      .banner h3{
+        display: inline-block;
+        width: 100%;
+        font-size: 36px;
+        color: #fff;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .banner_index .container{
+        height: 100%;
+        font-size: 0;
+      }
+      .banner_index .text{
+        text-align: left;
+        display: inline-block;
+        width:100%;
+
+        vertical-align: middle;
+      }
+      .banner_index .text h5{
+        font-size: 42px;
+        line-height: 48px;
+        color: #fff;
+        margin:0;
+      }
+      .banner_index .text h6{
+        font-size: 22px;
+        line-height: 24px;
+        margin:30px 0;
+        color: #fff;
+      }
+      .banner_index .contactus_btn{
+        width: 114px;
+        height: 37px;
+        line-height: 37px;
+        background-color: #1C69E6;
+        color: #fff;
+        text-align: center;
+        border:0;
+        border-radius: 2px;
+      }
+      @media screen and (max-width:768px){
+        .container{
+          width:100% !important;
+        }
+        .banner_index .text{
+          width: 90%;
+          margin-left: 5%;
+        }
+        .banner_index .text h5{
+          font-size: 28px;
+        }
+        .banner_index{height:500px;}
+      }
+    </style>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}"></app-route>
+
+        <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
+          <div class="content">
+            <div class="banner_index" style="background-image:url(../images/b_01.jpg);">
+                <div class="container">
+                    <div class="text">
+                        <h5>深度挖掘数据价值，</h5>
+                        <h5>提升企业效益</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="cooperate">
+                <div class="container">
+
+                </div>
+            </div>
+          </div>
+        </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'cpoint-cooperate'
+    });
+  </script>
+</dom-module>

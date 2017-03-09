@@ -1,0 +1,210 @@
+
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+
+
+<dom-module id="cpoint-service">
+  <template>
+    <style>
+        h1,h2,h3,h4,h5,h6{
+          font-weight: normal;
+        }
+        .content .container{
+          width: 1170px;
+          margin:0 auto;
+          font-family: microsoft yahei !important;
+        }
+        .service {
+          padding-top: 40px;
+          height: auto;
+          overflow: hidden;margin-bottom: 20px;
+        }
+        .service h5.title{
+          font-size: 24px;
+          color: #000;
+          text-align: center;
+        }
+        .service p{
+          text-indent: 30px;
+          line-height: 48px;
+          font-size: 18px;
+        }
+        .service .img{
+          display: block;
+          width:100%;
+          margin:20px auto;
+        }
+        .service .grid {
+          height: auto;
+          overflow: hidden;
+          margin:30px auto;
+        }
+        .service .grid .item{
+          float: left;
+          width: 31%;
+          padding-top: 30px;
+          color: #fff;
+        }
+        .service .grid .item:nth-child(1){
+          background-color: #62C7E4
+        }
+        .service .grid .item:nth-child(2n){
+          margin:0 3.5%;
+          background-color: #FAA223;
+        }
+        .service .grid .item:nth-child(3){
+            background-color: #01D2CF
+          }
+        .service .grid .item img{
+          display: block;
+          margin:0 auto 10px;
+          }
+        .service .grid .item h5{
+          font-weight: bold;
+          font-size: 24px;
+          text-align: center;
+        }
+        .service .grid .item h6{
+          line-height: 30px;
+          width: 80%;
+          margin:0 auto 50px;
+          text-align: center;
+        }
+        .banner,.banner_index{
+          height: 736px;
+          background-repeat: no-repeat;
+          background-size:cover;
+          font-family: microsoft yahei !important;
+          }
+        .banner_index{
+          height: 736px;
+        }
+        .banner{
+          font-size: 0;
+        }
+        .banner::before,
+        .banner_index .container::before{
+          content:"";
+          display: inline-block;
+          height: 100%;
+          line-height: 100%;
+          vertical-align: middle;
+        }
+        .banner h3{
+          display: inline-block;
+          width: 100%;
+          font-size: 36px;
+          color: #fff;
+          text-align: center;
+          vertical-align: middle;
+        }
+        .banner_index .container{
+          height: 100%;
+          font-size: 0;
+        }
+        .banner_index .text{
+          text-align: left;
+          display: inline-block;
+          width:100%;
+
+          vertical-align: middle;
+        }
+        .banner_index .text h5{
+          font-size: 42px;
+          line-height: 48px;
+          color: #fff;
+          margin:0;
+        }
+        .banner_index .text h6{
+          font-size: 22px;
+          line-height: 24px;
+          margin:30px 0;
+          color: #fff;
+        }
+        .banner_index .contactus_btn{
+          width: 114px;
+          height: 37px;
+          line-height: 37px;
+          background-color: #1C69E6;
+          color: #fff;
+          text-align: center;
+          border:0;
+          border-radius: 2px;
+        }
+        @media screen and (max-width:768px){
+          .container{
+            width:100% !important;
+          }
+          .service{
+            width: 90%;
+            margin:0 5%;
+          }
+          .service .grid .item{
+            width: 100%;
+            margin:0 0 20px 0 !important;
+          }
+          .service h5.title{
+            margin:0;
+          }
+          .banner_index .text{
+            width: 90%;
+            margin-left: 5%;
+          }
+          .banner_index .text h5{
+            font-size: 28px;
+          }
+          .banner_index{height:500px;}
+        }
+    </style>
+
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}"></app-route>
+
+        <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
+          <div class="content">
+            <div class="banner_index" style="background-image:url(../images/b_01.jpg);">
+              <div class="container">
+                  <div class="text">
+                    <h5>深度挖掘数据价值，提升企业效益</h5>
+                  </div>
+              </div>
+            </div>
+            <div class="service">
+                <div class="container">
+                    <h5 class="title">全方位的服务</h5>
+                    <p>我们能帮助各种规模的企业快速完成多数据整合，建立统一数据口径，支持自助式数据准备（ETL）， 并提供灵活、易用、高效可视化探索式分析能力，帮助企业构建贴合自身业务的企业洞察，并将数据决策快速覆盖各层员工及应用场景。</p>
+                    <div class="grid">
+                      <div class="item">
+                          <img src="../images/icon_3.png" alt="">
+                          <h5>快速设计多种报表样式</h5>
+                          <h6>Excel表格、Word文档、多级分组、数据透视、图文混排、套打/直接打印、报表导出</h6>
+                      </div>
+                        <div class="item">
+                            <img src="../images/icon_2.png" alt="">
+                            <h5>丰富的数据可视化方式</h5>
+                            <h6>图表、地图、条件格式化、数据预警、迷离图、数据条、信号灯</h6>
+                        </div>
+                          <div class="item">
+                              <img src="../images/icon_1.png" alt="">
+                              <h5>灵活的交互式报表分析</h5>
+                              <h6>钻取、深化、过滤、排序、动态表格、图表联动、表表联动、图图联动、目录跳转</h6>
+                          </div>
+                    </div>
+                    <img class="img" src="../images/s_4.jpg" alt="">
+                </div>
+            </div>
+
+
+          </div>
+        </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'cpoint-service'
+    });
+  </script>
+</dom-module>
