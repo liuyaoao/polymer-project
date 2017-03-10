@@ -1,1 +1,2 @@
-polymer serve
+polymer build
+pause
