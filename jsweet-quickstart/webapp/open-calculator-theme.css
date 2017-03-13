@@ -1,0 +1,7 @@
+#calculator{
+  width:272px;
+  height: auto;
+  overflow: hidden;
+  border:solid 5px green;
+  padding: 10px 0 0 10px;
+}

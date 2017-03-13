@@ -1,0 +1,106 @@
+<template>
+  <style>
+    @import url("open-calculator.css")
+  </style>
+  <h1>My Web Component</h1>
+  <div id="calculator">
+    <div class="top">
+      <span class="clear">C</span>
+      <div class="screen"></div>
+    </div>
+    <div class="keys">
+      <!-- operators and other keys -->
+      <span>7</span><span>8</span><span>9</span><span class="operator">+</span>
+      <span>4</span><span>5</span><span>6</span><span class="operator">-</span>
+      <span>1</span><span>2</span><span>3</span><span class="operator">��</span>
+      <span>0</span><span>.</span><span class="eval">=</span>
+      <span class="operator">x</span>
+    </div>
+  </div>
+</template>
+/*<script type="text/javascript">
+(function(){
+ var thisDoc = document.currentScript.ownerDocument;
+ var thatDoc = document;
+ var Element = Object.create(HTMLElement.prototype);
+ var tmpl = thisDoc.querySelector('template');
+ var shadowRoot;
+
+ var updateScreenEvent = function(value){
+   var event = new CustomEvent('open-calculator-screen-update',{'detail':value});
+   thatDoc.dispatchEvent(event);
+ }
+
+ Element.createdCallback = function(){
+    shadowRoot = this.createShadowRoot();
+    var clone = thatDoc.importNode(tmpl.content, true);
+    shadowRoot.appendChild(clone);
+
+    if(JSON.parse(this.getAttribute('hide-top'))){
+      shadowRoot.querySelector('#calculator .top').style.display = 'none';
+    }
+
+    //Get all this keys from shadowRoot
+    var keys = shadowRoot.querySelectorAll('#calculator span');
+    var calculatorScreen = shadowRoot.querySelector('#calculator .top');
+    var operators = ['+','-','x','��'];
+    var decimalAdded=false;
+
+    //add onclick event to all this keys and perform operations
+    for(var i=0;i<keys.length;i++){
+      keys[i].onclick = function(e){
+        var input = shadowRoot.querySelector('.screen');
+        var inputVal = input.innerHTML;
+        var btnVal = this.innerHTML;
+        //new,just append the key values (btnValue) to
+        //if clear key is pressed,erase everything
+        if(btnVal == 'C'){
+          input.innerHTML ='';
+          decimalAdded = false;
+        }else if(operators.indexOf(btnVal) > -1){
+           var lastchar = inputVal[inputVal.length - 1];
+           if(inputVal != '' && operators.indexOf(lastchar) == -1){
+             input.innerHTML += btnVal;
+           }else if(inputVal == '' && btnVal == '-'){
+             input.innerHTML += btnVal;
+           }
+           if(operators.indexOf(lastchar) > -1 && inputVal.length > 1){
+             input.innerHTML = inputVal.replace(/.$/,btnVal);
+           }
+           decimalAdded=false;
+        }else if(btnVal == '.'){
+          if(!decimalAdded){
+            input.innerHTML += btnVal;
+            decimalAdded=true;
+          }
+        }else if(btnVal == '='){
+          var equation = inputVal;
+          var lastchar = inputVal[inputVal.length - 1];
+
+          equation = equation.replace(/x/g,'*').replace(///g,'%');
+          if(operators.indexOf(lastchar) > -1 || lastchar == '.'){
+            equation = equation.replace(/.$/,'');
+          }
+          if(operators){
+            input.innerHTML = eval(equation);
+          }
+        }else{
+          input.innerHTML += btnVal;
+        }
+        updateScreenEvent(input.innerHTML);
+        e.preventDefault();
+      }
+    }
+ }
+ Element.clearScreen = function(){
+   var input = shadowRoot.querySelector('.screen');
+   input.innerHTML = '';
+   decimalAdded=false;
+   updateScreenEvent(input.innerHTML);
+ };
+ thatDoc.registerElement('open-calculator', {prototype:Element});
+})()
+</script>*/
+
+<script type="text/javascript" src="../target/js/quickstart/openCalculator.js">
+</script>

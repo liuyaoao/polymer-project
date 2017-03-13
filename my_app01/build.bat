@@ -1,1 +1,2 @@
 polymer build
+stop
