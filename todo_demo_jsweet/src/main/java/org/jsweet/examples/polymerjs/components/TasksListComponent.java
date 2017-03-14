@@ -3,6 +3,7 @@ package org.jsweet.examples.polymerjs.components;
 import static jsweet.dom.Globals.console;
 import static def.polymer.Globals.Polymer;
 import static jsweet.dom.Globals.localStorage;
+//import static jsweet.dom.Globals.object;
 import static jsweet.util.Globals.object;
 import static jsweet.util.Globals.array;
 
@@ -10,6 +11,7 @@ import static jsweet.util.Globals.array;
 import def.polymer.polymer.Base;
 import jsweet.lang.Array;
 import jsweet.lang.Interface;
+import jsweet.lang.Object;
 
 
 interface PaperDialog {
@@ -27,10 +29,10 @@ abstract class PaperItemEvent<TItem> {
 	PaperItemModel<TItem> model;
 }
 
-class Task {
-	public String taskName="";
-	public boolean isComplete;
-}
+//class Task {
+//	public String taskName="";
+//	public boolean isComplete;
+//}
 
 public class TasksListComponent extends Base {
 
@@ -45,7 +47,7 @@ public class TasksListComponent extends Base {
 	}
 
 	public String latestTaskName;
-	public Task[] tasks = {};
+	public Object[] tasks = {};
 
 	public void showAddTaskDialog() {
 		PaperDialog dialog = this.findInnerElement("addTaskDialog");
@@ -53,20 +55,23 @@ public class TasksListComponent extends Base {
 	}
 	@Override
 	public void ready() {
-		Task[] tt = {};
+		Object[] tt = {};
 		this.tasks = tt;
-		updateTasks();
+		Object task = new Object();
+		task.$set("taskName","first default task!");
+		task.$set("isComplete","no");
+		array(this.tasks).push(task);
+//		updateTasks();
 	}
-//	@Override
-//	public void attached() {
+	@Override
+	public void attached() {
 //		Task[] tt = {};
 //		this.tasks = tt;
-//		updateTasks();
-//	}
+		updateTasks();
+	}
 
 	public void addTask() {
 		console.log("add task: " + latestTaskName);
-
 		// Store the new task as not completed
 		localStorage.setItem(this.latestTaskName, "no");
 
@@ -81,21 +86,21 @@ public class TasksListComponent extends Base {
 		this.updateTasks();
 	}
 
-	public void toggleTask(PaperItemEvent<Task> event) {
+	public void toggleTask(PaperItemEvent<Object> event) {
 		// Get the name of the task
-		String taskName = event.model.item.taskName;
+		String taskName = (String)object(event.model.item).$get("taskName");
 		console.log("toggle task: " + taskName);
 
 		// Convert true/false to yes/no
-		if (event.model.item.isComplete) {
+		if ((Boolean)object(event.model.item).$get("isComplete")) {
 			localStorage.setItem(taskName, "yes");
 		} else {
 			localStorage.setItem(taskName, "no");
 		}
 	}
 
-	public void deleteTask(PaperItemEvent<Task> event) {
-		String taskName = event.model.item.taskName;
+	public void deleteTask(PaperItemEvent<Object> event) {
+		String taskName = (String)object(event.model.item).$get("taskName");
 		console.log("remove task: " + taskName);
 
 		localStorage.removeItem(taskName);
@@ -115,14 +120,12 @@ public class TasksListComponent extends Base {
 		for (int i=0;i<taskKeys.length;i++) {
 			String savedTaskName = taskKeys[i];
 			console.log("restore task: " + savedTaskName);
-			Task task = new Task() {
-				{
-					taskName = savedTaskName;
-					isComplete = localStorage.getItem(savedTaskName) == "yes";
-				}
-			};
+			Object task = new Object();
+			task.$set("taskName",savedTaskName);
+			task.$set("isComplete",localStorage.getItem(savedTaskName) == "yes");
 			array(tasks).push(task);
 		}
+		this.notifyPath("tasks",tasks,null);
 	}
 
 	protected <T> T findInnerElement(String id) {

@@ -9,15 +9,6 @@ var org;
             (function (polymerjs) {
                 var components;
                 (function (components) {
-                    var Task = (function () {
-                        function Task() {
-                            this.taskName = "";
-                            this.isComplete = false;
-                        }
-                        return Task;
-                    }());
-                    components.Task = Task;
-                    Task["__class"] = "org.jsweet.examples.polymerjs.components.Task";
                     var TasksListComponent = (function () {
                         function TasksListComponent() {
                             this.tasks = [];
@@ -38,6 +29,12 @@ var org;
                         TasksListComponent.prototype.ready = function () {
                             var tt = [];
                             this.tasks = tt;
+                            var task = new Object();
+                            task["taskName"] = "first default task!";
+                            task["isComplete"] = "no";
+                            (this.tasks).push(task);
+                        };
+                        TasksListComponent.prototype.attached = function () {
                             this.updateTasks();
                         };
                         TasksListComponent.prototype.addTask = function () {
@@ -49,9 +46,9 @@ var org;
                             this.updateTasks();
                         };
                         TasksListComponent.prototype.toggleTask = function (event) {
-                            var taskName = event.model.item.taskName;
+                            var taskName = (event.model.item)["taskName"];
                             console.log("toggle task: " + taskName);
-                            if (event.model.item.isComplete) {
+                            if ((event.model.item)["isComplete"]) {
                                 localStorage.setItem(taskName, "yes");
                             }
                             else {
@@ -59,7 +56,7 @@ var org;
                             }
                         };
                         TasksListComponent.prototype.deleteTask = function (event) {
-                            var taskName = event.model.item.taskName;
+                            var taskName = (event.model.item)["taskName"];
                             console.log("remove task: " + taskName);
                             localStorage.removeItem(taskName);
                             this.updateTasks();
@@ -68,20 +65,15 @@ var org;
                             console.log("refresh tasks");
                             (this.tasks).splice(0, this.tasks.length);
                             var taskKeys = Object.keys(localStorage);
-                            var _loop_1 = function(i) {
+                            for (var i = 0; i < taskKeys.length; i++) {
                                 var savedTaskName = taskKeys[i];
                                 console.log("restore task: " + savedTaskName);
-                                var task = (function (target) {
-                                    target['taskName'] = savedTaskName;
-                                    target['isComplete'] = localStorage.getItem(savedTaskName) === "yes";
-                                    return target;
-                                })(new Task());
-                                (this_1.tasks).push(task);
-                            };
-                            var this_1 = this;
-                            for (var i = 0; i < taskKeys.length; i++) {
-                                _loop_1(i);
+                                var task = new Object();
+                                task["taskName"] = savedTaskName;
+                                task["isComplete"] = localStorage.getItem(savedTaskName) === "yes";
+                                (this.tasks).push(task);
                             }
+                            this.notifyPath("tasks", this.tasks, null);
                         };
                         TasksListComponent.prototype.findInnerElement = function (id) {
                             return (this.$)[id];

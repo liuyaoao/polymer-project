@@ -16,18 +16,6 @@ namespace org.jsweet.examples.polymerjs.components {
         model : PaperItemModel<TItem>;
     }
 
-    export class Task {
-        public taskName : string = "";
-
-        public isComplete : boolean;
-
-        constructor() {
-            this.isComplete = false;
-        }
-    }
-    Task["__class"] = "org.jsweet.examples.polymerjs.components.Task";
-
-
     export class TasksListComponent implements Base {
         static __static_initialized : boolean = false;
         static __static_initialize() { if(!TasksListComponent.__static_initialized) { TasksListComponent.__static_initialized = true; TasksListComponent.__static_initializer_0(); } }
@@ -43,7 +31,7 @@ namespace org.jsweet.examples.polymerjs.components {
 
         public latestTaskName : string;
 
-        public tasks : Task[] = [];
+        public tasks : Object[] = [];
 
         public showAddTaskDialog() {
             let dialog : PaperDialog = this.findInnerElement<any>("addTaskDialog");
@@ -51,8 +39,15 @@ namespace org.jsweet.examples.polymerjs.components {
         }
 
         public ready() {
-            let tt : Task[] = [];
+            let tt : Object[] = [];
             this.tasks = tt;
+            let task : Object = <Object>new Object();
+            task["taskName"] = "first default task!";
+            task["isComplete"] = "no";
+            (this.tasks).push(task);
+        }
+
+        public attached() {
             this.updateTasks();
         }
 
@@ -65,18 +60,18 @@ namespace org.jsweet.examples.polymerjs.components {
             this.updateTasks();
         }
 
-        public toggleTask(event : PaperItemEvent<Task>) {
-            let taskName : string = event.model.item.taskName;
+        public toggleTask(event : PaperItemEvent<Object>) {
+            let taskName : string = <string>(event.model.item)["taskName"];
             console.log("toggle task: " + taskName);
-            if(event.model.item.isComplete) {
+            if(<boolean>(event.model.item)["isComplete"]) {
                 localStorage.setItem(taskName, "yes");
             } else {
                 localStorage.setItem(taskName, "no");
             }
         }
 
-        public deleteTask(event : PaperItemEvent<Task>) {
-            let taskName : string = event.model.item.taskName;
+        public deleteTask(event : PaperItemEvent<Object>) {
+            let taskName : string = <string>(event.model.item)["taskName"];
             console.log("remove task: " + taskName);
             localStorage.removeItem(taskName);
             this.updateTasks();
@@ -89,14 +84,12 @@ namespace org.jsweet.examples.polymerjs.components {
             for(let i : number = 0; i < taskKeys.length; i++) {
                 let savedTaskName : string = taskKeys[i];
                 console.log("restore task: " + savedTaskName);
-                let task : Task = ((target:Task) => {
-                    target['taskName'] = savedTaskName;
-                    target['isComplete'] = localStorage.getItem(savedTaskName) === "yes";
-                    return target;
-
-                })(new Task());
+                let task : Object = <Object>new Object();
+                task["taskName"] = savedTaskName;
+                task["isComplete"] = localStorage.getItem(savedTaskName) === "yes";
                 (this.tasks).push(task);
             }
+            this.notifyPath("tasks", this.tasks, null);
         }
 
         findInnerElement<T>(id : string) : T {

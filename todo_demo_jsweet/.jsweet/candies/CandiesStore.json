@@ -6,7 +6,7 @@
       "lastUpdateTimestamp": 1468681912000,
       "modelVersion": "unknown",
       "transpilerVersion": "1.2.0",
-      "jsOutputDirPath": "G:\\DF\\newproject\\todo_demo_jsweet\\apphtml\\js\\candies",
+      "jsOutputDirPath": "F:\\polymer-project\\todo_demo_jsweet\\apphtml\\js\\candies",
       "jsDirPath": "META-INF/resources/webjars/webcomponents.js/0.6.0-SNAPSHOT",
       "jsFilesPaths": []
     },
@@ -16,7 +16,7 @@
       "lastUpdateTimestamp": 1481998544000,
       "modelVersion": "unknown",
       "transpilerVersion": "1.2.0",
-      "jsOutputDirPath": "G:\\DF\\newproject\\todo_demo_jsweet\\apphtml\\js\\candies",
+      "jsOutputDirPath": "F:\\polymer-project\\todo_demo_jsweet\\apphtml\\js\\candies",
       "jsDirPath": "META-INF/resources/webjars/jsweet-core/1.2.0-SNAPSHOT",
       "jsFilesPaths": []
     },
@@ -26,7 +26,7 @@
       "lastUpdateTimestamp": 1468681722000,
       "modelVersion": "unknown",
       "transpilerVersion": "1.2.0",
-      "jsOutputDirPath": "G:\\DF\\newproject\\todo_demo_jsweet\\apphtml\\js\\candies",
+      "jsOutputDirPath": "F:\\polymer-project\\todo_demo_jsweet\\apphtml\\js\\candies",
       "jsDirPath": "META-INF/resources/webjars/underscore/1.7.0-SNAPSHOT",
       "jsFilesPaths": [
         "META-INF/resources/webjars/underscore/1.7.0-SNAPSHOT/underscore-min.js",
@@ -39,7 +39,7 @@
       "lastUpdateTimestamp": 1468681932000,
       "modelVersion": "unknown",
       "transpilerVersion": "1.2.0",
-      "jsOutputDirPath": "G:\\DF\\newproject\\todo_demo_jsweet\\apphtml\\js\\candies",
+      "jsOutputDirPath": "F:\\polymer-project\\todo_demo_jsweet\\apphtml\\js\\candies",
       "jsDirPath": "META-INF/resources/webjars/polymer/1.1.6-SNAPSHOT",
       "jsFilesPaths": []
     },
@@ -49,7 +49,7 @@
       "lastUpdateTimestamp": 1457312096000,
       "modelVersion": "unknown",
       "transpilerVersion": "1.1.0",
-      "jsOutputDirPath": "G:\\DF\\newproject\\todo_demo_jsweet\\apphtml\\js\\candies",
+      "jsOutputDirPath": "F:\\polymer-project\\todo_demo_jsweet\\apphtml\\js\\candies",
       "jsDirPath": "META-INF/resources/webjars/es6-promises/0.0.0-SNAPSHOT",
       "jsFilesPaths": []
     },
@@ -59,7 +59,7 @@
       "lastUpdateTimestamp": 1468681650000,
       "modelVersion": "unknown",
       "transpilerVersion": "1.2.0",
-      "jsOutputDirPath": "G:\\DF\\newproject\\todo_demo_jsweet\\apphtml\\js\\candies",
+      "jsOutputDirPath": "F:\\polymer-project\\todo_demo_jsweet\\apphtml\\js\\candies",
       "jsDirPath": "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT",
       "jsFilesPaths": [
         "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/promise.min.js",
