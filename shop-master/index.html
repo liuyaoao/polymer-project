@@ -22,6 +22,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="manifest" href="/manifest.json">
 
   <link rel="import" href="/src/shop-app.html" async>
+  <link rel="import" href="/src/shop-app.html" async>
+  <link rel="import" href="/src/shop-app.html" async>
+  <link rel="import" href="/src/shop-app.html" async>
+  <link rel="import" href="/src/shop-app.html" async>
 
   <style>
 
@@ -52,11 +56,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 <body>
 
-  <shop-app unresolved>SHOP</shop-app>
+  <!-- <shop-app unresolved>SHOP</shop-app> -->
+
 
   <script>
     window.performance && performance.mark && performance.mark('index.html');
-
+    window.addComponent = function(){
+      document.appendChild("shop-app");
+    }
+    window.getEml = function(){
+      
+    }
     Polymer = {lazyRegister: true, dom: 'shadow'};
 
     (function() {
