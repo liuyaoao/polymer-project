@@ -1,0 +1,78 @@
+{
+  "candies": [
+    {
+      "name": "webcomponents.js",
+      "version": "0.6.0-SNAPSHOT",
+      "lastUpdateTimestamp": 1468681912000,
+      "modelVersion": "unknown",
+      "transpilerVersion": "1.2.0",
+      "jsOutputDirPath": "G:\\DF\\newproject\\jsweet-polymer-shop\\www\\js\\candies",
+      "jsDirPath": "META-INF/resources/webjars/webcomponents.js/0.6.0-SNAPSHOT",
+      "jsFilesPaths": []
+    },
+    {
+      "name": "jsweet-core",
+      "version": "1.2.0-SNAPSHOT",
+      "lastUpdateTimestamp": 1481998544000,
+      "modelVersion": "unknown",
+      "transpilerVersion": "1.2.0",
+      "jsOutputDirPath": "G:\\DF\\newproject\\jsweet-polymer-shop\\www\\js\\candies",
+      "jsDirPath": "META-INF/resources/webjars/jsweet-core/1.2.0-SNAPSHOT",
+      "jsFilesPaths": []
+    },
+    {
+      "name": "underscore",
+      "version": "1.7.0-SNAPSHOT",
+      "lastUpdateTimestamp": 1468681722000,
+      "modelVersion": "unknown",
+      "transpilerVersion": "1.2.0",
+      "jsOutputDirPath": "G:\\DF\\newproject\\jsweet-polymer-shop\\www\\js\\candies",
+      "jsDirPath": "META-INF/resources/webjars/underscore/1.7.0-SNAPSHOT",
+      "jsFilesPaths": [
+        "META-INF/resources/webjars/underscore/1.7.0-SNAPSHOT/underscore-min.js",
+        "META-INF/resources/webjars/underscore/1.7.0-SNAPSHOT/underscore.js"
+      ]
+    },
+    {
+      "name": "polymer",
+      "version": "1.1.6-SNAPSHOT",
+      "lastUpdateTimestamp": 1468681932000,
+      "modelVersion": "unknown",
+      "transpilerVersion": "1.2.0",
+      "jsOutputDirPath": "G:\\DF\\newproject\\jsweet-polymer-shop\\www\\js\\candies",
+      "jsDirPath": "META-INF/resources/webjars/polymer/1.1.6-SNAPSHOT",
+      "jsFilesPaths": []
+    },
+    {
+      "name": "es6-promises",
+      "version": "0.0.0-SNAPSHOT",
+      "lastUpdateTimestamp": 1457312096000,
+      "modelVersion": "unknown",
+      "transpilerVersion": "1.1.0",
+      "jsOutputDirPath": "G:\\DF\\newproject\\jsweet-polymer-shop\\www\\js\\candies",
+      "jsDirPath": "META-INF/resources/webjars/es6-promises/0.0.0-SNAPSHOT",
+      "jsFilesPaths": []
+    },
+    {
+      "name": "es6-promise",
+      "version": "0.0.0-SNAPSHOT",
+      "lastUpdateTimestamp": 1468681650000,
+      "modelVersion": "unknown",
+      "transpilerVersion": "1.2.0",
+      "jsOutputDirPath": "G:\\DF\\newproject\\jsweet-polymer-shop\\www\\js\\candies",
+      "jsDirPath": "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT",
+      "jsFilesPaths": [
+        "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/promise.min.js",
+        "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/es6-promise.js",
+        "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/test/mocha.js",
+        "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/test/worker.js",
+        "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/test/json3.js",
+        "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/test/es6-promise.js",
+        "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/test/browserify.js",
+        "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/test/es6-promise.min.js",
+        "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/promise.js",
+        "META-INF/resources/webjars/es6-promise/0.0.0-SNAPSHOT/es6-promise.min.js"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Sat Mar 04 15:32:49 GMT+08:00 2017
+http\://repository.jsweet.org/artifactory/libs-snapshot-local/.lastUpdated=1488612769634
+@default-jsweet-central-http\://repository.jsweet.org/artifactory/libs-release-local/.lastUpdated=1488612768185
+http\://repository.jsweet.org/artifactory/ext-release-local/.error=Could not transfer artifact org.jsweet.candies\:webcomponents.js\:pom\:0.6.0-20160716.211155-38 from/to jsweet-external (http\://repository.jsweet.org/artifactory/ext-release-local)\: Failed to transfer http\://repository.jsweet.org/artifactory/ext-release-local/org/jsweet/candies/webcomponents.js/0.6.0-SNAPSHOT/webcomponents.js-0.6.0-20160716.211155-38.pom. Error code 409, Conflict
+http\://repository.jsweet.org/artifactory/libs-release-local/.error=Could not transfer artifact org.jsweet.candies\:webcomponents.js\:pom\:0.6.0-20160716.211155-38 from/to jsweet-central (http\://repository.jsweet.org/artifactory/libs-release-local)\: Failed to transfer http\://repository.jsweet.org/artifactory/libs-release-local/org/jsweet/candies/webcomponents.js/0.6.0-SNAPSHOT/webcomponents.js-0.6.0-20160716.211155-38.pom. Error code 409, Conflict
+@default-jsweet-external-http\://repository.jsweet.org/artifactory/ext-release-local/.lastUpdated=1488612768903
