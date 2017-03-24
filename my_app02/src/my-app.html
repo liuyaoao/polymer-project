@@ -69,6 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <!-- Drawer content -->
       <app-drawer id="drawer">
         <app-toolbar>Menu</app-toolbar>
+        <a name="newindex" href="/htmlfiles/index2.html">new index.html</a>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="view1" href="/view1">View One</a>
           <a name="view2" href="/view2">View Two</a>
@@ -116,7 +117,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         '_routePageChanged(routeData.page)',
       ],
 
-      _routePageChanged: function(page) {
+      _routePageChanged: function(page) {//这个先运行，再运行_pageChanged方法。
+        if(page == "htmlfiles"){ //跳转到当前polymer系统外的其他页面，或者跳转到另一个polymer系统。
+          //这里的page的值为app-route组件里的pattern="/:page"属性斜杠后面的仅一级的目录名。
+          //如pattern="main/:page", 则跳转的这个单独页面的url需是"/main/htmlfiles/index2.html",但这里的page的值只会是htmlfiles.
+          window.open("/htmlfiles/index2.html");
+          return;
+        }
         this.page = page || 'view1';
 
         if (!this.$.drawer.persistent) {
