@@ -1,0 +1,575 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../bower_components/app-route/app-route.html"> -->
+<!-- <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script> -->
+<!-- <link href="../bower_components/polymer/polymer.html" rel="import"> -->
+<!-- <link rel="import" href="../bower_components/px-theme/px-theme-styles.html"> -->
+
+<!-- <link href="../bower_components/px-tabs-siteview/px-tab-set-siteview.html" rel="import">
+
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html"> -->
+
+<dom-module id="instant-home">
+  <template>
+    <style>
+        .container .container{
+          width: 1170px;
+          margin:0 auto;
+        }
+        body{
+          background-color: #fff;
+
+        }
+        .service{
+          padding: 30px 0 60px 0;
+          height: auto;
+          overflow: hidden;
+        }
+        .title{
+          font-size: 30px;
+          color: #000;
+          line-height: 72px;
+          text-align: center;
+          font-weight: normal;
+          height: 72px;
+          margin:0 0 32px;
+        }
+        .service .item{
+            display: block;
+            width: 33.33%;
+            float: left;
+            box-sizing: border-box;
+            padding:0 30px;
+        }
+        .service .item .pic{
+          width: 100%;
+          height: auto;
+          overflow: hidden;
+
+          margin-bottom: 15px;
+        }
+        .service .item .pic img{
+          display: block;
+          margin:0 auto;
+        }
+        .service .item .name{
+          font-size: 18px;
+          font-weight: normal;
+          color: #000;
+          text-align: center;
+          line-height: 38px;
+          margin:0 0 7px 0;
+        }
+        .service .item .brief{
+          font-size: 14px;
+          color: #000;
+          line-height: 18px;
+        }
+        .service_team{
+          padding: 29px 0 0 0;
+          height: auto;
+          overflow: hidden;
+          background-color: #C1272D
+        }
+        .service_team .title{
+          color: #fff;
+          margin-bottom: 13px;
+        }
+        .service_team .con{
+          height: auto;
+          overflow: hidden;
+          margin-bottom: 24px;
+        }
+        .service_team .left,
+        .service_team .middle,
+        .service_team .right{
+          float: left;
+          text-align: center;
+          color: #fff;
+          position: relative;
+          left:0;
+          top:0;
+          box-sizing: border-box;
+        }
+        .service_team .left,
+        .service_team .right{
+          width: 30%;
+        }
+        .service_team .middle{
+          width: 40%;
+          border-left:solid 1px #C3C3C3;
+          border-right:solid 1px #C3C3C3;
+
+        }
+        .service_team .data span{
+          font-size: 72px;
+          vertical-align: middle;
+        }
+        .service_team .data i{
+          font-size: 24px;
+          font-style: normal;
+          line-height: 40px;
+          vertical-align: 18px;
+        }
+        .service_team h6{
+          font-size: 18px;
+          font-weight: normal;
+          margin:0;
+        }
+        .key_technology{
+          padding:86px 0 0 0;
+          min-height: 530px;
+          height: auto;
+          overflow: hidden;
+          background:url(../images/bg_01.png) #fff left 20px no-repeat;
+        }
+        .key_technology .title{
+          text-align: left;
+        }
+        .key_technology .key_content{
+          margin-left: 150px;
+        }
+        .key_technology .tab{
+          width: 100%;
+        }
+        .example{
+          padding:22px 0 0 0;
+          height: 428px;
+          overflow: hidden;
+          background:url(../images/bg_02.png) #fff left 20px no-repeat;
+          background-size: cover;
+        }
+        .example .title{
+          color: #fff;
+        }
+        .example .image_slide{
+          position: relative;
+          left:0;
+          top:0;
+          width: 100%;
+          height: 300px;
+        }
+        .example .image_slide .con{
+          width:80%;
+          margin:0 auto;
+        }
+        .example .image_slide .con .item{
+          display: block;
+          float: left;
+          width: 50%;
+          height: 300px;
+          overflow: hidden;
+          padding:0 30px;
+          box-sizing: border-box;
+        }
+        .example .image_slide .con .item img{
+          display: block;
+          height: 100%;
+          margin:0 auto;
+        }
+        .example .image_slide .image_nav .prev,
+        .example .image_slide .image_nav .next{
+          position: absolute;
+          top:50%;
+          display: block;
+          width: 57px;
+          height: 175px;
+          margin-top:-88px;
+        }
+        .example .image_slide .image_nav .prev{
+          background: url(../images/icon_left.png) no-repeat;
+          left:0;
+        }
+        .example .image_slide .image_nav .next{
+          background: url(../images/icon_right.png) no-repeat;
+          right:0;
+        }
+        .other {
+          padding: 39px 0 30px;
+          height: auto;
+          overflow: hidden;
+          background-color: #F1F1F1;
+        }
+        .other h6{
+          margin:0 0 9px;
+          line-height: 40px;
+          font-size: 24px;
+          color: #000;
+          font-weight: normal;
+          text-align: center;
+        }
+        .other span{
+          line-height: 40px;
+          font-size: 24px;
+          color: #d89521;
+          padding-left: 18px;
+        }
+        .tab_content .item{
+          float: left;
+          width: 33.33%;
+          padding:0 50px;
+          box-sizing: border-box;
+        }
+        .tab_content .text{
+            padding-top: 26px;
+            height: auto;
+            overflow: hidden;
+            line-height: 20px;
+            margin-bottom: 50px;
+            font-size: 14px;
+            color: #333;
+        }
+        .tab_content .bottom h5{
+          background: url(../images/icon_ok.png) 0 5px no-repeat;
+          font-size: 36px;
+          color: #333;
+          font-weight: bold;
+          margin:0 0 15px 0;
+          padding-left: 35px;
+          line-height: 34px;
+        }
+        .tab_content .bottom h6{
+          font-size: 14px;
+          color: #333;
+          font-weight: bold;
+          margin:0;
+        }
+        .tab px-tab-set-siteview{
+          height: 112px;
+        }
+        .tab px-tab-siteview{
+          width: 189px !important;
+          height: 125px !important;
+          float: left;
+          position: relative;
+          left:0;
+          top:0;
+          display: block !important;
+        }
+        .tab px-tab-siteview img{
+          height: 111px;
+          border-top:solid 1px #E5E5E5;
+          border-bottom:solid 1px #E5E5E5;
+          border-right:solid 1px #E5E5E5;
+          position: absolute;
+          left:0;
+          top:0;
+        }
+        .tab px-tab-siteview:first-child img{
+          border-left:solid 1px #E5E5E5;
+        }
+        .tab px-tab-siteview.iron-selected{
+          width: 189px !important;
+          height: 125px !important;
+          background: url(../images/icon_tabbg.png) no-repeat;
+        }
+        .tab px-tab-siteview.iron-selected img{
+          border-bottom: 0;
+        }
+        #tabtitle{
+          border-bottom:0 !important;
+        }
+        paper-tabs{
+          height: 300px;
+        }
+        paper-tab{
+          width: 50%;
+        }
+        paper-tab img{
+          display: block;
+          margin:0 auto;
+          max-width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+        @media screen and (max-width:768px){
+          .container,
+          .container .container{
+            width: auto;
+            margin: 0 15px;
+          }
+          .service .item{
+            width:100%;
+            padding:0;
+            margin-bottom: 50px;
+          }
+          .service_team .data span{
+            font-size: 36px;
+          }
+          .key_technology{
+            display: none;
+            background: #fff;
+          }
+          .example{
+            display: none;
+          }
+          .key_technology .key_content{
+            margin-left:0;
+          }
+        }
+    </style>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}"></app-route>
+
+        <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
+            <div class="content">
+                <div class="service">
+                    <div class="container">
+                        <h4 class="title">我们的服务</h4>
+                        <div class="con">
+                          <div class="item">
+                              <div class="pic">
+                                  <img src="../images/icon_01.png" alt="">
+                              </div>
+                              <div class="detail">
+                                  <h5 class="name">定制软件开发</h5>
+                                  <div class="brief">
+                                      我们愿意帮助您完成软件开发生命周期的每个阶段,从概念、软件开发、技术咨询和支持
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="item">
+                              <div class="pic">
+                                  <img src="../images/icon_02.png" alt="">
+                              </div>
+                              <div class="detail">
+                                  <h5 class="name">定制软件开发</h5>
+                                  <div class="brief">
+                                      我们的软件工程师有丰富的经验在构建web应用程序。我们还有许多垂直和业务领域的专家,包括电子商务、电子学习、到场,金融、娱乐、等。
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="item">
+                              <div class="pic">
+                                  <img src="../images/icon_03.png" alt="">
+                              </div>
+                              <div class="detail">
+                                  <h5 class="name">定制软件开发</h5>
+                                  <div class="brief">
+                                    高度可用的移动应用,解决业务问题,吸引用户,强化你的品牌。建立本地、混合和跨平台的应用程序运行在所有主要的操作系统iOS和Android等。
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                    </div>
+                </div>
+
+                <div class="service_team">
+                    <div class="container">
+                        <h4 class="title">专业服务团队</h4>
+                        <div class="con">
+                            <div class="left">
+                                <div class="data">
+                                    <span>96</span>
+                                    <i>%</i>
+                                </div>
+                                <h6>客户满意度</h6>
+                            </div>
+
+                            <div class="middle">
+                                <div class="data">
+                                    <span>120</span>
+                                    <i>+</i>
+                                </div>
+                                <h6>高级技术专家</h6>
+                            </div>
+
+                            <div class="right">
+                                <div class="data">
+                                    <span>650</span>
+                                    <i>+</i>
+                                </div>
+                                <h6>成功案例</h6>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key_technology">
+                    <div class="container">
+                      <div class="key_content">
+                          <h4 class="title">关键技术</h4>
+                          <div class="tab">
+                              <px-tab-set-siteview no-bottom-border="true" bare="true" selected="{{selected}}">
+                                <px-tab-siteview id='tab1'><img src="../images/icon_java.png" /></px-tab-siteview>
+                                <px-tab-siteview id='tab2'><img src="../images/icon_http2.png" /></px-tab-siteview>
+                                <px-tab-siteview id='tab3'><img src="../images/icon_polymer.png" /></px-tab-siteview>
+                                <px-tab-siteview id='tab4'><img src="../images/icon_html5.png" /></px-tab-siteview>
+                                <px-tab-siteview id='tab5'><img src="../images/icon_apple.png" /></px-tab-siteview>
+                                <px-tab-siteview id='tab6'><img src="../images/icon_android.png" /></px-tab-siteview>
+                              </px-tab-set-siteview>
+                              <px-tab-pages-siteview selected="{{selected}}">
+                                <div class="tab_content">
+                                    <div class="text">
+                                        英斯达有丰富经验的Java专家工程师团队，可为您定制可伸缩、高可用的web应用程序。我们的专长领域包括数字广告,电子学习,电子商务和实时通信。
+                                    </div>
+                                    <div class="bottom">
+                                        <div class="item">
+                                            <h5>10+</h5>
+                                            <h6>经验丰富的Java开发人员</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>50+</h5>
+                                            <h6>成功交付项目</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>8+</h5>
+                                            <h6>每个团队成员多年的经验</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab_content">
+                                    <div class="text">
+                                      英斯达的工程师精通HTTP2的安装、配置、调试。我们将确保您的产品在HTTP2协议下，安全、快速、稳定运行。
+                                    </div>
+                                    <!-- <div class="bottom">
+                                        <div class="item">
+                                            <h5>10+</h5>
+                                            <h6>经验丰富的Android开发人员</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>50+</h5>
+                                            <h6>成功交付项目</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>4+</h5>
+                                            <h6>每个团队成员多年的经验</h6>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="tab_content">
+                                    <div class="text">
+                                      英斯达的工程师精通Google的Polymer Web组件构建框架，可为您灵活定制不同领域、场景的WEB应用。
+                                    </div>
+                                    <div class="bottom">
+                                        <div class="item">
+                                            <h5>10+</h5>
+                                            <h6>经验丰富的Polymer开发人员</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>50+</h5>
+                                            <h6>成功交付项目</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>4+</h5>
+                                            <h6>每个团队成员多年的经验</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab_content">
+                                    <div class="text">
+                                      英斯达提供精通现代web的技术网络专家团队。我们的工程师将确保你的网站或者HTML5应用程序能在各种终端设备上快速、稳定运行,不管屏幕大小和分辨率。
+                                    </div>
+                                    <div class="bottom">
+                                        <div class="item">
+                                            <h5>10+</h5>
+                                            <h6>经验丰富的HTML5开发人员</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>50+</h5>
+                                            <h6>成功交付项目</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>4+</h5>
+                                            <h6>每个团队成员多年的经验</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab_content">
+                                    <div class="text">
+                                      英斯达的工程师精通技术堆栈—包括Objective-C、C++和Swift。我们将确保您的产品拥有一切iPhone和iPad用户所期望的要求:易于使用,性能和抛光界面符合苹果的UI。
+                                    </div>
+                                    <div class="bottom">
+                                        <div class="item">
+                                            <h5>10+</h5>
+                                            <h6>经验丰富的IOS开发人员</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>50+</h5>
+                                            <h6>成功交付项目</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>4+</h5>
+                                            <h6>每个团队成员多年的经验</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab_content">
+                                    <div class="text">
+                                      Instantloading可以为您提供专家小组服务，确保您移动应用程序的UI，满足最新的Google发布的接口指导方针，为您打造高度可用、视觉上吸引人的移动应用。并无缝地运行在所有所需的Android设备。
+                                    </div>
+                                    <div class="bottom">
+                                        <div class="item">
+                                            <h5>10+</h5>
+                                            <h6>经验丰富的Android开发人员</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>50+</h5>
+                                            <h6>成功交付项目</h6>
+                                        </div>
+                                        <div class="item">
+                                            <h5>4+</h5>
+                                            <h6>每个团队成员多年的经验</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                              </px-tab-pages-siteview>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="example">
+                    <div class="container">
+                        <h4 class="title">特色的案例</h4>
+                        <div class="image_slide" id="image_slide">
+                            <paper-tabs selected="0" _step="[[tabWidth]]" scrollable>
+                            <paper-tab><img src="../images/pic1.png" /></paper-tab>
+                            <paper-tab><img src="../images/pic2.png" /></paper-tab>
+                            <paper-tab><img src="../images/t_02.png" /></paper-tab>
+                            <paper-tab><img src="../images/t_01.png" /></paper-tab>
+                            <paper-tab><img src="../images/w_02.png" /></paper-tab>
+                            <paper-tab><img src="../images/w_01.png" /></paper-tab>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="other">
+                    <div class="container">
+                      <h6>继续访问我们的网站了解更多的信息或</h6>
+                      <h6>联系我们<span>400-705-0567</span></h6>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'instant-home',
+      properties: {
+        selected:{
+          type: String,
+          value: "0"
+        },
+        tabWidth: {
+          type: Number,
+          value: 21.1
+        }
+      }
+    });
+
+
+  </script>
+</dom-module>

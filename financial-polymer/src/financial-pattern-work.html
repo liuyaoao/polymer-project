@@ -1,0 +1,300 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
+<!-- <link rel="import" href="news-data.html"> -->
+<link rel="import" href="news-nav.html">
+<link rel="import" href="financial-company.html">
+<link rel="import" href="financial-contact.html">
+<link rel="import" href="financial-toplogo.html">
+
+<dom-module id="financial-pattern-work">
+
+  <template>
+
+    <style>
+      footer{
+        background:rgba(0, 0, 0, 0.3);
+        width:100%;
+        margin:0 auto;
+        position:absolute;
+        left:0;
+        bottom:0;
+      }
+      footer .container{
+        text-align: center;
+        height: auto;
+        overflow: hidden;
+      }
+      footer span{
+        font-size: 14px;
+        line-height: 30px;
+      }
+      /*@media screen and (max-width:768px){
+        .container,
+        footer .container{
+          width: auto;
+          margin: 0 15px;
+        }
+        footer span{
+          display: block;
+        }
+      }*/
+
+    </style>
+
+    <news-analytics key="UA-39334307-18"></news-analytics>
+    <!-- <jquery-analytics key="UA-39334307-11"></jquery-analytics> -->
+    <!--
+      app-location and app-route elements provide the state of the URL for the app.
+    -->
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/test/home/:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+
+    <news-nav
+        id="nav"
+        app-title="[[appTitle]]"
+        page="[[page]]"
+        categories="[[categories]]"
+        category="[[category]]"
+        load-complete="[[loadComplete]]">
+      [[articleHeadline]]
+    </news-nav>
+    <financial-toplogo id="topLogo"></financial-toplogo>
+    <div class="financialPatternWork">
+      <div><p class="left"><span>Login Time:</span></p> <p class="right"><span>Hi,</span><a href="#">Sign Out</a></p></div>
+      <div>
+        <ul>
+          <li><a href="#">PatternWorkshop Pro</a>:For system developers.  Provides many tools to work on simulation outputs.  Discovers optimizing conditions, proper managing rules, optimized  portfolios combined from multi-models and much more. For more express links: <a href="#">Forward Statistics</a>, <a href="#">Portfolio Manager</a></li>
+          <li><a href="#">PatternWorkshop</a>:For traders and system developers. It is a full simulation platform to simulate sophisticated models with full managing rules. To review the last studied model: <a href="#">Simulation Result</a></li>
+          <li><a href="#">MarketPulse Pro</a>:: For traders and system developers.  It is a simplified simulation platform to find trading patterns among a group of stocks, then lets the MarketPulse to monitor the patterns.</li>
+        </ul>
+        <p><img src="../images/login/ArrowDownY.gif"/><span>Free test Users can only use part of below functions</span><img src="../images/login/ArrowDownY.gif"/></p>
+        <ul>
+          <li><a href="#">MarketPulse</a>:This is for all kinds of traders. It is a real time Intraday Stock Screener. It works in any time frame with any criteria for over 4000 symbols in the US stock markets.</li>
+          <li><a href="#">MP Statistics</a><img src="../images/login/new.gif" />:Designed for really active short-term intraday stock traders, who buy and sell stocks again and again in just minutes or even in seconds.</li>
+          <li><a href="#">Easy-to-Use tools</a>: For entry level researchers and system developers.
+              <table>
+                  <tr><td><a href="#">Analog Analytic tool </a></td><td><a href="#"> Zone Analytic tool</a></td><td><a href="#">Swing Analytic tool </a></td><td><a href="#"> Econ-Data</a></td></tr>
+                  <tr><td><a href="#">Seasonal Analytic tool </a></td><td><a href="#"> SNR Analytic tool </a></td><td><a href="#"> Leading Indicator tool </a></td><td><a href="#"> IRQ</a></td></tr>
+                  <tr><td><a href="#">Detail Chart tool </a></td><td><a href="#"> Multi-Markets Chart </a></td><td><a href="#"> Data Extract tool</a></td><td><a href="#">Holidays</a></td></tr>
+              </table>
+          </li>
+        </ul>
+        <div><img src="../images/login/red_circ.gif"/><span>To run FPW, one needs to keep this page open. One can minimize it, but should
+          not close it or leave it for any other web pages, otherwise one would logout.</span></div>
+      </div>
+    </div>
+    <iron-pages role="main" selected="[[pageName]]" attr-for-selected="name" fallback-selection="path-warning">
+      <financial-company
+        name="company"
+        route="[[subroute]]"
+        >
+      </financial-company>
+      <financial-contact
+        name="contact"
+        route="[[subroute]]"
+      >
+     </financial-contact>
+
+      <news-path-warning name="path-warning"></news-path-warning>
+
+    </iron-pages>
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'financial-pattern-work',
+
+      properties: {
+
+        appTitle: String,
+
+        page: {
+          type: String,
+          observer: '_pageChanged'
+        },
+        pagepath: {
+          type: String
+        },
+        pageName:String,
+        // categories: Array,
+        //
+        // categoryName: String,
+        //
+        // category: Object,
+        //
+        // articleId: String,
+        //
+        // article: Object,
+        //
+        // articleHeadline: {
+        //   type: String,
+        //   value: ''
+        // },
+
+        offline: {
+          type: Boolean,
+          value: false,
+          readOnly: true
+        },
+
+        failure: Boolean,
+
+        loadComplete: Boolean,
+
+        isMain: Boolean
+      },
+
+      observers: [
+        '_routePageChanged(routeData.page)',
+      ],
+
+      listeners: {
+
+      },
+
+      _networkSnackbar: null,
+
+      created: function() {
+        // Custom elements polyfill safe way to indicate an element has been upgraded.
+        this.removeAttribute('unresolved');
+
+        // Chrome on iOS recomputes "vh" unit when URL bar goes off screen. Since we use "vh" unit
+        // to size the cover image and the title, those items will resize in response to the URL
+        // bar being shown or hidden. FWIW, this is not an issue in Chrome 56 on Android or iOS
+        // Safari. To workaround this on Chrome on iOS, we will use a
+        // fixed viewport height in places where normally relying on "vh" unit and replace them with
+        // custom property "--viewport-height".
+        var ua = navigator.userAgent;
+        var cMatch = navigator.userAgent.match(/Android.*Chrome[\/\s](\d+\.\d+)/);
+        if (ua.match('CriOS') || (cMatch && cMatch[0] && cMatch[1] < 56)) {
+          document.body.classList.add('fixed-viewport-height');
+        }
+
+      },
+
+      attached: function() {
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          this.listen(window, 'online', '_notifyNetworkStatus');
+          this.listen(window, 'offline', '_notifyNetworkStatus');
+        });
+      },
+
+      detached: function() {
+        this.unlisten(window, 'online', '_notifyNetworkStatus');
+        this.unlisten(window, 'offline', '_notifyNetworkStatus');
+      },
+
+      _routePageChanged: function(page) {
+        if (!page) {
+          // set default route if route path is empty
+          // this.set('route.path', 'list/home');
+          this.set('route.path', 'test/home/login');
+          return;
+        }
+        this.page = page;
+        this.pagepath =  this.route.path;
+        var remainingPieces = this.pagepath.split('/');
+        this.pageName = remainingPieces[3];//这种是对应 this.set('route.path', 'instantloading/home');
+        // this.pageName = remainingPieces[1];//这种是对应 this.set('route.path', 'home');
+        // Scroll to the top of the page on every *route* change. Use `Polymer.AppLayout.scroll`
+        // with `behavior: 'silent'` to disable header scroll effects during the scroll.
+        // Polymer.AppLayout.scroll({ top: 0, behavior: 'silent' });
+        // Close the drawer - in case the *route* change came from a link in the drawer.
+        this.$.nav.closeDrawer();
+      },
+
+      _pageChanged: function(page, oldPage) {
+        var href;
+        var path = this.route;
+        switch(page) {
+           case 'login':
+             href = 'financial-login.html';
+             break;
+           default:
+             href = 'news-path-warning.html';
+             break;
+         };
+        this.importHref(
+            this.resolveUrl(href),
+            this._pageLoaded.bind(this, Boolean(oldPage)),
+            null,
+            true);
+      },
+
+      _pageLoaded: function(shouldResetLayout) {
+        this._ensureLazyLoaded();
+      },
+
+      _ensureLazyLoaded: function() {
+        // load lazy resources after render and set `loadComplete` when done.
+        if (!this.loadComplete) {
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            this.importHref(this.resolveUrl('lazy-resources.html'), function() {
+              this._notifyNetworkStatus();
+              this.loadComplete = true;
+
+              // Load pre-caching Service Worker
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js');
+              }
+            });
+          });
+        }
+      },
+
+      _notifyNetworkStatus: function() {
+        var oldOffline = this.offline;
+        this._setOffline(!window.navigator.onLine);
+        // Show the snackbar if the user is offline when starting a new session
+        // or if the network status changed.
+        if (this.offline || (!this.offline && oldOffline === true)) {
+          if (!this._networkSnackbar) {
+            this._networkSnackbar = document.createElement('news-snackbar');
+            Polymer.dom(this.root).appendChild(this._networkSnackbar);
+          }
+          Polymer.dom(this._networkSnackbar).textContent = this.offline ?
+              'You are offline' : 'You are online';
+          this._networkSnackbar.open();
+        }
+      },
+
+      // _updateArticleHeadline: function(articleHeadline) {
+      //   this.articleHeadline = articleHeadline;
+      // },
+      //
+      // // Elements in the app can notify section changes.
+      // // Response by a11y announcing the section and syncronizing the category.
+      // _updateDocumentTitle: function(page, categoryTitle, articleHeadline, appTitle) {
+      //   //document.title = (page === 'list' ? categoryTitle : articleHeadline) + ' - ' + appTitle;
+      //   document.title = appTitle;
+      // },
+      //
+      // _refreshData: function() {
+      //   this.$.data.refresh();
+      // }
+
+    });
+
+  </script>
+
+</dom-module>

@@ -1,0 +1,165 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<!-- <link rel="import" href="../bower_components/jquery-polymer/jquery.polymer-1.0.js"> -->
+
+<dom-module id="financial-login">
+  <template>
+      <style include="shared-styles">
+        :host {
+          display: block;
+          margin-top:30px;
+          color:#0000ff;
+          width:40%;
+          margin:0 auto;
+        }
+        .logoImg{
+            margin:0 1%;
+        }
+        .notice{
+          text-align: center;
+          margin-top:20px;
+        }
+        .notice>.link{
+          margin:20px 0 0 10px;
+        }
+        .linkStyle{
+          overflow:hidden;
+        }
+        .linkStyle>ul{
+          float:right;
+        }
+        .linkStyle>ul>li{
+          display:inline-block;
+          margin-left:8px;
+        }
+        .link>ul{
+          margin:0;
+          padding:0;
+          list-style: none;
+          overflow:hidden;
+        }
+        .link>ul>li{
+          display:inline-block;
+          float:left;
+          margin-right:15px;
+        }
+        .imgSize{
+        max-width:none;
+        padding:20px 0 0 30px;
+        }
+      </style>
+
+      <app-location route="{{route}}"></app-location>
+      <app-route
+          route="{{route}}"
+          pattern="/test/home/:page"
+          data="{{routeData}}"
+          tail="{{subroute}}"></app-route>
+
+      <iron-ajax id="ajax"
+        url="https://randomuser.me/api/"
+        handle-as="json"
+        params=''
+        on-response="categoriesLoaded"
+        timeout="3000"
+        on-error="categoriesLoadederror">
+      </iron-ajax>
+      <header>
+         <div class="logoImg">
+           <div >
+             <a href="#"><img src="../images/login/b_logo.png"/></a>
+             <img src="../images/login/toplong111.jpg"/>
+           </div>
+           <div class="linkStyle">
+             <ul>
+               <li><a href="#">[中文]</a></li>
+               <li><a href="#">Services?</a></li>
+               <li><a href="#">Why Use FPW?</a></li>
+             </ul>
+           </div>
+         </div>
+     </header>
+      <div class="loginContent">
+      <div class="layout style-scope local-element-demo">
+        <div class="layout__item  style-scope local-element-demo">
+          <span><b>Financial PatternWorkshop (FPW) is a unique financial trading strategy test platform, which can be used </b>to scan or to simulate the real-time stock and futures financial markets with only a couple of mouse clicks or a couple of lines of code.  One can simulate almost any pattern that one can imagine with full managing rules of stops, exits and objectives, scaling in or out, over one or a group of markets with same or different managing rules for each market.  FPW provides  many unique technical tools and financial functions.</span>
+        </div>
+      </div>
+      <div class="layout style-scope local-element-demo">
+        <div class="layout__item u-1/3 style-scope local-element-demo">
+          <div class="notice">
+            <b>Notice</b></br>
+            <a href="#">Maintaining Time</a></br>
+            <span>(System may offline)</span></br>
+            <span>Monthly Last Friday</span></br>
+            <span>EDT&nbsp;21:00-23:59</span>
+            <div class="link">
+              <ul>
+                <li><a href="#">Setup IE to Use FPW Property</a></li>
+                <li><a href="#">Econ-Data</a></li>
+                <li><a href="#">Holidays</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="layout__item u-1/3 style-scope local-element-demo">
+          <form class="style-scope local-element-demo" action="${abs_href.base}/wbfpwlogin" method="post">
+            <label for="inputUser" class="style-scope local-element-demo" >User ID:</label>
+            <input class="text-input style-scope local-element-demo" id="inputUser" type="text" name="fpwusername" value="yinxue"/><br/>
+            <div class="form-field">
+              <label for="inputPsw" class="style-scope local-element-demo">Password:</label>
+              <input class="text-input style-scope local-element-demo" id="inputPsw" type="password" name="fpwpassword"/><br/>
+              <input type="hidden" name="UserIPAddress" value="192.168.2.8"/>
+              <input type="hidden" name="UserHostName" value="Verizon.net"/>
+            </div>
+            <input class="btn btn--primary style-scope local-element-demo " type="submit" value="Log On" />
+          </form>
+          <div class="link">
+            <p><a href="#">Forget your password?</a><b>New user?</b><a href="#">Sign Up</a></p>
+            <input class="btn btn--primary style-scope local-element-demo " type="button" value="Log" on-click="_testgetdata"/>
+          </div>
+        </div>
+        <div class="layout__item u-1/3 style-scope local-element-demo"><img src="../images/login/Middlesmall07.jpg" class="imgSize"/></div>
+      </div>
+      <div class="layout style-scope local-element-demo">
+        <div class="layout__item u-1/3 style-scope local-element-demo">
+          <button class="btn  style-scope local-element-demo ">Check Available Test User ID</button>
+        </div>
+        <div class="layout__item u-2/3 style-scope local-element-demo">
+          <div class="link">
+            <ul>
+              <li><b>User01:</b><span>NA</span></li>
+              <li><b>User02:</b><span>NA</span></li>
+              <li><b>User03:</b><span>NA</span></li>
+              <li><b>User04:</b><span>NA</span></li>
+            </ul>
+          </div>
+          <p><b>Clicking on any above OK link to login.<span>It's FREE.</span></b></P>
+        </div>
+      </div>
+      <p><b>Note:</b><span>FPW PC version and LAN multi-user version are no more supported by our tech staff.
+                         We strongly  recommend users to switch to the more powerful Web version.</span></p>
+    </div>
+    </template>
+
+    <script>
+      Polymer({
+        is: 'financial-login',
+        _testgetdata:function () {
+    			this.$.ajax.generateRequest();
+		    },
+        categoriesLoaded:function(e){
+          var self = this;
+          var people = e.detail.response.results;
+          if(people.cell!=""){
+
+          }
+        },
+        categoriesLoadederror:function(e){
+          var self = this;
+          var people = e.detail.error;
+        }
+      });
+    </script>
+</dom-module>

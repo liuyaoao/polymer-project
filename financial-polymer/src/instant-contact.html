@@ -1,0 +1,275 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
+<!-- <link rel="import" href="../bower_components/paper-input/paper-input.html"> -->
+
+<dom-module id="instant-contact">
+  <template>
+    <style>
+      .container .container{
+        width: 1170px;
+        margin:0 auto;
+      }
+      .section1 .container{
+        margin-top: 30px;
+        /*margin-left: 30%;*/
+      }
+
+      .section1 h5{
+        font-size: 30px;
+        color: #000;
+        margin:0 0 15px 0 !important;
+        font-weight: normal;
+      }
+      .section2 {
+        height: auto;
+        overflow: hidden;
+      }
+      .section2 .container{
+        /*margin-left: 30%;*/
+      }
+      .section2 input[is=iron-input] {
+        width: 100%;
+        /*box-sizing: border-box;*/
+      }
+      .section2 input, button{
+        font-size: 20px;
+        padding: 0.2em;
+      }
+      .section2 textarea{
+        font-size: 20px;
+        font-weight: bold;
+        width: 100%;
+        padding-right: 8px;
+        resize: none;
+      }
+      .section2 .container-from{
+        float: left;
+        width: 450px;
+        margin-bottom: 10px;
+      }
+      .container-from p{
+        margin:15px 0 5px 0;
+        width: 462px;
+      }
+      .section2 .container-right{
+        float: left;
+        width: 400px;
+        margin-left: 100px;
+        margin-top: 10px;
+        /*margin-bottom: 10px;*/
+      }
+      .container-right h5{
+        margin: 0;
+        color: #000;
+        font-size: 30px;
+        font-weight: normal;
+      }
+      .container-right p{
+        font-weight: 600;
+        font-family: -webkit-body;
+      }
+       paper-button.custom {
+         /*--paper-button-ink-color: var(--paper-pink-a200);
+         --paper-button-flat-keyboard-focus: {
+           background-color: var(--paper-pink-a200);
+           color: white !important;
+         };
+         --paper-button-raised-keyboard-focus: {
+           background-color: var(--paper-pink-a200) !important;
+           color: white !important;
+         };*/
+         margin-left: 0;
+         margin-top: 10px
+       }
+       paper-button.custom:hover {
+         background-color: #08aaf1;
+       }
+
+       paper-button.indigo {
+         background-color: #0074A7;
+         color: white;
+         /*--paper-button-raised-keyboard-focus: {
+           background-color: var(--paper-pink-a200) !important;
+           color: white !important;
+         };*/
+       }
+       #toastErrinfo {
+        --paper-toast-background-color: #0074A7;
+        --paper-toast-color: white;
+      }
+
+      @media screen and (max-width:768px){
+        .container{
+          width:100% !important;
+        }
+        .section1 .container{
+          margin-top: 10px;
+        }
+        .section1 h5{
+          margin:0 0 5px 10px !important;
+        }
+        .section2 .container-from{
+          float: none;
+          width: 91%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+        }
+        .section2 .container-right{
+          float: none;
+          width: 91%;
+          margin-left: 10px;
+          margin-top: 10px;
+        }
+      }
+    </style>
+    <app-route
+      route="[[route]]"
+      pattern="/:category"
+      data="{{_routeData}}"></app-route>
+    <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div class="content">
+        <div class="section1">
+          <div class="container">
+            <div class="text">
+              <h5>期待与您的合作！</h5>
+            </div>
+          </div>
+        </div>
+        <div class="section2">
+          <div class="container">
+            <div class="container-from">
+              <p>您的姓名（必填）</p>
+              <input id="username" is="iron-input" bind-value="{{username}}">
+              <p>您的电子邮箱</p>
+              <input id="mail" is="iron-input" bind-value="{{mail}}" prevent-invalid-input allowed-pattern="[a-zA-Z0-9.@]">
+              <p id="toastshow">您的联系电话</p>
+              <input id="telephone" is="iron-input" bind-value="{{telephone}}" prevent-invalid-input allowed-pattern="[0-9.+-;]">
+              <p>您的QQ</p>
+              <input id="contactqq" is="iron-input" bind-value="{{contactqq}}"  prevent-invalid-input allowed-pattern="[0-9]">
+              <p>简单业务需求概述</p>
+              <textarea id="description" rows="7"></textarea>
+              <paper-button raised class="custom indigo"  on-click="_submitsq">提 交</paper-button>
+            </div>
+            <paper-toast id="toastErrinfo" duration="1200" class="fit-bottom" text="[[errinfo]]"></paper-toast>
+            <div class="container-right">
+              </br>
+              <p>如果您想获取免费的项目报价，请填写表单</p>
+              <p>我们的专家将会在24小时内回复您。</p>
+              </br>
+              <p>上班时间：星期一至星期五 9:00AM - 6:00PM</p>
+              </br>
+              </br>
+              </br>
+              </br>
+              </br>
+              </br>
+              </br>
+              </br>
+              </br>
+              </br>
+              <h5>我们的联系方式</h5>
+              <p>地 址：北京宣武门外大街6号庄胜广场北楼东翼3层
+              </p>
+              <p>电 话：4007050567 / 010-51655987-801
+              </p>
+              <p>EMail：contact@cpoint.com
+              </p>
+            </div>
+
+        </div>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is:'instant-contact',
+      properties:{
+        username:String,
+        mail:String,
+        telephone:String,
+        contactqq:String,
+        description:String,
+        errinfo:String
+      },
+       attached: function() {
+         var description = this.$.description;
+         this.$.toastErrinfo.fitInto = this.$.toastshow;
+       },
+       ready:function(){
+         var description = this.$.description;
+         this.$.toastErrinfo.fitInto = this.$.toastshow;
+       },
+      _submitsq: function(e) {
+        // var scope = document.querySelector('template[is=dom-bind]');
+        // scope.setValue = function(event) {
+        //   if (!(event.target instanceof HTMLButtonElement)) {
+        //     return;
+        //   }
+        //   document.querySelector('input[is=iron-input]')[event.target.value] = event.target.previousElementSibling.value;
+        // }
+        var usernametemp = $.trim(this.username);
+        if(usernametemp == ""){
+          this.errinfo = "请填写您的姓名。";
+          this.$.toastErrinfo.open();
+          return;
+        };
+        var mailtemp = $.trim(this.mail);
+        if(mailtemp){
+          if(!this.isEmail(mailtemp)){
+            this.errinfo = "请填写正确的邮箱地址。";
+            this.$.toastErrinfo.open();
+            return;
+          }
+        }
+        var telephonetemp = $.trim(this.telephone);
+        if(telephonetemp){
+          var telephonearr = telephonetemp.split(';');
+
+          var allowed = false;
+          if(!this.iskMobile(telephonearr[0])){
+            allowed = true;
+          };
+          if(allowed){
+            if(!this.isPhone(telephonearr[0])){
+              allowed = true;
+            }else{
+              allowed = false;
+            };
+          };
+          if(allowed){
+            this.errinfo = "请填写正确的联系电话。";
+            this.$.toastErrinfo.open();
+            return;
+          };
+        }
+        var descriptiontemp = $.trim(this.$.description.value);
+        var contactqqtemp = $.trim(this.contactqq);
+
+        this.errinfo = "申请成功，我们会成24内给您回复。";
+        this.$.toastErrinfo.open();
+      },
+      isEmail:function(str){
+        // 验证邮箱 //reg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
+        // 验证规则：姑且把邮箱地址分成“第一部分@第二部分”这样
+        // 第一部分：由字母、数字、下划线、短线“-”、点号“.”组成，
+        // 第二部分：为一个域名，域名由字母、数字、短线“-”、域名后缀组成，
+        // 而域名后缀一般为.xxx或.xxx.xx，一区的域名后缀一般为2-4位，如cn,com,net，现在域名有的也会大于4位
+        var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+        return reg.test(str);//true 正确;false 错误
+      },
+      iskMobile:function(str) {
+        // 验证手机号码
+        // 验证规则：11位数字，以1开头。
+          var reg = /^1\d{10}$/
+          return reg.test(str);//true 正确;false 错误
+      },
+      isPhone:function(str){
+        // 验证电话号码
+        // 验证规则：区号+号码，区号以0开头，3位或4位
+        // 号码由7位或8位数字组成
+        // 区号与号码之间可以无连接符，也可以“-”连接
+        var reg = /^0\d{2,3}-?\d{7,8}$/;
+        return reg.test(str);//true 正确;false 错误
+      }
+    })
+  </script>
+</dom-module>
