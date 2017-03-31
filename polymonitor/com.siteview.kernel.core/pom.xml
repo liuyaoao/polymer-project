@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.dragonflow</groupId>
+  <artifactId>SITEVIEW-ECC</artifactId>
+  <packaging>jar</packaging>
+  <version>9.3-SNAPSHOT</version>
+  
+  <name>SITEVIEW ECC</name>
+  <url>http://www.siteview.com</url>
+  <description>The monitoring backend of SITEVIEW ECC</description>
+
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+
+  
+  <build>
+      <plugins>
+          <plugin>
+              <groupId>com.googlecode.addjars-maven-plugin</groupId>
+              <artifactId>addjars-maven-plugin</artifactId>
+              <version>1.0.5</version>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>add-jars</goal>
+                      </goals>
+                      <configuration>
+                          <resources>
+                              <resource>
+                                  <directory>${basedir}/lib/ext</directory>
+                              </resource>
+                              <resource>
+                                  <directory>${basedir}/lib/deprecated</directory>
+                              </resource>
+                              <resource>
+                                  <directory>${basedir}/lib/smi</directory>
+                              </resource>
+                              <resource>
+                                  <directory>${basedir}/lib/missed/IBMWebAS35</directory>
+                              </resource>
+                              <resource>
+                                  <directory>${basedir}/lib/missed/WebSphere5</directory>
+                              </resource>
+                          </resources>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
+      </plugins>
+  </build>
+</project>

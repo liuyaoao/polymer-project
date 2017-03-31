@@ -1,0 +1,91 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>index_alone1</title>
+
+    <!-- <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script> -->
+    <script src="./index_alone.js"></script>
+
+    <!-- Import the element to test -->
+    <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="import" href="../bower_components/paper-item/paper-item.html">
+    <link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+    <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+    <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+
+    <style>
+        .container{
+          text-align:center;
+        }
+        .horizontal-section {
+          padding: 0 !important;
+        }
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+      <paper-menu>
+        <paper-item>Item 1</paper-item>
+        <paper-item>Item 2</paper-item>
+      </paper-menu>
+    </div>
+    <div class="horizontal center-justified layout">
+      <div>
+        <h4>Standard</h4>
+        <div class="horizontal-section">
+          <paper-menu class="list">
+            <paper-item>Inbox</paper-item>
+            <paper-item>Starred</paper-item>
+            <paper-item>Sent mail</paper-item>
+            <paper-item>Drafts</paper-item>
+          </paper-menu>
+        </div>
+      </div>
+
+      <div>
+        <h4>Pre-selected</h4>
+        <div class="horizontal-section">
+          <paper-menu  class="list" selected="0">
+            <paper-item>Inbox</paper-item>
+            <paper-item disabled>Starred</paper-item>
+            <paper-item>Sent mail</paper-item>
+            <paper-item>Drafts</paper-item>
+          </paper-menu>
+        </div>
+      </div>
+
+      <div>
+        <h4>Multi-select</h4>
+        <div class="horizontal-section">
+          <paper-menu class="list" multi>
+            <paper-item>Bold</paper-item>
+            <paper-item>Italic</paper-item>
+            <paper-item>Underline</paper-item>
+            <paper-item>Strikethrough</paper-item>
+          </paper-menu>
+        </div>
+      </div>
+    </div>
+
+    <script>
+
+    </script>
+  </body>
+</html>
