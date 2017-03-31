@@ -1,0 +1,103 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="filter-setting-form">
+	<template>
+    <style>
+			:host {
+		    --paper-menu-button-content: {
+		      top: 60px!important;
+		    }
+		  }
+			paper-listbox {
+				width: 200px;
+			}
+    </style>
+
+		<form id="filterForm" method="get" action="{{actionUrl}}">
+			<input type="hidden" name="page" value="manage">
+			<input type="hidden" name="account" value="administrator">
+			<template is="dom-if" if="[[healthLength]]">
+				<input type="hidden" name="_health" value="true">
+      </template>
+    	<table border="0" width="98%" cellpadding="2" cellspacing="0">
+    		<tbody>
+    			<tr>
+    				<td align="left" valign="top" colspan="8"><hr></td>
+    			</tr>
+    			<tr>
+    				<td align="left" valign="top" colspan="8">
+							<b>Filter Settings:</b>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" width="10%"></td>
+						<td align="left" valign="top">
+							<paper-input type="search" id="monitorNameSelect" name="monitorNameSelect" label="Match Name" size="15" value="{{monitorNameSelect}}"></paper-input>
+						</td>
+						<td align="right" width="10%"></td>
+						<td align="left" valign="top">
+							<paper-input type="search" id="machineNameSelect" name="machineNameSelect" label="Match Machine" size="15" value="{{machineNameSelect}}"></paper-input>
+						</td>
+						<td align="right" valign="top" width="10%"></td>
+						<td align="left" valign="top">
+							<paper-dropdown-menu label="For Monitor Type" name="monitorTypeSelect" id="monitorTypeSelect">
+								<paper-listbox class="dropdown-content" selected="0">
+									<paper-item value="">All types</paper-item>
+									<content></content>
+								</paper-listbox>
+							</paper-dropdown-menu>
+						</td>
+						<td align="left" valign="middle"><paper-button raised on-tap="_submitFilter">Apply Filter</paper-button></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+  </template>
+
+	<script>
+		Polymer({
+
+			is: 'filter-setting-form',
+
+			properties: {
+
+				actionUrl: String,
+
+				healthLength: Number,
+
+				monitorNameSelect: String,
+
+				machineNameSelect: String
+			},
+
+			_submitFilter: function() {
+				var _filterForm = this.$.filterForm;
+				var filterParams = {
+					monitorNameSelect: this.$.monitorNameSelect.value,
+					monitorTypeSelect: this.$.monitorTypeSelect.selectedItem.getAttribute("value"),
+					machineNameSelect: this.$.machineNameSelect.value,
+					operation: 'Apply Filter'
+				}
+				// console.log(filterParams);
+				for (var item in filterParams) {
+					var hiddemFilter = _filterForm.querySelector("input[name='" + item + "']");
+					if (hiddemFilter && hiddemFilter.length) {
+						hiddemFilter.value = filterParams[item];
+					} else {
+						var input = document.createElement('input');
+						input.hidden = true;input.name = item;
+						input.value = filterParams[item];
+						_filterForm.appendChild(input);
+					}
+				}
+				_filterForm.submit();
+			},
+
+		});
+	</script>
+
+</dom-module>

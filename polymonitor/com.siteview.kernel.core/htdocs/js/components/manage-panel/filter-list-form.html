@@ -1,0 +1,98 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="filter-list-form">
+	<template>
+    <style>
+			#filterListForm ::content paper-button.fancy {
+				padding: 5px 15px;
+				color: #fff;
+				background-color: #337ab7;
+				border-color: #2e6da4;
+				width: 112px;
+			}
+
+			#filterListForm ::content paper-button.fancy:hover {
+				background: #6CABE0;
+			}
+
+		  #filterListForm ::content .list-card {
+		    display: flex;
+		    align-items: center;
+		    padding: 8px 16px;
+		    background: #fff;
+		    border-radius: 8px;
+		    border: 1px solid #ddd;
+		    margin-bottom: 16px;
+		    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+		  }
+
+		  #filterListForm ::content paper-item-body {
+				padding-left: 15px;
+		    font-style: italic;
+		  }
+			#filterListForm ::content paper-item-body p{
+				margin: 8px 0;
+		  }
+    </style>
+
+		<form id="filterListForm" method="post" action="[[actionUrl]]">
+			<input type="hidden" name="level" value="first">
+			<input type="hidden" name="needVerify" value="true">
+			<input type="hidden" name="page" value="manage">
+			<input type="hidden" name="account" value="[[account]]">
+			<template is="dom-if" if="[[healthLength]]">
+				<input type="hidden" name="_health" value="true">
+      </template>
+			<content id="filterTreeContent" select=".filter-tree"></content>
+			<hr/>
+			<content id="filterListContent" select=".filter-list"></content>
+		</form>
+  </template>
+
+	<script>
+		Polymer({
+
+			is: 'filter-list-form',
+
+			properties: {
+
+				actionUrl: String,
+
+				healthLength: Number,
+
+				account: String,
+
+				machineNameSelect: String
+			},
+
+			ready: function() {
+				var operationBtns = this.getContentChildren('#filterListContent')[0].querySelectorAll('paper-button');
+				for (var i = 0; i < operationBtns.length; i++) {
+					this.listen(operationBtns[i], 'tap', '_submitFilterOperation');
+				}
+			},
+
+			_submitFilterOperation: function(e) {
+				var operation = e.target.getAttribute('name');
+				var _filterListForm = this.$.filterListForm;
+				var hiddenFilter = _filterListForm.querySelector("input[name='operation']");
+				if (hiddenFilter && hiddenFilter.length) {
+					hiddenFilter.value = operation;
+				} else {
+					var input = document.createElement('input');
+					input.hidden = true;input.name = 'operation';
+					input.value = operation;
+					_filterListForm.appendChild(input);
+				}
+				_filterListForm.submit();
+			},
+
+		});
+	</script>
+
+</dom-module>
