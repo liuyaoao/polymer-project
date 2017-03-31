@@ -1,0 +1,163 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-down-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="bounce-in-animation.html">
+
+<dom-module id="login-panel">
+  <style>
+    :host {
+      display: none;
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      background: #ece9e3;
+      text-align: left;
+      border-radius: 5px;
+    }
+    paper-material {
+      padding: 16px;
+      width: 360px;
+    }
+    paper-button.fancy {
+      padding: 6px 22px;
+      color: #fff;
+      background-color: #337ab7;
+      border-color: #2e6da4;
+    }
+
+    paper-button.fancy:hover {
+      background: #6CABE0;
+    }
+
+    paper-button[disabled],
+    paper-button[toggles][active] {
+      background: red;
+    }
+  </style>
+  <template>
+    <!-- <form id="[[formId]]" action="[[actionUrl]]" method="post" style="display:none;">
+      <input type="hidden" name="page" value="login" />
+      <input type="hidden" name="operation" value="Login" />
+      <input type="hidden" name="groupRedirect" value="[[groupRedirect]]" />
+
+      <input type="hidden" name="_login" value="[[_loginValue]]" />
+      <input type="hidden" name="_password" value="[[_passwordValue]]" />
+      <input type="hidden" name="_newPassword" value="[[_newPasswordValue]]" />
+      <input type="hidden" name="_newPassword2" value="[[_newPassword2Value]]" />
+    </form> -->
+    <paper-material elevation="1">
+      <h2>Sign In</h2>
+      <form is="iron-form" id="[[formId]]" action="[[actionUrl]]" method="post">
+        <input type="hidden" name="page" value="login" />
+        <input type="hidden" name="operation" value="Login" />
+        <input type="hidden" name="groupRedirect" value="[[groupRedirect]]" />
+
+        <div>
+          <paper-input label="Enter login name" name="_login" size="30" value="{{_loginValue}}">
+            <div prefix><iron-icon icon="account-box"></iron-icon></div>
+          </paper-input>
+        </div>
+        <div>
+          <paper-input label="Enter password" type='password' name='_password' value="{{_passwordValue}}">
+            <div prefix><iron-icon icon="lock"></iron-icon></div>
+          </paper-input>
+        </div>
+        <div style="text-align:center;">
+          <!-- <button  class="fancy" type="submit">SIGN IN</button> -->
+          <!-- <paper-button raised class="fancy">SIGN IN</paper-button> -->
+          <paper-button raised class="fancy" on-click="_onClickSubmit" >SIGN IN</paper-button>
+        </div>
+        <h2>Change Password</h2>
+        <div>
+          <paper-input label="New password" type='password' name="_newPassword" size="30" value="{{_newPasswordValue}}">
+          </paper-input>
+        </div>
+        <div>
+          <paper-input label="New password (again)" type='password' name="_newPassword2" size="30" value="{{_newPassword2Value}}">
+          </paper-input>
+        </div>
+      </form>
+    </paper-material>
+  </template>
+  <script>
+    Polymer({
+      is: 'login-panel',
+      behaviors: [Polymer.NeonAnimationRunnerBehavior],
+      properties: {
+        _loginValue:String,
+        _passwordValue:String,
+        _newPasswordValue:String,
+        _newPassword2Value:String,
+        formId:{
+          type:String,
+          value:"loginFormNative",
+        },
+        actionUrl:String,
+        groupRedirect:String,
+        canChangePassword:Boolean,
+        _loginHashmap:String,
+        _passwordHasmap:String,
+        _newPasswordHasmap:String,
+        _newPassword2Hasmap:String,
+        opened: {
+          type: Boolean
+        },
+        animationConfig: {
+          value: function() {
+            return {
+              'entry': {
+                name: 'bounce-in-animation',
+                node: this,
+                timing: {duration: 1000}
+              },
+              'exit': {
+                name: 'fade-out-animation',
+                node: this
+              }
+            }
+          }
+        }
+      },
+      listeners: {
+        'neon-animation-finish': '_onNeonAnimationFinish',
+        'iron-form-presubmit': '_ironFormPresubmit'
+      },
+      ready:function(){
+        if(this.opened){
+          this.show();
+        }
+      },
+      show: function() {
+        this.opened = true;
+        this.style.display = 'inline-block';
+        this.cancelAnimation();
+        this.playAnimation('entry');
+      },
+      hide: function() {
+        this.opened = false;
+        this.cancelAnimation();
+        this.playAnimation('exit');
+      },
+      _ironFormPresubmit:function(event){
+        //iron-form components use iron-ajax way by default. If you want to use native submit,you must do this.
+        event.preventDefault();
+      },
+      _onClickSubmit:function(evt){
+        this.$$("#loginFormNative").submit();
+        // this.$.loginFormNative.submit();
+      },
+      _onNeonAnimationFinish: function() {
+        if (!this.opened) {
+          this.style.display = 'none';
+        }
+      }
+    });
+  </script>
+</dom-module>
