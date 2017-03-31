@@ -1,0 +1,24 @@
+lastSaved=1490941969515
+id=-1
+last=1490942495846
+#
+measurement=1
+sample=921
+monitorDoneTime=1490942495846
+category=good
+percentFailed=0
+warningCount=0
+gethostname=www.baidu.com
+status=ok
+percentGood=100
+goodTimeSinceFirst=1490830904035
+id=1
+errorCount=6
+roundTripTime=12.0
+stateString=0.01 sec
+packetsReceived=1
+last=1490942495846
+errorTimeSinceFirst=1490827359017
+warningTimeSinceFirst=1490826785123
+lastCategory=good
+goodCount=174

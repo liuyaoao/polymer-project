@@ -1,0 +1,22 @@
+lastSaved=1394090782202
+id=-1
+last=1392804804012
+#
+measurement=0
+sample=3
+nodata=n/a
+monitorDoneTime=1392804804012
+category=error
+percentFailed=0
+warningCount=0
+gethostname=aavfavds
+status=failed
+percentGood=0
+id=1
+errorCount=3
+roundTripTime=n/a
+stateString=Data Unavailable command failed to execute
+packetsReceived=0
+last=1392804804012
+errorTimeSinceFirst=1392797868320
+lastCategory=error

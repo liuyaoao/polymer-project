@@ -1,0 +1,25 @@
+lastSaved=1394090782198
+id=-1
+last=1392804969730
+#
+measurement=1
+sample=16
+monitorDoneTime=1392804969730
+category=good
+percentFailed=0
+warningCount=0
+gethostname=192.168.9.11
+status=ok
+percentGood=100
+goodTimeSinceFirst=1392797841549
+id=1
+errorCount=12
+roundTripTime=10.0
+stateString=0.01 sec
+packetsReceived=1
+last=1392804969730
+errorTimeSinceFirst=1392790227674
+lastCategory=good
+goodCount=4
+#
+id=2

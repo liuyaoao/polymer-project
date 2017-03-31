@@ -1,0 +1,17 @@
+<browse_data>
+
+<object name="Process" type="perf" instances="LSASS">
+
+
+
+<object name="lsass"><counter id="Processxlsassx%xProcessorxTime" name="% Processor Time"/><counter id="ProcessxlsassxPrivatexBytes" name="Private Bytes"/><counter id="ProcessxlsassxHandlexCount" name="Handle Count"/></object></object>
+
+<object name="NTDS" type="perf">
+
+
+
+</object>
+
+<object/>
+
+</browse_data>
