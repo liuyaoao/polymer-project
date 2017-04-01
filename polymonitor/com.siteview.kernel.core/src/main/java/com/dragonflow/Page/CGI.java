@@ -627,6 +627,7 @@ public abstract class CGI {
         String s12 = "alerts";
         String s13 = "reports";
         String s14 = "overview";
+        String curSelected = "SiteView";
         String s15 = Health.getHealthState();
         if (s15.equals("nodata")) {
             s15 = "disable";
@@ -636,19 +637,28 @@ public abstract class CGI {
             s11 = "siteseer";
         }
         if (s1.equals("SiteView")) {
+            curSelected = "SiteView";
             s11 = "H" + s11;
         } else if (s1.equals("Alerts")) {
+            curSelected = "Alerts";
             s12 = "H" + s12;
         } else if (s1.equals("Reports")) {
+            curSelected = "Reports";
             s13 = "H" + s13;
         } else if (s1.equals("Health")) {
+            curSelected = "Health";
             s16 = "H" + s16;
         } else if (s1.equals("Preference")) {
+            curSelected = "Preferences";
             s10 = "H" + s10;
         } else if (s1.length() != 0) {
+            curSelected = "Alerts";
             s12 = "alerts";
         }
         if (httprequest.isStandardAccount()) {
+          
+          printwriter.println("<link rel='import' href='/SiteView/htdocs/js/components/monitor-tabs/monitor-tabs.html'>\n");
+          printwriter.println("<link rel='import' href='/SiteView/htdocs/js/components/monitor-tabs/monitor-tabs-header.html'>\n");
             printwriter.println("<SCRIPT LANGUAGE = \"JavaScript\">\n");
             printwriter
                     .println("<!--\nfunction OpenOverview()\n{\noverviewWindow=window.open(\""
@@ -685,53 +695,61 @@ public abstract class CGI {
         printwriter
                 .print("<table border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\"><TR class=\"navbox\"><TD>\n");
         printwriter
-                .print("<table class=\"topnav\" border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\"><TR class=\"topnav\">\n<TD><IMG SRC=/SiteView/htdocs/artwork/left.gif width=35 height=44 alt=\"\" border=0></td>");
+                .print("<table class=\"topnav\" border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\"><TR class=\"topnav\">\n<TD></td>");
         byte byte0 = 106;
         String s19 = Platform.productName;
-        printwriter
-                .println("<TD><a href="
-                        + s2
-                        + "><IMG SRC=/SiteView/htdocs/artwork/"
-                        + s11
-                        + ".gif ALT=\"SiteView Main View\""
-                        + " width="
-                        + byte0
-                        + " height=44\n"
-                        + "border=0></a></td><TD><a href="
-                        + s6
-                        + ">"
-                        + "<IMG SRC=/SiteView/htdocs/artwork/"
-                        + s12
-                        + ".gif ALT=\"View/add/edit automated alerts\" width=82 height=44 border=0></a></td>\n");
-        printwriter
-                .println("<TD><a href="
-                        + s4
-                        + ">"
-                        + "<IMG SRC=/SiteView/htdocs/artwork/"
-                        + s13
-                        + ".gif ALT=\"View/create/edit automated and adhoc reports\" width=82 height=44 border=0></a></td>\n");
-        if (!Platform.isSiteSeerAccount(httprequest
-                .getAccount())) {
-            printwriter
-                    .println("<TD><a href="
-                            + s8
-                            + "><IMG SRC=/SiteView/htdocs/artwork/"
-                            + s16
-                            + ".gif ALT=\"View current health of SiteView processes and files\" width=82 height=44 border=0></a></td>\n");
-            printwriter
-                    .println("<TD><a href="
-                            + s9
-                            + "><IMG SRC=/SiteView/htdocs/artwork/"
-                            + s10
-                            + ".gif ALT=\"View/edit SiteView configuration settings and options\" height=44 border=0></a></td>\n");
-        }
-        String s20 = "<a href=/SiteView/docs/" + s + " TARGET=Help>";
-        printwriter
-                .println("<TD>"
-                        + s20
-                        + "<IMG SRC=/SiteView/htdocs/artwork/help.gif ALT=\"View the online SiteView User's Guide\" width=82 height=44\n"
-                        + "border=0></a></td><TD><IMG SRC=/SiteView/htdocs/artwork/right.gif width=35 height=44 ALT=\"\" border=0>"
-                        + "</td></TR></TABLE>\n");
+        String jsonObjStr = "{'SiteView':'"+s2+"'"
+        				+ ",'Alerts':'"+s6+"'"
+        				+ ",'Reports':'"+s4+"'"
+        				+ ",'Health':'"+s8+"'"
+        				+ ",'Preferences':'"+s9+"'"
+        				+ ",'Help':'/SiteView/docs/"+s+"'}";
+       
+        printwriter.println("<monitor-tabs-header cur-selected="+curSelected+" json-data-str="+jsonObjStr+"></monitor-tabs-header>");
+       
+      //   printwriter.println("<TD><a href="
+      //                   + s2
+      //                   + "><IMG SRC=/SiteView/htdocs/artwork/"
+      //                   + s11
+      //                   + ".gif ALT=\"SiteView Main View\""
+      //                   + " width="
+      //                   + byte0
+      //                   + " height=44\n"
+      //                   + "border=0></a></td><TD><a href="
+      //                   + s6
+      //                   + ">"
+      //                   + "<IMG SRC=/SiteView/htdocs/artwork/"
+      //                   + s12
+      //                   + ".gif ALT=\"View/add/edit automated alerts\" width=82 height=44 border=0></a></td>\n");
+      //   printwriter
+      //           .println("<TD><a href="
+      //                   + s4
+      //                   + ">"
+      //                   + "<IMG SRC=/SiteView/htdocs/artwork/"
+      //                   + s13
+      //                   + ".gif ALT=\"View/create/edit automated and adhoc reports\" width=82 height=44 border=0></a></td>\n");
+      //   if (!Platform.isSiteSeerAccount(httprequest
+      //           .getAccount())) {
+      //       printwriter
+      //               .println("<TD><a href="
+      //                       + s8
+      //                       + "><IMG SRC=/SiteView/htdocs/artwork/"
+      //                       + s16
+      //                       + ".gif ALT=\"View current health of SiteView processes and files\" width=82 height=44 border=0></a></td>\n");
+      //       printwriter
+      //               .println("<TD><a href="
+      //                       + s9
+      //                       + "><IMG SRC=/SiteView/htdocs/artwork/"
+      //                       + s10
+      //                       + ".gif ALT=\"View/edit SiteView configuration settings and options\" height=44 border=0></a></td>\n");
+      //   }
+      //   String s20 = "<a href=/SiteView/docs/" + s + " TARGET=Help>";
+      //   printwriter
+      //           .println("<TD>"
+      //                   + s20
+      //                   + "<IMG SRC=/SiteView/htdocs/artwork/help.gif ALT=\"View the online SiteView User's Guide\" width=82 height=44\n"
+      //                   + "border=0></a></td><TD><IMG SRC=/SiteView/htdocs/artwork/right.gif width=35 height=44 ALT=\"\" border=0>"
+      //                   + "</td></TR></TABLE>\n");
         printwriter.println("</td></TR><TR class=\"navbox\"><TD>");
         com.dragonflow.Page.CGI.printSecondNavBar(printwriter, httprequest,
                 menus1, 600, flag);
@@ -778,6 +796,7 @@ public abstract class CGI {
         printwriter
                 .println("<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/siteviewUI.css\">\n"
                 		+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/user.css\">\n "
+                		+"<link rel='import' href='/SiteView/htdocs/js/bower_components/paper-styles/paper-styles.html'>\n"
                 		+ "</HEAD>\n");
     }
 

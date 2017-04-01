@@ -15,6 +15,16 @@
 			paper-listbox {
 				width: 200px;
 			}
+			paper-button.fancy {
+	      padding: 8px 22px;
+	      color: #fff;
+	      background-color: #337ab7;
+	      border-color: #2e6da4;
+	    }
+
+	    paper-button.fancy:hover {
+	      background: #6CABE0;
+	    }
     </style>
 
 		<form id="filterForm" method="get" action="{{actionUrl}}">
@@ -51,7 +61,7 @@
 								</paper-listbox>
 							</paper-dropdown-menu>
 						</td>
-						<td align="left" valign="middle"><paper-button raised on-tap="_submitFilter">Apply Filter</paper-button></td>
+						<td align="left" valign="middle"><paper-button raised class="fancy" on-tap="_submitFilter">Apply Filter</paper-button></td>
 					</tr>
 				</tbody>
 			</table>
@@ -84,9 +94,9 @@
 				}
 				// console.log(filterParams);
 				for (var item in filterParams) {
-					var hiddemFilter = _filterForm.querySelector("input[name='" + item + "']");
-					if (hiddemFilter && hiddemFilter.length) {
-						hiddemFilter.value = filterParams[item];
+					var hiddenFilter = _filterForm.querySelector("input[name='" + item + "']");
+					if (hiddenFilter && hiddenFilter.length) {
+						hiddenFilter.value = filterParams[item];
 					} else {
 						var input = document.createElement('input');
 						input.hidden = true;input.name = item;

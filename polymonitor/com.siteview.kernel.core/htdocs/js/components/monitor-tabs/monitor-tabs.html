@@ -1,0 +1,72 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selectable.html">
+<link rel="import" href="monitor-tabs-overlay.html">
+
+<dom-module id="monitor-tabs">
+  <template strip-whitespace>
+    <style>
+      :host {
+        height: 100%;
+        @apply(--layout);
+        @apply(--layout-center-center);
+      }
+
+      #container {
+        position: relative;
+        height: 50px;
+        /*line-height:50px;*/
+      }
+      monitor-tabs-overlay {
+        @apply(--monitor-tab-overlay);
+      }
+      monitor-tab {
+        margin: 0 10px;
+      }
+
+      monitor-tab a {
+        display: inline-block;
+        outline: none;
+        padding: 9px 5px;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        color: var(--app-primary-color);
+      }
+    </style>
+      <div id="container">
+        <monitor-tabs-overlay id="overlay"></monitor-tabs-overlay>
+        <content></content>
+      </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'monitor-tabs',
+
+      behaviors: [
+        Polymer.IronSelectableBehavior
+      ],
+
+      observers: [
+        '_onSelectedItemChanged(selectedItem)'
+      ],
+
+      _onSelectedItemChanged: function(selectedItem) {
+        if (selectedItem === undefined && this.selected) return;
+
+        this.$.overlay.target = selectedItem;
+      }
+
+    });
+  </script>
+</dom-module>

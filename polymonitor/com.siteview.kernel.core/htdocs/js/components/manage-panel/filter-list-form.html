@@ -4,10 +4,13 @@
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
 <dom-module id="filter-list-form">
 	<template>
     <style>
+
 			#filterListForm ::content paper-button.fancy {
 				padding: 5px 15px;
 				color: #fff;
@@ -38,11 +41,24 @@
 			#filterListForm ::content paper-item-body p{
 				margin: 8px 0;
 		  }
+			#filterListForm ::content paper-checkbox {
+				padding-left: 10px;
+				padding-bottom: 3px;
+			}
+			#filterListForm ::content paper-icon-button {
+				padding: 0;
+				width: 13px;
+				height: 13px;
+			}
     </style>
 
-		<form id="filterListForm" method="post" action="[[actionUrl]]">
-			<input type="hidden" name="level" value="first">
-			<input type="hidden" name="needVerify" value="true">
+		<form id="filterListForm" method="post" action="[[actionUrl]]" use-native-submit>
+			<template is="dom-if" if="[[level]]">
+				<input type="hidden" name="level" value="[[level]]">
+      </template>
+			<template is="dom-if" if="[[needVerify]]">
+				<input type="hidden" name="needVerify" value="[[needVerify]]">
+      </template>
 			<input type="hidden" name="page" value="manage">
 			<input type="hidden" name="account" value="[[account]]">
 			<template is="dom-if" if="[[healthLength]]">
@@ -63,23 +79,55 @@
 
 				actionUrl: String,
 
+				level: String,
+
+				needVerify: Boolean,
+
 				healthLength: Number,
 
 				account: String,
 
-				machineNameSelect: String
 			},
 
 			ready: function() {
 				var operationBtns = this.getContentChildren('#filterListContent')[0].querySelectorAll('paper-button');
+				var treeBtns = this.getContentChildren('#filterTreeContent')[0].querySelectorAll('paper-icon-button');
+				// console.log(treeBtns);
 				for (var i = 0; i < operationBtns.length; i++) {
 					this.listen(operationBtns[i], 'tap', '_submitFilterOperation');
 				}
+				for (var i = 0; i < treeBtns.length; i++) {
+					this.listen(treeBtns[i], 'tap', '_toggleTreeExpand');
+				}
+			},
+
+			_toggleTreeExpand: function(e) {
+				var name = e.target.getAttribute('name');
+				var _filterListForm = this.$.filterListForm;
+				var param = {};
+				param[name + ".x"] = 3, param[name + ".y"] = 5;
+				for (var item in param) {
+					var input = document.createElement('input');
+					input.hidden = true;input.name = item;
+					input.value = param[item];
+					_filterListForm.appendChild(input);
+				}
+				_filterListForm.submit();
 			},
 
 			_submitFilterOperation: function(e) {
 				var operation = e.target.getAttribute('name');
 				var _filterListForm = this.$.filterListForm;
+				var checks = this.getContentChildren('#filterTreeContent')[0].querySelectorAll("paper-checkbox"); //paper-checkbox, input[type='checkbox']
+				// console.log(checks);
+				for (var i = 0; i < checks.length; i++) {
+					if (checks[i].checked) {
+						var input = document.createElement('input');
+						input.type = "checkbox";input.hidden = true;input.name = checks[i].name, input.checked = checks[i].checked;
+						input.value = checks[i].value;
+						_filterListForm.appendChild(input);
+					}
+        }
 				var hiddenFilter = _filterListForm.querySelector("input[name='operation']");
 				if (hiddenFilter && hiddenFilter.length) {
 					hiddenFilter.value = operation;

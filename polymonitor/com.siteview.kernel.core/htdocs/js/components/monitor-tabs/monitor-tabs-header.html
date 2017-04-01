@@ -1,0 +1,148 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html"> -->
+<!-- <link rel="import" href="../../bower_components/app-layout/app-header/app-header.html"> -->
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="monitor-ripple-container.html">
+
+<link rel="import" href="monitor-tabs.html">
+
+<dom-module id="monitor-tabs-header">
+  <template strip-whitespace>
+    <style>
+      :host {
+        display: block;
+        background: #dbd8dc;
+        position: relative;
+
+        --app-primary-color: #202020;
+        --app-secondary-color: #757575;
+        --app-accent-color: #172C50;
+        --monitor-tab-overlay: {
+          border-bottom: 2px solid var(--app-accent-color);
+        };
+      }
+      app-header {
+        @apply(--layout-fixed-top);
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0.95);
+        --app-header-shadow: {
+          box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.2);
+          height: 10px;
+          bottom: -10px;
+        };
+      }
+
+      monitor-tabs {
+        height: 100%;
+      }
+
+      monitor-tab {
+        display: inline-block;
+        margin: 0 10px;
+        height: 50px;
+      }
+      monitor-tab.iron-selected{
+        border-bottom:solid 2px #4a4747;
+      }
+      monitor-ripple-container{
+        /*width:100%;*/
+        /*height:50px;*/
+      }
+      monitor-tab a {
+        display: inline-block;
+        outline: none;
+        padding: 0 6px;
+        font-size: 18px;
+        font-weight: 500;
+        height:50px;
+        /*width:60px;*/
+        line-height:50px;
+        text-decoration: none;
+        color: var(--app-primary-color);
+      }
+      monitor-tab a:hover {
+        background-color:#bfb8b8;
+      }
+
+      #tabContainer {
+        position: relative;
+        transform: translate3d(0px, 0px, 0px);
+        height: 50px;
+        margin-bottom: 10px;
+      }
+
+    </style>
+
+      <div id="tabContainer">
+        <monitor-tabs
+              selected="[[curSelected]]"
+              attr-for-selected="name">
+            <template is="dom-repeat" items="[[jsonData]]" as="obj">
+
+              <monitor-tab name="[[obj.name]]" on-click='_onClickMonitorTab'>
+                <monitor-ripple-container>
+                <a href="[[obj.value]]">[[obj.name]]<iron-icon icon="[[obj.iconName]]"></iron-icon></a>
+                </monitor-ripple-container>
+              </monitor-tab>
+
+            </template>
+          </monitor-tabs>
+      </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'monitor-tabs-header',
+      properties:{
+        jsonDataStr:String,
+        iconName:{
+          type:Object,
+          value:{"SiteView":'home','Alerts':'alarm','Reports':'report-problem','Health':'star','Preferences':'settings','Help':'help'},
+          reflectToAttribute:true,
+        },
+        curSelected:{
+          type:String,
+          reflectToAttribute:true,
+        },
+        jsonData:{
+          type:Object,
+          notify:true,
+          reflectToAttribute:true,
+          computed:'_getJsonData(jsonDataStr)',
+        }
+      },
+      ready:function(){
+      },
+      _getJsonData:function(jsonStr){
+        jsonStr = jsonStr || "";
+        var tempStr = jsonStr;
+        tempStr = tempStr.replace(/'/g,'"');
+        var obj = JSON.parse(tempStr);
+        var objArr = [];
+        for(var key in obj){
+          objArr.push({"name":key,"value":obj[key],"iconName":this.iconName[key]});
+        }
+        return objArr;
+      },
+      _onClickMonitorTab:function(){
+        var eleSelectTab = this.$$("monitor-tab.iron-selected");
+        eleSelectTab.classList.remove("iron-selected");
+      }
+
+
+
+    });
+  </script>
+</dom-module>

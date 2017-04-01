@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="lib/disruptor-3.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/hawtbuf-1.10.jar"/>
+	<classpathentry kind="lib" path="lib/hawtdispatch-1.20.jar"/>
+	<classpathentry kind="lib" path="lib/hawtdispatch-transport-1.20.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-io-9.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util-9.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="lib/mapdb-1.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/mockito-core-1.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/moquette-netty-parser-0.7-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/moquette-parser-commons-0.7-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/mqtt-client-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/netty-buffer-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="lib/netty-codec-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="lib/netty-codec-http-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="lib/netty-common-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="lib/netty-handler-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="lib/netty-transport-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="lib/objenesis-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.paho.client.mqttv3-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/robot.control-0.0.0.12.jar"/>
+	<classpathentry kind="lib" path="lib/robot.junit-0.0.0.12.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-api-9.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-client-9.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="lib/websocket-common-9.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.4.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.4.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

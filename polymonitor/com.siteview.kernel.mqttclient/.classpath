@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.siteview.kernel.mqttserver"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/slf4j-api-1.7.4.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/slf4j-log4j12-1.7.4.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/disruptor-3.3.0.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/hamcrest-core-1.1.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/hawtbuf-1.10.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/hawtdispatch-1.20.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/hawtdispatch-transport-1.20.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/jetty-io-9.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/jetty-util-9.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/mapdb-1.0.6.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/mockito-core-1.9.0.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/moquette-netty-parser-0.7-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/moquette-parser-commons-0.7-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/mqtt-client-1.9.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/netty-buffer-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/netty-codec-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/netty-codec-http-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/netty-common-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/netty-handler-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/netty-transport-4.0.24.Final.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/objenesis-1.0.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/org.eclipse.paho.client.mqttv3-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/robot.control-0.0.0.12.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/robot.junit-0.0.0.12.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/websocket-api-9.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/websocket-client-9.2.0.M1.jar"/>
+	<classpathentry kind="lib" path="/com.siteview.kernel.mqttserver/lib/websocket-common-9.2.0.M1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.siteview.kernel.mqttmessage"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
