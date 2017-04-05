@@ -29,7 +29,7 @@ public class HTTPServer
     implements java.lang.Runnable
 {
 
-    private java.net.ServerSocket serverSocket;
+    private ServerSocket serverSocket;
     private boolean running;
     private jgl.Array virtualDirectories;
     private jgl.HashMap typeMap;
@@ -42,7 +42,7 @@ public class HTTPServer
     static boolean debug = false;
     static jgl.HashMap config;
     static String strPages[];
-    static java.util.HashSet filter;
+    static HashSet filter;
     long lastTime;
 
     public HTTPServer(int portNum, int maxConn, boolean ssl, boolean keepAlive)

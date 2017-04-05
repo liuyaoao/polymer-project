@@ -23,6 +23,7 @@ import com.dragonflow.Properties.HashMapOrdered;
 import com.dragonflow.SiteView.Machine;
 import com.dragonflow.SiteView.MasterConfig;
 import com.dragonflow.SiteView.Monitor;
+import com.dragonflow.SiteView.MonitorGroup;
 import com.dragonflow.SiteView.Platform;
 import com.dragonflow.SiteView.Portal;
 import com.dragonflow.SiteView.SampleCollector;
@@ -2580,10 +2581,10 @@ label1:
         }
     }
 
-    void printManageButton(String s, String s1, String s2)
+    void printManageButton(String name, String dstUrl, String description)
     {
 //        outputStream.println("<TR><TD valign=top align=left><input type=submit name=operation value=\"" + s + "\"> </TD>" + "<TD ALIGN=LEFT><p style=\"font-size:10pt\">" + s2 + "</p></TD></TR>");
-    	outputStream.println("<TR><TD valign=top align=left><paper-item><paper-button raised class='fancy' name='" + s + "'>" + s + "</paper-button><paper-item-body><p>" + s2 + "</p></paper-item-body><paper-item></TD></TR>");
+    	outputStream.println("<TR><TD valign=top align=left><paper-item><paper-button raised class='fancy' name='" + name + "'>" + name + "</paper-button><paper-item-body><p>" + description + "</p></paper-item-body><paper-item></TD></TR>");
     }
 
     String getIndentHTML(int i)
@@ -2598,7 +2599,7 @@ label1:
 
     private void printFilteredList()
     {
-        String s = Platform.getURLPath("htdocs", request.getAccount()) + "/Detail";
+        String urlPath = Platform.getURLPath("htdocs", request.getAccount()) + "/Detail";
         com.dragonflow.SiteView.SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         jgl.Array array = getFilteredGroupList();
         outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/filter-list-form.html'>\n");
@@ -2619,10 +2620,10 @@ label1:
             for(int i = 0; i < array.size(); i++)
             {
                 String s1 = (String)array.at(i);
-                com.dragonflow.SiteView.MonitorGroup monitorgroup = (com.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s1);
+                MonitorGroup monitorgroup = (com.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s1);
 //                outputStream.println("<tr><td><input type=checkbox name=group" + i + " value=\"" + s1 + "\" " + "CHECKED" + "></td>");
                 outputStream.println("<tr><td><paper-checkbox type=checkbox name=group" + i + " value=\"" + s1 + "\" " + "CHECKED" + "></paper-checkbox</td>");
-                outputStream.print("<td><a href=\"" + s + com.dragonflow.HTTP.HTTPRequest.encodeString(com.dragonflow.Utils.I18N.toDefaultEncoding(monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pID))) + ".html\"><b>" + monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pName) + "</b></a></td></tr>");
+                outputStream.print("<td><a href=\"" + urlPath + com.dragonflow.HTTP.HTTPRequest.encodeString(com.dragonflow.Utils.I18N.toDefaultEncoding(monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pID))) + ".html\"><b>" + monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pName) + "</b></a></td></tr>");
             }
 
             outputStream.println("</table>");
@@ -2645,7 +2646,7 @@ label1:
                 String s2 = monitor1.getOwner().getProperty(com.dragonflow.SiteView.Monitor.pID) + " " + monitor1.getProperty(com.dragonflow.SiteView.Monitor.pID);
 //                outputStream.print("<tr><td><input type=checkbox name=monitor value=\"" + s2 + "\"+ CHECKED></td>");
                 outputStream.print("<tr><td><paper-checkbox type=checkbox name=monitor value=\"" + s2 + "\"+ CHECKED></paper-checkbox></td>");
-                outputStream.print("<td><a href=\"" + s + com.dragonflow.HTTP.HTTPRequest.encodeString(com.dragonflow.Utils.I18N.toDefaultEncoding(monitor1.getOwner().getProperty(com.dragonflow.SiteView.Monitor.pID))) + ".html\">(" + monitor1.getOwner().getProperty(com.dragonflow.SiteView.Monitor.pName) + ")</a></td><td><b>" + monitor1.getProperty(com.dragonflow.SiteView.Monitor.pName) + "</b>");
+                outputStream.print("<td><a href=\"" + urlPath + com.dragonflow.HTTP.HTTPRequest.encodeString(com.dragonflow.Utils.I18N.toDefaultEncoding(monitor1.getOwner().getProperty(com.dragonflow.SiteView.Monitor.pID))) + ".html\">(" + monitor1.getOwner().getProperty(com.dragonflow.SiteView.Monitor.pName) + ")</a></td><td><b>" + monitor1.getProperty(com.dragonflow.SiteView.Monitor.pName) + "</b>");
                 outputTopazLoggingStatus(monitor1);
                 outputStream.print("</td></tr>");
             }

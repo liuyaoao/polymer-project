@@ -1,12 +1,3 @@
-/*
- *
- * Created on 2014-4-20 22:12:36
- *
- * .java
- *
- * History:
- *
- */
 package com.dragonflow.Page;
 
 import jgl.HashMap;
@@ -43,7 +34,6 @@ public class loginPage extends com.dragonflow.Page.CGI
 
         String loginpanelLink = "<link rel='import' href='/SiteView/htdocs/js/components/login-panel/login-panel.html'>\n";
         outputStream.println(loginpanelLink+"<center><H2>" + Platform.productName + " Login</H2></center><hr>");
-//        outputStream.println("<login-panel></login-panel>");
         Boolean canChangePassword = TextUtils.getValue(masterConfig, "_disableLoginChangePassword").length() == 0;
         outputStream.println("<div class='container' style='text-align: center;'>"
                   + "<login-panel "

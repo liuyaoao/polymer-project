@@ -764,15 +764,15 @@ label0:
         com.dragonflow.SiteView.MonitorGroup.printCategoryInsertHTML(s3, siteviewgroup, outputStream);
         if(com.dragonflow.Page.overviewPage.getValue(hashmap, "_overviewHideLicense").length() <= 0)
         {
-            String s10 = com.dragonflow.Utils.LUtils.getLicenseKey();
-            if(s10.length() == 0 && com.dragonflow.SiteView.Platform.isDemo())
+            String licenseKey = com.dragonflow.Utils.LUtils.getLicenseKey();
+            if(licenseKey.length() == 0 && com.dragonflow.SiteView.Platform.isDemo())
             {
-                s10 = com.dragonflow.Utils.LUtils.generateLicenseKey(25, 1, 99, 10);
+                licenseKey = com.dragonflow.Utils.LUtils.generateLicenseKey(25, 1, 99, 10);
             }
-            String s11 = com.dragonflow.Utils.LUtils.getLicenseSummary(s10, true, com.dragonflow.SiteView.Platform.productName, false);
-            if(s11.length() > 0)
+            String licenseSummary = com.dragonflow.Utils.LUtils.getLicenseSummary(licenseKey, true, com.dragonflow.SiteView.Platform.productName, false);
+            if(licenseSummary.length() > 0)
             {
-                outputStream.println("<P align=\"center\" style=\"color:#888888\">(" + s11 + ")</p>");
+                outputStream.println("<P align=\"center\" style=\"color:#888888\">(" + licenseSummary + ")</p>");
             }
         }
         outputStream.println("</BODY>");

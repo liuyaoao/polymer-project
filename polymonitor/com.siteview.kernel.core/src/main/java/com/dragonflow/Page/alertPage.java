@@ -1,5 +1,5 @@
 /*
- * 
+ *
  * Created on 2014-4-20 22:12:36
  *
  * .java
@@ -10,13 +10,19 @@
 package com.dragonflow.Page;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 import jgl.Array;
 import jgl.HashMap;
+import net.sf.json.JSONObject;
 
+import com.dragonflow.HTTP.HTTPRequest;
 import com.dragonflow.HTTP.HTTPRequestException;
 import com.dragonflow.Properties.HashMapOrdered;
 import com.dragonflow.SiteView.Action;
@@ -24,6 +30,8 @@ import com.dragonflow.SiteView.MasterConfig;
 import com.dragonflow.SiteView.Platform;
 import com.dragonflow.SiteView.SiteViewGroup;
 import com.dragonflow.Utils.TextUtils;
+
+import jdk.nashorn.internal.parser.JSONParser;
 
 // Referenced classes of package com.dragonflow.Page:
 // CGI, treeControl, monitorPage, vMachinePage
@@ -103,7 +111,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		language = english;
 	}
 
-	public com.dragonflow.Page.CGI.menus getNavItems(
+	public CGI.menus getNavItems(
 			com.dragonflow.HTTP.HTTPRequest httprequest) {
 		com.dragonflow.Page.CGI.menus menus1 = new CGI.menus();
 		if (httprequest.actionAllowed("_browse")) {
@@ -193,9 +201,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			} else {
 				String s5;
 				for (; enumeration.hasMoreElements(); array.add(s5)) {
-					s5 = com.dragonflow.HTTP.HTTPRequest
-							.decodeString((String) enumeration
-									.nextElement());
+					s5 = HTTPRequest.decodeString((String) enumeration.nextElement());
 				}
 
 			}
@@ -236,8 +242,8 @@ public class alertPage extends com.dragonflow.Page.CGI {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param s
 	 * @param s1
 	 * @param s2
@@ -280,8 +286,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			j = 1;
 			k = -1;
 			l = 1;
-			String s17 = request.getPermission("_actionType",
-					(String) action.getClassProperty("class"));
+			String s17 = request.getPermission("_actionType",(String) action.getClassProperty("class"));
 			if (s17.equals("optional")) {
 				printNotAvailable(action, request.getAccount());
 				return;
@@ -909,18 +914,18 @@ public class alertPage extends com.dragonflow.Page.CGI {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @param s
+	 *
+	 *
+	 * @param operation
 	 * @throws java.io.IOException
 	 */
-	void printListForm(String s) throws java.io.IOException {
+	void printListForm(String operation) throws java.io.IOException {
 		Enumeration enumeration1;
 		com.dragonflow.SiteView.SiteViewGroup siteviewgroup = SiteViewGroup
 				.currentSiteView();
-		boolean flag = request.actionAllowed("_alertList");
+		boolean flag = request.actionAllowed("_alertList"); //Whether if show the list.
 		if (!flag) {
-			outputStream.println("ACCESS NOT ALLOWED");
+			outputStream.println("ACCESS NOT ALLOWED"); //No permission
 			return;
 		}
 		com.dragonflow.Page.CGI.menus menus1 = getNavItems(request);
@@ -936,8 +941,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		boolean flag5 = false;
 		jgl.HashMap hashmap = getSettings();
 		if (hashmap != null) {
-			String s1 = com.dragonflow.Page.alertPage.getValue(
-					hashmap, "_alertPageColumnOrder");
+			String s1 = com.dragonflow.Page.alertPage.getValue(hashmap, "_alertPageColumnOrder");
 			if (s1.length() > 0) {
 				flag5 = true;
 			}
@@ -959,98 +963,171 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		}
 		String s5 = getString(alertDetailID);
 		outputStream.println("<p><H2>" + s5 + s2 + "</H2>");
-		outputStream
-				.println("<TABLE WIDTH=\"100%\" BORDER=2 cellspacing=0><TR CLASS=\"tabhead\">");
-		if (flag5) {
-			if (flag2) {
-				outputStream.println("<TH>History</TH>\n");
-			}
-			if (flag1) {
-				outputStream.print("<TH>Edit</TH>");
-			}
-			if (flag3) {
-				outputStream.print("<TH>Test</TH>");
-			}
-			if (flag4) {
-				outputStream.println("<TH>" + getString(alertDelID) + "</TH>");
-			}
-		}
-		outputStream.println("<TH>" + getString(alertOnID)
-				+ "</TH><TH>Group</TH><TH>" + getString(alertForID)
-				+ "</TH><TH>" + getString(alertDoID) + "</TH>");
-		if (!flag5) {
-			if (flag2) {
-				outputStream.println("<TH>History</TH>\n");
-			}
-			if (flag1) {
-				outputStream.print("<TH>Edit</TH>");
-			}
-			if (flag3) {
-				outputStream.print("<TH>Test</TH>");
-			}
-			if (flag4) {
-				outputStream.println("<TH>" + getString(alertDelID) + "</TH>");
-			}
-		}
-		outputStream.println("</TR>");
+		outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/data-table-ext.html'>\n");
+		
+//
+//		outputStream.println("<TABLE WIDTH=\"100%\" BORDER=2 cellspacing=0><TR CLASS=\"tabhead\">");
+//		if (flag5) {
+//			if (flag2) {
+//				outputStream.println("<TH>History</TH>\n");
+//			}
+//			if (flag1) {
+//				outputStream.print("<TH>Edit</TH>");
+//			}
+//			if (flag3) {
+//				outputStream.print("<TH>Test</TH>");
+//			}
+//			if (flag4) {
+//				outputStream.println("<TH>" + getString(alertDelID) + "</TH>");
+//			}
+//		}
+//		outputStream.println("<TH>" + getString(alertOnID)
+//				+ "</TH><TH>Group</TH><TH>" + getString(alertForID)
+//				+ "</TH><TH>" + getString(alertDoID) + "</TH>");
+//		if (!flag5) {
+//			if (flag2) {
+//				outputStream.println("<TH>History</TH>\n");
+//			}
+//			if (flag1) {
+//				outputStream.print("<TH>Edit</TH>");
+//			}
+//			if (flag3) {
+//				outputStream.print("<TH>Test</TH>");
+//			}
+//			if (flag4) {
+//				outputStream.println("<TH>" + getString(alertDelID) + "</TH>");
+//			}
+//		}
+//		outputStream.println("</TR>");
 		jgl.Array array = getConditions();
-		if (array.size() == 0) {
-			outputStream
-					.println("<TR><TD> </TD><TD align=center>no alerts configured</TD><TD> </TD></TR>\n");
-		} else {
-			for (Enumeration enumeration = array.elements(); enumeration
-					.hasMoreElements(); outputStream.print("</TR>")) {
-				jgl.HashMap hashmap1 = (jgl.HashMap) enumeration.nextElement();
-				String s7 = getPageLink("alert", "")
-						+ "&group="
-						+ com.dragonflow.HTTP.HTTPRequest
-								.encodeString(com.dragonflow.Utils.I18N
-										.toDefaultEncoding(com.dragonflow.Utils.TextUtils
-												.getValue(hashmap1, "group")))
-						+ "&monitor=" + hashmap1.get("monitor") + "&id="
-						+ hashmap1.get("id");
-				String s8 = buildHistoryLink(hashmap1);
-				String s9 = buildEditLink(s7);
-				String s11 = buildTestLink(hashmap1);
-				String s13 = buildDeleteLink(s7);
-				outputStream.print("<TR>");
-				if (flag5) {
-					if (flag2) {
-						outputStream.print(s8);
-					}
-					if (flag1) {
-						outputStream.print(s9);
-					}
-					if (flag3) {
-						outputStream.print(s11);
-					}
-					if (flag4) {
-						outputStream.print(s13);
-					}
-				}
-				outputStream.print("<TD>" + hashmap1.get("on") + "</TD>"
-						+ "<TD>" + hashmap1.get("groupName") + "</TD>" + "<TD>"
-						+ hashmap1.get("for") + "</TD>" + "<TD>"
-						+ hashmap1.get("do") + "</TD>");
-				if (flag5) {
-					continue;
-				}
+		ArrayList<java.util.HashMap> mapList = new ArrayList<java.util.HashMap>();
+		String mapListStr = "";
+		Enumeration enumerationArr = array.elements();
+		for(int i=0;i<array.size();i++){
+//			HashMap dataMap = new HashMap();
+			java.util.HashMap<String, String> dataMap = new java.util.HashMap<String, String>();
+			jgl.HashMap hashmap1 = (jgl.HashMap) enumerationArr.nextElement();
+			String s7 = getPageLink("alert", "")
+					+ "&group="
+					+ com.dragonflow.HTTP.HTTPRequest
+							.encodeString(com.dragonflow.Utils.I18N
+									.toDefaultEncoding(com.dragonflow.Utils.TextUtils
+											.getValue(hashmap1, "group")))
+					+ "&monitor=" + hashmap1.get("monitor") + "&id="
+					+ hashmap1.get("id");
+			String s8 = buildHistoryLink(hashmap1);
+			String s9 = buildEditLink(s7);
+			String s11 = buildTestLink(hashmap1);
+			String s13 = buildDeleteLink(s7);
+			if (flag5) {
 				if (flag2) {
-					outputStream.print(s8);
+					dataMap.put("History", s8);
 				}
 				if (flag1) {
-					outputStream.print(s9);
+					dataMap.put("Edit", s9);
 				}
 				if (flag3) {
-					outputStream.print(s11);
+					dataMap.put("Test", s11);
 				}
 				if (flag4) {
-					outputStream.print(s13);
+					dataMap.put(getString(alertDelID), s13);
 				}
 			}
-
+			
+			dataMap.put(getString(alertOnID), (String)hashmap1.get("on"));
+			dataMap.put("Group", (String)hashmap1.get("groupName"));
+			dataMap.put(getString(alertForID), (String)hashmap1.get("for"));
+			dataMap.put(getString(alertDoID), (String)hashmap1.get("do"));
+			if (!flag5) {
+				if (flag2) {
+					dataMap.put("History", s8);
+				}
+				if (flag1) {
+					dataMap.put("Edit", s9);
+				}
+				if (flag3) {
+					dataMap.put("Test", s11);
+				}
+				if (flag4) {
+					dataMap.put(getString(alertDelID), s13);
+				}
+			}
+			mapList.add(dataMap);
 		}
-		outputStream.println("</TABLE><BR>");
+		String jsonString = "[";  
+        for (int i = 0; i < mapList.size(); i++) {
+        	java.util.HashMap<String,String> tempMap = mapList.get(i);
+            if (i != 0)  {jsonString += ",";}  
+            jsonString += hashMapToJson(tempMap);  
+        }  
+        jsonString += "]";  
+		System.out.println("mapList:"+mapList);
+		System.out.println("jsonString:"+jsonString);
+		
+//		JSONObject obj = JSONObject.fromObject(mapList);
+//		String tempStr = obj.toString();
+		
+		jsonString = jsonString.replaceAll(" ","@space");
+		jsonString = jsonString.replaceAll(">","@big");
+		jsonString = jsonString.replaceAll("<","@small");
+		outputStream.println("<data-table-custom data-list="+jsonString+"></data-table-custom>\n");
+
+//		if (array.size() == 0) {
+//			outputStream.println("<TR><TD> </TD><TD align=center>no alerts configured</TD><TD> </TD></TR>\n");
+//		} else {
+//			for (Enumeration enumeration = array.elements(); enumeration
+//					.hasMoreElements(); outputStream.print("</TR>")) {
+//				jgl.HashMap hashmap1 = (jgl.HashMap) enumeration.nextElement();
+//				String s7 = getPageLink("alert", "")
+//						+ "&group="
+//						+ com.dragonflow.HTTP.HTTPRequest
+//								.encodeString(com.dragonflow.Utils.I18N
+//										.toDefaultEncoding(com.dragonflow.Utils.TextUtils
+//												.getValue(hashmap1, "group")))
+//						+ "&monitor=" + hashmap1.get("monitor") + "&id="
+//						+ hashmap1.get("id");
+//				String s8 = buildHistoryLink(hashmap1);
+//				String s9 = buildEditLink(s7);
+//				String s11 = buildTestLink(hashmap1);
+//				String s13 = buildDeleteLink(s7);
+//				outputStream.print("<TR>");
+//				if (flag5) {
+//					if (flag2) {
+//						outputStream.print(s8);
+//					}
+//					if (flag1) {
+//						outputStream.print(s9);
+//					}
+//					if (flag3) {
+//						outputStream.print(s11);
+//					}
+//					if (flag4) {
+//						outputStream.print(s13);
+//					}
+//				}
+//				outputStream.print("<TD>" + hashmap1.get("on") + "</TD>"
+//						+ "<TD>" + hashmap1.get("groupName") + "</TD>" + "<TD>"
+//						+ hashmap1.get("for") + "</TD>" + "<TD>"
+//						+ hashmap1.get("do") + "</TD>");
+//				if (flag5) {
+//					continue;
+//				}
+//				if (flag2) {
+//					outputStream.print(s8);
+//				}
+//				if (flag1) {
+//					outputStream.print(s9);
+//				}
+//				if (flag3) {
+//					outputStream.print(s11);
+//				}
+//				if (flag4) {
+//					outputStream.print(s13);
+//				}
+//			}
+//
+//		}
+//		outputStream.println("</TABLE><BR>");
 		outputStream.println("<hr><font size=+1><b>Alert Actions:</b></font>");
 		outputStream.println("<TABLE BORDER=0 CELLSPACING=4 WIDTH=100%>");
 		if (request.actionAllowed("_alertEdit")) {
@@ -1184,15 +1261,27 @@ public class alertPage extends com.dragonflow.Page.CGI {
 								.UnicodeToString((String) hashmap
 										.get("id"), com.dragonflow.Utils.I18N
 										.nullEncoding()));
-		return "<TD><A HREF=" + s + ">History</A></TD>";
+		return "<a HREF=" + s + ">History</a>";
 	}
 
+	 public static String hashMapToJson(java.util.HashMap<String, String> map) {  
+	        String string = "{";  
+	        for (Iterator it = map.entrySet().iterator(); it.hasNext();) {  
+	            Entry<String, String> e = (Entry) it.next();  
+	            string += "'" + e.getKey() + "':";  
+	            string += "'" + e.getValue() + "',";  
+	        }  
+	        string = string.substring(0, string.lastIndexOf(","));  
+	        string += "}";  
+	        return string;  
+	    }
+	 
 	String buildEditLink(String s) {
-		return "<TD><A href=" + s + "&operation=Edit>Edit</a></TD>";
+		return "<a href=" + s + "&operation=Edit>Edit</a>";
 	}
 
 	String buildTestLink(jgl.HashMap hashmap) {
-		return "<TD><A HREF="
+		return "<a href="
 				+ getPageLink("alert", "Test")
 				+ "&alertID="
 				+ com.dragonflow.HTTP.HTTPRequest
@@ -1208,11 +1297,11 @@ public class alertPage extends com.dragonflow.Page.CGI {
 										.getValue(hashmap, "group"),
 										com.dragonflow.Utils.I18N
 												.nullEncoding())) + "&monitor="
-				+ hashmap.get("monitor") + ">Test</A></TD>";
+				+ hashmap.get("monitor") + ">Test</a>";
 	}
 
 	String buildDeleteLink(String s) {
-		return "<TD><A href=" + s + "&operation=Delete>X</a></TD>";
+		return "<a href=" + s + "&operation=Delete>X</a>";
 	}
 
 	void printDisableForm(String s) throws java.lang.Exception {
@@ -2303,8 +2392,8 @@ public class alertPage extends com.dragonflow.Page.CGI {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param array
 	 * @param s
 	 * @param s1
@@ -2376,8 +2465,8 @@ public class alertPage extends com.dragonflow.Page.CGI {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @return
 	 * @throws java.io.IOException
 	 */
@@ -2563,8 +2652,8 @@ public class alertPage extends com.dragonflow.Page.CGI {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param s
 	 */
 	void printReportForm(String s) {

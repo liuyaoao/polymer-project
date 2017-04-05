@@ -672,64 +672,64 @@ public class SiteViewGroup extends MonitorGroup {
     }
 
     void startHTTPServer() {
-        int i = 0;
-        String httpPort = getSetting("_httpPort");
-        if (httpPort.length() > 0) {
-            i = StringProperty.toInteger(httpPort);
+        int httpPort = 0;
+        String _httpPort = getSetting("_httpPort");
+        if (_httpPort.length() > 0) {
+            httpPort = StringProperty.toInteger(_httpPort);
         }
-        if (i == -1) {
+        if (httpPort == -1) {
             LogManager.log("RunMonitor", " access using HTTP disabled");
             return;
         }
-        int j = i;
-        String httpActivePort = getSetting("_httpActivePort");
-        if (httpActivePort.length() > 0) {
-            j = StringProperty.toInteger(httpActivePort);
+        int httpActivePort = httpPort;
+        String _httpActivePort = getSetting("_httpActivePort");
+        if (_httpActivePort.length() > 0) {
+            httpActivePort = StringProperty.toInteger(_httpActivePort);
         }
-        int k = 0;
-        String httpMaxConnections = getSetting("_httpMaxConnections");
-        if (httpMaxConnections.length() > 0) {
-            k = StringProperty.toInteger(httpMaxConnections);
+        int httpMaxConnections = 0;
+        String _httpMaxConnections = getSetting("_httpMaxConnections");
+        if (_httpMaxConnections.length() > 0) {
+            httpMaxConnections = StringProperty.toInteger(_httpMaxConnections);
         }
-        String s3 = getSetting("_postLogFile");
-        if (s3.length() > 0) {
-            String s4 = getSetting("_createDailyPostLog");
-            long l = getSettingAsLong("_dailyLogTotalLimit", 0xf4240);
-            int j1 = getSettingAsLong("_dailyLogKeepDays", 40);
-            int i2 = getSettingAsLong("_maxAuxLogSize", 0xf4240);
+        String postLogFile = getSetting("_postLogFile");
+        if (postLogFile.length() > 0) {
+            String createDailyPostLog = getSetting("_createDailyPostLog");
+            long _dailyLogTotalLimit = getSettingAsLong("_dailyLogTotalLimit", 0xf4240);
+            int _dailyLogKeepDays = getSettingAsLong("_dailyLogKeepDays", 40);
+            int _maxAuxLogSize = getSettingAsLong("_maxAuxLogSize", 0xf4240);
             HTTPRequest.logPOSTs = true;
             try {
-                s3 = Platform.getRoot() + File.separator + "logs" + File.separator + "post.log";
-                if (s4.length() > 0) {
-                    DailyFileLogger dailyfilelogger = new DailyFileLogger(s3, l, j1);
+                postLogFile = Platform.getRoot() + File.separator + "logs" + File.separator + "post.log";
+                if (createDailyPostLog.length() > 0) {
+                    DailyFileLogger dailyfilelogger = new DailyFileLogger(postLogFile, _dailyLogTotalLimit, _dailyLogKeepDays);
                     LogManager.registerLogger("POST", dailyfilelogger);
                 } else {
-                    FileLogger filelogger = new FileLogger(s3, i2);
+                    FileLogger filelogger = new FileLogger(postLogFile, _maxAuxLogSize);
                     LogManager.registerLogger("POST", filelogger);
                 }
             } catch (IOException ioexception) {
-                LogManager.log("Error", "Could not open POST request log file " + s3);
+                LogManager.log("Error", "Could not open POST request log file " + postLogFile);
             }
         }
         if (getSetting("_centrascopeAccessOnly").length() > 0) {
             HTTPRequest.portalAccessOnly = true;
             LogManager.log("Error", "Allow full access to CentraScope only");
         }
-        String s5 = getSetting("_httpFreezePort");
+        String _httpFreezePort = getSetting("_httpFreezePort");
         if (httpServer != null) {
             httpServer.stopServer();
         }
         httpServer = null;
-        if (i != 0) {
-            httpServer = new HTTPServer(i, k, false, getSetting("_httpKeepAliveEnabled").length() > 0);
+        if (httpPort != 0) {
+            httpServer = new HTTPServer(httpPort, httpMaxConnections, false, getSetting("_httpKeepAliveEnabled").length() > 0);
             httpServer.addCGIVirtualDirectory("/SiteView/cgi", Platform.getRoot() + File.separator + "cgi");
             httpServer.addVirtualDirectory("/SiteView", Platform.getRoot());
             if (getSetting("_httpKeepAliveEnabled").length() > 0) {
                 HTTPRequest.useHTTP11 = true;
             }
-            String s6 = getSetting("_httpDocumentTypes");
-            if (s6.length() > 0) {
-                String as[] = TextUtils.split(s6, ",");
+            String _httpDocumentTypes = getSetting("_httpDocumentTypes");
+            if (_httpDocumentTypes.length() > 0) {
+                String as[] = TextUtils.split(_httpDocumentTypes, ",");
                 for (int k1 = 0; k1 < as.length; k1 ++) {
                     int j2 = as[k1].indexOf("=");
                     if (j2 >= 0) {
@@ -750,8 +750,8 @@ public class SiteViewGroup extends MonitorGroup {
                     break;
                 }
                 try {
-                    httpServer.port = i;
-                    if (s5.length() == 0) {
+                    httpServer.port = httpPort;
+                    if (_httpFreezePort.length() == 0) {
                         httpServer.port += l1;
                     }
                     httpServer.startServer();
@@ -763,14 +763,14 @@ public class SiteViewGroup extends MonitorGroup {
                 if (++ l1 == byte0) {
                     break;
                 }
-                if (s5.length() != 0) {
-                    LogManager.log("Error", "retry #" + l1 + " in " + k2 / 1000 + " seconds: could not start HTTP server on port " + i + ", " + s9);
+                if (_httpFreezePort.length() != 0) {
+                    LogManager.log("Error", "retry #" + l1 + " in " + k2 / 1000 + " seconds: could not start HTTP server on port " + httpPort + ", " + s9);
                     Platform.sleep(k2);
                 }
             } while (true);
             if (!flag) {
-                LogManager.log("Error", "Could not start HTTP server on port " + i + ", " + s9);
-                SiteViewMail.portErrorMail(this, s9, i, i);
+                LogManager.log("Error", "Could not start HTTP server on port " + httpPort + ", " + s9);
+                SiteViewMail.portErrorMail(this, s9, httpPort, httpPort);
             } else {
                 setProperty("_httpActivePort", "" + httpServer.port);
                 long l2 = TextUtils.toLong(getSetting("_readmeDate"));
@@ -803,9 +803,9 @@ public class SiteViewGroup extends MonitorGroup {
                     setProperty("_readmeDate", "" + (new File(Platform.getRoot() + "/ReadMe.htm")).lastModified());
                 }
                 saveSettings();
-                if (httpServer.port != j) {
+                if (httpServer.port != httpActivePort) {
                     LogManager.log("Error", "Changing HTTP Server to port " + httpServer.port + ", " + s9);
-                    SiteViewMail.portChangedMail(this, s9, j, httpServer.port);
+                    SiteViewMail.portChangedMail(this, s9, httpActivePort, httpServer.port);
                 }
             }
         }

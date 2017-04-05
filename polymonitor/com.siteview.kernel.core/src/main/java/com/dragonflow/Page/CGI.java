@@ -573,87 +573,78 @@ public abstract class CGI {
     }
 
     public static void printButtonBar(java.io.PrintWriter printwriter,
-            String s, String s1,HTTPRequest httprequest, jgl.HashMap hashmap,menus menus1, boolean flag) {
+            String s, String selected,HTTPRequest httprequest, jgl.HashMap hashmap,menus menus1, boolean flag) {
         if (Platform.isPortal()) {
             if (httprequest.getValue("toolbar").equals("off")) {
                 return;
             }
             User user = httprequest.getUser();
-            String s3 = user.getProperty("_buttonBar");
-            if (s3.length() == 0) {
-                s3 = "Toolbar.htm";
+            String buttonBar = user.getProperty("_buttonBar");
+            if (buttonBar.length() == 0) {
+                buttonBar = "Toolbar.htm";
             }
-            String s5 = Portal
-                    .getViewContent(s3, httprequest);
-            s5 = TextUtils.replaceString(s5,
-                    "CentraScopeTOC.htm", s);
+            String s5 = Portal.getViewContent(buttonBar, httprequest);
+            s5 = TextUtils.replaceString(s5,"CentraScopeTOC.htm", s);
             printwriter.println(s5);
-            com.dragonflow.Page.CGI.printCurrentSiteView(printwriter,
-                    httprequest);
+            com.dragonflow.Page.CGI.printCurrentSiteView(printwriter,httprequest);
             return;
         }
-        String s2 = "/SiteView/" + httprequest.getAccountDirectory()
-                + "/SiteView.html";
+        String home = "/SiteView/" + httprequest.getAccountDirectory() + "/SiteView.html";
         String s4 = reportURL(httprequest);
-        String s6 = "";
+        String alert = "";
         if (httprequest.actionAllowed("_alertList")) {
-            s6 = "/SiteView/cgi/go.exe/SiteView?page=alert&operation=List&view=Alert&account="
-                    + httprequest.getAccount();
+            alert = "/SiteView/cgi/go.exe/SiteView?page=alert&operation=List&view=Alert&account=" + httprequest.getAccount();
         } else {
-            s6 = s2;
+            alert = home;
         }
-        String s7 = "/SiteView/cgi/go.exe/SiteView?page=overview&account="
-                + httprequest.getAccount();
-        String s8 = "";
+        String overviewPage = "/SiteView/cgi/go.exe/SiteView?page=overview&account=" + httprequest.getAccount();
+        String healthView = "";
         if (httprequest.actionAllowed("_healthView")
                 || httprequest.actionAllowed("_healthEdit")) {
-            s8 = "/SiteView/cgi/go.exe/SiteView?page=health&operation=List&account="
+            healthView = "/SiteView/cgi/go.exe/SiteView?page=health&operation=List&account="
                     + httprequest.getAccount();
         } else {
-            s8 = s2;
+            healthView = home;
         }
-        String s9 = "/SiteView/cgi/go.exe/SiteView?page=generalPrefs&account="
-                + httprequest.getAccount();
-        String s10 = "preferences";
-        if (httprequest.actionAllowed("_preference")
-                || httprequest.actionAllowed("_detachFromMA")) {
-            s9 = "/SiteView/cgi/go.exe/SiteView?page=generalPrefs&account="
-                    + httprequest.getAccount();
-            s10 = "preferences";
+        String generalPrefs = "/SiteView/cgi/go.exe/SiteView?page=generalPrefs&account=" + httprequest.getAccount();
+        String preferences = "preferences";
+        if (httprequest.actionAllowed("_preference") || httprequest.actionAllowed("_detachFromMA")) {
+            generalPrefs = "/SiteView/cgi/go.exe/SiteView?page=generalPrefs&account=" + httprequest.getAccount();
+            preferences = "preferences";
         } else {
-            s9 = s2;
+            generalPrefs = home;
         }
-        String s11 = "siteview";
-        String s12 = "alerts";
-        String s13 = "reports";
-        String s14 = "overview";
+        String siteview = "siteview";
+        String alerts = "alerts";
+        String reports = "reports";
+        String overview = "overview";
         String curSelected = "SiteView";
-        String s15 = Health.getHealthState();
-        if (s15.equals("nodata")) {
-            s15 = "disable";
+        String healthState = Health.getHealthState();
+        if (healthState.equals("nodata")) {
+            healthState = "disable";
         }
-        String s16 = "Health" + s15.toLowerCase();
+        String health = "Health" + healthState.toLowerCase();
         if (httprequest.isSiteSeerAccount()) {
-            s11 = "siteseer";
+            siteview = "siteseer";
         }
-        if (s1.equals("SiteView")) {
+        if (selected.equals("SiteView")) {
             curSelected = "SiteView";
-            s11 = "H" + s11;
-        } else if (s1.equals("Alerts")) {
+            siteview = "H" + siteview;
+        } else if (selected.equals("Alerts")) {
             curSelected = "Alerts";
-            s12 = "H" + s12;
-        } else if (s1.equals("Reports")) {
+            alerts = "H" + alerts;
+        } else if (selected.equals("Reports")) {
             curSelected = "Reports";
-            s13 = "H" + s13;
-        } else if (s1.equals("Health")) {
+            reports = "H" + reports;
+        } else if (selected.equals("Health")) {
             curSelected = "Health";
-            s16 = "H" + s16;
-        } else if (s1.equals("Preference")) {
+            health = "H" + health;
+        } else if (selected.equals("Preference")) {
             curSelected = "Preferences";
-            s10 = "H" + s10;
-        } else if (s1.length() != 0) {
+            preferences = "H" + preferences;
+        } else if (selected.length() != 0) {
             curSelected = "Alerts";
-            s12 = "alerts";
+            alerts = "alerts";
         }
         if (httprequest.isStandardAccount()) {
           
@@ -662,7 +653,7 @@ public abstract class CGI {
             printwriter.println("<SCRIPT LANGUAGE = \"JavaScript\">\n");
             printwriter
                     .println("<!--\nfunction OpenOverview()\n{\noverviewWindow=window.open(\""
-                            + s7
+                            + overviewPage
                             + "\",\"SiteView\",\""
                             + TextUtils.getValue(hashmap,
                                     "_overviewOptions")
@@ -673,36 +664,33 @@ public abstract class CGI {
                             + "//-->\n");
             printwriter.println("</SCRIPT>\n");
         }
-        if (!s1.equals("SiteView")) {
-            String s17 = "";
-            String s18 = httprequest.getPermission("_partner");
-            if (s18.length() > 0) {
-                SiteViewGroup siteviewgroup = SiteViewGroup
-                        .currentSiteView();
-                MonitorGroup monitorgroup = (MonitorGroup) siteviewgroup
-                        .getElement(s18);
+        if (!selected.equals("SiteView")) {
+            String partnerHeaderHTML = "";
+            String partner = httprequest.getPermission("_partner");
+            if (partner.length() > 0) {
+                SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+                MonitorGroup monitorgroup = (MonitorGroup) siteviewgroup.getElement(partner);
                 if (monitorgroup != null) {
-                    s17 = monitorgroup.getProperty("_partnerHeaderHTML");
+                    partnerHeaderHTML = monitorgroup.getProperty("_partnerHeaderHTML");
                 }
             }
-            if (s17.length() == 0) {
-                s17 = com.dragonflow.Page.CGI.getValue(hashmap, "_headerHTML");
+            if (partnerHeaderHTML.length() == 0) {
+                partnerHeaderHTML = com.dragonflow.Page.CGI.getValue(hashmap, "_headerHTML");
             }
-            printwriter.print(s17);
+            printwriter.print(partnerHeaderHTML);
             printwriter.println(Platform.licenseHeader(
                     hashmap, true, httprequest.getAccount()));
         }
-        printwriter
-                .print("<table border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\"><TR class=\"navbox\"><TD>\n");
-        printwriter
-                .print("<table class=\"topnav\" border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\"><TR class=\"topnav\">\n<TD></td>");
+        printwriter.print("<table border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\"><TR class=\"navbox\"><TD>\n");
+        printwriter.print("<table class=\"topnav\" border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\"><TR class=\"topnav\">\n<TD></td>");
         byte byte0 = 106;
-        String s19 = Platform.productName;
-        String jsonObjStr = "{'SiteView':'"+s2+"'"
-        				+ ",'Alerts':'"+s6+"'"
+        String productName = Platform.productName;
+        //TBD: need consider the permission, refer to the original
+        String jsonObjStr = "{'SiteView':'"+home+"'"
+        				+ ",'Alerts':'"+alert+"'"
         				+ ",'Reports':'"+s4+"'"
-        				+ ",'Health':'"+s8+"'"
-        				+ ",'Preferences':'"+s9+"'"
+        				+ ",'Health':'"+healthView+"'"
+        				+ ",'Preferences':'"+generalPrefs+"'"
         				+ ",'Help':'/SiteView/docs/"+s+"'}";
        
         printwriter.println("<monitor-tabs-header cur-selected="+curSelected+" json-data-str="+jsonObjStr+"></monitor-tabs-header>");
@@ -751,10 +739,9 @@ public abstract class CGI {
       //                   + "border=0></a></td><TD><IMG SRC=/SiteView/htdocs/artwork/right.gif width=35 height=44 ALT=\"\" border=0>"
       //                   + "</td></TR></TABLE>\n");
         printwriter.println("</td></TR><TR class=\"navbox\"><TD>");
-        com.dragonflow.Page.CGI.printSecondNavBar(printwriter, httprequest,
-                menus1, 600, flag);
+        printSecondNavBar(printwriter, httprequest,menus1, 600, flag);
         printwriter.println("</td></TR><TR class=\"navbox\"><TD>");
-        com.dragonflow.Page.CGI.printNavBarMessages(printwriter);
+        printNavBarMessages(printwriter);
         printwriter.print("</TD></TR></TABLE>\n");
     }
 
@@ -1386,20 +1373,20 @@ public abstract class CGI {
             s2 = as[0];
             s = as[1];
         }
-        String s3;
+        String masterConfig;
         if (s.equals("_master")) {
-            s3 = "/groups/master.config";
+            masterConfig = "/groups/master.config";
         } else if (s.equals("_users")) {
-            s3 = "/groups/users.config";
+            masterConfig = "/groups/users.config";
         } else {
-            s3 = "/groups/" + s + s1;
+            masterConfig = "/groups/" + s + s1;
         }
         String s4 = "";
         if (s2.length() > 0) {
             s4 = Portal.getPortalSiteViewRootPath(s2)
-                    + s3;
+                    + masterConfig;
         } else {
-            s4 = Platform.getRoot() + s3;
+            s4 = Platform.getRoot() + masterConfig;
         }
         return s4;
     }

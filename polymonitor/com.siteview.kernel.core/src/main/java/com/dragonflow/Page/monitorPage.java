@@ -20,6 +20,7 @@ import jgl.Array;
 import jgl.HashMap;
 
 import com.dragonflow.HTTP.HTTPRequestException;
+import com.dragonflow.Properties.StringProperty;
 import com.dragonflow.SiteView.AtomicMonitor;
 import com.dragonflow.SiteView.BrowsableBase;
 import com.dragonflow.SiteView.BrowsableCache;
@@ -106,7 +107,7 @@ public class monitorPage extends com.dragonflow.Page.CGI
         return com.dragonflow.Page.monitorPage.getMonitorClasses(null, flag);
     }
 
-    public static jgl.Array getMonitorClasses()
+    public static Array getMonitorClasses()
     {
         return com.dragonflow.Page.monitorPage.getMonitorClasses(null, false);
     }
@@ -122,61 +123,61 @@ public class monitorPage extends com.dragonflow.Page.CGI
                 classFilter = portalsiteview.getMonitorClassFilter();
             }
         }
-        java.io.File file = new File(Platform.getRoot() + "/target/classes/com/dragonflow/StandardMonitor");
-        String as[] = file.list();
-        for(int i = 0; i < as.length; i++)
+        java.io.File standardMonitorFile = new File(Platform.getRoot() + "/target/classes/com/dragonflow/StandardMonitor");
+        String standardMonitorList[] = standardMonitorFile.list();
+        for(int i = 0; i < standardMonitorList.length; i++)
         {
-            if(!as[i].endsWith("Monitor.class"))
+            if(!standardMonitorList[i].endsWith("Monitor.class"))
             {
                 continue;
             }
-            int j = as[i].lastIndexOf(".class");
-            String s = as[i].substring(0, j);
-            if(classFilter != null && classFilter.get(s) == null)
+            int j = standardMonitorList[i].lastIndexOf(".class");
+            String monitor = standardMonitorList[i].substring(0, j);
+            if(classFilter != null && classFilter.get(monitor) == null)
             {
                 continue;
             }
             try
             {
-                java.lang.Class class1 = java.lang.Class.forName("com.dragonflow.StandardMonitor." + s);
+                java.lang.Class monitorClass = java.lang.Class.forName("com.dragonflow.StandardMonitor." + monitor);
                 if(flag)
                 {
-                    if(SiteViewObject.loadableClass(class1))
+                    if(SiteViewObject.loadableClass(monitorClass))
                     {
-                        array.add(class1);
+                        array.add(monitorClass);
                     }
                     continue;
                 }
-                if(SiteViewObject.loadableClass(class1) && SiteViewObject.addableClass(class1))
+                if(SiteViewObject.loadableClass(monitorClass) && SiteViewObject.addableClass(monitorClass))
                 {
-                    array.add(class1);
+                    array.add(monitorClass);
                 }
             }
             catch(java.lang.Throwable throwable) { }
         }
 
-        java.io.File file1 = new File(Platform.getRoot() + "/classes/CustomMonitor");
-        as = file1.list();
-        if(as != null)
+        java.io.File customMonitorFile = new File(Platform.getRoot() + "/classes/CustomMonitor");
+        String customMonitorList[] = customMonitorFile.list();
+        if(customMonitorList != null)
         {
-            for(int k = 0; k < as.length; k++)
+            for(int k = 0; k < customMonitorList.length; k++)
             {
-                if(!as[k].endsWith("Monitor.class"))
+                if(!customMonitorList[k].endsWith("Monitor.class"))
                 {
                     continue;
                 }
-                int l = as[k].lastIndexOf(".class");
-                String s1 = as[k].substring(0, l);
-                if(classFilter != null && classFilter.get(s1) == null)
+                int l = customMonitorList[k].lastIndexOf(".class");
+                String customMonitor = customMonitorList[k].substring(0, l);
+                if(classFilter != null && classFilter.get(customMonitor) == null)
                 {
                     continue;
                 }
                 try
                 {
-                    java.lang.Class class2 = java.lang.Class.forName("CustomMonitor." + s1);
-                    if(SiteViewObject.loadableClass(class2) && SiteViewObject.addableClass(class2))
+                    java.lang.Class customMonitorClass = java.lang.Class.forName("CustomMonitor." + customMonitor);
+                    if(SiteViewObject.loadableClass(customMonitorClass) && SiteViewObject.addableClass(customMonitorClass))
                     {
-                        array.add(class2);
+                        array.add(customMonitorClass);
                     }
                 }
                 catch(java.lang.Throwable throwable1) { }
@@ -235,8 +236,8 @@ public class monitorPage extends com.dragonflow.Page.CGI
         String as[];
         if(request.hasValue("counterobjects"))
         {
-            String s4 = request.getValue("counterobjects");
-            as = com.dragonflow.Utils.TextUtils.split(s4, ",");
+            String counterobjects = request.getValue("counterobjects");
+            as = com.dragonflow.Utils.TextUtils.split(counterobjects, ",");
         } else
         {
             String s5 = ((NTCounterBase)atomicmonitor).getCounterObjects();
@@ -475,217 +476,217 @@ label0:
         return s1;
     }
 
-    void printForm(String s, String s1, AtomicMonitor atomicmonitor, jgl.HashMap hashmap, jgl.Array array)
+    void printForm(String operation, String s1, AtomicMonitor atomicmonitor, jgl.HashMap hashmap, jgl.Array array)
         throws java.io.IOException
     {
-        String s2 = "";
-        String s3 = "";
+        String countersContent = "";
+        String counters = "";
         String s4 = com.dragonflow.Utils.I18N.UnicodeToString(s1, com.dragonflow.Utils.I18N.nullEncoding());
         s4 = com.dragonflow.Utils.I18N.StringToUnicode(s4, "");
-        String s5 = com.dragonflow.HTTP.HTTPRequest.encodeString(s4);
+        String group = com.dragonflow.HTTP.HTTPRequest.encodeString(s4);
         AtomicMonitor _tmp = atomicmonitor;
-        String s6 = atomicmonitor.getProperty(AtomicMonitor.pName);
+        String pName = atomicmonitor.getProperty(AtomicMonitor.pName);
         String s7 = "";
-        String s8 = (String)atomicmonitor.getClassProperty("title");
+        String title = (String)atomicmonitor.getClassProperty("title");
         if((atomicmonitor instanceof IServerPropMonitor) && (!(atomicmonitor instanceof ServerMonitor) || ServerMonitor.pMachineName.isEditable))
         {
             if(request.hasValue("server"))
             {
-                String s9 = request.getValue("server");
-                if(s9.equals("this server"))
+                String server = request.getValue("server");
+                if(server.equals("this server"))
                 {
-                    s9 = "";
+                    server = "";
                 }
-                atomicmonitor.setProperty(((IServerPropMonitor)atomicmonitor).getServerProperty(), s9);
+                atomicmonitor.setProperty(((IServerPropMonitor)atomicmonitor).getServerProperty(), server);
             } else
-            if(s.equals("Add"))
+            if(operation.equals("Add"))
             {
                 jgl.HashMap hashmap1 = getMasterConfig();
-                String s11 = TextUtils.getValue(hashmap1, "_defaultMachine");
-                atomicmonitor.setProperty(((IServerPropMonitor)atomicmonitor).getServerProperty(), s11);
+                String _defaultMachine = TextUtils.getValue(hashmap1, "_defaultMachine");
+                atomicmonitor.setProperty(((IServerPropMonitor)atomicmonitor).getServerProperty(), _defaultMachine);
             }
         }
-        String s10 = "";
+        String id = "";
         if(request.hasValue("id"))
         {
-            s10 = request.getValue("id");
+            id = request.getValue("id");
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("NTCounter"))
         {
-            String s12 = atomicmonitor.getProperty(ServerMonitor.pMachineName);
-            String s15 = "";
-            s2 = "";
+            String server = atomicmonitor.getProperty(ServerMonitor.pMachineName);
+            String counterobjects = "";
+            countersContent = "";
             boolean flag = true;
             if(request.hasValue("counters"))
             {
-                s2 = getAssociatedCountersContent(atomicmonitor, s12);
-                ((NTCounterBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
+                countersContent = getAssociatedCountersContent(atomicmonitor, server);
+                ((NTCounterBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, countersContent);
             } else
             {
-                s2 = ((NTCounterBase)atomicmonitor).getCountersContent();
-                if(s2.length() == 0)
+                countersContent = ((NTCounterBase)atomicmonitor).getCountersContent();
+                if(countersContent.length() == 0)
                 {
                     jgl.Array array1 = ((NTCounterBase)atomicmonitor).getAvailableCounters();
                     if(array1.size() > 0)
                     {
-                        s2 = ((NTCounterBase)atomicmonitor).getDefaultCounters();
+                        countersContent = ((NTCounterBase)atomicmonitor).getDefaultCounters();
                     } else
                     {
                         flag = false;
                     }
                 }
             }
-            if(s2.length() == 0)
+            if(countersContent.length() == 0)
             {
                 if(flag)
                 {
-                    s2 = "No Counters selected";
+                    countersContent = "No Counters selected";
                 } else
                 {
-                    s2 = "No Counters available for this machine";
+                    countersContent = "No Counters available for this machine";
                 }
             }
             if(request.hasValue("counters"))
             {
-                s3 = request.getValue("counters");
+                counters = request.getValue("counters");
             } else
             {
-                s3 = ((NTCounterBase)atomicmonitor).getCountersParameter(s2, s12);
+                counters = ((NTCounterBase)atomicmonitor).getCountersParameter(countersContent, server);
             }
             if(request.hasValue("counterobjects"))
             {
-                s15 = request.getValue("counterobjects");
+                counterobjects = request.getValue("counterobjects");
             } else
             {
-                s15 = ((NTCounterBase)atomicmonitor).getCounterObjects();
+                counterobjects = ((NTCounterBase)atomicmonitor).getCounterObjects();
             }
-            if(s15.length() > 0)
+            if(counterobjects.length() > 0)
             {
-                s15 = java.net.URLEncoder.encode(s15);
+                counterobjects = java.net.URLEncoder.encode(counterobjects);
             }
             ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((NTCounterBase)atomicmonitor).getReturnURL());
-            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
-            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("counterobjects", s15);
-            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("server", s12);
-            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
-            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", counters);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("counterobjects", counterobjects);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("server", server);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", operation);
+            ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("group", group);
             ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
-            s7 = ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
+            s7 = ((NTCounterBase)atomicmonitor).replaceDisplayPropertiesForURL("id", id);
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("SNMP"))
         {
-            String s13 = atomicmonitor.getProperty(ServerMonitor.pMachineName);
-            s2 = "";
+            String pMachineName = atomicmonitor.getProperty(ServerMonitor.pMachineName);
+            countersContent = "";
             if(request.hasValue("counters"))
             {
-                s2 = getAssociatedCountersContent(atomicmonitor, s13);
-                ((SNMPBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
+                countersContent = getAssociatedCountersContent(atomicmonitor, pMachineName);
+                ((SNMPBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, countersContent);
             } else
             {
-                s2 = ((SNMPBase)atomicmonitor).getCountersContent();
-                if(s2.length() == 0)
+                countersContent = ((SNMPBase)atomicmonitor).getCountersContent();
+                if(countersContent.length() == 0)
                 {
                     SNMPBase _tmp1 = (SNMPBase)atomicmonitor;
                     SNMPBase _tmp2 = (SNMPBase)atomicmonitor;
-                    s2 = SNMPBase.getTemplateContent(SNMPBase.getTemplatePath(), ((SNMPBase)atomicmonitor).getTemplateFile(), false);
+                    countersContent = SNMPBase.getTemplateContent(SNMPBase.getTemplatePath(), ((SNMPBase)atomicmonitor).getTemplateFile(), false);
                 }
-                if(s2.length() == 0)
+                if(countersContent.length() == 0)
                 {
-                    s2 = "No Default SNMP values";
+                    countersContent = "No Default SNMP values";
                 }
             }
             if(request.hasValue("counters"))
             {
-                s3 = request.getValue("counters");
+                counters = request.getValue("counters");
             } else
             {
-                s3 = ((SNMPBase)atomicmonitor).getCountersParameter(s2, s13);
+                counters = ((SNMPBase)atomicmonitor).getCountersParameter(countersContent, pMachineName);
             }
             ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((SNMPBase)atomicmonitor).getReturnURL());
-            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
-            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("server", s13);
-            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
-            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", counters);
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("server", pMachineName);
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", operation);
+            ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("group", group);
             ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
-            s7 = ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
+            s7 = ((SNMPBase)atomicmonitor).replaceDisplayPropertiesForURL("id", id);
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("URLContent"))
         {
             String s14 = atomicmonitor.getProperty(ServerMonitor.pMachineName);
-            s2 = "";
+            countersContent = "";
             if(request.hasValue("counters"))
             {
-                s2 = getAssociatedCountersContent(atomicmonitor, s14);
-                ((URLContentBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
+                countersContent = getAssociatedCountersContent(atomicmonitor, s14);
+                ((URLContentBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, countersContent);
             } else
             {
-                s2 = ((URLContentBase)atomicmonitor).getCountersContent();
-                if(s2.length() == 0)
+                countersContent = ((URLContentBase)atomicmonitor).getCountersContent();
+                if(countersContent.length() == 0)
                 {
                     URLContentBase _tmp3 = (URLContentBase)atomicmonitor;
                     URLContentBase _tmp4 = (URLContentBase)atomicmonitor;
-                    s2 = URLContentBase.getTemplateContent(URLContentBase.getTemplatePath(), ((URLContentBase)atomicmonitor).getTemplateFile(), false);
+                    countersContent = URLContentBase.getTemplateContent(URLContentBase.getTemplatePath(), ((URLContentBase)atomicmonitor).getTemplateFile(), false);
                 }
-                if(s2.length() == 0)
+                if(countersContent.length() == 0)
                 {
-                    s2 = "No Default Counters";
+                    countersContent = "No Default Counters";
                 }
             }
             if(request.hasValue("counters"))
             {
-                s3 = request.getValue("counters");
+                counters = request.getValue("counters");
             } else
             {
-                s3 = ((URLContentBase)atomicmonitor).getCountersParameter(s2, s14);
+                counters = ((URLContentBase)atomicmonitor).getCountersParameter(countersContent, s14);
             }
             ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((URLContentBase)atomicmonitor).getReturnURL());
-            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
+            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", counters);
             ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("server", s14);
-            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
-            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
+            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", operation);
+            ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("group", group);
             ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
-            s7 = ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
+            s7 = ((URLContentBase)atomicmonitor).replaceDisplayPropertiesForURL("id", id);
         }
         if(atomicmonitor.getClassPropertyString("applicationType").equals("MultiContentBase") || atomicmonitor.getClassPropertyString("applicationType").equals("DynamicHealth"))
         {
-            s2 = "";
+            countersContent = "";
             if(request.hasValue("counters"))
             {
-                s2 = getAssociatedCountersContent(atomicmonitor, "");
-                ((MultiContentBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, s2);
+                countersContent = getAssociatedCountersContent(atomicmonitor, "");
+                ((MultiContentBase)atomicmonitor).setCountersPropertyValue(atomicmonitor, countersContent);
             } else
             {
                 if(atomicmonitor.getClassPropertyString("applicationType").equals("DynamicHealth"))
                 {
-                    s2 = ((com.dragonflow.StandardMonitor.HealthUnixServerMonitor)atomicmonitor).getContentCounters(false);
+                    countersContent = ((com.dragonflow.StandardMonitor.HealthUnixServerMonitor)atomicmonitor).getContentCounters(false);
                 } else
                 {
-                    s2 = ((MultiContentBase)atomicmonitor).getCountersContent();
-                    if(s2.length() == 0)
+                    countersContent = ((MultiContentBase)atomicmonitor).getCountersContent();
+                    if(countersContent.length() == 0)
                     {
                         MultiContentBase _tmp5 = (MultiContentBase)atomicmonitor;
                         MultiContentBase _tmp6 = (MultiContentBase)atomicmonitor;
-                        s2 = MultiContentBase.getTemplateContent(MultiContentBase.getTemplatePath(), ((MultiContentBase)atomicmonitor).getTemplateFile(), false);
+                        countersContent = MultiContentBase.getTemplateContent(MultiContentBase.getTemplatePath(), ((MultiContentBase)atomicmonitor).getTemplateFile(), false);
                     }
                 }
-                if(s2.length() == 0)
+                if(countersContent.length() == 0)
                 {
-                    s2 = "No Default Counters";
+                    countersContent = "No Default Counters";
                 }
             }
             if(request.hasValue("counters"))
             {
-                s3 = request.getValue("counters");
+                counters = request.getValue("counters");
             } else
             {
-                s3 = ((MultiContentBase)atomicmonitor).getCountersParameter(s2, "");
+                counters = ((MultiContentBase)atomicmonitor).getCountersParameter(countersContent, "");
             }
             ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("returnURL", ((MultiContentBase)atomicmonitor).getReturnURL());
-            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", s3);
-            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", s);
-            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("group", s5);
+            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("counters", counters);
+            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("operation", operation);
+            ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("group", group);
             ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("account", request.getAccount());
-            s7 = ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("id", s10);
+            s7 = ((MultiContentBase)atomicmonitor).replaceDisplayPropertiesForURL("id", id);
         }
         com.dragonflow.Page.CGI.menus menus1 = getNavItems(request);
         printButtonBar((String)atomicmonitor.getClassProperty("help"), s4, menus1);
@@ -694,9 +695,9 @@ label0:
         {
             outputStream.println("<hr> <h3 align=center>This Monitor is currently a beta feature of SiteView</h3>We would appreciate your feedback on the usefulness and function of this feature.&nbsp; <p><b>Please send your comments and/or suggestions to <a href=mailto:" + Platform.supportEmail + ">" + Platform.supportEmail + "</a>," + ". We promise a quick, personal response from one of our engineers." + "</b><hr>");
         }
-        outputStream.println("<p><H2>" + s + " " + s8 + " Monitor in Group : <A HREF=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, s4) + ">" + com.dragonflow.Page.CGI.getGroupName(s4) + "</a></H2>\n");
+        outputStream.println("<p><H2>" + operation + " " + title + " Monitor in Group : <A HREF=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, s4) + ">" + com.dragonflow.Page.CGI.getGroupName(s4) + "</a></H2>\n");
         String s17 = request.getValue("_health").length() <= 0 ? "" : "<input type=hidden name=_health value=true>\n";
-        outputStream.println(getPagePOST("monitor", s) + "<input type=hidden name=group value=\"" + s1 + "\">\n" + "<input type=hidden name=rview value=\"" + request.getValue("rview") + "\">\n" + "<input type=hidden name=detail value=\"" + request.getValue("detail") + "\">\n" + "<input type=hidden name=class value=\"" + request.getValue("class") + "\">\n" + "<input type=hidden name=counters value=\"" + s3 + "\">\n" + s17 + "<input type=hidden name=id value=\"" + request.getValue("id") + "\">\n");
+        outputStream.println(getPagePOST("monitor", operation) + "<input type=hidden name=group value=\"" + s1 + "\">\n" + "<input type=hidden name=rview value=\"" + request.getValue("rview") + "\">\n" + "<input type=hidden name=detail value=\"" + request.getValue("detail") + "\">\n" + "<input type=hidden name=class value=\"" + request.getValue("class") + "\">\n" + "<input type=hidden name=counters value=\"" + counters + "\">\n" + s17 + "<input type=hidden name=id value=\"" + request.getValue("id") + "\">\n");
         if(!hashmap.isEmpty())
         {
             printErrorHeader();
@@ -732,7 +733,7 @@ label0:
             } else
             if(stringproperty.isMultiLine && !stringproperty.isEditable)
             {
-                String as[] = com.dragonflow.Utils.TextUtils.split(s2, stringproperty.multiLineDelimiter);
+                String as[] = com.dragonflow.Utils.TextUtils.split(countersContent, stringproperty.multiLineDelimiter);
                 atomicmonitor.unsetProperty(stringproperty);
                 outputStream.print("<TR><TD ALIGN=RIGHT>" + stringproperty.getLabel() + "</TD>" + "<TD><TABLE border=1 cellspacing=0>");
                 for(int j = 0; j < as.length; j++)
@@ -749,19 +750,19 @@ label0:
                     s20 = "";
                 }
                 String s22 = "the current selection of counters";
-                if(!s2.equals("No Counters available for this machine"))
+                if(!countersContent.equals("No Counters available for this machine"))
                 {
                     s22 = s7;
                 }
                 outputStream.println("</TABLE></TD><TD></TD><TD><I>" + s20 + "</I></TD></TR>" + "</TD><TR><TD></TD><TD><FONT SIZE=-1>" + s22 + "</FONT></TD></TR></TR>");
             }
         } while(true);
-        String s19 = s;
-        if(s.equals("Edit"))
+        String update = operation;
+        if(operation.equals("Edit"))
         {
-            s19 = "Update";
+            update = "Update";
         }
-        outputStream.println("</TABLE><TABLE WIDTH=100%><TR><TD><input type=submit value=" + s19 + "> " + s6 + " Monitor\n" + "</TD></TR></TABLE>" + "<p><HR><CENTER><H3>Advanced Options</H3></CENTER><TABLE>");
+        outputStream.println("</TABLE><TABLE WIDTH=100%><TR><TD><input type=submit value=" + update + "> " + pName + " Monitor\n" + "</TD></TR></TABLE>" + "<p><HR><CENTER><H3>Advanced Options</H3></CENTER><TABLE>");
         enumeration = array2.elements();
         do
         {
@@ -769,11 +770,11 @@ label0:
             {
                 break;
             }
-            com.dragonflow.Properties.StringProperty stringproperty1 = (com.dragonflow.Properties.StringProperty)enumeration.nextElement();
-            if(stringproperty1.isEditable && stringproperty1.isAdvanced && (!stringproperty1.isVariableCountProperty() || stringproperty1.shouldPrintVariableCountProperty(i)))
+            StringProperty customProperty = (StringProperty)enumeration.nextElement();
+            if(customProperty.isEditable && customProperty.isAdvanced && (!customProperty.isVariableCountProperty() || customProperty.shouldPrintVariableCountProperty(i)))
             {
-                printProperty(stringproperty1, outputStream, atomicmonitor, request, hashmap, flag1);
-                if(stringproperty1 == Monitor.pDescription)
+                printProperty(customProperty, outputStream, atomicmonitor, request, hashmap, flag1);
+                if(customProperty == Monitor.pDescription)
                 {
                     printCustomProperties(atomicmonitor);
                 }
@@ -782,7 +783,7 @@ label0:
         printOrdering(atomicmonitor, array);
         printBaselineInfo(atomicmonitor);
         printThresholds(atomicmonitor, hashmap);
-        outputStream.println("</TABLE><TABLE WIDTH=100%><TR><TD><input type=submit value=" + s19 + "> " + s6 + " Monitor\n" + "</TD></TR></TABLE>" + "</FORM>");
+        outputStream.println("</TABLE><TABLE WIDTH=100%><TR><TD><input type=submit value=" + update + "> " + pName + " Monitor\n" + "</TD></TR></TABLE>" + "</FORM>");
         printFooter(outputStream);
         if(atomicmonitor.getClassPropertyString("applicationType").equals("NTCounter"))
         {
@@ -1285,15 +1286,15 @@ label0:
     void printCustomProperties(Monitor monitor)
     {
         jgl.HashMap hashmap = getMasterConfig();
-        Enumeration enumeration = hashmap.values("_monitorEditCustom");
+        Enumeration _monitorEditCustom = hashmap.values("_monitorEditCustom");
         do
         {
-            if(!enumeration.hasMoreElements())
+            if(!_monitorEditCustom.hasMoreElements())
             {
                 break;
             }
-            String s = (String)enumeration.nextElement();
-            String as[] = com.dragonflow.Utils.TextUtils.split(s, "|");
+            String monitorEditCustom = (String)_monitorEditCustom.nextElement();
+            String as[] = com.dragonflow.Utils.TextUtils.split(monitorEditCustom, "|");
             String s1 = as[0];
             if(s1.length() > 0)
             {
@@ -1342,14 +1343,14 @@ label0:
     void saveCustomProperties(Monitor monitor, com.dragonflow.HTTP.HTTPRequest httprequest)
     {
         jgl.HashMap hashmap = getMasterConfig();
-        Enumeration enumeration = hashmap.values("_monitorEditCustom");
+        Enumeration _monitorEditCustom = hashmap.values("_monitorEditCustom");
         do
         {
-            if(!enumeration.hasMoreElements())
+            if(!_monitorEditCustom.hasMoreElements())
             {
                 break;
             }
-            String s = (String)enumeration.nextElement();
+            String s = (String)_monitorEditCustom.nextElement();
             String as[] = com.dragonflow.Utils.TextUtils.split(s, "|");
             String s1 = as[0];
             if(s1.length() > 0)
@@ -2603,28 +2604,28 @@ label2:
     public void printBody()
         throws java.lang.Exception
     {
-        String s = request.getValue("operation");
+        String operation = request.getValue("operation");
         String s1;
-        if(s.equals("AddList"))
+        if(operation.equals("AddList"))
         {
             s1 = "Add Monitor";
         } else
         {
-            s1 = s + " Monitor";
+            s1 = operation + " Monitor";
         }
-        String s3 = request.getValue("group");
-        String s4 = com.dragonflow.Utils.I18N.UnicodeToString(s3, com.dragonflow.Utils.I18N.nullEncoding());
-        s4 = com.dragonflow.Utils.I18N.StringToUnicode(s4, "");
-        if(s.equals("RefreshMonitor"))
+        String group = request.getValue("group");
+        String groupUnicode = com.dragonflow.Utils.I18N.UnicodeToString(group, com.dragonflow.Utils.I18N.nullEncoding());
+        groupUnicode = com.dragonflow.Utils.I18N.StringToUnicode(groupUnicode, "");
+        if(operation.equals("RefreshMonitor"))
         {
             if(!request.actionAllowed("_monitorRefresh"))
             {
                 throw new HTTPRequestException(557);
             }
-            printRefreshHeader(s1, com.dragonflow.Page.CGI.getGroupDetailURL(request, s4), 5);
+            printRefreshHeader(s1, com.dragonflow.Page.CGI.getGroupDetailURL(request, groupUnicode), 5);
         } else
         {
-            String s5 = s4;
+            String s5 = groupUnicode;
             if(request.getValue("id").length() > 0)
             {
                 s5 = s5 + "/" + request.getValue("id");
@@ -2646,47 +2647,47 @@ label2:
                 }
             }
         }
-        if(s.equals("AddList"))
+        if(operation.equals("AddList"))
         {
             if(!request.actionAllowed("_monitorEdit"))
             {
                 throw new HTTPRequestException(557);
             }
-            printAddListForm(s, s3, s4);
+            printAddListForm(operation, group, groupUnicode);
         } else
-        if(s.equals("Tools"))
+        if(operation.equals("Tools"))
         {
             if(!request.actionAllowed("_monitorTools"))
             {
                 throw new HTTPRequestException(557);
             }
-            printMonitorToolsForm(s, s3, s4);
+            printMonitorToolsForm(operation, group, groupUnicode);
         } else
-        if(s.equals("Add"))
+        if(operation.equals("Add"))
         {
             if(!request.actionAllowed("_monitorEdit"))
             {
                 throw new HTTPRequestException(557);
             }
-            printAddForm(s, s3, s4);
+            printAddForm(operation, group, groupUnicode);
         } else
-        if(s.equals("Delete"))
+        if(operation.equals("Delete"))
         {
             if(!request.actionAllowed("_monitorEdit"))
             {
                 throw new HTTPRequestException(557);
             }
-            printDeleteForm(s, s3, s4);
+            printDeleteForm(operation, group, groupUnicode);
         } else
-        if(s.equals("Edit"))
+        if(operation.equals("Edit"))
         {
             if(!request.actionAllowed("_monitorEdit"))
             {
                 throw new HTTPRequestException(557);
             }
-            printAddForm(s, s3, s4);
+            printAddForm(operation, group, groupUnicode);
         } else
-        if(s.equals("RefreshMonitor"))
+        if(operation.equals("RefreshMonitor"))
         {
             if(!request.actionAllowed("_monitorRefresh"))
             {
@@ -2695,13 +2696,13 @@ label2:
             String s2 = "Updating";
             if(request.getValue("refresh").length() > 0 && !isPortalServerRequest())
             {
-                com.dragonflow.Properties.FrameFile.touchFile(Platform.getRoot() + "/groups/" + s4 + ".mg");
+                com.dragonflow.Properties.FrameFile.touchFile(Platform.getRoot() + "/groups/" + groupUnicode + ".mg");
                 s2 = "Running";
             }
-            printMonitorProgressPage(s2, s4, request.getValue("id"));
+            printMonitorProgressPage(s2, groupUnicode, request.getValue("id"));
         } else
         {
-            printError("The link was incorrect", "unknown operation", com.dragonflow.Page.CGI.getGroupDetailURL(request, s4));
+            printError("The link was incorrect", "unknown operation", com.dragonflow.Page.CGI.getGroupDetailURL(request, groupUnicode));
         }
     }
 

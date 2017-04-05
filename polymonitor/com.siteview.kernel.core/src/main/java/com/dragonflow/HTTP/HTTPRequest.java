@@ -124,20 +124,20 @@ public class HTTPRequest
     private static void printErrorMessageTop(com.dragonflow.HTTP.HTTPRequest httprequest, java.io.PrintWriter printwriter, String s)
     {
         com.dragonflow.Page.CGI.printBodyHeader(printwriter, s, "");
-        String s1 = "";
+        String account = "";
         if(httprequest != null)
         {
-            s1 = httprequest.getAccount();
+            account = httprequest.getAccount();
         }
-        if(s1.length() == 0)
+        if(account.length() == 0)
         {
-            s1 = "administrator";
+            account = "administrator";
         }
-        if(s1.equals("user"))
+        if(account.equals("user"))
         {
             printwriter.println("<br><A href=/SiteView/userhtml/SiteView.html>Go to the " + com.dragonflow.SiteView.Platform.productName + " User page</a><br>");
         } else
-        if(s1.equals("administrator"))
+        if(account.equals("administrator"))
         {
             if(com.dragonflow.SiteView.Platform.isUserAccessAllowed())
             {
@@ -152,13 +152,13 @@ public class HTTPRequest
 
     public static void printErrorMessage(com.dragonflow.HTTP.HTTPRequest httprequest, int i, String s, java.lang.Exception exception, java.io.PrintWriter printwriter)
     {
-        String s1 = com.dragonflow.HTTP.HTTPRequest.getStatusString(i);
-        String s2 = "text/html";
+        String status = com.dragonflow.HTTP.HTTPRequest.getStatusString(i);
+        String type = "text/html";
         if(i == 401)
         {
-            s2 = null;
+            type = null;
         }
-        com.dragonflow.HTTP.HTTPRequest.printHeader(printwriter, i, s1, s2);
+        printHeader(printwriter, i, status, type);
         if(i != 401)
         {
             printwriter.println("<HTML>");
@@ -209,16 +209,16 @@ public class HTTPRequest
             printwriter.println("  Please send the following information  with a description of what you were trying to do to " + com.dragonflow.SiteView.Platform.supportEmail + "<hr>");
             StringBuffer stringbuffer = new StringBuffer();
             stringbuffer.append("HTTP ERROR\n\n");
-            stringbuffer.append("message: " + s1 + "\n");
+            stringbuffer.append("message: " + status + "\n");
             stringbuffer.append("status: " + i);
             stringbuffer.append("url: " + s);
             stringbuffer.append("version: " + com.dragonflow.SiteView.Platform.getVersion());
             stringbuffer.append("------------ Exception ------------\n");
             stringbuffer.append("exception: " + exception + "\n");
-            String s3 = "";
+            String account = "";
             if(httprequest != null)
             {
-                s3 = httprequest.getAccount();
+                account = httprequest.getAccount();
             }
             try
             {
@@ -247,7 +247,7 @@ public class HTTPRequest
 
                 stringbuffer.append("-----------------------------------\n");
             }
-            com.dragonflow.Page.supportPage.printShortForm(printwriter, s3, stringbuffer);
+            com.dragonflow.Page.supportPage.printShortForm(printwriter, account, stringbuffer);
         }
         printwriter.println("</BODY>\n</HTML>");
         printwriter.flush();

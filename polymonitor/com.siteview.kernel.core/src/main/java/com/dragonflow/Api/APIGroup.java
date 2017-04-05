@@ -238,35 +238,35 @@ public class APIGroup extends APISiteView
         }
     }
 
-    public SSStringReturnValue move(String s, String s1)
+    public SSStringReturnValue move(String from, String to)
         throws SiteViewException
     {
         String s2 = null;
         try
         {
-            if(s.length() == 0 || s == null)
+            if(from.length() == 0 || from == null)
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_ID_EMPTY);
             }
-            if(s != null && s1 != null && s.equals(s1))
+            if(from != null && to != null && from.equals(to))
             {
                 throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_MOVE_DESTINATION_SELF);
             }
-            String s3 = null;
-            String s4 = s1;
+            String _parent = null;
+            String s4 = to;
             do
             {
                 jgl.Array array = ReadGroupFrames(s4);
                 Enumeration enumeration = array.elements();
                 com.dragonflow.Properties.HashMapOrdered hashmapordered = (com.dragonflow.Properties.HashMapOrdered)enumeration.nextElement();
-                s3 = (String)hashmapordered.get("_parent");
-                if(s3 != null && s3.equals(s))
+                _parent = (String)hashmapordered.get("_parent");
+                if(_parent != null && _parent.equals(from))
                 {
                     throw new SiteViewParameterException(SiteViewErrorCodes.ERR_PARAM_API_GROUP_MOVE_DESTINATION_SUBGROUP);
                 }
-                s4 = s3;
-            } while(s3 != null && s3.length() > 0);
-            s2 = moveGroup(s, s1, new HashMap(), false);
+                s4 = _parent;
+            } while(_parent != null && _parent.length() > 0);
+            s2 = moveGroup(from, to, new HashMap(), false);
             DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
         }

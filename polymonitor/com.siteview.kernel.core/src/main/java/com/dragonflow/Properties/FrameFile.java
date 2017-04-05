@@ -528,23 +528,23 @@ public class FrameFile {
     /**
      * 
      * 
-     * @param s
+     * @param fileName
      * @param flag
      * @return
      * @throws IOException
      */
-    static Array readFromFile(String s, boolean flag) throws IOException {
-        synchronized (FileUtils.getFileLock(s)) {
+    static Array readFromFile(String fileName, boolean flag) throws IOException {
+        synchronized (FileUtils.getFileLock(fileName)) {
             StringBuffer stringbuffer = null;
             Array array = null;
             try {
-                stringbuffer = FileUtils.readUTF8File(s);
+                stringbuffer = FileUtils.readUTF8File(fileName);
             } catch (IOException e) {
                 if (stringbuffer == null || stringbuffer.length() == 0) {
-                    if (readMasterConfig && s.indexOf("master.config") >= 0) {
-                        LogManager.log("error", "File(" + s + ") is missing");
+                    if (readMasterConfig && fileName.indexOf("master.config") >= 0) {
+                        LogManager.log("error", "File(" + fileName + ") is missing");
                     }
-                    File file = new File(s);
+                    File file = new File(fileName);
                     String s2 = file.getParent();
                     File file1 = null;
                     Object obj1 = null;
@@ -552,10 +552,10 @@ public class FrameFile {
                     if (readMasterConfig) {
                         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
                         j = siteviewgroup.getSettingAsLong("_backups2Keep", 1);
-                        String s3 = s + ".bak" + (j <= 1 ? "" : ".1");
+                        String s3 = fileName + ".bak" + (j <= 1 ? "" : ".1");
                         file1 = new File(s3);
                     } else {
-                        String s4 = s + ".bak";
+                        String s4 = fileName + ".bak";
                         file1 = new File(s4);
                         if (!file1.exists()) {
                             file1 = new File(s4 + ".1");
@@ -563,21 +563,21 @@ public class FrameFile {
                     }
                     try {
                         if (popBackup(file, file1, s2, j) && readMasterConfig) {
-                            LogManager.log("error", "File(" + s + ") replacing with backup");
-                        } else if (readMasterConfig && s.indexOf("master.config") >= 0) {
-                            LogManager.log("error", "File(" + s + ") CANNOT replace backup. No backup found.");
+                            LogManager.log("error", "File(" + fileName + ") replacing with backup");
+                        } else if (readMasterConfig && fileName.indexOf("master.config") >= 0) {
+                            LogManager.log("error", "File(" + fileName + ") CANNOT replace backup. No backup found.");
                         }
                     } catch (IOException e1) {
-                        if (readMasterConfig && s.indexOf("master.config") >= 0) {
-                            LogManager.log("error", "File(" + s + ") Exception(" + e1.getMessage()
+                        if (readMasterConfig && fileName.indexOf("master.config") >= 0) {
+                            LogManager.log("error", "File(" + fileName + ") Exception(" + e1.getMessage()
                                     + ") replacing backup");
                         }
                     }
-                    stringbuffer = FileUtils.readUTF8File(s);
+                    stringbuffer = FileUtils.readUTF8File(fileName);
                 }
             }
-            array = mangleIt(s, stringbuffer.toString(), flag);
-            if (s.indexOf("master.config") >= 0) {
+            array = mangleIt(fileName, stringbuffer.toString(), flag);
+            if (fileName.indexOf("master.config") >= 0) {
                 readMasterConfig = true;
                 for (int i = 0; i < array.size(); i++) {
                     String s1 = (String) array.at(i);

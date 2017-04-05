@@ -643,26 +643,26 @@ public class LUtils
 
     public static String getLicenseSummary(jgl.HashMap hashmap, boolean flag)
     {
-        String s = getLicenseKey(hashmap);
-        String s1 = Platform.productName;
-        String s2 = getLicenseForXKey(hashmap);
+        String licenseKey = getLicenseKey(hashmap);
+        String productName = Platform.productName;
+        String license = getLicenseForXKey(hashmap);
         boolean flag1 = false;
-        if(s2.length() > 0)
+        if(license.length() > 0)
         {
             flag1 = true;
         }
-        return getLicenseSummary(s, flag, s1, flag1);
+        return getLicenseSummary(licenseKey, flag, productName, flag1);
     }
 
-    public static String getLicenseSummary(String s, boolean flag, String s1, boolean flag1)
+    public static String getLicenseSummary(String licenseKey, boolean flag, String productName, boolean flag1)
     {
-        String s2 = "";
-        if(isValidLicense(s))
+        String licenseSummary = "";
+        if(isValidLicense(licenseKey))
         {
-            int i = getLicenseType(s);
-            int k = getLicensedPoints(s);
-            int i1 = getMonitorType(s);
-            int j1 = getDaysRemaining(s);
+            int i = getLicenseType(licenseKey);
+            int k = getLicensedPoints(licenseKey);
+            int i1 = getMonitorType(licenseKey);
+            int j1 = getDaysRemaining(licenseKey);
             SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
             SiteViewGroup _tmp = siteviewgroup;
             int k1 = SiteViewGroup.totalPointsUsed;
@@ -697,83 +697,83 @@ public class LUtils
                 }
                 if(i1 == 99)
                 {
-                    s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseLabel");
+                    licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseLabel");
                     if(s3.equals("Invalid"))
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseInvalid");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseInvalid");
                     } else
                     if(s3.equals("Evaluation"))
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseEvaluation");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseEvaluation");
                     } else
                     if(s3.equals("Extension"))
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseExtension");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseExtension");
                     } else
                     if(s3.equals("Subscription"))
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseSubscription");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseSubscription");
                     } else
                     if(s3.equals("SiteView"))
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseSiteView");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseSiteView");
                     } else
                     if(s3.equals("HA Extension"))
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseHAExtension");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseHAExtension");
                     } else
                     if(s3.equals("HA Subscription"))
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseHASubscription");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseHASubscription");
                     } else
                     if(s3.equals("HA SiteView"))
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseHASiteView");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseHASiteView");
                     } else
                     if(s3.equals("Topaz Watchdog"))
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseTopazWatchdog");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseTopazWatchdog");
                     } else
                     if(s3.equals("Personal Edition"))
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseSiteViewPersonalEdition");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseSiteViewPersonalEdition");
                     }
                 }
                 if(!Platform.isPortal() && i1 == 99)
                 {
-                    s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("Points") + " " + k;
-                    s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("Used") + " " + k1;
+                    licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("Points") + " " + k;
+                    licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("Used") + " " + k1;
                     if(flag1)
                     {
-                        s2 = s2 + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("OptionMonitors");
+                        licenseSummary = licenseSummary + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("OptionMonitors");
                     }
                 }
                 if(i1 != 99)
                 {
                     String s4 = getMonitorTypeString(i1);
-                    s2 = s2 + " " + s4;
+                    licenseSummary = licenseSummary + " " + s4;
                 }
                 if(j1 < 0)
                 {
-                    s2 = s2 + "\n" + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseExpired") + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("DaysRemaining") + " " + j1;
+                    licenseSummary = licenseSummary + "\n" + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("LicenseExpired") + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("DaysRemaining") + " " + j1;
                 } else
                 if(j1 < 90)
                 {
-                    s2 = s2 + "\n" + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("DaysRemaining") + " " + j1;
+                    licenseSummary = licenseSummary + "\n" + com.dragonflow.Utils.LocaleUtils.getResourceBundle().getString("DaysRemaining") + " " + j1;
                 }
             }
         } else
-        if(getLicenseType(s) == 0)
+        if(getLicenseType(licenseKey) == 0)
         {
-            int j = getDaysRemaining(s);
-            int l = getLicensedPoints(s);
-            s2 = "Evaluation license for " + l + " points, " + j + " days remaining";
+            int j = getDaysRemaining(licenseKey);
+            int l = getLicensedPoints(licenseKey);
+            licenseSummary = "Evaluation license for " + l + " points, " + j + " days remaining";
         } else
         {
-            s2 = "Invalid License Key";
-            com.dragonflow.Log.LogManager.log("RunMonitor", "Invalid license key found: " + s);
+            licenseSummary = "Invalid License Key";
+            com.dragonflow.Log.LogManager.log("RunMonitor", "Invalid license key found: " + licenseKey);
         }
-        return s2;
+        return licenseSummary;
     }
 
     public static int getLicenseType()

@@ -1,0 +1,66 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="px-data-table.html">
+
+<dom-module id="data-table-custom">
+  <template strip-whitespace>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+      <div>
+        <px-data-table table-data='[[tableDataList]]' striped='true' hide-pagination-control='true' meta="[[metaData]]"></px-data-table>
+      </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'data-table-custom',
+      properties:{
+        dataList:String,
+        tableDataList:{
+          type:Array,
+          computed:"_getTableDataListByList(dataList)"
+        },
+        metaData:{
+          type:Array,
+          computed:"_getMetaData(tableDataList)"
+        }
+
+      },
+      _getTableDataListByList:function(dataList){
+        var tempStr = dataList.replace(/@space/g," ");
+        tempStr = tempStr.replace(/@small/g,"<");
+        tempStr = tempStr.replace(/@big/g,">");
+        tempStr = tempStr.replace(/'/g,'"');
+        tempStr = tempStr.replace(/\//g,"\\n");
+        // tempStr = tempStr.replace(/\n/g,"\\n");
+        var arrList = JSON.parse(tempStr);
+        for(var i=0;i<arrList.length;i++){
+          var obj = arrList[i];
+          for(var key in obj){
+            var str = obj[key];
+            obj[key] = str.replace(/\n/g,"\/");
+          }
+        }
+        console.log("table-data:",arrList);
+        return arrList;
+      },
+      _getMetaData:function(arrList){
+        var meta = [];
+
+        var obj = arrList[0] || {};
+        for(var key in obj){
+          meta.push({hide:false,type:"html", name:key,label:key});
+        }
+        return meta;
+      }
+
+
+
+
+    });
+  </script>
+</dom-module>
