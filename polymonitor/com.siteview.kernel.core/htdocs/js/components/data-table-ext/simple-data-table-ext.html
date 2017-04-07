@@ -1,0 +1,145 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../css/bootstrap-styles.html">
+
+<dom-module id="simple-data-table-ext">
+  <template strip-whitespace>
+    <style include="bootstrap-styles">
+      :host {
+        display: block;
+        margin:10px 0;
+      }
+
+    </style>
+
+      <div class="container-fluid">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <template is="dom-if" if="{{isShowHeader}}">
+                <template is="dom-repeat" items="{{meta}}" as="column">
+                  <th>{{column.label}}</th>
+                </template>
+              </template>
+            </thead>
+            <tbody>
+              <template is="dom-if" if="{{displayedRows.length}}">
+                <template is="dom-repeat" items="{{displayedRows}}" as="rowdata">
+                  <tr>
+                    <template is="dom-repeat" items="{{rowdata}}" as="value">
+                        <td><aha-html-echo2 html="{{value}}" class=""></aha-html-echo2></td>
+                    </template>
+                  </tr>
+                </template>
+              </template>
+            </tbody>
+          </table>
+
+          <template is="dom-if" if="{{!displayedRows.length}}">
+            <div class="flex flex--center no-results">No Results</div>
+          </template>
+        </div>
+      </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'simple-data-table-ext',
+      properties:{
+        dataList:String,
+        //data: instance of the model data
+        data:{
+          type:Array,
+          notify: true,
+          value: function() {
+            return [];
+          },
+          computed:"_getTableDataListByList(dataList)"
+        },
+        isShowHeader:Boolean,
+        displayedRows:{
+          type:Array,
+          notify:true,
+          value: function() {
+            return [];
+          },
+          reflectToAttribute:true,
+          computed:"_getDisplayedRows(data)"
+        },
+        //meta: instance of the model meta
+        meta: { //表头有关的信息。
+          type: Array,
+          value: function() {
+            return [];
+          },
+          computed:"_getMetaData(data)"
+        }
+
+
+      },
+      _getTableDataListByList:function(dataList){
+        var tempStr = dataList.replace(/@space/g," ");
+        tempStr = tempStr.replace(/@small/g,"<");
+        tempStr = tempStr.replace(/@big/g,">");
+        tempStr = tempStr.replace(/'/g,'"');
+        tempStr = tempStr.replace(/\//g,"\\n");
+        // tempStr = tempStr.replace(/\n/g,"\\n");
+        var arrList = JSON.parse(tempStr);
+        for(var i=0;i<arrList.length;i++){
+          var obj = arrList[i];
+          for(var key in obj){
+            var str = obj[key];
+            obj[key] = str.replace(/\n/g,"\/");
+          }
+        }
+        console.log("table-data:",arrList);
+        return arrList;
+      },
+      _getMetaData:function(arrList){
+        var meta = [];
+
+        var obj = arrList[0] || {};
+        for(var key in obj){
+          meta.push({hide:false,type:"html", name:key,label:key});
+        }
+        return meta;
+      },
+      _getDisplayedRows:function(data){
+        var disRowDatas = [];
+        for(var i=0;i<data.length;i++){
+          var obj = data[i];
+          var arr = [];
+          for(var key in obj){
+            arr.push(obj[key]);
+          }
+          disRowDatas.push(arr);
+        }
+        return disRowDatas;
+      }
+
+
+
+
+
+    });
+  </script>
+</dom-module>
+<script>
+  Polymer({
+    is: "aha-html-echo2",
+    properties: {
+      //column name
+      html: {
+        type: String,
+        value: "",
+        observer: "onHtmlChanged"
+      }
+    },
+    onHtmlChanged: function() {
+      if (!this.html) {
+        this.html = "";
+      }
+      this.innerHTML = this.html;
+    }
+  });
+</script>

@@ -7,6 +7,8 @@
 <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
+<link rel="import" href="../paper-tree-ext/paper-tree-ext.html" async="true">
+
 <dom-module id="filter-list-form">
 	<template>
     <style>
@@ -90,14 +92,20 @@
 			},
 
 			ready: function() {
-				var operationBtns = this.getContentChildren('#filterListContent')[0].querySelectorAll('paper-button');
-				var treeBtns = this.getContentChildren('#filterTreeContent')[0].querySelectorAll('paper-icon-button');
+				var _filterListContent = this.getContentChildren('#filterListContent');
+				var _filterTreeContent = this.getContentChildren('#filterTreeContent');
+				var operationBtns = _filterListContent.length ? _filterListContent[0].querySelectorAll('paper-button') : [];
+				// var treeBtns = _filterTreeContent.length ? _filterTreeContent[0].querySelectorAll('paper-icon-button') : [];
 				// console.log(treeBtns);
 				for (var i = 0; i < operationBtns.length; i++) {
 					this.listen(operationBtns[i], 'tap', '_submitFilterOperation');
 				}
-				for (var i = 0; i < treeBtns.length; i++) {
-					this.listen(treeBtns[i], 'tap', '_toggleTreeExpand');
+				// for (var i = 0; i < treeBtns.length; i++) {
+				// 	this.listen(treeBtns[i], 'tap', '_toggleTreeExpand');
+				// }
+				var _filterTree = _filterTreeContent[0].querySelectorAll('#filterTree');
+				if (_filterTree.length) {
+					this.listen(_filterTree[0], 'ondetails', '_ondetails');
 				}
 			},
 
@@ -118,7 +126,8 @@
 			_submitFilterOperation: function(e) {
 				var operation = e.target.getAttribute('name');
 				var _filterListForm = this.$.filterListForm;
-				var checks = this.getContentChildren('#filterTreeContent')[0].querySelectorAll("paper-checkbox"); //paper-checkbox, input[type='checkbox']
+				var _filterTreeContent = this.getContentChildren('#filterTreeContent');
+				var checks = _filterTreeContent.length ? _filterTreeContent[0].querySelectorAll("paper-checkbox") : []; //paper-checkbox, input[type='checkbox']
 				// console.log(checks);
 				for (var i = 0; i < checks.length; i++) {
 					if (checks[i].checked) {
@@ -139,6 +148,12 @@
 				}
 				_filterListForm.submit();
 			},
+
+			_ondetails: function(event) {
+				if (event.detail.data.link) {
+					window.location.href = event.detail.data.link;
+				}
+			}
 
 		});
 	</script>

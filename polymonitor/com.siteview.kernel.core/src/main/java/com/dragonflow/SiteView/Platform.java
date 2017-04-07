@@ -3245,6 +3245,9 @@ public class Platform {
             SSHCommandLine sshcommandline = new SSHCommandLine();
             array1 = sshcommandline.exec(s2, machine, true);
             i = sshcommandline.exitValue;
+        }else if(s.startsWith("remotemqtt:")){
+        	machine = Machine.getMqttMachine(s);
+        	return 0;
         } else {
             if (isCommandLineRemote(s))
                 return 0;

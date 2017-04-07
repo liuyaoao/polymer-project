@@ -106,11 +106,16 @@ public class Machine extends SiteViewObject implements Serializable{
     private static Object registerNTMachinesLock = new Object();
 
     private static Object ntMachineTableLock = new Object();
+    
+    private static HashMap MqttMachineObjectTable = null;
+    private static Object registerMqttMachinesLock = new Object();
+    private static Object mqttmachineTableLock = new Object();
 
     public static boolean registeredMachines = false;
 
     public static String REMOTE_PREFIX = "remote:";
-
+    public static String REMOTE_MQTTPREFIX = "remotemqtt:";
+    
     public static boolean traceAllMachines = false;
 
     public static String currentUser = null;
@@ -165,12 +170,28 @@ public class Machine extends SiteViewObject implements Serializable{
         }
         return NTMachineObjectTable;
     }
+    static HashMap  getMqttMachineTable(){
+    	if (MqttMachineObjectTable == null) {
+            synchronized (registerMqttMachinesLock) {
+                if (MqttMachineObjectTable == null) {
+                    registerMqttMachines("__remoteMqttMachine");
+                }
+            }
+        }
+        return MqttMachineObjectTable;
+    }
+    
 
     public static Machine getNTMachine(String s) {
         HashMap hashmap = getNTMachineTable();
         return (Machine) hashmap.get(s.toLowerCase());
     }
-
+    public static Machine getMqttMachine(String s){
+    	HashMap hashmap = getMqttMachineTable();
+        return (Machine) hashmap.get(s.toLowerCase());
+    }
+    
+    
     public static String getCurrentUser() {
         if (currentUser == null) {
             currentUser = Platform.currentUser();
@@ -264,7 +285,44 @@ public class Machine extends SiteViewObject implements Serializable{
             registerNTMachines(s);
         }
     }
+    public static void registerMqttMachines(String s) {
+        synchronized (mqttmachineTableLock) {
+            HashMap hashmap = MasterConfig.getMasterConfig();
+            HashMap hashmap1;
+            if (MqttMachineObjectTable == null) {
+                hashmap1 = new HashMap();
+            } else {
+                hashmap1 = MqttMachineObjectTable;
+            }
+            HashMap hashmap2 = (HashMap) hashmap1.clone();
+            String s2;
+            for (Enumeration enumeration = hashmap.values("_remoteMqttMachine"); enumeration
+                    .hasMoreElements(); hashmap2.remove(s2)) {
+                String s1 = (String) enumeration.nextElement();
+                HashMap hashmap3 = TextUtils.stringToHashMap(s1);
+                Machine machine = new Machine();
+                machine.readFromHashMap(hashmap3);
+                if (s != null) {
+                    machine.owner = s;
+                }
+                machine.initialize(hashmap3);
+                s2 = machine.getProperty(pID);
+                hashmap1.put(s2, machine);
+            }
 
+            Enumeration enumeration1 = hashmap2.keys();
+            while (enumeration1.hasMoreElements()) {
+                Object obj1 = enumeration1.nextElement();
+                if (((Machine) hashmap1.get(obj1)).owner == s) {
+                    hashmap1.remove(obj1);
+                }
+            } 
+            
+            if (MqttMachineObjectTable == null) {
+            	MqttMachineObjectTable = hashmap1;
+            }
+        }
+    }
     /**
      * 
      * 
@@ -321,11 +379,15 @@ public class Machine extends SiteViewObject implements Serializable{
                         return createMachine(hashmap1);
                     }
                 }
-            } else {
+            } else{
                 HashMap hashmap = getMachineTable();
                 String s2 = s.substring(REMOTE_PREFIX.length());
                 return (Machine) hashmap.get(s2);
             }
+        }else if(s.startsWith(REMOTE_MQTTPREFIX)){
+        	 HashMap hashmap = getMqttMachineTable();
+             String s2 = s.substring(REMOTE_MQTTPREFIX.length());
+             return (Machine) hashmap.get(s2);
         }
         return null;
     }

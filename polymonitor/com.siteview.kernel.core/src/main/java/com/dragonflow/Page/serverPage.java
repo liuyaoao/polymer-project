@@ -43,6 +43,7 @@ public class serverPage extends com.dragonflow.Page.machineChooserPage
         if(httprequest.actionAllowed("_preference"))
         {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
+            menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
             menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
         }
         if(httprequest.actionAllowed("_tools"))
@@ -208,13 +209,12 @@ public class serverPage extends com.dragonflow.Page.machineChooserPage
             outputStream.println(getPagePOST("server", "") + "<input type=hidden name=returnURL value=" + s1 + ">\n");
             outputStream.println("<TABLE><TR><TD ALIGN=RIGHT>Server</TD><TD ALIGN=LEFT><SELECT name=server size=1>");
             boolean flag = false;
-            java.util.Vector vector = null;
+            java.util.Vector vector = new Vector();
             if(request.getValue("noNTRemote").length() == 0)
             {
                 String s7 = request.getValue("returnURL");
                 if(request.getValue("returnURL").indexOf("ScriptMonitor") > 0)
                 {
-                    vector = new Vector();
                     vector.addElement("this server");
                     vector.addElement("this server");
                     vector = addNTSSHServers(vector, "_remoteNTMachine");
@@ -223,7 +223,6 @@ public class serverPage extends com.dragonflow.Page.machineChooserPage
                     jgl.HashMap hashmap = MasterConfig.getMasterConfig();
                     if(TextUtils.getValue(hashmap, "_NTSSHHideLocalServers").length() > 0)
                     {
-                        vector = new Vector();
                         vector.addElement("this server");
                         vector.addElement("this server");
                     } else
@@ -232,7 +231,7 @@ public class serverPage extends com.dragonflow.Page.machineChooserPage
                     }
                     vector = addServers(vector, "_remoteNTMachine");
                 }
-            } else
+            } else if(request.getValue("nomqttremote").length()!= 0)
             {
                 vector = new Vector();
                 vector.addElement("this server");
@@ -243,6 +242,12 @@ public class serverPage extends com.dragonflow.Page.machineChooserPage
             {
                 vector = addServers(vector, "_remoteMachine");
             }
+            boolean mqttflag = request.getValue("nomqttremote").length() == 0;
+            if(mqttflag)
+            {
+                vector = addServers(vector, "_remoteMqttMachine");
+            }
+            
             boolean flag2 = request.getValue("noNTRemote").length() == 0 && !com.dragonflow.SiteView.Platform.isUnix();
             String s8 = request.getValue("server");
             if(s8.length() == 0)
@@ -292,6 +297,9 @@ public class serverPage extends com.dragonflow.Page.machineChooserPage
             if(flag1)
             {
                 outputStream.println("<p>" + getPagePOST("machine", "") + "<input type=hidden name=backURL value=" + s2 + ">\n" + "<input type=hidden name=storeURL value=" + s1 + ">\n" + "<input type=submit value=\"Setup Unix Remote\"> " + "Set up remote Unix machine with a different user/password then the one used in SiteView Services</input>\n" + "</form>\n");
+            }
+            if(mqttflag){
+            	 outputStream.println("<p>" + getPagePOST("mqttmachine", "") + "<input type=hidden name=backURL value=" + s2 + ">\n" + "<input type=hidden name=storeURL value=" + s1 + ">\n" + "<input type=submit value=\"Setup Mqtt Remote\"> " + "Set up remote mqtt machine with a different Subscribe then the one used in SiteView Services</input>\n" + "</form>\n");
             }
             if(flag2)
             {

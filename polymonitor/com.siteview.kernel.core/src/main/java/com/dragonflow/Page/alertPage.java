@@ -14,14 +14,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
-import jgl.Array;
-import jgl.HashMap;
-import net.sf.json.JSONObject;
-
+import com.alibaba.fastjson.JSONObject;
 import com.dragonflow.HTTP.HTTPRequest;
 import com.dragonflow.HTTP.HTTPRequestException;
 import com.dragonflow.Properties.HashMapOrdered;
@@ -31,7 +27,8 @@ import com.dragonflow.SiteView.Platform;
 import com.dragonflow.SiteView.SiteViewGroup;
 import com.dragonflow.Utils.TextUtils;
 
-import jdk.nashorn.internal.parser.JSONParser;
+import jgl.Array;
+import jgl.HashMap;
 
 // Referenced classes of package com.dragonflow.Page:
 // CGI, treeControl, monitorPage, vMachinePage
@@ -961,50 +958,17 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			}
 			s2 = " for " + s6 + s3 + s4 + "</a>";
 		}
+//		Alerts Definitions
 		String s5 = getString(alertDetailID);
 		outputStream.println("<p><H2>" + s5 + s2 + "</H2>");
-		outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/data-table-ext.html'>\n");
-		
-//
-//		outputStream.println("<TABLE WIDTH=\"100%\" BORDER=2 cellspacing=0><TR CLASS=\"tabhead\">");
-//		if (flag5) {
-//			if (flag2) {
-//				outputStream.println("<TH>History</TH>\n");
-//			}
-//			if (flag1) {
-//				outputStream.print("<TH>Edit</TH>");
-//			}
-//			if (flag3) {
-//				outputStream.print("<TH>Test</TH>");
-//			}
-//			if (flag4) {
-//				outputStream.println("<TH>" + getString(alertDelID) + "</TH>");
-//			}
-//		}
-//		outputStream.println("<TH>" + getString(alertOnID)
-//				+ "</TH><TH>Group</TH><TH>" + getString(alertForID)
-//				+ "</TH><TH>" + getString(alertDoID) + "</TH>");
-//		if (!flag5) {
-//			if (flag2) {
-//				outputStream.println("<TH>History</TH>\n");
-//			}
-//			if (flag1) {
-//				outputStream.print("<TH>Edit</TH>");
-//			}
-//			if (flag3) {
-//				outputStream.print("<TH>Test</TH>");
-//			}
-//			if (flag4) {
-//				outputStream.println("<TH>" + getString(alertDelID) + "</TH>");
-//			}
-//		}
-//		outputStream.println("</TR>");
+		outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/data-table-ext.html' async='true'>\n");
+		outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/simple-data-table-ext.html' async='true'>\n");
+
 		jgl.Array array = getConditions();
 		ArrayList<java.util.HashMap> mapList = new ArrayList<java.util.HashMap>();
 		String mapListStr = "";
 		Enumeration enumerationArr = array.elements();
 		for(int i=0;i<array.size();i++){
-//			HashMap dataMap = new HashMap();
 			java.util.HashMap<String, String> dataMap = new java.util.HashMap<String, String>();
 			jgl.HashMap hashmap1 = (jgl.HashMap) enumerationArr.nextElement();
 			String s7 = getPageLink("alert", "")
@@ -1021,131 +985,66 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			String s13 = buildDeleteLink(s7);
 			if (flag5) {
 				if (flag2) {
-					dataMap.put("History", s8);
+					dataMap.put("a_History", s8);
 				}
 				if (flag1) {
-					dataMap.put("Edit", s9);
+					dataMap.put("b_Edit", s9);
 				}
 				if (flag3) {
-					dataMap.put("Test", s11);
+					dataMap.put("c_Test", s11);
 				}
 				if (flag4) {
-					dataMap.put(getString(alertDelID), s13);
+					dataMap.put("d_"+getString(alertDelID), s13);
 				}
 			}
-			
-			dataMap.put(getString(alertOnID), (String)hashmap1.get("on"));
-			dataMap.put("Group", (String)hashmap1.get("groupName"));
-			dataMap.put(getString(alertForID), (String)hashmap1.get("for"));
-			dataMap.put(getString(alertDoID), (String)hashmap1.get("do"));
+
+			dataMap.put("e_"+getString(alertOnID), (String)hashmap1.get("on"));
+			dataMap.put("f_Group", (String)hashmap1.get("groupName"));
+			dataMap.put("g_"+getString(alertForID), (String)hashmap1.get("for"));
+			dataMap.put("h_"+getString(alertDoID), (String)hashmap1.get("do"));
 			if (!flag5) {
 				if (flag2) {
-					dataMap.put("History", s8);
+					dataMap.put("i_History", s8);
 				}
 				if (flag1) {
-					dataMap.put("Edit", s9);
+					dataMap.put("j_Edit", s9);
 				}
 				if (flag3) {
-					dataMap.put("Test", s11);
+					dataMap.put("k_Test", s11);
 				}
 				if (flag4) {
-					dataMap.put(getString(alertDelID), s13);
+					dataMap.put("l_"+getString(alertDelID), s13);
 				}
 			}
 			mapList.add(dataMap);
 		}
-		String jsonString = "[";  
-        for (int i = 0; i < mapList.size(); i++) {
-        	java.util.HashMap<String,String> tempMap = mapList.get(i);
-            if (i != 0)  {jsonString += ",";}  
-            jsonString += hashMapToJson(tempMap);  
-        }  
-        jsonString += "]";  
-		System.out.println("mapList:"+mapList);
-		System.out.println("jsonString:"+jsonString);
-		
-//		JSONObject obj = JSONObject.fromObject(mapList);
-//		String tempStr = obj.toString();
-		
+//		String jsonString = JSONObject.toJSONString(mapList, true);
+    String jsonString = JSONObject.toJSONString(mapList);
 		jsonString = jsonString.replaceAll(" ","@space");
 		jsonString = jsonString.replaceAll(">","@big");
 		jsonString = jsonString.replaceAll("<","@small");
-		outputStream.println("<data-table-custom data-list="+jsonString+"></data-table-custom>\n");
 
-//		if (array.size() == 0) {
-//			outputStream.println("<TR><TD> </TD><TD align=center>no alerts configured</TD><TD> </TD></TR>\n");
-//		} else {
-//			for (Enumeration enumeration = array.elements(); enumeration
-//					.hasMoreElements(); outputStream.print("</TR>")) {
-//				jgl.HashMap hashmap1 = (jgl.HashMap) enumeration.nextElement();
-//				String s7 = getPageLink("alert", "")
-//						+ "&group="
-//						+ com.dragonflow.HTTP.HTTPRequest
-//								.encodeString(com.dragonflow.Utils.I18N
-//										.toDefaultEncoding(com.dragonflow.Utils.TextUtils
-//												.getValue(hashmap1, "group")))
-//						+ "&monitor=" + hashmap1.get("monitor") + "&id="
-//						+ hashmap1.get("id");
-//				String s8 = buildHistoryLink(hashmap1);
-//				String s9 = buildEditLink(s7);
-//				String s11 = buildTestLink(hashmap1);
-//				String s13 = buildDeleteLink(s7);
-//				outputStream.print("<TR>");
-//				if (flag5) {
-//					if (flag2) {
-//						outputStream.print(s8);
-//					}
-//					if (flag1) {
-//						outputStream.print(s9);
-//					}
-//					if (flag3) {
-//						outputStream.print(s11);
-//					}
-//					if (flag4) {
-//						outputStream.print(s13);
-//					}
-//				}
-//				outputStream.print("<TD>" + hashmap1.get("on") + "</TD>"
-//						+ "<TD>" + hashmap1.get("groupName") + "</TD>" + "<TD>"
-//						+ hashmap1.get("for") + "</TD>" + "<TD>"
-//						+ hashmap1.get("do") + "</TD>");
-//				if (flag5) {
-//					continue;
-//				}
-//				if (flag2) {
-//					outputStream.print(s8);
-//				}
-//				if (flag1) {
-//					outputStream.print(s9);
-//				}
-//				if (flag3) {
-//					outputStream.print(s11);
-//				}
-//				if (flag4) {
-//					outputStream.print(s13);
-//				}
-//			}
-//
-//		}
-//		outputStream.println("</TABLE><BR>");
+		outputStream.println("<data-table-custom data-list="+jsonString+" is-show-header='true'></data-table-custom>\n");
+//		Alert Definitions: End
+
+//		Alert Actions: Start
 		outputStream.println("<hr><font size=+1><b>Alert Actions:</b></font>");
-		outputStream.println("<TABLE BORDER=0 CELLSPACING=4 WIDTH=100%>");
+		ArrayList<java.util.HashMap> actionsList = new ArrayList<java.util.HashMap>();
 		if (request.actionAllowed("_alertEdit")) {
-			outputStream
-					.println("<TR><td width=18%><A HREF="
-							+ getPageLink("alert", "AddList")
-							+ ">"
-							+ getString(alertAddID)
-							+ "</td><td>Add a new alert for one or more monitors or groups</td></tr>");
+			java.util.HashMap<String, String> _alertEditMap = new java.util.HashMap<String, String>();
+			_alertEditMap.put("atitle","<a href=" + getPageLink("alert", "AddList")+ ">"+ getString(alertAddID) + "</a>");
+			_alertEditMap.put("desc","Add a new alert for one or more monitors or groups");
+			actionsList.add(_alertEditMap);
 		}
 		if (request.actionAllowed("_alertDisable")) {
-			outputStream
-					.println("<tr><td><A HREF="
-							+ getPageLink("alert", "Disable")
-							+ ">Disable</A> </td> <td>Disable all alerts</td></tr>"
-							+ "<tr><td><A HREF="
-							+ getPageLink("alert", "Enable")
-							+ ">Enable</A> </td><td>Enable all alerts previously disabled</td></tr>");
+			java.util.HashMap<String, String> _alertDisableMap = new java.util.HashMap<String, String>();
+			_alertDisableMap.put("atitle","<a href=" + getPageLink("alert", "Disable") + ">Disable</a>");
+			_alertDisableMap.put("desc","Disable all alerts");
+			actionsList.add(_alertDisableMap);
+			java.util.HashMap<String, String> _alertEnableMap = new java.util.HashMap<String, String>();
+			_alertEnableMap.put("atitle","<a href="+ getPageLink("alert", "Enable")+ ">Enable</A>");
+			_alertEnableMap.put("desc","Enable all alerts previously disabled");
+			actionsList.add(_alertEnableMap);
 		}
 
 		jgl.Array array1 = getActionClasses();
@@ -1178,25 +1077,21 @@ public class alertPage extends com.dragonflow.Page.CGI {
 						}
 					}
 					if (s12 != null && s12.length() > 0 && (flag6 || flag7)) {
-						outputStream.print("<tr><td>");
+						java.util.HashMap<String, String> _alertOtherMap = new java.util.HashMap<String, String>();
+						String desc = "";
+						String title = "";
 						if (flag7) {
-							outputStream.print("<A HREF="
-									+ getPageLink(s12, "test") + ">Test "
-									+ action.getClassProperty("name")
-									+ "</A></td><td>Send a test "
-									+ action.getClassProperty("name")
-									+ " Alert ");
+							title = "<A HREF=" + getPageLink(s12, "test") + ">Test "+ action.getClassProperty("name")+ "</A>";
+							desc += "Send a test "+ action.getClassProperty("name") + " Alert ";
 						}
 						if (flag6) {
-							outputStream.println("using current <A HREF="
-									+ getPageLink(s12, "") + ">"
-									+ action.getClassProperty("name")
-									+ " Preferences</A>");
+							desc += "using current <A HREF="+ getPageLink(s12, "") + ">"+ action.getClassProperty("name")+ " Preferences</A>";
 						}
-						outputStream.print("</td></tr>");
+						_alertOtherMap.put("atitle",title);
+						_alertOtherMap.put("desc",desc);
+						actionsList.add(_alertOtherMap);
 					}
 				}
-
 			} catch (java.lang.Exception exception) {
 				outputStream.println("<br>class: " + class1.getName()
 						+ " error: " + enumeration1);
@@ -1204,18 +1099,26 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		}
 
 		if (request.actionAllowed("_alertAdhocReport")) {
-			outputStream
-					.println("<tr><td><A HREF="
-							+ getPageLink("alert", "ReportForm")
-							+ ">Alert Report</a></td><td>View a report of alerts that have been sent</td></tr>");
+			java.util.HashMap<String, String> _alertAdhocReportMap = new java.util.HashMap<String, String>();
+			_alertAdhocReportMap.put("atitle","<a HREF="+ getPageLink("alert", "ReportForm")+ ">Alert Report</a>");
+			_alertAdhocReportMap.put("desc","View a report of alerts that have been sent");
+			actionsList.add(_alertAdhocReportMap);
 		}
 		if (request.actionAllowed("_logs")) {
-			outputStream
-					.println("<tr><td><A HREF="
-							+ getPageLink("log", "")
-							+ ">Alert Log</a></td> <td>View the the log of alerts sent</td></tr>");
+			java.util.HashMap<String, String> _logsMap = new java.util.HashMap<String, String>();
+			_logsMap.put("atitle","<a href="+ getPageLink("log", "")+ ">Alert Log</a>");
+			_logsMap.put("desc","View the the log of alerts sent");
+			actionsList.add(_logsMap);
 		}
-		outputStream.println("</table>\n");
+
+		String actionsListStr = JSONObject.toJSONString(actionsList);
+		actionsListStr = actionsListStr.replaceAll(" ","@space");
+		actionsListStr = actionsListStr.replaceAll(">","@big");
+		actionsListStr = actionsListStr.replaceAll("<","@small");
+		// System.out.println("actionsListStr:"+actionsListStr);
+
+		outputStream.println("<simple-data-table-ext data-list="+actionsListStr+"></simple-data-table-ext>\n");
+//		Alert Actions: End
 		outputStream.println("<hr>");
 		printFooter(outputStream);
 		return;
@@ -1264,18 +1167,6 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		return "<a HREF=" + s + ">History</a>";
 	}
 
-	 public static String hashMapToJson(java.util.HashMap<String, String> map) {  
-	        String string = "{";  
-	        for (Iterator it = map.entrySet().iterator(); it.hasNext();) {  
-	            Entry<String, String> e = (Entry) it.next();  
-	            string += "'" + e.getKey() + "':";  
-	            string += "'" + e.getValue() + "',";  
-	        }  
-	        string = string.substring(0, string.lastIndexOf(","));  
-	        string += "}";  
-	        return string;  
-	    }
-	 
 	String buildEditLink(String s) {
 		return "<a href=" + s + "&operation=Edit>Edit</a>";
 	}
@@ -1771,8 +1662,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			Enumeration enumeration = hashmap
 					.values("_alertCondition");
 			if (com.dragonflow.SiteView.AtomicMonitor.alertDebug) {
-				System.out
-						.println("alertPage: Attempting to replace id: " + s2);
+				System.out.println("alertPage: Attempting to replace id: " + s2);
 			}
 			while (enumeration.hasMoreElements()) {
 				String s6 = (String) enumeration
@@ -1784,9 +1674,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 						array1.add(s5);
 						flag = true;
 						if (com.dragonflow.SiteView.AtomicMonitor.alertDebug) {
-							System.out
-									.println("alertPage: replacing id: " + s2
-											+ " with: " + s6);
+							System.out.println("alertPage: replacing id: " + s2 + " with: " + s6);
 						}
 					}
 				} else {
@@ -1797,16 +1685,12 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			if (!flag && s3 != null) {
 				array1.add(s5);
 				if (com.dragonflow.SiteView.AtomicMonitor.alertDebug) {
-					System.out
-							.println("alertPage: we did not replace id: " + s2
-									+ " with: " + s3);
+					System.out.println("alertPage: we did not replace id: " + s2+ " with: " + s3);
 				}
 			}
 			hashmap.put("_alertCondition", array1);
 			if (com.dragonflow.SiteView.AtomicMonitor.alertDebug) {
-				System.out
-						.println("alertPage: here are the newConditions: "
-								+ array1.toString());
+				System.out.println("alertPage: here are the newConditions: "+ array1.toString());
 			}
 			WriteGroupFrames(s, array);
 			com.dragonflow.SiteView.SiteViewGroup.SignalReload();

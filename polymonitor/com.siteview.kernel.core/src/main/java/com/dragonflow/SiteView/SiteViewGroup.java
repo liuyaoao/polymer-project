@@ -241,6 +241,7 @@ public class SiteViewGroup extends MonitorGroup {
         }
         if (httprequest.actionAllowed("_preference")) {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
+            menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
             menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
         }
         if (httprequest.actionAllowed("_tools")) {

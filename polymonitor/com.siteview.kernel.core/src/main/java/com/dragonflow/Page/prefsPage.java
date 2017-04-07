@@ -182,6 +182,16 @@ public class prefsPage extends com.dragonflow.Page.CGI {
                             + " title=\"Set up connections for monitoring remote UNIX/Linux machines\">Remote UNIX</a>");
         }
         outputStream.print(" | ");
+        if (s.equals("Mqtt Remotes")) {
+            outputStream.println("<B>Remote MQTT</B>");
+        } else {
+            outputStream
+                    .println("<a href="
+                            + getPageLink("mqttmachine", "")
+                            + " title=\"Set up connections for monitoring remote Mqtt machines\">Remote MQTT</a>");
+        }
+        
+        outputStream.print(" | ");
         if (com.dragonflow.SiteView.Platform.isWindows()
                 || TextUtils.getValue(hashmap,
                         "_allowUnixToNT").length() > 0) {

@@ -46,6 +46,7 @@ public class logPage extends com.dragonflow.Page.CGI
         if(request.actionAllowed("_preference"))
         {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
+            menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
             menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Win NT/2000 profiles"));
         }
         if(request.actionAllowed("_tools"))

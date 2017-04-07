@@ -102,6 +102,21 @@ public abstract class ServerAction extends Action {
         }
         return s;
     }
+    public String getMqttMachineIDFromArgs() {
+        String s = "";
+        if (args.length > 0 && args[0].startsWith(Machine.REMOTE_MQTTPREFIX)) {
+            if (pMachineName.isEditable) {
+                s = args[0];
+            }
+            String as[] = new String[args.length - 1];
+            for (int i = 1; i < args.length; i++) {
+                as[i - 1] = args[i];
+            }
+
+            args = as;
+        }
+        return s;
+    }
 
     static {
         pMachineName = new ServerProperty("_machine", "");

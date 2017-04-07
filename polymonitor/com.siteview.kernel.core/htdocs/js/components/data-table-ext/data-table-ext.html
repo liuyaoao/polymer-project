@@ -1,17 +1,17 @@
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="px-data-table.html">
+<link rel="import" href="../css/bootstrap-styles.html">
 
 <dom-module id="data-table-custom">
   <template strip-whitespace>
-    <style>
+    <style include="bootstrap-styles">
       :host {
         display: block;
       }
     </style>
-
-      <div>
-        <px-data-table table-data='[[tableDataList]]' striped='true' hide-pagination-control='true' meta="[[metaData]]"></px-data-table>
+      <div class="container-fluid">
+          <px-data-table table-data='[[tableDataList]]' striped='true' hide-pagination-control='true' meta="[[metaData]]" no-data-tip="{{noDataTip}}"></px-data-table>
       </div>
 
   </template>
@@ -24,7 +24,11 @@
           type:Array,
           computed:"_getTableDataListByList(dataList)"
         },
-        metaData:{
+        noDataTip:{
+          type:String,
+          reflectToAttribute:true,
+        },
+        metaData:{ //table header info
           type:Array,
           computed:"_getMetaData(tableDataList)"
         }
@@ -38,22 +42,34 @@
         tempStr = tempStr.replace(/\//g,"\\n");
         // tempStr = tempStr.replace(/\n/g,"\\n");
         var arrList = JSON.parse(tempStr);
+        var realList = [];
         for(var i=0;i<arrList.length;i++){
           var obj = arrList[i];
+          var tempObj = {};
           for(var key in obj){
             var str = obj[key];
             obj[key] = str.replace(/\n/g,"\/");
+            var keyStr = key;
+            if(key.indexOf("_") == 1){
+              keyStr = key.substr(key.indexOf("_")+1);
+            }
+            tempObj[keyStr] = obj[key];
           }
+          realList.push(tempObj);
         }
-        console.log("table-data:",arrList);
-        return arrList;
+        console.log("table-data:",realList);
+        return realList;
       },
       _getMetaData:function(arrList){
         var meta = [];
 
         var obj = arrList[0] || {};
         for(var key in obj){
-          meta.push({hide:false,type:"html", name:key,label:key});
+          var keyStr = key;
+          if(key.indexOf("_") == 1){
+            keyStr = key.substr(key.indexOf("_")+1);
+          }
+          meta.push({hide:false,type:"html", name:keyStr,label:keyStr});
         }
         return meta;
       }

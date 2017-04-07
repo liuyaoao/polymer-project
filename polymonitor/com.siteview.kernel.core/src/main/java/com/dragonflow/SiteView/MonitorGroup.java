@@ -3,11 +3,11 @@ package com.dragonflow.SiteView;
 
 /**
  * Comment for <code>MonitorGroup</code>
- * 
+ *
  * @author
  * @version 0.0
- * 
- * 
+ *
+ *
  */
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -127,6 +127,7 @@ public class MonitorGroup extends Monitor {
         }
         if (httprequest.actionAllowed("_preference")) {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
+            menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
             menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
         }
         if (httprequest.actionAllowed("_tools")) {
@@ -276,8 +277,8 @@ public class MonitorGroup extends Monitor {
         if (enumeration.hasMoreElements()) {
             HashMap hashmap = (HashMap) enumeration.nextElement();
             hashmap.put("_id", s1);
-            String s3 = (String) hashmap.get("_name");
-            if (s3 == null || s3.equals("config") || s3.length() == 0) {
+            String _name = (String) hashmap.get("_name");
+            if (_name == null || _name.equals("config") || _name.length() == 0) {
                 hashmap.put("_name", s1);
             }
             setValuesTable(hashmap);
@@ -384,7 +385,7 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * 
+     *
      */
     public String getProperty(StringProperty stringproperty) throws NullPointerException {
         String s = "";
@@ -636,7 +637,7 @@ public class MonitorGroup extends Monitor {
         String s2 = htmlPath(httprequest);
         try {
             PrintWriter printwriter = FileUtils.MakeOutputWriter(new FileOutputStream(s2));
-            printwriter.println("<HTML>");
+            printwriter.println("<!DOCTYPE html><HTML>");
             try {
                 printPage(printwriter, httprequest);
             } catch (Exception exception) {
@@ -770,8 +771,8 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param printwriter
      * @param httprequest
      * @param flag
@@ -791,7 +792,7 @@ public class MonitorGroup extends Monitor {
         String s2 = HTTPRequest.encodeString(s1);
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         int i = getSettingAsLong("_groupRefreshRate", 60);
-        if (flag) {
+        if (flag) { //pID is __Health__.
             CGI.printBodyHeader(printwriter, "SiteView Health", siteviewgroup.refreshTag(i, "/SiteView/" + httprequest.getAccountDirectory() + "/Detail" + s2 + ".html?_health=true"), I18N.nullEncoding());
             CGI.menus menus1 = getNavItems(httprequest);
             CGI.printButtonBar(printwriter, "Health.htm", "Health", httprequest, MasterConfig.getMasterConfig(), menus1, false);
@@ -801,16 +802,17 @@ public class MonitorGroup extends Monitor {
             CGI.printButtonBar(printwriter, "Group.htm#detail", "", httprequest, MasterConfig.getMasterConfig(), menus2, false);
         }
         Array array = CGI.getGroupFilterForAccount(httprequest);
-        String s3;
+//        String s3;
+        String groupName;
         if (array.size() > 0 && !array.at(0).equals(httprequest.getAccount())) {
-            s3 = CGI.getGroupFullName(I18N.toDefaultEncoding(getProperty(pID)));
+            groupName = CGI.getGroupFullName(I18N.toDefaultEncoding(getProperty(pID)));
         } else {
-            s3 = CGI.getGroupFullLinks(this, httprequest);
+          groupName = CGI.getGroupFullLinks(this, httprequest);
         }
         String s4 = "";
-        String s5 = getSetting(AtomicMonitor.DEPENDS_ON);
-        if (s5.length() > 0) {
-            AtomicMonitor atomicmonitor = (AtomicMonitor) siteviewgroup.getElement(s5.replace(' ', '/'));
+        String depends_on = getSetting(AtomicMonitor.DEPENDS_ON);
+        if (depends_on.length() > 0) {
+            AtomicMonitor atomicmonitor = (AtomicMonitor) siteviewgroup.getElement(depends_on.replace(' ', '/'));
             if (atomicmonitor != null) {
                 String s6 = getHistoryParam(atomicmonitor.getProperty(pID), atomicmonitor.getProperty(pGroupID));
                 MonitorGroup monitorgroup = (MonitorGroup) siteviewgroup.getElement(atomicmonitor.getProperty(pGroupID));
@@ -855,19 +857,22 @@ public class MonitorGroup extends Monitor {
         Array array1 = new Array();
         SiteViewGroup siteviewgroup1 = SiteViewGroup.currentSiteView();
         Monitor monitor = (Monitor) siteviewgroup1.getElement(s1);
-        String s14 = flag ? "Health" : "Group";
+        String pageType = flag ? "Health" : "Group";
         if (siteviewgroup.getSetting("_alertIconLink").length() > 0) {
             getGroupAlerts(s1, array1);
-            s11 = "<td valign=\"middle\" align=\"right\"><p style=\"font-weight: bold; font-family: 'Arial', 'Helvetica', sans-serif;\">" + s14 + " Alerts :</td>" + printAlertIconLink(httprequest, s1, "_config", array1);
+            s11 = "<td valign=\"middle\" align=\"right\"><p style=\"font-weight: bold; font-family: 'Arial', 'Helvetica', sans-serif;\">" + pageType + " Alerts :</td>" + printAlertIconLink(httprequest, s1, "_config", array1);
             j += 2;
         }
         if (siteviewgroup.getSetting("_reportIconLink").length() > 0) {
-            s13 = "<td valign=\"middle\" align=\"right\"><p style=\"font-weight: bold; font-family: 'Arial', 'Helvetica', sans-serif;\">" + s14 + " Reports :</td>" + printTableReportEntry(true, httprequest);
+            s13 = "<td valign=\"middle\" align=\"right\"><p style=\"font-weight: bold; font-family: 'Arial', 'Helvetica', sans-serif;\">" + pageType + " Reports :</td>" + printTableReportEntry(true, httprequest);
             j += 2;
         }
-        String s15 = "<table border=\"0\" width=\"90%\"><tr><td colspan=" + j + ">" + stringbuffer.toString() + "</td></tr><tr><td><h2>" + (flag ? "" : "Monitors in the Group: ") + s3 + "</h2></td>" + s11 + s13 + "</tr></table>";
+        printwriter.println("</table>");
+        String s15 = "<table border=\"0\" width=\"90%\"><tr><td colspan=" + j + ">" + stringbuffer.toString() + "</td></tr><tr><td><h2>" + (flag ? "" : "Monitors in the Group: ") + groupName + "</h2></td>" + s11 + s13 + "</tr></table>";
         String s16 = printMonitorTable(printwriter, httprequest, s15, s4, ai, getMonitors(), array1, false);
+
         printCategoryInsertHTML(s16, this, printwriter);
+
         printwriter.println("<p><font size=\"-1\">Click the state icon for monitor and alert disable/enable options. </font></p>");
         if (((MonitorGroup) monitor).groupSchedulerActive(false)) {
             printwriter.println("<tr><td><b>Note that this group is using a group schedule, so the monitors of this group will not run according to their own schedule.</b></td></tr>");
@@ -875,21 +880,39 @@ public class MonitorGroup extends Monitor {
         printwriter.println("<hr>");
         String s17 = flag ? "&_health=true" : "";
         String s18 = flag ? "Health " : "";
-        printwriter.println("<TABLE BORDER=0 CELLSPACING=4 WIDTH=100%>");
+
+        Boolean allowMonitorEdit = httprequest.actionAllowed("_monitorEdit");
+        Boolean allowGroupEdit = httprequest.actionAllowed("_groupEdit");
+        print_addToOperation(printwriter,httprequest,flag,allowMonitorEdit,allowGroupEdit);
+
+        print_actionsOperation(printwriter,httprequest,flag,allowMonitorEdit,allowGroupEdit);
+
+        print_viewOperation(printwriter,httprequest,flag,allowMonitorEdit,allowGroupEdit);
+
+        printFooter(printwriter, i, httprequest);
+    }
+    public void print_addToOperation(PrintWriter printwriter, HTTPRequest httprequest, boolean isHealth,boolean allowMonitorEdit, boolean allowGroupEdit) throws Exception {
+        String pageType = isHealth ? "Health" : "Group";
+        String s19 = isHealth ? "Health Monitoring" : "Group";
+        String s17 = isHealth ? "&_health=true" : "";
+        String s18 = isHealth ? "Health " : "";
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+
+        String propName = I18N.toDefaultEncoding(getProperty(pID)); //s1
+        String s2 = HTTPRequest.encodeString(propName);
+
         if (httprequest.actionAllowed("_monitorEdit") || httprequest.actionAllowed("_groupEdit")) {
-            String s19 = flag ? "Health Monitoring" : "Group";
-            printwriter.print("<tr><td colspan=2><font size=+1><b>Add to " + s19 + ":</b></font></td></tr>");
-        } else if (!httprequest.actionAllowed("_groupEdit")) {
-            printwriter.print("<tr><td colspan=2><font size=+1><b>" + s14 + " Actions:</b></font></td></tr>");
+            printwriter.print("<font size=+1><b>Add to " + s19 + ":</b></font>");
         }
+        printwriter.println("<TABLE BORDER=0 CELLSPACING=4 WIDTH=100%>");
         if (httprequest.actionAllowed("_monitorEdit")) {
-            if (flag && s1.equals("__Health__")) {
+            if (isHealth && propName.equals("__Health__")) {
                 printwriter.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=AddDefaultMonitors&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + "&parent=" + s2
                         + ">Default Monitors</A></td> <td>Append a set of default Heath Monitors</td></tr>");
             }
             printwriter.print("<tr><td width=15%><A HREF=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=AddList&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">" + "Monitor</A> </td> <td>Add a new monitor instance to this " + s18
                     + "group</td></tr>");
-            if (!Platform.isSiteSeerServer() && !flag) {
+            if (!Platform.isSiteSeerServer() && !isHealth) {
                 printwriter.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=monitorSet&operation=AddSet&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">" + "Monitor Set</A> </td><td>Add a new Monitor Set instance to this "
                         + s18 + "group</td></tr>");
                 String as[] = (new File(monitorSetPage.SOLUTIONS_DIR)).list();
@@ -903,22 +926,52 @@ public class MonitorGroup extends Monitor {
             if (!httprequest.getPermission("_link", "deleteGroup").equals("hidden")) {
                 printwriter.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Add&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + "&parent=" + s2 + ">Subgroup</A></td> <td>Create a new subgroup within this " + s18
                         + "group</td></tr>");
-                printwriter.print("<tr><td colspan=2><hr></td></tr>");
-                printwriter.print("<tr><td colspan=2><font size=+1><b>" + s14 + " Actions:</b></font></td></tr>");
-                if (!s1.equals("__Health__")) {
-                    printwriter.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Edit&group=" + s2 + "&account=" + httprequest.getAccount() + s17);
-                    printwriter.println(">Edit</A> </td> <td>Edit the Name, Description, or Dependencies of this " + s18 + "group</td></tr>");
-                }
+                // printwriter.print("<tr><td colspan=2><hr></td></tr>");
+                // printwriter.print("<tr><td colspan=2><font size=+1><b>" + s14 + " Actions:</b></font></td></tr>");
+                // if (!s1.equals("__Health__")) {
+                //     printwriter.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Edit&group=" + s2 + "&account=" + httprequest.getAccount() + s17);
+                //     printwriter.println(">Edit</A> </td> <td>Edit the Name, Description, or Dependencies of this " + s18 + "group</td></tr>");
+                // }
             } else {
                 printwriter.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Edit&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Rename</A> </td> <td>Change the Name of this " + s18 + "group</td></tr>");
             }
         }
+        printwriter.print("</table><hr>");
+    }
+
+    public void print_actionsOperation(PrintWriter printwriter, HTTPRequest httprequest, boolean isHealth,boolean allowMonitorEdit, boolean allowGroupEdit) throws Exception {
+        String pageType = isHealth ? "Health" : "Group";
+        String s19 = isHealth ? "Health Monitoring" : "Group";
+        String s17 = isHealth ? "&_health=true" : "";
+        String s18 = isHealth ? "Health " : "";
+        String s14 = isHealth ? "Health" : "Group";
+
+        String propName = I18N.toDefaultEncoding(getProperty(pID)); //s1
+        String s2 = HTTPRequest.encodeString(propName);
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+        SiteViewGroup siteviewgroup1 = SiteViewGroup.currentSiteView();
+        Monitor monitor = (Monitor) siteviewgroup1.getElement(propName);
+        String editTr = "";
+        if (!httprequest.actionAllowed("_groupEdit")) {
+          printwriter.print("<font size=+1><b>" + s14 + " Actions:</b></font>");
+        }else{
+          if (!httprequest.getPermission("_link", "deleteGroup").equals("hidden")) {
+                printwriter.print("<font size=+1><b>" + s14 + " Actions:</b></font>");
+                if (!propName.equals("__Health__")) {
+                  editTr = "<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Edit&group=" + s2 + "&account=" + httprequest.getAccount() + s17+
+                      ">Edit</A> </td> <td>Edit the Name, Description, or Dependencies of this " + s18 + "group</td></tr>";
+                }
+            }
+        }
+        printwriter.println("<TABLE BORDER=0 CELLSPACING=4 WIDTH=100%>");
+        printwriter.println(editTr);
+
         String s20 = monitor.getProperty(Monitor.pName);
         if (s20 == null || s20.equals("config") || s20.length() == 0) {
-            s20 = I18N.toNullEncoding(s1);
+            s20 = I18N.toNullEncoding(propName);
         }
-        String s21 = s2 + "&account=" + httprequest.getAccount() + s17 + "&returnURL=" + I18N.toNullEncoding(s1) + "&returnLabel=" + HTTPRequest.encodeString(I18N.UnicodeToString(s20, I18N.nullEncoding()), I18N.nullEncoding());
-        if (httprequest.actionAllowed("_groupEdit") && flag && s1.equals("__Health__")) {
+        String s21 = s2 + "&account=" + httprequest.getAccount() + s17 + "&returnURL=" + I18N.toNullEncoding(propName) + "&returnLabel=" + HTTPRequest.encodeString(I18N.UnicodeToString(s20, I18N.nullEncoding()), I18N.nullEncoding());
+        if (httprequest.actionAllowed("_groupEdit") && isHealth && propName.equals("__Health__")) {
             String s22 = siteviewgroup.getSetting("_healthDisableLogging").length() <= 0 ? "Disable" : "Enable";
             String s23 = siteviewgroup.getSetting("_healthDisableLogging").length() <= 0 ? "Disable logging on all health monitors.<br><b>NOTE: This will also disable reports for Health monitors.</b>"
                     : "Enable logging on all health monitors.<br><b>NOTE: Reports will only work for Health groups from the time logging is enabled.</b>";
@@ -930,10 +983,6 @@ public class MonitorGroup extends Monitor {
             printwriter.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&operation=Enable&group0=" + s21 + ">Enable</A> </td> <td>Enable all the monitors previously disabled in this " + s18 + "group or enable "
                     + "temporarily disabled alerts</td></tr>");
         }
-//        if (httprequest.actionAllowed("_groupEdit") && TopazManager.getInstance().getTopazServerSettings().isConnected()) {
-//            printwriter.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&operation=" + URLEncoder.encode(managePage.TOPAZ_LOGGING_OP) + "&group0=" + s21 + ">Enable Logging  To " + TopazInfo.getTopazName() + "</A> </td> <td>"
-//                    + TopazInfo.getTopazName() + " logging options for this " + s18 + "group</td></tr>");
-//        }
         if (httprequest.actionAllowed("_groupRefresh") && siteviewgroup.internalServerActive()) {
             printwriter.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&operation=Refresh&group=" + s21 + ">Refresh</A> </td><td>Refresh all the monitors in this " + s18 + "group</td></tr>");
         }
@@ -944,8 +993,8 @@ public class MonitorGroup extends Monitor {
         if (httprequest.actionAllowed("_groupEdit")) {
             printwriter.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=reorder&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Reorder</A></td><td>Edit the display order of monitors in this " + s18 + "group</td></tr>");
         }
-        if (httprequest.actionAllowed("_groupEdit") && !httprequest.getPermission("_link", "deleteGroup").equals("hidden") && !s1.equals(httprequest.getAccount())) {
-            if (s1.equals("__Health__")) {
+        if (httprequest.actionAllowed("_groupEdit") && !httprequest.getPermission("_link", "deleteGroup").equals("hidden") && !propName.equals(httprequest.getAccount())) {
+            if (propName.equals("__Health__")) {
                 printwriter.println("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Delete&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Delete</A></td><td>Delete " + "all subgroups and monitors in " + s18
                         + "<br></td></tr>");
             } else {
@@ -953,10 +1002,23 @@ public class MonitorGroup extends Monitor {
                         + s18 + "group<br></td></tr>");
             }
         }
+
+        printwriter.print("</table><hr>");
+    }
+
+    public void print_viewOperation(PrintWriter printwriter, HTTPRequest httprequest, boolean isHealth,boolean allowMonitorEdit, boolean allowGroupEdit) throws Exception {
+        String pageType = isHealth ? "Health" : "Group";
+        String s19 = isHealth ? "Health Monitoring" : "Group";
+        String s17 = isHealth ? "&_health=true" : "";
+        String s18 = isHealth ? "Health " : "";
+        SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
+
+        String propName = I18N.toDefaultEncoding(getProperty(pID)); //s1
+        String s2 = HTTPRequest.encodeString(propName);
         if (httprequest.actionAllowed("_groupEdit")) {
-            printwriter.print("<tr><td colspan=2><hr></td></tr>");
-            printwriter.print("<tr><td colspan=2><font size=+1><b>View:</b></font></td></tr>");
+            printwriter.print("<font size=+1><b>View:</b></font>");
         }
+        printwriter.println("<TABLE BORDER=0 CELLSPACING=4 WIDTH=100%>");
         String s24 = "<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=alert&operation=List&view=Group&account=" + httprequest.getAccount() + "&groupFilter=" + s2 + ">Alerts</A> </td><td>View alerts for this " + s18 + "group</td></tr>";
         String s25 = "";
         Enumeration enumeration2;
@@ -1010,11 +1072,9 @@ public class MonitorGroup extends Monitor {
             printwriter.print("<tr><td colspan=2><hr></td></tr>");
             printwriter.println("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&account=" + httprequest.getAccount() + s17 + ">Manage</A></td> <td>Move, duplicate, delete, disable/enable monitors in any group</td></tr>");
         }
-        if (httprequest.actionAllowed("_groupEdit")) {
-            printwriter.println("</table><hr>");
-        }
-        printFooter(printwriter, i, httprequest);
+        printwriter.print("</table><hr>");
     }
+
 
     public static String printMonitorTable(PrintWriter printwriter, HTTPRequest httprequest, String s, String s1, int ai[], Enumeration enumeration) {
         Array array = new Array();
@@ -1023,8 +1083,8 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param printwriter
      * @param httprequest
      * @param s
@@ -1289,8 +1349,8 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param httprequest
      * @param printwriter
      * @param monitor
@@ -1382,8 +1442,8 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param httprequest
      * @param enumeration
      * @return
@@ -1419,8 +1479,8 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param monitor
      * @param hashmap
      */
@@ -1450,8 +1510,8 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param monitorgroup
      * @param array
      */
@@ -1500,8 +1560,8 @@ public class MonitorGroup extends Monitor {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param args
      * @throws IOException
      */
@@ -1672,7 +1732,7 @@ public class MonitorGroup extends Monitor {
         return getProperty(pParent);
     }
 
-    
+
 	protected void startGroupScheduler(boolean flag) {
         startScheduler();
         if (flag) {

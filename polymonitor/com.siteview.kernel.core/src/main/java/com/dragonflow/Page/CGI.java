@@ -415,6 +415,8 @@ public abstract class CGI {
             if (httprequest.actionAllowed("_preference")) {
                 menus1.add(new menuItems("Remote UNIX/LINUX", "machine", "", "page",
                         "Add/Edit Remote UNIX/Linux profiles"));
+                menus1.add(new menuItems("Remote MQTT", "mqttmachine", "", "page",
+                        "Add/Edit Remote Mqtt profiles"));
                 menus1.add(new menuItems("Remote Windows", "ntmachine", "", "page",
                         "Add/Edit Remote Win NT/2000 profiles"));
             }
@@ -647,7 +649,7 @@ public abstract class CGI {
             alerts = "alerts";
         }
         if (httprequest.isStandardAccount()) {
-          
+
           printwriter.println("<link rel='import' href='/SiteView/htdocs/js/components/monitor-tabs/monitor-tabs.html'>\n");
           printwriter.println("<link rel='import' href='/SiteView/htdocs/js/components/monitor-tabs/monitor-tabs-header.html'>\n");
             printwriter.println("<SCRIPT LANGUAGE = \"JavaScript\">\n");
@@ -681,64 +683,25 @@ public abstract class CGI {
             printwriter.println(Platform.licenseHeader(
                     hashmap, true, httprequest.getAccount()));
         }
-        printwriter.print("<table border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\"><TR class=\"navbox\"><TD>\n");
-        printwriter.print("<table class=\"topnav\" border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\"><TR class=\"topnav\">\n<TD></td>");
-        byte byte0 = 106;
-        String productName = Platform.productName;
         //TBD: need consider the permission, refer to the original
         String jsonObjStr = "{'SiteView':'"+home+"'"
         				+ ",'Alerts':'"+alert+"'"
-        				+ ",'Reports':'"+s4+"'"
-        				+ ",'Health':'"+healthView+"'"
-        				+ ",'Preferences':'"+generalPrefs+"'"
-        				+ ",'Help':'/SiteView/docs/"+s+"'}";
-       
+        				+ ",'Reports':'"+s4+"'";
+        if (!Platform.isSiteSeerAccount(httprequest.getAccount())) {
+        	jsonObjStr += ",'Health':'"+healthView+"'"
+    				+ ",'Preferences':'"+generalPrefs+"'";
+        }
+        jsonObjStr += ",'Help':'/SiteView/docs/"+s+"'}";
+
         printwriter.println("<monitor-tabs-header cur-selected="+curSelected+" json-data-str="+jsonObjStr+"></monitor-tabs-header>");
-       
-      //   printwriter.println("<TD><a href="
-      //                   + s2
-      //                   + "><IMG SRC=/SiteView/htdocs/artwork/"
-      //                   + s11
-      //                   + ".gif ALT=\"SiteView Main View\""
-      //                   + " width="
-      //                   + byte0
-      //                   + " height=44\n"
-      //                   + "border=0></a></td><TD><a href="
-      //                   + s6
-      //                   + ">"
-      //                   + "<IMG SRC=/SiteView/htdocs/artwork/"
-      //                   + s12
-      //                   + ".gif ALT=\"View/add/edit automated alerts\" width=82 height=44 border=0></a></td>\n");
-      //   printwriter
-      //           .println("<TD><a href="
-      //                   + s4
-      //                   + ">"
-      //                   + "<IMG SRC=/SiteView/htdocs/artwork/"
-      //                   + s13
-      //                   + ".gif ALT=\"View/create/edit automated and adhoc reports\" width=82 height=44 border=0></a></td>\n");
-      //   if (!Platform.isSiteSeerAccount(httprequest
-      //           .getAccount())) {
-      //       printwriter
-      //               .println("<TD><a href="
-      //                       + s8
-      //                       + "><IMG SRC=/SiteView/htdocs/artwork/"
-      //                       + s16
-      //                       + ".gif ALT=\"View current health of SiteView processes and files\" width=82 height=44 border=0></a></td>\n");
-      //       printwriter
-      //               .println("<TD><a href="
-      //                       + s9
-      //                       + "><IMG SRC=/SiteView/htdocs/artwork/"
-      //                       + s10
-      //                       + ".gif ALT=\"View/edit SiteView configuration settings and options\" height=44 border=0></a></td>\n");
-      //   }
-      //   String s20 = "<a href=/SiteView/docs/" + s + " TARGET=Help>";
-      //   printwriter
-      //           .println("<TD>"
-      //                   + s20
-      //                   + "<IMG SRC=/SiteView/htdocs/artwork/help.gif ALT=\"View the online SiteView User's Guide\" width=82 height=44\n"
-      //                   + "border=0></a></td><TD><IMG SRC=/SiteView/htdocs/artwork/right.gif width=35 height=44 ALT=\"\" border=0>"
-      //                   + "</td></TR></TABLE>\n");
-        printwriter.println("</td></TR><TR class=\"navbox\"><TD>");
+
+        printwriter.print("<table border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\"><TR class=\"navbox\"><TD>\n");
+        printwriter.print("<table class=\"topnav\" border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\"><TR class=\"topnav\">\n");
+        byte byte0 = 106;
+        String productName = Platform.productName;
+
+
+        printwriter.println("</TR><TR class=\"navbox\"><TD>");
         printSecondNavBar(printwriter, httprequest,menus1, 600, flag);
         printwriter.println("</td></TR><TR class=\"navbox\"><TD>");
         printNavBarMessages(printwriter);
@@ -778,6 +741,8 @@ public abstract class CGI {
                 .getServerID();
         printwriter.println("<HEAD>\n" + nocacheHeader + s2 + s1 + "\n<TITLE>"
                 + s3 + " : " + s + "</TITLE>\n"
+                		+ "<meta http-equiv='content-css-type' content='text/css'>"
+                		+ "<link rel='shortcut icon' href='/SiteView/htdocs/favicon.gif'>"
                 		+ "<script type='text/javascript' src='/SiteView/htdocs/js/appRoot.js'></script>\n"
                 		+ "<script type='text/javascript' async='true' src='/SiteView/htdocs/js/bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>\n");
         printwriter
@@ -798,13 +763,14 @@ public abstract class CGI {
                 .println("<TITLE>"
                         + s
                         + "</TITLE>"
+                        + "<link rel='shortcut icon' href='/SiteView/htdocs/favicon.gif'>"
                         + "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/siteviewUI.css\">\n"
                         + "</HEAD>\n");
     }
 
     public static void printBodyHeader(java.io.PrintWriter printwriter,
             String s, String s1) {
-        printBodyHeader(printwriter, s, s1, "");
+        printBodyHeader(printwriter, s, s1, "utf-8");
     }
 
     public static void printBodyHeader(java.io.PrintWriter printwriter,
@@ -830,7 +796,7 @@ public abstract class CGI {
         if (!request.getValue("AWRequest").equals("yes")) {
             printBodyHeader(outputStream, header, "");
         } else {
-            printBodyHeaderAWRequest(outputStream, header, "", "");
+            printBodyHeaderAWRequest(outputStream, header, "", "utf-8");
         }
     }
 

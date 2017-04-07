@@ -1,5 +1,5 @@
 /*
- * 
+ *
  * Created on 2014-4-20 22:12:36
  *
  * .java
@@ -10,6 +10,7 @@
 package com.dragonflow.Page;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -17,6 +18,7 @@ import java.util.Vector;
 import jgl.Array;
 import jgl.HashMap;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dragonflow.Properties.HashMapOrdered;
 import com.dragonflow.SiteView.CompareSlot;
 import com.dragonflow.SiteView.Platform;
@@ -36,23 +38,23 @@ public class reportPage extends com.dragonflow.Page.CGI
     static final int WEEK_SECONDS = 0x93a80;
     static final int MONTH_SECONDS = 0x278d00;
     static final int nScheduledTimePeriods[] = {
-        3600, 7200, 10800, 14400, 21600, 28800, 43200, 57600, 0x15180, 0x2a300, 
+        3600, 7200, 10800, 14400, 21600, 28800, 43200, 57600, 0x15180, 0x2a300,
         0x3f480, 0x54600, 0x69780, 0x93a80, 0x278d00
     };
     static final int nAdhocTimePeriods[] = {
-        900, 1800, 3600, 7200, 10800, 14400, 18000, 21600, 25200, 28800, 
-        32400, 36000, 39600, 43200, 57600, 0x15180, 0x2a300, 0x3f480, 0x54600, 0x69780, 
+        900, 1800, 3600, 7200, 10800, 14400, 18000, 21600, 25200, 28800,
+        32400, 36000, 39600, 43200, 57600, 0x15180, 0x2a300, 0x3f480, 0x54600, 0x69780,
         0x7e900, 0x93a80, 0x127500, 0x1baf80, 0x278d00
     };
     static final String TOPAZ_CONFIG_REPORT = "siteview/conf/sample_dispatcher?action=log";
     static final String strValueMonthToDate = "monthToDate";
     static final String strLabelMonthToDate = "month-to-date";
     static final String timeScaleSettings[] = {
-        "default", "60", "120", "300", "600", "900", "1800", "3600", "7200", "21600", 
+        "default", "60", "120", "300", "600", "900", "1800", "3600", "7200", "21600",
         "43200", "86400"
     };
     String vertScaleSettings[] = {
-        "", "1", "5", "10", "20", "50", "100", "500", "1000", "5000", 
+        "", "1", "5", "10", "20", "50", "100", "500", "1000", "5000",
         "10000", "20000", "50000", "100000", "1000000", "10000000"
     };
     String email;
@@ -1210,51 +1212,65 @@ label1:
         }
     }
 
-    public void printList()
-    {
+    public void printList(){
         printBodyHeader("Management Reports");
-        if(com.dragonflow.SiteView.Platform.isPortal())
-        {
-            helpFile = "CentraReports.htm";
-        } else
-        {
-            helpFile = "HReports.htm";
-        }
+    		outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/simple-data-table-ext.html' async='true'>\n");
+
+        helpFile = com.dragonflow.SiteView.Platform.isPortal() ? "CentraReports.htm" : "HReports.htm";
         printMenuItems(helpFile, "Reports");
         outputStream.println("<p>\n<H2>Management Reports</H2>\n<p>\n");
-        com.dragonflow.Page.reportPage.printReportTable(outputStream, request);
+        com.dragonflow.Page.reportPage.printReportTable(outputStream, request); //create list table.
+
         outputStream.print("<P>To view management reports and summaries, click the link in the Reports column above.<P>");
         outputStream.print("<hr><font size=+1><b>Report Actions:</b></font>\n");
-        outputStream.print("\n<TABLE BORDER=0 CELLSPACING=4 WIDTH=100%><tr><td width=15%>");
-        String s = "/SiteView/cgi/go.exe/SiteView?page=report&account=" + request.getAccount();
-        if(request.actionAllowed("_reportEdit"))
-        {
-            outputStream.print("<tr><td><A HREF=" + s + "&operation=add>Add</A> </td><td>Add a new scheduled management report for a specified time interval</td></tr>");
+        // outputStream.print("\n<TABLE BORDER=0 CELLSPACING=4 WIDTH=100%><tr><td width=15%>");
+        String mainUrl = "/SiteView/cgi/go.exe/SiteView?page=report&account=" + request.getAccount();
+        ArrayList<java.util.HashMap> actionsList = new ArrayList<java.util.HashMap>();
+
+        if(request.actionAllowed("_reportEdit")){
+          java.util.HashMap<String, String> _reportEditMap = new java.util.HashMap<String, String>();
+    			_reportEditMap.put("atitle","<a href=" + mainUrl + "&operation=add>Add</a>");
+    			_reportEditMap.put("desc","Add a new scheduled management report for a specified time interval");
+    			actionsList.add(_reportEditMap);
+          // outputStream.print("<tr><td> </td><td></td></tr>");
         }
-        if(request.actionAllowed("_reportAdhoc"))
-        {
-            outputStream.print("<tr><td><A HREF=" + s + "&operation=adhoc>Quick</A> </td><td>Generate a Quick report for a custom time period and selected monitors</td></tr>");
+        if(request.actionAllowed("_reportAdhoc")){
+          java.util.HashMap<String, String> _reportAdhocMap = new java.util.HashMap<String, String>();
+    			_reportAdhocMap.put("atitle","<A HREF=" + mainUrl + "&operation=adhoc>Quick</A>");
+    			_reportAdhocMap.put("desc","Generate a Quick report for a custom time period and selected monitors");
+    			actionsList.add(_reportAdhocMap);
+            // outputStream.print("<tr><td> </td><td></td></tr>");
         }
-        if(request.actionAllowed("_progress"))
-        {
-            outputStream.print("<tr><td><A HREF=/SiteView/" + request.getAccountDirectory() + "/Progress.html>Progress</A> </td><td>View the SiteView Progress page for monitor load information</td></tr>");
+        if(request.actionAllowed("_progress")){
+          java.util.HashMap<String, String> _progressMap = new java.util.HashMap<String, String>();
+    			_progressMap.put("atitle","<A HREF=/SiteView/" + request.getAccountDirectory() + "/Progress.html>Progress</A>");
+    			_progressMap.put("desc","View the SiteView Progress page for monitor load information");
+    			actionsList.add(_progressMap);
+            // outputStream.print("<tr><td> </td><td></td></tr>");
         }
-        if(!com.dragonflow.SiteView.Platform.isPortal() && request.actionAllowed("_browse"))
-        {
-            outputStream.print("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=monitorSummary&account=" + request.getAccount() + ">Monitor Description</A> </td><td>Generate a report of monitor configuration settings by group or installation</td></tr>");
+        if(!com.dragonflow.SiteView.Platform.isPortal() && request.actionAllowed("_browse")){
+          java.util.HashMap<String, String> _browseMap = new java.util.HashMap<String, String>();
+    			_browseMap.put("atitle","<A HREF=/SiteView/cgi/go.exe/SiteView?page=monitorSummary&account=" + request.getAccount() + ">Monitor Description</A>");
+    			_browseMap.put("desc","Generate a report of monitor configuration settings by group or installation");
+    			actionsList.add(_browseMap);
+            // outputStream.print("<tr><td> </td><td></td></tr>");
         }
-//        if(com.dragonflow.TopazIntegration.TopazManager.getInstance().getTopazServerSettings().isConnected() && request.actionAllowed("_topazConfigChangesReport"))
-//        {
+//        if(com.dragonflow.TopazIntegration.TopazManager.getInstance().getTopazServerSettings().isConnected() && request.actionAllowed("_topazConfigChangesReport")) {
 //            outputStream.print("<tr><td><A HREF=" + com.dragonflow.TopazIntegration.TopazManager.getInstance().getTopazServerSettings().getAdminServerUrl() + "siteview/conf/sample_dispatcher?action=log" + ">" + com.dragonflow.SiteView.TopazInfo.getTopazName() + " Configuration Changes Report</A> </td><td>View the configuration changes reported to " + com.dragonflow.SiteView.TopazInfo.getTopazName() + "</td></tr>");
 //        }
-        outputStream.print("</table><hr>");
-        outputStream.print("<center><p>\n");
+
+        String actionsListStr = JSONObject.toJSONString(actionsList);
+        actionsListStr = actionsListStr.replaceAll(" ","@space");
+        actionsListStr = actionsListStr.replaceAll(">","@big");
+        actionsListStr = actionsListStr.replaceAll("<","@small");
+        outputStream.println("<simple-data-table-ext data-list="+actionsListStr+"></simple-data-table-ext>\n");
+        // outputStream.print("</table>");
+        outputStream.print("<hr><center><p>\n");
         printFooter(outputStream);
         outputStream.print("</HTML>\n");
     }
 
-    static boolean portalIsReportAllowed(jgl.HashMap hashmap, String s)
-    {
+    static boolean portalIsReportAllowed(jgl.HashMap hashmap, String s){
         return TextUtils.getValue(hashmap, "account").equals(s);
     }
 
@@ -1300,37 +1316,26 @@ label1:
         return true;
     }
 
-    public static void printReportTable(java.io.PrintWriter printwriter, com.dragonflow.HTTP.HTTPRequest httprequest)
-    {
+    public static void printReportTable(java.io.PrintWriter printwriter, com.dragonflow.HTTP.HTTPRequest httprequest){
         jgl.Array array = com.dragonflow.Page.reportPage.getReportFrames(httprequest.getAccount());
-        String s = httprequest.getAccount();
-        printwriter.println("<TABLE BORDER=1 cellspacing=0 WIDTH=100%>\n<TR CLASS=\"tabhead\"><TH WIDTH=50%>Reports</TH><TH>Time Period</TH>\n");
-        boolean flag = httprequest.actionAllowed("_reportEdit");
-        if(flag)
-        {
-            printwriter.print("<TH>Edit</TH><TH WIDTH=3%>Del</TH>");
-        }
-        printwriter.print("</TR>");
+        String account = httprequest.getAccount();
+        printwriter.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/data-table-ext.html' async='true'>\n");
+        boolean hasEditPermission = httprequest.actionAllowed("_reportEdit");
+        ArrayList<java.util.HashMap> mapList = new ArrayList<java.util.HashMap>();
+
         Enumeration enumeration = array.elements();
-        if(!enumeration.hasMoreElements())
-        {
+        if(!enumeration.hasMoreElements()){
             byte byte0 = 4;
-            if(flag)
-            {
+            if(hasEditPermission){
                 byte0 = 2;
             }
-            printwriter.print("<TR><TD ALIGN=CENTER COLSPAN=" + byte0 + "><B>No Management Reports Scheduled</B></TD></TR>\n");
-        } else
-        {
-            do
-            {
-                if(!enumeration.hasMoreElements())
-                {
+        } else{
+            do{
+                if(!enumeration.hasMoreElements()){
                     break;
                 }
                 jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
-                if(hashmap.get("isQuick") == null || ((String)hashmap.get("isQuick")).length() <= 0)
-                {
+                if(hashmap.get("isQuick") == null || ((String)hashmap.get("isQuick")).length() <= 0){
                     String s1 = TextUtils.getValue(hashmap, "title");
                     if(s1.length() == 0)
                     {
@@ -1339,104 +1344,94 @@ label1:
                     }
                 }
             } while(true);
+
             jgl.Sorting.sort(array, new CompareSlot("title", com.dragonflow.SiteView.CompareSlot.DIRECTION_LESS));
             enumeration = array.elements();
             jgl.Array array1 = com.dragonflow.Page.CGI.getGroupFilterForAccount(httprequest);
-            do
-            {
-                if(!enumeration.hasMoreElements())
-                {
+            do{
+                if(!enumeration.hasMoreElements()){
                     break;
                 }
                 jgl.HashMap hashmap1 = (jgl.HashMap)enumeration.nextElement();
-                if((hashmap1.get("isQuick") == null || ((String)hashmap1.get("isQuick")).length() <= 0) && (com.dragonflow.SiteView.Platform.isPortal() ? com.dragonflow.Page.reportPage.portalIsReportAllowed(hashmap1, s) : com.dragonflow.Page.reportPage.isReportAllowed(hashmap1, array1)))
-                {
+                java.util.HashMap<String, String> dataMap = new java.util.HashMap<String, String>();
+
+                if((hashmap1.get("isQuick") == null || ((String)hashmap1.get("isQuick")).length() <= 0)
+                  && (com.dragonflow.SiteView.Platform.isPortal() ? com.dragonflow.Page.reportPage.portalIsReportAllowed(hashmap1, account) : com.dragonflow.Page.reportPage.isReportAllowed(hashmap1, array1))){
                     String s3 = TextUtils.getValue(hashmap1, "title");
                     String s4 = TextUtils.getValue(hashmap1, "window");
                     int i = com.dragonflow.Properties.StringProperty.toInteger(s4);
-                    String s5;
-                    switch(i)
-                    {
-                    case 3600: 
-                        s5 = "last hour";
+                    String timePeriod;
+                    switch(i){
+                    case 3600:
+                        timePeriod = "last hour";
                         break;
-
-                    case 86400: 
-                        s5 = "last day";
+                    case 86400:
+                        timePeriod = "last day";
                         break;
-
-                    case 604800: 
-                        s5 = "last week";
+                    case 604800:
+                        timePeriod = "last week";
                         break;
-
-                    case 2592000: 
-                        s5 = "last month";
+                    case 2592000:
+                        timePeriod = "last month";
                         break;
-
                     default:
                         String s6 = "minutes";
                         int j = 0;
-                        if(i >= 0x2a300)
-                        {
+                        if(i >= 0x2a300){
                             s6 = "days";
                             j = i / 0x15180;
                         } else
-                        if(i >= 7200)
-                        {
+                        if(i >= 7200){
                             s6 = "hours";
                             j = i / 3600;
-                        } else
-                        {
+                        } else{
                             j = i / 60;
                         }
-                        if(s4.equals("monthToDate"))
-                        {
-                            s5 = "month-to-date";
-                        } else
-                        {
-                            s5 = "last " + j + " " + s6;
+                        if(s4.equals("monthToDate")){
+                            timePeriod = "month-to-date";
+                        } else{
+                            timePeriod = "last " + j + " " + s6;
                         }
                         break;
                     }
                     String s7 = TextUtils.getValue(hashmap1, "id");
-                    java.io.File file = com.dragonflow.Page.reportPage.createReportIndexFile(s, s7, flag);
+                    java.io.File file = com.dragonflow.Page.reportPage.createReportIndexFile(account, s7, hasEditPermission);
                     String s8 = "";
                     String s9 = "";
-                    if(file.exists())
-                    {
-                        s8 = "<A HREF=" + com.dragonflow.SiteView.Platform.getURLPath(com.dragonflow.SiteView.HistoryReport.accountToDirectory(s), s) + "/Reports-" + s7 + "/index.html>";
+                    if(file.exists()){
+                        s8 = "<A HREF=" + com.dragonflow.SiteView.Platform.getURLPath(com.dragonflow.SiteView.HistoryReport.accountToDirectory(account), account) + "/Reports-" + s7 + "/index.html>";
                         s9 = "</A>";
                     }
-                    if(TextUtils.getValue(hashmap1, "disabled").length() > 0)
-                    {
+                    if(TextUtils.getValue(hashmap1, "disabled").length() > 0){
                         s3 = "<B>(disabled)</B> " + s3;
                     }
-                    printwriter.print("<TR><TD>" + s8 + s3 + s9 + "</TD>" + "<TD>" + s5 + "</TD>");
-                    if(flag)
-                    {
-                        printwriter.print("<TD><A HREF=/SiteView/cgi/go.exe/SiteView?page=report&operation=edit&queryID=" + s7 + "&account=" + s + ">Edit</A></TD>" + "<TD><A HREF=/SiteView/cgi/go.exe/SiteView?page=report&operation=Delete&queryID=" + s7 + "&account=" + s + ">X</A></TD>");
+                    dataMap.put("a_Reports", s8 + s3 + s9);
+                    dataMap.put("b_Time&nbsp;Period", timePeriod);
+                    if(hasEditPermission){
+                      dataMap.put("c_Edit", "<A HREF=/SiteView/cgi/go.exe/SiteView?page=report&operation=edit&queryID=" + s7 + "&account=" + account + ">Edit</A>");
+                      dataMap.put("d_Del", "<A HREF=/SiteView/cgi/go.exe/SiteView?page=report&operation=Delete&queryID=" + s7 + "&account=" + account + ">X</A>");
                     }
-                    printwriter.print("</TR>\n");
                 }
+                mapList.add(dataMap);
             } while(true);
         }
-        printwriter.print("</TABLE>");
+        String jsonString = JSONObject.toJSONString(mapList);
+    		jsonString = jsonString.replaceAll(" ","@space");
+    		jsonString = jsonString.replaceAll(">","@big");
+    		jsonString = jsonString.replaceAll("<","@small");
+    		printwriter.println("<data-table-custom data-list="+jsonString+" is-show-header no-data-tip='No Management Reports Scheduled'></data-table-custom>\n");
     }
 
-    private static java.io.File createReportIndexFile(String s, String s1, boolean flag)
-    {
+    private static java.io.File createReportIndexFile(String s, String s1, boolean flag){
         java.io.File file = new File(com.dragonflow.SiteView.Platform.getDirectoryPath(com.dragonflow.SiteView.HistoryReport.accountToDirectory(s), s) + java.io.File.separator + "Reports-" + s1 + java.io.File.separator + "index.html");
-        if(!file.exists())
-        {
-            if(com.dragonflow.SiteView.Platform.isStandardAccount(s))
-            {
+        if(!file.exists()){
+            if(com.dragonflow.SiteView.Platform.isStandardAccount(s)){
                 com.dragonflow.SiteView.HistoryReport.generateIndexPage("administrator", s1, "true");
                 if(com.dragonflow.SiteView.Platform.isUserAccessAllowed())
                 {
                     com.dragonflow.SiteView.HistoryReport.generateIndexPage("user", s1, "");
                 }
-            } else
-            {
+            } else{
                 com.dragonflow.SiteView.HistoryReport.generateIndexPage(s, s1, flag ? "true" : "");
             }
         }
@@ -1447,12 +1442,8 @@ label1:
     {
         Enumeration enumeration = com.dragonflow.Page.reportPage.getReportFrames(null).elements();
         jgl.Array array = com.dragonflow.Page.CGI.getGroupFilterForAccount(httprequest);
-        do
-        {
-            if(!enumeration.hasMoreElements())
-            {
-                break;
-            }
+        do{
+            if(!enumeration.hasMoreElements()) break;
             jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
             if((hashmap.get("isQuick") == null || ((String)hashmap.get("isQuick")).length() <= 0) && (com.dragonflow.SiteView.Platform.isPortal() ? com.dragonflow.Page.reportPage.portalIsReportAllowed(hashmap, httprequest.getAccount()) : com.dragonflow.Page.reportPage.isReportAllowed(hashmap, array)))
             {
@@ -1462,8 +1453,7 @@ label1:
         } while(true);
     }
 
-    public static String getDefaultReportTitle(jgl.HashMap hashmap)
-    {
+    public static String getDefaultReportTitle(jgl.HashMap hashmap){
         StringBuffer stringbuffer = new StringBuffer();
         StringBuffer stringbuffer1 = new StringBuffer();
         int i = 0;
@@ -1472,10 +1462,7 @@ label1:
         Enumeration enumeration = hashmap.values("groups");
         do
         {
-            if(!enumeration.hasMoreElements())
-            {
-                break;
-            }
+            if(!enumeration.hasMoreElements()) break;
             String s = (String)enumeration.nextElement();
             com.dragonflow.SiteView.MonitorGroup monitorgroup = (com.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s);
             if(monitorgroup != null)

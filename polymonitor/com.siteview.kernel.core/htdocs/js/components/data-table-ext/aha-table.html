@@ -37,7 +37,7 @@
           <template is="dom-repeat" items="{{meta}}" as="column">
             <template is="dom-if" if="{{!column.hide}}">
               <span role="columnheader" class$="{{_getHeaderClass(column)}}" draggable="{{enableColumnReorder}}" on-touchstart="_dragStartColumnHeader" on-touchmove="_touchMoveHeader" on-touchleave="_dragLeave" on-touchend="_touchDropColumnHeader" on-dragleave="_dragLeave" on-dragstart="_dragStartColumnHeader" on-dragover="_dragOverHeader" on-drop="_dragDropColumnHeader" on-dragend="_dragEndColumnHeader">
-                <div class="flex header--container" style="background-color:#bdbcc3;">
+                <div class="flex header--container" style="background-color:#f3f2f0;">
                   <span
                     class$="flex flex--center {{_getTextSortingClass(sortable, column, sortedColumn)}}"
                     on-tap="_sort">{{column.label}}<iron-icon icon$="{{_getSortingIcon(sortable, column, sortedColumn, descending)}}" class$="{{_getSortingClass(sortable, column, sortedColumn, descending)}}"></iron-icon>
@@ -121,7 +121,7 @@
       </div>
 
       <template is="dom-if" if="{{!displayedRows.length}}">
-        <div class="flex flex--center no-results">No Results</div>
+        <div class="flex flex--center no-results">{{noDataTip}}</div>
       </template>
     </div>
     <!-- Pagination controls -->
@@ -184,6 +184,10 @@
       striped: {
         type: Boolean,
         value: false
+      },
+      noDataTip:{
+        type:String,
+        value:"No Result!"
       },
       //tableRows: if table row is striped
       tableRows: {

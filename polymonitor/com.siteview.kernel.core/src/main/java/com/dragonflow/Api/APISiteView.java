@@ -2075,18 +2075,21 @@ public class APISiteView
         com.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
         jgl.Array array = readMachines(s);
         jgl.Sorting.sort(array, new CompareSlot("_name", CompareSlot.DIRECTION_LESS));
-        boolean flag1 = s.indexOf("NT") == -1;
+//        boolean flag1 = s.indexOf("NT") == -1;
         for(int i = 0; i < array.size(); i++)
         {
             jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
             String s1 = "";
-            if(flag1)
+            if(s.contains("Mqtt"))
             {
-                s1 = Machine.getFullMachineID(Machine.REMOTE_PREFIX + TextUtils.getValue(hashmap, "_id"), httprequest);
-            } else
+                s1 = Machine.getFullMachineID(Machine.REMOTE_MQTTPREFIX + TextUtils.getValue(hashmap, "_id"), httprequest);
+            } else if(s.contains("NT"))
             {
                 s1 = Machine.getFullMachineID(TextUtils.getValue(hashmap, "_host"), httprequest);
+            }else{
+            	s1 = Machine.getFullMachineID(Machine.REMOTE_PREFIX + TextUtils.getValue(hashmap, "_id"), httprequest);
             }
+            
             String s2 = TextUtils.getValue(hashmap, "_name");
             if(s2.length() == 0)
             {

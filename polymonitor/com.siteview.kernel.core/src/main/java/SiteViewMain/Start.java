@@ -9,7 +9,7 @@ import com.siteview.kernel.mqttclient.AgentService4Mqtt;
 
 import SiteViewMain.SiteViewSupport;
 public class Start {
-	  
+	public static AgentService4Mqtt agent;
 	public Start()
 	 {
 	 }
@@ -24,7 +24,7 @@ public class Start {
             SiteViewSupport.StartProcess();
             InitMqttServer.execute();
             ApiRmiServer server = new ApiRmiServer();
-            AgentService4Mqtt agent = new AgentService4Mqtt();
+            agent = new AgentService4Mqtt();
             agent.progressService();
             SiteViewSupport.WaitForProcess();
         }

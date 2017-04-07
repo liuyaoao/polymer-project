@@ -82,19 +82,24 @@ public abstract class machineChooserPage extends com.dragonflow.Page.CGI {
         jgl.Array array = readMachines(s);
         jgl.Sorting.sort(array, new CompareSlot("_name",
                 com.dragonflow.SiteView.CompareSlot.DIRECTION_LESS));
-        boolean flag = s.indexOf("NT") == -1;
+//        boolean flag = s.indexOf("NT") == -1 && s.indexOf("Mqtt")==-1;
         for (int i = 0; i < array.size(); i++) {
             jgl.HashMap hashmap = (jgl.HashMap) array.at(i);
             String s1 = "";
-            if (flag) {
-                s1 = Machine.getFullMachineID(
-                        com.dragonflow.SiteView.Machine.REMOTE_PREFIX
-                                + TextUtils.getValue(
-                                        hashmap, "_id"), request);
-            } else {
-                s1 = Machine.getFullMachineID(
+            if(s.contains("NT")){
+            	s1 = Machine.getFullMachineID(
                         com.dragonflow.Utils.TextUtils
                                 .getValue(hashmap, "_host"), request);
+            }else if(s.contains("Mqtt")){
+            	s1 = Machine.getFullMachineID(
+                        com.dragonflow.SiteView.Machine.REMOTE_MQTTPREFIX
+                                + TextUtils.getValue(
+                                        hashmap, "_id"), request);
+            }else{
+            	 s1 = Machine.getFullMachineID(
+                         com.dragonflow.SiteView.Machine.REMOTE_PREFIX
+                                 + TextUtils.getValue(
+                                         hashmap, "_id"), request);
             }
             String s2 = TextUtils.getValue(
                     hashmap, "_name");

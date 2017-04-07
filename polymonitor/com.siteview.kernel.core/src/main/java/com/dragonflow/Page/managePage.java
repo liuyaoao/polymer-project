@@ -11,13 +11,13 @@ package com.dragonflow.Page;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Map;
 
-import jgl.Array;
-import jgl.HashMap;
-
+import com.alibaba.fastjson.JSONObject;
 import com.dragonflow.HTTP.HTTPRequestException;
 import com.dragonflow.Properties.HashMapOrdered;
 import com.dragonflow.SiteView.Machine;
@@ -31,6 +31,9 @@ import com.dragonflow.SiteView.SiteViewGroup;
 import com.dragonflow.SiteView.SiteViewLogReader;
 import com.dragonflow.SiteView.monitorUtils;
 import com.dragonflow.Utils.TextUtils;
+
+import jgl.Array;
+import jgl.HashMap;
 
 // Referenced classes of package com.dragonflow.Page:
 // CGI, treeControl, monitorPage, portalPreferencePage,
@@ -81,6 +84,7 @@ public class managePage extends com.dragonflow.Page.CGI
         if(httprequest.actionAllowed("_preference"))
         {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
+            menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
             menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
         }
         if(httprequest.actionAllowed("_tools"))
@@ -1116,10 +1120,11 @@ label1:
 //        stringbuffer.append("<td align=\"right\" valign=\"top\">Match Machine:</td><td align=\"left\"valign=\"top\"><input type=text name=machineNameSelect size=15 value=\"" + s1 + "\"></td>");
 //        stringbuffer.append("<td align=\"right\" valign=\"top\">For Monitor Type: </td><td align=\"left\"valign=\"top\"><SELECT NAME=monitorTypeSelect><option value=\"\">All types</option>\n");
 
-        stringbuffer.append("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/filter-setting-form.html'>\n");
+        stringbuffer.append("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/filter-setting-form.html' async='true'>\n");
         stringbuffer.append("<filter-setting-form action-url='/SiteView/cgi/go.exe/SiteView' health-length=" + request.getValue("_health").length() 
         		+ " monitor-name-select='" + s + "'"
         		+ " machine-name-select='" + s1 + "'"
+        		+ "monitor-type-select='" + request.getValue("monitorTypeSelect") + "'"
         		+ ">");
         jgl.Array array = com.dragonflow.Page.monitorPage.getMonitorClasses();
         enumeration = array.elements();
@@ -2504,17 +2509,21 @@ label1:
                 for(Enumeration enumeration4 = request.getValues("group"); enumeration4.hasMoreElements(); hashmap2.put(enumeration4.nextElement(), "checked")) { }
             }
             printBrowseFilterOptionForm(outputStream);
-            outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/filter-list-form.html'>\n");
+            outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/filter-list-form.html' async='true'>\n");
             outputStream.println("<filter-list-form action-url='/SiteView/cgi/go.exe/SiteView' level='first' need-verify='true'"
             		+ "account='" + account + "'"
             		+ "health-length='" + request.getValue("_health").length() + "'"
             		+ ">");
+            
+
 //            outputStream.println("<FORM METHOD=POST ACTION=/SiteView/cgi/go.exe/SiteView><INPUT TYPE=HIDDEN NAME=level VALUE=first><INPUT TYPE=HIDDEN NAME=page VALUE=manage><INPUT TYPE=HIDDEN NAME=needVerify VALUE=true><INPUT TYPE=HIDDEN NAME=account VALUE=" + s3 + ">" + "<TABLE BORDER=\"0\" CELLSPACING=\"4\">");
 //            if(request.getValue("_health").length() > 0)
 //            {
 //                outputStream.print("<input type=hidden name=_health value=true>\n");
 //            }
-            outputStream.println("<TABLE class='filter-tree' BORDER=\"0\" CELLSPACING=\"4\">");
+            outputStream.println("<div class='filter-tree' style='width: 98%'>");
+//            outputStream.println("<TABLE BORDER=\"0\" CELLSPACING=\"4\">");
+            
             if(com.dragonflow.Page.treeControl.useTree())
             {
                 StringBuffer stringbuffer = new StringBuffer();
@@ -2524,22 +2533,41 @@ label1:
                 outputStream.println("</TABLE>");
             } else
             {
+//            	System.out.println("--------------------");
                 com.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(true);
                 jgl.Array array2 = getGroupNameList(hashmapordered, null, null, true);
+                
+                java.util.HashMap treeMap = new java.util.HashMap();
+                treeMap.put("name", "Root");
+                treeMap.put("icon", "weekend");
+                treeMap.put("open", "true");
+                ArrayList<java.util.HashMap> treemapList = new ArrayList<java.util.HashMap>();
                 for(Enumeration enumeration6 = array2.elements(); enumeration6.hasMoreElements();)
                 {
+                	java.util.HashMap treeChildrenMap = new java.util.HashMap();
                     String s9 = (String)enumeration6.nextElement();
+//                    System.out.println(s9);
                     Enumeration enumeration5 = hashmapordered.values(s9);
                     while(enumeration5.hasMoreElements()) 
                     {
                         com.dragonflow.SiteView.MonitorGroup monitorgroup = (com.dragonflow.SiteView.MonitorGroup)enumeration5.nextElement();
                         groupCount++;
-                        printGroup(monitorgroup, hashmap, hashmap2, 0);
+                        printGroup(monitorgroup, hashmap, hashmap2, 0, treeChildrenMap);
                     }
+                    
+                    treemapList.add(treeChildrenMap);
                 }
 
-                outputStream.println("</TABLE>");
+//                outputStream.println("</TABLE>");
+                
+                treeMap.put("children", treemapList);
+//                System.out.println("treeMap: " + JSONObject.toJSON(treeMap));
+                
+                outputStream.println("<paper-tree-ext id='filterTree' data='" + JSONObject.toJSON(treeMap) + "' actions='[{\"label\": \"Details\", \"event\": \"ondetails\"}]' checkstate = true></paper-tree-ext>");
+                outputStream.println("</div>");
             }
+            
+            
         }
         outputStream.println("<TABLE class='filter-list' WIDTH=98% BORDER=0 CELLPADDING=5>");
         if(request.actionAllowed("_groupEdit"))
@@ -2602,7 +2630,7 @@ label1:
         String urlPath = Platform.getURLPath("htdocs", request.getAccount()) + "/Detail";
         com.dragonflow.SiteView.SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         jgl.Array array = getFilteredGroupList();
-        outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/filter-list-form.html'>\n");
+        outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/filter-list-form.html' async='true'>\n");
         outputStream.println("<filter-list-form action-url='/SiteView/cgi/go.exe/SiteView'"
         		+ "account='" + request.getAccount() + "'"
         		+ "array='" + array + "'"
@@ -2613,6 +2641,8 @@ label1:
 //        {
 //            outputStream.print("<input type=hidden name=_health value=true>\n");
 //        }
+        System.out.println("**********************");
+//        System.out.println(JSONObject.fromObject(array));
         if(array.size() > 0)
         {	
             outputStream.print("<B>Groups:</B><BR>");
@@ -2661,33 +2691,43 @@ label1:
         }
     }
 
-    private void printGroup(com.dragonflow.SiteView.MonitorGroup monitorgroup, jgl.HashMap hashmap, jgl.HashMap hashmap1, int i)
+    private void printGroup(com.dragonflow.SiteView.MonitorGroup monitorgroup, jgl.HashMap hashmap, jgl.HashMap hashmap1, int i, java.util.HashMap treeChildrenMap)
     {
         String s = monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pID);
         boolean flag = hashmap.get(s) != null;
         String s1 = getIndentHTML(i);
         String s2 = Platform.getURLPath("htdocs", request.getAccount()) + "/Detail";
-        outputStream.print("<TR><TD>");
-        outputStream.print(s1);
-        if(flag)
-        {
-//            outputStream.print("<input type=image name=close" + s + " src=/SiteView/htdocs/artwork/Minus.gif alt=\"close\" border=0>");
-        	outputStream.print("<paper-icon-button type=image name=close" + s + " src='/SiteView/htdocs/artwork/Minus.gif' alt=\"close\" border=0></paper-icon-button>");
-        } else
-        {
-//            outputStream.print("<input type=image name=open" + s + " src=/SiteView/htdocs/artwork/Plus.gif alt=\"open\" border=0>");
-        	outputStream.print("<paper-icon-button type=image name=open" + s + " src='/SiteView/htdocs/artwork/Plus.gif' alt=\"open\" border=0></paper-icon-button>");
-        }
+//        outputStream.print("<TR><TD>");
+//        outputStream.print(s1);
+//        if(flag)
+//        {
+////            outputStream.print("<input type=image name=close" + s + " src=/SiteView/htdocs/artwork/Minus.gif alt=\"close\" border=0>");
+//        	outputStream.print("<paper-icon-button type=image name=close" + s + " src='/SiteView/htdocs/artwork/Minus.gif' alt=\"close\" border=0></paper-icon-button>");
+//        } else
+//        {
+////            outputStream.print("<input type=image name=open" + s + " src=/SiteView/htdocs/artwork/Plus.gif alt=\"open\" border=0>");
+//        	outputStream.print("<paper-icon-button type=image name=open" + s + " src='/SiteView/htdocs/artwork/Plus.gif' alt=\"open\" border=0></paper-icon-button>");
+//        }
 //        outputStream.print("<input type=checkbox name=group" + groupCount + " value=\"" + s + "\" " + TextUtils.getValue(hashmap1, s) + "><B>");
-        outputStream.print("<paper-checkbox type=checkbox name=group" + groupCount + " value=\"" + s + "\" " + TextUtils.getValue(hashmap1, s) + "><B>");
-        outputStream.print("<A HREF=" + s2 + com.dragonflow.HTTP.HTTPRequest.encodeString(com.dragonflow.Utils.I18N.toDefaultEncoding(monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pID))) + ".html>" + monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pName));
-        outputStream.println("</A></B></paper-checkbox></TD></TR>");
+        ArrayList<java.util.HashMap> treechildlist = new ArrayList<java.util.HashMap>();
+        treeChildrenMap.put("name", monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pName));
+        treeChildrenMap.put("icon", "weekend");
+        treeChildrenMap.put("type", "group" + groupCount);
+        treeChildrenMap.put("link", s2 + com.dragonflow.HTTP.HTTPRequest.encodeString(com.dragonflow.Utils.I18N.toDefaultEncoding(monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pID))) + ".html");
+        treeChildrenMap.put("value", s + " " + TextUtils.getValue(hashmap1, s));
+//        treeChildrenMap.put("open", "true");
+        
+//        outputStream.print("<paper-checkbox type=checkbox name=group" + groupCount + " value=\"" + s + "\" " + TextUtils.getValue(hashmap1, s) + "><B>");
+//        outputStream.print("<A HREF=" + s2 + com.dragonflow.HTTP.HTTPRequest.encodeString(com.dragonflow.Utils.I18N.toDefaultEncoding(monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pID))) + ".html>" + monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pName));
+//        outputStream.println("</A></B></paper-checkbox></TD></TR>");
         s1 = getIndentHTML(i + 3);
+        
         if(flag)
         {
             Enumeration enumeration = monitorgroup.getMonitors();
             do
             {
+            	java.util.HashMap treeChildMap = new java.util.HashMap();
                 if(!enumeration.hasMoreElements())
                 {
                     break;
@@ -2700,22 +2740,36 @@ label1:
                     com.dragonflow.SiteView.MonitorGroup monitorgroup1 = (com.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s3);
                     if(monitorgroup1 != null)
                     {
+                    	ArrayList<java.util.HashMap> treesubList = new ArrayList<java.util.HashMap>();
                         groupCount++;
-                        printGroup(monitorgroup1, hashmap, hashmap1, i + 2);
+                        printGroup(monitorgroup1, hashmap, hashmap1, i + 2, treeChildMap);
                     }
                 } else
                 {
-                    outputStream.print("<TR><TD>");
-                    outputStream.print(s1);
+//                    outputStream.print("<TR><TD>");
+//                    outputStream.print(s1);
                     String s4 = s + " " + monitor.getProperty(com.dragonflow.SiteView.Monitor.pID);
-//                    outputStream.print("<input type=checkbox name=monitor value=\"" + s4 + "\" " + TextUtils.getValue(hashmap1, s4) + ">");
-                    outputStream.print("<paper-checkbox type=checkbox name=monitor value=\"" + s4 + "\" " + TextUtils.getValue(hashmap1, s4) + ">");
-                    outputStream.print(monitor.getProperty(com.dragonflow.SiteView.Monitor.pName));
-                    outputTopazLoggingStatus(monitor);
-                    outputStream.println("</paper-checkbox>");
-                    outputStream.println("</TD></TR>");
+////                    outputStream.print("<input type=checkbox name=monitor value=\"" + s4 + "\" " + TextUtils.getValue(hashmap1, s4) + ">");
+//                    outputStream.print("<paper-checkbox type=checkbox name=monitor value=\"" + s4 + "\" " + TextUtils.getValue(hashmap1, s4) + ">");
+//                    outputStream.print(monitor.getProperty(com.dragonflow.SiteView.Monitor.pName));
+//                    outputTopazLoggingStatus(monitor);
+//                    outputStream.println("</paper-checkbox>");
+//                    outputStream.println("</TD></TR>");
+                    
+//                    System.out.println("name:" + monitor.getProperty(com.dragonflow.SiteView.Monitor.pName));
+//                    System.out.println("value:" + s4 + " " + TextUtils.getValue(hashmap1, s4));
+                    treeChildMap.put("type", "monitor");
+                    treeChildMap.put("name", monitor.getProperty(com.dragonflow.SiteView.Monitor.pName));
+                    treeChildMap.put("value", s4 + " " + TextUtils.getValue(hashmap1, s4));
                 }
+                treechildlist.add(treeChildMap);
+//                System.out.println(JSONObject.toJSON(treechildlist));
             } while(true);
+            
+            treeChildrenMap.put("children", treechildlist);
+            
+            
+           
         }
     }
 

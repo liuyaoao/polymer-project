@@ -63,6 +63,11 @@ public class ServerProperty extends StringProperty {
             }
             s2 = "&noremote=true";
         }
+        if(siteviewobject.getClass().getName().contains("Mqtt")){
+        	s2="&noremote=true&noNTRemote=true";
+        }else{
+        	s2+="&nomqttremote=true";
+        }
         String s3 = s1;
         if (s3.length() == 0) {
             s3 = "this server";

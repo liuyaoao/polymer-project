@@ -1,5 +1,5 @@
 /*
- * 
+ *
  * Created on 2014-4-20 22:12:36
  *
  * .java
@@ -9,11 +9,13 @@
  */
 package com.dragonflow.Page;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import jgl.Array;
 import jgl.HashMap;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dragonflow.HTTP.HTTPRequestException;
 import com.dragonflow.Properties.HashMapOrdered;
 import com.dragonflow.SiteView.User;
@@ -404,54 +406,65 @@ public class userPrefsPage extends com.dragonflow.Page.prefsPage
         printBodyHeader(s1);
         printButtonBar(getHelpPage(), "", getSecondNavItems(request));
         printPrefsBar("Users");
-        outputStream.println("<H2>User Profiles</H2><p>User profiles control viewing and editing permissions on this SiteView installation.</p><TABLE WIDTH=100% BORDER=1 cellspacing=0><TR CLASS=\"tabhead\"><TH align=left>Name</TH><TH>Login URL</TH>\n");
-        if(request.actionAllowed("_users"))
-        {
-            outputStream.println("<TH WIDTH=10%>Edit</TH><TH WIDTH=3%>Del</TH>");
-        }
-        outputStream.println("</TR>");
+        outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/data-table-ext.html' async='true'>\n");
+        outputStream.println("<H2>User Profiles</H2><p>User profiles control viewing and editing permissions on this SiteView installation.</p>\n");
+        // if(request.actionAllowed("_users")){
+        //     outputStream.println("<TH WIDTH=10%>Edit</TH><TH WIDTH=3%>Del</TH>");
+        // }
+        // outputStream.println("</TR>");
         jgl.Array array = getUserFrames();
         Enumeration enumeration = array.elements();
         if(enumeration.hasMoreElements())
         {
             enumeration.nextElement();
         }
-        while(enumeration.hasMoreElements()) 
-        {
+        ArrayList<java.util.HashMap> mapList = new ArrayList<java.util.HashMap>();
+        while(enumeration.hasMoreElements()){
+          java.util.HashMap<String, String> dataMap = new java.util.HashMap<String, String>();
             jgl.HashMap hashmap = (jgl.HashMap)enumeration.nextElement();
             String s2 = TextUtils.getValue(hashmap, "_id");
-            String s3 = getUserTitle(hashmap);
-            if(TextUtils.getValue(hashmap, "_disabled").length() > 0)
-            {
-                s3 = s3 + " (disabled)";
+            String userTitle = getUserTitle(hashmap);
+            if(TextUtils.getValue(hashmap, "_disabled").length() > 0){
+                userTitle = userTitle + " (disabled)";
             }
             String s4 = "/SiteView?account=" + s2;
-            if(request.actionAllowed("_users"))
-            {
-                String s5 = getPageLink(request.getValue("page"), "") + "&user=" + s2;
-                String s6 = "<A href=" + s5 + "&operation=Delete>X</a>";
-                if(s2.equals("user") || s2.equals("administrator"))
-                {
-                    s6 = "&nbsp;";
+            if(request.actionAllowed("_users")){
+                String mainUrl = getPageLink(request.getValue("page"), "") + "&user=" + s2;
+                String delOperation = "<A href=" + mainUrl + "&operation=Delete>X</a>";
+                if(s2.equals("user") || s2.equals("administrator")){
+                    delOperation = "&nbsp;";
                 }
-                outputStream.println("<TR><TD align=left>" + s3 + "</TD>");
-                if(TextUtils.getValue(hashmap, "_disabled").length() <= 0)
-                {
-                    outputStream.println("<TD><A href=" + s4 + ">" + s4 + "</a></TD>");
-                } else
-                {
-                    outputStream.println("<TD>" + s4 + " </TD>");
+                dataMap.put("a_Name", userTitle);
+                // outputStream.println("<TR><TD align=left>" + userTitle + "</TD>");
+                if(TextUtils.getValue(hashmap, "_disabled").length() <= 0){
+                  dataMap.put("b_Login&nbsp;URL", "<a href=" + s4 + ">" + s4 + "</a>");
+                    // outputStream.println("<TD><A href=" + s4 + ">" + s4 + "</a></TD>");
+                } else{
+                  dataMap.put("b_Login&nbsp;URL", s4);
+                    // outputStream.println("<TD>" + s4 + " </TD>");
                 }
-                outputStream.println("<TD><A href=" + s5 + "&operation=Edit>Edit</a></TD>" + "<TD>" + s6 + "</TD>" + "</TR>\n");
-            } else
-            {
-                outputStream.println("<TR><TD align=left>" + s3 + "</TD>" + "<TD><A href=" + s4 + ">" + s4 + "</a></TD>" + "</TR>\n");
+                dataMap.put("c_Edit", "<A href=" + mainUrl + "&operation=Edit>Edit</a>");
+                dataMap.put("d_Del", delOperation);
+                // outputStream.println("<TD><A href=" + mainUrl + "&operation=Edit>Edit</a></TD>" + "<TD>" + delOperation + "</TD>" + "</TR>\n");
+            } else{
+              dataMap.put("a_Name", userTitle);
+              dataMap.put("b_Login&nbsp;URL", "<a href=" + s4 + ">" + s4 + "</a>");
+                // outputStream.println("<TR><TD align=left>" + userTitle + "</TD>" + "<TD><a href=" + s4 + ">" + s4 + "</a></TD>" + "</TR>\n");
             }
+            mapList.add(dataMap);
         }
-        outputStream.println("</TABLE><BR>");
+        String jsonString = JSONObject.toJSONString(mapList);
+    		jsonString = jsonString.replaceAll(" ","@space");
+    		jsonString = jsonString.replaceAll(">","@big");
+    		jsonString = jsonString.replaceAll("<","@small");
+
+    		outputStream.println("<data-table-custom data-list="+jsonString+" is-show-header='true'></data-table-custom>\n");
+
+        // outputStream.println("</TABLE>");
+
         if(request.actionAllowed("_users"))
         {
-            outputStream.println("<A HREF=" + getPageLink(request.getValue("page"), "Add") + ">Add</A> New User Profile\n" + "<br><br>\n");
+            outputStream.println("<br><A HREF=" + getPageLink(request.getValue("page"), "Add") + ">Add</A> New User Profile\n" + "<br><br><hr>\n");
         }
         printFooter(outputStream);
     }
