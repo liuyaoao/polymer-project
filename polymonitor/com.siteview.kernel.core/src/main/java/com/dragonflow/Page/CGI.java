@@ -717,8 +717,7 @@ public abstract class CGI {
         com.dragonflow.Page.CGI.printError(outputStream, s, s1, s2);
     }
 
-    static void printError(java.io.PrintWriter printwriter, String s,
-            String s1, String s2) {
+    static void printError(java.io.PrintWriter printwriter, String s, String s1, String s2) {
         printRefreshHeader(printwriter, "", s2, 1);
         printwriter.print(s + "<HR>" + s1 + "<HR>");
         HTTPRequest httprequest = null;

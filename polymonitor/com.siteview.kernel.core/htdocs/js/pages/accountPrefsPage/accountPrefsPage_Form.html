@@ -1,0 +1,276 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html"> -->
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<!-- <link rel="import" href="monitor-ripple-container.html"> -->
+<link rel="import" href="../css/bootstrap-styles.html">
+<!-- <link rel="import" href="monitor-tabs.html"> -->
+
+<dom-module id="account-prefs-page-form">
+  <template strip-whitespace>
+      <style include="bootstrap-styles">
+        :host {
+          display: block;
+          background: #dbd8dc;
+          position: relative;
+        }
+
+      </style>
+      <div id="accountPrefsPageContainer" class="container-fluid">
+        <aha-html-echo role="" html="{{_partnerMainHtml}}" class=""></aha-html-echo>
+        <aha-html-echo role="" html="{{_expiredInfo}}" class=""></aha-html-echo>
+        <div>
+          <table width='100%' border=0>
+            <tr>
+              <td rowspan=2>
+                <a href='{{_homeUrlPrefix}}/SiteSeer.htm'><img src=/SiteView/htdocs/artwork/siteseerlogo.gif></a>
+              </td>
+            </tr>
+            <tr>
+              <td> <H2>{{_accountType}} Account: {{_groupName}}</H2></td>
+              <td>{{_chatHtml}}</td>
+            </tr>
+          </table>
+        </div>
+        <aha-html-echo role="" html="{{_siteseerNews}}" class=""></aha-html-echo>
+        <div>
+          <!-- monitor table -->
+
+        </div>
+        <div>
+          <blockquote><dl>
+            <dt>
+              <table width=300>
+                <tr>
+                  <td><a href="{{_groupDetailUrl}}">Go to Monitor Detail</a></td>
+                  <td align=right><a href='/SiteView/docs/Group.htm#detail' target='Help'>Help</a></td>
+                </tr>
+              </table>
+            </dt>
+            <dd>Add or modify monitors, or get more information about the monitors.</dd>
+
+            <dt>
+              <table width=300>
+                <tr>
+                  <td><a href="{{_reportsListUrl}}">Go to Reports</a></td>
+                  <td align=right><a href='/SiteView/docs/HReports.htm' target='Help'>Help</a></td>
+                </tr>
+              </table>
+            </dt>
+            <dd>Reports provide historical data from the readings of your monitors.<br> View generated daily and weekly reports. Modify report settings, and add reports.<br></dd>
+
+            <dt>
+              <table width=300>
+                <tr>
+                  <td><a href="{{_alertListUrl}}">Go to Alerts</a></td>
+                  <td align=right><a href='/SiteView/docs/Alert.htm' target='Help'>Help</a></td>
+                </tr>
+              </table>
+            </dt>
+            <dd>Alerts define the method by which SiteSeer will contact you in the event of a problem.<br> Change how often alerts are sent, and add and modify pager settings.</dd>
+
+            <dt>
+              <table width=300>
+                <tr>
+                  <td><a href="{{_logUrl}}">Go to Logs</a></td>
+                  <td align=right><a href='/SiteView/docs/Log.htm' target='Help'>Help</a></td>
+                </tr>
+              </table>
+            </dt>
+            <dd>View the unformatted contents of the log files for monitoring and alerting.</dd>
+            <template is="dom-if" if="{{!_preferenceAllowed}}">
+              <dt><b>Account Details</b><br>
+                <dd>
+                  <table border=0>
+                    <tr><td align='right'>Account:</td>  <td>{{_account}}</td></tr>
+                    <tr><td align='right'>Contact Name:</td>  <td>{{_userRealName}}</td></tr>
+                    <tr><td align='right'>Contact E-mail:</td>  <td>{{_userEmail}}</td></tr>
+                    <tr><td align='right'>Notification E-mail:</td>  <td>{{_outageEmail}}</td></tr>
+                    <tr><td align='right'>Time Zone:</td>  <td>{{_timeZoneName}}</td></tr>
+                  </table><br>
+                </dd>
+              </dt>
+              <!-- <aha-html-echo role="gridcell" html="{{cellDisplayValue}}" class="flex flex--center"></aha-html-echo> -->
+            </template>
+            <template is="dom-if" if="{{_preferenceAllowed}}">
+              <dt><B>Account Details</B><br>
+              </dt>
+              <dd>
+                <form action='/SiteView/cgi/go.exe/SiteView' method='post'>
+                  <input type=hidden name='account' value="{{_account}}">
+                  <input type=hidden name='page' value='accountPrefs'>
+                  <input type=hidden name='operation' value='save'>
+                  <div>Account:{{_account}}</div>
+                  <div>Username:
+                    <input name='login' size=25 value="{{_userLoginName}}">
+                    <font SIZE=-1>the username used to login to this account</font>
+                  </div>
+                  <div>Password:
+                    <input type=password name='password' size=25 value="{{_userLoginPassword}}">
+                    <font SIZE=-1>the password used to login to this account</font>
+                  </div>
+                  <div>Password (again):
+                    <input type=password name='password2' size=25 value="{{_userLoginPassword}}">
+                    <font SIZE=-1>the password again used to login to this account</font>
+                  </div>
+                  <div>Contact Name:
+                    <input type='text' name='realName' size=30 value="{{_userRealName}}">
+                    <font SIZE=-1>the contact person for questions about this account</font>
+                  </div>
+                  <div>Contact E-mail:
+                    <input type='text' name='contactEmail' size=30 value="{{_userEmail}}">
+                    <font SIZE=-1>the contact email for questions about this account</font>
+                  </div>
+                  <div>Notification E-mail:
+                    <input type=text name='outageEmail' size=30 value="{{_outageEmail}}">
+                    <font SIZE=-1>optional, email address for notification of scheduled maintenance and upgrades</font>
+                  </div>
+                  <div>Time Zone:
+                    <select name=timeOffset size=1>
+                      <aha-html-echo role="" html="{{_formSelectOption}}" class=""></aha-html-echo>
+                    </select>
+                    <font SIZE=-1>choose which time zone to use for displaying times in this account</font>
+                  </div>
+                  <br><input type='submit' value="Save Changes">
+                </form>
+              </dd>
+            </template>
+
+            <dt><font size=+1><b>Account Configuration</b></font><br>
+            </dt>
+            <dd>
+              <table border=0>
+                <template is="dom-if" if="{{_flag}}">
+                  <tr><td align='right'><b>URL Monitors:</b></td>
+                    <td><aha-html-echo role="" html="{{_adviceInfoOne}}" class=""></aha-html-echo></td>
+                  </tr>
+                  <tr><td align='right'><b>URL Sequence Monitors:</b></td>
+                    <td><aha-html-echo role="" html="{{_adviceInfoTwo}}" class=""></aha-html-echo></td>
+                  </tr>
+                  <tr><td align='right'><b>Monitors:</b></td>
+                    <TD>up to "+ monitorgroup.getSetting("_maximumMonitors") + " total monitors may be added.</TD>
+                  </tr>
+                  <tr><td align='right'><b>Reports:</b></td>
+                    <TD>up to " + monitorgroup.getSetting("_maximumReportsCount")+ " reports may be defined.</TD>
+                  </tr>
+                  <tr><td align='right'><b>Frequency:</b></td>
+                    <td>monitors as often as every {{_secondsStr}}</td>
+                  </tr>
+                  <tr><td align='right'><b>Privileges:</b></td>
+                    <td>{{_monitorEditType}}</td>
+                  </tr>
+                </template>
+
+                <template is="dom-if" if="{{!_flag}}">
+                  <tr><td align='right'><b>Global Transactions:</b></td>
+                    <td><aha-html-echo role="" html="{{_adviceInfoTwo}}" class=""></aha-html-echo></td>
+                  </tr>
+                  <tr><td align='right'><b>Global Monitors:</b></td>
+                    <td><aha-html-echo role="" html="{{_adviceInfoOne}}" class=""></aha-html-echo></td>
+                  </tr>
+                  <tr><td align='right'><b>Monitors:</b></td>
+                    <TD>up to "+ monitorgroup.getSetting("_maximumMonitors") + " monitors may be added.</TD>
+                  </tr>
+                  <tr><td align='right'><b>Reports:</b></td>
+                    <TD>up to " + monitorgroup.getSetting("_maximumReportsCount")+ " reports may be defined.</TD>
+                  </tr>
+                  <tr><td align='right'><b>Frequency:</b></td>
+                    <td>sample as often as every {{_secondsStr}}</td>
+                  </tr>
+                  <tr><td align='right'><b>Privileges:</b></td>
+                    <td>{{_monitorEditType}}</td>
+                  </tr>
+                </template>
+              </table>
+            </dd>
+            
+            <br>
+            <div><aha-html-echo role="" html="{{_moreInfo}}" class=""></aha-html-echo><br></div>
+            <div><aha-html-echo role="" html="{{_partnerSupportHtml}}" class=""></aha-html-echo><br></div>
+          </dl></blockquote>
+          <aha-html-echo role="" html="{{_partnerMainFooterHtml}}" class=""></aha-html-echo>
+        </div>
+        <!-- <monitor-tabs
+              selected="[[curSelected]]"
+              attr-for-selected="name">
+            <template is="dom-repeat" items="[[jsonData]]" as="obj">
+
+              <monitor-tab name="[[obj.name]]" on-click='_onClickMonitorTab'>
+                <monitor-ripple-container>
+                <a href="[[obj.value]]">[[obj.name]]<iron-icon icon="[[obj.iconName]]"></iron-icon></a>
+                </monitor-ripple-container>
+              </monitor-tab>
+
+            </template>
+          </monitor-tabs> -->
+      </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'account-prefs-page-form',
+      properties:{
+        _partnerMainHtml:String,
+        _expiredInfo:String,
+        _homeUrlPrefix:String,
+        _accountType:String,
+        _groupName:String,
+        _chatHtml:String,
+        _siteseerNews:String,
+
+        _groupDetailUrl:String,
+        _reportsListUrl:String,
+        _alertListUrl:String,
+        _logUrl:String,
+        _preferenceAllowed:Boolean,
+
+        _userRealName:String,
+        _userEmail:String,
+        _outageEmail:String,
+
+        _userLoginName:String,
+        _userLoginPassword:String,
+        _formSelectOption:String,
+        _flag:Boolean,
+        _partnerSupportHtml:String,
+        _partnerMainFooterHtml:String,
+        _monitorEditType:String,
+
+        _adviceInfoOne:String,
+        _adviceInfoTwo:String,
+        _maximumMonitors:String,
+        _maximumReportsCount:String,
+
+        _moreInfo:String,
+        // _userRealName:String,
+        _secondsStr:String
+
+      },
+      ready:function(){
+      }
+
+
+
+    });
+  </script>
+</dom-module>
+<script>
+  Polymer({
+    is: "aha-html-echo",
+    properties: {
+      //column name
+      html: {
+        type: String,
+        value: "",
+        observer: "onHtmlChanged"
+      }
+    },
+    onHtmlChanged: function() {
+      if (!this.html) {
+        this.html = "";
+      }
+      this.innerHTML = this.html;
+    }
+  });
+</script>

@@ -1,5 +1,5 @@
 /*
- * 
+ *
  * Created on 2014-4-20 22:12:36
  *
  * .java
@@ -190,7 +190,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
                             + getPageLink("mqttmachine", "")
                             + " title=\"Set up connections for monitoring remote Mqtt machines\">Remote MQTT</a>");
         }
-        
+
         outputStream.print(" | ");
         if (com.dragonflow.SiteView.Platform.isWindows()
                 || TextUtils.getValue(hashmap,
