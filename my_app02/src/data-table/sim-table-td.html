@@ -1,0 +1,74 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../../css/bootstrap-styles.html"> -->
+
+<dom-module id="sim-table-td">
+  <template strip-whitespace>
+    <style>
+      :host {
+        /*display: table-cell;*/
+        display: inline-block;
+        padding:5px 10px;
+        margin:0;
+      }
+      .sim-table-td{
+
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+    </style>
+    <div class="sim-table-td"><content></content></div>
+  </template>
+  <script>
+    Polymer({
+      is: 'sim-table-td',
+      properties:{
+        _text:String,
+        //data: instance of the model data
+        data:{
+          type:Array,
+          notify: true,
+          value: function() {
+            return [];
+          },
+        }
+      },
+      ready:function(){
+        // var ele = document.querySelector(".tableHead");
+        // console.log("query dom node-td-textContent:",Polymer.dom(this.root).textContent);
+        // console.log("query dom node-td-children:",Polymer.dom(this.root).children);
+        // console.log("query dom node-td.innerHTML:",Polymer.dom(this.root).querySelector(".sim-table-td").innerHTML);
+        // console.log("query dom node-td:",Polymer.dom(this.root).children.innerHTML);
+
+      }
+
+
+
+
+
+
+    });
+  </script>
+</dom-module>
+<script>
+  Polymer({
+    is: "aha-html-echo-td",
+    properties: {
+      //column name
+      html: {
+        type: String,
+        value: "",
+        observer: "onHtmlChanged"
+      }
+    },
+    onHtmlChanged: function() {
+      if (!this.html) {
+        this.html = "";
+      }
+      this.innerHTML = this.html;
+    }
+  });
+</script>

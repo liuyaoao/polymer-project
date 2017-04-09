@@ -1,0 +1,126 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../css/bootstrap-styles.html">
+
+<dom-module id="simple-data-table">
+  <template>
+    <style include="bootstrap-styles">
+      :host {
+        display: block;
+        margin:10px 0;
+      }
+      :host ::content .tableHead {
+        /*background: #ddd;*/
+      }
+      .tableContainer{
+        display:table;
+        width:100%;
+        table-layout: fixed;
+      }
+      .tableContainer ::content sim-table-tr:nth-child(even) {
+        background: #F2EFEF;
+      }
+
+    </style>
+    <!-- <content select=".tableHead" class="tableHeadCnt"></content> -->
+    <!-- <content select=".tableBody" class="tableBodyCnt"></content> -->
+      <div class="container-fluid tableContainer">
+        <content></content>
+      </div>
+      <table class="table table-striped">
+          <thead class="tableHead2">
+            <th>responsive1</th>
+            <th>responsive2</th>
+            <th>responsive3</th>
+            <th>responsive4</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>displayedRows1</td>
+              <td>displayedRows2</td>
+              <td>displayedRows3</td>
+              <td>displayedRows4</td>
+            </tr>
+            <tr>
+              <td>displayedRows1</td>
+              <td>displayedRows2</td>
+              <td>displayedRows3</td>
+              <td>displayedRows4</td>
+            </tr>
+          </tbody>
+      </table>
+  </template>
+  <script>
+    Polymer({
+      is: 'simple-data-table',
+      properties:{
+        dataList:String,
+        //data: instance of the model data
+        data:{
+          type:Array,
+          notify: true,
+          value: function() {
+            return [];
+          },
+        }
+      },
+      ready:function(){
+
+        // Polymer.dom(this.root).querySelector(".container-fluid .table").appendChild(ele);
+
+        // var simTr = document.querySelectorAll(".tableHead sim-table-tr");
+        // var simBodyTr = document.querySelectorAll(".tableBody sim-table-tr");
+        // for(var i=0;i<simTr.length;i++){
+        //   Polymer.dom(this.root).querySelector(".table thead").appendChild(simTr[i]);
+        // }
+        // for(var i=0;i<simBodyTr.length;i++){
+        //   Polymer.dom(this.root).querySelector(".table tbody").appendChild(simBodyTr[i]);
+        // }
+
+      },
+      attached:function(){
+        // var tdDomRoot = document.querySelectorAll("sim-table-tr sim-table-td");
+        // // var tdDomRoot = Polymer.dom(this.root).querySelectorAll("sim-table-tr sim-table-td");
+        // console.log("query dom tdDomRoot:",tdDomRoot);
+        // for(var i=0;i<tdDomRoot.length;i++){
+        //   var that = tdDomRoot[i];
+        //   that.root.firstElementChild.innerHTML= (that.innerHTML);
+        //   console.log("parentNode",that.parentNode);
+        //   var parentTr = that.parentNode;
+        //   console.log("parent tr Node",parentTr.root.firstElementChild);
+        //   parentTr.root.firstElementChild.appendChild(that.root.firstElementChild);
+        //
+        //   var trParent = parentTr.parentNode;
+        //   trParent.appendChild(tdParent.root.firstElementChild);
+        //   // tdParent.remove();
+        // }
+        // Polymer.dom(this.root).querySelectorAll("sim-table-tr").remove();
+      }
+
+
+
+
+
+
+    });
+  </script>
+</dom-module>
+<script>
+  Polymer({
+    is: "aha-html-echo",
+    properties: {
+      //column name
+      html: {
+        type: String,
+        value: "",
+        observer: "onHtmlChanged"
+      }
+    },
+    onHtmlChanged: function() {
+      if (!this.html) {
+        this.html = "";
+      }
+      this.innerHTML = this.html;
+    }
+  });
+</script>

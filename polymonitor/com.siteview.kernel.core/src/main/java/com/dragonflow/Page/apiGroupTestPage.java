@@ -1,5 +1,5 @@
 /*
- * 
+ *
  * Created on 2014-4-20 22:12:36
  *
  * .java
@@ -77,8 +77,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                     outputStream.println("<p>Error in create");
                     outputStream.println("<p>" + exception1.getMessage());
                 }
-            } else
-            if(request.hasValue("testName") && request.getValue("testName").equals("createGroup"))
+            } else if(request.hasValue("testName") && request.getValue("testName").equals("createGroup"))
             {
                 try
                 {
