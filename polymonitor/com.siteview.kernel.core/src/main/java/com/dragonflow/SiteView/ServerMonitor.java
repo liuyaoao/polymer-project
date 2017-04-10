@@ -29,8 +29,7 @@ import com.dragonflow.Utils.TextUtils;
 // AtomicMonitor, PortalSiteView, SiteViewGroup, IServerPropMonitor,
 // Platform, Machine, Portal
 
-public abstract class ServerMonitor extends AtomicMonitor implements Runnable,
-        IServerPropMonitor {
+public abstract class ServerMonitor extends AtomicMonitor implements Runnable, IServerPropMonitor {
 
     public static ServerProperty pMachineName;
 
@@ -168,7 +167,7 @@ public abstract class ServerMonitor extends AtomicMonitor implements Runnable,
     }
 
     static String machineNameFromID(String s) {
-        if (Platform.isNTRemote(s)) {
+        if (Platform.isWindowRemote(s)) {
             return Machine.getMachineFromMachineID(s);
         }
         if (Platform.isCommandLineRemote(s)) {

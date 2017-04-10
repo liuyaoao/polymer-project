@@ -89,19 +89,19 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         language = english;
     }
 
-    public com.dragonflow.Api.Alert create(String s, String s1, com.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    public com.dragonflow.Api.Alert create(String s, String s1, com.dragonflow.Api.SVInstanceProperty assinstanceproperty[])
         throws com.dragonflow.SiteViewException.SiteViewException
     {
         return addUpdate(false, "", s1, assinstanceproperty, s);
     }
 
-    public com.dragonflow.Api.Alert update(String s, String s1, com.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    public com.dragonflow.Api.Alert update(String s, String s1, com.dragonflow.Api.SVInstanceProperty assinstanceproperty[])
         throws com.dragonflow.SiteViewException.SiteViewException
     {
         return addUpdate(true, s, s1, assinstanceproperty, "");
     }
 
-    private com.dragonflow.Api.Alert addUpdate(boolean flag, String s, String s1, com.dragonflow.Api.SSInstanceProperty assinstanceproperty[], String s2)
+    private com.dragonflow.Api.Alert addUpdate(boolean flag, String s, String s1, com.dragonflow.Api.SVInstanceProperty assinstanceproperty[], String s2)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
         com.dragonflow.Api.Alert alert = null;
@@ -481,7 +481,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         return hashmap1;
     }
 
-    private jgl.HashMap processToOtherProperties(com.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    private jgl.HashMap processToOtherProperties(com.dragonflow.Api.SVInstanceProperty assinstanceproperty[])
     {
         jgl.HashMap hashmap = new HashMap(true);
         String s1 = "";
@@ -517,15 +517,15 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         return hashmap;
     }
 
-    public com.dragonflow.Api.SSInstanceProperty[] getClassAttributes(String s)
+    public com.dragonflow.Api.SVInstanceProperty[] getClassAttributes(String s)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = null;
+        com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = null;
         try
         {
             jgl.HashMap hashmap = getClassAttribs(s);
             int i = 0;
-            assinstanceproperty = new com.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+            assinstanceproperty = new com.dragonflow.Api.SVInstanceProperty[hashmap.size()];
             for(Enumeration enumeration = hashmap.keys(); enumeration.hasMoreElements();)
             {
                 String s1 = (String)enumeration.nextElement();
@@ -534,7 +534,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
                 {
                     s2 = (String)hashmap.get(s1);
                 }
-                assinstanceproperty[i] = new SSInstanceProperty(s1, s2);
+                assinstanceproperty[i] = new SVInstanceProperty(s1, s2);
                 i++;
             }
 
@@ -553,13 +553,13 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         return assinstanceproperty;
     }
 
-    public com.dragonflow.Api.SSPropertyDetails getClassPropertyDetails(String s, String s1, jgl.HashMap hashmap)
+    public com.dragonflow.Api.SVPropertyDetails getClassPropertyDetails(String s, String s1, jgl.HashMap hashmap)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSPropertyDetails sspropertydetails = null;
+        com.dragonflow.Api.SVPropertyDetails sspropertydetails = null;
         try
         {
-            com.dragonflow.Api.SSPropertyDetails asspropertydetails[] = getClassPropertiesDetails(s1, com.dragonflow.Api.APISiteView.FILTER_ALL, hashmap);
+            com.dragonflow.Api.SVPropertyDetails asspropertydetails[] = getClassPropertiesDetails(s1, com.dragonflow.Api.APISiteView.FILTER_ALL, hashmap);
             int i = 0;
             do
             {
@@ -595,10 +595,10 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         return sspropertydetails;
     }
 
-    public com.dragonflow.Api.SSPropertyDetails[] getClassPropertiesDetails(String s, int i, jgl.HashMap hashmap)
+    public com.dragonflow.Api.SVPropertyDetails[] getClassPropertiesDetails(String s, int i, jgl.HashMap hashmap)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSPropertyDetails asspropertydetails[] = null;
+        com.dragonflow.Api.SVPropertyDetails asspropertydetails[] = null;
         Object obj = null;
         try
         {
@@ -609,7 +609,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
             s1 = "com.dragonflow.StandardAction." + s;
             jgl.Array array = getPropertiesForClass(siteviewobject, s1, "Action", i);
             jgl.Array array1 = getSynthesizedAlertProperties(null, null, null, i);
-            asspropertydetails = new com.dragonflow.Api.SSPropertyDetails[array.size() + array1.size()];
+            asspropertydetails = new com.dragonflow.Api.SVPropertyDetails[array.size() + array1.size()];
             for(int j = 0; j < array.size(); j++)
             {
                 asspropertydetails[j] = getClassProperty((com.dragonflow.Properties.StringProperty)array.at(j), (com.dragonflow.SiteView.Action)siteviewobject, hashmap);
@@ -617,7 +617,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
 
             for(int k = 0; k < array1.size(); k++)
             {
-                asspropertydetails[k + array.size()] = new SSPropertyDetails(((com.dragonflow.Api.SSInstanceProperty)array1.at(k)).getName(), "TEXT", "", ((com.dragonflow.Api.SSInstanceProperty)array1.at(k)).getLabel(), true, false, (String)((com.dragonflow.Api.SSInstanceProperty)array1.at(k)).getValue(), new String[0], new String[0], "", true, false, 1000 + k, "", false, false, siteviewobject.getProperty(((com.dragonflow.Api.SSInstanceProperty)array1.at(k)).getName()));
+                asspropertydetails[k + array.size()] = new SVPropertyDetails(((com.dragonflow.Api.SVInstanceProperty)array1.at(k)).getName(), "TEXT", "", ((com.dragonflow.Api.SVInstanceProperty)array1.at(k)).getLabel(), true, false, (String)((com.dragonflow.Api.SVInstanceProperty)array1.at(k)).getValue(), new String[0], new String[0], "", true, false, 1000 + k, "", false, false, siteviewobject.getProperty(((com.dragonflow.Api.SVInstanceProperty)array1.at(k)).getName()));
             }
 
         }
@@ -635,10 +635,10 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         return asspropertydetails;
     }
 
-    public com.dragonflow.Api.SSPropertyDetails getInstancePropertyDetails(String s, String s1, String s2, String s3)
+    public com.dragonflow.Api.SVPropertyDetails getInstancePropertyDetails(String s, String s1, String s2, String s3)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSPropertyDetails sspropertydetails = null;
+        com.dragonflow.Api.SVPropertyDetails sspropertydetails = null;
         try
         {
             int i = s1.lastIndexOf("/");
@@ -686,9 +686,9 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
                                 int j = 0;
                                 while(j < array4.size()) 
                                 {
-                                    if(!flag && s.equals(((com.dragonflow.Api.SSInstanceProperty)array4.at(j)).getName()))
+                                    if(!flag && s.equals(((com.dragonflow.Api.SVInstanceProperty)array4.at(j)).getName()))
                                     {
-                                        sspropertydetails = new SSPropertyDetails(((com.dragonflow.Api.SSInstanceProperty)array4.at(j)).getName(), "TEXT", "", ((com.dragonflow.Api.SSInstanceProperty)array4.at(j)).getLabel(), true, false, (String)((com.dragonflow.Api.SSInstanceProperty)array4.at(j)).getValue(), new String[0], new String[0], "", true, false, 1000 + j, "", false, false, action.getProperty(((com.dragonflow.Api.SSInstanceProperty)array4.at(j)).getName()));
+                                        sspropertydetails = new SVPropertyDetails(((com.dragonflow.Api.SVInstanceProperty)array4.at(j)).getName(), "TEXT", "", ((com.dragonflow.Api.SVInstanceProperty)array4.at(j)).getLabel(), true, false, (String)((com.dragonflow.Api.SVInstanceProperty)array4.at(j)).getValue(), new String[0], new String[0], "", true, false, 1000 + j, "", false, false, action.getProperty(((com.dragonflow.Api.SVInstanceProperty)array4.at(j)).getName()));
                                         flag = true;
                                     }
                                     j++;
@@ -732,7 +732,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
             String s2;
             String s3;
             String s4;
-            com.dragonflow.Api.SSInstanceProperty assinstanceproperty[];
+            com.dragonflow.Api.SVInstanceProperty assinstanceproperty[];
             for(; enumeration.hasMoreElements(); vector1.addElement(new SVAlertInstance(s4, s3, s2, assinstanceproperty)))
             {
                 com.dragonflow.Api.Alert alert = (com.dragonflow.Api.Alert)enumeration.nextElement();
@@ -763,10 +763,10 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         return assalertinstance;
     }
 
-    public com.dragonflow.Api.SSInstanceProperty[] getInstanceProperties(String s, String s1, String s2, int i)
+    public com.dragonflow.Api.SVInstanceProperty[] getInstanceProperties(String s, String s1, String s2, int i)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = null;
+        com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = null;
         try
         {
             int j = s.lastIndexOf("/");
@@ -822,7 +822,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
                                 getActionArguments(s7, array2, hashmapordered);
                                 action.initializeFromArguments(array2, hashmapordered);
                                 assinstanceproperty = getPropertiesForAlertInstance(action, s6, hashmap, i);
-                                com.dragonflow.Api.SSInstanceProperty assinstanceproperty1[] = new com.dragonflow.Api.SSInstanceProperty[assinstanceproperty.length + 1];
+                                com.dragonflow.Api.SVInstanceProperty assinstanceproperty1[] = new com.dragonflow.Api.SVInstanceProperty[assinstanceproperty.length + 1];
                                 System.arraycopy(assinstanceproperty, 0, assinstanceproperty1, 0, assinstanceproperty.length);
                                 String s11 = com.dragonflow.Api.Alert.getInstance().createTargetListStr(com.dragonflow.Api.Alert.getInstance().getByID((new Long(s)).longValue()));
                                 String as[] = com.dragonflow.Utils.TextUtils.split(s11, ",");
@@ -831,7 +831,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
                                     as[l] = as[l].trim();
                                 }
 
-                                assinstanceproperty1[assinstanceproperty1.length - 1] = new SSInstanceProperty("_targetList", "TargetList", as);
+                                assinstanceproperty1[assinstanceproperty1.length - 1] = new SVInstanceProperty("_targetList", "TargetList", as);
                                 assinstanceproperty = assinstanceproperty1;
                             }
                         }
@@ -853,13 +853,13 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         return assinstanceproperty;
     }
 
-    public com.dragonflow.Api.SSInstanceProperty getInstanceProperty(String s, String s1, String s2, String s3)
+    public com.dragonflow.Api.SVInstanceProperty getInstanceProperty(String s, String s1, String s2, String s3)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSInstanceProperty ssinstanceproperty = null;
+        com.dragonflow.Api.SVInstanceProperty ssinstanceproperty = null;
         try
         {
-            com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = null;
+            com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = null;
             int i = s1.lastIndexOf("/");
             if(i != -1)
             {
@@ -919,22 +919,22 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         return ssinstanceproperty;
     }
 
-    public com.dragonflow.Api.SSStringReturnValue[] getAlertTypes()
+    public com.dragonflow.Api.SVStringReturnValue[] getAlertTypes()
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSStringReturnValue assstringreturnvalue[] = null;
+        com.dragonflow.Api.SVStringReturnValue assstringreturnvalue[] = null;
         try
         {
             int i = findType("Alert");
             jgl.Array array = (jgl.Array)ssChildObjects.elementAt(i);
-            assstringreturnvalue = new com.dragonflow.Api.SSStringReturnValue[array.size()];
+            assstringreturnvalue = new com.dragonflow.Api.SVStringReturnValue[array.size()];
             for(int j = 0; j < array.size(); j++)
             {
-                com.dragonflow.Api.SSStringReturnValue ssstringreturnvalue = new SSStringReturnValue(((String[])array.at(j))[0]);
+                com.dragonflow.Api.SVStringReturnValue ssstringreturnvalue = new SVStringReturnValue(((String[])array.at(j))[0]);
                 int k = ssstringreturnvalue.getValue().lastIndexOf(".");
                 if(k != -1)
                 {
-                    ssstringreturnvalue = new SSStringReturnValue(ssstringreturnvalue.getValue().substring(k + 1));
+                    ssstringreturnvalue = new SVStringReturnValue(ssstringreturnvalue.getValue().substring(k + 1));
                 }
                 assstringreturnvalue[j] = ssstringreturnvalue;
             }
@@ -949,11 +949,11 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         return assstringreturnvalue;
     }
 
-    public com.dragonflow.Api.SSStringReturnValue getClassAttribute(String s, String s1)
+    public com.dragonflow.Api.SVStringReturnValue getClassAttribute(String s, String s1)
         throws java.lang.Exception
     {
         jgl.HashMap hashmap = getClassAttribs(s);
-        return new SSStringReturnValue((String)hashmap.get(s1));
+        return new SVStringReturnValue((String)hashmap.get(s1));
     }
 
     private void removeCondition(com.dragonflow.Api.Alert alert)
@@ -973,7 +973,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
         return hashmap;
     }
 
-    private com.dragonflow.Api.SSPropertyDetails getClassProperty(com.dragonflow.Properties.StringProperty stringproperty, com.dragonflow.SiteView.Action action, jgl.HashMap hashmap)
+    private com.dragonflow.Api.SVPropertyDetails getClassProperty(com.dragonflow.Properties.StringProperty stringproperty, com.dragonflow.SiteView.Action action, jgl.HashMap hashmap)
         throws java.lang.Exception
     {
         boolean flag = false;
@@ -1106,7 +1106,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
                 "APIAlert", "getClassProperty"
             }, 0L, exception.getMessage());
         }
-        return new SSPropertyDetails(stringproperty.getName(), s2, stringproperty.getDescription(), stringproperty.getLabel(), stringproperty.isEditable, stringproperty.isMultivalued, "", as, as1, s, !stringproperty.isAdvanced, flag, stringproperty.getOrder(), s1, stringproperty.isAdvanced, stringproperty.isPassword, action.getProperty(stringproperty.getName()));
+        return new SVPropertyDetails(stringproperty.getName(), s2, stringproperty.getDescription(), stringproperty.getLabel(), stringproperty.isEditable, stringproperty.isMultivalued, "", as, as1, s, !stringproperty.isAdvanced, flag, stringproperty.getOrder(), s1, stringproperty.isAdvanced, stringproperty.isPassword, action.getProperty(stringproperty.getName()));
     }
 
     private jgl.Array getConditions()
@@ -1398,7 +1398,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
 
     }
 
-    private com.dragonflow.Api.SSInstanceProperty[] getPropertiesForAlertInstance(com.dragonflow.SiteView.Action action, String s, jgl.HashMap hashmap, int i)
+    private com.dragonflow.Api.SVInstanceProperty[] getPropertiesForAlertInstance(com.dragonflow.SiteView.Action action, String s, jgl.HashMap hashmap, int i)
         throws java.lang.Exception
     {
         jgl.Array array = new Array();
@@ -1417,7 +1417,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
             }
         } 
         jgl.Array array2 = getSynthesizedAlertProperties(action, s, hashmap, i);
-        com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new com.dragonflow.Api.SSInstanceProperty[array.size() + array2.size()];
+        com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = new com.dragonflow.Api.SVInstanceProperty[array.size() + array2.size()];
         int j = 0;
         for(Enumeration enumeration1 = array.elements(); enumeration1.hasMoreElements(); j++)
         {
@@ -1450,8 +1450,8 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
                         s7 = s7 + (String)vector1.elementAt(l);
                     }
 
-                    assinstanceproperty[j] = new SSInstanceProperty(stringproperty1.getName(), s3, "");
-                    array2.put(0, new SSInstanceProperty("toOther", s7));
+                    assinstanceproperty[j] = new SVInstanceProperty(stringproperty1.getName(), s3, "");
+                    array2.put(0, new SVInstanceProperty("toOther", s7));
                     continue;
                 }
                 String as[] = new String[vector.size()];
@@ -1460,7 +1460,7 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
                     as[i1] = (String)vector.elementAt(i1);
                 }
 
-                assinstanceproperty[j] = new SSInstanceProperty(stringproperty1.getName(), s3, as);
+                assinstanceproperty[j] = new SVInstanceProperty(stringproperty1.getName(), s3, as);
                 continue;
             }
             String s4 = action.getProperty(stringproperty1);
@@ -1477,12 +1477,12 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
             {
                 s4 = com.dragonflow.Utils.TextUtils.obscure(s4);
             }
-            assinstanceproperty[j] = new SSInstanceProperty(stringproperty1.getName(), s3, s4);
+            assinstanceproperty[j] = new SVInstanceProperty(stringproperty1.getName(), s3, s4);
         }
 
         for(int k = 0; k < array2.size(); k++)
         {
-            assinstanceproperty[j + k] = (com.dragonflow.Api.SSInstanceProperty)array2.at(k);
+            assinstanceproperty[j + k] = (com.dragonflow.Api.SVInstanceProperty)array2.at(k);
         }
 
         return assinstanceproperty;
@@ -1617,88 +1617,88 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
             {
                 s5 = (String)hashmap.get("category");
             }
-            array.add(new SSInstanceProperty("toOther", ""));
-            array.add(new SSInstanceProperty("when", "When", s3));
-            array.add(new SSInstanceProperty("category", "Category", s5));
+            array.add(new SVInstanceProperty("toOther", ""));
+            array.add(new SVInstanceProperty("when", "When", s3));
+            array.add(new SVInstanceProperty("category", "Category", s5));
             if(j != -1)
             {
-                array.add(new SSInstanceProperty("errorCount", "ErrorCount", (new Integer(j)).toString()));
+                array.add(new SVInstanceProperty("errorCount", "ErrorCount", (new Integer(j)).toString()));
             }
             if(k != -1)
             {
-                array.add(new SSInstanceProperty("alwaysErrorCount", "AlwaysErrorCount", (new Integer(k)).toString()));
+                array.add(new SVInstanceProperty("alwaysErrorCount", "AlwaysErrorCount", (new Integer(k)).toString()));
             }
             if(i1 != -1)
             {
-                array.add(new SSInstanceProperty("multipleStartCount", "MultipleStartCount", (new Integer(i1)).toString()));
+                array.add(new SVInstanceProperty("multipleStartCount", "MultipleStartCount", (new Integer(i1)).toString()));
             }
             if(l != -1)
             {
-                array.add(new SSInstanceProperty("multipleErrorCount", "MultipleErrorCount", (new Integer(l)).toString()));
+                array.add(new SVInstanceProperty("multipleErrorCount", "MultipleErrorCount", (new Integer(l)).toString()));
             }
             if(k1 != -1)
             {
-                array.add(new SSInstanceProperty("previousErrorCount", "PreviousErrorCount", (new Integer(k1)).toString()));
+                array.add(new SVInstanceProperty("previousErrorCount", "PreviousErrorCount", (new Integer(k1)).toString()));
             }
             if(j1 != -1)
             {
-                array.add(new SSInstanceProperty("maxErrorCount", "MaxErrorCount", (new Integer(j1)).toString()));
+                array.add(new SVInstanceProperty("maxErrorCount", "MaxErrorCount", (new Integer(j1)).toString()));
             }
             if(s8.length() > 0)
             {
-                array.add(new SSInstanceProperty("nameMatchString", "NameMatchString", s8));
+                array.add(new SVInstanceProperty("nameMatchString", "NameMatchString", s8));
             }
             if(s10.length() > 0)
             {
-                array.add(new SSInstanceProperty("statusMatchString", "StatusMatchString", s10));
+                array.add(new SVInstanceProperty("statusMatchString", "StatusMatchString", s10));
             }
             if(s11.length() > 0)
             {
-                array.add(new SSInstanceProperty("classMatchString", "ClassMatchString", s11));
+                array.add(new SVInstanceProperty("classMatchString", "ClassMatchString", s11));
             }
             if(s1.length() > 0)
             {
-                array.add(new SSInstanceProperty("alertDisable", "AlertDisable", s1));
+                array.add(new SVInstanceProperty("alertDisable", "AlertDisable", s1));
             }
             if(byte0 > -1)
             {
-                array.add(new SSInstanceProperty("usePreviousErrorCount", "UsePreviousErrorCount", "on"));
+                array.add(new SVInstanceProperty("usePreviousErrorCount", "UsePreviousErrorCount", "on"));
             } else
             {
-                array.add(new SSInstanceProperty("usePreviousErrorCount", "UsePreviousErrorCount", ""));
+                array.add(new SVInstanceProperty("usePreviousErrorCount", "UsePreviousErrorCount", ""));
             }
-            array.add(new SSInstanceProperty("disableAlertUnits", "DisableAlertUnits", "seconds"));
+            array.add(new SVInstanceProperty("disableAlertUnits", "DisableAlertUnits", "seconds"));
             if(l2 > 0L)
             {
-                array.add(new SSInstanceProperty("startTimeTime", "StartTimeTime", s17));
+                array.add(new SVInstanceProperty("startTimeTime", "StartTimeTime", s17));
                 if(s19.length() > 0)
                 {
-                    array.add(new SSInstanceProperty("startTimeDate", "StartTimeDate", s19));
+                    array.add(new SVInstanceProperty("startTimeDate", "StartTimeDate", s19));
                 }
             }
             if(s1.equals("schedule"))
             {
-                array.add(new SSInstanceProperty("disableAlertTime", "DisableAlertTime", ""));
+                array.add(new SVInstanceProperty("disableAlertTime", "DisableAlertTime", ""));
             } else
             if(s14.length() > 0)
             {
-                array.add(new SSInstanceProperty("disableAlertTime", "DisableAlertTime", (new Integer(s14)).toString()));
+                array.add(new SVInstanceProperty("disableAlertTime", "DisableAlertTime", (new Integer(s14)).toString()));
             }
             if(l3 > 0L)
             {
-                array.add(new SSInstanceProperty("endTimeTime", "EndTimeTime", s18));
+                array.add(new SVInstanceProperty("endTimeTime", "EndTimeTime", s18));
             }
             if(s20.length() > 0)
             {
-                array.add(new SSInstanceProperty("endTimeDate", "EndTimeDate", s20));
+                array.add(new SVInstanceProperty("endTimeDate", "EndTimeDate", s20));
             }
             if(s1.equals("undo"))
             {
-                array.add(new SSInstanceProperty("disableAlertTime", "DisableAlertTime", ""));
-                array.add(new SSInstanceProperty("endTimeTime", "EndTimeTime", ""));
-                array.add(new SSInstanceProperty("endTimeDate", "EndTimeDate", ""));
-                array.add(new SSInstanceProperty("startTimeTime", "StartTimeTime", ""));
-                array.add(new SSInstanceProperty("startTimeDate", "StartTimeDate", ""));
+                array.add(new SVInstanceProperty("disableAlertTime", "DisableAlertTime", ""));
+                array.add(new SVInstanceProperty("endTimeTime", "EndTimeTime", ""));
+                array.add(new SVInstanceProperty("endTimeDate", "EndTimeDate", ""));
+                array.add(new SVInstanceProperty("startTimeTime", "StartTimeTime", ""));
+                array.add(new SVInstanceProperty("startTimeDate", "StartTimeDate", ""));
             }
         }
         if(i != com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL && i != com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_BASIC && i != com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ADVANCED && i != com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL && i != com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_BASIC && i != com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ADVANCED)
@@ -1723,9 +1723,9 @@ public class APIAlert extends com.dragonflow.Api.APISiteView
                     s4 = (String)hashmap.get("id");
                 }
             }
-            array.add(new SSInstanceProperty("command", "Command", s2));
-            array.add(new SSInstanceProperty("_id", "Id", s4));
-            array.add(new SSInstanceProperty("_class", "Class", s9));
+            array.add(new SVInstanceProperty("command", "Command", s2));
+            array.add(new SVInstanceProperty("_id", "Id", s4));
+            array.add(new SVInstanceProperty("_class", "Class", s9));
         }
         return array;
     }

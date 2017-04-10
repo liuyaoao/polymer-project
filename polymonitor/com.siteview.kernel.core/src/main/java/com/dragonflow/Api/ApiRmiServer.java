@@ -73,7 +73,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 		List<MonitorGroup> mgs = apigroup.getAllGroupInstances();
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		for (MonitorGroup mg:mgs) {
-			SSInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+			SVInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
             Map<String,Object> nodedata = new HashMap<String, Object>();
             for (int k = 0; k < assinstanceproperty1.length; k ++) {
                 nodedata.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
@@ -98,7 +98,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 
 			for(MonitorGroup mg:mgs)
 			{
-				SSInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+				SVInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
 				Map<String, Object> nodedata = new HashMap<String, Object>();
 	            for (int k = 0; k < assinstanceproperty1.length; k ++) {
 	                nodedata.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
@@ -125,7 +125,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			if(mgs.size() > 0) {
 				for(Iterator iter=mgs.iterator();iter.hasNext();){
 					MonitorGroup mg = (MonitorGroup) iter.next();
-					SSInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+					SVInstanceProperty assinstanceproperty1[] = apigroup.getInstanceProperties(mg.getProperty("_id"), APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
 					Map<String, Object> nodedata = new HashMap<String, Object>();
 		            for (int k = 0; k < assinstanceproperty1.length; k ++) {
 		                nodedata.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
@@ -160,7 +160,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 			if(mgs.size() > 0) {
 				for(Iterator iter=mgs.iterator();iter.hasNext();){
 					AtomicMonitor monitor = (AtomicMonitor) iter.next();
-					SSInstanceProperty assinstanceproperty1[] = apimonitor.getInstanceProperties(monitor.getProperty("_id"), groupID,APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+					SVInstanceProperty assinstanceproperty1[] = apimonitor.getInstanceProperties(monitor.getProperty("_id"), groupID,APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
 					Map<String, Object> nodedata = new HashMap<String, Object>();
 		            for (int k = 0; k < assinstanceproperty1.length; k ++) {
 		                nodedata.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());

@@ -62,7 +62,7 @@ public class APIGroup extends APISiteView
     {
     }
 
-    public SSStringReturnValue create(String s, String s1, SSInstanceProperty assinstanceproperty[])
+    public SVStringReturnValue create(String s, String s1, SVInstanceProperty assinstanceproperty[])
         throws SiteViewException
     {
         String s2 = null;
@@ -154,10 +154,10 @@ public class APIGroup extends APISiteView
                 "APIGroup", "create"
             }, 0L, exception.getMessage());
         }
-        return new SSStringReturnValue(s2);
+        return new SVStringReturnValue(s2);
     }
 
-    public void update(String s, SSInstanceProperty assinstanceproperty[])
+    public void update(String s, SVInstanceProperty assinstanceproperty[])
         throws SiteViewException
     {
         try
@@ -238,7 +238,7 @@ public class APIGroup extends APISiteView
         }
     }
 
-    public SSStringReturnValue move(String from, String to)
+    public SVStringReturnValue move(String from, String to)
         throws SiteViewException
     {
         String s2 = null;
@@ -281,10 +281,10 @@ public class APIGroup extends APISiteView
                 "APIGroup", "move"
             }, 0L, exception.getMessage());
         }
-        return new SSStringReturnValue(s2);
+        return new SVStringReturnValue(s2);
     }
 
-    public SSStringReturnValue copy(String s, String s1)
+    public SVStringReturnValue copy(String s, String s1)
         throws SiteViewException
     {
         String s2 = null;
@@ -329,13 +329,13 @@ public class APIGroup extends APISiteView
                 "APIGroup", "copy"
             }, 0L, exception.getMessage());
         }
-        return new SSStringReturnValue(s2);
+        return new SVStringReturnValue(s2);
     }
 
-    public SSPropertyDetails getClassPropertyDetails(String s)
+    public SVPropertyDetails getClassPropertyDetails(String s)
         throws SiteViewException
     {
-        SSPropertyDetails sspropertydetails = null;
+        SVPropertyDetails sspropertydetails = null;
         try
         {
             String s1 = "Group";
@@ -364,17 +364,17 @@ public class APIGroup extends APISiteView
         return sspropertydetails;
     }
 
-    public SSPropertyDetails[] getClassPropertiesDetails(int i)
+    public SVPropertyDetails[] getClassPropertiesDetails(int i)
         throws SiteViewException
     {
-        SSPropertyDetails asspropertydetails[] = null;
+        SVPropertyDetails asspropertydetails[] = null;
         try
         {
             String s = "Group";
             java.lang.Class class1 = java.lang.Class.forName(s);
             SiteViewObject siteviewobject = (SiteViewObject)class1.newInstance();
             jgl.Array array = getPropertiesForClass(siteviewobject, s, "Group", i);
-            asspropertydetails = new SSPropertyDetails[array.size()];
+            asspropertydetails = new SVPropertyDetails[array.size()];
             for(int j = 0; j < array.size(); j++)
             {
                 asspropertydetails[j] = getClassProperty((com.dragonflow.Properties.StringProperty)array.at(j), null);
@@ -395,10 +395,10 @@ public class APIGroup extends APISiteView
         return asspropertydetails;
     }
 
-    public SSPropertyDetails getInstancePropertyScalars(String s, String s1)
+    public SVPropertyDetails getInstancePropertyScalars(String s, String s1)
         throws SiteViewException
     {
-        SSPropertyDetails sspropertydetails = null;
+        SVPropertyDetails sspropertydetails = null;
         try
         {
             String s2 = "Group";
@@ -421,14 +421,14 @@ public class APIGroup extends APISiteView
         return sspropertydetails;
     }
 
-    public SSGroupInstance[] getInstances(String groupid, int i)
+    public SVGroupInstance[] getInstances(String groupid, int i)
         throws SiteViewException
     {
         if(!isGroupAllowedForAccount(groupid))
         {
             throw new SiteViewParameterException(SiteViewErrorCodes.ERR_OP_SS_GROUP_ACCESS_EXCEPTION);
         }
-        SSGroupInstance assgroupinstance[] = null;
+        SVGroupInstance assgroupinstance[] = null;
         try
         {
             boolean flag = true;
@@ -455,7 +455,7 @@ public class APIGroup extends APISiteView
                     String s2 = monitorgroup.getProperty(MonitorGroup.pParent);
                     if(flag && (s2 == null || s2.length() == 0) || !flag && s2 != null && s2.equals(groupid))
                     {
-                        SSInstanceProperty assinstanceproperty[] = getInstanceProperties(s1, i);
+                        SVInstanceProperty assinstanceproperty[] = getInstanceProperties(s1, i);
                         int k = 0;
                         boolean flag1 = false;
                         if(Alert.getInstance().groupHasAlerts(s1))
@@ -470,35 +470,35 @@ public class APIGroup extends APISiteView
                             k++;
                         }
                         int l = 0;
-                        SSInstanceProperty assinstanceproperty1[] = new SSInstanceProperty[assinstanceproperty.length + k];
+                        SVInstanceProperty assinstanceproperty1[] = new SVInstanceProperty[assinstanceproperty.length + k];
                         if(flag1)
                         {
-                            assinstanceproperty1[l] = new SSInstanceProperty("hasDependencies", "true");
+                            assinstanceproperty1[l] = new SVInstanceProperty("hasDependencies", "true");
                             l++;
                         }
                         if(flag2)
                         {
-                            assinstanceproperty1[l] = new SSInstanceProperty("hasSubDependencies", "true");
+                            assinstanceproperty1[l] = new SVInstanceProperty("hasSubDependencies", "true");
                         }
                         for(int i1 = 0; i1 < assinstanceproperty.length; i1++)
                         {
                             if(assinstanceproperty[i1].getName().equals("_name") && assinstanceproperty[i1].getValue().equals("config"))
                             {
-                                assinstanceproperty1[i1 + k] = new SSInstanceProperty("_name", s1);
+                                assinstanceproperty1[i1 + k] = new SVInstanceProperty("_name", s1);
                             } else
                             {
                                 assinstanceproperty1[i1 + k] = assinstanceproperty[i1];
                             }
                         }
 
-                        vector.add(new SSGroupInstance(s1, assinstanceproperty1));
+                        vector.add(new SVGroupInstance(s1, assinstanceproperty1));
                     }
                 }
             } 
-            assgroupinstance = new SSGroupInstance[vector.size()];
+            assgroupinstance = new SVGroupInstance[vector.size()];
             for(int j = 0; j < vector.size(); j++)
             {
-                assgroupinstance[j] = (SSGroupInstance)vector.get(j);
+                assgroupinstance[j] = (SVGroupInstance)vector.get(j);
             }
 
         }
@@ -516,10 +516,10 @@ public class APIGroup extends APISiteView
         return assgroupinstance;
     }
 
-    public SSInstanceProperty[] getInstanceProperties(String instance, int filter)
+    public SVInstanceProperty[] getInstanceProperties(String instance, int filter)
         throws SiteViewException
     {
-        SSInstanceProperty assinstanceproperty[] = null;
+        SVInstanceProperty assinstanceproperty[] = null;
         try
         {
             if(instance.length() == 0 || instance == null)
@@ -529,7 +529,7 @@ public class APIGroup extends APISiteView
             jgl.Array array = getPropertiesForGroupInstance("Group", filter);
             MonitorGroup monitorgroup = SiteViewGroup.getMonitorGroup(instance);
             int j = 0;
-            SSStringReturnValue ssstringreturnvalue = null;
+            SVStringReturnValue ssstringreturnvalue = null;
             try
             {
                 if(filter == APISiteView.FILTER_CONFIGURATION_ALL || filter == APISiteView.FILTER_ALL)
@@ -542,7 +542,7 @@ public class APIGroup extends APISiteView
             {
                 j = 0;
             }
-            assinstanceproperty = new SSInstanceProperty[j + array.size()];
+            assinstanceproperty = new SVInstanceProperty[j + array.size()];
             int k = 0;
             for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements();)
             {
@@ -552,7 +552,7 @@ public class APIGroup extends APISiteView
                 {
                     s1 = TextUtils.obscure(s1);
                 }
-                assinstanceproperty[k] = new SSInstanceProperty(stringproperty.getName(), s1);
+                assinstanceproperty[k] = new SVInstanceProperty(stringproperty.getName(), s1);
                 k++;
             }
 
@@ -575,10 +575,10 @@ public class APIGroup extends APISiteView
         return assinstanceproperty;
     }
 
-    public SSInstanceProperty getInstanceProperty(String s, String s1, int i)
+    public SVInstanceProperty getInstanceProperty(String s, String s1, int i)
         throws SiteViewException
     {
-        SSInstanceProperty ssinstanceproperty = null;
+        SVInstanceProperty ssinstanceproperty = null;
         try
         {
             if(s1.length() == 0 || s1 == null)
@@ -597,7 +597,7 @@ public class APIGroup extends APISiteView
                 }
                 if(stringproperty.getName().equals(s))
                 {
-                    ssinstanceproperty = new SSInstanceProperty(stringproperty.getName(), s2);
+                    ssinstanceproperty = new SVInstanceProperty(stringproperty.getName(), s2);
                 }
             } 
             
@@ -749,7 +749,7 @@ public class APIGroup extends APISiteView
         return array;
     }
 
-    private SSPropertyDetails getClassProperty(StringProperty stringproperty, String s)
+    private SVPropertyDetails getClassProperty(StringProperty stringproperty, String s)
         throws SiteViewException
     {
         String s1 = "TEXT";
@@ -850,7 +850,7 @@ public class APIGroup extends APISiteView
                 "APIGroup", "getClassProperty"
             }, 0L, exception.getMessage());
         }
-        return new SSPropertyDetails(stringproperty.getName(), s1, stringproperty.getDescription(), stringproperty.getLabel(), stringproperty.isEditable, stringproperty.isMultivalued, stringproperty.getDefault(), as, as1, s2, false, false, stringproperty.getOrder(), s3, stringproperty.isAdvanced, stringproperty.isPassword, siteviewobject.getProperty(stringproperty.getName()));
+        return new SVPropertyDetails(stringproperty.getName(), s1, stringproperty.getDescription(), stringproperty.getLabel(), stringproperty.isEditable, stringproperty.isMultivalued, stringproperty.getDefault(), as, as1, s2, false, false, stringproperty.getOrder(), s3, stringproperty.isAdvanced, stringproperty.isPassword, siteviewobject.getProperty(stringproperty.getName()));
     }
 
     private String moveGroup(String s, String s1, jgl.HashMap hashmap, boolean flag)

@@ -55,7 +55,7 @@
 						<td align="right" valign="top" width="10%"></td>
 						<td align="left" valign="top">
 							<paper-dropdown-menu label="For Monitor Type" name="monitorTypeSelect" id="monitorTypeSelect">
-								<paper-listbox class="dropdown-content" selected="0">
+								<paper-listbox class="dropdown-content" selected="[[monitorTypeSelectedItem]]">
 									<paper-item value="">All types</paper-item>
 									<content></content>
 								</paper-listbox>
@@ -83,7 +83,21 @@
 
 				machineNameSelect: String,
 
-				monitorTypeSelect: String
+				monitorTypeSelect: {
+					type: String,
+					observer: "_monitorTypeChanged"
+				},
+
+				monitorTypeSelectedItem: String
+			},
+
+			_monitorTypeChanged: function() {
+				var items = this.$.monitorTypeSelect.querySelector('paper-listbox').getContentChildren();
+				for (var i = 0; i < items.length; i++) {
+					if (this.monitorTypeSelect == items[i].getAttribute("value")) {
+						this.monitorTypeSelectedItem = i;
+					}
+				}
 			},
 
 			_submitFilter: function() {
@@ -107,7 +121,7 @@
 					}
 				}
 				_filterForm.submit();
-			},
+			}
 
 		});
 	</script>

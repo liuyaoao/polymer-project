@@ -278,22 +278,20 @@ public abstract class SiteViewObject extends PropertiedObject {
     }
 
     public String getGroupPathID() {
-        String s = "/";
+        String groupPathID = "/";
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         Object obj = this;
         do {
             if (obj == null)
                 break;
-            String s1 = I18N.toDefaultEncoding(((SiteViewObject) (obj))
-                    .getProperty(pID));
-            s = "/" + s1 + s;
-            String s2 = I18N.toDefaultEncoding(((SiteViewObject) (obj))
-                    .getProperty("_parent"));
-            if (s2.length() == 0)
+            String id = I18N.toDefaultEncoding(((SiteViewObject) (obj)).getProperty(pID));
+            groupPathID = "/" + id + groupPathID;
+            String _parent = I18N.toDefaultEncoding(((SiteViewObject) (obj)).getProperty("_parent"));
+            if (_parent.length() == 0)
                 break;
-            obj = siteviewgroup.getGroup(s2);
+            obj = siteviewgroup.getGroup(_parent);
         } while (true);
-        return s;
+        return groupPathID;
     }
 
     public String getFullID() {

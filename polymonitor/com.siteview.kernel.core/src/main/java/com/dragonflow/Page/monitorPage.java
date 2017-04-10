@@ -705,7 +705,7 @@ label0:
         }
         outputStream.println("<TABLE><tr><td><img src=\"/SiteView/htdocs/artwork/LabelSpacer.gif\"></td><td></td><td></td></tr>");
         boolean flag1 = false;
-        if((atomicmonitor instanceof IServerPropMonitor) && !SiteViewGroup.currentSiteView().internalServerActive() && Platform.isNTRemote(atomicmonitor.getProperty(ServerMonitor.pMachineName)))
+        if((atomicmonitor instanceof IServerPropMonitor) && !SiteViewGroup.currentSiteView().internalServerActive() && Platform.isWindowRemote(atomicmonitor.getProperty(ServerMonitor.pMachineName)))
         {
             flag1 = true;
         }

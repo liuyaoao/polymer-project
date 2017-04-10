@@ -68,10 +68,10 @@ public class CPUMonitor extends ServerMonitor
          array = new Array();
      }
      SiteViewException siteviewexception = null;
-     long al1[] = null;
+     long _measurementResult[] = null;
      try
      {
-         al1 = Platform.cpuUsed(machineName, l1, l, al, this, array);
+         _measurementResult = Platform.cpuUsed(machineName, l1, l, al, this, array);
      }
      catch(SiteViewException siteviewexception1)
      {
@@ -79,24 +79,24 @@ public class CPUMonitor extends ServerMonitor
      }
      currentStatus = "CPUMonitor analayzing results...";
      boolean flag = false;
-     long l2 = -1L;
-     long l3 = -1L;
-     long l4 = -1L;
-     if(al1 == null)
+     long _pUtilization = -1L;
+     long _pLastMeasurementTime = -1L;
+     long _pLastMeasurement = -1L;
+     if(_measurementResult == null)
      {
          flag = true;
      } else
      {
-         l2 = al1[0];
-         l3 = al1[1];
-         l4 = al1[2];
-         setProperty(pCpusNum, (int)al1[3]);
+         _pUtilization = _measurementResult[0];
+         _pLastMeasurementTime = _measurementResult[1];
+         _pLastMeasurement = _measurementResult[2];
+         setProperty(pCpusNum, (int)_measurementResult[3]);
      }
      if(stillActive())
      {
          synchronized(this)
          {
-             if(l2 == -1L || flag)
+             if(_pUtilization == -1L || flag)
              {
                  setProperty(pUtilization, "n/a");
                  setProperty(pLastMeasurementTime, 0);
@@ -118,7 +118,7 @@ public class CPUMonitor extends ServerMonitor
                  {
                      if(!$assertionsDisabled)
                      {
-                         throw new AssertionError("CPU Monitor exception has been overlooked." + l2);
+                         throw new AssertionError("CPU Monitor exception has been overlooked." + _pUtilization);
                      } else
                      {
                          throw new SiteViewAvailabilityException(SiteViewErrorCodes.ERR_AVAIL_SS_GENERAL);
@@ -128,11 +128,11 @@ public class CPUMonitor extends ServerMonitor
                      throw siteviewexception;
                  }
              }
-             setProperty(pUtilization, l2);
-             setProperty(pLastMeasurementTime, l3);
-             setProperty(pLastMeasurement, l4);
+             setProperty(pUtilization, _pUtilization);
+             setProperty(pLastMeasurementTime, _pLastMeasurementTime);
+             setProperty(pLastMeasurement, _pLastMeasurement);
              setProperty(pMeasurement, getMeasurement(pUtilization));
-             String s3 = "" + l2;
+             String s3 = "" + _pUtilization;
              String s4 = "";
              int i1 = 0;
              do
@@ -141,7 +141,7 @@ public class CPUMonitor extends ServerMonitor
                  {
                      break;
                  }
-                 long l5 = al1[4 + i1];
+                 long l5 = _measurementResult[4 + i1];
                  if(l5 == -1L)
                  {
                      break;
@@ -169,9 +169,9 @@ public class CPUMonitor extends ServerMonitor
  {
      if(stringproperty == pDiagnosticText)
      {
-         String s = getProperty("_machine");
+         String _machine = getProperty("_machine");
          StringBuffer stringbuffer = new StringBuffer();
-         servicePage.printProcessStats(5, null, stringbuffer, s, true);
+         servicePage.printProcessStats(5, null, stringbuffer, _machine, true);
          return stringbuffer.toString();
      } else
      {

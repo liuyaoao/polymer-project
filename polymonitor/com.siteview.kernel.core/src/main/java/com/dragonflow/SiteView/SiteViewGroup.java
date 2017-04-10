@@ -1343,6 +1343,8 @@ public class SiteViewGroup extends MonitorGroup {
                 Server.loadServers();
             } else if (s.equals(TEMPLATES_FILE)) {
                 resetTemplateCache();
+            }else if(s.equals("tenants.config")){
+            	Tenant.loadTenants();
             } else {
                 LogManager.log("Debug", "Adding group for: " + file.getAbsolutePath());
                 int i = s.lastIndexOf(".mg");

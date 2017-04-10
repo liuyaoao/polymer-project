@@ -263,6 +263,9 @@ public class HTTPServer
 
     com.dragonflow.HTTP.VirtualDirectory getVirtualDirectory(String s)
     {
+    	if(s.contains("/")&&!s.startsWith("/SiteView")){
+    		s=s.substring(s.indexOf("/SiteView"));
+    	}
         for(Enumeration enumeration = virtualDirectories.elements(); enumeration.hasMoreElements();)
         {
             com.dragonflow.HTTP.VirtualDirectory virtualdirectory = (com.dragonflow.HTTP.VirtualDirectory)enumeration.nextElement();

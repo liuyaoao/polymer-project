@@ -9,25 +9,33 @@
         display: block;
         margin:10px 0;
       }
-
+      .no-results{
+        color:#B9B3B3;
+        font-size:20px;
+        text-align: center;
+      }
+      /*:host .table-responsive table.table[col1='20'] > thead > tr > th{ width:20%; }
+      :host .table-responsive table.table[col1='20'] > thead > tr > td{ width:20%; }
+      :host .table-responsive table.table[col1='30'] > thead > tr > th{ width:30%; }
+      :host .table-responsive table.table[col1='30'] > thead > tr > td{ width:30%; }*/
     </style>
 
       <div class="container-fluid">
         <div class="table-responsive">
           <table class="table table-striped">
-            <thead>
+            <thead><tr>
               <template is="dom-if" if="{{isShowHeader}}">
-                <template is="dom-repeat" items="{{meta}}" as="column">
-                  <th>{{column.label}}</th>
+                <template is="dom-repeat" items="{{tableHeaders}}" as="column">
+                  <th style='{{colWidthArr[{{index}}]}};'>{{column.label}}</th>
                 </template>
               </template>
-            </thead>
+            </tr></thead>
             <tbody>
               <template is="dom-if" if="{{displayedRows.length}}">
                 <template is="dom-repeat" items="{{displayedRows}}" as="rowdata">
                   <tr>
                     <template is="dom-repeat" items="{{rowdata}}" as="value">
-                        <td><aha-html-echo2 html="{{value}}" class=""></aha-html-echo2></td>
+                        <td style='{{colWidthArr[{{index}}]}};'><aha-html-echo2 html="{{value}}" class=""></aha-html-echo2></td>
                     </template>
                   </tr>
                 </template>
@@ -36,7 +44,7 @@
           </table>
 
           <template is="dom-if" if="{{!displayedRows.length}}">
-            <div class="flex flex--center no-results">No Results</div>
+            <div class="container no-results">{{noDataTip}}</div>
           </template>
         </div>
       </div>
@@ -57,6 +65,12 @@
           computed:"_getTableDataListByList(dataList)"
         },
         isShowHeader:Boolean,
+        colWidthStr:String,
+        colWidthArr:{
+          type:Array,
+          reflectToAttribute:true,
+          computed:"_getColWidthArr(colWidthStr)"
+        },
         displayedRows:{
           type:Array,
           notify:true,
@@ -66,8 +80,17 @@
           reflectToAttribute:true,
           computed:"_getDisplayedRows(data)"
         },
+
+        noDataTip:{
+          type:String,
+          reflectToAttribute:true,
+        },
+        headList:{ //not use yert.
+          type:String,
+          reflectToAttribute:true,
+        },
         //meta: instance of the model meta
-        meta: { //表头有关的信息。
+        tableHeaders: { //表头有关的信息。
           type: Array,
           value: function() {
             return [];
@@ -96,13 +119,23 @@
         return arrList;
       },
       _getMetaData:function(arrList){
-        var meta = [];
+        var tableHeaders = [];
 
         var obj = arrList[0] || {};
         for(var key in obj){
-          meta.push({hide:false,type:"html", name:key,label:key});
+          var lable = key;
+          if(key.indexOf("_") == 1){
+            label = key.substr(2);
+          }
+          tableHeaders.push({hide:false,type:"html", name:key,label:label});
         }
-        return meta;
+        return tableHeaders;
+      },
+      _getColWidthArr:function(colWidthStr){
+        colWidthStr = colWidthStr ||"[]";
+        var arr = JSON.parse(colWidthStr);
+        // colWidthStr = colWidthStr.replace(/'/g,'"');
+        return ['width:20%'];
       },
       _getDisplayedRows:function(data){
         var disRowDatas = [];
@@ -142,4 +175,13 @@
       this.innerHTML = this.html;
     }
   });
+
+</script>
+<script type="text/babel">
+console.log("example dom:",document.getElementById('example'));
+    ReactDOM.render(
+      <h1>Hello, world!</h1>,
+      // document.querySelector("h2")
+      document.getElementById('example')
+    );
 </script>

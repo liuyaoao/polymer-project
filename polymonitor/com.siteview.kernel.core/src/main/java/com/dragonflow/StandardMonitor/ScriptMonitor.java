@@ -310,7 +310,7 @@ public class ScriptMonitor extends ServerMonitor {
                 return true;
             }
 
-            if (Platform.isNTRemote(s1) && !Machine.isNTSSH(s1)) {
+            if (Platform.isWindowRemote(s1) && !Machine.isNTSSH(s1)) {
                 failMonitorRun(i, "NT host must be configured as NT ssh remote ");
                 return true;
             }

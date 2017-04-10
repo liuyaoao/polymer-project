@@ -11,7 +11,7 @@ package com.dragonflow.Page;
 
 import com.dragonflow.Api.APIMonitor;
 import com.dragonflow.Api.APISiteView;
-import com.dragonflow.Api.SSInstanceProperty;
+import com.dragonflow.Api.SVInstanceProperty;
 
 // Referenced classes of package com.dragonflow.Page:
 // CGI
@@ -27,7 +27,7 @@ public class TestMonitorPage extends com.dragonflow.Page.CGI
         throws java.lang.Exception
     {
     	APIMonitor api = new APIMonitor();
-    	SSInstanceProperty property[] = null;
+    	SVInstanceProperty property[] = null;
     	outputStream.println("hell world");
 //    	property[0] = new SSInstanceProperty("_hostname", "www.siteview.com");
 //    	property[1] = new SSInstanceProperty("_name", "ping www.siteview.com");

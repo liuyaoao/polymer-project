@@ -113,10 +113,10 @@ Custom property | Description | Default
             <div class="node-row">
                 <span class$="{{_computeClass(data.*)}}" on-click="toggleChildren"></span>
                 <template is="dom-if" if="{{checkstate}}">
-                  <paper-checkbox type="checkbox" name$="{{data.checkName}}"
-                    value$="{{data.checkValue}}"
+                  <paper-checkbox type="checkbox" name$="{{data.type}}"
+                    value$="{{data.value}}"
                     checked$="{{data.defaultChecked}}"
-                    on-tap="_checkboxState">
+                    >
                   </paper-checkbox>
                 </template>
                 <iron-icon class="node-icon" icon$="{{_computeIcon(data.icon)}}" on-click="select"></iron-icon>

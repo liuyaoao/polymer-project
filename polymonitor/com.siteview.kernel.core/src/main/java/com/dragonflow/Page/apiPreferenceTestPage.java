@@ -10,7 +10,7 @@
 package com.dragonflow.Page;
 
 import com.dragonflow.Api.APIPreference;
-import com.dragonflow.Api.SSInstanceProperty;
+import com.dragonflow.Api.SVInstanceProperty;
 
 // Referenced classes of package com.dragonflow.Page:
 // apiMasterTestPage
@@ -38,7 +38,7 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
             {
                 selectedPreferenceType = request.getValue("selectedPreferenceTypeCreate");
                 String s = request.getValue("createPreferenceID");
-                com.dragonflow.Api.SSPropertyDetails asspropertydetails[] = apipreference.getClassPropertiesDetails(selectedPreferenceType, com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL);
+                com.dragonflow.Api.SVPropertyDetails asspropertydetails[] = apipreference.getClassPropertiesDetails(selectedPreferenceType, com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL);
                 String s12 = "";
                 for(int k = 0; k < asspropertydetails.length; k++)
                 {
@@ -88,19 +88,19 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
                     }
                 }
 
-                com.dragonflow.Api.SSInstanceProperty assinstanceproperty1[] = new com.dragonflow.Api.SSInstanceProperty[i];
+                com.dragonflow.Api.SVInstanceProperty assinstanceproperty1[] = new com.dragonflow.Api.SVInstanceProperty[i];
                 int k1 = 0;
                 for(int j2 = 0; j2 < as.length; j2++)
                 {
                     int i3 = as[j2].indexOf("=");
                     if(i3 != -1 && i3 != 0 && as[j2].substring(i3 + 1) != null && as[j2].substring(i3 + 1).length() > 0)
                     {
-                        assinstanceproperty1[k1] = new SSInstanceProperty(as[j2].substring(0, i3), as[j2].substring(i3 + 1));
+                        assinstanceproperty1[k1] = new SVInstanceProperty(as[j2].substring(0, i3), as[j2].substring(i3 + 1));
                         k1++;
                     }
                 }
 
-                com.dragonflow.Api.SSInstanceProperty ssinstanceproperty = apipreference.create(selectedPreferenceType, assinstanceproperty1);
+                com.dragonflow.Api.SVInstanceProperty ssinstanceproperty = apipreference.create(selectedPreferenceType, assinstanceproperty1);
                 outputStream.println("<p>The created preference attribute identifier is: \"" + ssinstanceproperty.getName() + "\" and it's value is: \"" + ssinstanceproperty.getValue() + "\"</form>");
             }
             catch(java.lang.Exception exception1)
@@ -116,7 +116,7 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
                 selectedPreferenceType = request.getValue("selectedPreferenceTypeUpdate");
                 String s2 = request.getValue("updateAttributeIdentifier");
                 String s8 = request.getValue("updateAttributeValue");
-                com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = apipreference.getInstanceProperties(selectedPreferenceType, "", s2, s8, com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+                com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = apipreference.getInstanceProperties(selectedPreferenceType, "", s2, s8, com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
                 String s14 = "";
                 for(int l1 = 0; l1 < assinstanceproperty.length; l1++)
                 {
@@ -163,19 +163,19 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
                     }
                 }
 
-                com.dragonflow.Api.SSInstanceProperty assinstanceproperty3[] = new com.dragonflow.Api.SSInstanceProperty[i2];
+                com.dragonflow.Api.SVInstanceProperty assinstanceproperty3[] = new com.dragonflow.Api.SVInstanceProperty[i2];
                 int k3 = 0;
                 for(int l3 = 0; l3 < as1.length; l3++)
                 {
                     int i4 = as1[l3].indexOf("=");
                     if(i4 != -1 && i4 != 0 && as1[l3].substring(i4 + 1) != null && as1[l3].substring(i4 + 1).length() > 0)
                     {
-                        assinstanceproperty3[k3] = new SSInstanceProperty(as1[l3].substring(0, i4), as1[l3].substring(i4 + 1));
+                        assinstanceproperty3[k3] = new SVInstanceProperty(as1[l3].substring(0, i4), as1[l3].substring(i4 + 1));
                         k3++;
                     }
                 }
 
-                com.dragonflow.Api.SSInstanceProperty ssinstanceproperty1 = apipreference.update(selectedPreferenceType, s3, s9, assinstanceproperty3);
+                com.dragonflow.Api.SVInstanceProperty ssinstanceproperty1 = apipreference.update(selectedPreferenceType, s3, s9, assinstanceproperty3);
                 outputStream.println("<p>The updated preference attribute identifier is: \"" + ssinstanceproperty1.getName() + "\" and it's value is: \"" + ssinstanceproperty1.getValue() + "\"</form>");
             }
             catch(java.lang.Exception exception3)
@@ -191,11 +191,11 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
                 outputStream.println("<p>List of all child groups in this SiteView:<br>\n");
                 String s4 = request.getValue("selectedPreferenceType");
                 String s10 = request.getValue("settingName");
-                com.dragonflow.Api.SSPreferenceInstance asspreferenceinstance[] = apipreference.getInstances(s4, s10, "", "", com.dragonflow.Api.APISiteView.FILTER_ALL);
+                com.dragonflow.Api.SVPreferenceInstance asspreferenceinstance[] = apipreference.getInstances(s4, s10, "", "", com.dragonflow.Api.APISiteView.FILTER_ALL);
                 outputStream.println("<table>");
                 for(int i1 = 0; i1 < asspreferenceinstance.length; i1++)
                 {
-                    com.dragonflow.Api.SSInstanceProperty assinstanceproperty2[] = asspreferenceinstance[i1].getInstanceProperties();
+                    com.dragonflow.Api.SVInstanceProperty assinstanceproperty2[] = asspreferenceinstance[i1].getInstanceProperties();
                     for(int l2 = 0; l2 < assinstanceproperty2.length; l2++)
                     {
                         outputStream.println("<tr><td>Setting Name: " + assinstanceproperty2[l2].getName() + "</td><td>Setting Value: " + assinstanceproperty2[l2].getValue() + "</td></tr>\n");
@@ -219,7 +219,7 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
                 String s5 = request.getValue("selectedPreferenceTypeProps");
                 String s11 = request.getValue("selectedPreferenceOperationType");
                 outputStream.println("<p>List of all the properties of a " + s5 + "</p>\n");
-                com.dragonflow.Api.SSPropertyDetails asspropertydetails1[] = apipreference.getClassPropertiesDetails(s5, (new Integer(s11)).intValue());
+                com.dragonflow.Api.SVPropertyDetails asspropertydetails1[] = apipreference.getClassPropertiesDetails(s5, (new Integer(s11)).intValue());
                 printPropertyDetails(asspropertydetails1);
             }
             catch(java.lang.Exception exception5)
@@ -279,7 +279,7 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
         outputStream.flush();
     }
 
-    private void printPropertyDetails(com.dragonflow.Api.SSPropertyDetails asspropertydetails[])
+    private void printPropertyDetails(com.dragonflow.Api.SVPropertyDetails asspropertydetails[])
     {
         for(int i = 0; i < asspropertydetails.length; i++)
         {

@@ -53,7 +53,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                 && request.getValue("testName").equals(
                         "currentMonitorsPerMinute")) {
             outputStream.println("<H2>From the Progress Report Page...</H2>\n");
-            com.dragonflow.Api.SSHealthStats sshealthstats = apisiteview
+            com.dragonflow.Api.SVHealthStats sshealthstats = apisiteview
                     .getCurrentMonitorsPerMinute();
             outputStream.println("<p>" + sshealthstats.getName() + ": ");
             java.lang.Float float1 = (java.lang.Float) sshealthstats
@@ -71,7 +71,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                 && request.getValue("testName")
                         .equals("currentMonitorsRunning")) {
             outputStream.println("<H2>From the Progress Report Page...</H2>\n");
-            com.dragonflow.Api.SSHealthStats sshealthstats1 = apisiteview
+            com.dragonflow.Api.SVHealthStats sshealthstats1 = apisiteview
                     .getCurrentMonitorsRunning();
             outputStream.println("<p>" + sshealthstats1.getName() + ": ");
             java.lang.Integer integer = (java.lang.Integer) sshealthstats1
@@ -89,7 +89,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                 && request.getValue("testName")
                         .equals("currentMonitorsWaiting")) {
             outputStream.println("<H2>From the Progress Report Page...</H2>\n");
-            com.dragonflow.Api.SSHealthStats sshealthstats2 = apisiteview
+            com.dragonflow.Api.SVHealthStats sshealthstats2 = apisiteview
                     .getCurrentMonitorsWaiting();
             outputStream.println("<p>" + sshealthstats2.getName() + ": ");
             java.lang.Integer integer1 = (java.lang.Integer) sshealthstats2
@@ -107,7 +107,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                 && request.getValue("testName").equals(
                         "maximumMonitorsPerMinute")) {
             outputStream.println("<p>From the Progress Report Page...</H2>\n");
-            com.dragonflow.Api.SSHealthStats sshealthstats3 = apisiteview
+            com.dragonflow.Api.SVHealthStats sshealthstats3 = apisiteview
                     .getMaximumMonitorsPerMinute();
             outputStream.println("<br>" + sshealthstats3.getName() + ": ");
             java.lang.Float float2 = (java.lang.Float) sshealthstats3
@@ -130,7 +130,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                 && request.getValue("testName")
                         .equals("maximumMonitorsRunning")) {
             outputStream.println("<H2>From the Progress Report Page...</H2>\n");
-            com.dragonflow.Api.SSHealthStats sshealthstats4 = apisiteview
+            com.dragonflow.Api.SVHealthStats sshealthstats4 = apisiteview
                     .getMaximumMonitorsRunning();
             outputStream.println("<p>" + sshealthstats4.getName() + ": ");
             java.lang.Float float3 = (java.lang.Float) sshealthstats4
@@ -153,7 +153,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                 && request.getValue("testName")
                         .equals("maximumMonitorsWaiting")) {
             outputStream.println("<H2>From the Progress Report Page...</H2>\n");
-            com.dragonflow.Api.SSHealthStats sshealthstats5 = apisiteview
+            com.dragonflow.Api.SVHealthStats sshealthstats5 = apisiteview
                     .getMaximumMonitorsWaiting();
             outputStream.println("<p>" + sshealthstats5.getName() + ": ");
             java.lang.Float float4 = (java.lang.Float) sshealthstats5
@@ -176,7 +176,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                 && request.getValue("testName").equals("runningMonitorStats")) {
             outputStream.println("<H2>From the Progress Report Page...</H2>\n");
             outputStream.println("<p>Running Monitor Stats:<br>");
-            com.dragonflow.Api.SSHealthStats asshealthstats[] = apisiteview
+            com.dragonflow.Api.SVHealthStats asshealthstats[] = apisiteview
                     .getRunningMonitorStats();
             if (asshealthstats.length > 0) {
                 for (int i = 0; i < asshealthstats.length; i++) {

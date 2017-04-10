@@ -41,67 +41,67 @@ public class accountPrefsPage extends com.dragonflow.Page.prefsPage{
 
     void savePreferences(){
         String errorInfo = "";
-        try{
-            com.dragonflow.SiteView.User user = request.getUser();
-            if(user != null){
-                String loginName = request.getValue("login");
-                String password = request.getValue("password");
-                if(loginName.length() == 0){
-                    errorInfo = "A login name is required.";
-                } else if(!password.equals(request.getValue("password2"))){
-                    errorInfo = "The two passwords didn't match.";
-                } else if(password.length() == 0){
-                    errorInfo = "A password is required.";
-                } else if(request.getValue("outageEmail").length() <= 0){
-                    errorInfo = "Please enter a notification E-mail address.";
-                }
-                if(errorInfo.length() == 0){
-                  realSavePreferences(); //real save info.
-                }
-            } else{
-                errorInfo = "Could not find the user for username " + request.getUsername();
-            }
-            if(errorInfo.length() == 0){
-                printRefreshPage("/SiteView/" + request.getAccountDirectory() + "/SiteView.html", 0);
-            } else{
-                printBodyHeader("Account Error");
-                outputStream.println("<H2>Account Error</H2><hr>" + errorInfo + "<hr>There were errors in the entered information. \n" + "Use your browser's back button to return to the account page.\n");
-                printFooter(outputStream);
-                outputStream.println("</BODY>\n");
-            }
+        com.dragonflow.SiteView.User user = request.getUser();
+        if(user != null){
+        	String loginName = request.getValue("login");
+        	String password = request.getValue("password");
+        	if(loginName.length() == 0){
+        		errorInfo = "A login name is required.";
+        	} else if(!password.equals(request.getValue("password2"))){
+        		errorInfo = "The two passwords didn't match.";
+        	} else if(password.length() == 0){
+        		errorInfo = "A password is required.";
+        	} else if(request.getValue("outageEmail").length() <= 0){
+        		errorInfo = "Please enter a notification E-mail address.";
+        	}
+        	if(errorInfo.length() == 0){
+        		realSavePreferences(loginName,password); //real save info.
+        	}
+        } else{
+        	errorInfo = "Could not find the user for username " + request.getUsername();
         }
-        catch(java.io.IOException ioexception){
-            printError("The preferences could not be saved", "master.config file could not be saved", "/SiteView/" + request.getAccountDirectory() + "/SiteView.html");
+        if(errorInfo.length() == 0){
+        	printRefreshPage("/SiteView/" + request.getAccountDirectory() + "/SiteView.html", 0);
+        } else{
+        	printBodyHeader("Account Error");
+        	outputStream.println("<H2>Account Error</H2><hr>" + errorInfo + "<hr>There were errors in the entered information. \n" + "Use your browser's back button to return to the account page.\n");
+        	printFooter(outputStream);
+        	outputStream.println("</BODY>\n");
         }
     }
     private void realSavePreferences(String loginName,String password){
-        jgl.HashMap hashmap = getSettings();
-        com.dragonflow.SiteView.User user = request.getUser();
-        com.dragonflow.SiteView.User user1 = new User();
-        jgl.Array array = user.getImmediateProperties();
-        for(int i = 0; i < array.size(); i++){
-            com.dragonflow.Properties.StringProperty stringproperty = (com.dragonflow.Properties.StringProperty)array.at(i);
-            user1.setProperty(stringproperty, user.getProperty(stringproperty));
+    	try{
+	        jgl.HashMap hashmap = getSettings();
+	        com.dragonflow.SiteView.User user = request.getUser();
+	        com.dragonflow.SiteView.User user1 = new User();
+	        jgl.Array array = user.getImmediateProperties();
+	        for(int i = 0; i < array.size(); i++){
+	            com.dragonflow.Properties.StringProperty stringproperty = (com.dragonflow.Properties.StringProperty)array.at(i);
+	            user1.setProperty(stringproperty, user.getProperty(stringproperty));
+	        }
+	
+	        user1.setProperty(User.pRealName, request.getValue("realName"));
+	        user1.setProperty(User.pLogin, loginName);
+	        user1.setProperty(User.pPassword, password);
+	        user1.setProperty(User.pEmail, request.getValue("contactEmail"));
+	        java.lang.Object obj = hashmap.get("_user");
+	        jgl.Array array1 = new Array();
+	        array1.add(com.dragonflow.Utils.TextUtils.hashMapToString(user1.getValuesTable()));
+	        if(obj != null && (obj instanceof jgl.Array)){
+	            jgl.Array array2 = (jgl.Array)obj;
+	            for(int j = 1; j < array2.size(); j++){
+	                array1.add(array2.at(j));
+	            }
+	        }
+	        hashmap.put("_user", array1);
+	        hashmap.put("_timeOffset", request.getValue("timeOffset"));
+	        hashmap.put("_contactEmail", request.getValue("contactEmail"));
+	        hashmap.put("_outageEmail", request.getValue("outageEmail"));
+	        saveSettings(hashmap);
+    	}
+        catch(java.io.IOException ioexception){
+            printError("The preferences could not be saved", "master.config file could not be saved", "/SiteView/" + request.getAccountDirectory() + "/SiteView.html");
         }
-
-        user1.setProperty(User.pRealName, request.getValue("realName"));
-        user1.setProperty(User.pLogin, loginName);
-        user1.setProperty(User.pPassword, password);
-        user1.setProperty(User.pEmail, request.getValue("contactEmail"));
-        java.lang.Object obj = hashmap.get("_user");
-        jgl.Array array1 = new Array();
-        array1.add(com.dragonflow.Utils.TextUtils.hashMapToString(user1.getValuesTable()));
-        if(obj != null && (obj instanceof jgl.Array)){
-            jgl.Array array2 = (jgl.Array)obj;
-            for(int j = 1; j < array2.size(); j++){
-                array1.add(array2.at(j));
-            }
-        }
-        hashmap.put("_user", array1);
-        hashmap.put("_timeOffset", request.getValue("timeOffset"));
-        hashmap.put("_contactEmail", request.getValue("contactEmail"));
-        hashmap.put("_outageEmail", request.getValue("outageEmail"));
-        saveSettings(hashmap);
     }
 
     public static void printForm(java.io.PrintWriter printwriter, com.dragonflow.HTTP.HTTPRequest httprequest){
@@ -114,7 +114,7 @@ public class accountPrefsPage extends com.dragonflow.Page.prefsPage{
         }
         String _account = httprequest.getAccount(); //s
         com.dragonflow.SiteView.SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
-        com.dragonflow.SiteView.MonitorGroup monitorgroup = (com.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(s);
+        com.dragonflow.SiteView.MonitorGroup monitorgroup = (com.dragonflow.SiteView.MonitorGroup)siteviewgroup.getElement(_account);
         boolean flag = httprequest.getPermission("_monitorType", "URLMonitor").length() <= 0;
         System.out.println("newAccount=" + flag);
         String s1 = "&account=" + httprequest.getAccount();

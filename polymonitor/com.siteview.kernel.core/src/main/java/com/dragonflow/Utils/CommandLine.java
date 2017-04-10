@@ -164,7 +164,7 @@ public class CommandLine
         {
             s = com.dragonflow.Utils.CommandLine.getExecSyncCmd(s1, s, i, true);
         }
-        if(com.dragonflow.SiteView.Platform.isNTRemote(s1) || com.dragonflow.SiteView.Machine.isNTSSH(s1))
+        if(com.dragonflow.SiteView.Platform.isWindowRemote(s1) || com.dragonflow.SiteView.Machine.isNTSSH(s1))
         {
             machine = Machine.getNTMachine(s1);
             if(machine != null && machine.getSetting("_method").equals("ssh"))
@@ -172,7 +172,7 @@ public class CommandLine
                 flag = true;
             }
         }
-        if(!flag && (s1.length() == 0 || com.dragonflow.SiteView.Platform.isNTRemote(s1)))
+        if(!flag && (s1.length() == 0 || com.dragonflow.SiteView.Platform.isWindowRemote(s1)))
         {
             return exec(s, counterlock, atomicmonitor);
         }
@@ -353,7 +353,7 @@ public class CommandLine
         {
             System.out.println("EXEC (String[],String,CounterLock) called with command \"" + as + "\"");
         }
-        if(s.length() == 0 || com.dragonflow.SiteView.Platform.isNTRemote(s))
+        if(s.length() == 0 || com.dragonflow.SiteView.Platform.isWindowRemote(s))
         {
             return exec(as, counterlock);
         }

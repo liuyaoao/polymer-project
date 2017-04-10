@@ -21,15 +21,15 @@ package com.dragonflow.Api;
 // Referenced classes of package com.dragonflow.Api:
 // SSBaseReturnValues, SSInstanceProperty
 
-public class SVAlertInstance extends com.dragonflow.Api.SSBaseReturnValues
+public class SVAlertInstance extends com.dragonflow.Api.SVBaseReturnValues
 {
 
     private String alertId;
     private String monitorId;
     private String groupId;
-    private com.dragonflow.Api.SSInstanceProperty instanceProperties[];
+    private com.dragonflow.Api.SVInstanceProperty instanceProperties[];
 
-    public SVAlertInstance(String s, String s1, String s2, com.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    public SVAlertInstance(String s, String s1, String s2, com.dragonflow.Api.SVInstanceProperty assinstanceproperty[])
     {
         alertId = s;
         monitorId = s1;
@@ -58,7 +58,7 @@ public class SVAlertInstance extends com.dragonflow.Api.SSBaseReturnValues
         return groupId;
     }
 
-    public com.dragonflow.Api.SSInstanceProperty[] getInstanceProperties()
+    public com.dragonflow.Api.SVInstanceProperty[] getInstanceProperties()
     {
         return instanceProperties;
     }

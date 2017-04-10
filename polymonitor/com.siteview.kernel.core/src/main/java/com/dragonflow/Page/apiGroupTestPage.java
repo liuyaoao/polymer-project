@@ -1,5 +1,5 @@
 /*
- *
+ * 
  * Created on 2014-4-20 22:12:36
  *
  * .java
@@ -11,7 +11,7 @@ package com.dragonflow.Page;
 
 import jgl.Array;
 import com.dragonflow.Api.APIGroup;
-import com.dragonflow.Api.SSInstanceProperty;
+import com.dragonflow.Api.SVInstanceProperty;
 
 // Referenced classes of package com.dragonflow.Page:
 // apiMasterTestPage
@@ -36,7 +36,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                 {
                     String s = request.getValue("createGroupName");
                     String s14 = request.getValue("createParentGroupID");
-                    com.dragonflow.Api.SSPropertyDetails asspropertydetails2[] = apigroup.getClassPropertiesDetails(com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL);
+                    com.dragonflow.Api.SVPropertyDetails asspropertydetails2[] = apigroup.getClassPropertiesDetails(com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL);
                     String s26 = "";
                     for(int l = 0; l < asspropertydetails2.length; l++)
                     {
@@ -77,7 +77,8 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                     outputStream.println("<p>Error in create");
                     outputStream.println("<p>" + exception1.getMessage());
                 }
-            } else if(request.hasValue("testName") && request.getValue("testName").equals("createGroup"))
+            } else
+            if(request.hasValue("testName") && request.getValue("testName").equals("createGroup"))
             {
                 try
                 {
@@ -102,19 +103,19 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                         }
                     }
 
-                    com.dragonflow.Api.SSInstanceProperty assinstanceproperty6[] = new com.dragonflow.Api.SSInstanceProperty[i1];
+                    com.dragonflow.Api.SVInstanceProperty assinstanceproperty6[] = new com.dragonflow.Api.SVInstanceProperty[i1];
                     int k2 = 0;
                     for(int i3 = 0; i3 < as1.length; i3++)
                     {
                         int k3 = as1[i3].indexOf("=");
                         if(k3 != -1 && k3 != 0 && as1[i3].substring(k3 + 1) != null && as1[i3].substring(k3 + 1).length() > 0)
                         {
-                            assinstanceproperty6[k2] = new SSInstanceProperty(as1[i3].substring(0, k3), as1[i3].substring(k3 + 1));
+                            assinstanceproperty6[k2] = new SVInstanceProperty(as1[i3].substring(0, k3), as1[i3].substring(k3 + 1));
                             k2++;
                         }
                     }
 
-                    com.dragonflow.Api.SSStringReturnValue ssstringreturnvalue2 = apigroup.create(s1, s15, assinstanceproperty6);
+                    com.dragonflow.Api.SVStringReturnValue ssstringreturnvalue2 = apigroup.create(s1, s15, assinstanceproperty6);
                     outputStream.println("<p>The created group id is: " + ssstringreturnvalue2.getValue());
                     outputStream.println("<br><p>Remember that you MUST press the \"forceSignalReload\" button in order to see the results of the operation!</form>");
                 }
@@ -129,7 +130,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                 String s2 = request.getValue("editGroupID");
                 try
                 {
-                    com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = apigroup.getInstanceProperties(s2, com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+                    com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = apigroup.getInstanceProperties(s2, com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
                     String s24 = "";
                     for(int i = 0; i < assinstanceproperty.length; i++)
                     {
@@ -168,14 +169,14 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                         }
                     }
 
-                    com.dragonflow.Api.SSInstanceProperty assinstanceproperty4[] = new com.dragonflow.Api.SSInstanceProperty[j];
+                    com.dragonflow.Api.SVInstanceProperty assinstanceproperty4[] = new com.dragonflow.Api.SVInstanceProperty[j];
                     int i2 = 0;
                     for(int l2 = 0; l2 < as.length; l2++)
                     {
                         int j3 = as[l2].indexOf("=");
                         if(j3 != -1 && j3 != 0)
                         {
-                            assinstanceproperty4[i2] = new SSInstanceProperty(as[l2].substring(0, j3), as[l2].substring(j3 + 1));
+                            assinstanceproperty4[i2] = new SVInstanceProperty(as[l2].substring(0, j3), as[l2].substring(j3 + 1));
                             i2++;
                         }
                     }
@@ -199,8 +200,8 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                     String s4 = request.getValue("groupID");
                     if(s4 != null && s4.length() > 0)
                     {
-                        com.dragonflow.Api.SSInstanceProperty assinstanceproperty1[] = new com.dragonflow.Api.SSInstanceProperty[1];
-                        assinstanceproperty1[0] = new SSInstanceProperty("_name", s4);
+                        com.dragonflow.Api.SVInstanceProperty assinstanceproperty1[] = new com.dragonflow.Api.SVInstanceProperty[1];
+                        assinstanceproperty1[0] = new SVInstanceProperty("_name", s4);
                         outputStream.println("<p>Delete a group " + s4 + " and any Monitors or additional subGroups contained within this group");
                         apigroup.delete(s4);
                         outputStream.println("<p>Group id " + s4 + " deleted!");
@@ -230,7 +231,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                 {
                     try
                     {
-                        com.dragonflow.Api.SSStringReturnValue ssstringreturnvalue = apigroup.move(s5, s17);
+                        com.dragonflow.Api.SVStringReturnValue ssstringreturnvalue = apigroup.move(s5, s17);
                         if(s17 == null || s17.length() == 0)
                         {
                             s17 = "top-level group";
@@ -259,7 +260,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                 {
                     try
                     {
-                        com.dragonflow.Api.SSStringReturnValue ssstringreturnvalue1 = apigroup.copy(s6, s18);
+                        com.dragonflow.Api.SVStringReturnValue ssstringreturnvalue1 = apigroup.copy(s6, s18);
                         if(s18 == null || s18.length() == 0)
                         {
                             s18 = "top-level group";
@@ -279,7 +280,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                 {
                     String s7 = request.getValue("listGroupPropertiesOperation");
                     outputStream.println("<p>List of the properties of a group for the selected Operation:</p>\n");
-                    com.dragonflow.Api.SSPropertyDetails asspropertydetails[] = apigroup.getClassPropertiesDetails((new Integer(s7)).intValue());
+                    com.dragonflow.Api.SVPropertyDetails asspropertydetails[] = apigroup.getClassPropertiesDetails((new Integer(s7)).intValue());
                     printPropertyDetails(asspropertydetails);
                 }
                 catch(java.lang.Exception exception5)
@@ -294,7 +295,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                 {
                     String s8 = request.getValue("getClassPropertyName");
                     outputStream.println("<p>List of the properties of a group:</p>\n");
-                    com.dragonflow.Api.SSPropertyDetails asspropertydetails1[] = new com.dragonflow.Api.SSPropertyDetails[1];
+                    com.dragonflow.Api.SVPropertyDetails asspropertydetails1[] = new com.dragonflow.Api.SVPropertyDetails[1];
                     asspropertydetails1[0] = apigroup.getClassPropertyDetails(s8);
                     printPropertyDetails(asspropertydetails1);
                 }
@@ -311,7 +312,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                     String s9 = request.getValue("getGroupInstancePropertyName");
                     String s19 = request.getValue("getGroupInstanceGroupID");
                     outputStream.println("<p>List of the properties of a group:</p>\n");
-                    com.dragonflow.Api.SSPropertyDetails asspropertydetails3[] = new com.dragonflow.Api.SSPropertyDetails[1];
+                    com.dragonflow.Api.SVPropertyDetails asspropertydetails3[] = new com.dragonflow.Api.SVPropertyDetails[1];
                     asspropertydetails3[0] = apigroup.getInstancePropertyScalars(s9, s19);
                     printPropertyDetails(asspropertydetails3);
                 }
@@ -332,11 +333,11 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                     try
                     {
                         String s20 = request.getValue("getGroupInstancesOperation");
-                        com.dragonflow.Api.SSGroupInstance assgroupinstance[] = apigroup.getInstances(s10, (new Integer(s20)).intValue());
+                        com.dragonflow.Api.SVGroupInstance assgroupinstance[] = apigroup.getInstances(s10, (new Integer(s20)).intValue());
                         outputStream.println("List ALL group instance properties of groupID: \"" + s10);
                         for(int k = 0; k < assgroupinstance.length; k++)
                         {
-                            com.dragonflow.Api.SSInstanceProperty assinstanceproperty5[] = assgroupinstance[k].getInstanceProperties();
+                            com.dragonflow.Api.SVInstanceProperty assinstanceproperty5[] = assgroupinstance[k].getInstanceProperties();
                             outputStream.println("<p><b>Group ID:</b> " + assgroupinstance[k].getGroupId());
                             printInstancePropertyArray(assinstanceproperty5);
                         }
@@ -357,7 +358,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                     String s21 = request.getValue("getInstancePropertiesOperation");
                     if(s11 != null && s11.length() > 0)
                     {
-                        com.dragonflow.Api.SSInstanceProperty assinstanceproperty2[] = apigroup.getInstanceProperties(s11, (new Integer(s21)).intValue());
+                        com.dragonflow.Api.SVInstanceProperty assinstanceproperty2[] = apigroup.getInstanceProperties(s11, (new Integer(s21)).intValue());
                         outputStream.println("List properties of new groupID " + s11);
                         printInstancePropertyArray(assinstanceproperty2);
                     } else
@@ -380,7 +381,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
                     String s25 = request.getValue("getInstancePropertyOperation");
                     if(s12 != null && s12.length() > 0)
                     {
-                        com.dragonflow.Api.SSInstanceProperty assinstanceproperty3[] = new com.dragonflow.Api.SSInstanceProperty[1];
+                        com.dragonflow.Api.SVInstanceProperty assinstanceproperty3[] = new com.dragonflow.Api.SVInstanceProperty[1];
                         assinstanceproperty3[0] = apigroup.getInstanceProperty(s22, s12, (new Integer(s25)).intValue());
                         outputStream.println("List properties of new groupID " + s12);
                         printInstancePropertyArray(assinstanceproperty3);
@@ -440,7 +441,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
         }
     }
 
-    private void printInstancePropertyArray(com.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    private void printInstancePropertyArray(com.dragonflow.Api.SVInstanceProperty assinstanceproperty[])
     {
         if(assinstanceproperty.length > 0)
         {
@@ -475,7 +476,7 @@ public class apiGroupTestPage extends com.dragonflow.Page.apiMasterTestPage
         }
     }
 
-    private void printPropertyDetails(com.dragonflow.Api.SSPropertyDetails asspropertydetails[])
+    private void printPropertyDetails(com.dragonflow.Api.SVPropertyDetails asspropertydetails[])
     {
         for(int i = 0; i < asspropertydetails.length; i++)
         {

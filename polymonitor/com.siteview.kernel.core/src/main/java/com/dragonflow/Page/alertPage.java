@@ -112,26 +112,19 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			com.dragonflow.HTTP.HTTPRequest httprequest) {
 		com.dragonflow.Page.CGI.menus menus1 = new CGI.menus();
 		if (httprequest.actionAllowed("_browse")) {
-			menus1.add(new CGI.menuItems("Browse", "browse", "", "page",
-					"Browse Monitors"));
+			menus1.add(new CGI.menuItems("Browse", "browse", "", "page", "Browse Monitors"));
 		}
 		if (httprequest.actionAllowed("_alertEdit")) {
-			menus1.add(new CGI.menuItems("Add Alert", "alert", "AddList",
-					"operation", "Add a new alert"));
+			menus1.add(new CGI.menuItems("Add Alert", "alert", "AddList", "operation", "Add a new alert"));
 		}
-		if (httprequest.actionAllowed("_alertDisable")
-				|| httprequest.actionAllowed("_alertTempDisable")) {
-			menus1.add(new CGI.menuItems("Disable Alerts", "alert", "Disable",
-					"operation", "Disable all alerts"));
+		if (httprequest.actionAllowed("_alertDisable") || httprequest.actionAllowed("_alertTempDisable")) {
+			menus1.add(new CGI.menuItems("Disable Alerts", "alert", "Disable", "operation", "Disable all alerts"));
 		}
 		if (httprequest.actionAllowed("_alertEdit")) {
-			menus1.add(new CGI.menuItems("Enable Alerts", "alert", "Enable",
-					"operation", "Enable all disabled alerts"));
+			menus1.add(new CGI.menuItems("Enable Alerts", "alert", "Enable", "operation", "Enable all disabled alerts"));
 		}
-		if (httprequest.actionAllowed("_alertRecentReport")
-				|| httprequest.actionAllowed("_alertAdhocReport")) {
-			menus1.add(new CGI.menuItems("Alert Report", "alert", "ReportForm",
-					"operation", "View a report of alerts sent"));
+		if (httprequest.actionAllowed("_alertRecentReport") || httprequest.actionAllowed("_alertAdhocReport")) {
+			menus1.add(new CGI.menuItems("Alert Report", "alert", "ReportForm", "operation", "View a report of alerts sent"));
 		}
 		return menus1;
 	}
@@ -144,16 +137,12 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			boolean flag) {
 		if (!httprequest.getPermission("_alertProperty",
 				stringproperty.getName()).equals("hidden")) {
-			stringproperty.printProperty(this, printwriter, siteviewobject,
-					httprequest, hashmap, flag);
+			stringproperty.printProperty(this, printwriter, siteviewobject, httprequest, hashmap, flag);
 			if (stringproperty.getName().indexOf("assword") > -1) {
 				StringBuffer stringbuffer = new StringBuffer();
 				StringBuffer stringbuffer1 = new StringBuffer();
 				String s = siteviewobject.getProperty(stringproperty);
-				com.dragonflow.Properties.StringProperty.getPrivate(s,
-						stringproperty.getName(), "hidden"
-								+ stringproperty.getName(), stringbuffer,
-						stringbuffer1);
+				com.dragonflow.Properties.StringProperty.getPrivate(s, stringproperty.getName(), "hidden" + stringproperty.getName(), stringbuffer,stringbuffer1);
 				printwriter.print(stringbuffer1.toString());
 			}
 		}
@@ -172,8 +161,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		if (s2 != null) {
 			jgl.Array array1 = Platform.split(',', s2);
 			String s8;
-			for (Enumeration enumeration1 = array1.elements(); enumeration1
-					.hasMoreElements(); array.add(s8.trim())) {
+			for (Enumeration enumeration1 = array1.elements(); enumeration1.hasMoreElements(); array.add(s8.trim())) {
 				s8 = (String) enumeration1.nextElement();
 			}
 
@@ -204,8 +192,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			}
 		}
 		int i = 131;
-		if (com.dragonflow.SiteView.Platform.isStandardAccount(request
-				.getValue("account"))) {
+		if (com.dragonflow.SiteView.Platform.isStandardAccount(request.getValue("account"))) {
 			i += 64;
 		} else {
 			i += 8;
@@ -215,18 +202,15 @@ public class alertPage extends com.dragonflow.Page.CGI {
 					hashmap, "targets");
 			String s10 = "Select the Groups and Monitors handled by this Alert.  To select several items, hold down the Control key (on most platforms) while clicking item names.\n";
 			StringBuffer stringbuffer = new StringBuffer();
-			com.dragonflow.Page.treeControl treecontrol = new treeControl(
-					request, "targets", false);
-			treecontrol.process("Alert Subject(s)", s6, s10, array, null, null,
-					i, this, stringbuffer);
+			com.dragonflow.Page.treeControl treecontrol = new treeControl(request, "targets", false);
+			treecontrol.process("Alert Subject(s)", s6, s10, array, null, null,i, this, stringbuffer);
 			outputStream.println(stringbuffer.toString());
 		} else {
-			String s7 = getMonitorOptionsHTML(array, null, null, i);
+			String monitorOptionsHTML = getMonitorOptionsHTML(array, null, null, i);
 			String s11 = TextUtils.getValue(
 					hashmap, "targets");
-			outputStream
-					.println("<B>Alert Subject(s)</B>\n<BLOCKQUOTE><DL>\n<DT>\n<TABLE>\n<TR>\n<TD><IMG SRC=/SiteView/htdocs/artwork/empty.gif WIDTH=25><select multiple name=targets size=10> "
-							+ s7
+			outputStream.println("<B>Alert Subject(s)</B>\n<BLOCKQUOTE><DL>\n<DT>\n<TABLE>\n<TR>\n<TD><IMG SRC=/SiteView/htdocs/artwork/empty.gif WIDTH=25><select multiple name=targets size=10> "
+							+ monitorOptionsHTML
 							+ "</select></TD>\n"
 							+ "<TD><I>"
 							+ s11
@@ -264,7 +248,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		String s10 = "";
 		String s11 = "";
 		s12 = "";
-		String s13 = "";
+		String disabled = "";
 		String s14 = "";
 		String s15 = null;
 		int i = -1;
@@ -273,7 +257,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		int l = -1;
 		int i1 = -1;
 		int j1 = -1;
-		String s16 = request.getValue("category");
+		String category = request.getValue("category");
 		com.dragonflow.SiteView.Action action = null;
 		if (s.equals("Add")) {
 			s6 = "checked";
@@ -311,32 +295,24 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			}
 		} else {
 			if (com.dragonflow.SiteView.AtomicMonitor.alertDebug) {
-				System.out
-						.println("AlertPage: EDIT: previousCondition: " + s4
-								+ " id: " + s3);
+				System.out.println("AlertPage: EDIT: previousCondition: " + s4 + " id: " + s3);
 			}
 			jgl.Array array;
 			if (s4 == null) {
 				array = findCondition(s3);
 				if (com.dragonflow.SiteView.AtomicMonitor.alertDebug) {
-					System.out
-							.println("AlertPage: used findCondition pieces: "
-									+ array.toString() + " id: " + s3);
+					System.out .println("AlertPage: used findCondition pieces: " + array.toString() + " id: " + s3);
 				}
 			} else {
 				array = Platform.split('\t', s4);
 				if (com.dragonflow.SiteView.AtomicMonitor.alertDebug) {
-					System.out
-							.println("AlertPage: used previousCondition to get pieces: "
-									+ array.toString() + " id: " + s3);
+					System.out.println("AlertPage: used previousCondition to get pieces: " + array.toString() + " id: " + s3);
 				}
 			}
 			String s18 = (String) array.at(0);
 			String s20 = (String) array.at(1);
 			if (com.dragonflow.SiteView.AtomicMonitor.alertDebug) {
-				System.out
-						.println("AlertPage: actionString from  pieces.at(1): "
-								+ s20 + " id: " + s3);
+				System.out.println("AlertPage: actionString from  pieces.at(1): " + s20 + " id: " + s3);
 			}
 			String s22 = (String) array.at(3);
 			if (array.size() > 3 && !s22.startsWith("_UIContext")) {
@@ -346,9 +322,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 					.createAction(getActionClass(s20));
 			if (com.dragonflow.SiteView.AtomicMonitor.alertDebug) {
 				com.dragonflow.Utils.TextUtils
-						.debugPrint("********* expression = " + s18
-								+ " group.monitorsInError = "
-								+ s18.indexOf("group.monitorsInError"));
+						.debugPrint("********* expression = " + s18 + " group.monitorsInError = " + s18.indexOf("group.monitorsInError"));
 			}
 			jgl.Array array1 = new Array();
 			com.dragonflow.Properties.HashMapOrdered hashmapordered = new HashMapOrdered(
@@ -356,12 +330,11 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			getActionArguments(s20, array1, hashmapordered);
 			if (com.dragonflow.SiteView.AtomicMonitor.alertDebug) {
 				System.out
-						.println("AlertPage: after getActionArguments from  args from actionString: "
-								+ array1.toString() + " id: " + s3);
+						.println("AlertPage: after getActionArguments from  args from actionString: " + array1.toString() + " id: " + s3);
 			}
 			action.initializeFromArguments(array1, hashmapordered);
-			if (s16.length() == 0) {
-				s16 = getCategory(s18);
+			if (category.length() == 0) {
+				category = getCategory(s18);
 			}
 			i = getErrorCount(s18);
 			j = getAlwaysErrorCount(s18);
@@ -375,7 +348,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			s10 = getNameString(s18);
 			s12 = getClassString(s18);
 			s11 = getStatusString(s18);
-			s13 = getDisabled(s18);
+			disabled = getDisabled(s18);
 			if (s18.indexOf("monitorDoneTime") >= 0) {
 				s14 = s18.substring(s18.indexOf("monitorDoneTime"));
 			}
@@ -419,9 +392,9 @@ public class alertPage extends com.dragonflow.Page.CGI {
 							+ "</b><hr>");
 		}
 		String s21 = "Error";
-		if (s16.equals("warning")) {
+		if (category.equals("warning")) {
 			s21 = "Warning";
-		} else if (s16.equals("good")) {
+		} else if (category.equals("good")) {
 			s21 = "OK";
 		}
 		String s23 = s;
@@ -433,7 +406,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 				+ "</H2><P>\n");
 		String s24 = getPagePOST("alert", s)
 				+ "<input type=hidden name=group value=" + s1 + ">\n"
-				+ "<input type=hidden name=category value=" + s16 + ">\n"
+				+ "<input type=hidden name=category value=" + category + ">\n"
 				+ "<input type=hidden name=monitor value=" + s2 + ">\n"
 				+ "<input type=hidden name=id value=" + s3 + ">\n"
 				+ "<input type=hidden name=class value="
@@ -539,7 +512,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 								"when")
 						+ "</B></I></DT>\n"
 						+ "<DD>cause an Alert after the condition occurs X consecutive times and repeat the alert every Y consecutive times thereafter.</DD>\n");
-		if (s16.equals("error")) {
+		if (category.equals("error")) {
 			outputStream
 					.println("<DT><INPUT TYPE=RADIO NAME=when value=maxErrors "
 							+ s8
@@ -560,16 +533,16 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		}
 		outputStream
 				.println("</TD></TR></TABLE></TD></TR><tr><td colspan=3><hr></td></tr>");
-		if (s16.equals("good")) {
-			String s30 = "";
+		if (category.equals("good")) {
+			String checked = "";
 			if (j1 != -1) {
-				s30 = " checked ";
+				checked = " checked ";
 			} else {
 				j1 = 2;
 			}
 			outputStream
 					.println("<TR><TD ALIGN=RIGHT><input type=checkbox "
-							+ s30
+							+ checked
 							+ " name=usePreviousErrorCount value=true "
 							+ "></TD><TD ALIGN=LEFT>Only allow alert if monitor was previously in error at least "
 							+ "<input type=text name=previousErrorCount size=3 value=\""
@@ -582,41 +555,36 @@ public class alertPage extends com.dragonflow.Page.CGI {
 							+ "<DD>allow this alert to be triggered only if the monitor was in error previously</TD></TR>\n");
 		}
 		outputStream.println("</TABLE>");
-		outputStream.println("<P>\n<input type=submit value=" + s29 + "> "
-				+ action.getClassProperty("name") + " Alert</input>\n");
+		outputStream.println("<P>\n<input type=submit value=" + s29 + "> " + action.getClassProperty("name") + " Alert</input>\n");
 		outputStream.println("<p><HR><H3>Advanced Options</H3>");
-		outputStream
-				.println("<table border=0 cellspacing=4><tr><td><img src=\"/SiteView/htdocs/artwork/LabelSpacer.gif\"></td><td></td><td></td></tr>\n");
+		outputStream.println("<table border=0 cellspacing=4><tr><td><img src=\"/SiteView/htdocs/artwork/LabelSpacer.gif\"></td><td></td><td></td></tr>\n");
 		enumeration = array2.elements();
 		boolean flag1 = action.showOptionalProperties();
 		while (enumeration.hasMoreElements()) {
-			com.dragonflow.Properties.StringProperty stringproperty1 = (com.dragonflow.Properties.StringProperty) enumeration
-					.nextElement();
-			if (stringproperty1.isEditable && stringproperty1.isAdvanced
-					&& (!stringproperty1.isOptional || flag1)) {
-				printProperty(stringproperty1, outputStream, action, request,
-						hashmap, flag);
+			com.dragonflow.Properties.StringProperty stringproperty1 = (com.dragonflow.Properties.StringProperty) enumeration.nextElement();
+			if (stringproperty1.isEditable && stringproperty1.isAdvanced && (!stringproperty1.isOptional || flag1)) {
+				printProperty(stringproperty1, outputStream, action, request,hashmap, flag);
 			}
 		}
 
-		String s31 = "";
-		if (s13.length() > 0) {
-			if (s13.equals("disabled")) {
-				s31 = "permanent";
-			} else if (s13.startsWith("disabled until")) {
+		String permanent = "";
+		if (disabled.length() > 0) {
+			if (disabled.equals("disabled")) {
+				permanent = "permanent";
+			} else if (disabled.startsWith("disabled until")) {
 				if (com.dragonflow.Page.alertPage.isTimedDisable(s14)) {
-					s31 = "timed";
+					permanent = "timed";
 				} else if (com.dragonflow.Page.alertPage
 						.isScheduledDisable(s14)) {
-					s31 = "scheduled";
+					permanent = "scheduled";
 				}
 			}
 		}
-		int j2 = com.dragonflow.Utils.TextUtils.toInt(request
+		int _timeOffset = com.dragonflow.Utils.TextUtils.toInt(request
 				.getUserSetting("_timeOffset"));
 		String s32 = com.dragonflow.Page.alertPage.getStartTimeHTML(
-				j2, s14);
-		String s33 = com.dragonflow.Page.alertPage.getEndTimeHTML(j2,
+				_timeOffset, s14);
+		String s33 = com.dragonflow.Page.alertPage.getEndTimeHTML(_timeOffset,
 				s14);
 		outputStream
 				.println("\n<TR><TD ALIGN=RIGHT>Disable Alert</TD>\n<TD></TD></TR><TR><td>&nbsp;</td><TD ALIGN=LEFT>");
@@ -627,8 +595,8 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		outputStream
 				.println("\n<TR><TD ALIGN=LEFT><INPUT TYPE=RADIO NAME=alertDisable VALUE=undo ");
 		String s34 = "";
-		if (!s31.equals("permanent") && !s31.equals("timed")
-				&& !s31.equals("scheduled")) {
+		if (!permanent.equals("permanent") && !permanent.equals("timed")
+				&& !permanent.equals("scheduled")) {
 			s34 = "checked";
 		}
 		outputStream.println(s34 + ">\nEnable Alert</TD></TR>");
@@ -636,7 +604,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		if (request.actionAllowed("_alertDisable")) {
 			outputStream
 					.println("\n<TD ALIGN=LEFT><INPUT TYPE=radio NAME=alertDisable VALUE=permanent ");
-			s34 = s31.equals("permanent") ? "checked" : "";
+			s34 = permanent.equals("permanent") ? "checked" : "";
 			outputStream.println(s34
 					+ ">\nDisable alert permanently</INPUT></TD></TR>");
 		}
@@ -645,7 +613,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			String s35 = "10";
 			outputStream
 					.println("\n<TR><TD ALIGN=LEFT><INPUT TYPE=radio NAME=alertDisable VALUE=timed");
-			if (s31.equals("timed")) {
+			if (permanent.equals("timed")) {
 				s34 = "checked";
 				long l2 = com.dragonflow.Page.alertPage.getDisableScheduleTime(
 						"endTime", s14);
@@ -664,7 +632,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 							+ "</SELECT>");
 			outputStream
 					.println("\n<TR><TD ALIGN=LEFT><INPUT TYPE=RADIO NAME=alertDisable VALUE=scheduled");
-			s34 = s31.equals("scheduled") ? " checked" : "";
+			s34 = permanent.equals("scheduled") ? " checked" : "";
 			outputStream.println(s34 + ">\n"
 					+ "\nDisable on a one-time schedule from " + s32 + " to "
 					+ s33 + "</TD></TR>");
@@ -754,29 +722,29 @@ public class alertPage extends com.dragonflow.Page.CGI {
 				if (!enumeration.hasMoreElements()) {
 					break;
 				}
-				String s7 = (String) enumeration
+				String _master = (String) enumeration
 						.nextElement();
-				s7 = com.dragonflow.HTTP.HTTPRequest.decodeString(s7);
+				_master = com.dragonflow.HTTP.HTTPRequest.decodeString(_master);
 				if (s6.length() != 0) {
 					s6 = s6 + ",";
 				}
-				s6 = s6 + s7;
-				if (s7.equals("_master")) {
+				s6 = s6 + _master;
+				if (_master.equals("_master")) {
 					s4 = "_master";
 					s5 = "_config";
 					flag = false;
 					break;
 				}
-				String s9 = "_config";
-				String s10 = s7;
-				int i = s7.indexOf(" ");
+				String _config = "_config";
+				String s10 = _master;
+				int i = _master.indexOf(" ");
 				if (i != -1) {
-					s10 = s7.substring(0, i);
-					s9 = s7.substring(i + 1);
+					s10 = _master.substring(0, i);
+					_config = _master.substring(i + 1);
 				}
 				if (s4.length() == 0) {
 					s4 = s10;
-					s5 = s9;
+					s5 = _config;
 				} else if (!s4.equals(s10)) {
 					s4 = "_master";
 					s5 = "_config";
@@ -1329,57 +1297,57 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		} else {
 			language = english;
 		}
-		String s = request.getValue("operation");
+		String operation = request.getValue("operation");
 		String s1;
-		if (s.equals("List")) {
+		if (operation.equals("List")) {
 			s1 = "Alert Definitions";
-		} else if (s.startsWith("Report")) {
+		} else if (operation.startsWith("Report")) {
 			s1 = "Quick Alert Report";
-		} else if (s.equals("AddList")) {
+		} else if (operation.equals("AddList")) {
 			s1 = "Add Alert";
 		} else {
-			s1 = s + " Alert";
+			s1 = operation + " Alert";
 		}
 		printBodyHeader(s1);
-		if (s.equals("AddList")) {
-			printAddListForm(s);
-		} else if (s.equals("List")) {
-			printListForm(s);
-		} else if (s.equals("Add")) {
+		if (operation.equals("AddList")) {
+			printAddListForm(operation);
+		} else if (operation.equals("List")) {
+			printListForm(operation);
+		} else if (operation.equals("Add")) {
 			if (!request.actionAllowed("_alertEdit")) {
 				throw new HTTPRequestException(557);
 			}
-			printAddForm(s);
-		} else if (s.equals("Delete")) {
+			printAddForm(operation);
+		} else if (operation.equals("Delete")) {
 			if (!request.actionAllowed("_alertEdit")) {
 				throw new HTTPRequestException(557);
 			}
-			printDeleteForm(s);
-		} else if (s.equals("Edit")) {
+			printDeleteForm(operation);
+		} else if (operation.equals("Edit")) {
 			if (!request.actionAllowed("_alertEdit")) {
 				throw new HTTPRequestException(557);
 			}
-			printAddForm(s);
-		} else if (s.equals("Disable") || s.equals("Enable")) {
+			printAddForm(operation);
+		} else if (operation.equals("Disable") || operation.equals("Enable")) {
 			if (!request.actionAllowed("_alertDisable")) {
 				throw new HTTPRequestException(557);
 			}
-			printDisableForm(s);
-		} else if (s.equals("Report")) {
+			printDisableForm(operation);
+		} else if (operation.equals("Report")) {
 			if (!request.actionAllowed("_alertRecentReport")) {
 				throw new HTTPRequestException(557);
 			}
-			printReportForm(s);
-		} else if (s.equals("ReportForm")) {
+			printReportForm(operation);
+		} else if (operation.equals("ReportForm")) {
 			if (!request.actionAllowed("_alertAdhocReport")) {
 				throw new HTTPRequestException(557);
 			}
-			printReportForm(s);
-		} else if (s.startsWith("Test")) {
+			printReportForm(operation);
+		} else if (operation.startsWith("Test")) {
 			if (!request.actionAllowed("_alertTest")) {
 				throw new HTTPRequestException(557);
 			}
-			printTestForm(s);
+			printTestForm(operation);
 		} else {
 			printError("The link was incorrect", "unknown operation",
 					"/SiteView/" + request.getAccountDirectory()

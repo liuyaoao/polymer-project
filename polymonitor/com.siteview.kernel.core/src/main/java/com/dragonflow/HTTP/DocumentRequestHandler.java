@@ -82,7 +82,10 @@ public class DocumentRequestHandler extends HTTPRequestHandler {
         VirtualDirectory virtualdirectory = httpServer.getVirtualDirectory(s);
         String s1 = null;
         if (virtualdirectory != null) {
-            s1 = virtualdirectory.getFullDocumentPath(s);
+        	if(s.contains("/")&&!s.startsWith("/SiteView"))
+        		s1 = virtualdirectory.getFullDocumentPath(s.substring(s.indexOf("/SiteView")));
+        	else
+        		s1 = virtualdirectory.getFullDocumentPath(s.substring(s.indexOf("/SiteView")));
         }
         if (s1 == null) {
             throw new HTTPRequestException(404, s);

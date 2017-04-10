@@ -12,7 +12,7 @@ package com.dragonflow.Page;
 import jgl.Array;
 import jgl.HashMap;
 import com.dragonflow.Api.APIAlert;
-import com.dragonflow.Api.SSInstanceProperty;
+import com.dragonflow.Api.SVInstanceProperty;
 
 // Referenced classes of package com.dragonflow.Page:
 // apiMasterTestPage
@@ -43,7 +43,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                     selectedAlertType = request.getValue("selectedAlertTypeCreate");
                     String s = request.getValue("createAddAlertGroupID");
                     String s12 = request.getValue("createAddAlertMonitorID");
-                    com.dragonflow.Api.SSPropertyDetails asspropertydetails2[] = apialert.getClassPropertiesDetails(selectedAlertType, (new Integer(com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL)).intValue(), new HashMap());
+                    com.dragonflow.Api.SVPropertyDetails asspropertydetails2[] = apialert.getClassPropertiesDetails(selectedAlertType, (new Integer(com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL)).intValue(), new HashMap());
                     String s30 = "";
                     for(int i = 0; i < asspropertydetails2.length; i++)
                     {
@@ -95,14 +95,14 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                         }
                     }
 
-                    com.dragonflow.Api.SSInstanceProperty assinstanceproperty4[] = new com.dragonflow.Api.SSInstanceProperty[j];
+                    com.dragonflow.Api.SVInstanceProperty assinstanceproperty4[] = new com.dragonflow.Api.SVInstanceProperty[j];
                     int l1 = 0;
                     for(int j2 = 0; j2 < as.length; j2++)
                     {
                         int j3 = as[j2].indexOf("=");
                         if(j3 != -1 && j3 != 0 && as[j2].substring(j3 + 1) != null && as[j2].substring(j3 + 1).length() > 0)
                         {
-                            assinstanceproperty4[l1] = new SSInstanceProperty(as[j2].substring(0, j3), as[j2].substring(j3 + 1));
+                            assinstanceproperty4[l1] = new SVInstanceProperty(as[j2].substring(0, j3), as[j2].substring(j3 + 1));
                             l1++;
                         }
                     }
@@ -128,7 +128,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                 String s23 = request.getValue("editAlertAlertID");
                 try
                 {
-                    com.dragonflow.Api.SSInstanceProperty assinstanceproperty1[] = apialert.getInstanceProperties(s23, s2, s14, com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
+                    com.dragonflow.Api.SVInstanceProperty assinstanceproperty1[] = apialert.getInstanceProperties(s23, s2, s14, com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
                     String s35 = "";
                     for(int i1 = 0; i1 < assinstanceproperty1.length; i1++)
                     {
@@ -206,14 +206,14 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                         }
                     }
 
-                    com.dragonflow.Api.SSInstanceProperty assinstanceproperty6[] = new com.dragonflow.Api.SSInstanceProperty[j1];
+                    com.dragonflow.Api.SVInstanceProperty assinstanceproperty6[] = new com.dragonflow.Api.SVInstanceProperty[j1];
                     int i3 = 0;
                     for(int k3 = 0; k3 < as1.length; k3++)
                     {
                         int l3 = as1[k3].indexOf("=");
                         if(l3 != -1 && l3 != 0)
                         {
-                            assinstanceproperty6[i3] = new SSInstanceProperty(as1[k3].substring(0, l3), as1[k3].substring(l3 + 1));
+                            assinstanceproperty6[i3] = new SVInstanceProperty(as1[k3].substring(0, l3), as1[k3].substring(l3 + 1));
                             i3++;
                         }
                     }
@@ -281,7 +281,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                 {
                     selectedAlertType = request.getValue("selectedAlertTypeA");
                     outputStream.println("<p>List of all the attributes of a " + selectedAlertType + "</p>\n");
-                    com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = apialert.getClassAttributes(selectedAlertType);
+                    com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = apialert.getClassAttributes(selectedAlertType);
                     printInstancePropertyArray(assinstanceproperty);
                 }
                 catch(java.lang.Exception exception4)
@@ -297,7 +297,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                     selectedAlertType = request.getValue("selectedAlertType");
                     selectedAlertOperationType = request.getValue("selectedAlertOperationType");
                     outputStream.println("<p>List of all the properties of a " + selectedAlertType + "</p>\n");
-                    com.dragonflow.Api.SSPropertyDetails asspropertydetails[] = apialert.getClassPropertiesDetails(selectedAlertType, (new Integer(selectedAlertOperationType)).intValue(), new HashMap());
+                    com.dragonflow.Api.SVPropertyDetails asspropertydetails[] = apialert.getClassPropertiesDetails(selectedAlertType, (new Integer(selectedAlertOperationType)).intValue(), new HashMap());
                     printPropertyDetails(asspropertydetails);
                 }
                 catch(java.lang.Exception exception5)
@@ -313,7 +313,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                     selectedAlertType = request.getValue("selectedAlertType2");
                     String s5 = request.getValue("getClassPropertyName");
                     outputStream.println("<p>List of the property details for " + s5 + " for a " + selectedAlertType + "</p>\n");
-                    com.dragonflow.Api.SSPropertyDetails asspropertydetails1[] = new com.dragonflow.Api.SSPropertyDetails[1];
+                    com.dragonflow.Api.SVPropertyDetails asspropertydetails1[] = new com.dragonflow.Api.SVPropertyDetails[1];
                     asspropertydetails1[0] = apialert.getClassPropertyDetails(s5, selectedAlertType, new HashMap());
                     printPropertyDetails(asspropertydetails1);
                 }
@@ -332,7 +332,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                     String s26 = request.getValue("alertInstanceMonitorID");
                     String s33 = request.getValue("getInstancePropertyName");
                     outputStream.println("<p>List of the property details for " + s17 + "\\" + s26 + "\\" + s6 + "\"" + s33 + " for a " + selectedAlertType + "</p>\n");
-                    com.dragonflow.Api.SSPropertyDetails asspropertydetails3[] = new com.dragonflow.Api.SSPropertyDetails[1];
+                    com.dragonflow.Api.SVPropertyDetails asspropertydetails3[] = new com.dragonflow.Api.SVPropertyDetails[1];
                     asspropertydetails3[0] = apialert.getInstancePropertyDetails(s33, s6, s26, s17);
                     printPropertyDetails(asspropertydetails3);
                 }
@@ -353,7 +353,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                     com.dragonflow.Api.SVAlertInstance assalertinstance[] = apialert.getInstances(s18, s7, (new Integer(s27)).intValue());
                     for(int k = 0; k < assalertinstance.length; k++)
                     {
-                        com.dragonflow.Api.SSInstanceProperty assinstanceproperty5[] = assalertinstance[k].getInstanceProperties();
+                        com.dragonflow.Api.SVInstanceProperty assinstanceproperty5[] = assalertinstance[k].getInstanceProperties();
                         outputStream.println("<p>Alert ID: " + assalertinstance[k].getAlertId());
                         printInstancePropertyArray(assinstanceproperty5);
                     }
@@ -379,7 +379,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                     {
                         selectedAlertOperationType = request.getValue("selectedAlertInstanceOperationType3");
                         outputStream.println("List alert instance properties of alertID: \"" + s8 + "\", monitorID: \"" + s19 + "\" and groupID: \"" + s28 + "\" for Operation Type " + selectedAlertOperationType);
-                        com.dragonflow.Api.SSInstanceProperty assinstanceproperty2[] = apialert.getInstanceProperties(s8, s19, s28, (new Integer(selectedAlertOperationType)).intValue());
+                        com.dragonflow.Api.SVInstanceProperty assinstanceproperty2[] = apialert.getInstanceProperties(s8, s19, s28, (new Integer(selectedAlertOperationType)).intValue());
                         printInstancePropertyArray(assinstanceproperty2);
                     }
                     catch(java.lang.Exception exception11)
@@ -407,7 +407,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
                     try
                     {
                         selectedAlertOperationType = request.getValue("selectedAlertInstanceOperationTypeChild");
-                        com.dragonflow.Api.SSInstanceProperty assinstanceproperty3[] = new com.dragonflow.Api.SSInstanceProperty[1];
+                        com.dragonflow.Api.SVInstanceProperty assinstanceproperty3[] = new com.dragonflow.Api.SVInstanceProperty[1];
                         assinstanceproperty3[0] = apialert.getInstanceProperty(s34, s29, s20, s9);
                         outputStream.println("List ALL alert instance properties details of alertID: \"" + s29 + "\", groupID: \"" + s9 + "\" and monitorID: \"" + s20 + "\" for Operation Type " + selectedAlertOperationType);
                         printInstancePropertyArray(assinstanceproperty3);
@@ -449,7 +449,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
         }
     }
 
-    private void printGroupInstanceInfoArray(com.dragonflow.Api.SSAlertInstanceInfo assalertinstanceinfo[])
+    private void printGroupInstanceInfoArray(com.dragonflow.Api.SVAlertInstanceInfo assalertinstanceinfo[])
     {
         if(assalertinstanceinfo.length > 0)
         {
@@ -466,7 +466,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
         }
     }
 
-    private void printInstancePropertyArray(com.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    private void printInstancePropertyArray(com.dragonflow.Api.SVInstanceProperty assinstanceproperty[])
     {
         if(assinstanceproperty.length > 0)
         {
@@ -503,7 +503,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
         }
     }
 
-    private void printPropertyDetails(com.dragonflow.Api.SSPropertyDetails asspropertydetails[])
+    private void printPropertyDetails(com.dragonflow.Api.SVPropertyDetails asspropertydetails[])
     {
         for(int i = 0; i < asspropertydetails.length; i++)
         {

@@ -19,7 +19,7 @@ import java.util.Set;
 import jgl.HashMap;
 
 import com.dragonflow.Api.APIMonitor;
-import com.dragonflow.Api.SSInstanceProperty;
+import com.dragonflow.Api.SVInstanceProperty;
 import com.dragonflow.SiteViewException.SiteViewException;
 
 // Referenced classes of package com.dragonflow.Page:
@@ -63,14 +63,14 @@ public class TestAddMoniterPage extends com.dragonflow.Page.CGI {
 
 	public static void createMonitor(String monitortype,String groupid,List<Map<String, String>> paramlist)
 			throws SiteViewException {
-		SSInstanceProperty[] assinstanceproperty = new SSInstanceProperty[paramlist
+		SVInstanceProperty[] assinstanceproperty = new SVInstanceProperty[paramlist
 				.size()];
 		for (int i = 0; i < paramlist.size(); i++) {
 			Map<String, String> map = paramlist.get(i);
 			for (Entry<String, String> entry : map.entrySet()) {
 				String k = entry.getKey();
 				String v = entry.getValue();
-				assinstanceproperty[i] = new SSInstanceProperty(k, v);
+				assinstanceproperty[i] = new SVInstanceProperty(k, v);
 			}
 		}
 //		assinstanceproperty[0] = new SSInstanceProperty("_host",
@@ -88,7 +88,7 @@ public class TestAddMoniterPage extends com.dragonflow.Page.CGI {
 //		assinstanceproperty[9] = new SSInstanceProperty("good-condition0",
 //				"default");
 
-		com.dragonflow.Api.SSStringReturnValue ssstringreturnvalue2 = apimonitor
+		com.dragonflow.Api.SVStringReturnValue ssstringreturnvalue2 = apimonitor
 				.create(monitortype, groupid, assinstanceproperty);
 
 		//

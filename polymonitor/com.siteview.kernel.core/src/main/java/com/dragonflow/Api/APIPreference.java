@@ -43,10 +43,10 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
     {
     }
 
-    public com.dragonflow.Api.SSInstanceProperty create(String s, com.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    public com.dragonflow.Api.SVInstanceProperty create(String s, com.dragonflow.Api.SVInstanceProperty assinstanceproperty[])
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSInstanceProperty ssinstanceproperty = null;
+        com.dragonflow.Api.SVInstanceProperty ssinstanceproperty = null;
         try
         {
             String s1 = "com.dragonflow.StandardPreference." + s;
@@ -61,7 +61,7 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
             jgl.Array array = getPropertiesForClass(preferences, s1, "Preferences", com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_ADD_ALL);
             hashmap = preferences.validateProperties(hashmap, array, new HashMap());
             String as[] = preferences.addPreferences(hashmap);
-            ssinstanceproperty = new SSInstanceProperty(as[0], as[1]);
+            ssinstanceproperty = new SVInstanceProperty(as[0], as[1]);
             com.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
         }
@@ -79,10 +79,10 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
         return ssinstanceproperty;
     }
 
-    public com.dragonflow.Api.SSInstanceProperty update(String s, String s1, String s2, com.dragonflow.Api.SSInstanceProperty assinstanceproperty[])
+    public com.dragonflow.Api.SVInstanceProperty update(String s, String s1, String s2, com.dragonflow.Api.SVInstanceProperty assinstanceproperty[])
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSInstanceProperty ssinstanceproperty = null;
+        com.dragonflow.Api.SVInstanceProperty ssinstanceproperty = null;
         try
         {
             String s3 = "com.dragonflow.StandardPreference." + s;
@@ -97,7 +97,7 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
             jgl.Array array = getPropertiesForClass(preferences, s3, "Preferences", com.dragonflow.Api.APISiteView.FILTER_CONFIGURATION_EDIT_ALL);
             hashmap = preferences.validateProperties(hashmap, array, new HashMap());
             String as[] = preferences.updatePreferences(hashmap, s1, s2);
-            ssinstanceproperty = new SSInstanceProperty(as[0], as[1]);
+            ssinstanceproperty = new SVInstanceProperty(as[0], as[1]);
             com.dragonflow.SiteView.DetectConfigurationChange detectconfigurationchange = DetectConfigurationChange.getInstance();
             detectconfigurationchange.setConfigChangeFlag();
         }
@@ -149,7 +149,7 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
             String s4 = "com.dragonflow.StandardPreference." + s;
             java.lang.Class class1 = java.lang.Class.forName(s4);
             com.dragonflow.SiteView.Preferences preferences = (com.dragonflow.SiteView.Preferences)class1.newInstance();
-            com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = getInstanceProperties(s, preferences.getSettingName(), s1, s2, com.dragonflow.Api.APISiteView.FILTER_RUNTIME_ALL);
+            com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = getInstanceProperties(s, preferences.getSettingName(), s1, s2, com.dragonflow.Api.APISiteView.FILTER_RUNTIME_ALL);
             if(assinstanceproperty != null && assinstanceproperty.length > 0)
             {
                 for(int i = 0; i < assinstanceproperty.length; i++)
@@ -204,11 +204,11 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
         return vector;
     }
 
-    public com.dragonflow.Api.SSPropertyDetails[] getClassPropertiesDetails(String s, int i)
+    public com.dragonflow.Api.SVPropertyDetails[] getClassPropertiesDetails(String s, int i)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
         Object obj = null;
-        com.dragonflow.Api.SSPropertyDetails asspropertydetails[] = null;
+        com.dragonflow.Api.SVPropertyDetails asspropertydetails[] = null;
         try
         {
             String s1 = "com.dragonflow.StandardPreference." + s;
@@ -233,7 +233,7 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
                 }
 
             }
-            asspropertydetails = new com.dragonflow.Api.SSPropertyDetails[array.size() + vector.size()];
+            asspropertydetails = new com.dragonflow.Api.SVPropertyDetails[array.size() + vector.size()];
             for(int j = 0; j < array.size(); j++)
             {
                 asspropertydetails[j] = getClassProperty((com.dragonflow.Properties.StringProperty)array.at(j), (com.dragonflow.SiteView.Preferences)siteviewobject);
@@ -254,10 +254,10 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
         return asspropertydetails;
     }
 
-    public com.dragonflow.Api.SSPropertyDetails getClassPropertyDetails(String s, String s1, int i)
+    public com.dragonflow.Api.SVPropertyDetails getClassPropertyDetails(String s, String s1, int i)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSPropertyDetails sspropertydetails = null;
+        com.dragonflow.Api.SVPropertyDetails sspropertydetails = null;
         try
         {
             String s2 = "com.dragonflow.StandardPreference." + s1;
@@ -291,12 +291,12 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
      * @return
      * @throws com.dragonflow.SiteViewException.SiteViewException
      */
-    public com.dragonflow.Api.SSPreferenceInstance[] getInstances(String s, String s1, String s2, String s3, int i)
+    public com.dragonflow.Api.SVPreferenceInstance[] getInstances(String s, String s1, String s2, String s3, int i)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
         try {
         java.util.Vector vector = new Vector();
-        com.dragonflow.Api.SSPreferenceInstance asspreferenceinstance[];
+        com.dragonflow.Api.SVPreferenceInstance asspreferenceinstance[];
         String s4 = "com.dragonflow.StandardPreference." + s;
         java.lang.Class class1 = java.lang.Class.forName(s4);
         com.dragonflow.SiteView.Preferences preferences = (com.dragonflow.SiteView.Preferences)class1.newInstance();
@@ -313,22 +313,22 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
                 continue;
             }
             hashset.add(s5);
-            com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new com.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+            com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = new com.dragonflow.Api.SVInstanceProperty[hashmap.size()];
             java.util.Set set = hashmap.keySet();
             java.util.Iterator iterator = set.iterator();
             for(int l = 0; iterator.hasNext(); l++)
             {
                 String s6 = (String)iterator.next();
-                assinstanceproperty[l] = new SSInstanceProperty(s6, hashmap.get(s6));
+                assinstanceproperty[l] = new SVInstanceProperty(s6, hashmap.get(s6));
             }
 
-            vector.add(new SSPreferenceInstance(s1, assinstanceproperty));
+            vector.add(new SVPreferenceInstance(s1, assinstanceproperty));
         }
 
-        asspreferenceinstance = new com.dragonflow.Api.SSPreferenceInstance[vector.size()];
+        asspreferenceinstance = new com.dragonflow.Api.SVPreferenceInstance[vector.size()];
         for(int k = 0; k < vector.size(); k++)
         {
-            asspreferenceinstance[k] = (com.dragonflow.Api.SSPreferenceInstance)vector.elementAt(k);
+            asspreferenceinstance[k] = (com.dragonflow.Api.SVPreferenceInstance)vector.elementAt(k);
         }
 
         return asspreferenceinstance;
@@ -344,10 +344,10 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
         }
     }
 
-    public com.dragonflow.Api.SSInstanceProperty[] getInstanceProperties(String s, String s1, String s2, String s3, int i)
+    public com.dragonflow.Api.SVInstanceProperty[] getInstanceProperties(String s, String s1, String s2, String s3, int i)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = null;
+        com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = null;
         try
         {
             String s4 = "com.dragonflow.StandardPreference." + s;
@@ -362,13 +362,13 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
             if(vector.size() > 0)
             {
                 java.util.HashMap hashmap = (java.util.HashMap)vector.elementAt(0);
-                assinstanceproperty = new com.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+                assinstanceproperty = new com.dragonflow.Api.SVInstanceProperty[hashmap.size()];
                 java.util.Set set = hashmap.keySet();
                 java.util.Iterator iterator = set.iterator();
                 for(int j = 0; iterator.hasNext(); j++)
                 {
                     String s5 = (String)iterator.next();
-                    assinstanceproperty[j] = new SSInstanceProperty(s5, hashmap.get(s5));
+                    assinstanceproperty[j] = new SVInstanceProperty(s5, hashmap.get(s5));
                 }
 
             } else
@@ -392,10 +392,10 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
         return assinstanceproperty;
     }
 
-    public com.dragonflow.Api.SSStringReturnValue[] getPreferenceTypes()
+    public com.dragonflow.Api.SVStringReturnValue[] getPreferenceTypes()
         throws com.dragonflow.SiteViewException.SiteViewException
     {
-        com.dragonflow.Api.SSStringReturnValue assstringreturnvalue[] = null;
+        com.dragonflow.Api.SVStringReturnValue assstringreturnvalue[] = null;
         try
         {
             java.util.Vector vector = new Vector();
@@ -410,10 +410,10 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
                 }
             }
 
-            assstringreturnvalue = new com.dragonflow.Api.SSStringReturnValue[vector.size()];
+            assstringreturnvalue = new com.dragonflow.Api.SVStringReturnValue[vector.size()];
             for(int j = 0; j < vector.size(); j++)
             {
-                assstringreturnvalue[j] = new SSStringReturnValue((String)vector.elementAt(j));
+                assstringreturnvalue[j] = new SVStringReturnValue((String)vector.elementAt(j));
             }
 
         }
@@ -426,7 +426,7 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
         return assstringreturnvalue;
     }
 
-    private com.dragonflow.Api.SSPropertyDetails getClassProperty(com.dragonflow.Properties.StringProperty stringproperty, com.dragonflow.SiteView.Preferences preferences)
+    private com.dragonflow.Api.SVPropertyDetails getClassProperty(com.dragonflow.Properties.StringProperty stringproperty, com.dragonflow.SiteView.Preferences preferences)
         throws com.dragonflow.SiteViewException.SiteViewException
     {
         String as[] = null;
@@ -549,7 +549,7 @@ public class APIPreference extends com.dragonflow.Api.APISiteView
                 "APIPreference", "getClassProperty"
             }, 0L, exception.getMessage());
         }
-        return new SSPropertyDetails(stringproperty.getName(), s1, stringproperty.getDescription(), stringproperty.getLabel(), stringproperty.isEditable, stringproperty.isMultivalued, stringproperty.getDefault(), as, as1, s, !stringproperty.isAdvanced, flag, stringproperty.getOrder(), s2, stringproperty.isAdvanced, stringproperty.isPassword, preferences.getProperty(stringproperty.getName()));
+        return new SVPropertyDetails(stringproperty.getName(), s1, stringproperty.getDescription(), stringproperty.getLabel(), stringproperty.isEditable, stringproperty.isMultivalued, stringproperty.getDefault(), as, as1, s, !stringproperty.isAdvanced, flag, stringproperty.getOrder(), s2, stringproperty.isAdvanced, stringproperty.isPassword, preferences.getProperty(stringproperty.getName()));
     }
 
     public static void main(String args[])

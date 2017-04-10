@@ -227,7 +227,7 @@ public class apiMasterTestPage extends CGI {
                 .println("<input type=hidden name=\"page\" value=\"apiMonitorTest\">");
         outputStream
                 .println("<input type=hidden name=\"account\" value=\"administrator\">");
-        com.dragonflow.Api.SSStringReturnValue assstringreturnvalue[] = apimonitor
+        com.dragonflow.Api.SVStringReturnValue assstringreturnvalue[] = apimonitor
                 .getMonitorTypes();
         outputStream
                 .println("<table><tr><td><input type=radio name=\"testName\" value=\"createMonitorProperties\">(create) Create a Monitor (Force Reload to see new monitor)</td></tr>");
@@ -439,7 +439,7 @@ public class apiMasterTestPage extends CGI {
                 .println("<input type=hidden name=\"page\" value=\"apiAlertTest\">");
         outputStream
                 .println("<input type=hidden name=\"account\" value=\"administrator\">");
-        com.dragonflow.Api.SSStringReturnValue assstringreturnvalue1[] = apialert
+        com.dragonflow.Api.SVStringReturnValue assstringreturnvalue1[] = apialert
                 .getAlertTypes();
         outputStream
                 .println("<table><tr><td><input type=radio name=\"testName\" value=\"createAlertProperties\">(create) Create an Alert</td></tr>");
@@ -636,7 +636,7 @@ public class apiMasterTestPage extends CGI {
         outputStream
                 .println("<input type=hidden name=\"account\" value=\"administrator\">");
         com.dragonflow.Api.APIPreference apipreference = new APIPreference();
-        com.dragonflow.Api.SSStringReturnValue assstringreturnvalue2[] = apipreference
+        com.dragonflow.Api.SVStringReturnValue assstringreturnvalue2[] = apipreference
                 .getPreferenceTypes();
         outputStream
                 .println("<table><tr><td><input type=radio name=\"testName\" value=\"createPreferenceProperties\">(create) Create a Preference</td></tr>");

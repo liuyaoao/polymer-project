@@ -89,8 +89,7 @@ Example:
         },
 
         listeners: {
-            "select": "_selectNode",
-            "checkbox-tap": "_selectCheckbox"
+            "select": "_selectNode"
         },
 
         /**
@@ -111,10 +110,6 @@ Example:
             this.$.root.checkState = this.checkState;
         },
 
-        getSelectCheckbox: function() {
-          return this.selectChecked;
-        },
-
         /**
          * Called when the `select` event is fired from an internal node.
          *
@@ -133,13 +128,6 @@ Example:
                 this.selected = null;
             }
         },
-
-        _selectCheckbox: function(e) {
-          // console.log('select checkbox------------');
-          // console.log(e.detail.data);
-          // this.selectChecked.push(e.detail.data);
-          // console.log(this.selectChecked);
-        }
 
 
     });

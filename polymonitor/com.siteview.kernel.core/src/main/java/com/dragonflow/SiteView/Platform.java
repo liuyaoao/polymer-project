@@ -1031,7 +1031,7 @@ public class Platform {
                     s4 = "";
             }
         }
-        if (isNTRemote(s1)) {
+        if (isWindowRemote(s1)) {
             if (s3.indexOf("-connect") == -1)
                 s3 = s3 + " -connect";
             String s5 = " " + s1;
@@ -1750,17 +1750,16 @@ public class Platform {
         return s1;
     }
 
-    public static boolean isNTRemote(String s) {
+    public static boolean isWindowRemote(String s) {
         return s.length() > 0 && s.charAt(0) == '\\';
     }
 
     public static boolean isRemote(String s) {
-        return isNTRemote(s) || isCommandLineRemote(s);
+        return isWindowRemote(s) || isCommandLineRemote(s);
     }
 
     public static boolean isCommandLineRemote(String s) {
-        return s.length() > 0
-                && TextUtils.startsWithIgnoreCase(s, Machine.REMOTE_PREFIX);
+        return s.length() > 0 && TextUtils.startsWithIgnoreCase(s, Machine.REMOTE_PREFIX);
     }
 
     public static String dirCommand(int i, int j) {
@@ -3810,11 +3809,11 @@ public class Platform {
 
     public static String exampleDomain = "siteview.com";
 
-    public static String exampleURL = "http://demo.siteview.com/test.htm";
+    public static String exampleURL = "http://demo.itoss.com.cn/test.htm";
 
-    public static String exampleMailServer = "mail.this-company.com";
+    public static String exampleMailServer = "mail.siteview.com";
 
-    public static String supportPhone = "1-877-837-8457";
+    public static String supportPhone = "400-705-0567";
 
     public static String homeURLPrefix;
 
@@ -3826,9 +3825,9 @@ public class Platform {
 
     public static String siteseerSupportEmail = "siteseersupport@dragonflow.com";
 
-    public static String salesEmail = "siteviewsales@dragonflow.com";
+    public static String salesEmail = "sales@dragonflow.com";
 
-    public static String salesPhone = "1-888-443-2266";
+    public static String salesPhone = "400-705-0567";
 
     public static String salesContactName;
 
@@ -3836,7 +3835,7 @@ public class Platform {
 
     public static String salesContactPhone;
 
-    public static String licenseContactEmail = "siteviewlicense@dragonflow.com";
+    public static String licenseContactEmail = "license@dragonflow.com";
 
     public static String copyright;
 
@@ -3938,8 +3937,8 @@ public class Platform {
         homeURLPrefix = "http://www.siteview.com";
         urlOrderOptions = "/orderoptions.htm";
         salesContactName = "SiteView Sales Team";
-        salesContactEmail = "siteviewsales@dragonflow.com";
-        salesContactPhone = "1-888-443-2266 option 3";
+        salesContactEmail = "sales@dragonflow.com";
+        salesContactPhone = "400-705-0567";
         copyright = "<a href=\""
                 + homeURLPrefix
                 + "/company/copyright.html\" target=\"web\"> Copyright &copy; 2001 - "

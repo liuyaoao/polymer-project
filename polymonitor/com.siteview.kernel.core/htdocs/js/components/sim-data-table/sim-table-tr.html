@@ -1,0 +1,80 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../../css/bootstrap-styles.html"> -->
+
+<dom-module id="sim-table-tr">
+  <template>
+    <style>
+      :host {
+        display: table-row;
+        margin:0;
+        padding:0;
+        height:50px;
+        width:100%;
+        line-height:50px;
+      }
+      .sim-table-tr{
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: #E0E0E0;
+      }
+      :host ::content sim-table-th{
+        width:30%;
+      }
+      :host ::content sim-table-td{
+        width:30%;
+      }
+
+    </style>
+    <div class="sim-table-tr"><content></content></div>
+  </template>
+  <script>
+    Polymer({
+      is: 'sim-table-tr',
+      properties:{
+        _text:String,
+        //data: instance of the model data
+        data:{
+          type:Array,
+          notify: true,
+          value: function() {
+            return [];
+          },
+        }
+      },
+      ready:function(){
+        // var tdDomRoot = Polymer.dom(this.root).querySelector("sim-table-td");
+        // var divTr = Polymer.dom(tdDomRoot).querySelector("td");
+        // Polymer.dom(this.root).querySelector("tr").appendChild(tdDomRoot);
+        //  Polymer.dom(this.root).removeChild(".sim-table-tr");
+        // var ele = document.querySelector(".tableHead");
+        // console.log("query dom node-tr:",Polymer.dom(this.root).innerHTML);
+      }
+
+
+
+
+
+
+    });
+  </script>
+</dom-module>
+<script>
+  Polymer({
+    is: "aha-html-echo-tr",
+    properties: {
+      //column name
+      html: {
+        type: String,
+        value: "",
+        observer: "onHtmlChanged"
+      }
+    },
+    onHtmlChanged: function() {
+      if (!this.html) {
+        this.html = "";
+      }
+      this.innerHTML = this.html;
+    }
+  });
+</script>

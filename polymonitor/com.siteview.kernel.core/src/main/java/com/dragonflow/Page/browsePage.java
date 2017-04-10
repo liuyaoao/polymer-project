@@ -1,5 +1,5 @@
 /*
- *
+ * 
  * Created on 2014-4-20 22:12:36
  *
  * .java
@@ -87,7 +87,7 @@ public class browsePage extends com.dragonflow.Page.CGI
     }
 
     /**
-     *
+     * 
      */
     public void printBody()
         throws java.lang.Exception
@@ -97,7 +97,8 @@ public class browsePage extends com.dragonflow.Page.CGI
             throw new HTTPRequestException(557);
         }
         boolean flag = request.getValue("xml").length() > 0;
-        if(flag && request.getValue("all").length() > 0){
+        if(flag && request.getValue("all").length() > 0)
+        {
             outputStream.println("<?xml version=\"1.0\"?>");
             outputStream.println("<siteview>");
             jgl.Array array = getAllowedGroupIDs();
@@ -150,14 +151,16 @@ public class browsePage extends com.dragonflow.Page.CGI
         if(s6.length() == 0)
         {
             s6 = s7;
-        } else if(!s7.equals(s6))
+        } else
+        if(!s7.equals(s6))
         {
             siteviewgroup1.setProperty("_browseRefreshDefault", s6);
             siteviewgroup1.saveSettings();
         }
         hashmap = MasterConfig.getMasterConfig();
         String s8 = request.getValue("onlyBrowserUnacknowledge");
-        if(!flag){
+        if(!flag)
+        {
             String s9 = "";
             s9 = "/SiteView/cgi/go.exe/SiteView?page=browse";
             if(s6.length() > 0)
@@ -184,7 +187,8 @@ public class browsePage extends com.dragonflow.Page.CGI
         jgl.Array array2 = new Array();
         int j = 0;
 label0:
-        for(int k = 0; k < array1.size(); k++){
+        for(int k = 0; k < array1.size(); k++)
+        {
             String s12 = (String)array1.at(k);
             com.dragonflow.SiteView.MonitorGroup monitorgroup1 = (com.dragonflow.SiteView.MonitorGroup)siteviewgroup1.getElement(s12);
             if(monitorgroup1 == null)
@@ -277,7 +281,8 @@ label0:
         {
             jgl.Sorting.sort(array2, this);
         }
-        if(flag){
+        if(flag)
+        {
             outputStream.println("<?xml version=\"1.0\"?>");
             outputStream.println("<siteview>");
             for(Enumeration enumeration3 = array2.elements(); enumeration3.hasMoreElements(); outputStream.println("</monitor>"))
@@ -288,7 +293,8 @@ label0:
             }
 
             outputStream.println("</siteview>");
-        } else{
+        } else
+        {
             String s11 = request.getValue("sort").equals("group") ? "selected" : "";
             String s13 = request.getValue("sort").equals("name") ? "selected" : "";
             String s14 = request.getValue("sort").equals("status") ? "selected" : "";
@@ -360,7 +366,7 @@ label0:
                 outputStream.println("</form>");
             }
             int ai[] = {
-                com.dragonflow.SiteView.MonitorGroup.CATEGORY_COLUMN, com.dragonflow.SiteView.MonitorGroup.ACKNOWLEDGE_COLUMN, com.dragonflow.SiteView.MonitorGroup.GAUGE_COLUMN, com.dragonflow.SiteView.MonitorGroup.STATUS_COLUMN, com.dragonflow.SiteView.MonitorGroup.NAME_COLUMN, com.dragonflow.SiteView.MonitorGroup.GROUP_COLUMN, com.dragonflow.SiteView.MonitorGroup.EDIT_COLUMN, com.dragonflow.SiteView.MonitorGroup.REFRESH_COLUMN, com.dragonflow.SiteView.MonitorGroup.CUSTOM_COLUMN, com.dragonflow.SiteView.MonitorGroup.MACHINE_COLUMN,
+                com.dragonflow.SiteView.MonitorGroup.CATEGORY_COLUMN, com.dragonflow.SiteView.MonitorGroup.ACKNOWLEDGE_COLUMN, com.dragonflow.SiteView.MonitorGroup.GAUGE_COLUMN, com.dragonflow.SiteView.MonitorGroup.STATUS_COLUMN, com.dragonflow.SiteView.MonitorGroup.NAME_COLUMN, com.dragonflow.SiteView.MonitorGroup.GROUP_COLUMN, com.dragonflow.SiteView.MonitorGroup.EDIT_COLUMN, com.dragonflow.SiteView.MonitorGroup.REFRESH_COLUMN, com.dragonflow.SiteView.MonitorGroup.CUSTOM_COLUMN, com.dragonflow.SiteView.MonitorGroup.MACHINE_COLUMN, 
                 com.dragonflow.SiteView.MonitorGroup.UPDATED_COLUMN, com.dragonflow.SiteView.MonitorGroup.ALERT_COLUMN, com.dragonflow.SiteView.MonitorGroup.REPORT_COLUMN
             };
             String s22 = request.actionAllowed("_browse") ? "<br><font size=\"-1\" style=\"font-weight:normal\"> Use the <A HREF=/SiteView/cgi/go.exe/SiteView?page=monitorSummary&account=" + request.getAccount() + " >Monitor Description Report</a> to view current monitor configuration settings.</font>" : "";
@@ -407,8 +413,8 @@ label0:
     }
 
     /**
-     *
-     *
+     * 
+     * 
      * @param s
      * @return
      */

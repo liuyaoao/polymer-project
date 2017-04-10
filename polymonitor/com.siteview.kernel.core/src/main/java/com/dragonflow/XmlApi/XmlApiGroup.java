@@ -9,10 +9,10 @@ import com.dragonflow.Api.APIAlert;
 import com.dragonflow.Api.APIGroup;
 import com.dragonflow.Api.APISiteView;
 import com.dragonflow.Api.Alert;
-import com.dragonflow.Api.SSGroupInstance;
-import com.dragonflow.Api.SSInstanceProperty;
-import com.dragonflow.Api.SSPropertyDetails;
-import com.dragonflow.Api.SSStringReturnValue;
+import com.dragonflow.Api.SVGroupInstance;
+import com.dragonflow.Api.SVInstanceProperty;
+import com.dragonflow.Api.SVPropertyDetails;
+import com.dragonflow.Api.SVStringReturnValue;
 
 // Referenced classes of package com.dragonflow.XmlApi:
 // XmlApiResponse
@@ -42,15 +42,15 @@ public class XmlApiGroup {
                 String s2 = (String) enumeration.nextElement();
                 String s4 = (String) array1.at(i);
                 jgl.HashMap hashmap = (jgl.HashMap) array2.at(i);
-                SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
+                SVInstanceProperty assinstanceproperty[] = new SVInstanceProperty[hashmap.size()];
                 Enumeration enumeration1 = hashmap.keys();
                 for (int j = 0; enumeration1.hasMoreElements(); j ++) {
                     String s5 = (String) enumeration1.nextElement();
-                    assinstanceproperty[j] = new SSInstanceProperty(s5, hashmap.get(s5));
+                    assinstanceproperty[j] = new SVInstanceProperty(s5, hashmap.get(s5));
                 }
 
-                SSStringReturnValue ssstringreturnvalue = api.create(s2, s4, assinstanceproperty);
-                SSInstanceProperty assinstanceproperty1[] = api.getInstanceProperties(ssstringreturnvalue.getValue(), APISiteView.FILTER_CONFIGURATION_ALL);
+                SVStringReturnValue ssstringreturnvalue = api.create(s2, s4, assinstanceproperty);
+                SVInstanceProperty assinstanceproperty1[] = api.getInstanceProperties(ssstringreturnvalue.getValue(), APISiteView.FILTER_CONFIGURATION_ALL);
                 jgl.HashMap hashmap1 = new HashMap();
                 for (int k = 0; k < assinstanceproperty1.length; k ++) {
                     hashmap1.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
@@ -81,15 +81,15 @@ public class XmlApiGroup {
                 if (hashmap.get("_id") != null) {
                     hashmap.remove("_id");
                 }
-                SSInstanceProperty assinstanceproperty[] = new SSInstanceProperty[hashmap.size()];
+                SVInstanceProperty assinstanceproperty[] = new SVInstanceProperty[hashmap.size()];
                 Enumeration enumeration1 = hashmap.keys();
                 for (int j = 0; enumeration1.hasMoreElements(); j ++) {
                     String s2 = (String) enumeration1.nextElement();
-                    assinstanceproperty[j] = new SSInstanceProperty(s2, hashmap.get(s2));
+                    assinstanceproperty[j] = new SVInstanceProperty(s2, hashmap.get(s2));
                 }
 
                 api.update(s1, assinstanceproperty);
-                SSInstanceProperty assinstanceproperty1[] = api.getInstanceProperties(s1, APISiteView.FILTER_CONFIGURATION_ALL);
+                SVInstanceProperty assinstanceproperty1[] = api.getInstanceProperties(s1, APISiteView.FILTER_CONFIGURATION_ALL);
                 hashmap1 = new HashMap();
                 for (int k = 0; k < assinstanceproperty1.length; k ++) {
                     hashmap1.put(assinstanceproperty1[k].getName(), assinstanceproperty1[k].getValue());
@@ -133,7 +133,7 @@ public class XmlApiGroup {
             String s = "";
             String s2 = "";
             java.util.Vector vector = new Vector();
-            SSStringReturnValue ssstringreturnvalue;
+            SVStringReturnValue ssstringreturnvalue;
             for (; enumeration.hasMoreElements(); vector.add(ssstringreturnvalue.getValue())) {
                 String s1 = (String) enumeration.nextElement();
                 String s3 = (String) array2.at(i);
@@ -151,8 +151,8 @@ public class XmlApiGroup {
         com.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            SSStringReturnValue ssstringreturnvalue = api.copy(s, s2);
-            SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(ssstringreturnvalue.getValue(), APISiteView.FILTER_CONFIGURATION_ALL);
+            SVStringReturnValue ssstringreturnvalue = api.copy(s, s2);
+            SVInstanceProperty assinstanceproperty[] = api.getInstanceProperties(ssstringreturnvalue.getValue(), APISiteView.FILTER_CONFIGURATION_ALL);
             jgl.HashMap hashmap = new HashMap();
             for (int i = 0; i < assinstanceproperty.length; i ++) {
                 hashmap.put(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
@@ -171,10 +171,10 @@ public class XmlApiGroup {
         com.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            SSPropertyDetails asspropertydetails[] = api.getClassPropertiesDetails(APISiteView.FILTER_ALL);
+            SVPropertyDetails asspropertydetails[] = api.getClassPropertiesDetails(APISiteView.FILTER_ALL);
             for (int i = 0; i < asspropertydetails.length; i ++) {
                 jgl.HashMap hashmap1 = new HashMap();
-                SSPropertyDetails.extractDetailsIntoHashMap(asspropertydetails[i], hashmap1);
+                SVPropertyDetails.extractDetailsIntoHashMap(asspropertydetails[i], hashmap1);
                 if (s.indexOf(asspropertydetails[i].getName()) != -1) {
                     vector.add(hashmap1);
                 }
@@ -192,7 +192,7 @@ public class XmlApiGroup {
         com.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            SSPropertyDetails sspropertydetails = api.getClassPropertyDetails(s);
+            SVPropertyDetails sspropertydetails = api.getClassPropertyDetails(s);
             vector.add(sspropertydetails.getName());
             vector.add(sspropertydetails.getSelectionIDs());
             vector.add(sspropertydetails.getSelectionDisplayNames());
@@ -208,7 +208,7 @@ public class XmlApiGroup {
         com.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            SSPropertyDetails sspropertydetails = api.getInstancePropertyScalars(s, s1);
+            SVPropertyDetails sspropertydetails = api.getInstancePropertyScalars(s, s1);
             vector.add(sspropertydetails.getName());
             vector.add(sspropertydetails.getSelectionIDs());
             vector.add(sspropertydetails.getSelectionDisplayNames());
@@ -223,12 +223,12 @@ public class XmlApiGroup {
         com.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            SSGroupInstance assgroupinstance[] = api.getInstances(s, integer.intValue());
+            SVGroupInstance assgroupinstance[] = api.getInstances(s, integer.intValue());
             if (apiAlert == null) {
                 apiAlert = new APIAlert();
             }
             for (int i = 0; i < assgroupinstance.length; i ++) {
-                SSInstanceProperty assinstanceproperty[] = assgroupinstance[i].getInstanceProperties();
+                SVInstanceProperty assinstanceproperty[] = assgroupinstance[i].getInstanceProperties();
                 jgl.HashMap hashmap = new HashMap();
                 for (int j = 0; j < assinstanceproperty.length; j ++) {
                     hashmap.put(assinstanceproperty[j].getName(), assinstanceproperty[j].getValue());
@@ -256,7 +256,7 @@ public class XmlApiGroup {
         com.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s, integer.intValue());
+            SVInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s, integer.intValue());
             jgl.HashMap hashmap = new HashMap();
             for (int i = 0; i < assinstanceproperty.length; i ++) {
                 hashmap.put(assinstanceproperty[i].getName(), assinstanceproperty[i].getValue());
@@ -284,7 +284,7 @@ public class XmlApiGroup {
         com.dragonflow.XmlApi.XmlApiResponse xmlapiresponse = new XmlApiResponse();
         try {
             java.util.Vector vector = new Vector();
-            SSInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s1, integer.intValue());
+            SVInstanceProperty assinstanceproperty[] = api.getInstanceProperties(s1, integer.intValue());
             jgl.HashMap hashmap = new HashMap();
             for (int i = 0; i < assinstanceproperty.length; i ++) {
                 if (s.indexOf(assinstanceproperty[i].getName()) != -1) {

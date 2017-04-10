@@ -49,7 +49,7 @@ public class ServerProperty extends StringProperty {
         String s1 = siteviewobject.getProperty(this);
         String s2 = "";
         if ((siteviewobject instanceof ServerAction) || (siteviewobject instanceof LogMonitor)) {
-            if (Platform.isNTRemote(s1)) {
+            if (Platform.isWindowRemote(s1)) {
                 s1 = "";
             }
             s2 = "&noNTRemote=true";

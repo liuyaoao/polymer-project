@@ -89,6 +89,11 @@
 
 				account: String,
 
+				selectChecked: {
+          type: Array,
+          value: []
+        }
+
 			},
 
 			ready: function() {
@@ -127,16 +132,24 @@
 				var operation = e.target.getAttribute('name');
 				var _filterListForm = this.$.filterListForm;
 				var _filterTreeContent = this.getContentChildren('#filterTreeContent');
-				var checks = _filterTreeContent.length ? _filterTreeContent[0].querySelectorAll("paper-checkbox") : []; //paper-checkbox, input[type='checkbox']
-				// console.log(checks);
+				var _tree = _filterTreeContent.length ? _filterTreeContent[0].querySelector("#filterTree") : null;
+
+				var checks = [];
+				if (_tree == null) {
+					checks = _filterTreeContent.length ? _filterTreeContent[0].querySelectorAll("paper-checkbox") : [];
+				} else {
+					this.selectChecked = [];
+					this._getSelectCheckbox(_tree.$.root);
+					checks = this.selectChecked;
+				}
+
 				for (var i = 0; i < checks.length; i++) {
-					if (checks[i].checked) {
-						var input = document.createElement('input');
-						input.type = "checkbox";input.hidden = true;input.name = checks[i].name, input.checked = checks[i].checked;
-						input.value = checks[i].value;
-						_filterListForm.appendChild(input);
-					}
+					var input = document.createElement('input');
+					input.type = "checkbox";input.hidden = true;input.name = checks[i].name, input.checked = true;
+					input.value = checks[i].value;
+					_filterListForm.appendChild(input);
         }
+				
 				var hiddenFilter = _filterListForm.querySelector("input[name='operation']");
 				if (hiddenFilter && hiddenFilter.length) {
 					hiddenFilter.value = operation;
@@ -153,7 +166,21 @@
 				if (event.detail.data.link) {
 					window.location.href = event.detail.data.link;
 				}
-			}
+			},
+
+			_getSelectCheckbox: function(target) {
+        target.getChildren().forEach(function(child){
+            var check = Polymer.dom(child.root).querySelector('paper-checkbox');
+            if (check.checked) {
+              var checkNode = {
+                name: check.name,
+                value: check.value ? check.value.replace(/(^\s*)|(\s*$)/g, "") : ''
+              }
+              this.selectChecked.push(checkNode);
+            }
+            this._getSelectCheckbox(child);
+        }, this);
+      }
 
 		});
 	</script>

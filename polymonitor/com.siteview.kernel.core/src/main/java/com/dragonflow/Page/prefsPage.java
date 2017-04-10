@@ -1,5 +1,5 @@
 /*
- *
+ * 
  * Created on 2014-4-20 22:12:36
  *
  * .java
@@ -190,7 +190,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
                             + getPageLink("mqttmachine", "")
                             + " title=\"Set up connections for monitoring remote Mqtt machines\">Remote MQTT</a>");
         }
-
+        
         outputStream.print(" | ");
         if (com.dragonflow.SiteView.Platform.isWindows()
                 || TextUtils.getValue(hashmap,
@@ -205,6 +205,15 @@ public class prefsPage extends com.dragonflow.Page.CGI {
             }
             outputStream.print(" | ");
         }
+        if (s.equals("Tenants")) {
+            outputStream.println("<B>Tenants</B>");
+        } else {
+            outputStream
+                    .println("<a href="
+                            + getPageLink("tenantPrefs", "")
+                            + " title=\"Set up Tenants\">Tenants</a>");
+        }
+        outputStream.print(" | ");
         if (!isPortalServerRequest()) {
             if (s.equals("Users")) {
                 outputStream.println("<B>Users</B>");

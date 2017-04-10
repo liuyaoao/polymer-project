@@ -381,46 +381,46 @@ public class APISiteView
         }
     }
 
-    public com.dragonflow.Api.SSHealthStats getCurrentMonitorsPerMinute()
+    public com.dragonflow.Api.SVHealthStats getCurrentMonitorsPerMinute()
     {
         java.lang.Float float1 = new Float(AtomicMonitor.monitorStats.getCountPerTimePeriod());
-        return new SSHealthStats("Current Monitors Per Minute", null, "CURRENT_MONITORS_PER_MINUTE", float1, null);
+        return new SVHealthStats("Current Monitors Per Minute", null, "CURRENT_MONITORS_PER_MINUTE", float1, null);
     }
 
-    public com.dragonflow.Api.SSHealthStats getCurrentMonitorsRunning()
+    public com.dragonflow.Api.SVHealthStats getCurrentMonitorsRunning()
     {
         java.lang.Integer integer = new Integer(MonitorQueue.getRunningCount());
-        return new SSHealthStats("Current Monitors Running", null, "CURRENT_MONITORS_RUNNING", integer, null);
+        return new SVHealthStats("Current Monitors Running", null, "CURRENT_MONITORS_RUNNING", integer, null);
     }
 
-    public com.dragonflow.Api.SSHealthStats getCurrentMonitorsWaiting()
+    public com.dragonflow.Api.SVHealthStats getCurrentMonitorsWaiting()
     {
         java.lang.Integer integer = new Integer(MonitorQueue.readyMonitors.size());
-        return new SSHealthStats("Current Monitors Waiting", null, "CURRENT_MONITORS_WAITING", integer, null);
+        return new SVHealthStats("Current Monitors Waiting", null, "CURRENT_MONITORS_WAITING", integer, null);
     }
 
-    public com.dragonflow.Api.SSHealthStats getMaximumMonitorsPerMinute()
+    public com.dragonflow.Api.SVHealthStats getMaximumMonitorsPerMinute()
     {
         java.lang.Float float1 = new Float(AtomicMonitor.monitorStats.getMaximumCountPerTimePeriod());
         java.lang.Float float2 = new Float(AtomicMonitor.monitorStats.getMaximumCountPerTimePeriodTime());
-        return new SSHealthStats("Maximum Monitors Per Minute", null, "MAXIMUM_MONITORS_PER_MINUTE", float1, float2);
+        return new SVHealthStats("Maximum Monitors Per Minute", null, "MAXIMUM_MONITORS_PER_MINUTE", float1, float2);
     }
 
-    public com.dragonflow.Api.SSHealthStats getMaximumMonitorsRunning()
+    public com.dragonflow.Api.SVHealthStats getMaximumMonitorsRunning()
     {
         java.lang.Float float1 = new Float(AtomicMonitor.monitorStats.getMaximum());
         java.lang.Float float2 = new Float(AtomicMonitor.monitorStats.getMaximumTime());
-        return new SSHealthStats("Maximum Monitors Running", null, "MAXIMUM_MONITORS_RUNNING", float1, float2);
+        return new SVHealthStats("Maximum Monitors Running", null, "MAXIMUM_MONITORS_RUNNING", float1, float2);
     }
 
-    public com.dragonflow.Api.SSHealthStats getMaximumMonitorsWaiting()
+    public com.dragonflow.Api.SVHealthStats getMaximumMonitorsWaiting()
     {
         java.lang.Float float1 = new Float(MonitorQueue.maxReadyMonitors);
         java.lang.Float float2 = new Float(MonitorQueue.maxReadyMonitorsTime);
-        return new SSHealthStats("Maximum Monitors Waiting", null, "MAXIMUM_MONITORS_WAITING", float1, float2);
+        return new SVHealthStats("Maximum Monitors Waiting", null, "MAXIMUM_MONITORS_WAITING", float1, float2);
     }
 
-    public com.dragonflow.Api.SSHealthStats[] getRunningMonitorStats()
+    public com.dragonflow.Api.SVHealthStats[] getRunningMonitorStats()
     {
         FindRunningMonitors findrunningmonitors = new FindRunningMonitors();
         SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
@@ -429,7 +429,7 @@ public class APISiteView
         java.util.Vector vector = new Vector();
         if(enumeration.hasMoreElements())
         {
-            com.dragonflow.Api.SSHealthStats sshealthstats;
+            com.dragonflow.Api.SVHealthStats sshealthstats;
             for(; enumeration.hasMoreElements(); vector.add(sshealthstats))
             {
                 Monitor monitor = (Monitor)enumeration.nextElement();
@@ -447,14 +447,14 @@ public class APISiteView
                 {
                     s3 = monitor1.getProperty(Monitor.pName);
                 }
-                sshealthstats = new SSHealthStats(s, s1, "RUNNING_MONITOR_STATS", "Last Update: " + s2, "Group: " + s3);
+                sshealthstats = new SVHealthStats(s, s1, "RUNNING_MONITOR_STATS", "Last Update: " + s2, "Group: " + s3);
             }
 
         }
-        com.dragonflow.Api.SSHealthStats asshealthstats[] = new com.dragonflow.Api.SSHealthStats[vector.size()];
+        com.dragonflow.Api.SVHealthStats asshealthstats[] = new com.dragonflow.Api.SVHealthStats[vector.size()];
         for(int i = 0; i < vector.size(); i++)
         {
-            asshealthstats[i] = (com.dragonflow.Api.SSHealthStats)vector.get(i);
+            asshealthstats[i] = (com.dragonflow.Api.SVHealthStats)vector.get(i);
         }
 
         return asshealthstats;
@@ -1334,12 +1334,12 @@ public class APISiteView
         hashmap.put("_realName", "Flipper");
         boolean flag = false;
         int i = 0;
-        com.dragonflow.Api.SSInstanceProperty assinstanceproperty[] = new com.dragonflow.Api.SSInstanceProperty[hashmap.size()];
+        com.dragonflow.Api.SVInstanceProperty assinstanceproperty[] = new com.dragonflow.Api.SVInstanceProperty[hashmap.size()];
         java.util.Set set = hashmap.keySet();
         for(java.util.Iterator iterator = set.iterator(); iterator.hasNext();)
         {
             String s = (String)iterator.next();
-            assinstanceproperty[i++] = new SSInstanceProperty(s, hashmap.get(s));
+            assinstanceproperty[i++] = new SVInstanceProperty(s, hashmap.get(s));
         }
 
         com.dragonflow.Api.APIPreference apipreference = new APIPreference();
@@ -1925,10 +1925,10 @@ public class APISiteView
             }
             else if(i == PREREQ_OP)
             {
-                com.dragonflow.Api.SSPropertyDetails sspropertydetails = null;
+                com.dragonflow.Api.SVPropertyDetails sspropertydetails = null;
                 if(siteviewobject instanceof AtomicMonitor)
                 {
-                    sspropertydetails = ((com.dragonflow.Api.APIMonitor)this).getClassPropertyDetails(stringproperty.getName(), s, new com.dragonflow.Api.SSInstanceProperty[0]);
+                    sspropertydetails = ((com.dragonflow.Api.APIMonitor)this).getClassPropertyDetails(stringproperty.getName(), s, new com.dragonflow.Api.SVInstanceProperty[0]);
                 } else
                 if(siteviewobject instanceof Preferences)
                 {
@@ -2535,13 +2535,13 @@ public class APISiteView
         String s = monitor.getProperty("_alertDisabled");
         if(s == null || s.equals(""))
         {
-            vector.add(new SSInstanceProperty("groupAlertsDisable", "undo"));
-            vector.add(new SSInstanceProperty("disableGroupAlertsTime", ""));
-            vector.add(new SSInstanceProperty("alertDisableDescription", ""));
-            vector.add(new SSInstanceProperty("disableGroupAlertsStartTimeDate", ""));
-            vector.add(new SSInstanceProperty("disableGroupAlertsStartTimeTime", ""));
-            vector.add(new SSInstanceProperty("disableGroupAlertsEndTimeDate", ""));
-            vector.add(new SSInstanceProperty("disableGroupAlertsEndTimeTime", ""));
+            vector.add(new SVInstanceProperty("groupAlertsDisable", "undo"));
+            vector.add(new SVInstanceProperty("disableGroupAlertsTime", ""));
+            vector.add(new SVInstanceProperty("alertDisableDescription", ""));
+            vector.add(new SVInstanceProperty("disableGroupAlertsStartTimeDate", ""));
+            vector.add(new SVInstanceProperty("disableGroupAlertsStartTimeTime", ""));
+            vector.add(new SVInstanceProperty("disableGroupAlertsEndTimeDate", ""));
+            vector.add(new SVInstanceProperty("disableGroupAlertsEndTimeTime", ""));
             return;
         }
         String as[] = com.dragonflow.Utils.TextUtils.split(s, "*");
@@ -2583,14 +2583,14 @@ public class APISiteView
             String s3 = mAPIDisableDateFormat.format(date1);
             String as2[] = com.dragonflow.Utils.TextUtils.split(s2, " ");
             String as3[] = com.dragonflow.Utils.TextUtils.split(s3, " ");
-            vector.add(new SSInstanceProperty("disableGroupAlertsStartTimeDate", as2[0]));
-            vector.add(new SSInstanceProperty("disableGroupAlertsStartTimeTime", as2[1]));
-            vector.add(new SSInstanceProperty("disableGroupAlertsEndTimeDate", as3[0]));
-            vector.add(new SSInstanceProperty("disableGroupAlertsEndTimeTime", as3[1]));
+            vector.add(new SVInstanceProperty("disableGroupAlertsStartTimeDate", as2[0]));
+            vector.add(new SVInstanceProperty("disableGroupAlertsStartTimeTime", as2[1]));
+            vector.add(new SVInstanceProperty("disableGroupAlertsEndTimeDate", as3[0]));
+            vector.add(new SVInstanceProperty("disableGroupAlertsEndTimeTime", as3[1]));
         }
-        vector.add(new SSInstanceProperty("disableGroupAlertsTime", ""));
-        vector.add(new SSInstanceProperty("alertDisableDescription", s1));
-        vector.add(new SSInstanceProperty("groupAlertsDisable", "schedule"));
+        vector.add(new SVInstanceProperty("disableGroupAlertsTime", ""));
+        vector.add(new SVInstanceProperty("alertDisableDescription", s1));
+        vector.add(new SVInstanceProperty("groupAlertsDisable", "schedule"));
     }
 
     protected void fixDisableGroupOrMonitorParams(jgl.HashMap hashmap)
@@ -2672,24 +2672,24 @@ public class APISiteView
         String s2 = monitor.getProperty(Monitor.pDisabledDescription);
         if((s == null || s.equals("")) && (s1 == null || s1.equals("")))
         {
-            vector.add(new SSInstanceProperty("monitorsDisable", "undo"));
-            vector.add(new SSInstanceProperty("disableMonitorsTime", ""));
-            vector.add(new SSInstanceProperty("monitorDisableDescription", ""));
-            vector.add(new SSInstanceProperty("disableMonitorsStartTimeDate", ""));
-            vector.add(new SSInstanceProperty("disableMonitorsStartTimeTime", ""));
-            vector.add(new SSInstanceProperty("disableMonitorsEndTimeDate", ""));
-            vector.add(new SSInstanceProperty("disableMonitorsEndTimeTime", ""));
+            vector.add(new SVInstanceProperty("monitorsDisable", "undo"));
+            vector.add(new SVInstanceProperty("disableMonitorsTime", ""));
+            vector.add(new SVInstanceProperty("monitorDisableDescription", ""));
+            vector.add(new SVInstanceProperty("disableMonitorsStartTimeDate", ""));
+            vector.add(new SVInstanceProperty("disableMonitorsStartTimeTime", ""));
+            vector.add(new SVInstanceProperty("disableMonitorsEndTimeDate", ""));
+            vector.add(new SVInstanceProperty("disableMonitorsEndTimeTime", ""));
             return;
         }
         if(s != null && (s.equals("checked") || s.equals("on")))
         {
-            vector.add(new SSInstanceProperty("monitorsDisable", "permanent"));
-            vector.add(new SSInstanceProperty("disableMonitorsTime", ""));
-            vector.add(new SSInstanceProperty("monitorDisableDescription", s2));
-            vector.add(new SSInstanceProperty("disableMonitorsStartTimeDate", ""));
-            vector.add(new SSInstanceProperty("disableMonitorsStartTimeTime", ""));
-            vector.add(new SSInstanceProperty("disableMonitorsEndTimeDate", ""));
-            vector.add(new SSInstanceProperty("disableMonitorsEndTimeTime", ""));
+            vector.add(new SVInstanceProperty("monitorsDisable", "permanent"));
+            vector.add(new SVInstanceProperty("disableMonitorsTime", ""));
+            vector.add(new SVInstanceProperty("monitorDisableDescription", s2));
+            vector.add(new SVInstanceProperty("disableMonitorsStartTimeDate", ""));
+            vector.add(new SVInstanceProperty("disableMonitorsStartTimeTime", ""));
+            vector.add(new SVInstanceProperty("disableMonitorsEndTimeDate", ""));
+            vector.add(new SVInstanceProperty("disableMonitorsEndTimeTime", ""));
             return;
         }
         if(s1 != null && !s1.equals(""))
@@ -2727,14 +2727,14 @@ public class APISiteView
                 String s4 = mAPIDisableDateFormat.format(date1);
                 String as1[] = com.dragonflow.Utils.TextUtils.split(s3, " ");
                 String as2[] = com.dragonflow.Utils.TextUtils.split(s4, " ");
-                vector.add(new SSInstanceProperty("disableMonitorsStartTimeDate", as1[0]));
-                vector.add(new SSInstanceProperty("disableMonitorsStartTimeTime", as1[1]));
-                vector.add(new SSInstanceProperty("disableMonitorsEndTimeDate", as2[0]));
-                vector.add(new SSInstanceProperty("disableMonitorsEndTimeTime", as2[1]));
+                vector.add(new SVInstanceProperty("disableMonitorsStartTimeDate", as1[0]));
+                vector.add(new SVInstanceProperty("disableMonitorsStartTimeTime", as1[1]));
+                vector.add(new SVInstanceProperty("disableMonitorsEndTimeDate", as2[0]));
+                vector.add(new SVInstanceProperty("disableMonitorsEndTimeTime", as2[1]));
             }
-            vector.add(new SSInstanceProperty("disableMonitorsTime", ""));
-            vector.add(new SSInstanceProperty("monitorDisableDescription", s2));
-            vector.add(new SSInstanceProperty("monitorsDisable", "schedule"));
+            vector.add(new SVInstanceProperty("disableMonitorsTime", ""));
+            vector.add(new SVInstanceProperty("monitorDisableDescription", s2));
+            vector.add(new SVInstanceProperty("monitorsDisable", "schedule"));
         }
     }
 

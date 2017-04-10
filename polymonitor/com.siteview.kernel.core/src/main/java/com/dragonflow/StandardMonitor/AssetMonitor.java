@@ -499,7 +499,7 @@ public class AssetMonitor extends ServerMonitor {
         try {
             String s = getProperty(pMachineName);
             String s1 = getProperty(pAsset);
-            if (Platform.isNTRemote(s)) {
+            if (Platform.isWindowRemote(s)) {
                 s = s.substring(2);
                 String s2 = Platform.getRoot() + "/assets/" + s1 + ".vbs";
                 File file = new File(s2);

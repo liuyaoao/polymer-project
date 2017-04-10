@@ -359,7 +359,7 @@ public class servicePage extends com.dragonflow.Page.machineChooserPage
             s = request.getValue("remoteMachine");
         }
         String s1 = request.getValue("option");
-        if(com.dragonflow.SiteView.Platform.isNTRemote(s))
+        if(com.dragonflow.SiteView.Platform.isWindowRemote(s))
         {
             s = com.dragonflow.Utils.TextUtils.keepChars(s, ".-_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\\");
         }
