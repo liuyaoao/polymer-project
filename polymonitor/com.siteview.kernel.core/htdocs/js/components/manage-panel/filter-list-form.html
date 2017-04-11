@@ -54,7 +54,7 @@
 			}
     </style>
 
-		<form id="filterListForm" method="post" action="[[actionUrl]]" use-native-submit>
+		<form id="filterListForm" method="[[requestMethod]]" action="[[actionUrl]]">
 			<template is="dom-if" if="[[level]]">
 				<input type="hidden" name="level" value="[[level]]">
       </template>
@@ -80,6 +80,8 @@
 			properties: {
 
 				actionUrl: String,
+
+				requestMethod: String,
 
 				level: String,
 
@@ -134,10 +136,12 @@
 				var _filterTreeContent = this.getContentChildren('#filterTreeContent');
 				var _tree = _filterTreeContent.length ? _filterTreeContent[0].querySelector("#filterTree") : null;
 
-				var checks = [];
+				var checks = [], isTree = true;
 				if (_tree == null) {
+					isTree = false;
 					checks = _filterTreeContent.length ? _filterTreeContent[0].querySelectorAll("paper-checkbox") : [];
 				} else {
+					isTree = true;
 					this.selectChecked = [];
 					this._getSelectCheckbox(_tree.$.root);
 					checks = this.selectChecked;
@@ -145,11 +149,11 @@
 
 				for (var i = 0; i < checks.length; i++) {
 					var input = document.createElement('input');
-					input.type = "checkbox";input.hidden = true;input.name = checks[i].name, input.checked = true;
+					input.type = "checkbox";input.hidden = true;input.name = checks[i].name, input.checked = isTree ? true : checks[i].checked;
 					input.value = checks[i].value;
 					_filterListForm.appendChild(input);
         }
-				
+
 				var hiddenFilter = _filterListForm.querySelector("input[name='operation']");
 				if (hiddenFilter && hiddenFilter.length) {
 					hiddenFilter.value = operation;

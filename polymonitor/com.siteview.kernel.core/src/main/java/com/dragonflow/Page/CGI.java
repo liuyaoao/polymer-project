@@ -576,7 +576,10 @@ public abstract class CGI {
 
     public static void printButtonBar(java.io.PrintWriter printwriter,
             String s, String selected,HTTPRequest httprequest, jgl.HashMap hashmap,menus menus1, boolean flag) {
-        if (Platform.isPortal()) {
+    	String tenant = httprequest.getTenant();
+    	if(tenant.length()>0)
+    		tenant = "/"+tenant;
+    	if (Platform.isPortal()) {
             if (httprequest.getValue("toolbar").equals("off")) {
                 return;
             }
@@ -591,27 +594,27 @@ public abstract class CGI {
             com.dragonflow.Page.CGI.printCurrentSiteView(printwriter,httprequest);
             return;
         }
-        String home = "/SiteView/" + httprequest.getAccountDirectory() + "/SiteView.html";
+        String home =tenant+"/SiteView/" + httprequest.getAccountDirectory() + "/SiteView.html";
         String s4 = reportURL(httprequest);
         String alert = "";
         if (httprequest.actionAllowed("_alertList")) {
-            alert = "/SiteView/cgi/go.exe/SiteView?page=alert&operation=List&view=Alert&account=" + httprequest.getAccount();
+            alert =tenant+ "/SiteView/cgi/go.exe/SiteView?page=alert&operation=List&view=Alert&account=" + httprequest.getAccount();
         } else {
             alert = home;
         }
-        String overviewPage = "/SiteView/cgi/go.exe/SiteView?page=overview&account=" + httprequest.getAccount();
+        String overviewPage =tenant+ "/SiteView/cgi/go.exe/SiteView?page=overview&account=" + httprequest.getAccount();
         String healthView = "";
         if (httprequest.actionAllowed("_healthView")
                 || httprequest.actionAllowed("_healthEdit")) {
-            healthView = "/SiteView/cgi/go.exe/SiteView?page=health&operation=List&account="
+            healthView = tenant+"/SiteView/cgi/go.exe/SiteView?page=health&operation=List&account="
                     + httprequest.getAccount();
         } else {
             healthView = home;
         }
-        String generalPrefs = "/SiteView/cgi/go.exe/SiteView?page=generalPrefs&account=" + httprequest.getAccount();
+        String generalPrefs = tenant+"/SiteView/cgi/go.exe/SiteView?page=generalPrefs&account=" + httprequest.getAccount();
         String preferences = "preferences";
         if (httprequest.actionAllowed("_preference") || httprequest.actionAllowed("_detachFromMA")) {
-            generalPrefs = "/SiteView/cgi/go.exe/SiteView?page=generalPrefs&account=" + httprequest.getAccount();
+            generalPrefs =tenant+ "/SiteView/cgi/go.exe/SiteView?page=generalPrefs&account=" + httprequest.getAccount();
             preferences = "preferences";
         } else {
             generalPrefs = home;
@@ -2200,5 +2203,10 @@ public abstract class CGI {
                     .println("<TABLE class=\"subnav\" width=\"600\" bgcolor=\"#CCCCCC\" bordercolor=\"#666666\" border=\"1\" align=\"center\" cellpadding=\"2\" cellspacing=\"0\"><TR class=\"subnav\"><td><p class=\"navbar\" align=\"center\"> <font size=\"-1\" face=Arial, sans-serif><b>A circular group hierarchy has been detected.  Check the error log for details.</b><br>It is recommended that SiteView be shut down until the problem is fixed. </font></p></TD></TR></TABLE>");
         }
     }
-
+    public  String getTenant(){
+    	String tenant = request.getURL();
+    	if(!tenant.startsWith("/SiteView"))
+    		return tenant.substring(1,tenant.indexOf("/SiteView"));
+    	return "";
+    } 
 }

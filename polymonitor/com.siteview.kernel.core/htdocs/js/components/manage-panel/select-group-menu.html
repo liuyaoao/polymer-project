@@ -1,0 +1,74 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="select-group-menu">
+	<template>
+    <style>
+      :host {
+        --paper-menu-button-content: {
+          top: 60px!important;
+          left: 10px;
+        }
+      }
+      paper-listbox {
+        /*min-width: 200px;*/
+      }
+    </style>
+
+    <paper-dropdown-menu label="{{label}}" name="selectToGroup" id="selectToGroup">
+      <paper-listbox class="dropdown-content" selected="0">
+        <template is="dom-repeat" items="{{optionData}}" as="item">
+          <paper-item value$="{{item.value}}">{{item.name}}</paper-item>
+        </template>
+      </paper-listbox>
+    </paper-dropdown-menu>
+  </template>
+
+	<script>
+		Polymer({
+
+			is: 'select-group-menu',
+
+			properties: {
+
+				name: String,
+
+        label: String,
+
+        optionString: {
+          type: String,
+          value: null,
+          observer: "_optionStringChanged"
+        },
+
+        optionData: {
+          type: Array,
+          value: [],
+          notify: true
+        }
+
+			},
+
+      _optionStringChanged: function() {
+        var arrdata = this.optionString ? this.optionString.split('\n') : [];
+        var arr = [];
+        for (var i = 0; i < arrdata.length; i++) {
+          if (arrdata[i]) {
+            var obj = {};
+            var s1 = arrdata[i].indexOf("value=") + 7, s2 = arrdata[i].indexOf("\">");
+            obj.name = arrdata[i].substring(s2 + 2, arrdata[i].length);
+            obj.value = arrdata[i].substring(s1, s2);
+            arr.push(obj);
+          }
+        }
+        this.optionData = arr;
+      }
+
+
+		});
+	</script>
+
+</dom-module>

@@ -1,0 +1,110 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-datatable/paper-datatable.html">
+<link rel="import" href="../../bower_components/paper-datatable/paper-datatable-column.html">
+
+<link rel="import" href="select-group-menu.html">
+
+<dom-module id="monitor-group-table">
+	<template>
+    <style>
+      ::content {
+        font-family: 'Roboto', 'Noto', sans-serif;
+      }
+      ::content .monitot-table {
+        border: 1px solid #eee;
+      }
+      ::content .monitot-table tbody tr th, ::content .monitot-table tbody tr td{
+        font-family: 'Roboto', 'Noto', sans-serif;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid rgba(0,0,0,.3);
+        /*border-right: 1px solid rgba(0,0,0,.3);*/
+      }
+      ::content .monitot-table tbody tr th {
+        border-top: 1px solid rgba(0,0,0,.3);
+      }
+      ::content .monitot-table tr:hover td{
+        background: #eee;
+      }
+      ::content paper-button.fancy {
+	      padding: 8px 22px;
+	      color: #fff;
+	      background-color: #337ab7;
+	      border-color: #2e6da4;
+	    }
+
+	    ::content paper-button.fancy:hover {
+	      background: #6CABE0;
+	    }
+    </style>
+
+    <form id="operationForm" method="[[requestMethod]]" action="[[actionUrl]]">
+      <template is="dom-if" if="[[healthLength]]">
+				<input type="hidden" name="_health" value="true">
+      </template>
+      <input type="hidden" name="page" value="manage">
+			<input type="hidden" name="account" value="[[account]]">
+      <input type="hidden" name="operation" value="[[operation]]">
+      <input type="hidden" name="returnURL" value="[[returnUrl]]">
+      <input type="hidden" name="returnLabel" value="[[returnLabel]]">
+      <content id="operationContent"></content>
+    </form>
+  </template>
+
+	<script>
+		Polymer({
+
+			is: 'monitor-group-table',
+
+			properties: {
+
+				actionUrl: String,
+
+				requestMethod: String,
+
+        healthLength: Number,
+
+				operation: String,
+
+				account: String,
+
+				returnUrl: String,
+
+				returnLabel: String
+
+			},
+
+			ready: function() {
+        var _operationContent = this.getContentChildren('#operationContent');
+        console.log(_operationContent);
+        var _operationBtn = _operationContent.length ? _operationContent[2].querySelector("#operationBtn") : null;
+        console.log(_operationBtn);
+        if (_operationBtn) {
+          this.listen(_operationBtn, 'tap', '_submitOperation');
+        }
+			},
+
+      _submitOperation: function() {
+        var _operationContent = this.getContentChildren('#operationContent');
+        var _operationForm = this.$.operationForm;
+        var _selectGroupMenu = _operationContent.length ? _operationContent[1].querySelector("select-group-menu") : null;
+        var _selectToGroup = _selectGroupMenu ? _selectGroupMenu.$.selectToGroup : null;
+        console.log(_selectToGroup.selectedItem.getAttribute("value"));
+        var _toGroupID = _operationForm.querySelector("input[name='toGroupID']");
+        if (_toGroupID) {
+          _toGroupID.value = _selectToGroup.selectedItem.getAttribute("value");
+        } else {
+          var input = document.createElement('input');
+          input.hidden = true; input.name = 'toGroupID';
+          input.value = _selectToGroup.selectedItem.getAttribute("value");
+          _operationForm.appendChild(input);
+        }
+
+        // console.log(_operationForm);
+        // _operationForm.submit();
+      }
+
+		});
+	</script>
+
+</dom-module>

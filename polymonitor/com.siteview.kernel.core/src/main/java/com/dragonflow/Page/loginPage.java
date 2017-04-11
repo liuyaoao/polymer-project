@@ -20,10 +20,11 @@ public class loginPage extends com.dragonflow.Page.CGI
 	private static String errormessage="";
     void printLoginForm(String s,String res) throws java.io.IOException
     {
+    	String tenant=getTenant();
         jgl.HashMap masterConfig = getMasterConfig();
         jgl.HashMap hashmap1 = new HashMap();
         String bodyHeader = Platform.productName + " Login";
-
+        
         super.printCGIHeader();
         printBodyHeader(bodyHeader);
         String loginHTMLHeader = TextUtils.getValue(masterConfig, "_loginHTMLHeader");
@@ -35,11 +36,13 @@ public class loginPage extends com.dragonflow.Page.CGI
         String loginpanelLink = "<link rel='import' href='/SiteView/htdocs/js/components/login-panel/login-panel.html'>\n";
         outputStream.println(loginpanelLink+"<center><H2>" + Platform.productName + " Login</H2></center><hr>");
         Boolean canChangePassword = TextUtils.getValue(masterConfig, "_disableLoginChangePassword").length() == 0;
+       if(tenant.length()>0)
+    	   tenant="/"+tenant;
         outputStream.println("<div class='container' style='text-align: center;'>"
                   + "<login-panel "
                   +" form-id='loginFormNative' "
                   +" opened "
-                  +" action-url='/SiteView/cgi/go.exe/SiteView' "
+                  +" action-url='"+tenant+"/SiteView/cgi/go.exe/SiteView' "
                   +" group-redirect='" + request.getValue("groupRedirect") + "' "
                   +" can-change-password='"+canChangePassword+"' "
                   +" result-message='"+errormessage+"' "
@@ -66,11 +69,13 @@ public class loginPage extends com.dragonflow.Page.CGI
     void printLoginComplete(String s)
         throws java.lang.Exception
     {
-        String login = request.getValue("_login");
+        String tenant = request.getValue("_tenant");
+        tenant="dazhong";
+    	String login = request.getValue("_login");
         String password = request.getValue("_password");
         username=login;
         jgl.HashMap hashmap = MasterConfig.getMasterConfig();
-        jgl.Array users = User.findUsersForLogin(login, password);
+        jgl.Array users = User.findUsersForLogin(login, password,tenant);
         String loginDisabledMessage = "";
         if(users.size() > 1)
         {
@@ -152,6 +157,7 @@ public class loginPage extends com.dragonflow.Page.CGI
                     String account = user.getProperty(User.pAccount);
                     String groupRedirect = request.getValue("groupRedirect");
                     String groupRedirectUrl;
+                    
                     if(groupRedirect != null && groupRedirect.length() > 0)
                     {
                         String s8 = account.equalsIgnoreCase("administrator") ? "" : "/accounts/" + account;
@@ -160,8 +166,12 @@ public class loginPage extends com.dragonflow.Page.CGI
                     {
                         groupRedirectUrl = "/SiteView?account=" + user.getProperty(User.pAccount);
                     }
-                    request.addOtherHeader("Set-Cookie: " + com.dragonflow.SiteView.Platform.productName + "=" + user.getProperty(User.pAccount) + "|" + user.getProperty(User.pLogin) + "|" + com.dragonflow.Utils.TextUtils.obscure(s4) + "; path=/");
-                    request.addOtherHeader("Location: " + groupRedirectUrl);
+                    request.addOtherHeader("Set-Cookie: " + com.dragonflow.SiteView.Platform.productName + "=" + user.getProperty(User.pAccount) + "|" + user.getProperty(User.pLogin) + "|" + com.dragonflow.Utils.TextUtils.obscure(s4) +"|"+tenant+ "; path=/");
+                    if(tenant.equals("SiteViewAdministrator"))
+                    	tenant="";
+                    else
+                    	tenant="/"+tenant;
+                    request.addOtherHeader("Location: " + tenant+groupRedirectUrl);
                     request.setStatus(301);
                     loginDisabledMessage = "<br>Correct username and password<br><a href=\"" + groupRedirectUrl + "\">Go to Main Console</a>" + "<meta http-equiv=\"refresh\" content=\"5;url=\"" + groupRedirectUrl + "\">";
                 }

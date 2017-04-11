@@ -18,6 +18,7 @@ import jgl.HashMap;
 import com.alibaba.fastjson.JSONObject;
 import com.dragonflow.HTTP.HTTPRequestException;
 import com.dragonflow.Properties.HashMapOrdered;
+import com.dragonflow.SiteView.Tenant;
 import com.dragonflow.SiteView.User;
 import com.dragonflow.Utils.TextUtils;
 
@@ -120,14 +121,38 @@ public class userPrefsPage extends com.dragonflow.Page.prefsPage
         printButtonBar(getHelpPage(), "", getSecondNavItems(request));
         printPrefsBar("Users");
         outputStream.println("<p><H2>" + s3 + "</H2>\n" + getPagePOST(request.getValue("page"), s) + "<input type=hidden name=user value=" + s1 + ">\n");
+        outputStream.print("<TABLE>\n");
         printAccessFields(s1, hashmap, hashmap1);
+        String tenant=getTenant();
+        outputStream.println("<TR><TD ALIGN=RIGHT>Tenant</TD><TD><TABLE><TR><TD ALIGN=LEFT><SELECT name=_tenant size=1>");
+        jgl.Array array1 = Tenant.readTenants();
+        Enumeration enumeration = array1.elements();
+        if(enumeration.hasMoreElements())
+        {
+            enumeration.nextElement();
+        }
+        ArrayList<java.util.HashMap> mapList = new ArrayList<java.util.HashMap>();
+        while(enumeration.hasMoreElements()){
+        	 String s10 = "";
+        	 java.util.HashMap<String, String> dataMap = new java.util.HashMap<String, String>();
+            jgl.HashMap tenanthashmap = (jgl.HashMap)enumeration.nextElement();
+            String tens2 = TextUtils.getValue(tenanthashmap, "_id");
+            String cname = TextUtils.getValue(tenanthashmap, "_cName");
+            if(cname.equals(tenant)||tens2.equals(com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_tenant")) )
+            	s10="SELECTED=\"selected\"";
+            outputStream.println("<OPTION " + s10 + "value=\"" + tens2 + "\">" + cname);
+        }
+        outputStream.println("</SELECT>"
+        		+ "</TD></TR>" + "<TR><TD><FONT SIZE=-1>optional tenant for this user</FONT></TD></TR>" 
+        		+ "</TABLE></TD><TD><I></I></TD></TR>");
+       
         StringBuffer stringbuffer = new StringBuffer();
         StringBuffer stringbuffer1 = new StringBuffer();
         com.dragonflow.Properties.StringProperty.getPrivate(com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_password"), "_password", "userSuff", stringbuffer, stringbuffer1);
         StringBuffer stringbuffer2 = new StringBuffer();
         StringBuffer stringbuffer3 = new StringBuffer();
         com.dragonflow.Properties.StringProperty.getPrivate(com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_password"), "password2", "userSuff2", stringbuffer2, stringbuffer3);
-        outputStream.println("<TABLE>\n<TR><TD ALIGN=RIGHT>Login name</TD><TD><TABLE><TR><TD ALIGN=LEFT><input type=text name=_login size=50 value=\"" + com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_login") + "\"></TD></TR>" + "<TR><TD><FONT SIZE=-1>the login name for this user, if empty, no login name is required</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "login") + "</I></TD></TR>" + "<TR><TD ALIGN=RIGHT>Password</TD>" + "<TD><TABLE><TR><TD ALIGN=LEFT>" + stringbuffer.toString() + " size=50></TD></TR>" + stringbuffer1.toString() + "<TR><TD><FONT SIZE=-1>the login password for this user.  if empty, no password is required</FONT></TD></TR>" + "<TR><TD><FONT SIZE=-1>If using LDAP Authentication then this field is not used.\n</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "password") + "</I></TD></TR>" + "<TR><TD ALIGN=RIGHT>Password (again)</TD>" + "<TD><TABLE><TR><TD ALIGN=LEFT>" + stringbuffer2.toString() + " size=50></TD></TR>" + stringbuffer3.toString() + "<TR><TD><FONT SIZE=-1>enter the login password for this user again</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "password2") + "</I></TD></TR>");
+        outputStream.println("<TR><TD ALIGN=RIGHT>Login name</TD><TD><TABLE><TR><TD ALIGN=LEFT><input type=text name=_login size=50 value=\"" + com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_login") + "\"></TD></TR>" + "<TR><TD><FONT SIZE=-1>the login name for this user, if empty, no login name is required</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "login") + "</I></TD></TR>" + "<TR><TD ALIGN=RIGHT>Password</TD>" + "<TD><TABLE><TR><TD ALIGN=LEFT>" + stringbuffer.toString() + " size=50></TD></TR>" + stringbuffer1.toString() + "<TR><TD><FONT SIZE=-1>the login password for this user.  if empty, no password is required</FONT></TD></TR>" + "<TR><TD><FONT SIZE=-1>If using LDAP Authentication then this field is not used.\n</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "password") + "</I></TD></TR>" + "<TR><TD ALIGN=RIGHT>Password (again)</TD>" + "<TD><TABLE><TR><TD ALIGN=LEFT>" + stringbuffer2.toString() + " size=50></TD></TR>" + stringbuffer3.toString() + "<TR><TD><FONT SIZE=-1>enter the login password for this user again</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "password2") + "</I></TD></TR>");
         outputStream.println("<TR><TD ALIGN=RIGHT>LDAP service provider</TD><TD><TABLE><TR><TD ALIGN=LEFT><input type=text name=_ldapserver size=50 value=\"" + com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_ldapserver") + "\"></TD></TR>" + "<TR><TD><FONT SIZE=-1>the LDAP server to connect to (example: ldap://ldap.this-company.com:389) for authentication</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "ldapserver") + "</I></TD></TR>");
         outputStream.println("<TR><TD ALIGN=RIGHT>LDAP Security Principal</TD><TD><TABLE><TR><TD ALIGN=LEFT><input type=text name=_securityprincipal size=50 value=\"" + com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_securityprincipal") + "\"></TD></TR>" + "<TR><TD><FONT SIZE=-1>If using LDAP Authentication then this field is the Security Principal of\n</FONT></TD></TR>" + "<TR><TD><FONT SIZE=-1>the type \" uid=testuser,ou=TEST,o=this-company.com\".</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "securityprincipal") + "</I></TD></TR>");
         String s4 = "";
@@ -304,6 +329,7 @@ public class userPrefsPage extends com.dragonflow.Page.prefsPage
             }
             ((jgl.HashMap) (obj)).put("_login", request.getValue("_login"));
             ((jgl.HashMap) (obj)).put("_password", s3);
+            ((jgl.HashMap) (obj)).put("_tenant", request.getValue("_tenant"));
             ((jgl.HashMap) (obj)).put("_ldapserver", request.getValue("_ldapserver"));
             ((jgl.HashMap) (obj)).put("_securityprincipal", request.getValue("_securityprincipal"));
             ((jgl.HashMap) (obj)).put("_realName", request.getValue("_realName"));

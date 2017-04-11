@@ -38,7 +38,7 @@ import com.dragonflow.Utils.TextUtils;
 // SiteViewGroup
 
 public class User extends SiteViewObject {
-
+	public static StringProperty pTenant;
     public static StringProperty pLogin;
 
     public static StringProperty pPassword;
@@ -110,6 +110,7 @@ public class User extends SiteViewObject {
         HashMap hashmap1 = new HashMap();
         hashmap1.put("_id", "administrator");
         hashmap1.put("_login", TextUtils.getValue(hashmap, "_adminUsername"));
+        hashmap1.put("_tenant", TextUtils.getValue(hashmap, "_tenant"));
         hashmap1.put("_password", TextUtils.getValue(hashmap, "_adminPassword"));
         hashmap1.put("_realName", Platform.productName + " Administrator");
         hashmap1.put("_edit", "true");
@@ -153,6 +154,7 @@ public class User extends SiteViewObject {
         HashMap hashmap1 = new HashMap();
         hashmap1.put("_id", "user");
         hashmap1.put("_login", TextUtils.getValue(hashmap, "_userUsername"));
+        hashmap1.put("_tenant", TextUtils.getValue(hashmap, "_tenant"));
         hashmap1.put("_password", TextUtils.getValue(hashmap, "_userPassword"));
         hashmap1.put("_realName", Platform.productName + " User");
         if (TextUtils.getValue(hashmap, "_userEnabled").length() == 0) {
@@ -477,6 +479,7 @@ public class User extends SiteViewObject {
         litePermissions = null;
         ldapCacheExpirationInSecs = -1L;
         pLogin = new StringProperty("_login", "");
+        pTenant = new StringProperty("_tenant","");
         pPassword = new StringProperty("_password", "");
         pRealName = new StringProperty("_realName", "");
         pEditPermissions = new StringProperty("_edit", "");
@@ -484,7 +487,7 @@ public class User extends SiteViewObject {
         pEmail = new StringProperty("_email", "");
         pLdap = new StringProperty("_ldapserver", "");
         pSecurityPrincipal = new StringProperty("_securityprincipal", "");
-        StringProperty astringproperty[] = { pLogin, pPassword, pRealName, pEditPermissions, pAccount, pEmail, pLdap, pSecurityPrincipal };
+        StringProperty astringproperty[] = { pLogin,pTenant, pPassword, pRealName, pEditPermissions, pAccount, pEmail, pLdap, pSecurityPrincipal };
         addProperties("com.dragonflow.SiteView.User", astringproperty);
         litePermissions = new HashMapOrdered(true);
         litePermissions.add("_maximumMonitors", "5");

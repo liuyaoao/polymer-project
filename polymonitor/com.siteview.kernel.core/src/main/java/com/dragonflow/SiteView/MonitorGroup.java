@@ -1151,8 +1151,7 @@ public class MonitorGroup extends Monitor {
         actionsListStr = actionsListStr.replaceAll(" ","@space");
         actionsListStr = actionsListStr.replaceAll(">","@big");
         actionsListStr = actionsListStr.replaceAll("<","@small");
-        String colWidthStr = "[20,80]";
-        printwriter.println("<simple-data-table-ext col-width-str='"+ colWidthStr +"' data-list="+actionsListStr+" no-data-tip='No Operation!'></simple-data-table-ext><hr>");
+        printwriter.println("<simple-data-table-ext data-list="+actionsListStr+" no-data-tip='No Operation!'></simple-data-table-ext><hr>");
         // printwriter.print("</table><hr>");
     }
 

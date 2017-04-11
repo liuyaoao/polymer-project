@@ -94,6 +94,9 @@ public class indexPage extends com.dragonflow.Page.CGI
     {
         String s = Platform.getRoot() + "/groups/test";
         String s1 = Platform.getRoot() + "/htdocs/test";
+        String tenant="/"+getTenant();
+        if(request.getURL().startsWith("/SiteView"))
+        	tenant="";
         if(!testWrite(s) || !testWrite(s1))
         {
             outputStream.println("<BODY>" + com.dragonflow.SiteView.Platform.productName + "  requires that your web server has write permission to the " + s1 + " and " + s + " directories.</BODY>");
@@ -119,18 +122,18 @@ public class indexPage extends com.dragonflow.Page.CGI
             outputStream.println("<BODY>There was a problem loading the " + com.dragonflow.SiteView.Platform.productName + " configuration file." + "<p>Please check that the " + com.dragonflow.SiteView.Platform.productName + " service is running and try again.</BODY>");
             return;
         }
-        String s2 = flag1 ? "/SiteView/cgi/go.exe/SiteView?page=haLicense&account=administrator" : "/SiteView/cgi/go.exe/SiteView?page=setup&account=administrator";
+        String s2 = flag1 ?tenant+ "/SiteView/cgi/go.exe/SiteView?page=haLicense&account=administrator" : "/SiteView/cgi/go.exe/SiteView?page=setup&account=administrator";
         if(com.dragonflow.SiteView.Platform.isPortal())
         {
-            s2 = "/SiteView/cgi/go.exe/SiteView?page=portalSetup&account=administrator";
+            s2 = tenant+"/SiteView/cgi/go.exe/SiteView?page=portalSetup&account=administrator";
             if(hasSiteViews())
             {
-                s2 = "/SiteView/cgi/go.exe/SiteView?page=portal&account=" + request.getAccount();
+                s2 = tenant+ "/SiteView/cgi/go.exe/SiteView?page=portal&account=" + request.getAccount();
             }
         }
 		else //if(hasGroups() || com.dragonflow.TopazIntegration.MAManager.isAttached()) dingbing.xu delete this
         {
-            s2 = "/SiteView/" + request.getAccountDirectory() + "/SiteView.html";
+            s2 =  tenant+"/SiteView/" + request.getAccountDirectory() + "/SiteView.html";
         }
         printRefreshPage(s2, 0);
     }

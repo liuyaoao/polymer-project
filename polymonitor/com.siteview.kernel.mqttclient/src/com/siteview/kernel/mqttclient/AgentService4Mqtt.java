@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.siteview.ecc.mqtt.brokers.status.OnlineStatus;
+import com.siteview.kernel.mqttmessage.MessageUtils;
 import com.siteview.kernel.mqttutil.AgentType;
 import com.siteview.kernel.mqttutil.AgentUser;
 
@@ -142,5 +143,26 @@ public class AgentService4Mqtt {
 	public void setIsrunning(boolean isrunning) {
 		this.isrunning = isrunning;
 	}
-	
+	public String sendMessage(String to, byte[] msg){
+		try {
+			int wait_count = 0;
+			while (client == null || !client.isConnected()) {
+				wait_count++;
+				if(wait_count==10){
+					throw new Exception("mqtt client is not connected ...");
+				}
+				else{
+					Thread.sleep(1000);
+				}
+			}
+			StringBuffer sb = new StringBuffer();
+			sb.append(to);
+//			System.out.println("Respond to "+sb.toString()+"message length "+msg.length);
+			client.publish(sb.toString(), msg, 0, false);
+			return MessageUtils.getPacketId(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
 }

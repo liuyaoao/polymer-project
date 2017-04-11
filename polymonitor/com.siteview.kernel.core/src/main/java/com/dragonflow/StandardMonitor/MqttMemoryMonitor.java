@@ -38,7 +38,7 @@ public class MqttMemoryMonitor extends ServerMonitor{
 				 Machine machine=Machine.getMqttMachine(machineName.substring(machineName.indexOf(":")+1));
 				 if(machine!=null)
 					 machineName=machine.getProperty("_host");
-				 Start.agent.sendMessage(machineName, (id+"free").getBytes());
+				 Start.agent.sendMessage(machineName, (id+"free 2>&1").getBytes());
 				 int i=0;
 				 while(i<10){
 					 String msg=ReceiveMessageContainer.getInstance().getMessageString(id);
@@ -49,9 +49,8 @@ public class MqttMemoryMonitor extends ServerMonitor{
 							e.printStackTrace();
 						}
 					 }else{
-						 System.out.println(msg+"=====================================");
 						 String[] s = msg.trim().split("\n");
-						 if(s.length>0){
+ 						 if(s.length>0){
 							 String s1 = s[s.length-1].trim();
 							 String[] ss=s1.split("       ");
 							 String total = ss[1];
@@ -74,16 +73,12 @@ public class MqttMemoryMonitor extends ServerMonitor{
 	        {
 	            array = new Array();
 	        }
-	        long l2 = al.get(0);
-	        long l3 = al.get(2);
-	        long l4 = l3 - al.get(1);
-	        String s1 = "" + l4 / 1024;
 	        float f = -1F;
 	        if(stillActive())
 	        {
 	            synchronized(this)
 	            {
-	                if(l2 == -1L)
+	                if(al.size()==0)
 	                {
 	                    setProperty(pPercentFull, "n/a");
 	                    setProperty(pFreeSpace, "n/a");
@@ -103,6 +98,10 @@ public class MqttMemoryMonitor extends ServerMonitor{
 	                    }
 	                } else
 	                {
+	                	long l2 = al.get(0);
+	         	        long l3 = al.get(2);
+	         	        long l4 = l3 - al.get(1);
+	         	        String s1 = "" + l4 / 1024;
 	                    setProperty(pPercentFull, l2);
 	                    setProperty(pFreeSpace, l4 / 1024);
 	                    setProperty(pMeasurement, getMeasurement(pPercentFull));

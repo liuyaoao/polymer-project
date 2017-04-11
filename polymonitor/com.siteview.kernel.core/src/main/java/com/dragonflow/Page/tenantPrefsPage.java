@@ -415,7 +415,7 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	            if(TextUtils.getValue(hashmap, "_disabled").length() > 0){
 	                userTitle = userTitle + " (disabled)";
 	            }
-	            String s4 ="/SiteView?account=" + s2;
+	            String s4 ="/"+cname+"/SiteView";
 	            if(request.actionAllowed("_tentans")){
 	                String mainUrl = getPageLink(request.getValue("page"), "") + "&tenant=" + s2;
 	                String delOperation = "<A href=" + mainUrl + "&operation=Delete>X</a>";

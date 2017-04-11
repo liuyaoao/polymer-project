@@ -38,7 +38,7 @@ public class MqttCpuMonitor extends ServerMonitor{
 			 Machine machine=Machine.getMqttMachine(machineName.substring(machineName.indexOf(":")+1));
 			 if(machine!=null)
 				 machineName=machine.getProperty("_host");
-			 Start.agent.sendMessage(machineName, (id+"head -n1 /proc/stat && sleep 2 && head -n1 /proc/stat").getBytes());
+			 Start.agent.sendMessage(machineName, (id+"head -n1 /proc/stat && sleep 2 && head -n1 /proc/stat 2>&1").getBytes());
 			 int i=0;
 			 while(i<10){
 				 String msg=ReceiveMessageContainer.getInstance().getMessageString(id);
@@ -84,7 +84,7 @@ public class MqttCpuMonitor extends ServerMonitor{
              setProperty(pLastMeasurementTime, 0);
              setProperty(pLastMeasurement, 0);
              setProperty(pMeasurement, getMeasurement(pUtilization));
-             String s3 = "" + al.get(0);
+             String s3 = "" + df.format(al.get(0));
              String s4 = "";
              int i1 = 0;
              do

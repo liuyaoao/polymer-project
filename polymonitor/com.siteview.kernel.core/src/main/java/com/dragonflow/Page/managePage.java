@@ -774,7 +774,42 @@ label1:
         {
             outputStream.println("<H3>" + s + " the " + s7 + ":</H3>");
         }
+        ArrayList<java.util.HashMap> groupList = new ArrayList<java.util.HashMap>();
+        for(int i = 0; i < array.size(); i++)
+        {
+        	java.util.HashMap<String, String> groupMap = new java.util.HashMap<String, String>();
+            String group1 = (String)array.at(i);
+            if(!group1.equals("_master") && flag)
+            {
+            	groupMap.put("group", (String)array.at(i));
+            }
+            groupList.add(groupMap);
+        }
+        ArrayList<java.util.HashMap> monitorList = new ArrayList<java.util.HashMap>();
+        for(int i = 0; i < array1.size(); i++)
+        {
+        	java.util.HashMap<String, String> monitorMap = new java.util.HashMap<String, String>();
+            String monitor = (String)array1.at(i);
+            if(flag1)
+            {
+            	monitorMap.put("monitor", (String)array1.at(i));
+            }
+            monitorList.add(monitorMap);
+        }
+        System.out.println("groupList-------" + JSONObject.toJSON(groupList));
+        System.out.println("monitorList-------" + JSONObject.toJSON(monitorList));
+        outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/monitor-group-table.html' async='true'>\n");
+        outputStream.println("<monitor-group-table action-url='/SiteView/cgi/go.exe/SiteView' request-method='POST'"
+        		+ "healthLength='" + request.getValue("_health").length() + "'"
+        		+ "operation='" + s + "'"
+        		+ "account='" + request.getAccount() + "'"
+        		+ "return-url='" + request.getValue("returnURL") + "'"
+        		+ "group-list'" + groupList + "'"
+        		+ "monitor-list'" + monitorList + "'"
+        		+ ">");
+        
         printMonitorGroupTable(s7, flag9, array, flag12, flag, array1, flag1);
+        
         if(s.startsWith("Move") || s.startsWith("Duplicate") || s.startsWith("Copy"))
         {
             String s18 = "into";
@@ -795,7 +830,9 @@ label1:
                 {
                     i3 += 16;
                 }
-                outputStream.println("<P>" + s18 + " Group <select name=toGroupID size=1>" + getMonitorOptionsHTML(array3, array2, null, i3) + "</select>");
+//                System.out.println("toGroupID----------" + getMonitorOptionsHTML(array3, array2, null, i3));
+//                outputStream.println("<P>" + s18 + " Group <select name=toGroupID size=1>" + getMonitorOptionsHTML(array3, array2, null, i3) + "</select>");
+                outputStream.println("<P><select-group-menu name='toGroupID' label='" + s18 + " Group' size=1 option-string='" + getMonitorOptionsHTML(array3, array2, null, i3) + "'></select-group-menu>");
             }
         } else
         if(s.startsWith("Disable"))
@@ -973,7 +1010,9 @@ label1:
                     }
 
                 }
-                outputStream.println("<P><TABLE WIDTH=100% BORDER=0><TR><INPUT TYPE=HIDDEN NAME=operation VALUE=\"" + s + "\">" + "<INPUT TYPE=HIDDEN NAME=page VALUE=manage>" + "<INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">" + s2 + "<TD WIDTH=6%></TD><TD WIDTH=30%><input type=submit VALUE=\"" + s + "\"></TD>");
+//                outputStream.println("<P><TABLE WIDTH=100% BORDER=0><TR><INPUT TYPE=HIDDEN NAME=operation VALUE=\"" + s + "\">" + "<INPUT TYPE=HIDDEN NAME=page VALUE=manage>" + "<INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">" + s2 + "<TD WIDTH=6%></TD><TD WIDTH=30%><input type=submit VALUE=\"" + s + "\"></TD>");
+                outputStream.println("<P><TABLE WIDTH=100% BORDER=0><TR><INPUT TYPE=HIDDEN NAME=operation VALUE=\"" + s + "\">" + "<INPUT TYPE=HIDDEN NAME=page VALUE=manage>" + "<INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">" + s2 + "<TD WIDTH=6%></TD><TD WIDTH=30%> "
+                		+ "<paper-button id='operationBtn' raised class='fancy'>" + s + "</paper-button></TD>");
             }
             outputStream.println("&nbsp");
         }
@@ -1030,6 +1069,7 @@ label1:
             System.out.println("**** IN ACK return to previous, getReturnURL = " + getReturnURL(false) + " and  request value = " + request.getValue("returnURL"));
             outputStream.println("<TD ALIGN=RIGHT WIDTH=27%><b><A HREF=" + request.getValue("returnURL") + ">" + getReturnLabel() + "</A></b></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
         }
+        outputStream.println("</monitor-group-table>");
     }
 
     /**
@@ -1678,7 +1718,7 @@ label1:
 
     private void printMonitorGroupTable(String s, boolean flag, jgl.Array array, boolean flag1, boolean flag2, jgl.Array array1, boolean flag3)
     {
-        outputStream.print("<TABLE BORDER=1 cellspacing=0><TR CLASS=\"tabhead\"><TH>" + s + "</TH>" + "<FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>");
+        outputStream.print("<TABLE class='monitot-table' BORDER=1 cellspacing=0><TR CLASS=\"tabhead\"><TH colspan='2'>" + s + "</TH>" + "<FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>");
         if(request.getValue("_health").length() > 0)
         {
             outputStream.print("<input type=hidden name=_health value=true>\n");
@@ -1694,7 +1734,7 @@ label1:
             outputStream.print("<TR><TD>");
             if(flag1)
             {
-                outputStream.print("Group ");
+                outputStream.print("Group </TD><TD>");
             }
             if(s1.equals("_master"))
             {
@@ -1711,7 +1751,7 @@ label1:
             outputStream.print("<TR><TD>");
             if(flag1)
             {
-                outputStream.print("Monitor ");
+                outputStream.print("Monitor </TD><TD>");
             }
             outputStream.print(array1.at(j) + (flag3 ? "" : "<font color=red> Not Permitted</font>"));
             outputStream.println("</TD></TR>");
@@ -2510,7 +2550,7 @@ label1:
             }
             printBrowseFilterOptionForm(outputStream);
             outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/filter-list-form.html' async='true'>\n");
-            outputStream.println("<filter-list-form action-url='/SiteView/cgi/go.exe/SiteView' level='first' need-verify='true'"
+            outputStream.println("<filter-list-form action-url='/SiteView/cgi/go.exe/SiteView' request-method='POST' level='first' need-verify='true'"
             		+ "account='" + account + "'"
             		+ "health-length='" + request.getValue("_health").length() + "'"
             		+ ">");
@@ -2562,7 +2602,6 @@ label1:
                 
                 treeMap.put("children", treemapList);
 //                System.out.println("treeMap: " + JSONObject.toJSON(treeMap));
-                
                 outputStream.println("<paper-tree-ext id='filterTree' data='" + JSONObject.toJSON(treeMap) + "' actions='[{\"label\": \"Details\", \"event\": \"ondetails\"}]' checkstate = true></paper-tree-ext>");
                 outputStream.println("</div>");
             }
@@ -2631,7 +2670,7 @@ label1:
         com.dragonflow.SiteView.SiteViewGroup siteviewgroup = SiteViewGroup.currentSiteView();
         jgl.Array array = getFilteredGroupList();
         outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/filter-list-form.html' async='true'>\n");
-        outputStream.println("<filter-list-form action-url='/SiteView/cgi/go.exe/SiteView'"
+        outputStream.println("<filter-list-form action-url='/SiteView/cgi/go.exe/SiteView' request-method='GET'"
         		+ "account='" + request.getAccount() + "'"
         		+ "array='" + array + "'"
         		+ "health-length='" + request.getValue("_health").length() + "'"
@@ -2695,6 +2734,7 @@ label1:
     {
         String s = monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pID);
         boolean flag = hashmap.get(s) != null;
+//        System.out.println("s -------------" + s + ", flag --------" + flag);
         String s1 = getIndentHTML(i);
         String s2 = Platform.getURLPath("htdocs", request.getAccount()) + "/Detail";
 //        outputStream.print("<TR><TD>");

@@ -18,7 +18,7 @@ public class ReceiveMessageContainer {
 	}
 	
 	public void receiveMessage(String key,byte[] msg){
-		containerMap.put(key, msg);
+		containerMap.put(key.trim(), msg);
 	}
 	
 	public byte[] getMessage(String key){

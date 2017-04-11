@@ -51,6 +51,7 @@ public class AsyncMqttCallback implements MqttCallback{
 				String id="adfas";
 				ReceiveMessageContainer.getInstance().receiveMessage(id,msg.getPayload());
 			}else
-				ReceiveMessageContainer.getInstance().receiveMessage(MessageUtils.getPacketId(msg.getPayload()),msg.getPayload());
+				ReceiveMessageContainer.getInstance().receiveMessage(MessageUtils.getPacketId(msg.getPayload()),
+						MessageUtils.getMessage(msg.getPayload()));
 	}
 }
