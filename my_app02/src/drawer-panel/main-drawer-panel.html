@@ -4,12 +4,19 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
-<!-- <link rel="import" href="../../bower_components/iron-form/iron-form.html"> -->
-<!-- <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html"> -->
-<!-- <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html"> -->
-<!-- <link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html"> -->
-<!-- <link rel="import" href="../../bower_components/neon-animation/animations/slide-down-animation.html"> -->
-<!-- <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html"> -->
+
+<!-- <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-from-right-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-left-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-down-animation.html"> -->
+
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
+<!-- <link rel="import" href="../../bower_components/neon-animation/neon-animation-behavior.html"> -->
+<!-- <link rel="import" href="../../bower_components/neon-animation/web-animations.html"> -->
+
 <link rel='import' href='../../bower_components/iron-media-query/iron-media-query.html'>
 <link rel='import' href='../../bower_components/paper-drawer-panel/paper-drawer-panel.html' async="true">
 
@@ -51,8 +58,8 @@
   <template>
     <paper-drawer-panel id='drawer_custom' has-transform transition>
       <!-- <ha-sidebar drawer narrow='[[narrow]]' hass='[[hass]]'></ha-sidebar> -->
-      <div drawer> Drawer panel... </div>
-      <div main>
+      <div drawer id="drawerContainer"> Drawer panel... </div>
+      <div main id="mainContainer">
         <paper-button raised class="fancy" on-click="onClickToggle">toggle drawer</paper-button>
       </div>
 
@@ -65,11 +72,31 @@
       properties: {
         _loginValue:String,
         opened: {
-          type: Boolean
+          type: Boolean,
+        },
+        animationConfig: {
+          value: function() {
+            return {
+              'entry': {
+                name: 'slide-from-left-animation',
+                node: this.$.drawerContainer,
+                timing: {duration: 1000}
+              },
+              'exit': {
+                name: 'slide-left-animation',
+                node: this.$.drawerContainer
+              }
+            }
+          }
         }
       },
       listeners: {
+        'neon-animation-finish': '_onNeonAnimationFinish'
       },
+      behaviors: [
+        Polymer.NeonAnimationBehavior,
+        Polymer.NeonAnimationRunnerBehavior
+      ],
       ready:function(){
         if(!this.opened){
           // this.show();
@@ -84,11 +111,21 @@
       },
       show: function() {
         this.opened = true;
+        this.$.drawerContainer.style.display = 'inline-block';
         this.$.drawer_custom.openDrawer();
+        this.cancelAnimation();
+        this.playAnimation('entry');
       },
       hide: function() {
         this.opened = false;
         this.$.drawer_custom.closeDrawer();
+        this.cancelAnimation();
+        this.playAnimation('exit');
+      },
+      _onNeonAnimationFinish: function() {
+        if (!this.opened) {
+          this.$.drawerContainer.style.display = 'none';
+        }
       }
     });
   </script>
