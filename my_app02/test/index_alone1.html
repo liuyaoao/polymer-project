@@ -18,15 +18,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script> -->
     <script src="./index_alone.js"></script>
+    <script src="../polycasts/platform/platform.js"></script>
 
     <!-- Import the element to test -->
+    <link rel="import" href="../bower_components/polymer/polymer.html">
     <link rel="import" href="../bower_components/paper-input/paper-input.html">
+    <link rel="import" href="../bower_components/paper-styles/paper-styles.html">
     <link rel="import" href="../bower_components/paper-button/paper-button.html">
     <link rel="import" href="../bower_components/paper-item/paper-item.html">
     <link rel="import" href="../bower_components/paper-item/paper-item-body.html">
     <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
     <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
     <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+
+    <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+    <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+    <link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
+    <link rel="import" href="../../bower_components/neon-animation/animations/slide-down-animation.html">
+    <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
+
+    <link rel="import" href="../src/drawer-panel/main-drawer-panel.html">
+
+
     <style>
       paper-button:hover{
         background-color: #123fff;
@@ -35,9 +48,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       paper-button a{
         text-decoration:none;
       }
+
     </style>
   </head>
   <body>
+    <main-drawer-panel></main-drawer-panel>
 
     <div class="container">
       <form class="" action="postformvalue.jsp" method="post">
@@ -55,7 +70,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
 
     <script>
-
+      // var drawer_panel = document.querySelector("#drawer_custom");
+      // // drawer_panel.openDrawer();
+      // setTimeout(function(){
+      //   drawer_panel.closeDrawer();
+      // },2000);
     </script>
   </body>
 </html>

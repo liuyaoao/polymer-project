@@ -1,0 +1,95 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<!-- <link rel="import" href="../../bower_components/iron-form/iron-form.html"> -->
+<!-- <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html"> -->
+<!-- <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html"> -->
+<!-- <link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html"> -->
+<!-- <link rel="import" href="../../bower_components/neon-animation/animations/slide-down-animation.html"> -->
+<!-- <link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html"> -->
+<link rel='import' href='../../bower_components/iron-media-query/iron-media-query.html'>
+<link rel='import' href='../../bower_components/paper-drawer-panel/paper-drawer-panel.html' async="true">
+
+<dom-module id="main-drawer-panel">
+  <style>
+    :host {
+      display: block;
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      background: #ece9e3;
+      height: 200px;
+    }
+
+    [drawer] {
+      background-color: #B99588;
+      border-right: 1px solid #ccc;
+    }
+
+    [main] {
+      height: 200px;
+    }
+    paper-material {
+      padding: 16px;
+      width: 360px;
+    }
+    paper-button.fancy {
+      padding: 6px 22px;
+      color: #fff;
+      background-color: #337ab7;
+      border-color: #2e6da4;
+    }
+    paper-button.fancy:hover {
+      padding: 6px 22px;
+      color: #fff;
+      background-color: #3371b7;
+      border-color: #2e6da4;
+    }
+
+  </style>
+  <template>
+    <paper-drawer-panel id='drawer_custom' has-transform transition>
+      <!-- <ha-sidebar drawer narrow='[[narrow]]' hass='[[hass]]'></ha-sidebar> -->
+      <div drawer> Drawer panel... </div>
+      <div main>
+        <paper-button raised class="fancy" on-click="onClickToggle">toggle drawer</paper-button>
+      </div>
+
+
+    </paper-drawer-panel>
+  </template>
+  <script>
+    Polymer({
+      is: 'main-drawer-panel',
+      properties: {
+        _loginValue:String,
+        opened: {
+          type: Boolean
+        }
+      },
+      listeners: {
+      },
+      ready:function(){
+        if(!this.opened){
+          // this.show();
+        }
+      },
+      onClickToggle:function(){
+        if(this.opened){
+          this.hide();
+        }else{
+          this.show();
+        }
+      },
+      show: function() {
+        this.opened = true;
+        this.$.drawer_custom.openDrawer();
+      },
+      hide: function() {
+        this.opened = false;
+        this.$.drawer_custom.closeDrawer();
+      }
+    });
+  </script>
+</dom-module>
