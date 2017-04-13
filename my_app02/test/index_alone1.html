@@ -22,6 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- Import the element to test -->
     <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
     <link rel="import" href="../bower_components/paper-input/paper-input.html">
     <link rel="import" href="../bower_components/paper-styles/paper-styles.html">
     <link rel="import" href="../bower_components/paper-button/paper-button.html">
@@ -43,10 +44,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-decoration:none;
       }
 
+      paper-ripple {
+    color: #4285f4;
+  }
+  div.div12 {
+      height: 100px;
+      width: 100%;
+      box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+    }
     </style>
   </head>
   <body>
-    <main-drawer-panel ></main-drawer-panel>
+    <!-- <main-drawer-panel ></main-drawer-panel> -->
 
     <div class="container">
       <form class="" action="postformvalue.jsp" method="post">
@@ -60,9 +69,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <input type="submit" value="保存"/>
       </form>
       <paper-button raised active>Raised button</paper-button>
-      <paper-button elevation=9 toggles active><a href="javascript:;">button1</a></paper-button>
+      <paper-button elevation=9><a href="javascript:;">button1</a></paper-button>
+      <button style="padding:5px 10px;border:1px solid red;background-color:#fff;display:inline-block;" >click me <paper-ripple></paper-ripple></button>
     </div>
 
+    <a href="javascript:;" style="display:inline-block;">button2<paper-ripple></paper-ripple></a>
+    <a href="javascript:;" style="padding:5px 9px;position: relative;">button3<paper-ripple></paper-ripple></a>
+
+    <div class="div12" style="position: relative">
+      fhekjfeldsjafeiowjfdl
+      fjeiowjfadlskafd
+      <paper-ripple></paper-ripple>
+    </div>
     <script>
       // var drawer_panel = document.querySelector("#drawer_custom");
       // // drawer_panel.openDrawer();

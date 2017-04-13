@@ -100,7 +100,12 @@ contains the selection state.
        * @type boolean
        * @default false
        */
-      opened: false,
+      opened: {
+        type:Boolean,
+        value:false,
+        notify:true,
+        reflectToAttribute:true
+      },
 
       /**
        * A label for the control. The label is displayed if no item is selected.
@@ -133,7 +138,7 @@ contains the selection state.
 
       /**
        * Specifies the CSS class to be used to add to the selected element.
-       * 
+       *
        * @attribute selectedClass
        * @type string
        * @default 'core-selected'
