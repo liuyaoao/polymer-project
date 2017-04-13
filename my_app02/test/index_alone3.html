@@ -29,6 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
     <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 
+    <link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
     <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
     <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 
@@ -45,6 +46,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         .iron-selected {
           background: #6ee;
+        }
+        paper-dropdown-menu paper-menu-button iron-dropdown{
+          /*width:100%;*/
+        }
+        paper-dropdown-menu paper-item{
+          position:relative;
         }
     </style>
   </head>
@@ -94,18 +101,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
 
       <div>
-        <iron-selector selected="0">
-          <div>Item 1</div>
-          <div>Item 2</div>
-          <div>Item 3</div>
-        </iron-selector>
+        <paper-menu-button>
+          <paper-icon-button icon="menu" class="dropdown-trigger"></paper-icon-button>
+          <paper-menu class="dropdown-content">
+            <paper-item>Share</paper-item>
+            <paper-item>Settings</paper-item>
+            <paper-item>Help</paper-item>
+          </paper-menu>
+        </paper-menu-button>
       </div>
 
-      <paper-dropdown-menu selected="Financier" valueattr="label">
-            <paper-item label="Croissant">Croissant</paper-item>
-            <paper-item label="Donut">Donut</paper-item>
-            <paper-item label="Financier">Financier</paper-item>
-            <paper-item label="Madeleine">Madeleine</paper-item>
+      <!-- no-label-float :是否显示浮动的label提示。 -->
+      <!-- horizontal-align :下拉的选择框显示在左边还是右边。vertical-align:显示在上边还是下边。 -->
+      <paper-dropdown-menu id='paperDropdownMenu' label="Your favourite pastry" selected-item-label='b' horizontal-align='right'>
+        <paper-listbox class="dropdown-content" >
+          <paper-item label='a'>Croissant<paper-ripple></paper-ripple></paper-item>
+          <paper-item label='b'>Donut<paper-ripple></paper-ripple></paper-item>
+          <paper-item label='c'>Financier<paper-ripple></paper-ripple></paper-item>
+          <paper-item label='d'>Madeleine</paper-item>
+          <paper-item label='e'>Madeleine2</paper-item>
+        </paper-listbox>
       </paper-dropdown-menu>
     </div>
 
@@ -133,6 +148,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
 
     <script>
+      var dropEl = document.getElementById("paperDropdownMenu");
+      console.log("dropEl.value: ",dropEl.value);
+      console.log("dropEl.width: ",dropEl.style.width);
 
     </script>
   </body>
