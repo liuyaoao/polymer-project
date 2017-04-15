@@ -18,3 +18,4 @@
 */java_workspace/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+polymonitor/com.siteview.kernel.core/classes/jrockit.2944.mdmp

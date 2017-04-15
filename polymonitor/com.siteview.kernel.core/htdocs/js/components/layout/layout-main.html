@@ -1,0 +1,61 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/paper-drawer-panel/paper-drawer-panel.html'>
+<!-- <link rel='import' href='../../bower_components/iron-media-query/iron-media-query.html'> -->
+<!-- <link rel='import' href='../../bower_components/iron-pages/iron-pages.html'> -->
+<link rel='import' href='../../bower_components/iron-icons/iron-icons.html'>
+<link rel='import' href='../../bower_components/iron-icons/social-icons.html'>
+
+<link rel='import' href='partial-cards.html'>
+<!-- <link rel='import' href='partial-panel-resolver.html'> -->
+<!-- <link rel="import" href="../dialogs/more-info-dialog.html"> -->
+<!-- <link rel="import" href="../dialogs/ha-voice-command-dialog.html"> -->
+<!-- <link rel='import' href='../util/ha-url-sync.html'> -->
+
+<link rel='import' href='layout-sidebar.html'>
+
+<dom-module id='layout-main'>
+  <template>
+
+    <paper-drawer-panel id='drawer' force-narrow>
+
+      <layout-sidebar drawer></layout-sidebar>
+
+      <div main>
+
+        <partial-cards id='states'>
+          <content></content>
+        </partial-cards>
+
+      </div>
+
+    </paper-drawer-panel>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'layout-main',
+
+      properties: {
+
+        narrow: {
+          type: Boolean
+        },
+
+      },
+
+      listeners: {
+        'hass-open-menu': 'handleOpenMenu',
+        'hass-close-menu': 'handleCloseMenu',
+      },
+
+      handleOpenMenu: function () {
+        this.$.drawer.openDrawer();
+      },
+
+      handleCloseMenu: function () {
+        this.$.drawer.closeDrawer()
+      },
+    });
+  </script>
+</dom-module>
