@@ -111,7 +111,7 @@ public class developerNotePage extends com.dragonflow.Page.CGI
                 {
                     file1.delete();
                 }
-                printRefreshPage("/SiteView/cgi/go.exe/SiteView?page=developerNote", 0);
+                printRefreshPage(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=developerNote", 0);
                 return;
             }
         }
@@ -209,7 +209,7 @@ public class developerNotePage extends com.dragonflow.Page.CGI
                 {
                     file2.delete();
                 }
-                printRefreshPage("/SiteView/cgi/go.exe/SiteView?page=developerNote", 0);
+                printRefreshPage(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=developerNote", 0);
             }
             catch(java.lang.Exception exception)
             {
@@ -244,10 +244,10 @@ public class developerNotePage extends com.dragonflow.Page.CGI
             {
                 jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
                 stringbuffer.append("<TR><TD>" + TextUtils.getValue(hashmap, "idnum"));
-                stringbuffer.append("<TD><A HREF=/SiteView/cgi/go.exe/SiteView?page=developerNote&operation=Edit&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">Edit</A>\n");
-                stringbuffer.append("<TD><A HREF=/SiteView/cgi/go.exe/SiteView?page=developerNote&operation=Display&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">" + TextUtils.getValue(hashmap, "title") + "</A>\n");
+                stringbuffer.append("<TD><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=developerNote&operation=Edit&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">Edit</A>\n");
+                stringbuffer.append("<TD><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=developerNote&operation=Display&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">" + TextUtils.getValue(hashmap, "title") + "</A>\n");
                 stringbuffer.append("<TD>" + TextUtils.getValue(hashmap, "author") + "\n");
-                stringbuffer.append("<TD><A HREF=/SiteView/cgi/go.exe/SiteView?page=developerNote&operation=Delete&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">Delete</A></TR>\n");
+                stringbuffer.append("<TD><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=developerNote&operation=Delete&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">Delete</A></TR>\n");
             }
 
             stringbuffer.append("</TABLE>\n");

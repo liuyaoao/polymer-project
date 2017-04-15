@@ -120,7 +120,11 @@ Custom property | Description | Default
                   </paper-checkbox>
                 </template>
                 <iron-icon class="node-icon" icon$="{{_computeIcon(data.icon)}}" on-click="select"></iron-icon>
-                <span class="node-name" on-click="select">{{data.name}}</span>
+                <span class="node-name" on-click="select">{{data.name}}
+                  <template is="dom-if" if="{{data.disabled}}">
+                    <b>(disabled)</b>
+                  </template>
+                </span>
                 <template is="dom-if" if="{{actions}}">
                     <paper-menu-button id="actions">
                         <paper-icon-button icon="more-vert" noink class="dropdown-trigger"></paper-icon-button>

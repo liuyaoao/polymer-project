@@ -1229,7 +1229,7 @@ public class ConfigurationChanger {
             return;
         }
         try {
-            array = CGI.ReadGroupFrames(s, null);
+            array = CGI.ReadGroupFramesForPath(monitorgroup.getFile().getPath());
 //            if (TopazFileLogger.getLogger().isLoggable(Level.FINE)) {
 //                TopazFileLogger.getLogger().fine("Successfully read group file for: " + monitorgroup.getProperty(MonitorGroup.pName));
 //            }
@@ -1274,7 +1274,7 @@ public class ConfigurationChanger {
         }
 
         try {
-            CGI.WriteGroupFrames(s, array, null);
+        	 com.dragonflow.Properties.FrameFile.writeToFile(monitorgroup.file.getPath(), array, "_", true);
 //            if (TopazFileLogger.getLogger().isLoggable(Level.FINE)) {
 //                TopazFileLogger.getLogger().fine("Successfully wrote group file for: " + monitorgroup.getProperty(MonitorGroup.pName));
 //            }

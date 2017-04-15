@@ -20,6 +20,10 @@ public class ReceiveMessageContainer {
 	public void receiveMessage(String key,byte[] msg){
 		containerMap.put(key.trim(), msg);
 	}
+	public void receiveMessageContickey(String key,byte[] msg){
+		if(containerMap.containsKey(key.trim()))
+			containerMap.put(key.trim(), msg);
+	}
 	
 	public byte[] getMessage(String key){
 		return containerMap.get(key);

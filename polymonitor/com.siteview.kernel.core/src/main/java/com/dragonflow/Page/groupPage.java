@@ -45,7 +45,7 @@ public class groupPage extends com.dragonflow.Page.CGI {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page",
                     "Add/Edit Remote UNIX/Linux profiles"));
             menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
-            menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page",
+            menus1.add(new CGI.menuItems("Remote Windows", "windowsmachine", "", "page",
                     "Add/Edit Remote Win NT/2000 profiles"));
             
         }
@@ -74,7 +74,7 @@ public class groupPage extends com.dragonflow.Page.CGI {
         String s9 = s;
         String s10 = I18N.toDefaultEncoding(request.getValue("parent"));
         if (s10.length() > 0) {
-            s10 = com.dragonflow.Page.groupPage.getGroupName(s10);
+            s10 = com.dragonflow.Page.groupPage.getGroupName(s10,request);
         }
         com.dragonflow.Page.CGI.menus menus1 = getNavItems(request);
         if (s.equals("Edit")) {
@@ -587,7 +587,7 @@ public class groupPage extends com.dragonflow.Page.CGI {
         } else {
             com.dragonflow.Page.CGI.menus menus1 = getNavItems(request);
             printButtonBar("EditGroup.htm#delete", "", menus1);
-            String s6 = com.dragonflow.Page.groupPage.getGroupName(s2);
+            String s6 = com.dragonflow.Page.groupPage.getGroupName(s2,request);
             String s7 = "group";
             outputStream.println("<H2>Delete Group: <A HREF="
                     + com.dragonflow.Page.CGI.getGroupDetailURL(request, s2)

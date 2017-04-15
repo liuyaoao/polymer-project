@@ -47,11 +47,11 @@ public class perfCounterPage extends com.dragonflow.Page.CGI
         boolean flag4 = false;
         printBodyHeader("NT Performance Counters");
         printButtonBar("PerfCounters.htm", "");
-        outputStream.println("<center><a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + " &group=" + request.getValue("group") + ">Diagnostic Tools</a></center><p>");
+        outputStream.println("<center><a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + " &group=" + request.getValue("group") + ">Diagnostic Tools</a></center><p>");
         String s = request.getValue("group");
         if(s.length() > 0)
         {
-            outputStream.println("<H2>Return to group : <A HREF=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, com.dragonflow.Utils.I18N.toDefaultEncoding(s)) + ">" + com.dragonflow.Page.CGI.getGroupName(com.dragonflow.Utils.I18N.toDefaultEncoding(s)) + "</a></H2>\n");
+            outputStream.println("<H2>Return to group : <A HREF=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, com.dragonflow.Utils.I18N.toDefaultEncoding(s)) + ">" + com.dragonflow.Page.CGI.getGroupName(com.dragonflow.Utils.I18N.toDefaultEncoding(s),request) + "</a></H2>\n");
         }
         String s1 = request.getValue("machineName");
         if(s1.equals("(this server)"))

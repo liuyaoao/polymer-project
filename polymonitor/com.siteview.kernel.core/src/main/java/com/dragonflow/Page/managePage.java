@@ -85,7 +85,7 @@ public class managePage extends com.dragonflow.Page.CGI
         {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
             menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
-            menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
+            menus1.add(new CGI.menuItems("Remote Windows", "windowsmachine", "", "page", "Add/Edit Remote Windows profiles"));
         }
         if(httprequest.actionAllowed("_tools"))
         {
@@ -623,7 +623,8 @@ label1:
                             {
                                 s32 = "Copy of " + s32;
                             }
-                            s25 = s25 + "<TD><input type=text size=50 name=monitorName" + j + " value=\"" + s32 + "\"></TD>\n";
+//                            s25 = s25 + "<TD><input type=text size=50 name=monitorName" + j + " value=\"" + s32 + "\"></TD>\n";
+                            s25 = s25 + "<TD><paper-input style='margin-top: -25px' type='search' size=50 name=monitorName" + j + " value=\"" + s32 + "\"></paper-input></TD>\n";
                         }
                         array1.add(s25);
                         s5 = s5 + "\n<INPUT TYPE=HIDDEN NAME=monitor" + j + " VALUE=\"" + s8 + "\">";
@@ -712,7 +713,8 @@ label1:
                                 {
                                     s46 = "Copy of " + s46;
                                 }
-                                s42 = s42 + "<TD><input type=text size=50 name=groupName" + k + " value=\"" + s46 + "\"></TD>\n";
+//                                s42 = s42 + "<TD><input type=text size=50 name=groupName" + k + " value=\"" + s46 + "\"></TD>\n";
+                                s42 = s42 + "<TD><paper-input style='margin-top: -25px' type='search' size=50 name=groupName" + k + " value=\"" + s46 + "\"></paper-input></TD>\n";
                             }
                             array.add(s42);
                             s3 = s3 + "\n<INPUT TYPE=HIDDEN NAME=group" + k + " VALUE=\"" + s24 + "\">";
@@ -774,40 +776,40 @@ label1:
         {
             outputStream.println("<H3>" + s + " the " + s7 + ":</H3>");
         }
-        ArrayList<java.util.HashMap> groupList = new ArrayList<java.util.HashMap>();
-        for(int i = 0; i < array.size(); i++)
-        {
-        	java.util.HashMap<String, String> groupMap = new java.util.HashMap<String, String>();
-            String group1 = (String)array.at(i);
-            if(!group1.equals("_master") && flag)
-            {
-            	groupMap.put("group", (String)array.at(i));
-            }
-            groupList.add(groupMap);
-        }
-        ArrayList<java.util.HashMap> monitorList = new ArrayList<java.util.HashMap>();
-        for(int i = 0; i < array1.size(); i++)
-        {
-        	java.util.HashMap<String, String> monitorMap = new java.util.HashMap<String, String>();
-            String monitor = (String)array1.at(i);
-            if(flag1)
-            {
-            	monitorMap.put("monitor", (String)array1.at(i));
-            }
-            monitorList.add(monitorMap);
-        }
-        System.out.println("groupList-------" + JSONObject.toJSON(groupList));
-        System.out.println("monitorList-------" + JSONObject.toJSON(monitorList));
+//        ArrayList<java.util.HashMap> groupList = new ArrayList<java.util.HashMap>();
+//        for(int i = 0; i < array.size(); i++)
+//        {
+//        	java.util.HashMap<String, String> groupMap = new java.util.HashMap<String, String>();
+//            String group1 = (String)array.at(i);
+//            if(!group1.equals("_master") && flag)
+//            {
+//            	groupMap.put("group", (String)array.at(i));
+//            }
+//            groupList.add(groupMap);
+//        }
+//        ArrayList<java.util.HashMap> monitorList = new ArrayList<java.util.HashMap>();
+//        for(int i = 0; i < array1.size(); i++)
+//        {
+//        	java.util.HashMap<String, String> monitorMap = new java.util.HashMap<String, String>();
+//            String monitor = (String)array1.at(i);
+//            if(flag1)
+//            {
+//            	monitorMap.put("monitor", (String)array1.at(i));
+//            }
+//            monitorList.add(monitorMap);
+//        }
+//        System.out.println("groupList-------" + JSONObject.toJSON(groupList));
+//        System.out.println("monitorList-------" + JSONObject.toJSON(monitorList));
         outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/manage-panel/monitor-group-table.html' async='true'>\n");
         outputStream.println("<monitor-group-table action-url='/SiteView/cgi/go.exe/SiteView' request-method='POST'"
         		+ "healthLength='" + request.getValue("_health").length() + "'"
         		+ "operation='" + s + "'"
         		+ "account='" + request.getAccount() + "'"
         		+ "return-url='" + request.getValue("returnURL") + "'"
-        		+ "group-list'" + groupList + "'"
-        		+ "monitor-list'" + monitorList + "'"
+//        		+ "group-list='" + groupList + "'"
+//        		+ "monitor-list='" + monitorList + "'"
         		+ ">");
-        
+        outputStream.println("<div class='operationBlock'>");
         printMonitorGroupTable(s7, flag9, array, flag12, flag, array1, flag1);
         
         if(s.startsWith("Move") || s.startsWith("Duplicate") || s.startsWith("Copy"))
@@ -832,7 +834,7 @@ label1:
                 }
 //                System.out.println("toGroupID----------" + getMonitorOptionsHTML(array3, array2, null, i3));
 //                outputStream.println("<P>" + s18 + " Group <select name=toGroupID size=1>" + getMonitorOptionsHTML(array3, array2, null, i3) + "</select>");
-                outputStream.println("<P><select-group-menu name='toGroupID' label='" + s18 + " Group' size=1 option-string='" + getMonitorOptionsHTML(array3, array2, null, i3) + "'></select-group-menu>");
+                outputStream.println("<P class='group-menu'><select-group-menu name='toGroupID' label='" + s18 + " Group' size=1 option-string='" + getMonitorOptionsHTML(array3, array2, null, i3) + "'></select-group-menu>");
             }
         } else
         if(s.startsWith("Disable"))
@@ -844,14 +846,18 @@ label1:
             String s34 = com.dragonflow.Page.managePage.getStartTimeHTML(l3);
             String s38 = com.dragonflow.Page.managePage.getEndTimeHTML(l3);
             Enumeration enumeration5 = getExistingSchedule(siteviewgroup);
+            outputStream.println("<paper-radio-group name='disable_choice' selected='1' style='width: 100%'>");
             if(TextUtils.getValue(hashmap1, "_noPermanentDisable").length() == 0)
             {
-                outputStream.println("<P><INPUT TYPE=RADIO NAME=disable_choice VALUE=permanent_disable>\nDisable permanently\n");
+//                outputStream.println("<P><INPUT TYPE=RADIO NAME=disable_choice VALUE=permanent_disable>\nDisable permanently\n");
+            	outputStream.println("<paper-radio-button NAME='0' VALUE='permanent_disable'>Disable permanently</paper-radio-button><br>");
             }
-            outputStream.println("<P><INPUT TYPE=RADIO NAME=disable_choice VALUE=scheduled_disable checked>\nDisable on a one-time schedule from " + s34 + " to " + s38 + "<P>Disable Description (optional) <INPUT TYPE=TEXT SIZE=50 NAME=disabledDescription>\n");
+//            outputStream.println("<P><INPUT TYPE=RADIO NAME=disable_choice VALUE=scheduled_disable checked>\nDisable on a one-time schedule from " + s34 + " to " + s38 + "<P>Disable Description (optional) <INPUT TYPE=TEXT SIZE=50 NAME=disabledDescription>\n");
+            outputStream.println("<paper-radio-button NAME='1' VALUE=scheduled_disable>Disable on a one-time schedule from " + s34 + " to " + s38 + "</paper-radio-button><P style='padding:0'>Disable Description (optional) <paper-input type='search' style='display: inline-block; margin-top: -20px' NAME='disabledDescription'></paper-input><br>");
             if(enumeration5.hasMoreElements())
             {
-                outputStream.print("<P><INPUT TYPE=RADIO NAME=disable_choice VALUE=undo_disable >\nUndo one-time schedule<BR><BR><P><font size = +1><B>Warning</B></font><BR><B>The following one-time schedules will be changed or deleted if you continue:</B>");
+//                outputStream.print("<P><INPUT TYPE=RADIO NAME=disable_choice VALUE=undo_disable >\nUndo one-time schedule<BR><BR><P><font size = +1><B>Warning</B></font><BR><B>The following one-time schedules will be changed or deleted if you continue:</B>");
+            	outputStream.print("<paper-radio-button NAME='2' VALUE='undo_disable' >Undo one-time schedule</paper-radio-button><BR><BR><P style='padding:0'><font size = +1><B>Warning</B></font><BR><B>The following one-time schedules will be changed or deleted if you continue:</B><br>");
                 do
                 {
                     if(!enumeration5.hasMoreElements())
@@ -865,6 +871,7 @@ label1:
                     }
                 } while(true);
             }
+            outputStream.println("</paper-radio-group>");
         } else
         if(s.startsWith("Baseline"))
         {
@@ -873,7 +880,7 @@ label1:
         } else
         if(s.startsWith("Acknowledge"))
         {
-            outputStream.println("<SCRIPT  language=\"JavaScript\"><!--- Hide script from old browsers\nfunction doWin() {\n          homeWindow=window.open(\"/SiteView?page=AckLog&monitor=" + s6 + "\"," + "\"AcknowlegeLog\"," + "\"toolbar=0," + "location=0," + "directories=0," + "status=0," + "menubar=0," + "resizable=1," + "scrollbars=1," + "width=550,height=425\")" + "}// end hiding from old browsers -->" + "</SCRIPT>");
+            outputStream.println("<SCRIPT  language=\"JavaScript\"><!--- Hide script from old browsers\nfunction doWin() {\n          homeWindow=window.open(\""+CGI.getTenant(request.getURL())+"/SiteView?page=AckLog&monitor=" + s6 + "\"," + "\"AcknowlegeLog\"," + "\"toolbar=0," + "location=0," + "directories=0," + "status=0," + "menubar=0," + "resizable=1," + "scrollbars=1," + "width=550,height=425\")" + "}// end hiding from old browsers -->" + "</SCRIPT>");
             if(s.equals("AcknowledgeClear"))
             {
                 if(isPortalServerRequest() && request.getValue("comment").length() > 0)
@@ -970,7 +977,8 @@ label1:
         }
         if(flag5)
         {
-            outputStream.println("<P><input type=checkbox name=enable_temp_only>Only enable items that are temporarily disabled");
+//            outputStream.println("<P><input type=checkbox name=enable_temp_only>Only enable items that are temporarily disabled");
+        	outputStream.println("<P><paper-checkbox name='enable_temp_only'>Only enable items that are temporarily disabled</paper-checkbox>");
         }
         if(flag9)
         {
@@ -978,7 +986,8 @@ label1:
         }
         if(flag9 || flag11)
         {
-            outputStream.println("<P><TABLE BORDER=0><TR><TD ALIGN=RIGHT><B>Find</B></TD><TD><INPUT TYPE=text size=50 name=find></TD></TR><TR><TD ALIGN=RIGHT><B>Replace With</B></TD><TD><INPUT TYPE=text size=50 name=replace></TD></TR><TR><TD>&nbsp;<TD><FONT SIZE=-1>find and replace text in monitors and groups\n- for example, replace server1.mycompany.com with server2.mycompany.com, or replace \\\\SERVER1 with \\\\SERVER2</TD></TR></TABLE>");
+//            outputStream.println("<P><TABLE BORDER=0><TR><TD ALIGN=RIGHT><B>Find</B></TD><TD><INPUT TYPE=text size=50 name=find></TD></TR><TR><TD ALIGN=RIGHT><B>Replace With</B></TD><TD><INPUT TYPE=text size=50 name=replace></TD></TR><TR><TD>&nbsp;<TD><FONT SIZE=-1>find and replace text in monitors and groups\n- for example, replace server1.mycompany.com with server2.mycompany.com, or replace \\\\SERVER1 with \\\\SERVER2</TD></TR></TABLE>");
+        	outputStream.println("<P class='op-advanced'><TABLE BORDER=0><TR><TD ALIGN=RIGHT><B> </B></TD><TD><paper-input type='search' size='50' name='find' label='Find'></paper-input></TD></TR><TR><TD ALIGN=RIGHT><B> </B></TD><TD><paper-input type='search' size='50' name='replace' label='Replace With'></paper-input></TD></TR><TR><TD>&nbsp;<TD><FONT SIZE=-1>find and replace text in monitors and groups\n- for example, replace server1.mycompany.com with server2.mycompany.com, or replace \\\\SERVER1 with \\\\SERVER2</TD></TR></TABLE>");
         }
         if(s.equals("AcknowledgeClear"))
         {
@@ -1011,21 +1020,23 @@ label1:
 
                 }
 //                outputStream.println("<P><TABLE WIDTH=100% BORDER=0><TR><INPUT TYPE=HIDDEN NAME=operation VALUE=\"" + s + "\">" + "<INPUT TYPE=HIDDEN NAME=page VALUE=manage>" + "<INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">" + s2 + "<TD WIDTH=6%></TD><TD WIDTH=30%><input type=submit VALUE=\"" + s + "\"></TD>");
-                outputStream.println("<P><TABLE WIDTH=100% BORDER=0><TR><INPUT TYPE=HIDDEN NAME=operation VALUE=\"" + s + "\">" + "<INPUT TYPE=HIDDEN NAME=page VALUE=manage>" + "<INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">" + s2 + "<TD WIDTH=6%></TD><TD WIDTH=30%> "
+                outputStream.println("<P class='operation-table'><TABLE WIDTH=100% BORDER=0><TR><INPUT TYPE=HIDDEN NAME=operation VALUE=\"" + s + "\">" + "<INPUT TYPE=HIDDEN NAME=page VALUE=manage>" + "<INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">" + s2 + "<TD WIDTH=6%></TD><TD WIDTH=30%> "
                 		+ "<paper-button id='operationBtn' raised class='fancy'>" + s + "</paper-button></TD>");
             }
             outputStream.println("&nbsp");
         }
         outputStream.println("<TD ALIGN=RIGHT WIDTH=27%><b><A HREF=" + getReturnURL(false) + ">" + getReturnLabel() + "</A></b></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+        outputStream.println("</div>");
         String s22 = "";
         jgl.HashMap hashmap3 = getMasterConfig();
         s22 = TextUtils.getValue(hashmap3, "_defaultDisableAlertTime");
         if(flag6)
         {
+        	outputStream.println("<div class='monitorAlertsBlock'>");
             outputStream.println("<p><hr><P>\n<B><H3>Disable Alerts for the " + s7 + "</H3></B><br>\n");
             System.out.println("**** FOR DISABLE where getreturnURL = " + getReturnURL(true) + " and  request value = " + request.getValue("returnURL"));
             printMonitorGroupTable(s7, flag9, array, flag12, true, array1, true);
-            outputStream.print("\n<FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>\n<INPUT TYPE=HIDDEN NAME=operation VALUE=\"Disable\">\n<INPUT TYPE=HIDDEN NAME=page VALUE=manage>\n<INPUT TYPE=HIDDEN NAME=disableAlert VALUE=true>\n<INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "\n<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "\n<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">\n" + s5 + s3);
+            outputStream.print("\n<FORM id='disableMonitorForm' ACTION=/SiteView/cgi/go.exe/SiteView method=POST>\n<INPUT TYPE=HIDDEN NAME=operation VALUE=\"Disable\">\n<INPUT TYPE=HIDDEN NAME=page VALUE=manage>\n<INPUT TYPE=HIDDEN NAME=disableAlert VALUE=true>\n<INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "\n<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "\n<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">\n" + s5 + s3);
             if(request.getValue("_health").length() > 0)
             {
                 outputStream.print("<input type=hidden name=_health value=true>\n");
@@ -1039,12 +1050,19 @@ label1:
             {
                 s22 = s27;
             }
-            outputStream.println("<P>\n<INPUT TYPE=radio NAME=tenp_alert_disable_choice  VALUE=timed_alert_disable checked>\nDisable alerts for the next <INPUT TYPE=TEXT SIZE=5 NAME=disable_alert_time  VALUE=" + s22 + ">\n" + "<SELECT SIZE=1 NAME=" + "disable_alert_units" + " >\n" + "<OPTION>seconds<OPTION SELECTED>minutes<OPTION>hours<OPTION>days\n" + "</SELECT>");
+            outputStream.println("<paper-radio-group selected='0' name='tenp_alert_disable_choice' style='width: 100%'>");
+//            outputStream.println("<P>\n<INPUT TYPE=radio NAME=tenp_alert_disable_choice  VALUE=timed_alert_disable checked>\nDisable alerts for the next <INPUT TYPE=TEXT SIZE=5 NAME=disable_alert_time  VALUE=" + s22 + ">\n" + "<SELECT SIZE=1 NAME=" + "disable_alert_units" + " >\n" + "<OPTION>seconds<OPTION SELECTED>minutes<OPTION>hours<OPTION>days\n" + "</SELECT>");
+            outputStream.println("<paper-radio-button NAME='0'  VALUE='timed_alert_disable'>Disable alerts for the next</paper-radio-button> <paper-input style='display: inline-block; width: 80px;margin: 0 5px' type='search' SIZE=5 NAME='disable_alert_time'  VALUE=" + s22 + "></paper-input>\n " + "<paper-dropdown-menu style='width: 150px' NAME='disable_alert_units'><paper-listbox class='dropdown-content' selected='0'>" + "<paper-item>seconds</paper-item><paper-item>minutes</paper-item><paper-item>hours</paper-item><paper-item>days</paper-item>\n" + "</paper-listbox></paper-dropdown-menu><br>");
             int i4 = com.dragonflow.Utils.TextUtils.toInt(request.getUserSetting("_timeOffset"));
             String s41 = com.dragonflow.Page.managePage.getStartTimeHTML(i4);
             String s44 = com.dragonflow.Page.managePage.getEndTimeHTML(i4);
-            outputStream.println("<P>\n<INPUT TYPE=RADIO NAME=tenp_alert_disable_choice  VALUE=scheduled_alert_disable >\nDisable on a one-time schedule from " + s41 + " to " + s44 + "<P>\n<INPUT TYPE=RADIO NAME=" + "tenp_alert_disable_choice" + "  VALUE=" + "undo_temp_alert_disable" + " >\n" + "Undo one-time schedule\n" + "<P>\nAlert Disable Description (optional)" + "\n<INPUT TYPE=TEXT NAME=alertDisableDescription SIZE=50 VALUE=>");
-            outputStream.println("<P><TABLE WIDTH=100% BORDER=0><TR><TD WIDTH=6%>&nbsp;</TD><TD WIDTH=41%><input type=submit VALUE=\"Disable Alerts\"></TD><TD WIDTH=6%>&nbsp;</TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=" + getReturnURL(false) + ">" + getReturnLabel() + "</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+//            outputStream.println("<P>\n<INPUT TYPE=RADIO NAME=tenp_alert_disable_choice  VALUE=scheduled_alert_disable >\nDisable on a one-time schedule from " + s41 + " to " + s44 + "<P>\n<INPUT TYPE=RADIO NAME=" + "tenp_alert_disable_choice" + "  VALUE=" + "undo_temp_alert_disable" + " >\n" + "Undo one-time schedule\n" + "<P>\nAlert Disable Description (optional)" + "\n<INPUT TYPE=TEXT NAME=alertDisableDescription SIZE=50 VALUE=>");
+//            outputStream.println("<P><TABLE WIDTH=100% BORDER=0><TR><TD WIDTH=6%>&nbsp;</TD><TD WIDTH=41%><input type=submit VALUE=\"Disable Alerts\"></TD><TD WIDTH=6%>&nbsp;</TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=" + getReturnURL(false) + ">" + getReturnLabel() + "</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+            
+            outputStream.println("<paper-radio-button NAME='1'  VALUE='scheduled_alert_disable' >Disable on a one-time schedule from " + s41 + " to " + s44 + "</paper-radio-button><br><paper-radio-button NAME='2'  VALUE=" + "undo_temp_alert_disable" + " >\n" + "Undo one-time schedule</paper-radio-button>\n" + "<P style='padding:0'>\nAlert Disable Description (optional)" + "\n<paper-input style='display: inline-block; margin-top: -20px;' TYPE=search NAME=alertDisableDescription SIZE=50 VALUE=></paper-input>");
+            outputStream.println("</paper-radio-group>");
+            outputStream.println("<P><TABLE WIDTH=100% BORDER=0><TR><TD WIDTH=6%>&nbsp;</TD><TD WIDTH=41%><paper-button id='monitorAlertBtn' raised class='fancy'>Disable Alerts</paper-button></TD><TD WIDTH=6%>&nbsp;</TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=" + getReturnURL(false) + ">" + getReturnLabel() + "</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+            outputStream.println("</div>");
         } else
         if(flag7)
         {
@@ -1053,11 +1071,14 @@ label1:
             {
                 s28 = "<input type=hidden name=_health value=true>\n";
             }
+            outputStream.println("<div class='monitorAlertsBlock'>");
             outputStream.println("<p><hr><P>\n<B><H3>Enable Alerts for the " + s7 + "</H3></B><br>\n");
             printMonitorGroupTable(s7, flag9, array, flag12, true, array1, true);
-            outputStream.println("\n<FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST><P><input type=hidden name=enable_temp_alerts_only VALUE=true><b>Enable alerts that are temporarily disabled</b><P><TABLE WIDTH=100% BORDER=0><TR><INPUT TYPE=HIDDEN NAME=operation VALUE=Enable><INPUT TYPE=HIDDEN NAME=page VALUE=manage><INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">" + s5 + s3 + s28 + "<TD WIDTH=6%></TD><TD WIDTH=30%><input type=submit VALUE=\"" + "Enable" + " " + s7 + "\"></FORM></TD>" + "</TR></TABLE></FORM>");
+//            outputStream.println("\n<FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST><P><input type=hidden name=enable_temp_alerts_only VALUE=true><b>Enable alerts that are temporarily disabled</b><P><TABLE WIDTH=100% BORDER=0><TR><INPUT TYPE=HIDDEN NAME=operation VALUE=Enable><INPUT TYPE=HIDDEN NAME=page VALUE=manage><INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">" + s5 + s3 + s28 + "<TD WIDTH=6%></TD><TD WIDTH=30%><input type=submit VALUE=\"" + "Enable" + " " + s7 + "\"></FORM></TD>" + "</TR></TABLE></FORM>");
+            outputStream.println("\n<FORM id='enableMonitorForm' ACTION=/SiteView/cgi/go.exe/SiteView method=POST><P><input type=hidden name=enable_temp_alerts_only VALUE=true><b>Enable alerts that are temporarily disabled</b><P><TABLE WIDTH=100% BORDER=0><TR><INPUT TYPE=HIDDEN NAME=operation VALUE=Enable><INPUT TYPE=HIDDEN NAME=page VALUE=manage><INPUT TYPE=HIDDEN NAME=account VALUE=" + request.getAccount() + ">" + "<INPUT TYPE=HIDDEN NAME=returnURL VALUE=" + request.getValue("returnURL") + ">" + "<INPUT TYPE=HIDDEN NAME=returnLabel VALUE=\"" + request.getValue("returnLabel") + "\">" + s5 + s3 + s28 + "<TD WIDTH=6%></TD><TD WIDTH=30%><paper-button id='monitorAlertBtn' raised class='fancy'>Enable " + s7 + "</paper-button></FORM></TD>" + "</TR></TABLE></FORM>");
             outputStream.println("&nbsp");
             outputStream.println("<TD ALIGN=RIGHT WIDTH=27%><b><A HREF=" + getReturnURL(false) + ">" + getReturnLabel() + "</A></b></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+            outputStream.println("</div>");
         } else
         if(flag3)
         {
@@ -1718,7 +1739,13 @@ label1:
 
     private void printMonitorGroupTable(String s, boolean flag, jgl.Array array, boolean flag1, boolean flag2, jgl.Array array1, boolean flag3)
     {
-        outputStream.print("<TABLE class='monitot-table' BORDER=1 cellspacing=0><TR CLASS=\"tabhead\"><TH colspan='2'>" + s + "</TH>" + "<FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>");
+        outputStream.print("<TABLE class='monitor-table' BORDER=1 cellspacing=0><TR CLASS=\"tabhead\">");
+        if(array.size() > 0 && array1.size() > 0) {
+        	outputStream.print("<TH colspan='2'>" + s + "</TH>");
+        } else {
+        	outputStream.print("<TH>" + s + "</TH>");
+        }
+        outputStream.print("<FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>");
         if(request.getValue("_health").length() > 0)
         {
             outputStream.print("<input type=hidden name=_health value=true>\n");
@@ -2408,7 +2435,7 @@ label1:
         }
         if(s.length() == 0)
         {
-            s = "/SiteView/cgi/go.exe/SiteView?page=manage&account=" + request.getAccount();
+            s = CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=manage&account=" + request.getAccount();
         } else
         {
             s = com.dragonflow.Page.CGI.getGroupDetailURL(request, request.getValue("returnURL"));
@@ -2733,7 +2760,8 @@ label1:
     private void printGroup(com.dragonflow.SiteView.MonitorGroup monitorgroup, jgl.HashMap hashmap, jgl.HashMap hashmap1, int i, java.util.HashMap treeChildrenMap)
     {
         String s = monitorgroup.getProperty(com.dragonflow.SiteView.Monitor.pID);
-        boolean flag = hashmap.get(s) != null;
+//        boolean flag = hashmap.get(s) != null;
+        boolean flag = true;
 //        System.out.println("s -------------" + s + ", flag --------" + flag);
         String s1 = getIndentHTML(i);
         String s2 = Platform.getURLPath("htdocs", request.getAccount()) + "/Detail";
@@ -2801,6 +2829,10 @@ label1:
                     treeChildMap.put("type", "monitor");
                     treeChildMap.put("name", monitor.getProperty(com.dragonflow.SiteView.Monitor.pName));
                     treeChildMap.put("value", s4 + " " + TextUtils.getValue(hashmap1, s4));
+                    if(monitor.getProperty(com.dragonflow.SiteView.Monitor.pDisabled).length() > 0)
+                    {
+                    	treeChildMap.put("disabled", true);
+                    } 
                 }
                 treechildlist.add(treeChildMap);
 //                System.out.println(JSONObject.toJSON(treechildlist));
@@ -3283,6 +3315,7 @@ label2:
                 monitor.unsetProperty(com.dragonflow.SiteView.Monitor.pAlertDisabled);
                 monitor.unsetProperty(com.dragonflow.SiteView.Monitor.pTimedDisable);
                 monitor.unsetProperty(com.dragonflow.SiteView.Monitor.pDisabled);
+                monitor.unsetProperty(com.dragonflow.SiteView.Monitor.pDontRefresh);
             }
             monitor.unsetProperty(com.dragonflow.SiteView.Monitor.pAcknowledgeAlertDisabled);
             if(monitorgroup != null)

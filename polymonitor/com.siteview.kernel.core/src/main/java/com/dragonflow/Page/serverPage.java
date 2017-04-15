@@ -44,7 +44,7 @@ public class serverPage extends com.dragonflow.Page.machineChooserPage
         {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
             menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
-            menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
+            menus1.add(new CGI.menuItems("Remote Windows", "windowsmachine", "", "page", "Add/Edit Remote Windows profiles"));
         }
         if(httprequest.actionAllowed("_tools"))
         {
@@ -292,7 +292,7 @@ public class serverPage extends com.dragonflow.Page.machineChooserPage
             jgl.HashMap hashmap1 = MasterConfig.getMasterConfig();
             if(request.getValue("noNTRemote").length() == 0 && TextUtils.getValue(hashmap1, "_allowUnixToNT").length() > 0)
             {
-                outputStream.println("<p>" + getPagePOST("ntmachine", "") + "<input type=hidden name=backURL value=" + s2 + ">\n" + "<input type=hidden name=storeURL value=" + s1 + ">\n" + "<input type=submit value=\"Setup NT Remote\"> " + "Set up remote NT with a different user/password then the one used in SiteView Services</input>\n" + "</form>\n");
+                outputStream.println("<p>" + getPagePOST("windowsmachine", "") + "<input type=hidden name=backURL value=" + s2 + ">\n" + "<input type=hidden name=storeURL value=" + s1 + ">\n" + "<input type=submit value=\"Setup NT Remote\"> " + "Set up remote NT with a different user/password then the one used in SiteView Services</input>\n" + "</form>\n");
             }
             if(flag1)
             {

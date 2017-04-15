@@ -1144,8 +1144,8 @@ img {
   border-radius: 50%;
 }
 hr {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 7px;
+  margin-bottom: 7px;
   border: 0;
   border-top: 1px solid #eee;
 }
@@ -1222,8 +1222,8 @@ h2,
 .h2,
 h3,
 .h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
 h1 small,
 .h1 small,
@@ -2280,6 +2280,10 @@ th {
   vertical-align: bottom;
   border-bottom: 2px solid #ddd;
 }
+.table tbody>tr>td a{
+    padding:5px 5px;position: relative;
+    border-radius: 3px;
+}
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
 .table > thead:first-child > tr:first-child > th,
@@ -2333,6 +2337,10 @@ table th[class*="col-"] {
   position: static;
   display: table-cell;
   float: none;
+}
+table.table.align-center tr>th,
+table.table.align-center tr>td{
+  text-align: center;
 }
 .table > thead > tr > td.active,
 .table > tbody > tr > td.active,

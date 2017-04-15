@@ -439,7 +439,7 @@ public class apiAlertTestPage extends com.dragonflow.Page.apiMasterTestPage
             {
                 outputStream.println("<p>NO TEST SELECTED!");
             }
-            outputStream.println("\n<p><a href=http://" + server + ":" + port + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+            outputStream.println("\n<p><a href=http://" + server + ":" + port +CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
             outputStream.flush();
         }
         catch(java.lang.Exception exception)

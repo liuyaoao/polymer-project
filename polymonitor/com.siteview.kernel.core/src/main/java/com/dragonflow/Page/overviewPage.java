@@ -61,7 +61,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
         {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
             menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
-            menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
+            menus1.add(new CGI.menuItems("Remote Windows", "windowsmachine", "", "page", "Add/Edit Remote Windows profiles"));
         }
         if(httprequest.actionAllowed("_tools"))
         {
@@ -197,7 +197,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
                 array.add(hashmap);
             }
             com.dragonflow.SiteView.Server.writeServers(array);
-            String s2 = "/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&parent=" + request.getValue("parent") + "&account=" + request.getAccount();
+            String s2 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&parent=" + request.getValue("parent") + "&account=" + request.getAccount();
             printRefreshPage(s2, 0);
         } else
         {
@@ -234,7 +234,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
                 array.add(hashmap);
             }
             com.dragonflow.SiteView.Server.writeServers(array);
-            String s3 = "/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&parent=" + request.getValue("parent") + "&account=" + request.getAccount();
+            String s3 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&parent=" + request.getValue("parent") + "&account=" + request.getAccount();
             printRefreshPage(s3, 0);
         } else
         {
@@ -251,7 +251,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
         jgl.HashMap hashmap = Server.findServer(array, s1);
         hashmap.remove(s2);
         hashmap.add(s2, s);
-        String s3 = "/SiteView/cgi/go.exe/SiteView?page=overview&account=" + request.getAccount();
+        String s3 = CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&account=" + request.getAccount();
         printRefreshPage(s3, 0);
     }
 
@@ -288,7 +288,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
                     s5 = com.dragonflow.Page.overviewPage.getValue(hashmap3, "title");
                 }
             }
-            String s7 = "/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&parent=" + s4 + "&account=" + request.getAccount();
+            String s7 =CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&parent=" + s4 + "&account=" + request.getAccount();
             outputStream.println("<p><H2><a href=" + s7 + ">" + s5 + "</a>: " + s6 + "</H2><TABLE WIDTH=100% BORDER=2 cellspacing=0>" + "<TR><TH align=left>Name</TH>\n");
         } else
         {
@@ -320,7 +320,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
                 String s10 = com.dragonflow.Page.overviewPage.getValue(hashmap2, "title");
                 if(request.actionAllowed("_multiEdit"))
                 {
-                    String s11 = "/SiteView/cgi/go.exe/SiteView?page=overview&server=" + s9 + "&account=" + request.getAccount();
+                    String s11 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&server=" + s9 + "&account=" + request.getAccount();
                     String s12 = "<A href=" + s11 + "&operation=Delete&parent=" + s3 + ">X</a>";
                     String s13 = "<A href=" + s11 + "&operation=Edit&parent=" + s3 + ">Edit</a>";
                     if(com.dragonflow.Page.overviewPage.getValue(hashmap2, "class").length() > 0)
@@ -342,7 +342,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
         outputStream.println("</TABLE><BR>");
         if(request.actionAllowed("_multiEdit"))
         {
-            outputStream.println("\n<A HREF=/SiteView/cgi/go.exe/SiteView?page=overview&operation=Add&parent=" + s3 + "&account=" + request.getAccount() + ">Add</A> to the SiteView server list\n" + "\n<BR><A HREF=/SiteView/cgi/go.exe/SiteView?page=overview&operation=AddGroup&parent=" + s3 + "&account=" + request.getAccount() + ">Add</A> a group to the SiteView server list\n" + "\n<BR>");
+            outputStream.println("\n<A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=Add&parent=" + s3 + "&account=" + request.getAccount() + ">Add</A> to the SiteView server list\n" + "\n<BR><A HREF=/SiteView/cgi/go.exe/SiteView?page=overview&operation=AddGroup&parent=" + s3 + "&account=" + request.getAccount() + ">Add</A> a group to the SiteView server list\n" + "\n<BR>");
             if(request.getValue("server").length() <= 0)
             {
                 outputStream.println("<hr><h3>Multi-View Preferences</h3>");
@@ -394,7 +394,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
         try
         {
             com.dragonflow.Page.overviewPage.saveMasterConfig(hashmap, request);
-            printRefreshPage("/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&account=" + request.getAccount(), 2);
+            printRefreshPage(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&account=" + request.getAccount(), 2);
             outputStream.println("<br><br><p>Saving Settings...</p>");
         }
         catch(java.lang.Exception exception)
@@ -422,7 +422,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
             {
                 array.remove(hashmap);
                 com.dragonflow.SiteView.Server.writeServers(array);
-                printRefreshPage("/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&parent=" + request.getValue("parent") + "&account=" + request.getAccount(), 0);
+                printRefreshPage(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&parent=" + request.getValue("parent") + "&account=" + request.getAccount(), 0);
             }
             catch(java.lang.Exception exception)
             {
@@ -431,7 +431,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
         } else
         {
             printBodyHeader("Delete Confirmation");
-            outputStream.println("<FONT SIZE=+1>Are you sure you want to remove the server <B>" + s2 + "</B> from the SiteView Server list?</FONT>" + "<p><FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>" + "<input type=hidden name=page value=overview>" + "<input type=hidden name=operation value=\"" + s + "\">" + "<input type=hidden name=parent value=\"" + request.getValue("parent") + "\">" + "<input type=hidden name=server value=\"" + s1 + "\">" + "<input type=hidden name=account value=" + request.getAccount() + ">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\"" + s + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&account=" + request.getAccount() + ">Return to Detail</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+            outputStream.println("<FONT SIZE=+1>Are you sure you want to remove the server <B>" + s2 + "</B> from the SiteView Server list?</FONT>" + "<p><FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>" + "<input type=hidden name=page value=overview>" + "<input type=hidden name=operation value=\"" + s + "\">" + "<input type=hidden name=parent value=\"" + request.getValue("parent") + "\">" + "<input type=hidden name=server value=\"" + s1 + "\">" + "<input type=hidden name=account value=" + request.getAccount() + ">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\"" + s + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&account=" + request.getAccount() + ">Return to Detail</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
             printFooter(outputStream);
         }
     }
@@ -492,7 +492,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
                     }
                 } while(true);
                 com.dragonflow.SiteView.Server.writeServers(array1);
-                printRefreshPage("/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&parent=" + request.getValue("parent") + "&account=" + request.getAccount(), 0);
+                printRefreshPage(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&parent=" + request.getValue("parent") + "&account=" + request.getAccount(), 0);
             }
             catch(java.lang.Exception exception)
             {
@@ -501,7 +501,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
         } else
         {
             printBodyHeader("Delete Confirmation");
-            outputStream.println("<FONT SIZE=+1>Are you sure you want to remove the group <B>" + s2 + "</B> from the SiteView Server list?</FONT>" + "<p><FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>" + "<input type=hidden name=page value=overview>" + "<input type=hidden name=operation value=\"" + s + "\">" + "<input type=hidden name=parent value=\"" + request.getValue("parent") + "\">" + "<input type=hidden name=server value=\"" + s1 + "\">" + "<input type=hidden name=account value=" + request.getAccount() + ">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\"Delete\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&account=" + request.getAccount() + ">Return to Detail</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+            outputStream.println("<FONT SIZE=+1>Are you sure you want to remove the group <B>" + s2 + "</B> from the SiteView Server list?</FONT>" + "<p><FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>" + "<input type=hidden name=page value=overview>" + "<input type=hidden name=operation value=\"" + s + "\">" + "<input type=hidden name=parent value=\"" + request.getValue("parent") + "\">" + "<input type=hidden name=server value=\"" + s1 + "\">" + "<input type=hidden name=account value=" + request.getAccount() + ">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\"Delete\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&account=" + request.getAccount() + ">Return to Detail</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
             printFooter(outputStream);
         }
     }
@@ -596,7 +596,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
         {
             flag2 = true;
         }
-        outputStream.println("<HEAD>\n<TITLE>" + com.dragonflow.SiteView.Platform.productName + " Overview</TITLE>\n" + siteviewgroup.refreshTag(i, "/SiteView/cgi/go.exe/SiteView?page=overview&category=" + request.getValue("category") + "&account=" + request.getAccount()) + com.dragonflow.SiteView.Platform.charSetTag + customCacheHeader + "<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/siteviewUI.css\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/user.css\">\n" + "</HEAD>");
+        outputStream.println("<HEAD>\n<TITLE>" + com.dragonflow.SiteView.Platform.productName + " Overview</TITLE>\n" + siteviewgroup.refreshTag(i,CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&category=" + request.getValue("category") + "&account=" + request.getAccount()) + com.dragonflow.SiteView.Platform.charSetTag + customCacheHeader + "<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/siteviewUI.css\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/user.css\">\n" + "</HEAD>");
         String s2 = "";
         if(com.dragonflow.Page.overviewPage.getValue(hashmap, "_overviewBGColor").length() > 5)
         {
@@ -647,7 +647,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
         String s6 = "";
         if(s3.length() != 0)
         {
-            s6 = "<A href=/SiteView/cgi/go.exe/SiteView?page=overview&account=" + request.getAccount() + "><IMG border=0 src=/SiteView/htdocs/artwork/" + s5 + "></a>";
+            s6 = "<A href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&account=" + request.getAccount() + "><IMG border=0 src=/SiteView/htdocs/artwork/" + s5 + "></a>";
         }
         if(flag1)
         {
@@ -659,7 +659,7 @@ public class overviewPage extends com.dragonflow.Page.CGI
         {
             if(request.actionAllowed("_multiEdit"))
             {
-                outputStream.println("<td><a href=/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&account=" + request.getAccount() + " TARGET=MAIN><IMG border=0 src=/SiteView/htdocs/artwork/overviewEdit.gif></a></td>");
+                outputStream.println("<td><a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=List&account=" + request.getAccount() + " TARGET=MAIN><IMG border=0 src=/SiteView/htdocs/artwork/overviewEdit.gif></a></td>");
             }
             String s7 = "Multiview.htm";
             if(!flag2)
@@ -1097,10 +1097,10 @@ label0:
                                 {
                                     if(flag3)
                                     {
-                                        s17 = "<A HREF=/SiteView/cgi/go.exe/SiteView?page=overview&operation=closed&account=" + httprequest.getAccount() + "&server=" + s2 + "&group=" + s11 + "><img src=/SiteView/htdocs/artwork/close.gif border=0></a> " + s17;
+                                        s17 = "<A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=closed&account=" + httprequest.getAccount() + "&server=" + s2 + "&group=" + s11 + "><img src=/SiteView/htdocs/artwork/close.gif border=0></a> " + s17;
                                     } else
                                     {
-                                        s17 = "<A HREF=/SiteView/cgi/go.exe/SiteView?page=overview&operation=open&account=" + httprequest.getAccount() + "&server=" + s2 + "&group=" + s11 + "><img src=/SiteView/htdocs/artwork/open.gif border=0></a> " + s17;
+                                        s17 = "<A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=open&account=" + httprequest.getAccount() + "&server=" + s2 + "&group=" + s11 + "><img src=/SiteView/htdocs/artwork/open.gif border=0></a> " + s17;
                                     }
                                 }
                             }
@@ -1476,7 +1476,7 @@ label0:
         String s = request.getValue("returnURL");
         if(s.length() == 0)
         {
-            s = "/SiteView/cgi/go.exe/SiteView?page=overview&operation=List";
+            s =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=overview&operation=List";
         } else
         if(s.startsWith("Detail") || s.equals("SiteView"))
         {

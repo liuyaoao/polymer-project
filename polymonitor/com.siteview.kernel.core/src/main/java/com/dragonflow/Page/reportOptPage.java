@@ -23,7 +23,7 @@ public class reportOptPage extends com.dragonflow.Page.prefsPage
 
     void printPreferencesSaved()
     {
-        printPreferencesSaved("/SiteView/cgi/go.exe/SiteView?page=reportOpt", "", 0);
+        printPreferencesSaved(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=reportOpt", "", 0);
     }
 
     public void printBody()

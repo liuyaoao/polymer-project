@@ -1,0 +1,42 @@
+<browse_data>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: Vlan1
+Physical Address: 00:17:59:5A:E2:40"
+      id="Version: 2 1 00:17:59:5A:E2:40 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (Vlan1)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: Vlan9
+Physical Address: 00:17:59:5A:E2:43"
+      id="Version: 2 9 00:17:59:5A:E2:43 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (Vlan9)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/1
+Physical Address: 00:17:59:5A:E2:03"
+      id="Version: 2 10001 00:17:59:5A:E2:03 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/1)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/5
+Physical Address: 00:17:59:5A:E2:07"
+      id="Version: 2 10005 00:17:59:5A:E2:07 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/5)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/8
+Physical Address: 00:17:59:5A:E2:0A"
+      id="Version: 2 10008 00:17:59:5A:E2:0A NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/8)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/9
+Physical Address: 00:17:59:5A:E2:0B"
+      id="Version: 2 10009 00:17:59:5A:E2:0B NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/9)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/12
+Physical Address: 00:17:59:5A:E2:0E"
+      id="Version: 2 10012 00:17:59:5A:E2:0E NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/12)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: Null0
+Physical Address: (none) "
+      id="Version: 2 10501  NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (Null0)"/>
+</browse_data>

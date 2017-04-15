@@ -9,6 +9,18 @@
 <dom-module id="px-data-table-cell">
   <template>
     <style include="px-data-table-cell-styles"></style>
+    <style>
+    :host a{
+          padding:5px 8px;position: relative;
+          border-radius: 3px;
+          color: #337ab7;
+          text-decoration: none;
+      }
+      :host a:hover{
+        color: #23527c;
+        text-decoration: underline;
+      }
+    </style>
 
     <span class$="{{_getReaderClass(_editing)}}" on-mouseover='onCellHovered' on-mouseout='onCellUnHovered'>
 

@@ -113,7 +113,7 @@ public class linkPage extends com.dragonflow.Page.CGI
             if(s2.length() == 0)
             {
                 jgl.Sorting.sort(array, new URLInfo(i));
-                String s5 = "/SiteView/cgi/go.exe/SiteView?page=link&file=" + s1 + "&account=" + request.getAccount();
+                String s5 = CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=link&file=" + s1 + "&account=" + request.getAccount();
                 boolean flag1 = request.getValue("show").length() > 0;
                 String s6 = "";
                 if(flag1)

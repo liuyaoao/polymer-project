@@ -210,7 +210,7 @@ public class ApiRmiServer extends java.rmi.server.UnicastRemoteObject implements
 	}
 	
 	public boolean trylogin(String strUser, String strPwd) throws RemoteException,SiteViewException {
-		jgl.Array array = User.findUsersForLogin(strUser, strPwd);
+		jgl.Array array = User.findUsersForLogin(strUser, strPwd,"");
 		if(array.size() > 0)
 			return true;
 		else

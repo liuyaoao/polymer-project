@@ -32,7 +32,7 @@ public class haLicensePage extends com.dragonflow.Page.CGI
                 saveMasterConfig(hashmap);
             }
             catch(java.lang.Exception exception) { }
-            String s2 = "/SiteView/cgi/go.exe/SiteView?page=mirrorPrefs&account=administrator&operation=initSetup";
+            String s2 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=mirrorPrefs&account=administrator&operation=initSetup";
             printRefreshPage(s2, 0);
         } else
         {

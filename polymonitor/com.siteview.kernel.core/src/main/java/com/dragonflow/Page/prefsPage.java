@@ -83,7 +83,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
             } else {
                 outputStream
                         .println("<a href="
-                                + getPageLink("jdbcConfigPrefs", "")
+                        		+  getPageLink("jdbcConfigPrefs", "")
                                 + " title=\"Database Driven Configuration: Control SiteView groups and monitors via database\">DDC</a>");
             }
             outputStream.print(" | ");
@@ -93,14 +93,14 @@ public class prefsPage extends com.dragonflow.Page.CGI {
         } else {
             outputStream
                     .println("<a href="
-                            + getPageLink("vMachine", "")
+                    		+  getPageLink("vMachine", "")
                             + " title=\"Dynamic update for creating template sets\">Dynamic Update</a>");
         }
         outputStream.print(" | ");
         if (s.equals("E-mail")) {
             outputStream.println("<B>E-mail</B>");
         } else {
-            outputStream.println("<a href=" + getPageLink("mailPrefs", "")
+            outputStream.println("<a href=" +  getPageLink("mailPrefs", "")
                     + " title=\"eMail Lists, server info\">E-mail</a>");
         }
         outputStream.print(" | ");
@@ -111,7 +111,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
             } else {
                 outputStream
                         .println("<a href="
-                                + getPageLink("mirrorPrefs", "")
+                        		+  getPageLink("mirrorPrefs", "")
                                 + " title=\"Set up a fail-over of backup SiteView\">Fail-Over</a>");
             }
             outputStream.print(" | ");
@@ -119,14 +119,14 @@ public class prefsPage extends com.dragonflow.Page.CGI {
         if (s.equals("Log")) {
             outputStream.println("<B>Log</B>");
         } else {
-            outputStream.println("<a href=" + getPageLink("logPrefs", "")
+            outputStream.println("<a href=" +  getPageLink("logPrefs", "")
                     + " title=\"Log to Database\">Log</a>");
         }
         outputStream.print(" | ");
         if (s.equals("Pager")) {
             outputStream.println("<B>Pager</B>");
         } else {
-            outputStream.println("<a href=" + getPageLink("pagerPrefs", "")
+            outputStream.println("<a href=" +  getPageLink("pagerPrefs", "")
                     + " title=\"Set up pager and add other pagers\">Pager</a>");
         }
         outputStream.print(" | ");
@@ -135,7 +135,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
         } else {
             outputStream
                     .println("<a href="
-                            + getPageLink("schedulePrefs", "")
+                            +  getPageLink("schedulePrefs", "")
                             + " title=\"Create one or more run schedules for monitors\">Schedule</a>");
         }
         outputStream.print(" | ");
@@ -145,7 +145,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
             } else {
                 outputStream
                         .println("<a href="
-                                + getPageLink("siteseerPrefs", "")
+                        		+  getPageLink("siteseerPrefs", "")
                                 + " title=\"Add SiteSeer group to SiteView or delete it\">SiteSeer</a>");
             }
             outputStream.print(" | ");
@@ -169,7 +169,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
         if (s.equals("SNMP")) {
             outputStream.println("<B>SNMP</B>");
         } else {
-            outputStream.println("<a href=" + getPageLink("snmpPrefs", "")
+            outputStream.println("<a href=" +  getPageLink("snmpPrefs", "")
                     + " title=\"Server info and ports, etc.\">SNMP</a>");
         }
         outputStream.print(" | ");
@@ -178,7 +178,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
         } else {
             outputStream
                     .println("<a href="
-                            + getPageLink("machine", "")
+                    		+  getPageLink("machine", "")
                             + " title=\"Set up connections for monitoring remote UNIX/Linux machines\">Remote UNIX</a>");
         }
         outputStream.print(" | ");
@@ -187,7 +187,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
         } else {
             outputStream
                     .println("<a href="
-                            + getPageLink("mqttmachine", "")
+                    		+  getPageLink("mqttmachine", "")
                             + " title=\"Set up connections for monitoring remote Mqtt machines\">Remote MQTT</a>");
         }
         
@@ -200,17 +200,18 @@ public class prefsPage extends com.dragonflow.Page.CGI {
             } else {
                 outputStream
                         .println("<a href="
-                                + getPageLink("ntmachine", "")
+                        		+  getPageLink("windowsmachine", "")
                                 + " title=\"Set up connections for monitoring remote Windows machines\">Remote Windows</a>");
             }
-            outputStream.print(" | ");
         }
-        if (s.equals("Tenants")) {
+        if (s.equals("Tenants")&&getTenant().length()==0) {
+        	outputStream.print(" | ");
             outputStream.println("<B>Tenants</B>");
-        } else {
+        } else if(getTenant().length()==0){
+        	outputStream.print(" | ");
             outputStream
                     .println("<a href="
-                            + getPageLink("tenantPrefs", "")
+                    		+  getPageLink("tenantPrefs", "")
                             + " title=\"Set up Tenants\">Tenants</a>");
         }
         outputStream.print(" | ");
@@ -225,7 +226,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
                 }
                 outputStream
                         .println("<a href="
-                                + getPageLink(s2, "")
+                        		+  getPageLink(s2, "")
                                 + " title=\"Set up SiteView users with permissions\">Users</a>");
             }
         }
@@ -237,7 +238,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
             } else {
                 outputStream
                         .println("<a href="
-                                + getPageLink("recorderPrefs", "")
+                        		+  getPageLink("recorderPrefs", "")
                                 + " title=\"Allow running QTP/ALT Scripts Monitors from SiteView\">Recorder</a>");
             }
         }

@@ -41,7 +41,7 @@ public class DNSPage extends com.dragonflow.Page.CGI
             s2 = Platform.exampleDomain;
         } else
         {
-            outputStream.println("<center><a href=" + getPageLink("trace", "") + "&host=" + s + "&AWRequest=yes" + ">TraceRoute</a>" + " | " + "<a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a>" + "</center><P>");
+            outputStream.println("<center><a href=" + getPageLink("trace", "") + "&host=" + s + "&AWRequest=yes" + ">TraceRoute</a>" + " | " + "<a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a>" + "</center><P>");
             s2 = "merc-int.com";
         }
         outputStream.println("<CENTER><H2>DNS lookup</H2></CENTER><P>\n<p>\n" + getPagePOST("DNS", "") + "Domain Name Servers are used to translates domain names into IP addresses.  For example,\n" + "a DNS server converts the name www." + s2 + " into an IP address.\n" + "<p>\n" + "This form will send a request to translate a domain name.  \n" + "Enter the IP address of a DNS server and a domain name.\n" + "If left blank then the default DNS server will be used.\n" + "<p>\n" + "Enter \"LOCAL\" in the address field to check the local DNS server" + "<p>\n" + "<TABLE BORDER=\"0\">\n" + "<TR><TD ALIGN=RIGHT>DNS address:</TD><TD><input type=text name=host value=\"" + s + "\" size=60></TD></TR>\n" + "<TR><TD ALIGN=RIGHT>Host Name:</TD><TD><input type=text name=misc value=\"" + s1 + "\" size=60></TD></TR>\n" + "</TABLE>\n" + "<p>\n" + "<input type=submit value=\"DNS Lookup\" class=\"VerBl8\">\n" + "</FORM>\n");

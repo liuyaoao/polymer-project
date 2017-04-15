@@ -92,7 +92,7 @@ public class monitorSetPage extends CGI
         {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
             menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
-            menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
+            menus1.add(new CGI.menuItems("Remote Windows", "windowsmachine", "", "page", "Add/Edit Remote Windows profiles"));
         }
         if(httprequest.actionAllowed("_tools"))
         {
@@ -153,7 +153,7 @@ public class monitorSetPage extends CGI
         CGI.menus menus1 = getNavItems(request);
         if(request.getValue("refreshURL").length() > 0)
         {
-            String s2 = "/SiteView/cgi/go.exe/SiteView?page=" + request.getValue("refreshURL") + "&account=" + request.getAccount();
+            String s2 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + request.getValue("refreshURL") + "&account=" + request.getAccount();
             monitorSetPage.printRefreshHeader(outputStream, Platform.productName + " " + s1, s2, 8);
             printButtonBar(helpPage, "", menus1);
         } else
@@ -171,7 +171,7 @@ public class monitorSetPage extends CGI
         SSrtn ssrtn = new SSrtn();
         String s = com.dragonflow.HTTP.HTTPRequest.encodeString(request.getValue("group"));
         helpPage = "../docs/Solutions.htm";
-        HTMLPage.append("<H2>Add a Monitoring Solution to group : <A HREF=" + CGI.getGroupDetailURL(request, I18N.toDefaultEncoding(s)) + ">" + CGI.getGroupName(I18N.toDefaultEncoding(s)) + "</a></H2>\n");
+        HTMLPage.append("<H2>Add a Monitoring Solution to group : <A HREF=" + CGI.getGroupDetailURL(request, I18N.toDefaultEncoding(s)) + ">" + CGI.getGroupName(I18N.toDefaultEncoding(s),request) + "</a></H2>\n");
         HTMLPage.append("<h3>Available Monitoring Solutions:</h3><p>");
         HTMLPage.append("<br>");
         HTMLPage.append("<hr>");
@@ -246,7 +246,7 @@ public class monitorSetPage extends CGI
             }
             if(flag)
             {
-                HTMLPage.append("<tr><td><A HREF=/SiteView/cgi/go.exe/SiteView?page=" + as4[i] + "&operation=monitorSetProps&group=" + s + "&account=" + request.getAccount() + "&templatefile=" + as[i] + "&" + "solution" + "=true" + ">" + s1 + "</A> </td><td>" + s2 + "</td><td>" + s3 + "</td></tr>");
+                HTMLPage.append("<tr><td><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + as4[i] + "&operation=monitorSetProps&group=" + s + "&account=" + request.getAccount() + "&templatefile=" + as[i] + "&" + "solution" + "=true" + ">" + s1 + "</A> </td><td>" + s2 + "</td><td>" + s3 + "</td></tr>");
             } else
             {
                 HTMLPage.append("<tr><td>" + s1 + "</td><td>" + s2 + "<br>(additional licensing required)</td><td><a href=../../docs/Solutions.htm>Solutions Overview</a></td></tr>");
@@ -303,7 +303,7 @@ public class monitorSetPage extends CGI
     {
         SSrtn ssrtn = new SSrtn();
         String s = request.getValue("group");
-        HTMLPage.append("<H2>Add Monitor Set to group : <A HREF=" + CGI.getGroupDetailURL(request, I18N.toDefaultEncoding(s)) + ">" + CGI.getGroupName(I18N.toDefaultEncoding(s)) + "</a></H2>\n");
+        HTMLPage.append("<H2>Add Monitor Set to group : <A HREF=" + CGI.getGroupDetailURL(request, I18N.toDefaultEncoding(s)) + ">" + CGI.getGroupName(I18N.toDefaultEncoding(s),request) + "</a></H2>\n");
         HTMLPage.append("<h3>Current Monitor Set Templates:</h3>");
         String as[] = getAvailableTemplates();
         if(as == null || as.length == 0)
@@ -997,7 +997,7 @@ public class monitorSetPage extends CGI
         String s5 = "";
         if(request.getValue("refreshURL").length() > 0)
         {
-            s5 = "/SiteView/cgi/go.exe/SiteView?page=" + request.getValue("refreshURL") + "&account=" + request.getAccount();
+            s5 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + request.getValue("refreshURL") + "&account=" + request.getAccount();
             s = "Previous";
         } else
         {

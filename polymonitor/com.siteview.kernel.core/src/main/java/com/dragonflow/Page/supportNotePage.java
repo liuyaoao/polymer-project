@@ -113,7 +113,7 @@ public class supportNotePage extends com.dragonflow.Page.CGI
                 {
                     file1.delete();
                 }
-                printRefreshPage("/SiteView/cgi/go.exe/SiteView?page=supportNote", 0);
+                printRefreshPage(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=supportNote", 0);
                 return;
             }
         }
@@ -211,7 +211,7 @@ public class supportNotePage extends com.dragonflow.Page.CGI
                 {
                     file2.delete();
                 }
-                printRefreshPage("/SiteView/cgi/go.exe/SiteView?page=supportNote", 0);
+                printRefreshPage(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=supportNote", 0);
             }
             catch(java.lang.Exception exception)
             {
@@ -221,7 +221,7 @@ public class supportNotePage extends com.dragonflow.Page.CGI
         {
             java.io.File file1 = new File(s + "note" + s1 + ".htm");
             jgl.HashMap hashmap = SiteViewMain.SupportNoteUtils.readNote(file1);
-            outputStream.println("<FONT SIZE=+1>Are you sure you want to delete support note <B>" + s1 + "</B>" + " regarding &quot;" + TextUtils.getValue(hashmap, "title") + "&quot;?</FONT>" + "<p><FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>" + "<INPUT TYPE=HIDDEN NAME=operation VALUE=\"Delete\">" + "<INPUT TYPE=HIDDEN NAME=page VALUE=supportNote>" + "<INPUT TYPE=HIDDEN NAME=idnum VALUE=\"" + s1 + "\">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit VALUE=\"Delete Support Note\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=/SiteView/cgi/go.exe/SiteView?page=supportNote>Return to Support Note List</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+            outputStream.println("<FONT SIZE=+1>Are you sure you want to delete support note <B>" + s1 + "</B>" + " regarding &quot;" + TextUtils.getValue(hashmap, "title") + "&quot;?</FONT>" + "<p><FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>" + "<INPUT TYPE=HIDDEN NAME=operation VALUE=\"Delete\">" + "<INPUT TYPE=HIDDEN NAME=page VALUE=supportNote>" + "<INPUT TYPE=HIDDEN NAME=idnum VALUE=\"" + s1 + "\">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit VALUE=\"Delete Support Note\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=supportNote>Return to Support Note List</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
             printFooter(outputStream);
         }
     }
@@ -246,10 +246,10 @@ public class supportNotePage extends com.dragonflow.Page.CGI
             {
                 jgl.HashMap hashmap = (jgl.HashMap)array.at(i);
                 stringbuffer.append("<TR><TD>" + TextUtils.getValue(hashmap, "idnum"));
-                stringbuffer.append("<TD><A HREF=/SiteView/cgi/go.exe/SiteView?page=supportNote&operation=Edit&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">Edit</A>\n");
-                stringbuffer.append("<TD><A HREF=/SiteView/cgi/go.exe/SiteView?page=supportNote&operation=Display&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">" + TextUtils.getValue(hashmap, "title") + "</A>\n");
+                stringbuffer.append("<TD><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=supportNote&operation=Edit&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">Edit</A>\n");
+                stringbuffer.append("<TD><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=supportNote&operation=Display&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">" + TextUtils.getValue(hashmap, "title") + "</A>\n");
                 stringbuffer.append("<TD>" + TextUtils.getValue(hashmap, "author") + "\n");
-                stringbuffer.append("<TD><A HREF=/SiteView/cgi/go.exe/SiteView?page=supportNote&operation=Delete&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">Delete</A></TR>\n");
+                stringbuffer.append("<TD><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=supportNote&operation=Delete&idnum=" + TextUtils.getValue(hashmap, "idnum") + ">Delete</A></TR>\n");
             }
 
             stringbuffer.append("</TABLE>\n");

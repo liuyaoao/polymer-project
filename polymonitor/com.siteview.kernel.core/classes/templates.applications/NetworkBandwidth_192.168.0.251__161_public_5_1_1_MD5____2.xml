@@ -1,0 +1,57 @@
+<browse_data>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/1
+Physical Address: 00:17:59:58:31:01"
+      id="Version: 2 1 00:17:59:58:31:01 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/1)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/2
+Physical Address: 00:17:59:58:31:02"
+      id="Version: 2 2 00:17:59:58:31:02 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/2)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/3
+Physical Address: 00:17:59:58:31:03"
+      id="Version: 2 3 00:17:59:58:31:03 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/3)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/4
+Physical Address: 00:17:59:58:31:04"
+      id="Version: 2 4 00:17:59:58:31:04 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/4)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/5
+Physical Address: 00:17:59:58:31:05"
+      id="Version: 2 5 00:17:59:58:31:05 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/5)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/6
+Physical Address: 00:17:59:58:31:06"
+      id="Version: 2 6 00:17:59:58:31:06 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/6)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/8
+Physical Address: 00:17:59:58:31:08"
+      id="Version: 2 8 00:17:59:58:31:08 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/8)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/9
+Physical Address: 00:17:59:58:31:09"
+      id="Version: 2 9 00:17:59:58:31:09 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/9)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: FastEthernet0/11
+Physical Address: 00:17:59:58:31:0B"
+      id="Version: 2 11 00:17:59:58:31:0B NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (FastEthernet0/11)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: Null0
+Physical Address: (none) "
+      id="Version: 2 25  NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (Null0)"/>
+   <counter
+      desc="Alias: NOT DISPLAYABLE
+Description: Vlan1
+Physical Address: 00:17:59:58:31:00"
+      id="Version: 2 26 00:17:59:58:31:00 NOT DISPLAYABLE" name="Interface NOT DISPLAYABLE (Vlan1)"/>
+</browse_data>

@@ -1,6 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-datatable/paper-datatable.html">
-<link rel="import" href="../../bower_components/paper-datatable/paper-datatable-column.html">
+<!-- <link rel="import" href="../../bower_components/paper-datatable/paper-datatable.html">
+<link rel="import" href="../../bower_components/paper-datatable/paper-datatable-column.html"> -->
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html">
 
 <link rel="import" href="select-group-menu.html">
 
@@ -10,20 +14,20 @@
       ::content {
         font-family: 'Roboto', 'Noto', sans-serif;
       }
-      ::content .monitot-table {
+      ::content .monitor-table {
         border: 1px solid #eee;
       }
-      ::content .monitot-table tbody tr th, ::content .monitot-table tbody tr td{
+      ::content .monitor-table tbody tr th, ::content .monitor-table tbody tr td{
         font-family: 'Roboto', 'Noto', sans-serif;
         padding: 10px;
         border: none;
         border-bottom: 1px solid rgba(0,0,0,.3);
         /*border-right: 1px solid rgba(0,0,0,.3);*/
       }
-      ::content .monitot-table tbody tr th {
+      ::content .monitor-table tbody tr th {
         border-top: 1px solid rgba(0,0,0,.3);
       }
-      ::content .monitot-table tr:hover td{
+      ::content .monitor-table tr:hover td{
         background: #eee;
       }
       ::content paper-button.fancy {
@@ -36,18 +40,16 @@
 	    ::content paper-button.fancy:hover {
 	      background: #6CABE0;
 	    }
+			::content paper-input {
+				width: 250px;
+			}
     </style>
 
     <form id="operationForm" method="[[requestMethod]]" action="[[actionUrl]]">
       <template is="dom-if" if="[[healthLength]]">
 				<input type="hidden" name="_health" value="true">
       </template>
-      <input type="hidden" name="page" value="manage">
-			<input type="hidden" name="account" value="[[account]]">
-      <input type="hidden" name="operation" value="[[operation]]">
-      <input type="hidden" name="returnURL" value="[[returnUrl]]">
-      <input type="hidden" name="returnLabel" value="[[returnLabel]]">
-      <content id="operationContent"></content>
+			<content id="operationContent"></content>
     </form>
   </template>
 
@@ -76,33 +78,116 @@
 
 			ready: function() {
         var _operationContent = this.getContentChildren('#operationContent');
-        console.log(_operationContent);
-        var _operationBtn = _operationContent.length ? _operationContent[2].querySelector("#operationBtn") : null;
-        console.log(_operationBtn);
+				var _operationBtn = [];
+				_operationContent.forEach(function(item){
+					var btns = item.querySelector("paper-button");
+					_operationBtn.push(btns);
+				});
         if (_operationBtn) {
-          this.listen(_operationBtn, 'tap', '_submitOperation');
+					_operationBtn.forEach(function(item){
+						this.listen(item, 'tap', '_submitOperation');
+					}.bind(this));
         }
 			},
 
-      _submitOperation: function() {
+			_submitOperation: function(e) {
+				var _btnId = e.target.id, _blockName = 'operationBlock';
+				if (_btnId == 'operationBtn') {
+					_blockName = 'operationBlock';
+				} else if (_btnId == 'monitorAlertBtn') {
+					_blockName = 'monitorAlertsBlock';
+				}
         var _operationContent = this.getContentChildren('#operationContent');
         var _operationForm = this.$.operationForm;
-        var _selectGroupMenu = _operationContent.length ? _operationContent[1].querySelector("select-group-menu") : null;
-        var _selectToGroup = _selectGroupMenu ? _selectGroupMenu.$.selectToGroup : null;
-        console.log(_selectToGroup.selectedItem.getAttribute("value"));
-        var _toGroupID = _operationForm.querySelector("input[name='toGroupID']");
-        if (_toGroupID) {
-          _toGroupID.value = _selectToGroup.selectedItem.getAttribute("value");
-        } else {
-          var input = document.createElement('input');
-          input.hidden = true; input.name = 'toGroupID';
-          input.value = _selectToGroup.selectedItem.getAttribute("value");
-          _operationForm.appendChild(input);
-        }
+				var _this = this;
+				var _selectGroupMenu = null, _operationTable = null, _monitorInputs = null, _operationChoice = null,
+					_operationChecks = null, _selectMenus = null;
 
-        // console.log(_operationForm);
-        // _operationForm.submit();
-      }
+				_operationContent.forEach(function(item){
+					var classname = item.className;
+					if (classname == _blockName) {
+						_operationTable = item;
+						_selectGroupMenu = item.querySelector("select-group-menu");
+						_monitorInputs = item.querySelectorAll("paper-input");
+						_operationChoice = item.querySelectorAll("paper-radio-group");
+						_operationChecks = item.querySelectorAll("paper-checkbox");
+						_selectMenus = item.querySelectorAll("paper-dropdown-menu");
+					}
+				});
+
+        var _selectToGroup = _selectGroupMenu ? _selectGroupMenu.$.selectToGroup : null;
+				if (_selectToGroup) {
+					var _toGroupID = _operationForm.querySelector("input[name='" + _selectToGroup.name + "']");
+	        if (_toGroupID) {
+	          _toGroupID.value = _selectToGroup.selectedItem.getAttribute("value");
+	        } else {
+						var item = {
+							name: _selectToGroup.name,
+							value: _selectToGroup.selectedItem.getAttribute("value")
+						}
+						_this._createInput(item, _operationForm);
+	        }
+				}
+
+				var _hiddenInputs = _operationTable ? _operationTable.querySelectorAll("input[type='hidden']") : [];
+				_hiddenInputs.forEach(function(item) {
+					_this._createInput(item, _operationForm);
+				});
+
+				if (_monitorInputs) {
+					_monitorInputs.forEach(function(item){
+						_this._createInput(item, _operationForm);
+					});
+				}
+
+				if (_operationChoice) {
+					_operationChoice.forEach(function(item){
+						item.name = item.getAttribute("name");
+						item.value = item.selectedItem.getAttribute("value");
+						_this._createInput(item, _operationForm);
+					});
+				}
+
+				if (_operationChecks) {
+					_operationChecks.forEach(function(item){
+						if (item.checked) {
+							item.value = true;
+							_this._createInput(item, _operationForm);
+						}
+					});
+				}
+
+				if (_selectMenus) {
+					_selectMenus.forEach(function(item){
+						item.value = item.selectedItem.getAttribute("value");
+						_this._createInput(item, _operationForm);
+					});
+				}
+
+				var _dateInputs = _operationTable ? _operationTable.querySelectorAll("input[type='text']") : [];
+				// console.log(_hiddenInputs);
+				_dateInputs.forEach(function(item) {
+					_this._createInput(item, _operationForm);
+				});
+
+        _operationForm.submit();
+      },
+
+			_createInput: function(item, _form) {
+				// var _input = _form.querySelector("input[name='" + item.name + "']")
+				// if (_input) {
+				// 	_input.value = item.value;
+				// } else {
+				// 	var input = document.createElement('input');
+				// 	input.hidden = true; input.name = item.name;
+				// 	input.value = item.value;
+				// 	_form.appendChild(input);
+				// }
+				var input = document.createElement('input');
+				input.hidden = true; input.name = item.name;
+				input.value = item.value;
+				_form.appendChild(input);
+			},
 
 		});
 	</script>

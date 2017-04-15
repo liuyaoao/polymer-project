@@ -88,7 +88,7 @@ public class adhocReportPage extends com.dragonflow.Page.CGI
                     s = "<a href=\"javascript:window.close()\">Close Window</a>";
                 } else
                 {
-                    s = "<a href=\"/SiteView/cgi/go.exe/SiteView?page=report&account=" + request.getAccount() + "&operation=adhoc\">Quick Report Form</a>";
+                    s = "<a href="+CGI.getTenant(request.getURL())+"\"/SiteView/cgi/go.exe/SiteView?page=report&account=" + request.getAccount() + "&operation=adhoc\">Quick Report Form</a>";
                 }
                 request.setValue("isadhoc", "true");
                 com.dragonflow.SiteView.HistoryReport.generateReportFromRequest(request, outputStream, s);

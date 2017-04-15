@@ -48,7 +48,7 @@ public class pingPage extends com.dragonflow.Page.CGI
             outputStream.println("<center><b>Ping</b> | <a href=" + getPageLink("trace", "") + "&host=" + host + s2 + "&group=" + request.getValue("group") + ">TraceRoute</a></center><P>");
         } else
         {
-            outputStream.println("<center><b>Ping</b> | <a href=" + getPageLink("trace", "") + "&host=" + host + s2 + "&AWRequest=yes" + ">TraceRoute</a>" + " | " + " <a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a>" + "</center><P>");
+            outputStream.println("<center><b>Ping</b> | <a href=" + getPageLink("trace", "") + "&host=" + host + s2 + "&AWRequest=yes" + ">TraceRoute</a>" + " | " + " <a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a>" + "</center><P>");
         }
         outputStream.println("<p>\n<CENTER><H2>Ping</H2></CENTER><P>\n<p>\n" + getPagePOST("ping", "") + "Ping is a tool that sends a packet to another location and back to the sender.\n" + "It shows you the roundtrip time along the path.\n" + "When there is a problem with the network, ping can tell you if another\n" + "location is reachable.\n" + "<p>This form will do a ping from this server to another location.  Enter\n" + "the domain name or ip address of the other location.\n" + "<p>\n" + "Domain Name or IP address: <input type=text name=host value=\"" + host + "\" size=60>\n" + "<p>\n");
         boolean flag = !isPortalServerRequest();

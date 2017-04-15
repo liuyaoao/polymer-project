@@ -295,7 +295,7 @@ public class portalChooserPage extends com.dragonflow.Page.CGI
         {
             printwriter.println("<TABLE BORDER=1 cellspacing=0><TR><TD>" + s4 + "</TD></TR></TABLE>");
         }
-        printwriter.print("</TD><TD>\n<A HREF=\"/SiteView/cgi/go.exe/SiteView?page=portalChooser&account=" + httprequest.getAccount());
+        printwriter.print("</TD><TD>\n<A HREF=\""+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=portalChooser&account=" + httprequest.getAccount());
         if(s2.length() > 0)
         {
             printwriter.print("&" + s2);
@@ -339,7 +339,7 @@ public class portalChooserPage extends com.dragonflow.Page.CGI
                 String s1 = request.getValue(NEXT_PAGE_VARIABLE);
                 if(s1.length() > 0)
                 {
-                    StringBuffer stringbuffer = new StringBuffer("/SiteView/cgi/go.exe/SiteView?page=");
+                    StringBuffer stringbuffer = new StringBuffer(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=");
                     stringbuffer.append(s1);
                     stringbuffer.append("&account=");
                     stringbuffer.append(request.getAccount());

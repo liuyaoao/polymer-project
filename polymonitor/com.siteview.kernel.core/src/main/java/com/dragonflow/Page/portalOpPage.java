@@ -41,7 +41,7 @@ public class portalOpPage extends com.dragonflow.Page.CGI
         portalsync.sync();
         String s = request.getValue("rview");
         outputStream.println("</PRE>");
-        outputStream.println("<P><A HREF=/SiteView/cgi/go.exe/SiteView?page=portal&view=" + s + "&account=" + request.getAccount() + ">\n" + "Return to Portal</A>");
+        outputStream.println("<P><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=portal&view=" + s + "&account=" + request.getAccount() + ">\n" + "Return to Portal</A>");
     }
 
     public static void main(String args[])

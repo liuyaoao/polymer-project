@@ -49,7 +49,7 @@ public class portalDemoPage extends com.dragonflow.Page.CGI
             siteviewgroup.startingUp = false;
         }
         catch(java.lang.Exception exception1) { }
-        outputStream.println("<p>Click <a href=\"http:/SiteView/cgi/go.exe/SiteView?page=portal&account=administrator\">here</a> to launch application</p>\n");
+        outputStream.println("<p>Click <a href=\"http:"+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=portal&account=administrator\">here</a> to launch application</p>\n");
         outputStream.println("</BODY>\n");
     }
 

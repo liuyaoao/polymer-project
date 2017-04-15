@@ -1,0 +1,22 @@
+lastSaved=1394090782204
+id=-1
+last=1392805169148
+#
+measurement=0
+sample=543
+nodata=n/a
+monitorDoneTime=1392805169148
+category=error
+percentFailed=0
+warningCount=0
+gethostname=fasfsfg
+status=failed
+percentGood=0
+id=1
+errorCount=539
+roundTripTime=n/a
+stateString=Data Unavailable command failed to execute
+packetsReceived=0
+last=1392805169148
+errorTimeSinceFirst=1388647605443
+lastCategory=error

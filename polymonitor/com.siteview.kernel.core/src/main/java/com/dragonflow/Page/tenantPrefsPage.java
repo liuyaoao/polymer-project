@@ -1,11 +1,13 @@
 package com.dragonflow.Page;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dragonflow.HTTP.HTTPRequestException;
 import com.dragonflow.Properties.HashMapOrdered;
+import com.dragonflow.SiteView.Platform;
 import com.dragonflow.SiteView.Tenant;
 import com.dragonflow.SiteView.User;
 import com.dragonflow.Utils.TextUtils;
@@ -88,7 +90,7 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	    void printForm(String s, jgl.Array array, jgl.HashMap hashmap)
 	        throws java.lang.Exception
 	    {
-	        String s1 = request.getValue("tenant");
+	        String s1 = request.getValue("tenantid");
 	        String s2 = s;
 	        boolean flag = false;
 	        jgl.HashMap hashmap1;
@@ -106,7 +108,7 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	        printBodyHeader(s3);
 	        printButtonBar(getHelpPage(), "", getSecondNavItems(request));
 	        printPrefsBar("Tenants");
-	        outputStream.println("<p><H2>" + s3 + "</H2>\n" + getPagePOST(request.getValue("page"), s) + "<input type=hidden name=tenant value=" + s1 + ">\n");
+	        outputStream.println("<p><H2>" + s3 + "</H2>\n" + getPagePOST(request.getValue("page"), s) + "<input type=hidden name=tenantid value=" + s1 + ">\n");
 	        outputStream.print("<TABLE>\n");
 	        printAccessFields(s1, hashmap, hashmap1);
 	        outputStream.println("<TR><TD ALIGN=RIGHT>Company name</TD><TD><TABLE><TR><TD ALIGN=LEFT><input type=text name=_cName size=50 value=\"" + com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_cName") + "\"></TD></TR>" + "<TR><TD><FONT SIZE=-1>the Company name for this tenant, if empty, no Company name is required</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "cName") + "</I></TD></TR>" 
@@ -174,7 +176,7 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	            printPermissionsCheckBoxes(flag, hashmap1);
 	            outputStream.println("</TABLE>");
 	            outputStream.println("</BLOCKQUOTE>");
-	            outputStream.println("<TABLE WIDTH=100%><TR><TD><input type=submit value=\"" + s1 + "\"> User\n" + "</TD></TR></TABLE>");
+	            outputStream.println("<TABLE WIDTH=100%><TR><TD><input type=submit value=\"" + s1 + "\"> Tenant\n" + "</TD></TR></TABLE>");
 	        }
 	    }
 
@@ -232,7 +234,7 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	        jgl.Array array = getTenantFrames();
 	        if(request.isPost() && com.dragonflow.Page.treeControl.notHandled(request))
 	        {
-	            String s1 = request.getValue("tenant");
+	            String s1 = request.getValue("tenantid");
 	            jgl.HashMap hashmap = new HashMap();
 	            String s2 = request.getValue("_cName");
 	            for(int i = 1; i < array.size(); i++)
@@ -282,9 +284,17 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	                ((jgl.HashMap) (obj)).put("_id", "tenant" + s1);
 	                array.add(obj);
 	                hashmap2.put("_nextID", com.dragonflow.Utils.TextUtils.increment(s1));
+	                File file = new File(Platform.getRoot()+"/groups/tenants/"+s2);
+	                file.mkdirs();
 	            } else
 	            {
 	                obj = Tenant.findTenant(array, s1);
+	                File file= new File(Platform.getRoot()+"/groups/tenants/"+TextUtils.getValue((jgl.HashMap) obj, "_cName"));
+	                File newfile= new File(Platform.getRoot()+"/groups/tenants/"+s2);
+	                if(file.exists()&&file.isDirectory())
+	                	file.renameTo(newfile);
+	                else
+	                	newfile.mkdirs();
 	            }
 	            ((jgl.HashMap) (obj)).put("_cName", request.getValue("_cName"));
 	            ((jgl.HashMap) (obj)).put("_cNumber", request.getValue("_cNumber"));
@@ -415,9 +425,11 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	            if(TextUtils.getValue(hashmap, "_disabled").length() > 0){
 	                userTitle = userTitle + " (disabled)";
 	            }
-	            String s4 ="/"+cname+"/SiteView";
+	            String s4 =cname+"/SiteView";
+	            if(cname.length()>0)
+	            	s4="/"+s4;
 	            if(request.actionAllowed("_tentans")){
-	                String mainUrl = getPageLink(request.getValue("page"), "") + "&tenant=" + s2;
+	                String mainUrl = getPageLink(request.getValue("page"), "") + "&tenantid=" + s2;
 	                String delOperation = "<A href=" + mainUrl + "&operation=Delete>X</a>";
 	                if(s2.equals("tenant") || s2.equals("administrator")){
 	                    delOperation = "&nbsp;";
@@ -576,7 +588,7 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	                array = new Array();
 	            }
 	            jgl.HashMap hashmap = getMasterConfig();
-	            Tenant.initializeTenantList(array, hashmap);
+//	            Tenant.initializeTenantList(array, hashmap);
 	        } else
 	        {
 	            array = Tenant.readTenants();

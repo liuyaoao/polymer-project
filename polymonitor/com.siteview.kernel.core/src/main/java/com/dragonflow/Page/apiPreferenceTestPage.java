@@ -210,7 +210,7 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
                 outputStream.println("Problem in APIPreference - getInstanceProperties");
                 outputStream.println(exception4.getMessage() + "<br>\n");
             }
-            outputStream.println("\n<p><a href=http://" + server + ":" + port + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+            outputStream.println("\n<p><a href=http://" + server + ":" + port +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else
         if(request.hasValue("testName") && request.getValue("testName").equals("listPreferenceProperties"))
         {
@@ -227,7 +227,7 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
                 outputStream.println("<p>Error in getClassProperties");
                 outputStream.println("<p>" + exception5.getMessage());
             }
-            outputStream.println("\n<p><a href=http://" + server + ":" + port + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+            outputStream.println("\n<p><a href=http://" + server + ":" + port +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else
         if(request.hasValue("testName") && request.getValue("testName").equals("testPreference"))
         {
@@ -248,7 +248,7 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
                 {
                     outputStream.println("<p>No Test Output Available");
                 }
-                outputStream.println("\n<p><a href=http://" + server + ":" + port + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                outputStream.println("\n<p><a href=http://" + server + ":" + port +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
             }
             catch(java.lang.Exception exception6)
             {
@@ -264,7 +264,7 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
                 String s7 = request.getValue("deletePreferenceID");
                 apipreference.delete(selectedPreferenceType, "_id", s7);
                 outputStream.println("<p>" + selectedPreferenceType + " attributeName: _id attribute Value: " + s7 + " was deleted successfully!");
-                outputStream.println("\n<p><a href=http://" + server + ":" + port + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                outputStream.println("\n<p><a href=http://" + server + ":" + port +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
             }
             catch(java.lang.Exception exception7)
             {
@@ -273,9 +273,9 @@ public class apiPreferenceTestPage extends com.dragonflow.Page.apiMasterTestPage
             }
         } else
         {
-            outputStream.println("NO TEST SELECTED! <a href=http://" + server + ":" + port + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+            outputStream.println("NO TEST SELECTED! <a href=http://" + server +CGI.getTenant(request.getURL())+ ":" + port + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         }
-        outputStream.println("\n<p><a href=http://" + server + ":" + port + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+        outputStream.println("\n<p><a href=http://" + server + ":" + port +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         outputStream.flush();
     }
 

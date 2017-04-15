@@ -552,6 +552,7 @@ label0:
         hashmap = new HashMap();
         String s;
         s = Platform.getRoot() + "/groups/default.config";
+        System.out.println(s+"=====================");
         Object obj1 = null;
         hashmap = MasterConfig.getMasterConfig();
         if(hashmap == null)

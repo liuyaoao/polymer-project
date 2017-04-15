@@ -155,7 +155,7 @@ public class tranWizardPage extends com.dragonflow.Page.monitorPage
         }
         printBodyHeader("Sequence Wizard");
         printButtonBar("URLSeqMon.htm", "");
-        outputStream.println("<p><H2>Add " + s2 + "URL Sequence Monitor in Group : <A HREF=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, s1) + ">" + com.dragonflow.Page.CGI.getGroupName(s1) + "</a></H2>\n");
+        outputStream.println("<p><H2>Add " + s2 + "URL Sequence Monitor in Group : <A HREF=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, s1) + ">" + com.dragonflow.Page.CGI.getGroupName(s1,request) + "</a></H2>\n");
         outputStream.println("<P>\n" + getPagePOST("tranWizard", request.getValue("operation")) + "\n");
     }
 
@@ -957,9 +957,9 @@ public class tranWizardPage extends com.dragonflow.Page.monitorPage
                     printButtonBar("URLSeq.htm", "");
                 } else
                 {
-                    outputStream.println("<center><a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a></center><p>");
+                    outputStream.println("<center><a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a></center><p>");
                 }
-                outputStream.println("<p><H2>Check URL Sequence Monitor in Group : <A HREF=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, s1) + ">" + com.dragonflow.Page.CGI.getGroupName(s1) + "</a></H2>\n");
+                outputStream.println("<p><H2>Check URL Sequence Monitor in Group : <A HREF=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, s1) + ">" + com.dragonflow.Page.CGI.getGroupName(s1,request) + "</a></H2>\n");
                 outputStream.println("<p>\n" + getPagePOST("tranWizard", request.getValue("operation")) + "\nThis form will retrieve a sequence of URLs. \n");
                 outputStream.println("<TABLE>");
                 outputStream.println("<tr><td></td><td><b>Reference Type</b></td><td><b>Reference</b></td><td><b>Charset Encoding</b></td></tr>");
@@ -1090,7 +1090,7 @@ public class tranWizardPage extends com.dragonflow.Page.monitorPage
                 printButtonBar("URLSeq.htm", "");
             } else
             {
-                outputStream.println("<center><a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a></center><p>");
+                outputStream.println("<center><a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a></center><p>");
             }
             outputStream.println("<p>\n<CENTER><H2>Check URL Sequence</H2></CENTER><P>\n<p>\n" + getPagePOST("tranWizard", request.getValue("operation")) + "This form will retrieve a sequence of URLs. \n");
             outputStream.println("<TABLE>");

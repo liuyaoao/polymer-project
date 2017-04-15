@@ -23,16 +23,20 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import jgl.Array;
@@ -70,6 +74,8 @@ import com.dragonflow.Utils.MailUtils;
 import com.dragonflow.Utils.TelnetCommandLine;
 import com.dragonflow.Utils.TempFileManager;
 import com.dragonflow.Utils.TextUtils;
+import com.dragonflow.Utils.Hazelcast.conversion;
+
 import SiteViewMain.UpdateConfig;
 
 
@@ -242,7 +248,7 @@ public class SiteViewGroup extends MonitorGroup {
         if (httprequest.actionAllowed("_preference")) {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
             menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
-            menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
+            menus1.add(new CGI.menuItems("Remote Windows", "windowsmachine", "", "page", "Add/Edit Remote Windows profiles"));
         }
         if (httprequest.actionAllowed("_tools")) {
             menus1.add(new com.dragonflow.Page.CGI.menuItems("Tools", "monitor", "Tools", "operation", "Use monitor diagnostic tools"));
@@ -1192,11 +1198,25 @@ public class SiteViewGroup extends MonitorGroup {
                     array.add(new File(groupsDirectory, as[i]));
                 }
             }
-
+            addTenantGroupFiles(array);
         }
         return array;
     }
-
+    public void addTenantGroupFiles(Array array ){
+    	File file = new File(Platform.getRoot()+"/groups/tenants");
+    	if(file.exists()&&file.isDirectory()){
+    		File[] files = file.listFiles();
+    		for(File f:files){
+    			if(f.isDirectory()){
+    				File[] subfiles = f.listFiles();
+    				for(File tenantf:subfiles){
+    					if(tenantf.getName().endsWith(".mg"))
+    						array.add(tenantf);
+    				}
+    			}
+    		}
+    	}
+    }
     public Array getGroupIDs() {
         Array array;
         if (!allGroupsLoaded) {
@@ -1222,9 +1242,9 @@ public class SiteViewGroup extends MonitorGroup {
         String as[] = file.list();
         for (int i = 0; i < as.length; i ++) {
             if (as[i].endsWith(".mg")) {
-                int j = as[i].lastIndexOf(".mg");
-                String s = as[i].substring(0, j);
-                array.add(s);
+//                int j = as[i].lastIndexOf(".mg");
+//                String s = as[i].substring(0, j);
+                array.add(as[i]);
             }
         }
 
@@ -1257,15 +1277,18 @@ public class SiteViewGroup extends MonitorGroup {
         removeAllElements();
         Array array = getGroupFileIDs();
         String s;
-        for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); loadGroup(s)) {
+        for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); loadGroup(new File(s))) {
             s = I18N.toNullEncoding((String) enumeration.nextElement());
         }
 
     }
 
-    public MonitorGroup loadGroup(String s) {
-        message("Loading group: " + I18N.toDefaultEncoding(s));
-        MonitorGroup monitorgroup = MonitorGroup.loadGroup(s, Platform.getRoot() + File.separator + "groups" + File.separator + I18N.toDefaultEncoding(s) + ".mg", false);
+    public MonitorGroup loadGroup(File file) {
+        message("Loading group: " + I18N.toDefaultEncoding(file.getName()));
+        String s = file.getName();
+        if(s.endsWith(".mg"))
+        	s=s.substring(0, s.length()-3);
+        MonitorGroup monitorgroup = MonitorGroup.loadGroup(s, file.getPath(), false);
         if (monitorgroup != null) {
             addElement(monitorgroup);
             User.registerUsers(monitorgroup, I18N.toDefaultEncoding(monitorgroup.getProperty(pID)), monitorgroup.getMultipleValues("_user"), monitorgroup.getValuesTable());
@@ -1349,7 +1372,7 @@ public class SiteViewGroup extends MonitorGroup {
                 LogManager.log("Debug", "Adding group for: " + file.getAbsolutePath());
                 int i = s.lastIndexOf(".mg");
                 String s3 = I18N.toNullEncoding(s.substring(0, i));
-                MonitorGroup monitorgroup = loadGroup(s3);
+                MonitorGroup monitorgroup = loadGroup(file);
                 if (monitorgroup != null) {
                     array1.add(monitorgroup);
                 }
@@ -1512,7 +1535,7 @@ public class SiteViewGroup extends MonitorGroup {
         if (siteviewobject == null) {
             Object obj = getElementByID(as[0]);
             if (obj == null) {
-                obj = loadGroup(I18N.toNullEncoding(as[0]));
+                obj = loadGroup(new File(I18N.toNullEncoding(as[0])));
             }
             siteviewobject = super.getElement(as, 0);
         }
@@ -1736,7 +1759,7 @@ public class SiteViewGroup extends MonitorGroup {
                     s3 = "&operation=add";
                 }
                 stringbuffer
-                        .append("<td valign=top><table cellpadding=1 border=0 cellspacing=0 width=128>\n<tr><td valign=top><img src=/SiteView/htdocs/artwork/empty201.gif height=20 width=1></td>\n<td align=left valign=top width=96><a href=/SiteView/cgi/go.exe/SiteView?page=siteseerPrefs"
+                        .append("<td valign=top><table cellpadding=1 border=0 cellspacing=0 width=128>\n<tr><td valign=top><img src=/SiteView/htdocs/artwork/empty201.gif height=20 width=1></td>\n<td align=left valign=top width=96><a href="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=siteseerPrefs"
                                 + s3 + "&account=" + httprequest.getAccount() + ">" + "<img src=/SiteView/htdocs/artwork/add_SSr.gif height=17 width=97 border=0></a></td></tr></table></td>\n\n");
                 i ++;
             }
@@ -1748,7 +1771,7 @@ public class SiteViewGroup extends MonitorGroup {
         String s = "";
         Array array = CGI.getGroupFilterForAccount(httprequest);
         if (httprequest.actionAllowed("_groupEdit") && array.size() == 0) {
-            s = "<A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Add&account=" + httprequest.getAccount() + "><img src=/SiteView/htdocs/artwork/create_group.gif height=17 width=97 border=0></A>";
+            s = "<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=group&operation=Add&account=" + httprequest.getAccount() + "><img src=/SiteView/htdocs/artwork/create_group.gif height=17 width=97 border=0></A>";
         }
         stringbuffer.append("<td valign=top><table cellpadding=1 border=0 cellspacing=0 width=128>\n<tr><td valign=top width=128>" + s + "</td></tr></table></td>\n\n");
         s = " ";
@@ -1798,6 +1821,9 @@ public class SiteViewGroup extends MonitorGroup {
         stringbuffer.append("<table align=center bgcolor=#000000 width=350><tr><td></td>");
         int l = 0;
         String s3 = Monitor.NODATA_CATEGORY;
+        String tenant=CGI.getTenant(httprequest.getURL());
+        if(tenant!=null&&tenant.length()>0)
+        	tenant=tenant.substring(1);
         if (array.size() > 0) {
             MonitorGroup monitorgroup1 = (MonitorGroup) array.at(0);
             String s4 = monitorgroup1.getProperty(pName).trim();
@@ -1811,6 +1837,15 @@ public class SiteViewGroup extends MonitorGroup {
                 s8 = s8.trim();
                 String s10 = monitorgroup2.getProperty(pName);
                 s10 = s10.trim();
+                String ppath=monitorgroup2.file.getPath();
+                
+                if((tenant==null||tenant.length()==0)) {
+                	if(!ppath.contains(File.separator+"groups"+File.separator+s10+".mg"))
+                		continue;
+                }else{
+                	if(!ppath.contains(File.separator+"groups"+File.separator+"tenants"+File.separator+tenant+File.separator))
+                		continue;
+                }
                 String s12 = I18N.toDefaultEncoding(monitorgroup2.getProperty(pID));
                 String s15 = monitorgroup2.getProperty(pCategory);
                 String s16 = monitorgroup2.getProperty(pMeasurement);
@@ -1884,7 +1919,7 @@ public class SiteViewGroup extends MonitorGroup {
         String s9 = getSetting("_mainHTML");
         String s11 = "";
         if (Platform.isDemo()) {
-            s11 = "<TR><TD><p class=license align=center><a href=/SiteView/cgi/go.exe/SiteView?page=demo&account=" + httprequest.getAccount() + ">" + LocaleUtils.getResourceBundle().getString("ResetDemo") + "</a></p></td></tr>\n";
+            s11 = "<TR><TD><p class=license align=center><a href="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=demo&account=" + httprequest.getAccount() + ">" + LocaleUtils.getResourceBundle().getString("ResetDemo") + "</a></p></td></tr>\n";
         } else if (httprequest.actionAllowed("_license")) {
             String s13 = LUtils.getLicenseKey();
             if (s13.length() == 0 && Platform.isDemo()) {
@@ -1928,7 +1963,6 @@ public class SiteViewGroup extends MonitorGroup {
             enumeration.nextElement();
             i ++;
         }
-
         return i;
     }
 
@@ -2134,7 +2168,7 @@ public class SiteViewGroup extends MonitorGroup {
         if (s.startsWith("/SiteView/docs/")) {
             return 200;
         }
-        if (s.equals("/SiteView/docs/UGtoc.htm") || s.equals("/SiteView/README.htm") || s.equals("/SiteView/ReleaseNotes.htm") || s.equals("/SiteView/docs/UserGuide.htm")) {
+        if (s.endsWith("/SiteView/docs/UGtoc.htm") || s.endsWith("/SiteView/README.htm") || s.endsWith("/SiteView/ReleaseNotes.htm") || s.endsWith("/SiteView/docs/UserGuide.htm")) {
             return 200;
         }
         if (s.startsWith("/SiteView/classes/COM/dragonflow/Chart/")) {
@@ -2143,10 +2177,10 @@ public class SiteViewGroup extends MonitorGroup {
         if (httprequest.getValue("page").equals("SiteSeer")) {
             return 200;
         }
-        if (s.equals("/SiteView/license.txt")) {
+        if (s.endsWith("/SiteView/license.txt")) {
             return 200;
         }
-        if (s.equals("/SiteView/license.html")) {
+        if (s.endsWith("/SiteView/license.html")) {
             return 200;
         }
 		setupUser(httprequest);
@@ -2219,7 +2253,12 @@ public class SiteViewGroup extends MonitorGroup {
                 User user = (User) enumeration.nextElement();
                 if (user != null && user.authenticate(httprequest)) {
                     httprequest.setUser(user);
-                    return true;
+                    if(httprequest.getTenant().equals(CGI.getTenant(httprequest.getURL()))
+                    		||("/"+httprequest.getTenant()).equals(CGI.getTenant(httprequest.getURL()))
+                    		||(CGI.getTenant(httprequest.getURL()).length()==0&&httprequest.getTenant().equals("SiteViewAdministrator")))
+                    	return true;
+                    else 
+                    	return false;
                 }
             }
             return false;

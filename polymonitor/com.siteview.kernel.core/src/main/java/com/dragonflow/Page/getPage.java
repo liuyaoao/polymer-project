@@ -163,7 +163,7 @@ public class getPage extends com.dragonflow.Page.CGI
             outputStream.println("<center><b>Get URL and URL Content</b> | <a href=" + getPageLink("ping", "") + "&host=" + s17 + s18 + "&group=" + com.dragonflow.HTTP.HTTPRequest.encodeString(s1) + ">Ping</a>" + " | <a href=" + getPageLink("trace", "") + "&host=" + s17 + s18 + "&group=" + com.dragonflow.HTTP.HTTPRequest.encodeString(s1) + ">TraceRoute</a>" + "</center><P>");
         } else
         {
-            outputStream.println("<center><b>Get URL and URL Content</b> | <a href=" + getPageLink("ping", "") + "&host=" + s17 + s18 + "&AWRequest=yes" + ">Ping</a>" + " | <a href=" + getPageLink("trace", "") + "&host=" + s17 + s18 + "&AWRequest=yes" + ">TraceRoute</a>" + " | " + "<a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a>" + "</center><P>");
+            outputStream.println("<center><b>Get URL and URL Content</b> | <a href=" + getPageLink("ping", "") + "&host=" + s17 + s18 + "&AWRequest=yes" + ">Ping</a>" + " | <a href=" + getPageLink("trace", "") + "&host=" + s17 + s18 + "&AWRequest=yes" + ">TraceRoute</a>" + " | " + "<a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a>" + "</center><P>");
         }
         String s19 = flag ? "CHECKED" : "";
         String s20 = flag1 ? "CHECKED" : "";

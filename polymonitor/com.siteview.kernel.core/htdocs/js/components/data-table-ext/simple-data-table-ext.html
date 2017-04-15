@@ -1,5 +1,6 @@
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="../css/bootstrap-styles.html">
 
 <dom-module id="simple-data-table-ext">
@@ -14,10 +15,13 @@
         font-size:20px;
         text-align: center;
       }
-      /*:host .table-responsive table.table[col1='20'] > thead > tr > th{ width:20%; }
-      :host .table-responsive table.table[col1='20'] > thead > tr > td{ width:20%; }
-      :host .table-responsive table.table[col1='30'] > thead > tr > th{ width:30%; }
-      :host .table-responsive table.table[col1='30'] > thead > tr > td{ width:30%; }*/
+      paper-ripple {
+        color: #4285f4;
+      }
+      .table td a{
+          padding:5px 5px;position: relative;
+          border-radius: 3px;
+      }
     </style>
 
       <div class="container-fluid">

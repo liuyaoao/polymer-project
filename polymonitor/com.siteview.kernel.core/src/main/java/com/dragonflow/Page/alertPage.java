@@ -23,6 +23,7 @@ import com.dragonflow.HTTP.HTTPRequestException;
 import com.dragonflow.Properties.HashMapOrdered;
 import com.dragonflow.SiteView.Action;
 import com.dragonflow.SiteView.MasterConfig;
+import com.dragonflow.SiteView.MonitorGroup;
 import com.dragonflow.SiteView.Platform;
 import com.dragonflow.SiteView.SiteViewGroup;
 import com.dragonflow.Utils.TextUtils;
@@ -384,9 +385,9 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			outputStream
 					.println("<hr><p><b>This Alert is a beta feature of SiteView that is currently being tested.<br><br>We would appreciate your feedback on this feature (<a href=mailto:"
 							+ com.dragonflow.SiteView.Platform.supportEmail
-							+ ">"
+							+ " style='display:relative;'>"
 							+ com.dragonflow.SiteView.Platform.supportEmail
-							+ "</a>).&nbsp; "
+							+ "<paper-ripple></paper-ripple></a>).&nbsp; "
 							+ "If you send us comments and/or suggestions, we promise a "
 							+ "quick response from one of our techincal staff."
 							+ "</b><hr>");
@@ -433,8 +434,8 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		}
 		if (s25 != null && s25.length() > 0) {
 			outputStream.println("<TD> (<A HREF=" + getPageLink(s25, "")
-					+ ">Edit " + action.getClassProperty("name")
-					+ " Preferences</A>)</TD></TR>\n");
+					+ " style='display:relative;'>Edit " + action.getClassProperty("name")
+					+ " Preferences<paper-ripple></paper-ripple></a>)</TD></TR>\n");
 		}
 		if ((action instanceof com.dragonflow.SiteView.ServerAction)
 				&& com.dragonflow.SiteView.ServerAction.pMachineName.isEditable) {
@@ -930,6 +931,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		String s5 = getString(alertDetailID);
 		outputStream.println("<p><H2>" + s5 + s2 + "</H2>");
 		outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/data-table-ext.html' async='true'>\n");
+		outputStream.println("<link rel='import' href='/SiteView/htdocs/js/bower_components/paper-ripple/paper-ripple.html' async='true'>\n");
 		outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/simple-data-table-ext.html' async='true'>\n");
 
 		jgl.Array array = getConditions();
@@ -1000,17 +1002,17 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		ArrayList<java.util.HashMap> actionsList = new ArrayList<java.util.HashMap>();
 		if (request.actionAllowed("_alertEdit")) {
 			java.util.HashMap<String, String> _alertEditMap = new java.util.HashMap<String, String>();
-			_alertEditMap.put("atitle","<a href=" + getPageLink("alert", "AddList")+ ">"+ getString(alertAddID) + "</a>");
+			_alertEditMap.put("atitle","<a href=" + getPageLink("alert", "AddList")+ ">"+ getString(alertAddID) + "<paper-ripple></paper-ripple></a>");
 			_alertEditMap.put("desc","Add a new alert for one or more monitors or groups");
 			actionsList.add(_alertEditMap);
 		}
 		if (request.actionAllowed("_alertDisable")) {
 			java.util.HashMap<String, String> _alertDisableMap = new java.util.HashMap<String, String>();
-			_alertDisableMap.put("atitle","<a href=" + getPageLink("alert", "Disable") + ">Disable</a>");
+			_alertDisableMap.put("atitle","<a href=" + getPageLink("alert", "Disable") + ">Disable<paper-ripple></paper-ripple></a>");
 			_alertDisableMap.put("desc","Disable all alerts");
 			actionsList.add(_alertDisableMap);
 			java.util.HashMap<String, String> _alertEnableMap = new java.util.HashMap<String, String>();
-			_alertEnableMap.put("atitle","<a href="+ getPageLink("alert", "Enable")+ ">Enable</A>");
+			_alertEnableMap.put("atitle","<a href="+ getPageLink("alert", "Enable")+ ">Enable<paper-ripple></paper-ripple></a>");
 			_alertEnableMap.put("desc","Enable all alerts previously disabled");
 			actionsList.add(_alertEnableMap);
 		}
@@ -1049,11 +1051,11 @@ public class alertPage extends com.dragonflow.Page.CGI {
 						String desc = "";
 						String title = "";
 						if (flag7) {
-							title = "<A HREF=" + getPageLink(s12, "test") + ">Test "+ action.getClassProperty("name")+ "</A>";
+							title = "<A HREF=" + getPageLink(s12, "test") + ">Test "+ action.getClassProperty("name")+ "<paper-ripple></paper-ripple></a>";
 							desc += "Send a test "+ action.getClassProperty("name") + " Alert ";
 						}
 						if (flag6) {
-							desc += "using current <A HREF="+ getPageLink(s12, "") + ">"+ action.getClassProperty("name")+ " Preferences</A>";
+							desc += "using current <A HREF="+ getPageLink(s12, "") + ">"+ action.getClassProperty("name")+ " Preferences<paper-ripple></paper-ripple></a>";
 						}
 						_alertOtherMap.put("atitle",title);
 						_alertOtherMap.put("desc",desc);
@@ -1068,13 +1070,13 @@ public class alertPage extends com.dragonflow.Page.CGI {
 
 		if (request.actionAllowed("_alertAdhocReport")) {
 			java.util.HashMap<String, String> _alertAdhocReportMap = new java.util.HashMap<String, String>();
-			_alertAdhocReportMap.put("atitle","<a HREF="+ getPageLink("alert", "ReportForm")+ ">Alert Report</a>");
+			_alertAdhocReportMap.put("atitle","<a HREF="+ getPageLink("alert", "ReportForm")+ ">Alert Report<paper-ripple></paper-ripple></a>");
 			_alertAdhocReportMap.put("desc","View a report of alerts that have been sent");
 			actionsList.add(_alertAdhocReportMap);
 		}
 		if (request.actionAllowed("_logs")) {
 			java.util.HashMap<String, String> _logsMap = new java.util.HashMap<String, String>();
-			_logsMap.put("atitle","<a href="+ getPageLink("log", "")+ ">Alert Log</a>");
+			_logsMap.put("atitle","<a href="+ getPageLink("log", "")+ ">Alert Log<paper-ripple></paper-ripple></a>");
 			_logsMap.put("desc","View the the log of alerts sent");
 			actionsList.add(_logsMap);
 		}
@@ -1132,11 +1134,11 @@ public class alertPage extends com.dragonflow.Page.CGI {
 								.UnicodeToString((String) hashmap
 										.get("id"), com.dragonflow.Utils.I18N
 										.nullEncoding()));
-		return "<a HREF=" + s + ">History</a>";
+		return "<a HREF=" + s + ">History<paper-ripple></paper-ripple></a>";
 	}
 
 	String buildEditLink(String s) {
-		return "<a href=" + s + "&operation=Edit>Edit</a>";
+		return "<a href=" + s + "&operation=Edit>Edit<paper-ripple></paper-ripple></a>";
 	}
 
 	String buildTestLink(jgl.HashMap hashmap) {
@@ -1156,11 +1158,11 @@ public class alertPage extends com.dragonflow.Page.CGI {
 										.getValue(hashmap, "group"),
 										com.dragonflow.Utils.I18N
 												.nullEncoding())) + "&monitor="
-				+ hashmap.get("monitor") + ">Test</a>";
+				+ hashmap.get("monitor") + ">Test<paper-ripple></paper-ripple></a>";
 	}
 
 	String buildDeleteLink(String s) {
-		return "<a href=" + s + "&operation=Delete>X</a>";
+		return "<a href=" + s + "&operation=Delete>X<paper-ripple></paper-ripple></a>";
 	}
 
 	void printDisableForm(String s) throws java.lang.Exception {
@@ -1177,7 +1179,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 							+ " Alerts\"></TD>"
 							+ "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><a href="
 							+ getPageLink("alert", "List")
-							+ ">Return to Alerts</A></TD><TD WIDTH=6%></TD>"
+							+ ">Return to Alerts<paper-ripple></paper-ripple></a></TD><TD WIDTH=6%></TD>"
 							+ "</TR></TABLE></FORM>");
 			printFooter(outputStream);
 			return;
@@ -1280,7 +1282,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 							+ " Alert\"></TD>"
 							+ "<TD WIDTH=\"6%\"></TD><TD ALIGN=RIGHT WIDTH=\"41%\"><A HREF="
 							+ getPageLink("alert", "List")
-							+ ">Return to Detail</A></TD><TD WIDTH=\"6%\"></TD>"
+							+ ">Return to Detail<paper-ripple></paper-ripple></a></TD><TD WIDTH=\"6%\"></TD>"
 							+ "</TR></TABLE></FORM>");
 			printFooter(outputStream);
 		}
@@ -2299,7 +2301,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 									+ action.getClassProperty("description")
 									+ "</TD><TD valign=\"top\"><A HREF=/SiteView/docs/"
 									+ action.getClassProperty("help")
-									+ " TARGET=Help>Help</A>" + "</TD></TR>");
+									+ " TARGET=Help>Help<paper-ripple></paper-ripple></a>" + "</TD></TR>");
 				}
 
 			} catch (java.lang.Exception exception) {
@@ -2330,10 +2332,15 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		}
 		jgl.Array array1 = new Array();
 		jgl.Array array2 = getAllowedGroupIDs();
+		SiteViewGroup siteviewgroup = SiteViewGroup.cCurrentSiteView;
 		for (Enumeration enumeration = array2.elements(); enumeration
 				.hasMoreElements();) {
 			String s = (String) enumeration.nextElement();
-			jgl.Array array3 = ReadGroupFrames(s);
+			MonitorGroup monitor=siteviewgroup.getGroup(s);
+			if(!s.equals("__Health__"))
+			if(monitor!=null&&monitor.getFile()!=null&&!isTenantFile(request, monitor.getFile().getPath()))
+				continue;
+			jgl.Array array3 = ReadGroupFramesForPath(monitor.getFile().getPath());
 			Enumeration enumeration2 = com.dragonflow.Page.alertPage
 					.getMonitors(array3);
 			jgl.HashMap hashmap1 = null;
@@ -2358,7 +2365,20 @@ public class alertPage extends com.dragonflow.Page.CGI {
 		}
 		return array;
 	}
-
+	boolean isTenantFile(HTTPRequest httpr,String file){
+		String tenant=getTenant();
+		if((tenant==null||tenant.length()==0))
+			if(file.contains(File.separator+"groups"+File.separator+"tenants"+File.separator))
+				return false;
+			else
+				return true;
+		else{
+			if(file.contains(File.separator+"groups"+File.separator+"tenants"+File.separator+tenant+File.separator))
+				return true;
+			else
+				return false;
+		}
+	}
 	jgl.Array getActionClasses() {
 		jgl.Array array = new Array();
 		jgl.HashMap hashmap = null;
@@ -2427,7 +2447,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 				+ " Action cannot be added with a this account."
 				+ "<HR><P><A HREF="
 				+ com.dragonflow.Page.CGI.getGroupDetailURL(request, s)
-				+ ">Return to Group</A>\n");
+				+ ">Return to Group<paper-ripple></paper-ripple></a>\n");
 		printFooter(outputStream);
 	}
 
@@ -2444,7 +2464,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 				+ " alerts for this account.");
 		outputStream.println("<HR><P><A HREF="
 				+ com.dragonflow.Page.CGI.getGroupDetailURL(request, s)
-				+ ">Return to Group</A>\n");
+				+ ">Return to Group<paper-ripple></paper-ripple></a>\n");
 		printFooter(outputStream);
 	}
 
@@ -2794,7 +2814,7 @@ public class alertPage extends com.dragonflow.Page.CGI {
 			outputStream
 					.println("<p>&nbsp;</p><TABLE border=\"0\" width=\"90%\"><tr><td><input type=submit VALUE=\"Test Alert Settings\"></td><td width=\"25%\">&nbsp;</td><td align=right><A HREF="
 							+ getPageLink("alert", "List")
-							+ ">Back to Alerts List</A></TD>"
+							+ " style='display:relative;'>Back to Alerts List<paper-ripple></paper-ripple></a></TD>"
 							+ "</TR></TABLE></FORM>");
 		}
 		printFooter(outputStream);

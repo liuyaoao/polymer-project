@@ -69,8 +69,7 @@ public class loginPage extends com.dragonflow.Page.CGI
     void printLoginComplete(String s)
         throws java.lang.Exception
     {
-        String tenant = request.getValue("_tenant");
-        tenant="dazhong";
+        String tenant = getTenant();
     	String login = request.getValue("_login");
         String password = request.getValue("_password");
         username=login;
@@ -167,13 +166,13 @@ public class loginPage extends com.dragonflow.Page.CGI
                         groupRedirectUrl = "/SiteView?account=" + user.getProperty(User.pAccount);
                     }
                     request.addOtherHeader("Set-Cookie: " + com.dragonflow.SiteView.Platform.productName + "=" + user.getProperty(User.pAccount) + "|" + user.getProperty(User.pLogin) + "|" + com.dragonflow.Utils.TextUtils.obscure(s4) +"|"+tenant+ "; path=/");
-                    if(tenant.equals("SiteViewAdministrator"))
+                    if(tenant.length()==0)
                     	tenant="";
                     else
                     	tenant="/"+tenant;
                     request.addOtherHeader("Location: " + tenant+groupRedirectUrl);
                     request.setStatus(301);
-                    loginDisabledMessage = "<br>Correct username and password<br><a href=\"" + groupRedirectUrl + "\">Go to Main Console</a>" + "<meta http-equiv=\"refresh\" content=\"5;url=\"" + groupRedirectUrl + "\">";
+                    loginDisabledMessage = "<br>Correct username and password<br><a href=\"" +  tenant+groupRedirectUrl + "\">Go to Main Console</a>" + "<meta http-equiv=\"refresh\" content=\"5;url=\"" + groupRedirectUrl + "\">";
                 }
             }
         } else

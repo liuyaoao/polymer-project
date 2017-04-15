@@ -30,7 +30,7 @@ public class mqttmachinePage extends com.dragonflow.Page.remoteBase{
 	Array getListTableRow(HashMap hashmap, String s) {
         jgl.Array array = new Array();
         String s1 = TextUtils.getValue(hashmap, "_id");
-        String s2 = com.dragonflow.Page.ntmachinePage.getValue(hashmap, "_name");
+        String s2 = com.dragonflow.Page.windowsmachinePage.getValue(hashmap, "_name");
         if(s2.length() == 0)
         {
             s2 = TextUtils.getValue(hashmap, "_host");

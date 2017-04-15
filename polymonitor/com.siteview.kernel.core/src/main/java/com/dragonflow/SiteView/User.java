@@ -268,21 +268,27 @@ public class User extends SiteViewObject {
         accountTable.remove(s);
     }
 
-    public static Array findUsersForLogin(String s, String s1) {
+    public static Array findUsersForLogin(String s, String s1,String tenant) {
         Array array = new Array();
+        HashMap hashmap=Tenant.findTenantforName(Tenant.readTenants(), tenant);
+        tenant="";
+        if(hashmap!=null)
+        	tenant=TextUtils.getValue(hashmap, "_id");
         for (Enumeration enumeration = accountTable.keys(); enumeration.hasMoreElements();) {
             String s2 = (String) enumeration.nextElement();
             Enumeration enumeration1 = accountTable.values(s2);
             while (enumeration1.hasMoreElements()) {
                 User user = (User) enumeration1.nextElement();
-                if (user.getProperty(pLogin).equalsIgnoreCase(s) && user.getProperty(pPassword).equals(s1)) {
-                    array.add(user);
-                } else if (user.getProperty(pLogin).equalsIgnoreCase(s) && user.getProperty(pLdap).length() > 0 && user.getProperty(pSecurityPrincipal).length() > 0) {
-                    array.add(user);
+                String tenantid = user.getProperty(pTenant);
+                if(tenantid.equals(tenant)){
+	                if (user.getProperty(pLogin).equalsIgnoreCase(s) && user.getProperty(pPassword).equals(s1)) {
+	                    array.add(user);
+	                } else if (user.getProperty(pLogin).equalsIgnoreCase(s) && user.getProperty(pLdap).length() > 0 && user.getProperty(pSecurityPrincipal).length() > 0) {
+	                    array.add(user);
+	                }
                 }
             }
         }
-
         return array;
     }
 

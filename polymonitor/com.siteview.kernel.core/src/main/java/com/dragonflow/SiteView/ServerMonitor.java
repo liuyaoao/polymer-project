@@ -117,6 +117,7 @@ public abstract class ServerMonitor extends AtomicMonitor implements Runnable, I
             return;
         }
         if (((AtomicMonitor) iserverpropmonitor).getProperty(pDisabled)
+                .length() > 0||((AtomicMonitor) iserverpropmonitor).getProperty(pDontRefresh)
                 .length() > 0) {
             return;
         }

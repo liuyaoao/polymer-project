@@ -10,15 +10,19 @@
       :host {
         --paper-menu-button-content: {
           top: 60px!important;
-          left: 10px;
+          left: 5px;
+					width: 250px;
         }
       }
+			paper-dropdown-menu {
+				width: 250px;
+			}
       paper-listbox {
-        /*min-width: 200px;*/
+        min-width: 250px;
       }
     </style>
 
-    <paper-dropdown-menu label="{{label}}" name="selectToGroup" id="selectToGroup">
+    <paper-dropdown-menu label="[[label]]" name="[[name]]" id="selectToGroup">
       <paper-listbox class="dropdown-content" selected="0">
         <template is="dom-repeat" items="{{optionData}}" as="item">
           <paper-item value$="{{item.value}}">{{item.name}}</paper-item>

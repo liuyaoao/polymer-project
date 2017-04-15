@@ -36,7 +36,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                             + server
                             + ":"
                             + port
-                            + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                            +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else if (!request.hasValue("testName")
                 || request.hasValue("testName")
                 && request.getValue("testName").equals("serverLoadStats")) {
@@ -47,7 +47,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                             + server
                             + ":"
                             + port
-                            + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                            +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else if (!request.hasValue("testName")
                 || request.hasValue("testName")
                 && request.getValue("testName").equals(
@@ -65,7 +65,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                             + server
                             + ":"
                             + port
-                            + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                            +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else if (!request.hasValue("testName")
                 || request.hasValue("testName")
                 && request.getValue("testName")
@@ -83,7 +83,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                             + server
                             + ":"
                             + port
-                            + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                            +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else if (!request.hasValue("testName")
                 || request.hasValue("testName")
                 && request.getValue("testName")
@@ -101,7 +101,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                             + server
                             + ":"
                             + port
-                            + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                            +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else if (!request.hasValue("testName")
                 || request.hasValue("testName")
                 && request.getValue("testName").equals(
@@ -124,7 +124,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                             + server
                             + ":"
                             + port
-                            + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                            +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else if (!request.hasValue("testName")
                 || request.hasValue("testName")
                 && request.getValue("testName")
@@ -147,7 +147,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                             + server
                             + ":"
                             + port
-                            + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                            +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else if (!request.hasValue("testName")
                 || request.hasValue("testName")
                 && request.getValue("testName")
@@ -170,7 +170,7 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                             + server
                             + ":"
                             + port
-                            + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                            +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else if (!request.hasValue("testName")
                 || request.hasValue("testName")
                 && request.getValue("testName").equals("runningMonitorStats")) {
@@ -199,14 +199,14 @@ public class apiStatsTestPage extends com.dragonflow.Page.CGI {
                             + server
                             + ":"
                             + port
-                            + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                            +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         } else {
             outputStream
                     .println("NO TEST SELECTED! <a href=http://"
                             + server
                             + ":"
                             + port
-                            + "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
+                            +CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page=apiMasterTest&account=administrator>Back</a> to Master Test Page");
         }
     }
 }

@@ -203,7 +203,7 @@ public class portalManagePage extends com.dragonflow.Page.portalChooserPage
         String s = request.getValue("returnURL");
         if(s.length() == 0)
         {
-            s = "/SiteView/cgi/go.exe/SiteView?page=portalManage";
+            s =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=portalManage";
         } else
         if(s.startsWith("Detail") || s.equals("SiteView"))
         {

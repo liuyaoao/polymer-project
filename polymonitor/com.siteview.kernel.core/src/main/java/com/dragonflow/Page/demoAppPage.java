@@ -60,7 +60,7 @@ public class demoAppPage extends com.dragonflow.Page.CGI
         throws java.lang.Exception
     {
         jgl.Array array = com.dragonflow.Properties.FrameFile.readFromFile(com.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
-        String s = "/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=item&session=" + request.getValue("session") + "&item=";
+        String s =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=item&session=" + request.getValue("session") + "&item=";
         outputStream.println("<TABLE BORDER=1 cellspacing=0>");
         for(int i = 0; i < array.size(); i++)
         {
@@ -82,7 +82,7 @@ public class demoAppPage extends com.dragonflow.Page.CGI
         String s = request.getValue("item");
         jgl.Array array = com.dragonflow.Properties.FrameFile.readFromFile(com.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
         String s1 = request.getValue("session");
-        String s2 = "/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=shoppingBasket&session=" + s1 + "&add=";
+        String s2 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=shoppingBasket&session=" + s1 + "&add=";
         jgl.HashMap hashmap = null;
         int i = 0;
         do
@@ -108,7 +108,7 @@ public class demoAppPage extends com.dragonflow.Page.CGI
             outputStream.println("<P>" + TextUtils.getValue(hashmap, "longDescription"));
             outputStream.println("<P><B>In Stock : </B>" + TextUtils.getValue(hashmap, "inStock"));
             outputStream.println("<P><A HREF=" + s2 + s + ">Add to Basket</A>");
-            outputStream.println("<P><A HREF=/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=catalog&session=" + request.getValue("session") + ">Return to Catalog</A>");
+            outputStream.println("<P><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=catalog&session=" + request.getValue("session") + ">Return to Catalog</A>");
         }
     }
 
@@ -127,7 +127,7 @@ public class demoAppPage extends com.dragonflow.Page.CGI
     {
         jgl.Array array = com.dragonflow.Properties.FrameFile.readFromFile(com.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
         String s = request.getValue("session");
-        String s1 = "/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=item&session=" + s + "&item=";
+        String s1 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=item&session=" + s + "&item=";
         jgl.HashMap hashmap = (jgl.HashMap)shoppingBasket.get(s);
         if(hashmap == null)
         {
@@ -164,8 +164,8 @@ public class demoAppPage extends com.dragonflow.Page.CGI
                 }
             } while(true);
             outputStream.println("</TABLE>");
-            outputStream.println("<P><A HREF=/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=checkout&session=" + s + ">Check Out</A>");
-            outputStream.println("<P><A HREF=/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=catalog&session=" + request.getValue("session") + ">Return to Catalog</A>");
+            outputStream.println("<P><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=checkout&session=" + s + ">Check Out</A>");
+            outputStream.println("<P><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=catalog&session=" + request.getValue("session") + ">Return to Catalog</A>");
         }
     }
 
@@ -179,7 +179,7 @@ public class demoAppPage extends com.dragonflow.Page.CGI
     {
         jgl.Array array = com.dragonflow.Properties.FrameFile.readFromFile(com.dragonflow.SiteView.Platform.getRoot() + "/groups/demoCatalog.config");
         String s = request.getValue("session");
-        String s1 = "/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=item&session=" + s + "&item=";
+        String s1 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=item&session=" + s + "&item=";
         jgl.HashMap hashmap = (jgl.HashMap)shoppingBasket.get(s);
         if(hashmap == null)
         {
@@ -268,7 +268,7 @@ public class demoAppPage extends com.dragonflow.Page.CGI
             com.dragonflow.Utils.MailUtils.mail(getMasterConfig(), request.getValue("email"), "Widget Order", s2);
             log(s + "," + s1);
             shoppingBasket.remove(s);
-            outputStream.println("<P><A HREF=/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=catalog&session=" + s + ">Return to Catalog</A>");
+            outputStream.println("<P><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=catalog&session=" + s + ">Return to Catalog</A>");
         }
     }
 
@@ -332,7 +332,7 @@ public class demoAppPage extends com.dragonflow.Page.CGI
             printOrderContents();
         } else
         {
-            com.dragonflow.Page.demoAppPage.printError(outputStream, "Operation unknown", "unknown operation for catalog", "/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=catalog&session=" + request.getValue("session"));
+            com.dragonflow.Page.demoAppPage.printError(outputStream, "Operation unknown", "unknown operation for catalog", CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=demoApp&operation=catalog&session=" + request.getValue("session"));
         }
     }
 

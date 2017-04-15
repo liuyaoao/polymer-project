@@ -604,7 +604,7 @@ label0:
                     if(request.getValue("operation").indexOf("addLic") != -1)
                     {
                         String s = updateMCSettings();
-                        printRefreshHeader("", "/SiteView/cgi/go.exe/SiteView?page=" + request.getValue("page") + "&account=" + request.getAccount() + "&operation=startoptions&mcstatus=" + s, 2);
+                        printRefreshHeader("", CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + request.getValue("page") + "&account=" + request.getAccount() + "&operation=startoptions&mcstatus=" + s, 2);
                         outputStream.println("\n <IMG SRC=/SiteView/htdocs/artwork/SS_1stXsetup_v2.gif border=\"0\" alt=\"Starting SiteView the First Time\"\n>");
                         outputStream.println("<p>Updating SiteView settings ... <br><br></p><p>Will automatically refresh within 10 seconds...</p><br><br>");
                         printFooter(outputStream);
@@ -620,7 +620,7 @@ label0:
                     } else
                     if(request.getValue("operation").indexOf("Copy") != -1 || request.getValue("operation").indexOf("Setupwzd") != -1)
                     {
-                        printRefreshHeader("", "/SiteView/cgi/go.exe/SiteView?page=" + request.getValue("page") + "&account=" + request.getAccount() + "&operation=2", 2);
+                        printRefreshHeader("",CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + request.getValue("page") + "&account=" + request.getAccount() + "&operation=2", 2);
                     } else
                     {
                         printRefreshHeader("", "/SiteView/" + request.getAccountDirectory() + "/SiteView.html", 2);

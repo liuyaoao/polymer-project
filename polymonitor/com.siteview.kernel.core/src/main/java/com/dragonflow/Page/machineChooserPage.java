@@ -31,7 +31,7 @@ public abstract class machineChooserPage extends com.dragonflow.Page.CGI {
         } else {
             com.dragonflow.SiteView.PortalSiteView portalsiteview = (com.dragonflow.SiteView.PortalSiteView) getSiteView();
             if (portalsiteview != null) {
-                String s = "/SiteView/cgi/go.exe/SiteView?page=remoteOp&operation=getServers&account=administrator";
+                String s =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=remoteOp&operation=getServers&account=administrator";
                 jgl.Array array = portalsiteview.sendURLToRemoteSiteView(s,
                         null);
                 vector = new Vector();

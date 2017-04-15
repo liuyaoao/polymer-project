@@ -312,7 +312,7 @@ public class vMachinePage extends com.dragonflow.Page.prefsPage {
                             + "<TD WIDTH=\"6%\"></TD><TD WIDTH=\"41%\"><input type=submit value=\""
                             + s
                             + " Dynamic Set\"></TD>"
-                            + "<TD WIDTH=\"6%\"></TD><TD ALIGN=RIGHT WIDTH=\"41%\"><A HREF=/SiteView/cgi/go.exe/SiteView?page=vMachine&operation=List&account="
+                            + "<TD WIDTH=\"6%\"></TD><TD ALIGN=RIGHT WIDTH=\"41%\"><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=vMachine&operation=List&account="
                             + request.getAccount()
                             + ">Return to Detail</A></TD><TD WIDTH=\"6%\"></TD>"
                             + "</TR></TABLE></FORM>");

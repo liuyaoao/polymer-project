@@ -374,7 +374,7 @@ public class FrameFile {
             while (enumeration1.hasMoreElements()) {
                 Object obj1 = enumeration1.nextElement();
                 boolean flag3 = true;
-                if (flag2) {
+                if (flag2&&!s1.equals("pPath")) {
                     flag3 = s1.startsWith(s);
                     if (!flag) {
                         flag3 = !flag3;

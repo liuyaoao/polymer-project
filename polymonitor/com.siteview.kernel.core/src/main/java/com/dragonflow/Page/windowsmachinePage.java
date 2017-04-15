@@ -22,9 +22,9 @@ import com.dragonflow.Utils.TextUtils;
 // Referenced classes of package com.dragonflow.Page:
 // remoteBase
 
-public class ntmachinePage extends com.dragonflow.Page.remoteBase {
+public class windowsmachinePage extends com.dragonflow.Page.remoteBase {
 
-	public ntmachinePage() {
+	public windowsmachinePage() {
 	}
 
 	String getTestMachineID() {
@@ -65,7 +65,7 @@ public class ntmachinePage extends com.dragonflow.Page.remoteBase {
 	}
 
 	String getPage() {
-		return "ntmachine";
+		return "windowsmachine";
 	}
 
 	String getIDName() {
@@ -106,13 +106,13 @@ public class ntmachinePage extends com.dragonflow.Page.remoteBase {
 			s1 = "NetBIOS";
 		}
 		outputStream.println(field("Connection Method",
-				"<select name=method size=1>" + com.dragonflow.Page.ntmachinePage
+				"<select name=method size=1>" + com.dragonflow.Page.windowsmachinePage
 						.getOptionsHTML(com.dragonflow.SiteView.Machine.getNTAllowedMethods(), s1) + "</select>",
 				"Select the method used to connect to the remote server. Requires that applicable services be enabled on the remote machine"));
 		if (flag) {
 			formLogin(hashmap);
 		}
-		String s2 = com.dragonflow.Page.ntmachinePage.getValue(hashmap, "_trace").length() <= 0 ? "" : "CHECKED";
+		String s2 = com.dragonflow.Page.windowsmachinePage.getValue(hashmap, "_trace").length() <= 0 ? "" : "CHECKED";
 		outputStream.println(field("Trace", "<input type=checkbox name=trace " + s2 + ">",
 				"Check to enable trace messages to and from the remote Windows server in the RunMonitor.log file"));
 		outputStream.println(field(s + " and Test", "<input type=\"radio\" name=\"addtest\" value=\"test\" CHECKED>",
@@ -180,7 +180,7 @@ public class ntmachinePage extends com.dragonflow.Page.remoteBase {
 		com.dragonflow.SiteView.Machine.getAllowedMethods();
 		jgl.Array array = new Array();
 		String s1 = TextUtils.getValue(hashmap, "_id");
-		String s2 = com.dragonflow.Page.ntmachinePage.getValue(hashmap, "_name");
+		String s2 = com.dragonflow.Page.windowsmachinePage.getValue(hashmap, "_name");
 		if (s2.length() == 0) {
 			s2 = TextUtils.getValue(hashmap, "_host");
 		}
@@ -189,11 +189,11 @@ public class ntmachinePage extends com.dragonflow.Page.remoteBase {
 		array.add(new String("<b><i>" + TextUtils.getValue(hashmap, "_status") + "</i></b>"));
 		array.add(new String(TextUtils.getValue(hashmap, "_method")));
 		if (request.actionAllowed("_preference") || s.length() > 0) {
-			array.add(new String("<A href=" + getPageLink("ntmachine", "Edit") + "&ntMachineID=" + s1 + "&storeID=" + s
+			array.add(new String("<A href=" + getPageLink("windowsmachine", "Edit") + "&ntMachineID=" + s1 + "&storeID=" + s
 					+ ">Edit</a>"));
-			array.add(new String("<A href=" + getPageLink("ntmachine", "Test") + "&ntMachineID=" + s1 + "&storeID=" + s
+			array.add(new String("<A href=" + getPageLink("windowsmachine", "Test") + "&ntMachineID=" + s1 + "&storeID=" + s
 					+ "&link=true>Test</a>"));
-			array.add(new String("<A href=" + getPageLink("ntmachine", "Delete") + "&ntMachineID=" + s1 + "&storeID="
+			array.add(new String("<A href=" + getPageLink("windowsmachine", "Delete") + "&ntMachineID=" + s1 + "&storeID="
 					+ s + ">X</a>"));
 		}
 		return array;
@@ -284,7 +284,7 @@ public class ntmachinePage extends com.dragonflow.Page.remoteBase {
 	}
 
 	public static void main(String args[]) {
-		(new ntmachinePage()).handleRequest();
+		(new windowsmachinePage()).handleRequest();
 	}
 
 	public String getRemoteUniqueId() {

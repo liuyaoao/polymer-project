@@ -41,7 +41,7 @@ public class LDAPPage extends com.dragonflow.Page.CGI
             printButtonBar("LDAP.htm", "");
         } else
         {
-            outputStream.println("<center><a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a></center><p>");
+            outputStream.println("<center><a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a></center><p>");
         }
         outputStream.println("<p>\n<CENTER><H2>LDAP Authentication Test</H2></CENTER><P>\n<p>\n" + getPagePOST("LDAP", "") + "This form performs a user authentication of a LDAP server." + "<p><TABLE BORDER=0>\n" + "<TR><TD ALIGN=RIGHT>Security Principal:</TD><TD><input type=text name=securityPrincipal value=\"" + s2 + "\" size=40></TD></TR>\n" + "<TR><TD ALIGN=RIGHT>Security Credential:</TD><TD>" + stringbuffer.toString() + " size=40></TD></TR>\n" + stringbuffer1.toString() + "<TR><TD ALIGN=RIGHT>URL Provider Address:</TD><TD><input type=text name=urlProvider value=\"" + s1 + "\" size=40></TD></TR>\n" + "<TR><TD ALIGN=RIGHT>LDAP Query:</TD><TD><input type=text name=ldapQuery value=\"" + s3 + "\" size=40></TD></TR>\n" + "<TR><TD ALIGN=RIGHT>Search Filter:</TD><TD><input type=text name=ldapFilter value=\"" + s4 + "\" size=40></TD></TR>\n" + "<TR><TD></TD><TD></TD></TR>\n" + "</TABLE><p>\n" + "<input type=submit value=\"Authenticate User\" class=\"VerBl8\">\n" + "</FORM>\n");
         if(s2.length() > 0)

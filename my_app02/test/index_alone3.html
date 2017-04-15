@@ -22,6 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!-- Import the element to test -->
     <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
     <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
     <link rel="import" href="../bower_components/paper-item/paper-item.html">
     <link rel="import" href="../bower_components/paper-item/paper-item-body.html">
     <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
@@ -53,10 +54,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         paper-dropdown-menu paper-item{
           position:relative;
         }
+        paper-checkbox{
+          position:relative;
+        }
+        /*重新设置按钮的样式。好像在这里没效果，只有写在polymer组件里才行。*/
+        paper-button{
+          --paper-button:{
+            text-transform: capitalize;
+          }
+        }
     </style>
   </head>
   <body>
-
+    <div class="container">
+      <paper-checkbox checked> checked label</paper-checkbox>
+      <paper-button raised> checked label</paper-button>
+    </div>
     <div class="container">
       <paper-menu>
         <paper-item>Item 1</paper-item>
@@ -122,6 +135,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-item label='e'>Madeleine2</paper-item>
         </paper-listbox>
       </paper-dropdown-menu>
+
     </div>
 
     <div class="container-fluid">

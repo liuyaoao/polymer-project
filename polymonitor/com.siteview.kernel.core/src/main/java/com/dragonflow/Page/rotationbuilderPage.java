@@ -112,8 +112,8 @@ public class rotationbuilderPage extends com.dragonflow.Page.CGI
 
             String s5 = "" + request.getValue("rotationname") + "_" + request.getValue("account") + ".rot";
             saveConfig(configHash, s5);
-            outputStream.println("<br><br><a href=/SiteView/htdocs/" + request.getValue("rotationname") + "_1_" + request.getValue("account") + ".htm>Click to view rotation</a>");
-            outputStream.println("<br><br><br><a href=\"/SiteView/cgi/go.exe/SiteView?page=rotationbuilder&account=" + request.getAccount() + "&config=" + request.getValue("rotationname") + "_" + request.getAccount() + ".rot&action=add\">Click to continue editing this rotation</a>");
+            outputStream.println("<br><br><a href="+CGI.getTenant(request.getURL())+"/SiteView/htdocs/" + request.getValue("rotationname") + "_1_" + request.getValue("account") + ".htm>Click to view rotation</a>");
+            outputStream.println("<br><br><br><a href=\""+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=rotationbuilder&account=" + request.getAccount() + "&config=" + request.getValue("rotationname") + "_" + request.getAccount() + ".rot&action=add\">Click to continue editing this rotation</a>");
         } else
         {
             printButtonBar("rotationbuilder.htm", "");

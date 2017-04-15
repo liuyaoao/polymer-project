@@ -350,7 +350,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
     }
 
     public boolean runUpdate(boolean bool) {
-        boolean updated = false;
+        boolean updated = false;//this.getProperties(pForceRefresh);
         if (running && !isDisabled() && !isSuspended()) {
             monitorSkips++;
             LogManager.log("Error", ("skipped #" + monitorSkips
@@ -410,6 +410,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
         } else {
             monitorSkips = 0;
             boolean forceRefresh = getProperty(pForceRefresh).length() > 0;
+            setProperty(pForceRefresh, "");
             String string = getProperty(pDisabledDescription);
             if (string.indexOf("Disabled due to Skips >") >= 0) {
                 unsetProperty(pDisabledDescription);
@@ -421,7 +422,9 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
                         (Platform.productName + " Reenabling monitor: "
                                 + getProperty(pName) + " No longer running"));
             }
-            if (isSuspended())
+            if(isDontRefresh()&&!forceRefresh)
+            	System.out.println("");
+            else if (isSuspended())
                 progressString = "Monitor is suspended";
             else if (isDisabled() && !forceRefresh) {
                 setDisabledProperties(whyDisabled());
@@ -819,6 +822,7 @@ public abstract class AtomicMonitor extends Monitor implements Runnable,
                     unsetProperty(pAlertDisabled);
                     unsetProperty(pTimedDisable);
                     unsetProperty(pDisabled);
+                    unsetProperty(pDontRefresh);
                     jgl.HashMap newConfig = new jgl.HashMap();
                     newConfig.put("_alertDisabled", "");
                     newConfig.put("_timedDisable", "");

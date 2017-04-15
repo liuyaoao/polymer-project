@@ -210,7 +210,7 @@ public class accountPrefsPage extends com.dragonflow.Page.prefsPage{
                 +"URLs or URL\n sequences for availability. For more information, call us toll free at "
                 + com.dragonflow.SiteView.Platform.salesPhone + " or\n" + " send an e-mail to <a href=mailto:"
                 + com.dragonflow.SiteView.Platform.salesEmail + ">" + com.dragonflow.SiteView.Platform.salesEmail
-                + "</a>.  You can also \n" + "<a href=/SiteView/cgi/go.exe/SiteView?page=tranWizard&monitor&group="
+                + "</a>.  You can also \n" + "<a href="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=tranWizard&monitor&group="
                 + _account + "&operation=Add&class=URLRemoteSequenceMonitor&account=" + _account + ">run a sample URL sequence monitor</a> "
                 +"from select worldwide locations.\n" + "<HR>";
             }
@@ -438,7 +438,7 @@ public class accountPrefsPage extends com.dragonflow.Page.prefsPage{
                 +" _expired-info='"+_expiredInfo+"' "
                 +" _home-url-prefix='"+com.dragonflow.SiteView.Platform.homeURLPrefix+"' "
                 +" _account-type='"+_accountType+"' "
-                +" _group-name='"+com.dragonflow.Page.accountPrefsPage.getGroupName(monitorgroup, _account)+"' "
+                +" _group-name='"+com.dragonflow.Page.accountPrefsPage.getGroupName(monitorgroup, _account,httprequest)+"' "
                 +" _chat-html='"+_chatHTML+"' "
                 +" _siteseer-news='"+monitorgroup.getSetting("_siteseerNews")+"' "
                 +" _group-detail-url='"+_groupDetailUrl+"' "

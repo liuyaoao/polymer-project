@@ -26,7 +26,7 @@ public class webTracePage extends com.dragonflow.Page.CGI {
                         ".-_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
         printBodyHeader("Web Trace");
         outputStream
-                .println("<center><a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account="
+                .println("<center><a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account="
                         + request.getAccount()
                         + "&AWRequest=yes>Diagnostic Tools</a>"
                         + "</center><P>");

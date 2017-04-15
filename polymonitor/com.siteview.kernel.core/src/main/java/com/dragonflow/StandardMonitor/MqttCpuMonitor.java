@@ -38,18 +38,18 @@ public class MqttCpuMonitor extends ServerMonitor{
 			 Machine machine=Machine.getMqttMachine(machineName.substring(machineName.indexOf(":")+1));
 			 if(machine!=null)
 				 machineName=machine.getProperty("_host");
+			 ReceiveMessageContainer.getInstance().receiveMessage(id, "".getBytes());
 			 Start.agent.sendMessage(machineName, (id+"head -n1 /proc/stat && sleep 2 && head -n1 /proc/stat 2>&1").getBytes());
 			 int i=0;
-			 while(i<10){
+			 while(i<20){
 				 String msg=ReceiveMessageContainer.getInstance().getMessageString(id);
-				 if(msg==null){
+				 if(msg==null||msg.length()==0){
 					 try {
 						this.getThread().sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				 }else{
-					 ReceiveMessageContainer.getInstance().removeMessage(id);
 					 String[] s = msg.trim().split("\n");
 					 String[] cpu0= s[0].trim().split(" ");
 					 String[] cpu1= s[1].trim().split(" ");
@@ -58,11 +58,11 @@ public class MqttCpuMonitor extends ServerMonitor{
 					 long cpu0i=0;
 					 long cpu1i=0;
 					for(int n=2;n<cpu0.length;n++){
-						cpuol += Long.parseLong(cpu0[n]);
-						cpu1l += Long.parseLong(cpu1[n]);
+						cpuol += Long.parseLong(cpu0[n].trim());
+						cpu1l += Long.parseLong(cpu1[n].trim());
 						if(n==5){
-							cpu0i=Long.parseLong(cpu0[n]);
-							cpu1i=Long.parseLong(cpu1[n]);
+							cpu0i=Long.parseLong(cpu0[n].trim());
+							cpu1i=Long.parseLong(cpu1[n].trim());
 						}
 					}
 					long t=cpu1l-cpuol;
@@ -71,6 +71,7 @@ public class MqttCpuMonitor extends ServerMonitor{
 				 }
 				 i++;
 			 }
+			 ReceiveMessageContainer.getInstance().removeMessage(id);
 		 }
 		 if(al.size()<1){
 			 setProperty(pUtilization, "n/a");

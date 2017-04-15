@@ -1,0 +1,208 @@
+17:31:06 03/06/2014	SiteView process started, 
+17:31:37 03/06/2014	SiteView process started, 
+14:17:33 03/07/2014	SiteView process started, 
+14:18:17 03/07/2014	SSH: An Connection error occured: f:\awsspg.pem (系统找不到指定的文件。)connecting to host 192.168.9.110
+14:18:38 03/07/2014	SSH: An Connection error occured: f:\awsspg.pem (系统找不到指定的文件。)connecting to host 192.168.9.110
+14:19:04 03/07/2014	SSH: An Connection error occured: f:\awsspg.pem (系统找不到指定的文件。)connecting to host 192.168.9.110
+14:19:12 03/07/2014	RemedyARsMonitor::<static>: exception: java.lang.NullPointerException
+14:19:12 03/07/2014	java.lang.NullPointerException
+COM.dragonflow.StandardMonitor.RemedyARsMonitor.<clinit>(RemedyARsMonitor.java:242)
+java.lang.Class.forName0(Native Method)
+java.lang.Class.forName(Unknown Source)
+COM.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:139)
+COM.dragonflow.Page.monitorPage.printAddListForm(monitorPage.java:2310)
+COM.dragonflow.Page.monitorPage.printBody(monitorPage.java:2653)
+COM.dragonflow.Page.CGI.printBody(CGI.java:158)
+COM.dragonflow.HTTP.CGIRequestHandler.handleRequest(CGIRequestHandler.java:168)
+COM.dragonflow.HTTP.HTTPRequestHandler.handleRequest(HTTPRequestHandler.java:34)
+COM.dragonflow.HTTP.HTTPRequestThread.run(HTTPRequestThread.java:621)
+COM.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:112)
+
+14:20:02 03/07/2014	SiteView process started, 
+14:20:20 03/07/2014	SSH: An Connection error occured: f:\awsspg.pem (系统找不到指定的文件。)connecting to host 192.168.9.110
+14:27:12 03/07/2014	SiteView process started, 
+10:56:14 04/18/2014	SiteView process started, 
+22:29:43 04/18/2014	SiteView process started, 
+22:29:43 04/18/2014	File(/Users/hadoop/git/Ecc9/com.siteview.kernel.core/groups/ITOSS.mg) replacing with backup
+22:33:49 04/18/2014	Update Monitor: baidu, error: java.lang.NullPointerException
+22:34:49 04/18/2014	skipped #1, monitor still running: SiteView/ITOSS/3:(的), starting the monitor update...
+22:34:49 04/18/2014	Update Monitor: baidu, error: java.lang.NullPointerException
+22:35:04 04/18/2014	SiteView process started, 
+22:36:01 04/18/2014	SiteView process started, 
+22:36:52 04/18/2014	RemedyARsMonitor::<static>: exception: java.lang.NullPointerException
+22:36:52 04/18/2014	java.lang.NullPointerException
+COM.dragonflow.StandardMonitor.RemedyARsMonitor.<clinit>(RemedyARsMonitor.java:242)
+java.lang.Class.forName0(Native Method)
+java.lang.Class.forName(Class.java:190)
+COM.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:139)
+COM.dragonflow.Page.monitorPage.printAddListForm(monitorPage.java:2310)
+COM.dragonflow.Page.monitorPage.printBody(monitorPage.java:2653)
+COM.dragonflow.Page.CGI.printBody(CGI.java:158)
+COM.dragonflow.HTTP.CGIRequestHandler.handleRequest(CGIRequestHandler.java:168)
+COM.dragonflow.HTTP.HTTPRequestHandler.handleRequest(HTTPRequestHandler.java:34)
+COM.dragonflow.HTTP.HTTPRequestThread.run(HTTPRequestThread.java:621)
+COM.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:112)
+
+08:00:09 04/19/2014	SiteView process started, 
+08:00:27 04/19/2014	SiteView process started, 
+08:00:40 04/19/2014	RemedyARsMonitor::<static>: exception: java.lang.NullPointerException
+08:00:40 04/19/2014	java.lang.NullPointerException
+COM.dragonflow.StandardMonitor.RemedyARsMonitor.<clinit>(RemedyARsMonitor.java:242)
+java.lang.Class.forName0(Native Method)
+java.lang.Class.forName(Class.java:190)
+COM.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:139)
+COM.dragonflow.Page.monitorPage.printAddListForm(monitorPage.java:2310)
+COM.dragonflow.Page.monitorPage.printBody(monitorPage.java:2653)
+COM.dragonflow.Page.CGI.printBody(CGI.java:158)
+COM.dragonflow.HTTP.CGIRequestHandler.handleRequest(CGIRequestHandler.java:168)
+COM.dragonflow.HTTP.HTTPRequestHandler.handleRequest(HTTPRequestHandler.java:34)
+COM.dragonflow.HTTP.HTTPRequestThread.run(HTTPRequestThread.java:621)
+COM.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:112)
+
+08:04:04 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:04:04 04/19/2014	Update Monitor: baidu, error: java.lang.NullPointerException
+08:04:10 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:05:04 04/19/2014	skipped #1, monitor still running: SiteView/ITOSS/3:(的), starting the monitor update...
+08:05:04 04/19/2014	Update Monitor: baidu, error: java.lang.NullPointerException
+08:05:04 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:05:09 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:05:23 04/19/2014	SSH: An Connection error occured: Operation timed outconnecting to host 192.168.9.110
+08:06:04 04/19/2014	skipped #2, monitor still running: SiteView/ITOSS/3:(的), verifying error...
+08:06:04 04/19/2014	Update Monitor: baidu, error: java.lang.NullPointerException
+08:06:04 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:06:09 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:06:44 04/19/2014	SSH: An Connection error occured: Operation timed outconnecting to host 192.168.9.110
+08:07:04 04/19/2014	Update Monitor: baidu, error: java.lang.NullPointerException
+08:07:04 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:07:09 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:08:04 04/19/2014	skipped #1, monitor still running: SiteView/ITOSS/3:(的), starting the monitor update...
+08:08:04 04/19/2014	Update Monitor: baidu, error: java.lang.NullPointerException
+08:08:04 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:08:09 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:08:20 04/19/2014	SSH: An Connection error occured: Operation timed outconnecting to host 192.168.9.110
+08:09:04 04/19/2014	skipped #2, monitor still running: SiteView/ITOSS/3:(的), verifying error...
+08:09:04 04/19/2014	Update Monitor: baidu, error: java.lang.NullPointerException
+08:09:04 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:09:09 04/19/2014	Update Monitor: Ping: www.siteview.com, error: java.lang.NullPointerException
+08:09:40 04/19/2014	SSH: An Connection error occured: Operation timed outconnecting to host 192.168.9.110
+08:10:40 04/19/2014	Update Monitor: baidu, error: java.lang.NullPointerException
+08:11:40 04/19/2014	Update Monitor: baidu, error: java.lang.NullPointerException
+14:22:14 04/19/2014	SiteView process started, 
+14:22:36 04/19/2014	RemedyARsMonitor::<static>: exception: java.lang.NullPointerException
+14:22:36 04/19/2014	java.lang.NullPointerException
+COM.dragonflow.StandardMonitor.RemedyARsMonitor.<clinit>(RemedyARsMonitor.java:242)
+java.lang.Class.forName0(Native Method)
+java.lang.Class.forName(Class.java:190)
+COM.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:139)
+COM.dragonflow.Page.monitorPage.printMonitorToolsForm(monitorPage.java:2116)
+COM.dragonflow.Page.monitorPage.printBody(monitorPage.java:2661)
+COM.dragonflow.Page.CGI.printBody(CGI.java:158)
+COM.dragonflow.HTTP.CGIRequestHandler.handleRequest(CGIRequestHandler.java:168)
+COM.dragonflow.HTTP.HTTPRequestHandler.handleRequest(HTTPRequestHandler.java:34)
+COM.dragonflow.HTTP.HTTPRequestThread.run(HTTPRequestThread.java:621)
+COM.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:112)
+
+14:52:55 04/19/2014	SiteView process started, 
+14:52:55 04/19/2014	Updating URL in Readme.htm to http://254.128.0.0:10000/SiteView
+14:52:55 04/19/2014	Changing HTTP Server to port 10000, java.net.BindException: Address already in use
+14:52:56 04/19/2014	Using backup mail server (unknown host name) for SiteView Server Port Changed To: xianfang.shi@dragonflow.com
+09:54:10 04/20/2014	SiteView process started, 
+09:54:10 04/20/2014	Updating URL in Readme.htm to http://254.128.0.0:9999/SiteView
+09:54:10 04/20/2014	Changing HTTP Server to port 9999, 
+09:54:12 04/20/2014	Using backup mail server (unknown host name) for SiteView Server Port Changed To: xianfang.shi@dragonflow.com
+05:48:05 04/21/2014	SiteView process started, 
+05:48:41 04/21/2014	SiteView process started, 
+09:42:07 03/22/2017	SiteView process started, 
+09:42:13 03/22/2017	File(G:\Ecc9_dolphin\com.siteview.kernel.core\groups\ITOSS.mg) replacing with backup
+09:43:39 03/22/2017	Bad subgroup link: TEST1 in group ITOSS
+09:43:39 03/22/2017	Bad subgroup link: TEST1 in group ITOSS
+09:43:39 03/22/2017	Bad subgroup link: TEST1 in group ITOSS
+09:43:58 03/22/2017	Bad subgroup link: TEST1 in group ITOSS
+09:43:58 03/22/2017	Bad subgroup link: TEST1 in group ITOSS
+09:44:01 03/22/2017	Bad subgroup link: TEST1 in group ITOSS
+09:44:01 03/22/2017	Bad subgroup link: TEST1 in group ITOSS
+09:44:01 03/22/2017	Bad subgroup link: TEST1 in group ITOSS
+09:55:51 03/22/2017	SiteView process started, 
+10:06:21 03/22/2017	SiteView process started, 
+10:07:05 03/22/2017	RemedyARsMonitor::<static>: exception: java.lang.NullPointerException
+10:07:05 03/22/2017	java.lang.NullPointerException
+com.dragonflow.StandardMonitor.RemedyARsMonitor.<clinit>(RemedyARsMonitor.java:242)
+java.lang.Class.forName0(Native Method)
+java.lang.Class.forName(Class.java:264)
+com.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:141)
+com.dragonflow.Page.monitorPage.printAddListForm(monitorPage.java:2312)
+com.dragonflow.Page.monitorPage.printBody(monitorPage.java:2655)
+com.dragonflow.Page.CGI.printBody(CGI.java:161)
+com.dragonflow.HTTP.CGIRequestHandler.handleRequest(CGIRequestHandler.java:170)
+com.dragonflow.HTTP.HTTPRequestHandler.handleRequest(HTTPRequestHandler.java:34)
+com.dragonflow.HTTP.HTTPRequestThread.run(HTTPRequestThread.java:623)
+com.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:114)
+
+13:42:19 03/22/2017	SSH: An Connection error occured: Connection timed out: connectconnecting to host 192.168.9.110
+13:42:21 03/22/2017	SSH: An Connection error occured: Connection timed out: connectconnecting to host 192.168.9.110
+18:02:13 03/22/2017	SiteView process started, 
+18:09:19 03/22/2017	SiteView process started, 
+18:09:38 03/22/2017	RemedyARsMonitor::<static>: exception: java.lang.NullPointerException
+18:09:38 03/22/2017	java.lang.NullPointerException
+com.dragonflow.StandardMonitor.RemedyARsMonitor.<clinit>(RemedyARsMonitor.java:242)
+java.lang.Class.forName0(Native Method)
+java.lang.Class.forName(Class.java:264)
+com.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:141)
+com.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:106)
+com.dragonflow.Page.browsePage.getMonitorTypeSelectHTML(browsePage.java:426)
+com.dragonflow.Page.browsePage.printBody(browsePage.java:343)
+com.dragonflow.Page.CGI.printBody(CGI.java:161)
+com.dragonflow.HTTP.CGIRequestHandler.handleRequest(CGIRequestHandler.java:170)
+com.dragonflow.HTTP.HTTPRequestHandler.handleRequest(HTTPRequestHandler.java:34)
+com.dragonflow.HTTP.HTTPRequestThread.run(HTTPRequestThread.java:623)
+com.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:114)
+
+18:20:04 03/22/2017	SiteView process started, 
+18:20:28 03/22/2017	RemedyARsMonitor::<static>: exception: java.lang.NullPointerException
+18:20:28 03/22/2017	java.lang.NullPointerException
+com.dragonflow.StandardMonitor.RemedyARsMonitor.<clinit>(RemedyARsMonitor.java:242)
+java.lang.Class.forName0(Native Method)
+java.lang.Class.forName(Class.java:264)
+com.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:141)
+com.dragonflow.Page.monitorPage.printAddListForm(monitorPage.java:2312)
+com.dragonflow.Page.monitorPage.printBody(monitorPage.java:2655)
+com.dragonflow.Page.CGI.printBody(CGI.java:161)
+com.dragonflow.HTTP.CGIRequestHandler.handleRequest(CGIRequestHandler.java:170)
+com.dragonflow.HTTP.HTTPRequestHandler.handleRequest(HTTPRequestHandler.java:34)
+com.dragonflow.HTTP.HTTPRequestThread.run(HTTPRequestThread.java:623)
+com.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:114)
+
+18:29:34 03/22/2017	SiteView process started, 
+18:32:29 03/22/2017	SiteView process started, 
+18:34:17 03/22/2017	RemedyARsMonitor::<static>: exception: java.lang.NullPointerException
+18:34:17 03/22/2017	java.lang.NullPointerException
+com.dragonflow.StandardMonitor.RemedyARsMonitor.<clinit>(RemedyARsMonitor.java:242)
+java.lang.Class.forName0(Native Method)
+java.lang.Class.forName(Class.java:264)
+com.dragonflow.Page.monitorPage.getMonitorClasses(monitorPage.java:141)
+com.dragonflow.Page.monitorPage.printAddListForm(monitorPage.java:2312)
+com.dragonflow.Page.monitorPage.printBody(monitorPage.java:2655)
+com.dragonflow.Page.CGI.printBody(CGI.java:161)
+com.dragonflow.HTTP.CGIRequestHandler.handleRequest(CGIRequestHandler.java:170)
+com.dragonflow.HTTP.HTTPRequestHandler.handleRequest(HTTPRequestHandler.java:34)
+com.dragonflow.HTTP.HTTPRequestThread.run(HTTPRequestThread.java:623)
+com.dragonflow.Utils.ThreadPool$SingleThread.run(ThreadPool.java:114)
+
+18:54:12 03/22/2017	SSH: An Connection error occured: Connection timed out: connectconnecting to host 192.168.9.110
+11:45:01 03/23/2017	SiteView process started, 
+11:49:27 03/23/2017	SiteView process started, 
+14:53:53 03/23/2017	SiteView process started, 
+15:21:53 03/23/2017	SiteView process started, 
+15:25:28 03/23/2017	SiteView process started, 
+15:54:35 03/23/2017	SiteView process started, 
+16:02:15 03/23/2017	SiteView process started, 
+16:07:28 03/23/2017	SiteView process started, 
+16:11:32 03/23/2017	SiteView process started, 
+16:13:49 03/23/2017	SiteView process started, 
+16:14:02 03/23/2017	SiteView process started, 
+16:19:21 03/23/2017	SiteView process started, 
+16:23:25 03/23/2017	SiteView process started, 
+16:46:28 03/23/2017	SSH: An Connection error occured: Permission deniedconnecting to host 192.168.9.6
+17:19:20 03/23/2017	SiteView process started, 
+17:35:27 03/23/2017	SiteView process started, 
+17:44:28 03/23/2017	SiteView process started, 

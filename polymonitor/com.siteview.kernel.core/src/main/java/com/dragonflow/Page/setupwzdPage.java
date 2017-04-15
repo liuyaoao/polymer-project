@@ -128,7 +128,7 @@ public class setupwzdPage extends com.dragonflow.Page.CGI
                 } else
                 {
                     outputStream.println("Accessed directly as a GET with operation =" + request.getValue("operation") + " missed the choices\n<br>");
-                    printRefreshHeader("", "/SiteView/cgi/go.exe/SiteView?page=setup&" + request.getAccountDirectory(), 10);
+                    printRefreshHeader("",CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=setup&" + request.getAccountDirectory(), 10);
                 }
                 printFooter(outputStream);
             }

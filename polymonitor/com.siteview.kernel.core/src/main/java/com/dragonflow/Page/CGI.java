@@ -378,13 +378,13 @@ public abstract class CGI {
     }
 
     public static String reportURL(
-            HTTPRequest httprequest) {
+            HTTPRequest httprequest,String tenant) {
         if (httprequest.getAccount().equals("user")) {
             return Platform.getURLPath("userhtml",
                     httprequest.getAccount())
                     + "/Reports.html";
         } else {
-            return "/SiteView/cgi/go.exe/SiteView?page=report&operation=List&view=Report&account="
+            return tenant+"/SiteView/cgi/go.exe/SiteView?page=report&operation=List&view=Report&account="
                     + httprequest.getAccount();
         }
     }
@@ -417,7 +417,7 @@ public abstract class CGI {
                         "Add/Edit Remote UNIX/Linux profiles"));
                 menus1.add(new menuItems("Remote MQTT", "mqttmachine", "", "page",
                         "Add/Edit Remote Mqtt profiles"));
-                menus1.add(new menuItems("Remote Windows", "ntmachine", "", "page",
+                menus1.add(new menuItems("Remote Windows", "windowsmachine", "", "page",
                         "Add/Edit Remote Win NT/2000 profiles"));
             }
             if (httprequest.actionAllowed("_tools")) {
@@ -437,12 +437,15 @@ public abstract class CGI {
             return;
         }
         printwriter.print("<TABLE class=\"subnav\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"4\"><TR class=\"subnav\"><TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td>");
+        String tenant =getTenant(httprequest.getURL());
         if (menus1.size() != 0) {
             for (int j = 0; j < menus1.size(); j++) {
                 menuItems menuitems = (menuItems) menus1.at(j);
+                if(menuitems.menuLink.contains("mqttmachine"))
+                	System.out.println("ada");
                 if (menuitems.linkClass.equals("url")) {
                     printwriter
-                            .print("<TD><p class=navbar align=center> <font size=-1 face=Arial, sans-serif><b><a href=\"/SiteView/"
+                            .print("<TD><p class=navbar align=center> <font size=-1 face=Arial, sans-serif><b><a href=\""+tenant+"/SiteView/"
                                     + httprequest.getAccountDirectory()
                                     + "/"
                                     + menuitems.menuLink
@@ -462,7 +465,7 @@ public abstract class CGI {
                     }
                 } else if (menuitems.linkClass.equals("operation")) {
                     printwriter
-                            .print("<TD><p class=navbar align=center> <font size=-1 face=Arial, sans-serif><b><a href=\"/SiteView/cgi/go.exe/SiteView?page="
+                            .print("<TD><p class=navbar align=center> <font size=-1 face=Arial, sans-serif><b><a href=\""+tenant+"/SiteView/cgi/go.exe/SiteView?page="
                                     + menuitems.menuLink
                                     + "&operation="
                                     + menuitems.opLink
@@ -475,7 +478,7 @@ public abstract class CGI {
                                     + "</a></b></font></p>");
                 } else {
                     printwriter
-                            .print("<TD><p class=navbar align=center> <font size=-1 face=Arial, sans-serif><b><a href=\"/SiteView/cgi/go.exe/SiteView?page="
+                            .print("<TD><p class=navbar align=center> <font size=-1 face=Arial, sans-serif><b><a href=\""+tenant+"/SiteView/cgi/go.exe/SiteView?page="
                                     + menuitems.menuLink
                                     + "&account="
                                     + httprequest.getAccount()
@@ -502,7 +505,7 @@ public abstract class CGI {
         String s = "<TD>&nbsp;</td>";
         if (httprequest.actionAllowed("_preference")) {
             String s1 = "general";
-            s = "<TD><p class=navbar align=center> <font size=-1 face=Arial, sans-serif><b><a href=/SiteView/cgi/go.exe/SiteView?page="
+            s = "<TD><p class=navbar align=center> <font size=-1 face=Arial, sans-serif><b><a href="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page="
                     + s1
                     + "Prefs&account="
                     + httprequest.getAccount()
@@ -513,7 +516,7 @@ public abstract class CGI {
         }
         String s2 = "<TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td>";
         if (httprequest.actionAllowed("_browse")) {
-            s2 = "<TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td><TD><p class=navbar align=center><font size=-1 face=Arial, sans-serif><b><A HREF=/SiteView/cgi/go.exe/SiteView?page=browse&account="
+            s2 = "<TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td><TD><p class=navbar align=center><font size=-1 face=Arial, sans-serif><b><A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=browse&account="
                     + httprequest.getAccount()
                     + ">"
                     + LocaleUtils.getResourceBundle()
@@ -526,7 +529,7 @@ public abstract class CGI {
                 .actionAllowed("_groupRefresh"))
                 && !httprequest.getPermission("_link", "deleteGroup").equals(
                         "hidden")) {
-            s3 = "<TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td><TD><p class=navbar align=center><font size=-1 face=Arial, sans-serif><b><A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&account="
+            s3 = "<TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td><TD><p class=navbar align=center><font size=-1 face=Arial, sans-serif><b><A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=manage&account="
                     + httprequest.getAccount()
                     + ">"
                     + LocaleUtils.getResourceBundle()
@@ -534,7 +537,7 @@ public abstract class CGI {
         }
         String s4 = "<TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td>";
         if (httprequest.actionAllowed("_tools")) {
-            s4 = "<TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td><TD><p class=navbar align=center><font size=-1 face=Arial, sans-serif><b><A HREF=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account="
+            s4 = "<TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td><TD><p class=navbar align=center><font size=-1 face=Arial, sans-serif><b><A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account="
                     + httprequest.getAccount()
                     + ">"
                     + LocaleUtils.getResourceBundle()
@@ -595,7 +598,7 @@ public abstract class CGI {
             return;
         }
         String home =tenant+"/SiteView/" + httprequest.getAccountDirectory() + "/SiteView.html";
-        String s4 = reportURL(httprequest);
+        String s4 = reportURL(httprequest,tenant);
         String alert = "";
         if (httprequest.actionAllowed("_alertList")) {
             alert =tenant+ "/SiteView/cgi/go.exe/SiteView?page=alert&operation=List&view=Alert&account=" + httprequest.getAccount();
@@ -744,14 +747,19 @@ public abstract class CGI {
                 .getServerID();
         printwriter.println("<HEAD>\n" + nocacheHeader + s2 + s1 + "\n<TITLE>"
                 + s3 + " : " + s + "</TITLE>\n"
-                		+ "<meta http-equiv='content-css-type' content='text/css'>"
+                    + "<meta http-equiv='content-css-type' content='text/css'>"
+                    + "<meta name='viewport' content='width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes'>"
+                    + "<meta name='mobile-web-app-capable' content='yes'>"
+                    + "<meta name='apple-mobile-web-app-capable' content='yes'>"
+                    + "<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'>"
                 		+ "<link rel='shortcut icon' href='/SiteView/htdocs/favicon.gif'>"
                 		+ "<script type='text/javascript' src='/SiteView/htdocs/js/appRoot.js'></script>\n"
                 		+ "<script type='text/javascript' async='true' src='/SiteView/htdocs/js/bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>\n");
-        printwriter
-                .println("<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/siteviewUI.css\">\n"
+        printwriter.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/siteviewUI.css\">\n"
                 		+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/user.css\">\n "
+                    +"<link rel='stylesheet' type='text/css' href='/SiteView/htdocs/js/components/css/bootstrap.css'>\n"
                 		+"<link rel='import' href='/SiteView/htdocs/js/bower_components/paper-styles/paper-styles.html'>\n"
+                		+"<link rel='import' href='/SiteView/htdocs/js/bower_components/paper-ripple/paper-ripple.html' async='true'>\n"
                 		+ "</HEAD>\n");
     }
 
@@ -759,13 +767,15 @@ public abstract class CGI {
             String s, String s1, String s2) {
         printwriter.println("<HEAD>\n" + nocacheHeader + s2 + s1);
         if (request.getValue("AWRequest").equals("yes")) {
-            printwriter
-                    .println("<style type=\"text/css\">.darkrow {COLOR: black; BACKGROUND-COLOR: #cccc99; FONT-FAMILY: Verdana; FONT-SIZE: 7.5pt }.lightrow { COLOR: black; BACKGROUND-COLOR: #efefdf; FONT-FAMILY: Verdana; FONT-SIZE: 7.5pt }.titlerow { BACKGROUND-COLOR: #330066; COLOR: white; FONT-FAMILY: Verdana; FONT-SIZE: 8pt } .VerBl8 { COLOR: black; FONT-FAMILY: Verdana; FONT-SIZE: 8pt }.VerdanaDB10 { COLOR: #330066; FONT-FAMILY: Verdana; FONT-SIZE: 10pt }</style>\n");
+            printwriter.println("<style type=\"text/css\">.darkrow {COLOR: black; BACKGROUND-COLOR: #cccc99; FONT-FAMILY: Verdana; FONT-SIZE: 7.5pt }.lightrow { COLOR: black; BACKGROUND-COLOR: #efefdf; FONT-FAMILY: Verdana; FONT-SIZE: 7.5pt }.titlerow { BACKGROUND-COLOR: #330066; COLOR: white; FONT-FAMILY: Verdana; FONT-SIZE: 8pt } .VerBl8 { COLOR: black; FONT-FAMILY: Verdana; FONT-SIZE: 8pt }.VerdanaDB10 { COLOR: #330066; FONT-FAMILY: Verdana; FONT-SIZE: 10pt }</style>\n");
         }
-        printwriter
-                .println("<TITLE>"
+        printwriter.println("<TITLE>"
                         + s
                         + "</TITLE>"
+                        + "<meta name='viewport' content='width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes'>"
+                        + "<meta name='mobile-web-app-capable' content='yes'>"
+                        + "<meta name='apple-mobile-web-app-capable' content='yes'>"
+                        + "<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'>"
                         + "<link rel='shortcut icon' href='/SiteView/htdocs/favicon.gif'>"
                         + "\n<link rel=\"stylesheet\" type=\"text/css\" href=\"/SiteView/htdocs/artwork/siteviewUI.css\">\n"
                         + "</HEAD>\n");
@@ -807,7 +817,7 @@ public abstract class CGI {
             HTTPRequest httprequest, String s) {
         String s1 = httprequest.getValue("_health").length() <= 0 ? ""
                 : "?_health=true";
-        return "/SiteView/" + httprequest.getAccountDirectory() + "/Detail"
+        return getTenant(httprequest.getURL())+"/SiteView/" + httprequest.getAccountDirectory() + "/Detail"
                 + HTTPRequest.encodeString(s) + ".html" + s1;
     }
 
@@ -868,6 +878,9 @@ public abstract class CGI {
     }
 
     public void printRefreshPage(String s, int i) {
+    	String tenant = getTenant(request.getURL());
+    	if(!s.startsWith(tenant))
+    		s=tenant+s;
         printRefreshHeader("", s, i);
         outputStream
                 .println("<!--<br><br><br><br><hr><br><h3 align=center>SiteView is running</h3><br> <p align=center>If your browser doesn't refresh in 5 seconds, click on <A HREF="
@@ -1155,7 +1168,7 @@ public abstract class CGI {
                 s2 = ": " + s2;
             }
             String s3 = com.dragonflow.Page.CGI.getGroupName(monitor,
-                    s);
+                    s,httprequest);
             s = com.dragonflow.HTTP.HTTPRequest.encodeString(s);
             if (flag && s2.length() != 0) {
                 s2 = "<A HREF=Detail" + s + ".html" + s1 + ">" + s3 + "</a>"
@@ -1178,23 +1191,23 @@ public abstract class CGI {
     }
 
     public static String getGroupName(
-            Monitor monitor, String s) {
+            Monitor monitor, String s, HTTPRequest httprequest) {
         I18N.test(s, 0);
         String s1;
         if (monitor == null) {
             s1 = I18N.toNullEncoding(s);
             s1 = "MISSING GROUP (" + s1 + ")";
         } else {
-            s1 = com.dragonflow.Page.CGI.getGroupName(s);
+            s1 = com.dragonflow.Page.CGI.getGroupName(s,httprequest);
         }
         return s1;
     }
 
-    public static String getGroupName(String s) {
+    public static String getGroupName(String s, HTTPRequest httprequest) {
         I18N.test(s, 0);
         jgl.HashMap hashmap = null;
         try {
-            jgl.Array array = com.dragonflow.Page.CGI.ReadGroupFrames(s, null);
+            jgl.Array array = com.dragonflow.Page.CGI.ReadGroupFrames(s, httprequest);
             Enumeration enumeration = array.elements();
             if (enumeration.hasMoreElements()) {
                 hashmap = (jgl.HashMap) enumeration.nextElement();
@@ -1342,13 +1355,16 @@ public abstract class CGI {
             s2 = as[0];
             s = as[1];
         }
+        String tenantdir=httprequest==null?"":getTenant(httprequest.getURL());
+        if(tenantdir.length()>0)
+        	tenantdir="tenants"+tenantdir+"/";
         String masterConfig;
         if (s.equals("_master")) {
             masterConfig = "/groups/master.config";
         } else if (s.equals("_users")) {
             masterConfig = "/groups/users.config";
         } else {
-            masterConfig = "/groups/" + s + s1;
+            masterConfig = "/groups/" +tenantdir+ s + s1;
         }
         String s4 = "";
         if (s2.length() > 0) {
@@ -1382,7 +1398,13 @@ public abstract class CGI {
         }
         return array;
     }
-
+    public static jgl.Array ReadGroupFramesForPath(String s) throws IOException {
+        jgl.Array array = com.dragonflow.Properties.FrameFile.readFromFile(s);
+        if (array.size() == 0) {
+            array.add(new HashMap());
+        }
+        return array;
+    }
     public void WriteGroupFrames(String s, jgl.Array array)
             throws java.io.IOException {
         com.dragonflow.Page.CGI.WriteGroupFrames(s, array, request);
@@ -1400,6 +1422,8 @@ public abstract class CGI {
                 hashmap.put("_encoding", I18N
                         .nullEncoding());
             }
+            if(i==0)
+            	hashmap.put("pPath", s1);
         }
 
         com.dragonflow.Properties.FrameFile.writeToFile(s1, array, "_", true);
@@ -1962,7 +1986,7 @@ public abstract class CGI {
 
     public String getPageLink(String s,
             String s1, String s2) {
-        String s3 = "/SiteView/cgi/go.exe/SiteView?page=" + s
+        String s3 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + s
                 + "&account=" + request.getAccount();
         if (s.startsWith("portal")) {
             String s4 = request.getPortalServer();
@@ -2031,7 +2055,8 @@ public abstract class CGI {
 
     public String getPageForm(String s,
             String s1, String s2, String s3) {
-        String s4 = "<FORM ACTION=/SiteView/cgi/go.exe/SiteView method="
+    	String tenant=getTenant(request.getURL());
+        String s4 = "<FORM ACTION="+tenant+"/SiteView/cgi/go.exe/SiteView method="
                 + s2
                 + ">\n"
                 + "<input type=hidden name=page value="
@@ -2205,8 +2230,17 @@ public abstract class CGI {
     }
     public  String getTenant(){
     	String tenant = request.getURL();
-    	if(!tenant.startsWith("/SiteView"))
+    	if(!tenant.startsWith("/SiteView")&&tenant.contains("/SiteView"))
     		return tenant.substring(1,tenant.indexOf("/SiteView"));
+    	else if(tenant.startsWith("/")&&!tenant.contains("/SiteView"))
+    		return tenant.substring(1);
     	return "";
-    } 
+    }
+    public static String getTenant(String tenant){
+    	if(!tenant.startsWith("/SiteView")&&tenant.contains("/SiteView"))
+    		return tenant.substring(0,tenant.indexOf("/SiteView"));
+    	else if(tenant.startsWith("/")&&!tenant.contains("/SiteView"))
+    		return tenant;
+    	return "";
+    }
 }

@@ -48,7 +48,7 @@ public class tracePage extends com.dragonflow.Page.CGI
             outputStream.println("<center><a href=" + getPageLink("ping", "") + "&host=" + s + s2 + "&group=" + request.getValue("group") + ">Ping</a> | <b>TraceRoute</b></center><P>");
         } else
         {
-            outputStream.println("<center><a href=" + getPageLink("ping", "") + "&host=" + s + s2 + "&AWRequest=yes" + ">Ping</a> | <b>TraceRoute</b>" + " | " + " <a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a>" + "</center><P>");
+            outputStream.println("<center><a href=" + getPageLink("ping", "") + "&host=" + s + s2 + "&AWRequest=yes" + ">Ping</a> | <b>TraceRoute</b>" + " | " + " <a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a>" + "</center><P>");
         }
         outputStream.println("<p>\n<CENTER><H2>TraceRoute</H2></CENTER><P>\n<p>\n" + getPagePOST("trace", "") + "TraceRoute is a tool that shows you the network path between two locations.\n" + "It shows you the address and how long it takes to get to each hop in the path.\n" + "When there is a problem with the network, traceroute can often be used to\n" + "narrow down where the problem is occuring.\n" + "This form will do a traceroute from this server to another location.  Enter\n" + "the domain name or ip address of the other location.\n" + "<p>\n" + "Domain Name or IP address: <input type=text name=host size=60 value=\"" + s + "\">\n" + "<p>\n");
         boolean flag = !isPortalServerRequest();

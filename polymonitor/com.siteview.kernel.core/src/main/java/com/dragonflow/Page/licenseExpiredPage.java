@@ -110,7 +110,7 @@ public class licenseExpiredPage extends com.dragonflow.Page.CGI {
                         + " the "
                         + s
                         + " service. "
-                        + "<A HREF="
+                        + "<A HREF="+CGI.getTenant(request.getURL())
                         + "/SiteView/cgi/go.exe/SiteView?page=restart"
                         + ">Click here</A> "
                         + "to restart now. "

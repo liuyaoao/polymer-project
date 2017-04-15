@@ -117,7 +117,7 @@ public class SubGroup extends Monitor {
             s6 = "Acknowledge";
             s7 = "Acknowledge Group Monitor States";
             if (httprequest.actionAllowed("_monitorAcknowledge")) {
-                s2 = "<A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&operation="
+                s2 = "<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=manage&operation="
                         + s6
                         + "&monitor="
                         + s4
@@ -135,7 +135,7 @@ public class SubGroup extends Monitor {
             s6 = "AcknowledgeClear";
             s7 = "Acknowledged by: " + s1 + ", " + s;
             if (httprequest.actionAllowed("_monitorAcknowledge")) {
-                s2 = "<A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&operation="
+                s2 = "<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=manage&operation="
                         + s6
                         + "&monitor="
                         + s4
@@ -228,7 +228,7 @@ public class SubGroup extends Monitor {
         printwriter
                 .print("<TD ALIGN=CENTER CLASS="
                         + BGTableClass
-                        + "><A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Delete&group="
+                        + "><A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=group&operation=Delete&group="
                         + HTTPRequest.encodeString(I18N
                                 .toDefaultEncoding(getProperty(pGroup))) + s
                         + "&account=" + httprequest.getAccount()

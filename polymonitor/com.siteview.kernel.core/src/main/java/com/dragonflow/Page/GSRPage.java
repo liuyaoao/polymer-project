@@ -1674,7 +1674,7 @@ public class GSRPage extends com.dragonflow.Page.CGI {
         String s2 = "";
         jgl.Array array = null;
         String s3 = "";
-        String s4 = com.dragonflow.Page.CGI.getGroupName(s);
+        String s4 = com.dragonflow.Page.CGI.getGroupName(s,request);
         array = loadgroup(s);
         if(array != null)
         {

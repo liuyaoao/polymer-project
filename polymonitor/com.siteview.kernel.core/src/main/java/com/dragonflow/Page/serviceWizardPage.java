@@ -132,7 +132,7 @@ public class serviceWizardPage extends com.dragonflow.Page.monitorPage
                 printButtonBar("WebService.htm", "");
             } else
             {
-                outputStream.println("<center><a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a></center><p>");
+                outputStream.println("<center><a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=" + request.getAccount() + "&AWRequest=yes>Diagnostic Tools</a></center><p>");
             }
             String s = request.getValue("_wsdlurl");
             String s3 = request.getValue("_methodname");

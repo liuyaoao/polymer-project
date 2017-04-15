@@ -26,7 +26,7 @@ public class filesPage extends com.dragonflow.Page.CGI
 
     void doSecure()
     {
-        printRefreshHeader("", "/SiteView/cgi/go.exe/SiteView?page=files", 1);
+        printRefreshHeader("", CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=files", 1);
         String s = request.getValue("operation");
         outputStream.println("<b>Processing (" + s + ")......</b><p>\n");
         outputStream.flush();

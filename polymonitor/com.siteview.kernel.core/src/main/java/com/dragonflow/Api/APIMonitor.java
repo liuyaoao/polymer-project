@@ -4784,8 +4784,15 @@ public class APIMonitor extends APISiteView
                 vector.add(pMonDisableEndTime);
                 vector.add(pMonDisableStartDate);
                 vector.add(pMonDisableEndDate);
-            } else
-            if(stringproperty != Monitor.pDisabledDescription && stringproperty != Monitor.pTimedDisable)
+            } else if(stringproperty == Monitor.pDontRefresh){
+                    vector.add(pMonDisable);
+                    vector.add(pMonDisableTime);
+                    vector.add(pMonDisableDesc);
+                    vector.add(pMonDisableStartTime);
+                    vector.add(pMonDisableEndTime);
+                    vector.add(pMonDisableStartDate);
+                    vector.add(pMonDisableEndDate);
+           } else if(stringproperty != Monitor.pDisabledDescription && stringproperty != Monitor.pTimedDisable)
             {
                 vector.add(stringproperty);
             }

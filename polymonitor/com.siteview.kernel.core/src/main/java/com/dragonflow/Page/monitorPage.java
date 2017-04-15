@@ -187,7 +187,7 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 					"Add/Edit Remote UNIX/Linux profiles"));
 			menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
 			menus1.add(
-					new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
+					new CGI.menuItems("Remote Windows", "windowsmachine", "", "page", "Add/Edit Remote Windows profiles"));
 		}
 		if (httprequest.actionAllowed("_tools")) {
 			menus1.add(new CGI.menuItems("Tools", "monitor", "Tools", "operation", "Use monitor diagnostic tools"));
@@ -579,12 +579,12 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 		if (s16 != null && s16.equals("beta")) {
 			outputStream.println(
 					"<hr> <h3 align=center>This Monitor is currently a beta feature of SiteView</h3>We would appreciate your feedback on the usefulness and function of this feature.&nbsp; <p><b>Please send your comments and/or suggestions to <a href=mailto:"
-							+ Platform.supportEmail + ">" + Platform.supportEmail + "</a>,"
+							+ Platform.supportEmail + ">" + Platform.supportEmail + "<paper-ripple></paper-ripple></a>,"
 							+ ". We promise a quick, personal response from one of our engineers." + "</b><hr>");
 		}
 		outputStream.println("<p><H2>" + operation + " " + title + " Monitor in Group : <A HREF="
 				+ com.dragonflow.Page.CGI.getGroupDetailURL(request, s4) + ">"
-				+ com.dragonflow.Page.CGI.getGroupName(s4) + "</a></H2>\n");
+				+ com.dragonflow.Page.CGI.getGroupName(s4,request) + "<paper-ripple></paper-ripple></a></H2>\n");
 		String s17 = request.getValue("_health").length() <= 0 ? "" : "<input type=hidden name=_health value=true>\n";
 		outputStream.println(getPagePOST("monitor", operation) + "<input type=hidden name=group value=\"" + s1 + "\">\n"
 				+ "<input type=hidden name=rview value=\"" + request.getValue("rview") + "\">\n"
@@ -1681,7 +1681,7 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 		printButtonBar((String) monitor.getClassProperty("help"), s, menus1);
 		String s1 = (String) monitor.getClassProperty("title");
 		outputStream.print("<HR>The " + s1 + " Monitor cannot be added with a this account." + "<HR><P><A HREF="
-				+ com.dragonflow.Page.CGI.getGroupDetailURL(request, s) + ">Return to Group</A>\n");
+				+ com.dragonflow.Page.CGI.getGroupDetailURL(request, s) + ">Return to Group<paper-ripple></paper-ripple></a>\n");
 		printFooter(outputStream);
 	}
 
@@ -1745,13 +1745,13 @@ public class monitorPage extends com.dragonflow.Page.CGI {
           java.util.HashMap<String, String> _toolNameMap = new java.util.HashMap<String, String>();
 					String s10 = (String) atomicmonitor.getClassProperty("toolDescription");
 					if (!request.getValue("AWRequest").equals("yes")) {
-            title = "<a href="+s7+"&account="+request.getAccount()+s8+">"+s9+"</a>";
+            title = "<a href="+s7+"&account="+request.getAccount()+s8+">"+s9+"<paper-ripple></paper-ripple></a>";
 						if (s10 != null) {
               desc = ""+s10;
 						}
 					} else if (s7.indexOf("DNS") >= 0 || s7.indexOf("ftp") >= 0 || s7.indexOf("ping") >= 0
 							|| s7.indexOf("LDAP") >= 0 || s7.indexOf("news") >= 0) {
-            title ="<a href="+s7+"&account="+request.getAccount()+"&AWRequest=yes"+s8+">"+s9+"</a>";
+            title ="<a href="+s7+"&account="+request.getAccount()+"&AWRequest=yes"+s8+">"+s9+"<paper-ripple></paper-ripple></a>";
 						if (s10 != null) {
               desc = ""+s10;
 						}
@@ -1774,21 +1774,21 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 			String s4 = siteviewgroup.getSetting("_disableWebtrace");
 			if (s4 == null || s4.length() <= 0) {
         java.util.HashMap<String, String> _webTraceMap = new java.util.HashMap<String, String>();
-        _webTraceMap.put("t_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=webTrace&account="
-						+ request.getAccount() + "&AWRequest=yes" + s2 + ">" + "Web Trace"+ "</A>");
+        _webTraceMap.put("t_title","<A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=webTrace&account="
+						+ request.getAccount() + "&AWRequest=yes" + s2 + ">" + "Web Trace"+ "<paper-ripple></paper-ripple></a>");
         _webTraceMap.put("x_desc","Trace the route of a web site.");
         actionsList.add(_webTraceMap);
 			}
       java.util.HashMap<String, String> _traceRouteMap = new java.util.HashMap<String, String>();
-      _traceRouteMap.put("x_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=trace&account="
-					+ request.getAccount() + "&AWRequest=yes" + s2 + ">" + "TraceRoute" + "</A>");
+      _traceRouteMap.put("x_title","<A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=trace&account="
+					+ request.getAccount() + "&AWRequest=yes" + s2 + ">" + "TraceRoute" + "<paper-ripple></paper-ripple></a>");
       _traceRouteMap.put("y_desc","Trace the route of a web site.");
       actionsList.add(_traceRouteMap);
 		}
 		if (s.equals("advanced")) {
       java.util.HashMap<String, String> _advancedMap = new java.util.HashMap<String, String>();
-      _advancedMap.put("y_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=regularExpression&account="
-							+ request.getAccount() + "&AWRequest=yes>" + "Regular Expression"+ "</A>");
+      _advancedMap.put("y_title","<A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=regularExpression&account="
+							+ request.getAccount() + "&AWRequest=yes>" + "Regular Expression"+ "<paper-ripple></paper-ripple></a>");
       _advancedMap.put("z_desc","Test a regular expression against your text.");
       actionsList.add(_advancedMap);
 		}
@@ -1896,12 +1896,12 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 					}
 					outputStream.println("<DT><TABLE width=350><TR><TD><A HREF="
 							+ getPageLink(atomicmonitor.getAddPage(), "Add") + "&monitor&group=" + s + "&class="
-							+ atomicmonitor.getClassProperty("class") + ">Add " + s4 + " Monitor</A>" + s5
+							+ atomicmonitor.getClassProperty("class") + ">Add " + s4 + " Monitor<paper-ripple></paper-ripple></a>" + s5
 							+ "<TD align=right><A HREF=/SiteView/docs/" + atomicmonitor.getClassProperty("help")
-							+ " TARGET=Help>Help</A>" + "</TABLE><DD>" + atomicmonitor.getClassProperty("description"));
+							+ " TARGET=Help>Help<paper-ripple></paper-ripple></a>" + "</TABLE><DD>" + atomicmonitor.getClassProperty("description"));
 					if (s1.equals("server") && !flag1 && !DHCPLibInstalled()) {
 						outputStream.println(
-								"<DT><TABLE width=350><TR><TD>Add DHCP Monitor<TD align=right><A HREF=/SiteView/docs/DHCPMonitor.htm TARGET=Help>Help</A></TABLE><DD>Determines whether an IP address can be obtained from a DHCP server.<BR>This monitor requires the jDHCP library.  See the <A HREF=/SiteView/docs/DHCPMonitor.htm TARGET=Help>Help</A> document for more information.</DD>");
+								"<DT><TABLE width=350><TR><TD>Add DHCP Monitor<TD align=right><A HREF=/SiteView/docs/DHCPMonitor.htm TARGET=Help>Help<paper-ripple></paper-ripple></a></TABLE><DD>Determines whether an IP address can be obtained from a DHCP server.<BR>This monitor requires the jDHCP library.  See the <A HREF=/SiteView/docs/DHCPMonitor.htm TARGET=Help>Help<paper-ripple></paper-ripple></a> document for more information.</DD>");
 						flag1 = true;
 					}
 				}
@@ -1966,7 +1966,7 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 			}
 			outputStream.println("<td><font size=-1 face=Arial, sans-serif><A HREF="
 					+ getPageLink(monitorlist1.page, "Add") + "&monitor&group=" + s + "&class=" + monitorlist1.className
-					+ ">" + monitorlist1.name + "</A>&nbsp;&nbsp;</font></td>");
+					+ ">" + monitorlist1.name + "<paper-ripple></paper-ripple></a>&nbsp;&nbsp;</font></td>");
 		}
 
 		outputStream.println("</tr></TABLE></BLOCKQUOTE>");
@@ -1989,7 +1989,7 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 		}
 		outputStream
 				.println("<H2>Add Monitor to Group: <A HREF=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, s2)
-						+ ">" + com.dragonflow.Page.CGI.getGroupName(s2) + "</a></H2><hr>");
+						+ ">" + com.dragonflow.Page.CGI.getGroupName(s2,request) + "<paper-ripple></paper-ripple></a></H2><hr>");
 		printClasseList(s3, array);
 		outputStream.println("<hr><p><h3>Monitor Types by Category</h3>");
 		printClasses(s3, array, "",
@@ -2115,7 +2115,7 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 					DeleteMonitorFromReports(s2, s3);
 				}
 				outputStream.println("<p><a href=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, s2)
-						+ ">Return to Group page</a>");
+						+ ">Return to Group page<paper-ripple></paper-ripple></a>");
 				printFooter(outputStream);
 				SiteViewGroup.updateStaticPages(s2);
 			} catch (java.lang.Exception exception) {
@@ -2132,14 +2132,14 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 			outputStream.println("<h3>Delete Monitor</h3>");
 			outputStream.println("<p>Are you sure you want to delete the monitor <B>" + s4 + "</B>"
 					+ " from the <A HREF=" + com.dragonflow.Page.CGI.getGroupDetailURL(request, s2) + ">"
-					+ com.dragonflow.Page.CGI.getGroupName(s2) + "</A> Group?</p>");
+					+ com.dragonflow.Page.CGI.getGroupName(s2,request) + "<paper-ripple></paper-ripple></A> Group?</p>");
 			String s5 = request.getValue("_health").length() <= 0 ? "" : "<input type=hidden name=_health value=true>";
 			outputStream.println("<p>" + getPagePOST("monitor", "Delete") + "<input type=hidden name=group value=\""
 					+ s1 + "\">" + "<input type=hidden name=id value=\"" + s3 + "\">" + s5
 					+ "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\""
 					+ s + " Monitor\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF="
 					+ com.dragonflow.Page.CGI.getGroupDetailURL(request, s2) + ">Return to "
-					+ com.dragonflow.Page.CGI.getGroupName(s2) + "</A></TD><TD WIDTH=6%></TD>"
+					+ com.dragonflow.Page.CGI.getGroupName(s2,request) + "<paper-ripple></paper-ripple></A></TD><TD WIDTH=6%></TD>"
 					+ "</TR></TABLE></FORM>");
 			printFooter(outputStream);
 		}
@@ -2151,9 +2151,12 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 		String s3 = s1 + SiteViewGroup.ID_SEPARATOR + s2;
 		if (siteviewgroup != null && siteviewgroup.internalServerActive()
 				&& siteviewgroup.getSetting("_disableRefreshPage").length() == 0) {
+			String url=getWhereURL(com.dragonflow.Page.CGI.getGroupDetailURL(request, s1));
+			if(!url.startsWith(CGI.getTenant(request.getURL())))
+				url=CGI.getTenant(request.getURL())+url;
 			outputStream.println("<H3>" + s + " monitor</H3><P>" + "<A HREF="
-					+ getWhereURL(com.dragonflow.Page.CGI.getGroupDetailURL(request, s1)) + ">"
-					+ getWhereLabel("Return to Group page") + "</A><P><HR>");
+					+url  + ">"
+					+ getWhereLabel("Return to Group page") + "<paper-ripple></paper-ripple></A><P><HR>");
 			outputStream.flush();
 			if (s.equals("Updating")) {
 				outputStream.println("Saved changes to monitor<P>");
@@ -2164,7 +2167,7 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 				AtomicMonitor atomicmonitor = (AtomicMonitor) siteviewgroup.getElement(s3);
 				if (atomicmonitor != null) {
 					atomicmonitor.setProperty(Monitor.pLastUpdate, "-1");
-					atomicmonitor.setProperty(Monitor.pForceRefresh, request.getValue("forceRefresh"));
+					atomicmonitor.setProperty(Monitor.pForceRefresh, request.getValue("refresh"));
 				}
 				SiteViewGroup.updateStaticPages(s1);
 				AtomicMonitor atomicmonitor1 = (AtomicMonitor) siteviewgroup.getElement(s3);
@@ -2241,7 +2244,7 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 				PortalSiteView portalsiteview = (PortalSiteView) getSiteView();
 				if (portalsiteview != null) {
 					String s4 = portalsiteview.getURLContentsFromRemoteSiteView(
-							"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=RefreshMonitor&account=administrator&refresh=true&group="
+							CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=RefreshMonitor&account=administrator&refresh=true&group="
 									+ com.dragonflow.Page.monitorPage.getGroupIDRelative(s1) + "&id=" + s2,
 							"_centrascopeRefreshMatch");
 					outputStream.println(s4);
@@ -2345,12 +2348,12 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 				printstream.println("<HTML><HEAD><TITLE>SiteView Log File Columns</TITLE>");
 				printstream.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"siteviewUG.css\"></HEAD>");
 				printstream.println(
-						"<body bgcolor=#FFFFFF link=#006600 vlink=#339966 alink=#00AA33 onload=\"window.focus()\">\n<a name=top></a><p><font size=1 face=Verdana, Arial, Helvetica, sans-serif>SiteView User's Guide</font></p>");
+						"<body bgcolor=#FFFFFF link=#006600 vlink=#339966 alink=#00AA33 onload=\"window.focus()\">\n<a name=top><paper-ripple></paper-ripple></a><p><font size=1 face=Verdana, Arial, Helvetica, sans-serif>SiteView User's Guide</font></p>");
 				printstream.println("<H1>SiteView Log File Columns</H1>\n");
 				printstream.println(
 						"<p><!--onlineStart--><br clear=all><!--hr--><table id=\"nav_top\" align=\"right\"><tr>\n");
 				printstream.println(
-						"<td><a href=\"Advanced.htm\"><img src=images/aback.gif border=0 vspace=0></a></td><td><a href=\"#top\"><img src=images/atop.gif border=0 vspace=0></a></td><td><a href=\"UGtoc.htm\"><img src=images/atoc.gif border=0 vspace=0></a></td><td><a href=\"regexp.htm\"><img src=images/afwd.gif border=0 vspace=0></a></td>");
+						"<td><a href=\"Advanced.htm\"><img src=images/aback.gif border=0 vspace=0><paper-ripple></paper-ripple></a></td><td><a href=\"#top\"><img src=images/atop.gif border=0 vspace=0><paper-ripple></paper-ripple></a></td><td><a href=\"UGtoc.htm\"><img src=images/atoc.gif border=0 vspace=0><paper-ripple></paper-ripple></a></td><td><a href=\"regexp.htm\"><img src=images/afwd.gif border=0 vspace=0><paper-ripple></paper-ripple></a></td>");
 				printstream.println("</tr></table><br clear=all><!--onlineEnd--><hr></p>\n");
 				printstream.println(
 						"These are the contents of each column in the SiteView.log file.  The columns are tab-delimited.<P>");
@@ -2432,9 +2435,9 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 				s = s + "TemplateProperties.htm";
 				java.io.PrintStream printstream2 = new PrintStream(new FileOutputStream(new File(s)));
 				printstream2.println(
-						"<HTML><HEAD><TITLE>SiteView Template File Properties</TITLE><link rel=\"stylesheet\" type=\"text/css\" href=\"siteviewUG.css\"> </HEAD><body bgcolor=#FFFFFF link=#006600 vlink=#339966 alink=#00AA33 onload=\"window.focus()\"> <a name=top></a><p><font size=1 face=Verdana, Arial, Helvetica, sans-serif>SiteView User's Guide</font></p><h1>SiteView Template File Properties</H1><p><!--onlineStart--><br clear=all><!--hr--><table id=nav_top align=right><tr><td><a href=\"EditTemplate.htm\"><img src=images/aback.gif border=0 vspace=0></a></td><td><a href=\"#top\"><img src=images/atop.gif border=0 vspace=0></a></td><td><a href=\"UGtoc.htm\"><img src=images/atoc.gif border=0 vspace=0></a></td><td><a href=\"CustomMon.htm\"><img src=images/afwd.gif border=0 vspace=0></a></td> </tr></table><br clear=all><!--onlineEnd--><hr></p>");
+						"<HTML><HEAD><TITLE>SiteView Template File Properties</TITLE><link rel=\"stylesheet\" type=\"text/css\" href=\"siteviewUG.css\"> </HEAD><body bgcolor=#FFFFFF link=#006600 vlink=#339966 alink=#00AA33 onload=\"window.focus()\"> <a name=top><paper-ripple></paper-ripple></a><p><font size=1 face=Verdana, Arial, Helvetica, sans-serif>SiteView User's Guide</font></p><h1>SiteView Template File Properties</H1><p><!--onlineStart--><br clear=all><!--hr--><table id=nav_top align=right><tr><td><a href=\"EditTemplate.htm\"><img src=images/aback.gif border=0 vspace=0><paper-ripple></paper-ripple></a></td><td><a href=\"#top\"><img src=images/atop.gif border=0 vspace=0><paper-ripple></paper-ripple></a></td><td><a href=\"UGtoc.htm\"><img src=images/atoc.gif border=0 vspace=0><paper-ripple></paper-ripple></a></td><td><a href=\"CustomMon.htm\"><img src=images/afwd.gif border=0 vspace=0><paper-ripple></paper-ripple></a></td> </tr></table><br clear=all><!--onlineEnd--><hr></p>");
 				printstream2.println(
-						"<p>These are the property names that are be available for use in SiteView alert and report templates. \nYou can use these properties to customize the content of e-mail messages that are sent when a monitor \nalert is generated. These parameters are also used to <a href=ebusinesstransaction.htm#pass>pass values</a> between monitors that are part of an \n<a href=ebusinesstransaction.htm>eBusiness Transaction Monitor</a> \n<P>Properties that begin with an underscore character are monitor configuration properties. These properties are \nset within SiteView on the applicable monitor definition forms. The other properties listed are the results \nof the monitor running. Note that some of the properties, such as lastMeasurementTime, are internal properties \nand not generally interesting for alerts or reports.\n<P>The following properties are applicable to all monitor types:\n<P>\n<TABLE BORDER=1 cellspacing=0><CAPTION>General Template Properties</CAPTION>\n<TR><TH>name</TH><TH>description</TH></TR>\n<TR><TD>name</TD><TD>name of the monitor (same as _name)</TD></TR>\n<TR><TD>state</TD><TD>the status of the monitor (same as stateString)</TD></TR>\n<TR><TD>group</TD><TD>the name of the group that the monitor is in </TD></TR>\n<TR><TD>currentTime</TD><TD>the time that the alert is run</TD></TR>\n<TR><TD>time</TD><TD>the time that the monitor completed</TD></TR>\n<TR><TD>time-time</TD><TD>the time portion of the time that the monitor completed</TD></TR>\n<TR><TD>time-date</TD><TD>the date portion of the time that the monitor completed</TD></TR>\n<TR><TD>s|$year$/$month$/$day$|</TD><TD>a substitution expression - in this case year, month, day</TD></TR>\n<TR><TD>group.<I>propertyname</I></TD><TD>a given property of the group that the monitor is in</TD></TR>\n<TR><TD>group.parent.<I>propertyname</I></TD><TD>a given property of the parent group of the group that the monitor is in</TD></TR>\n<TR><TD>s|$year$/$month$/$day$|</TD><TD>a substitution expression - in this case year, month, day</TD></TR>\n<TR><TD>siteviewurl</TD><TD>the URL to the main page of SiteView for admin access</TD></TR>\n<TR><TD>siteviewuserurl</TD><TD>the URL to the main page of SiteView for user access</TD></TR>\n<TR><TD>mainParameters</TD><TD>all of the parameters that appear on the Edit form</TD></TR>\n<TR><TD>mainStateProperties</TD><TD>all of the result stats shown on the Reports</TD></TR>\n<TR><TD>secondaryParameters</TD><TD>all of the internal parameters</TD></TR>\n<TR><TD>secondaryStateProperties</TD><TD>all of the internal result stats</TD></TR>\n<TR><TD>all</TD><TD>all of the properties of the monitor</TD></TR>\n</TABLE><P>\n<P>\nThe following properties are applicable to the email templates stored in the templates.history directory:\n<P>\n<TABLE BORDER=1 cellspacing=0><CAPTION>Report Email Template Properties</CAPTION>\n<TR><TH>name</TH><TH>description</TH></TR>\n<TR><TD>reportPeriod</TD><TD>The time period for this report</TD></TR>\n<TR><TD>summary</TD><TD>Summary and measurement information</TD></TR>\n<TR><TD>basicAlertSummary</TD><TD>Basic information on what alerts have been triggered</TD></TR>\n<TR><TD>detailAlertSummary</TD><TD>More detailed information on alerts</TD></TR>\n<TR><TD>_webserverAddress</TD><TD>The IP address for the SiteView Server</TD></TR>\n<TR><TD>_httpPort</TD><TD>The port number used to access SiteView</TD></TR>\n<TR><TD>reportURL</TD><TD>The URL to the HTML version of the management report</TD></TR>\n<TR><TD>reportIndexURL</TD><TD>The URL to the index page for the management report</TD></TR>\n<TR><TD>textReportURL</TD><TD>The URL to the comma-delimited file generated by the management report</TD></TR>\n<TR><TD>xmlReportURL</TD><TD>The URL to the XML file generated by the management report</TD></TR>\n<TR><TD>userReportURL</TD><TD>The URL to the user-accessible verion of the report </TD></TR>\n<TR><TD>userReportIndexURL</TD><TD>The URL to the index page for a user-accessible report </TD></TR>\n<TR><TD>userTextReportURL</TD><TD>The URL to the comma-delimited file generated by a user-accessible report </TD></TR>\n<TR><TD>userXMLReportURL</TD><TD>The URL to the XML file generated by a user-accessible report </TD></TR>\n</TABLE><P>\n<p>Use the links below to view other template properties specific to the different monitor types:</p>\n<table width=75% border=0 cellspacing=0 cellpadding=0 align=center>\n");
+						"<p>These are the property names that are be available for use in SiteView alert and report templates. \nYou can use these properties to customize the content of e-mail messages that are sent when a monitor \nalert is generated. These parameters are also used to <a href=ebusinesstransaction.htm#pass>pass values<paper-ripple></paper-ripple></a> between monitors that are part of an \n<a href=ebusinesstransaction.htm>eBusiness Transaction Monitor<paper-ripple></paper-ripple></a> \n<P>Properties that begin with an underscore character are monitor configuration properties. These properties are \nset within SiteView on the applicable monitor definition forms. The other properties listed are the results \nof the monitor running. Note that some of the properties, such as lastMeasurementTime, are internal properties \nand not generally interesting for alerts or reports.\n<P>The following properties are applicable to all monitor types:\n<P>\n<TABLE BORDER=1 cellspacing=0><CAPTION>General Template Properties</CAPTION>\n<TR><TH>name</TH><TH>description</TH></TR>\n<TR><TD>name</TD><TD>name of the monitor (same as _name)</TD></TR>\n<TR><TD>state</TD><TD>the status of the monitor (same as stateString)</TD></TR>\n<TR><TD>group</TD><TD>the name of the group that the monitor is in </TD></TR>\n<TR><TD>currentTime</TD><TD>the time that the alert is run</TD></TR>\n<TR><TD>time</TD><TD>the time that the monitor completed</TD></TR>\n<TR><TD>time-time</TD><TD>the time portion of the time that the monitor completed</TD></TR>\n<TR><TD>time-date</TD><TD>the date portion of the time that the monitor completed</TD></TR>\n<TR><TD>s|$year$/$month$/$day$|</TD><TD>a substitution expression - in this case year, month, day</TD></TR>\n<TR><TD>group.<I>propertyname</I></TD><TD>a given property of the group that the monitor is in</TD></TR>\n<TR><TD>group.parent.<I>propertyname</I></TD><TD>a given property of the parent group of the group that the monitor is in</TD></TR>\n<TR><TD>s|$year$/$month$/$day$|</TD><TD>a substitution expression - in this case year, month, day</TD></TR>\n<TR><TD>siteviewurl</TD><TD>the URL to the main page of SiteView for admin access</TD></TR>\n<TR><TD>siteviewuserurl</TD><TD>the URL to the main page of SiteView for user access</TD></TR>\n<TR><TD>mainParameters</TD><TD>all of the parameters that appear on the Edit form</TD></TR>\n<TR><TD>mainStateProperties</TD><TD>all of the result stats shown on the Reports</TD></TR>\n<TR><TD>secondaryParameters</TD><TD>all of the internal parameters</TD></TR>\n<TR><TD>secondaryStateProperties</TD><TD>all of the internal result stats</TD></TR>\n<TR><TD>all</TD><TD>all of the properties of the monitor</TD></TR>\n</TABLE><P>\n<P>\nThe following properties are applicable to the email templates stored in the templates.history directory:\n<P>\n<TABLE BORDER=1 cellspacing=0><CAPTION>Report Email Template Properties</CAPTION>\n<TR><TH>name</TH><TH>description</TH></TR>\n<TR><TD>reportPeriod</TD><TD>The time period for this report</TD></TR>\n<TR><TD>summary</TD><TD>Summary and measurement information</TD></TR>\n<TR><TD>basicAlertSummary</TD><TD>Basic information on what alerts have been triggered</TD></TR>\n<TR><TD>detailAlertSummary</TD><TD>More detailed information on alerts</TD></TR>\n<TR><TD>_webserverAddress</TD><TD>The IP address for the SiteView Server</TD></TR>\n<TR><TD>_httpPort</TD><TD>The port number used to access SiteView</TD></TR>\n<TR><TD>reportURL</TD><TD>The URL to the HTML version of the management report</TD></TR>\n<TR><TD>reportIndexURL</TD><TD>The URL to the index page for the management report</TD></TR>\n<TR><TD>textReportURL</TD><TD>The URL to the comma-delimited file generated by the management report</TD></TR>\n<TR><TD>xmlReportURL</TD><TD>The URL to the XML file generated by the management report</TD></TR>\n<TR><TD>userReportURL</TD><TD>The URL to the user-accessible verion of the report </TD></TR>\n<TR><TD>userReportIndexURL</TD><TD>The URL to the index page for a user-accessible report </TD></TR>\n<TR><TD>userTextReportURL</TD><TD>The URL to the comma-delimited file generated by a user-accessible report </TD></TR>\n<TR><TD>userXMLReportURL</TD><TD>The URL to the XML file generated by a user-accessible report </TD></TR>\n</TABLE><P>\n<p>Use the links below to view other template properties specific to the different monitor types:</p>\n<table width=75% border=0 cellspacing=0 cellpadding=0 align=center>\n");
 				for (int k = 0; k < array.size(); k++) {
 					java.lang.Class class3 = (java.lang.Class) array.at(k);
 					try {
@@ -2443,7 +2446,7 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 							printstream2.println("<TR>");
 						}
 						printstream2.println("<TD><A HREF=#" + monitor2.getClassProperty("class") + ">"
-								+ monitor2.getClassProperty("title") + "</A>");
+								+ monitor2.getClassProperty("title") + "<paper-ripple></paper-ripple></a>");
 						if (k % 2 == 1) {
 							printstream2.println("</TR>");
 						}
@@ -2460,7 +2463,7 @@ public class monitorPage extends com.dragonflow.Page.CGI {
 						printstream2.println("<TABLE BORDER=1 cellspacing=0><CAPTION>");
 						printstream2.println("<A NAME=" + monitor3.getClassProperty("class") + ">");
 						printstream2.println("Monitor Type: " + monitor3.getClassProperty("title"));
-						printstream2.println("</A>");
+						printstream2.println("<paper-ripple></paper-ripple></a>");
 						printstream2.println("</CAPTION><TR><TH>name</TH><TH>label</TH><TH>description</TH></TR>");
 						int i1 = 1;
 						do {

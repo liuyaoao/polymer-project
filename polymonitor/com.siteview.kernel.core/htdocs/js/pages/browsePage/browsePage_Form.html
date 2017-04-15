@@ -1,0 +1,258 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html"> -->
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../components/paper-item-ext/paper-item-ext.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../components/paper-checkbox-ext/paper-checkbox-ext.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../components/iron-form-ext/iron-form-ext.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<!-- <link rel="import" href="monitor-ripple-container.html"> -->
+<link rel="import" href="../../components/css/bootstrap-styles.html">
+<!-- <link rel="import" href="monitor-tabs.html"> -->
+
+<dom-module id="browse-page-form">
+  <template strip-whitespace>
+      <style include="bootstrap-styles">
+        :host {
+          display: block;
+          position: relative;
+          /*--paper-button:{
+            text-transform: capitalize;
+          }*/
+        }
+        paper-button.fancy {
+          color: #fff;
+          background-color: #337ab7;
+          border-color: #2e6da4;
+        }
+
+        paper-button.fancy:hover {
+          background: #6CABE0;
+        }
+        paper-button.hide-controls-btn:hover{
+          background: #C1C1C1;
+        }
+        paper-checkbox-ext{
+          position:relative;
+          margin-top:20px;
+        }
+        paper-button{
+          --paper-button:{
+            text-transform: capitalize;
+          }
+        }
+
+
+      </style>
+      <!-- <browse-html-echo role="" html="{{_partnerMainHtml}}" class=""></browse-html-echo> -->
+      <div id="browsePageContainer" class="container-fluid">
+        <!-- dont hide form -->
+        <template is="dom-if" if="{{!isHide}}">
+          <form id="hideControlsForm" action=/SiteView/cgi/go.exe/SiteView method='get'>
+            <input type=hidden name='page' value='browse' />
+            <input type=hidden name='account' value='{{account}}' />
+            <input type=hidden name='hide' value='checked' />
+            <input type=hidden name='machineNameSelect' value='{{machineNameSelect}}' />
+            <input type=hidden name='sort' value='{{sortName}}' />
+            <input type=hidden name='monitorNameSelect' value='{{monitorNameSelect}}' />
+            <input type=hidden name='monitorTypeSelect' value='{{monitorTypeSelect}}' />
+            <input type=hidden name='refresh' value='{{refresh}}' />
+            <input type=hidden name='statusSelect' value='{{statusSelect}}' />
+            <input type=hidden name='categorySelect' value='{{categorySelect}}' />
+            <paper-button class="hide-controls-btn" raised on-click="_onClickHideControls" >
+              <iron-icon icon="arrow-back"></iron-icon>Hide Controls
+            </paper-button>
+          </form>
+
+          <form is="iron-form-ext" id='updateRefreshForm' action='/SiteView/cgi/go.exe/SiteView' method='get' use-native-submit>
+            <input type=hidden name='page' value='browse' />
+            <input type=hidden name='account' value='{{account}}' />
+            <div class="row">
+              <div class="col-xs-12 col-sm-4 col-md-3">
+                <paper-dropdown-menu id='categorySelect' label="Category to Show/Hide:" name='categorySelect' horizontal-align='right'>
+                  <paper-listbox class="dropdown-content" attr-for-selected='value' selected="{{categorySelectSelectedVal}}">
+                    <template is="dom-repeat" items="{{categorySelectDataArr}}">
+                      <paper-item-ext label='{{item.label}}' value='{{item.value}}'>[[item.label]]<paper-ripple></paper-ripple></paper-item-ext>
+                    </template>
+                    <!-- <paper-item-ext label='b'>Donut<paper-ripple></paper-ripple></paper-item-ext> -->
+                  </paper-listbox>
+                </paper-dropdown-menu>
+              </div>
+              <div class="col-xs-12 col-sm-4 col-md-3">
+                <paper-dropdown-menu id='monitorTypeSelect' label="Sort by: " name='sort' horizontal-align='right'>
+                  <paper-listbox class="dropdown-content" attr-for-selected='value' selected="{{sortSelectedVal}}">
+                    <paper-item-ext label='status' value='category'>status<paper-ripple></paper-ripple></paper-item-ext>
+                    <paper-item-ext label='group' value='group'>group<paper-ripple></paper-ripple></paper-item-ext>
+                    <paper-item-ext label='name' value='name'>name<paper-ripple></paper-ripple></paper-item-ext>
+                    <paper-item-ext label='status text' value='status'>status text<paper-ripple></paper-ripple></paper-item-ext>
+                    <paper-item-ext label='machine' value='machine'>machine<paper-ripple></paper-ripple></paper-item-ext>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+              </div>
+              <div class="col-xs-12 col-sm-4 col-md-3">
+                <paper-dropdown-menu id='refreshSelect' label="Refresh Option:" name='refresh' horizontal-align='right'>
+                  <paper-listbox class="dropdown-content" attr-for-selected='value' selected="{{refreshSelectedVal}}">
+                    <template is="dom-repeat" items="{{refreshSelectDataArr}}">
+                      <paper-item-ext label='{{item.label}}' value='{{item.value}}'>[[item.label]]<paper-ripple></paper-ripple></paper-item-ext>
+                    </template>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+              </div>
+              <div class="col-xs-12 col-sm-4 col-md-3">
+                  <paper-dropdown-menu id='monitorTypeSelect' label="For Monitor Type: " name='monitorTypeSelect' horizontal-align='right'>
+                    <paper-listbox class="dropdown-content" attr-for-selected='value' selected="{{monitorTypeSelectedVal}}">
+                      <paper-item-ext label='' value=''>All types<paper-ripple></paper-ripple></paper-item-ext>
+                      <template is="dom-repeat" items="{{monitorTypeSelectDataArr}}">
+                        <paper-item-ext label='{{item.label}}' value='{{item.value}}'>[[item.label]]<paper-ripple></paper-ripple></paper-item-ext>
+                      </template>
+                    </paper-listbox>
+                  </paper-dropdown-menu>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <paper-input type="search" id="monitorNameSelectInput" name="monitorNameSelect" label="Match Name:" size="15" value="{{monitorNameSelect}}"></paper-input>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                  <paper-input type="search" id="statusSelectInput" name="statusSelect" label="Match Status:" size="15" value="{{statusSelect}}"></paper-input>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <paper-input type="search" id="machineNameSelectInput" name="machineNameSelect" label="Match Machine:" size="15" value="{{machineNameSelect}}"></paper-input>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <paper-checkbox-ext '[[acknowledgeMonitorsChecked]]' checked-value='CHECKED' name="onlyBrowserUnacknowledge" '[[onlyBrowserUnacknowledge]]'>
+                      Only display unacknowledged monitors that are in error or warning
+                    </paper-checkbox-ext>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="" style="text-align:center;margin-top:1em;"><paper-button raised class="fancy" on-click="_onClickUpdateRefresh" >Update and Refresh</paper-button></div>
+              </div>
+            </div>
+          </form>
+
+        </template>
+
+        <template is="dom-if" if="{{isHide}}">
+          <dt><b>Account Details</b><br>
+          </dt>
+        </template>
+
+      </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'browse-page-form',
+      properties:{
+        isHide:{
+          type:Boolean,
+          value:false
+        },
+        account:String,
+        machineNameSelect:String,
+        monitorNameSelect:String,
+        sortName:String,
+        monitorTypeSelect:String,
+        refresh:String,
+        statusSelect:String,
+        categorySelect:String,
+        categorySelectSelectedVal:String,
+        categorySelectedLabel:{
+          type:String
+        },
+        categorySelectData:String,
+        categorySelectDataArr:{
+          type:Array,
+          value:[],
+          computed:"_getCategorySelectDataArr(categorySelectData)"
+        },
+        refreshSelectedVal:String,
+        refreshSelectData:String,
+        refreshSelectDataArr:{
+          type:Array,
+          value:[],
+          computed:"_getRefreshSelectDataArr(refreshSelectData)"
+        },
+        monitorTypeSelectedVal:String,
+        monitorTypeSelectData:String,
+        monitorTypeSelectDataArr:{
+          type:Array,
+          value:[],
+          computed:"_getMonitorTypeSelectDataArr(monitorTypeSelectData)"
+        },
+        sortSelectedVal:String,
+        acknowledgeMonitorsChecked:String,
+        onlyBrowserUnacknowledged:String
+
+
+
+
+
+      },
+      ready:function(){
+      },
+      _getCategorySelectDataArr:function(categorySelectData){
+        var tempStr = this.formatStringData(categorySelectData);
+        var arrList = JSON.parse(tempStr);
+        return arrList;
+      },
+      _getRefreshSelectDataArr:function(refreshSelectData){
+        var tempStr = this.formatStringData(refreshSelectData);
+        var arrList = JSON.parse(tempStr);
+        return arrList;
+      },
+      _getMonitorTypeSelectDataArr:function(monitorTypeSelectData){
+        var tempStr = this.formatStringData(monitorTypeSelectData);
+        var arrList = JSON.parse(tempStr);
+        return arrList;
+      },
+      _onClickHideControls:function(evt){
+        this.$$("#hideControlsForm").submit();
+      },
+      _onClickUpdateRefresh:function(evt){
+        // this.$$("#loginFormNative").submit();
+        this.$$("#updateRefreshForm").submit();
+        // this.$.loginFormNative.submit();
+      },
+
+
+      formatStringData:function(rawStr){
+        var tempStr = rawStr.replace(/@space/g," ");
+        tempStr = tempStr.replace(/@small/g,"<");
+        tempStr = tempStr.replace(/@big/g,">");
+        tempStr = tempStr.replace(/'/g,'"');
+        tempStr = tempStr.replace(/\//g,"\\n");
+        return tempStr;
+      }
+
+
+
+    });
+  </script>
+</dom-module>
+<script>
+  Polymer({
+    is: "browse-html-echo",
+    properties: {
+      //column name
+      html: {
+        type: String,
+        value: "",
+        observer: "onHtmlChanged"
+      }
+    },
+    onHtmlChanged: function() {
+      if (!this.html) {
+        this.html = "";
+      }
+      this.innerHTML = this.html;
+    }
+  });
+</script>

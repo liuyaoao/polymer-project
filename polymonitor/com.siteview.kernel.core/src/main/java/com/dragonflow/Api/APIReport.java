@@ -27,6 +27,7 @@ import jgl.Array;
 import jgl.HashMap;
 
 import com.dragonflow.HTTP.HTTPRequest;
+import com.dragonflow.Page.CGI;
 import com.dragonflow.Properties.HashMapOrdered;
 import com.dragonflow.SiteView.DetectConfigurationChange;
 import com.dragonflow.SiteView.HistoryReport;
@@ -194,7 +195,7 @@ public class APIReport extends com.dragonflow.Api.APISiteView {
             if (httprequest.isGet() && httprequest.getValue("isFlipper").length() == 0) {
                 s4 = "<a href=\"javascript:window.close()\">Close Window</a>";
             } else if (httprequest.getValue("isFlipper").length() == 0) {
-                s4 = "<a href=\"/SiteView/cgi/go.exe/SiteView?page=report&account=" + httprequest.getAccount() + "&operation=adhoc\">Quick Report Form</a>";
+                s4 = "<a href=\""+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=report&account=" + httprequest.getAccount() + "&operation=adhoc\">Quick Report Form</a>";
             }
             if (s.equals("ReportQuick")) {
                 httprequest.setValue("isadhoc", "true");

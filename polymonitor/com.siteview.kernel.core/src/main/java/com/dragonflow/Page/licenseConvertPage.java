@@ -40,13 +40,13 @@ public class licenseConvertPage extends com.dragonflow.Page.CGI
     public licenseConvertPage()
     {
         CONVERT_HOST = "demo.siteview.com";
-        CONVERT_URL = "http://" + CONVERT_HOST + "/SiteView/cgi/go.exe/SiteView?" + "page=demoLicense" + "&operation=converted" + "&employee=automatic" + "&silent=true";
+        CONVERT_URL = "http://" + CONVERT_HOST +CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?" + "page=demoLicense" + "&operation=converted" + "&employee=automatic" + "&silent=true";
         GROUPS_DIR = "/groups/";
         LOGS_DIR = "logs";
         LOG_NAME = "monitorCount.log";
         _title = "<center>\n<h2>SiteView 7.0 License Conversion</h2>\n</center>";
         _introDescription = "\nSiteView 7.0 and subsequent SiteView releases require a new license key. \nThis page will help you convert your current key to a 7.0-compatible license key. \n<p>\nImportant things to know about converting your keys: \n<p>\n<dl>\n<dt><b>Who's eligible?</b></dt>\n<dd>License conversions are only available for licenses covered under \ncurrent Customer Care subscriptions.  Please contact SiteView Sales at \n(303) 443-2266 or by emailing <a href=mailto:siteviewsales@siteview.com> siteviewsales@siteview.com</a> if you are unsure about \nyour Customer Care status.</dd>\n<p>\n<dt><b>How much does it cost?</b></dt>\n<dd>All licenses covered under Customer Care subscriptions may be converted \nto new licenses for free.</dd>\n<p>\n<dd>Licenses not covered under Customer Care may also be converted.  By \nconverting a license not covered under Customer Care, you agree to renew \nyour Customer Care subscription for a year, and you will be billed for \nyour Customer Care subscription.</dd>\n<p>\n<dt><b>How does this affect my future Customer Care renewals?</b></dt>\n<dd>Please note that after converting to a new license, the Customer Care costs \nfor that license will be based upon its current value. We are happy to adjust \nyour license in order to help defray your future Customer Care costs; please \ncontact SiteView Sales at (303) 443-2266 or <a href=mailto:siteviewsales@siteview.com> siteviewsales@siteview.com</a> if you wish \nto explore this option.</dd>\n<p>\n<dt><b>How will my new license compare to my current license?</b></dt>\n<dd>Your new license is based entirely upon what you already own.  The size \nof your new key will be equivalent to the one you are converting.  Your \npool of unused monitor credits will not decrease in size.</dd>\n<p>\n<dt><b>How does this affect my SiteView environment?</b></dt> \n<dd>If you convert your license, you will no longer be able to use any \nversion of SiteView released prior to 7.0.  The converse is also true: \nif you do not convert your \nlicense, you will not be able to use SiteView versions 7.0 and later.</dd> \n</dl>\n<p>\n<hr>\n<p>";
-        _introContinue = "<a href=\"/SiteView/cgi/go.exe/SiteView?page=licenseConvert&operation=entry\">Next >></a>";
+        _introContinue = "<a href=\""+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=licenseConvert&operation=entry\">Next >></a>";
         _introText = "\n<center>\n<table width=\"75%\" border=0>\n<tr><td>" + _introDescription + "</td></tr>" + "\n</table>" + "\n<table width=\"75%\" border=0>" + "\n<tr><td width=\"90%\"></td>" + "\n<td width=\"10%\" halign=right>" + _introContinue + "\n</td></tr>\n</table>\n</center>";
         _entryText = "This installation of SiteView has the following configuration:";
     }
@@ -287,7 +287,7 @@ public class licenseConvertPage extends com.dragonflow.Page.CGI
 
     private String _getEndUserHTML()
     {
-        String s = "\n<p>\n<form name=userinfo action=\"/SiteView/cgi/go.exe/SiteView?page=licenseConvert&operation=entry method=POST\">\n<table>\n<tr><td>Your Name: </td>\n<td><input type=text name=userName size=50></td></tr>\n<tr><td>Your Company: </td>\n<td><input type=text name=companyName size=50></td></tr>\n<tr><td>Your Email Address: </td>\n<td><input type=text name=emailAddr size=50></td></tr>\n<tr><td><input type=submit value=\"Submit\"></td></tr>\n</table>\n<input type=hidden name=page value=licenseConvert>\n<input type=hidden name=operation value=entry>\n</form>";
+        String s = "\n<p>\n<form name=userinfo action=\""+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=licenseConvert&operation=entry method=POST\">\n<table>\n<tr><td>Your Name: </td>\n<td><input type=text name=userName size=50></td></tr>\n<tr><td>Your Company: </td>\n<td><input type=text name=companyName size=50></td></tr>\n<tr><td>Your Email Address: </td>\n<td><input type=text name=emailAddr size=50></td></tr>\n<tr><td><input type=submit value=\"Submit\"></td></tr>\n</table>\n<input type=hidden name=page value=licenseConvert>\n<input type=hidden name=operation value=entry>\n</form>";
         return s;
     }
 

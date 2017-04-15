@@ -24,11 +24,14 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import jgl.Array;
+import jgl.HashMap;
 
 import com.dragonflow.Properties.HashMapOrdered;
 import com.dragonflow.SiteView.Platform;
+import com.dragonflow.SiteView.Tenant;
 import com.dragonflow.SiteView.User;
 import com.dragonflow.Utils.Base64Decoder;
+import com.dragonflow.Utils.TextUtils;
 
 // Referenced classes of package com.dragonflow.HTTP:
 // HTTPRequestException
@@ -294,6 +297,7 @@ public class HTTPRequest
         String s = "";
         String s1 = "";
         String s2 = "";
+        String tenant="";
         try
         {
             String s3 = bufferedreader.readLine();
@@ -429,6 +433,7 @@ public class HTTPRequest
                                 if(as1.length >= 1)
                                 {
                                     s = as1[0];
+                                    tenant=as1[as1.length-1];
                                     if(as1.length >= 2)
                                     {
                                         s1 = as1[1];
@@ -515,6 +520,10 @@ public class HTTPRequest
                     s6 = s6.substring(0, l);
                 }
                 setValue("account", s6);
+                if(!s4.startsWith("/SiteView"))
+                	setValue("tenant",s4.substring(1, s4.indexOf(s5)));
+                else
+                	setValue("tenant","");
             } else
             if(s4.startsWith("/SiteView/htdocs"))
             {
@@ -528,6 +537,7 @@ public class HTTPRequest
         if(getValue("account").length() == 0 && s.length() > 0)
         {
             setValue("account", s);
+            setValue("tenant", tenant);
         }
         if(s.equals(getValue("account")) && !flag2)
         {
@@ -750,6 +760,11 @@ public class HTTPRequest
     {
         com.dragonflow.SiteView.User _tmp = user1;
         setValue("account", user1.getProperty(User.pAccount));
+        HashMap hashmap = Tenant.findTenant(Tenant.readTenants(), user1.getProperty(User.pTenant));
+        if(hashmap!=null)
+        	setValue("tenant",TextUtils.getValue(hashmap, "_cName"));
+        else
+        	setValue("tenant","" );
         user = user1;
     }
 
@@ -757,6 +772,11 @@ public class HTTPRequest
     {
         setValue("account", s);
         user = User.getUserForAccount(s);
+        HashMap hashmap = Tenant.findTenant(Tenant.readTenants(), user.getProperty(User.pTenant));
+        if(hashmap!=null)
+        	setValue("tenant",TextUtils.getValue(hashmap, "_cName"));
+        else
+        	setValue("tenant","" );
     }
 
     public com.dragonflow.SiteView.User getUser()
@@ -773,7 +793,10 @@ public class HTTPRequest
     {
         return getValue("account");
     }
-
+    public String getTenant()
+    {
+        return getValue("tenant");
+    }
     public String getPortalServer()
     {
         return getValue(PORTAL_SERVER_NAME);
@@ -1335,7 +1358,7 @@ public class HTTPRequest
     {
         if(user1 != null)
         {
-            if(user1.getProperty("_edit").length() > 0)
+            if(user1.getProperty("_userEdit").length() > 0||user1.getProperty("_edit").length() > 0)
             {
                 return true;
             } else

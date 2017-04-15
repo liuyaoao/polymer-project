@@ -50,13 +50,16 @@ public class Tenant extends SiteViewObject {
 		if (findTenant(array, "administrator") == null) {
 			array.add(createAdministratorTenant(hashmap));
 		}
-		if (!Platform.isPortal() && findTenant(array, "tenant") == null) {
-			array.add(createTenantLogin(hashmap));
-		}
+//		if (!Platform.isPortal() && findTenant(array, "tenant") == null) {
+//			array.add(createTenantLogin(hashmap));
+//		}
 	}
 
 	public static HashMap findTenant(Array array, String s) {
-		for (Enumeration enumeration = array.elements(); enumeration.hasMoreElements();) {
+		Enumeration enumeration= array.elements();
+		if(enumeration.hasMoreElements())
+			enumeration.nextElement();
+		while (enumeration.hasMoreElements()) {
 			HashMap hashmap = (HashMap) enumeration.nextElement();
 			if (s.equals(TextUtils.getValue(hashmap, "_id"))) {
 				return hashmap;
@@ -64,7 +67,30 @@ public class Tenant extends SiteViewObject {
 		}
 		return null;
 	}
-
+	public static HashMap findTenantforName(Array array, String s) {
+		Enumeration enumeration= array.elements();
+		if(enumeration.hasMoreElements())
+			enumeration.nextElement();
+		while (enumeration.hasMoreElements()) {
+			HashMap hashmap = (HashMap) enumeration.nextElement();
+			if (s.equals(TextUtils.getValue(hashmap, "_cName"))) {
+				return hashmap;
+			}
+		}
+		return null;
+	}
+	public static String findTenantToName(Array array, String s) {
+		Enumeration enumeration= array.elements();
+		if(enumeration.hasMoreElements())
+			enumeration.nextElement();
+		while (enumeration.hasMoreElements()) {
+			HashMap hashmap = (HashMap) enumeration.nextElement();
+			if (s.equals(TextUtils.getValue(hashmap, "_id"))) {
+				return TextUtils.getValue(hashmap, "_cName");
+			}
+		}
+		return "";
+	}
 	public static HashMap createAdministratorTenant(HashMap hashmap) {
 		HashMap hashmap1 = new HashMap();
 		hashmap1.put("_id", "administrator");

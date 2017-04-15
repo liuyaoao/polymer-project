@@ -101,7 +101,7 @@ public class mapbuilderPage extends com.dragonflow.Page.CGI
         serverconnecterrorxsl = TextUtils.getValue(hashmap, "_mapbuilderserverconnecterrorxsl");
         if(serverconnecterrorxsl.equals(""))
         {
-            serverconnecterrorxsl = "<a><xsl:attribute name=\"href\">/SiteView/cgi/go.exe/SiteView?page=portalServer";
+            serverconnecterrorxsl = "<a><xsl:attribute name=\"href\">"+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=portalServer";
             serverconnecterrorxsl += "</xsl:attribute><img><xsl:attribute name=\"src\">/SiteView/htdocs/artwork/alertDisable.gif</xsl:attribute></img></a>";
         }
         configHash = new HashMap();
@@ -186,7 +186,7 @@ public class mapbuilderPage extends com.dragonflow.Page.CGI
                     }
                 }
 
-                outputStream.println("<div style=\"{position: absolute; left: 0px; top: 0px}\" ><input type=image name=mymap src=/SiteView/htdocs/artwork/backtransparent.gif height=" + s1 + " width=" + s + " ISMAP ><br></div>" + "<div style=\"{position: absolute; left: 780px; top: 525px}\" >" + "<a href=/SiteView/cgi/go.exe/SiteView?page=mapbuilder&account=" + request.getAccount() + "&config=" + s8 + "&action=add" + " target=myedit>Jump to edit configuration page</a></div>");
+                outputStream.println("<div style=\"{position: absolute; left: 0px; top: 0px}\" ><input type=image name=mymap src=/SiteView/htdocs/artwork/backtransparent.gif height=" + s1 + " width=" + s + " ISMAP ><br></div>" + "<div style=\"{position: absolute; left: 780px; top: 525px}\" >" + "<a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=mapbuilder&account=" + request.getAccount() + "&config=" + s8 + "&action=add" + " target=myedit>Jump to edit configuration page</a></div>");
             } else
             {
                 for(int j = 1; j < com.dragonflow.Utils.TextUtils.toInt((String)configHash.get("last")); j++)
@@ -200,7 +200,7 @@ public class mapbuilderPage extends com.dragonflow.Page.CGI
                     }
                 }
 
-                outputStream.println("<layer left=0 top=0> <input type=image name=mymap src=/SiteView/htdocs/artwork/backtransparent.gif height=600 width=1000 ISMAP ><br></layer><layer left=780 top=525><a href=/SiteView/cgi/go.exe/SiteView?page=mapbuilder&account=" + request.getAccount() + "&config=" + s8 + "&action=add" + " target=myedit>Jump to edit configuration page</a></layer>");
+                outputStream.println("<layer left=0 top=0> <input type=image name=mymap src=/SiteView/htdocs/artwork/backtransparent.gif height=600 width=1000 ISMAP ><br></layer><layer left=780 top=525><a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=mapbuilder&account=" + request.getAccount() + "&config=" + s8 + "&action=add" + " target=myedit>Jump to edit configuration page</a></layer>");
             }
             outputStream.println("</form>");
         } else
@@ -341,7 +341,7 @@ public class mapbuilderPage extends com.dragonflow.Page.CGI
     public void printAddForm(jgl.HashMap hashmap)
     {
         outputStream.println("<form method=post action=\"/SiteView/cgi/go.exe/SiteView\" name=presentation ><input type=hidden name=action value=add><input type=submit value=\"Update\"><br>");
-        outputStream.println("<table border=1 cellspacing=0><tr><th colspan=7><a href=/SiteView/cgi/go.exe/SiteView?page=mapbuilder>Start a New Mapbuilder</a>/Current Configuration:<font color=red size=+1>" + (String)hashmap.get("xslname") + "</font>   /<a href=/SiteView/cgi/go.exe/SiteView?page=mapbuilder&account=" + request.getAccount() + "&config=" + (String)configHash.get("xslname") + "_" + request.getAccount() + ".conf" + "&action=view target=mapview>" + "Go To ImageMap</a>/<a href=/SiteView/htdocs/mapbuilderhelp.htm> HELP PAGE</A></th></tr>" + "<tr><th>#</th><th>X</th><th>Y</th><th>Monitor</tH><th>Label/XSL(if assigned a monitor.)</th><th>XSL</th><th>DEL</TH>" + "</tr>");
+        outputStream.println("<table border=1 cellspacing=0><tr><th colspan=7><a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=mapbuilder>Start a New Mapbuilder</a>/Current Configuration:<font color=red size=+1>" + (String)hashmap.get("xslname") + "</font>   /<a href=/SiteView/cgi/go.exe/SiteView?page=mapbuilder&account=" + request.getAccount() + "&config=" + (String)configHash.get("xslname") + "_" + request.getAccount() + ".conf" + "&action=view target=mapview>" + "Go To ImageMap</a>/<a href=/SiteView/htdocs/mapbuilderhelp.htm> HELP PAGE</A></th></tr>" + "<tr><th>#</th><th>X</th><th>Y</th><th>Monitor</tH><th>Label/XSL(if assigned a monitor.)</th><th>XSL</th><th>DEL</TH>" + "</tr>");
         for(int i = 1; i < com.dragonflow.Utils.TextUtils.toInt((String)hashmap.get("last")); i++)
         {
             String s = "";
@@ -355,7 +355,7 @@ public class mapbuilderPage extends com.dragonflow.Page.CGI
             }
             outputStream.println("<tr><td bgcolor=" + s + "><b>" + i + "</b></td><td bgcolor=" + s + ">" + "<input type=text size=3 name=mymap.x" + i + " value=\"" + (String)hashmap.get("mymap.x" + i) + "\">");
             outputStream.println("</td><td bgcolor=" + s + ">" + "<input type=text size=3 name=mymap.y" + i + " value=\"" + (String)hashmap.get("mymap.y" + i) + "\">");
-            outputStream.println("</td><td bgcolor=" + s + ">" + "<A HREF=\"/SiteView/cgi/go.exe/SiteView?page=portalChooser&account=" + request.getAccount() + "&returnURL=" + "%2FSiteView%2Fcgi%2Fgo.exe%2FSiteView%3Fpage%3Dmapbuilder%26account%3D" + request.getAccount() + "%26action%3Dchooser%26itemnumber%3D" + i + "%26xslname%3D" + (String)hashmap.get("xslname") + "\">choose monitor</A>");
+            outputStream.println("</td><td bgcolor=" + s + ">" + "<A HREF=\""+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=portalChooser&account=" + request.getAccount() + "&returnURL=" + "%2FSiteView%2Fcgi%2Fgo.exe%2FSiteView%3Fpage%3Dmapbuilder%26account%3D" + request.getAccount() + "%26action%3Dchooser%26itemnumber%3D" + i + "%26xslname%3D" + (String)hashmap.get("xslname") + "\">choose monitor</A>");
             String s1 = getNameforID((String)hashmap.get("item" + i));
             outputStream.println("<input type=hidden name=item" + i + " value=\"" + (String)hashmap.get("item" + i) + "\"><b>" + s1 + "</b><br> ");
             if(hashmap.get("monitordisplay" + i) != null)
@@ -826,7 +826,7 @@ public class mapbuilderPage extends com.dragonflow.Page.CGI
             outputStream.println("Couldn't save file:" + s + "_" + s2 + "_footer.htm<br>");
             exception2.printStackTrace();
         }
-        outputStream.println("Your Browser is currently: " + httprequest.getUserAgent() + "<br>" + "<a href=/SiteView/cgi/go.exe/SiteView?page=portal&view=" + (String)hashmap.get("xslname") + " target=finalview>Click here to see CentraScope View</a>");
+        outputStream.println("Your Browser is currently: " + httprequest.getUserAgent() + "<br>" + "<a href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=portal&view=" + (String)hashmap.get("xslname") + " target=finalview>Click here to see CentraScope View</a>");
     }
 
     public String[] calculateXSLString(int i, int j, jgl.HashMap hashmap)

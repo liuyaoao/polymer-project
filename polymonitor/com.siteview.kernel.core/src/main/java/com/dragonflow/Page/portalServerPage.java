@@ -240,7 +240,7 @@ public class portalServerPage extends com.dragonflow.Page.portalPreferencePage
         {
             s1 = s1 + " <B>(read only)</B>";
         }
-        String s2 = "/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&id=" + s + "&account=" + request.getAccount();
+        String s2 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&id=" + s + "&account=" + request.getAccount();
         String s3 = "<A href=" + s2 + "&operation=Delete>X</a>";
         String s4 = "<A href=" + s2 + "&operation=Sync>Sync from SiteView</a>";
         String s5 = "<A href=" + s2 + "&operation=Edit>Edit</a>";
@@ -321,7 +321,7 @@ public class portalServerPage extends com.dragonflow.Page.portalPreferencePage
                     jgl.Array array = com.dragonflow.Properties.FrameFile.readFromFile(getConfigFilePath());
                     jgl.HashMap hashmap = com.dragonflow.Page.portalServerPage.findFrameByID(array, s1);
                     com.dragonflow.Page.portalServerPage.syncRemoteSiteView(hashmap, outputStream);
-                    outputStream.println("<P><A HREF=/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Back to " + getTitle() + "s</A>");
+                    outputStream.println("<P><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Back to " + getTitle() + "s</A>");
                 }
                 catch(java.lang.Exception exception)
                 {
@@ -333,7 +333,7 @@ public class portalServerPage extends com.dragonflow.Page.portalPreferencePage
                 printButtonBar(getHelpPage(), "");
                 if(portalsiteview != null)
                 {
-                    outputStream.println("<P><FONT SIZE=+1>Are you sure you want to initialize the CentraScope configurations <B>from</B> the SiteView<B> " + portalsiteview.getProperty(com.dragonflow.SiteView.PortalSiteView.pTitle) + "</B>?</FONT>" + "<P><B>Note:</B> Under normal usage, this only needs to occur once, when you add the server." + "<p>" + getPagePOST("portalServer", s) + "<INPUT TYPE=HIDDEN NAME=id VALUE=\"" + s1 + "\">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit VALUE=\"" + s + " " + portalsiteview.getProperty(com.dragonflow.SiteView.PortalSiteView.pTitle) + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=" + "/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Return to Servers</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+                    outputStream.println("<P><FONT SIZE=+1>Are you sure you want to initialize the CentraScope configurations <B>from</B> the SiteView<B> " + portalsiteview.getProperty(com.dragonflow.SiteView.PortalSiteView.pTitle) + "</B>?</FONT>" + "<P><B>Note:</B> Under normal usage, this only needs to occur once, when you add the server." + "<p>" + getPagePOST("portalServer", s) + "<INPUT TYPE=HIDDEN NAME=id VALUE=\"" + s1 + "\">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit VALUE=\"" + s + " " + portalsiteview.getProperty(com.dragonflow.SiteView.PortalSiteView.pTitle) + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Return to Servers</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
                 } else
                 {
                     outputStream.println("<HR><H2>Error</H2>Could not read SiteView for ID " + s1);
@@ -350,7 +350,7 @@ public class portalServerPage extends com.dragonflow.Page.portalPreferencePage
                 {
                     com.dragonflow.SiteView.PortalSync portalsync = new PortalSync(outputStream);
                     portalsync.sync(s2);
-                    outputStream.println("<P><A HREF=/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Back to " + getTitle() + "s</A>");
+                    outputStream.println("<P><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Back to " + getTitle() + "s</A>");
                 }
                 catch(java.lang.Exception exception1)
                 {
@@ -362,7 +362,7 @@ public class portalServerPage extends com.dragonflow.Page.portalPreferencePage
                 printButtonBar(getHelpPage(), "");
                 if(portalsiteview1 != null)
                 {
-                    outputStream.println("<P><FONT SIZE=+1>Are you sure you want to force an update the configurations at the SiteView<B> " + portalsiteview1.getProperty(com.dragonflow.SiteView.PortalSiteView.pTitle) + "</B> from this CentraScope?</FONT>" + "<P><B>Note:</B> Under normal usage, this occurs automatically.  Use this if the connection to the " + "SiteView was down, and you need to update all of your changes to the remote SiteView server." + "<p>" + getPagePOST("portalServer", s) + "<INPUT TYPE=HIDDEN NAME=id VALUE=\"" + s2 + "\">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit VALUE=\"" + s + " " + portalsiteview1.getProperty(com.dragonflow.SiteView.PortalSiteView.pTitle) + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=" + "/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Return to Servers</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+                    outputStream.println("<P><FONT SIZE=+1>Are you sure you want to force an update the configurations at the SiteView<B> " + portalsiteview1.getProperty(com.dragonflow.SiteView.PortalSiteView.pTitle) + "</B> from this CentraScope?</FONT>" + "<P><B>Note:</B> Under normal usage, this occurs automatically.  Use this if the connection to the " + "SiteView was down, and you need to update all of your changes to the remote SiteView server." + "<p>" + getPagePOST("portalServer", s) + "<INPUT TYPE=HIDDEN NAME=id VALUE=\"" + s2 + "\">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit VALUE=\"" + s + " " + portalsiteview1.getProperty(com.dragonflow.SiteView.PortalSiteView.pTitle) + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Return to Servers</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
                 } else
                 {
                     outputStream.println("<HR><H2>Error</H2>Could not read SiteView for ID " + s2);

@@ -164,7 +164,7 @@ public abstract class remoteBase extends com.dragonflow.Page.prefsPage {
 	void formLogin(jgl.HashMap hashmap) {
 		String s = getPage();
 		String s1 = "";
-		if (s.indexOf("ntmachine") != -1) {
+		if (s.indexOf("windowsmachine") != -1) {
 			s1 = "Enter the login for the remote server. <br>For a domain login, include the domain name before the user login (example: <i>domainname\\user</i>). <br>For a local or standalone login, include the machine name before the user login  (example: <i>machinename\\user</i>).";
 		} else if (s.indexOf("machine") != -1) {
 			s1 = "Enter the login to use for connecting to the remote server";
@@ -242,7 +242,6 @@ public abstract class remoteBase extends com.dragonflow.Page.prefsPage {
 	}
 
 	void printListForm(String s) throws java.io.IOException {
-		outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/simple-data-table-ext.html' async='true'>\n");
 		String s1 = request.getValue("backURL");
 		String s3 = request.getValue("storeURL");
 		String s4 = request.getValue("storeID");
@@ -255,6 +254,7 @@ public abstract class remoteBase extends com.dragonflow.Page.prefsPage {
 		String s5 = getListTitle();
 		String s6 = getListSubtitle();
 		printBodyHeader(s5);
+		outputStream.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/simple-data-table-ext.html' async='true'>\n");
 		printButtonBar(getHelpPage(), "", getSecondNavItems(request));
 		if (s4.length() == 0) {
 			printPrefsBar(getPrefTitle());

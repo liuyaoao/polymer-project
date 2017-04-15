@@ -1,5 +1,5 @@
 /*
- * 
+ *
  * Created on 2014-2-15 10:46:30
  *
  * Monitor.java
@@ -11,11 +11,11 @@ package com.dragonflow.SiteView;
 
 /**
  * Comment for <code>Monitor</code>
- * 
+ *
  * @author
  * @version 0.0
- * 
- * 
+ *
+ *
  */
 import java.io.PrintWriter;
 import java.util.Date;
@@ -160,7 +160,10 @@ public abstract class Monitor extends SiteViewObject {
     public boolean isDisabled() {
         return whyDisabled().length() > 0;
     }
-
+    public boolean isDontRefresh(){
+    	return this.getProperties(pDontRefresh).size()>0;
+    }
+    
     public String whyDisabled() {
         String s = isGloballyDisabled();
         if (s.length() == 0 && (MonitorGroup) getOwner() != null)
@@ -219,8 +222,8 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @return
      */
     public String isGloballyDisabled() {
@@ -499,7 +502,7 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * 
+     *
      */
     public void initialize(HashMap hashmap) {
         super.initialize(hashmap);
@@ -512,8 +515,8 @@ public abstract class Monitor extends SiteViewObject {
                 addElement(rule);
                 setComputeGroupCounts(rule);
             }
-        } 
-        
+        }
+
         Enumeration enumeration1 = hashmap.values("_classifier");
         while (enumeration1.hasMoreElements()) {
             Object obj = enumeration1.nextElement();
@@ -533,7 +536,7 @@ public abstract class Monitor extends SiteViewObject {
                 if (rule2 != null)
                     addElement(rule2);
             }
-        } 
+        }
     }
 
     protected void setComputeGroupCounts(Rule rule) {
@@ -614,8 +617,8 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param s
      * @param s1
      * @return
@@ -660,13 +663,13 @@ public abstract class Monitor extends SiteViewObject {
         } else {
             enumeration = getMonitors();
         }
-        
+
         while (enumeration.hasMoreElements()) {
             Monitor monitor = (Monitor) enumeration.nextElement();
             if (s.length() == 0 || monitor.getClassProperty("class").equals(s)) {
                 array.add(monitor);
             }
-        } 
+        }
         return array;
     }
 
@@ -708,8 +711,8 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param i
      * @param flag
      * @return
@@ -788,8 +791,8 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param i
      * @param monitor
      * @param s
@@ -837,9 +840,9 @@ public abstract class Monitor extends SiteViewObject {
                         monitor.propGoodStatusMap.put(as[0], new Boolean(flag1));
                     }
                 }
-            } 
+            }
         }
-        
+
         while (enumeration.hasMoreElements()) {
             Rule rule = (Rule) enumeration.nextElement();
             boolean flag = rule.match(monitor);
@@ -874,8 +877,8 @@ public abstract class Monitor extends SiteViewObject {
             if (AtomicMonitor.alertDebug)
                 LogManager.log("RunMonitor", "alertDebug: "
                         + AtomicMonitor.alertDebugId + " ---End of Check--- ");
-        } 
-        
+        }
+
         enumeration = array.elements();
         while (enumeration.hasMoreElements()) {
             Rule rule1 = (Rule) enumeration.nextElement();
@@ -890,7 +893,7 @@ public abstract class Monitor extends SiteViewObject {
                 IncrementAlertProperties(rule1.getFullID(), s);
             }
         }
-        
+
         Rule rule2;
         for (Enumeration enumeration1 = array1.elements(); enumeration1
                 .hasMoreElements(); ruleApplied(rule2))
@@ -1188,7 +1191,7 @@ public abstract class Monitor extends SiteViewObject {
                     + "&category="
                     + s1
                     + "&fromDetail=true" + ">";
-            s3 = "</A>";
+            s3 = "<paper-ripple></paper-ripple></a>";
         }
         printwriter.print("<TD ALIGN=CENTER BGCOLOR=#000000>" + s2
                 + progressArt() + "<IMG BORDER=0 SRC="
@@ -1386,8 +1389,8 @@ public abstract class Monitor extends SiteViewObject {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param flag
      * @param httprequest
      * @return
@@ -1430,7 +1433,7 @@ public abstract class Monitor extends SiteViewObject {
                             + (String) hashmap.get("schedule");
                     i++;
                 }
-            } 
+            }
         }
 
         String s5 = "1";
@@ -1586,7 +1589,7 @@ public abstract class Monitor extends SiteViewObject {
         String s1 = getProperty(pMonitorDescription);
         String s2 = getTableRecentLink(httprequest);
         if (s2.length() > 0)
-            s = "<A HREF=" + s2 + " TARGET=reports>" + s + "</A>";
+            s = "<A HREF=" + s2 + " TARGET=reports>" + s + "<paper-ripple></paper-ripple></a>";
         printwriter.print("<TD ALIGN=LEFT>" + s + s1 + "</TD>");
     }
 
@@ -1607,7 +1610,7 @@ public abstract class Monitor extends SiteViewObject {
         } else {
             boolean flag1 = flag || isOnAbsoluteSchedule();
             printwriter
-                    .print("<a href=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=RefreshMonitor"
+                    .print("<a href="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=RefreshMonitor"
                             + s2
                             + "&refresh=true&"
                             + (flag1 ? "forceRefresh=true&" : "")
@@ -1619,7 +1622,7 @@ public abstract class Monitor extends SiteViewObject {
                             + "&"
                             + "account="
                             + httprequest.getAccount()
-                            + (flag1 ? ">Run Once</a>" : ">Refresh</a>"));
+                            + (flag1 ? ">Run Once<paper-ripple></paper-ripple></a>" : ">Refresh<paper-ripple></paper-ripple></a>"));
         }
         printwriter.print("</TD>");
     }
@@ -1632,12 +1635,12 @@ public abstract class Monitor extends SiteViewObject {
         String s2 = httprequest.getValue("_health").length() <= 0 ? ""
                 : "&_health=true";
         printwriter
-                .print("<TD ALIGN=CENTER><A HREF=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Edit&group="
+                .print("<TD ALIGN=CENTER><A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Edit&group="
                         + s
                         + "&id="
                         + s1
                         + "&account="
-                        + httprequest.getAccount() + s2 + ">Edit</A></TD>");
+                        + httprequest.getAccount() + s2 + ">Edit<paper-ripple></paper-ripple></a></TD>");
     }
 
     protected void printTableDeleteEntry(PrintWriter printwriter,
@@ -1648,12 +1651,12 @@ public abstract class Monitor extends SiteViewObject {
         s1 = HTTPRequest.encodeString(s1);
         String s2 = getProperty(pID);
         printwriter
-                .print("<TD ALIGN=CENTER><A HREF=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Delete&group="
+                .print("<TD ALIGN=CENTER><A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Delete&group="
                         + s1
                         + "&id="
                         + s2
                         + "&account="
-                        + httprequest.getAccount() + s + ">X</A>" + "</TD>");
+                        + httprequest.getAccount() + s + ">X<paper-ripple></paper-ripple></a>" + "</TD>");
     }
 
     public String getTableMoreLink(HTTPRequest httprequest) {
@@ -1678,7 +1681,7 @@ public abstract class Monitor extends SiteViewObject {
         String s = getTableMoreLink(httprequest);
         if (s.length() > 0)
             printwriter.print("<TD><A HREF=" + s + ">"
-                    + escapeHTML(getTestTitle()) + "</A></TD>");
+                    + escapeHTML(getTestTitle()) + "<paper-ripple></paper-ripple></a></TD>");
         else
             printwriter.print("<TD>&nbsp;</TD>");
     }
@@ -1710,7 +1713,7 @@ public abstract class Monitor extends SiteViewObject {
                         + "&returnURL="
                         + s4
                         + "&returnLabel=" + "Group+Detail" + ">";
-                s3 = "</A>";
+                s3 = "<paper-ripple></paper-ripple></a>";
             }
         } else {
             s6 = "AcknowledgeClear";
@@ -1728,7 +1731,7 @@ public abstract class Monitor extends SiteViewObject {
                         + "&returnURL="
                         + s4
                         + "&returnLabel=" + "Group+Detail" + ">";
-                s3 = "</A>";
+                s3 = "<paper-ripple></paper-ripple></a>";
             }
         }
         printwriter.print("<TD ALIGN=CENTER BGCOLOR=#000000>" + s2
@@ -1906,7 +1909,9 @@ public abstract class Monitor extends SiteViewObject {
     public static StringProperty pDescription;
 
     public static StringProperty pDisabled;
-
+    
+    public static StringProperty pDontRefresh;
+    
     public static StringProperty pAlertDisabled;
 
     public static StringProperty pTimedDisable;
@@ -2281,6 +2286,10 @@ public abstract class Monitor extends SiteViewObject {
         pDisabled.setDisplayText("Disable",
                 "temporarily disable monitor sampling and alerting");
         pDisabled.setParameterOptions(true, 1, true);
+        pDontRefresh= new BooleanProperty("_norefresh");
+        pDontRefresh.setDisplayText("Don't Refresh",
+                "The monitor does not automatically sampling and alerting");
+        pDontRefresh.setParameterOptions(true, 1, true);
         pAlertDisabled = new StringProperty("_alertDisabled");
         pAlertDisabled.setConfigurable(true);
         pVerifyError = new BooleanProperty("_verifyError");
@@ -2356,7 +2365,7 @@ public abstract class Monitor extends SiteViewObject {
         pAcknowledgeAlertDisabled = new StringProperty(
                 "acknowledgeAlertDisabled");
         StringProperty astringproperty[] = { pCategory, pLastCategory,
-                pRunning, pName, pDisabled, pAlertDisabled, pTimedDisable,
+                pRunning, pName, pDisabled, pAlertDisabled, pDontRefresh,pTimedDisable,
                 pVerifyError, pMonitorDescription, pDescription, pSchedule,
                 pStateString, pMeasurement, pRawMeasurement, pErrorCount,
                 pWarningCount, pErrorDuration, pWarningDuration, pGoodCount,

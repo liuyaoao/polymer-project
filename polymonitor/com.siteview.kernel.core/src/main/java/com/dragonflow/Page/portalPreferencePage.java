@@ -266,7 +266,7 @@ public class portalPreferencePage extends com.dragonflow.Page.CGI
             {
                 com.dragonflow.Properties.FrameFile.writeToFile(getConfigFilePath(), array);
                 com.dragonflow.SiteView.Portal.signalReload();
-                printRefreshPage("/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount(), 0);
+                printRefreshPage(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount(), 0);
             } else
             {
                 printEditForm(s, hashmap, hashmap3);
@@ -360,7 +360,7 @@ public class portalPreferencePage extends com.dragonflow.Page.CGI
                 com.dragonflow.Properties.FrameFile.writeToFile(getConfigFilePath(), array);
                 postProcessDelete(hashmap);
                 com.dragonflow.SiteView.Portal.signalReload();
-                printRefreshPage("/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount(), 0);
+                printRefreshPage(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount(), 0);
             }
             catch(java.lang.Exception exception)
             {
@@ -374,10 +374,10 @@ public class portalPreferencePage extends com.dragonflow.Page.CGI
             boolean flag = preProcessDelete(hashmap, stringbuffer);
             if(flag)
             {
-                outputStream.println("<FONT SIZE=+1>Are you sure you want to remove the " + getTitle() + " <B>" + s4 + "</B>?</FONT>" + "<p><FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>" + "<input type=hidden name=page value=" + getPageName() + ">" + "<input type=hidden name=operation value=\"" + s + "\">" + "<input type=hidden name=id value=\"" + s3 + "\">" + "<input type=hidden name=account value=" + request.getAccount() + ">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\"" + s + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Return to Detail</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+                outputStream.println("<FONT SIZE=+1>Are you sure you want to remove the " + getTitle() + " <B>" + s4 + "</B>?</FONT>" + "<p><FORM ACTION=/SiteView/cgi/go.exe/SiteView method=POST>" + "<input type=hidden name=page value=" + getPageName() + ">" + "<input type=hidden name=operation value=\"" + s + "\">" + "<input type=hidden name=id value=\"" + s3 + "\">" + "<input type=hidden name=account value=" + request.getAccount() + ">" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\"" + s + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Return to Detail</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
             } else
             {
-                outputStream.println("<FONT SIZE=+1>" + getTitle() + " <B>" + s4 + " cannot be deleted</B></FONT><HR>\n" + "Being used by:<P><UL>\n" + stringbuffer.toString() + "</UL><P>" + "<A HREF=/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Return to Detail</A></TD><TD WIDTH=6%></TD>");
+                outputStream.println("<FONT SIZE=+1>" + getTitle() + " <B>" + s4 + " cannot be deleted</B></FONT><HR>\n" + "Being used by:<P><UL>\n" + stringbuffer.toString() + "</UL><P>" + "<A HREF="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount() + ">Return to Detail</A></TD><TD WIDTH=6%></TD>");
             }
             printFooter(outputStream);
         }

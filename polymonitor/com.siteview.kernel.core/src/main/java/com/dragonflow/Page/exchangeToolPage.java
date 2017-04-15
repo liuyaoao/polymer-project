@@ -51,7 +51,7 @@ public class exchangeToolPage extends com.dragonflow.Page.CGI {
                     java.util.Date date = mFileDateFormat.parse(s3);
                     String s4 = s1 + java.io.File.separator + as[i];
                     outputStream
-                            .println("<a href=\"/SiteView/cgi/go.exe/SiteView?page=exchangeReport&file="
+                            .println("<a href=\""+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=exchangeReport&file="
                                     + java.net.URLEncoder.encode(s4, "UTF-8")
                                     + "\">"
                                     + java.text.DateFormat

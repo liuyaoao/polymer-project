@@ -295,7 +295,7 @@ public class portalQueryPage extends com.dragonflow.Page.portalPreferencePage {
         String s = TextUtils.getValue(hashmap, "_id");
         String s1 = com.dragonflow.Page.portalQueryPage.getValue(hashmap,
                 "_title");
-        String s2 = "/SiteView/cgi/go.exe/SiteView?page=" + getPageName()
+        String s2 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName()
                 + "&id=" + s + "&account=" + request.getAccount();
         String s3 = "<A href=" + s2 + "&operation=Delete>X</a>";
         String s4 = "<A href=" + s2 + "&operation=Edit>Edit</a>";

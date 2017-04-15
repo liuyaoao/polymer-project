@@ -22,6 +22,7 @@ import java.util.Enumeration;
 
 import jgl.Array;
 
+import com.dragonflow.Page.CGI;
 import com.dragonflow.Page.loginPage;
 import com.dragonflow.SiteView.MasterConfig;
 import com.dragonflow.SiteView.Platform;
@@ -410,8 +411,10 @@ public class HTTPRequestThread implements java.lang.Runnable {
 
                     SiteViewGroup siteviewgroup = SiteViewGroup.cCurrentSiteView;
                     if (url.equals("/") || url.equals("/SiteView") || url.equals("/SiteView/") || url.startsWith("/siteview")) {
-                        httprequest.setURL("/SiteView/cgi/go.exe/SiteView");
-                    }
+                    	httprequest.setURL("/SiteView/cgi/go.exe/SiteView");
+                    }else if(url.length()==CGI.getTenant(url).length()||url.equals(CGI.getTenant(url)+"/SiteView"))
+                    		httprequest.setURL(CGI.getTenant(url)+"/SiteView/cgi/go.exe/SiteView");
+                    
                     thread.setNameIfNeeded("HTTPRequest " + httprequest.getURL());
                     java.net.InetAddress inetaddress = socket.getInetAddress();
                     String s3 = Platform.dottedIPString(inetaddress.getAddress());
@@ -470,9 +473,9 @@ public class HTTPRequestThread implements java.lang.Runnable {
                                 if (k == 403) {
                                     throw new HTTPRequestException(403);
                                 }
-                                if (s6.length() > 0) {
-                                    throw new HTTPRequestException(401);
-                                }
+//                                if (s6.length() > 0) {
+//                                    throw new HTTPRequestException(401);
+//                                }
                                 if (siteviewgroup.getSetting("_disableLoginPage").length() > 0) {
                                     throw new HTTPRequestException(401);
                                 }
@@ -610,7 +613,7 @@ public class HTTPRequestThread implements java.lang.Runnable {
                             }
                             return;
                         }
-
+                        
                         VirtualDirectory vd = httpServer.getVirtualDirectory(httprequest.getURL());
                         if (vd != null && vd.isCGIDirectory()) {
                             hrh = new CGIRequestHandler(httpServer);
@@ -633,16 +636,15 @@ public class HTTPRequestThread implements java.lang.Runnable {
                 if (httprequest != null) {
                     httprequest.writeAccessLog();
                 }
-
-                // throw exception2;
                 if (!keepAliveEnabled || httprequest.status != 304 && httprequest.contentLength == -1L || !httprequest.getKeepAlive() || j ++ > 100) {
                     break;
                 }
+//                httprequest;
                 flushOutputStream(flag);
                 flag1 = flag;
             }
         } catch (Exception e) {
-            /* empty */
+            /* empty */System.out.println(e.getMessage());
         } finally {
             try {
                 closeOutputStream(flag);

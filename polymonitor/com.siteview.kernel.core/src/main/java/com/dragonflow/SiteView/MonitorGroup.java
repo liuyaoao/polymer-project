@@ -73,7 +73,7 @@ public class MonitorGroup extends Monitor {
     public static StringProperty pParent;
 
     public static StringProperty pAccountName;
-
+    public static StringProperty pPath;
     static int minGroupInterval;
 
     private UpdateGroup updateGroup;
@@ -131,7 +131,7 @@ public class MonitorGroup extends Monitor {
         if (httprequest.actionAllowed("_preference")) {
             menus1.add(new CGI.menuItems("Remote UNIX/LINUX", "machine", "", "page", "Add/Edit Remote UNIX/Linux profiles"));
             menus1.add(new CGI.menuItems("Remote MQTT", "mqttmachine", "", "page", "Add/Edit Remote MQTT profiles"));
-            menus1.add(new CGI.menuItems("Remote Windows", "ntmachine", "", "page", "Add/Edit Remote Windows profiles"));
+            menus1.add(new CGI.menuItems("Remote Windows", "windowsmachine", "", "page", "Add/Edit Remote Windows profiles"));
         }
         if (httprequest.actionAllowed("_tools")) {
             menus1.add(new CGI.menuItems("Tools", "monitor", "Tools", "operation", "Use monitor diagnostic tools"));
@@ -253,6 +253,7 @@ public class MonitorGroup extends Monitor {
             monitorgroup.readMonitors(groupid, s);
             monitorgroup.readDynamic();
             monitorgroup.initialize(monitorgroup.getValuesTable());
+            monitorgroup.setProperty("pPath", groupid);
         } catch (FileNotFoundException filenotfoundexception) {
             monitorgroup = null;
             if (flag) {
@@ -824,8 +825,8 @@ public class MonitorGroup extends Monitor {
                 if (s7.equals("error")) {
                     s9 = "Error";
                 }
-                s4 = "<p>(Depends on " + s9 + " for <A HREF=/SiteView/cgi/go.exe/SiteView?page=adhocReport&" + s6 + "&account=" + httprequest.getAccount() + "&group=" + s2 + ">" + atomicmonitor.getProperty(pName) + "</A>" + " in group " + "<A HREF="
-                        + CGI.getGroupDetailURL(httprequest, atomicmonitor.getProperty(pGroupID)) + ">" + monitorgroup.getProperty(pName) + "</A>)</p>";
+                s4 = "<p>(Depends on " + s9 + " for <A HREF=/SiteView/cgi/go.exe/SiteView?page=adhocReport&" + s6 + "&account=" + httprequest.getAccount() + "&group=" + s2 + ">" + atomicmonitor.getProperty(pName) + "<paper-ripple></paper-ripple></a>" + " in group " + "<A HREF="
+                        + CGI.getGroupDetailURL(httprequest, atomicmonitor.getProperty(pGroupID)) + ">" + monitorgroup.getProperty(pName) + "<paper-ripple></paper-ripple></a>)</p>";
             }
         }
         int j = 1;
@@ -857,6 +858,7 @@ public class MonitorGroup extends Monitor {
 //        printwriter.println("</table>");
 //      import polymer components simple-data-table-ext.
         printwriter.println("<link rel='import' href='/SiteView/htdocs/js/components/data-table-ext/simple-data-table-ext.html' async='true'>\n");
+        printwriter.println("<link rel='import' href='/SiteView/htdocs/js/bower_components/paper-ripple/paper-ripple.html' async='true'>\n");
 
         int ai[] = { CATEGORY_COLUMN, ACKNOWLEDGE_COLUMN, GAUGE_COLUMN, ALERT_COLUMN, REPORT_COLUMN, STATUS_COLUMN, NAME_COLUMN, MORE_COLUMN, EDIT_COLUMN, REFRESH_COLUMN, CUSTOM_COLUMN, UPDATED_COLUMN, DELETE_COLUMN };
         String s11 = "";
@@ -874,7 +876,9 @@ public class MonitorGroup extends Monitor {
             s13 = "<td valign=\"middle\" align=\"right\"><p style=\"font-weight: bold; font-family: 'Arial', 'Helvetica', sans-serif;\">" + pageType + " Reports :</td>" + printTableReportEntry(true, httprequest);
             j += 2;
         }
-        String s15 = "<table border=\"0\" width=\"90%\"><tr><td colspan=" + j + ">" + stringbuffer.toString() + "</td></tr><tr><td><h2>" + (flag ? "" : "Monitors in the Group: ") + groupName + "</h2></td>" + s11 + s13 + "</tr></table>";
+        String s15 = "<div class='container-fluid table-responsive'><table border=\"0\" class='table' style='margin-bottom: 0;'><tr><td colspan="
+            + j + ">" + stringbuffer.toString() + "</td></tr><tr><td><h2>"
+            + (flag ? "" : "Monitors in the Group: ") + groupName + "</h2></td>" + s11 + s13 + "</tr></table></div>";
         String s16 = printMonitorTable(printwriter, httprequest, s15, s4, ai, getMonitors(), array1, false);
 
         printCategoryInsertHTML(s16, this, printwriter);
@@ -916,22 +920,22 @@ public class MonitorGroup extends Monitor {
         if (httprequest.actionAllowed("_monitorEdit")) {
             if (isHealth && propName.equals("__Health__")) {
               java.util.HashMap<String, String> _monitorDefauMap = new java.util.HashMap<String, String>();
-              _monitorDefauMap.put("a_title", "<A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=AddDefaultMonitors&group="
-                  + s2 + "&account=" + httprequest.getAccount() + s17 + "&parent=" + s2 + ">Default Monitors</A>");
+              _monitorDefauMap.put("a_title", "<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=group&operation=AddDefaultMonitors&group="
+                  + s2 + "&account=" + httprequest.getAccount() + s17 + "&parent=" + s2 + ">Default Monitors<paper-ripple></paper-ripple></A>");
               _monitorDefauMap.put("b_desc","Append a set of default Heath Monitors");
               actionsList.add(_monitorDefauMap);
                 // printwriter.print("<tr><td></td> <td></td></tr>");
             }
 
             java.util.HashMap<String, String> _monitorMap = new java.util.HashMap<String, String>();
-            _monitorMap.put("a_title", "<A HREF=/SiteView/cgi/go.exe/SiteView?page=monitor&operation=AddList&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">" + "Monitor</A>");
+            _monitorMap.put("a_title", "<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitor&operation=AddList&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">" + "Monitor<paper-ripple></paper-ripple></a>");
             _monitorMap.put("b_desc","Add a new monitor instance to this " + s18 + "group");
             actionsList.add(_monitorMap);
             // printwriter.print("<tr><td width=15%> </td> <td></td></tr>");
 
             if (!Platform.isSiteSeerServer() && !isHealth) {
                 java.util.HashMap<String, String> _monitorSetMap = new java.util.HashMap<String, String>();
-                _monitorSetMap.put("a_title", "<A HREF=/SiteView/cgi/go.exe/SiteView?page=monitorSet&operation=AddSet&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">" + "Monitor Set</A>");
+                _monitorSetMap.put("a_title", "<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitorSet&operation=AddSet&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">" + "Monitor Set<paper-ripple></paper-ripple></a>");
                 _monitorSetMap.put("b_desc","Add a new Monitor Set instance to this "+ s18 + "group");
                 actionsList.add(_monitorSetMap);
                 // printwriter.print("<tr><td> </td><td></td></tr>");
@@ -939,7 +943,7 @@ public class MonitorGroup extends Monitor {
                 String as[] = (new File(monitorSetPage.SOLUTIONS_DIR)).list();
                 if (as != null && as.length > 0) {
                     java.util.HashMap<String, String> _solutionTempMap = new java.util.HashMap<String, String>();
-                    _solutionTempMap.put("a_title", "<A HREF=/SiteView/cgi/go.exe/SiteView?page=monitorSet&operation=PickSolution&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">"+ "Solution Template</A>");
+                    _solutionTempMap.put("a_title", "<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=monitorSet&operation=PickSolution&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">"+ "Solution Template<paper-ripple></paper-ripple></a>");
                     _solutionTempMap.put("b_desc","Add a new Monitoring Solution to this " + s18 + "group");
                     actionsList.add(_solutionTempMap);
                     // printwriter.print("<tr><td> </td><td></td></tr>");
@@ -950,11 +954,11 @@ public class MonitorGroup extends Monitor {
         if (httprequest.actionAllowed("_groupEdit")) {
             java.util.HashMap<String, String> _groupEditMap = new java.util.HashMap<String, String>();
             if (!httprequest.getPermission("_link", "deleteGroup").equals("hidden")) {
-              _groupEditMap.put("a_title", "<A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Add&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + "&parent=" + s2 + ">Subgroup</A>");
+              _groupEditMap.put("a_title", "<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=group&operation=Add&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + "&parent=" + s2 + ">Subgroup<paper-ripple></paper-ripple></A>");
               _groupEditMap.put("b_desc","Create a new subgroup within this " + s18 + "group");
               // printwriter.print("<tr><td></td> <td></td></tr>");
             } else {
-              _groupEditMap.put("a_title", "<A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Edit&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Rename</A>");
+              _groupEditMap.put("a_title", "<A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Edit&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Rename<paper-ripple></paper-ripple></a>");
               _groupEditMap.put("b_desc","Change the Name of this " + s18 + "group");
                 // printwriter.print("<tr><td> </td> <td></td></tr>");
             }
@@ -990,7 +994,7 @@ public class MonitorGroup extends Monitor {
                 printwriter.print("<font size=+1><b>" + s14 + " Actions:</b></font>");
                 if (!propName.equals("__Health__")) {
                   java.util.HashMap<String, String> _editMap = new java.util.HashMap<String, String>();
-                  _editMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Edit&group=" + s2 + "&account=" + httprequest.getAccount() + s17+">Edit</A>");
+                  _editMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=group&operation=Edit&group=" + s2 + "&account=" + httprequest.getAccount() + s17+">Edit<paper-ripple></paper-ripple></A>");
                   _editMap.put("b_desc","Edit the Name, Description, or Dependencies of this " + s18 + "group");
                   actionsList.add(_editMap);
                   // editTr = "<tr><td> </td> <td></td></tr>";
@@ -1009,27 +1013,27 @@ public class MonitorGroup extends Monitor {
             String s23 = siteviewgroup.getSetting("_healthDisableLogging").length() <= 0 ? "Disable logging on all health monitors.<br><b>NOTE: This will also disable reports for Health monitors.</b>"
                     : "Enable logging on all health monitors.<br><b>NOTE: Reports will only work for Health groups from the time logging is enabled.</b>";
             java.util.HashMap<String, String> _healthLogMap = new java.util.HashMap<String, String>();
-            _healthLogMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=flipHealthLogging>" + s22 + " Health Logging</A>");
+            _healthLogMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=group&operation=flipHealthLogging>" + s22 + " Health Logging<paper-ripple></paper-ripple></A>");
             _healthLogMap.put("b_desc","" + s23 + "");
             actionsList.add(_healthLogMap);
             // printwriter.print("<tr><td> </td> <td></td></tr>");
         }
         if (httprequest.actionAllowed("_groupDisable") && !httprequest.getPermission("_link", "disableGroup").equals("hidden")) {
             java.util.HashMap<String, String> _disableMap = new java.util.HashMap<String, String>();
-            _disableMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&operation=Disable&group0=" + s21 + ">Disable</A>");
+            _disableMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=manage&operation=Disable&group0=" + s21 + ">Disable<paper-ripple></paper-ripple></A>");
             _disableMap.put("b_desc","Disable all the monitors in this " + s18 + "group or temporarily disable alerts "+ "for monitors in this " + s18 + "group");
             actionsList.add(_disableMap);
             // printwriter.print("<tr><td> </td> <td></td></tr>");
 
             java.util.HashMap<String, String> _enableMap = new java.util.HashMap<String, String>();
-            _enableMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&operation=Enable&group0=" + s21 + ">Enable</A>");
+            _enableMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=manage&operation=Enable&group0=" + s21 + ">Enable<paper-ripple></paper-ripple></A>");
             _enableMap.put("b_desc","Enable all the monitors previously disabled in this " + s18 + "group or enable "+ "temporarily disabled alerts");
             actionsList.add(_enableMap);
             // printwriter.print("<tr><td> </td> <td></td></tr>");
         }
         if (httprequest.actionAllowed("_groupRefresh") && siteviewgroup.internalServerActive()) {
             java.util.HashMap<String, String> _refreshMap = new java.util.HashMap<String, String>();
-            _refreshMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&operation=Refresh&group=" + s21 + ">Refresh</A>");
+            _refreshMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=manage&operation=Refresh&group=" + s21 + ">Refresh<paper-ripple></paper-ripple></A>");
             _refreshMap.put("b_desc","Refresh all the monitors in this " + s18 + "group");
             actionsList.add(_refreshMap);
             // printwriter.print("<tr><td> </td><td></td></tr>");
@@ -1037,14 +1041,14 @@ public class MonitorGroup extends Monitor {
         HashMap hashmap = MasterConfig.getMasterConfig();
         if (TextUtils.getValue(hashmap, "_acknowledgeMonitors").equalsIgnoreCase("CHECKED") && httprequest.actionAllowed("_monitorAcknowledge") && siteviewgroup.internalServerActive()) {
             java.util.HashMap<String, String> _acknowledgeMap = new java.util.HashMap<String, String>();
-            _acknowledgeMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&operation=Acknowledge&group0=" + s21 + ">Acknowledge</A>");
+            _acknowledgeMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=manage&operation=Acknowledge&group0=" + s21 + ">Acknowledge<paper-ripple></paper-ripple></A>");
             _acknowledgeMap.put("b_desc","Acknowledge the state of all the monitors in this " + s18 + "group");
             actionsList.add(_acknowledgeMap);
             // printwriter.print("<tr><td></td><td></td></tr>");
         }
         if (httprequest.actionAllowed("_groupEdit")) {
             java.util.HashMap<String, String> _reorderMap = new java.util.HashMap<String, String>();
-            _reorderMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=reorder&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Reorder</A>");
+            _reorderMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=reorder&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Reorder<paper-ripple></paper-ripple></A>");
             _reorderMap.put("b_desc","Edit the display order of monitors in this " + s18 + "group");
             actionsList.add(_reorderMap);
             // printwriter.print("<tr><td></td><td></td></tr>");
@@ -1052,11 +1056,11 @@ public class MonitorGroup extends Monitor {
         if (httprequest.actionAllowed("_groupEdit") && !httprequest.getPermission("_link", "deleteGroup").equals("hidden") && !propName.equals(httprequest.getAccount())) {
           java.util.HashMap<String, String> _deleteMap = new java.util.HashMap<String, String>();
             if (propName.equals("__Health__")) {
-              _deleteMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Delete&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Delete</A>");
+              _deleteMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=group&operation=Delete&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Delete<paper-ripple></paper-ripple></A>");
               _deleteMap.put("b_desc","Delete " + "all subgroups and monitors in " + s18+ "<br>");
                 // printwriter.println("<tr><td></td><td></td></tr>");
             } else {
-              _deleteMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=group&operation=Delete&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Delete</A>");
+              _deleteMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=group&operation=Delete&group=" + s2 + "&account=" + httprequest.getAccount() + s17 + ">Delete<paper-ripple></paper-ripple></A>");
               _deleteMap.put("b_desc","Delete this " + s18 + "group and all monitors in this "+ s18 + "group<br>");
                 // printwriter.println("<tr><td></td><td></td></tr>");
             }
@@ -1119,7 +1123,7 @@ public class MonitorGroup extends Monitor {
                         if (s25.length() > 0) {
                             s25 = s25 + ", ";
                         }
-                        s25 = s25 + "<A HREF=" + Platform.getURLPath(s28 + "/Reports-" + historyreport.getProperty(HistoryReport.pQueryID), httprequest.getAccount()) + "/index.html target=reports>" + s27 + "</A>";
+                        s25 = s25 + "<A HREF=" + Platform.getURLPath(s28 + "/Reports-" + historyreport.getProperty(HistoryReport.pQueryID), httprequest.getAccount()) + "/index.html target=reports>" + s27 + "<paper-ripple></paper-ripple></a>";
                     }
                 }
             }
@@ -1127,7 +1131,7 @@ public class MonitorGroup extends Monitor {
 
         if (httprequest.actionAllowed("_alertList")) {
             java.util.HashMap<String, String> _alertsMap = new java.util.HashMap<String, String>();
-            _alertsMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=alert&operation=List&view=Group&account=" + httprequest.getAccount() + "&groupFilter=" + s2 + ">Alerts</A>");
+            _alertsMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=alert&operation=List&view=Group&account=" + httprequest.getAccount() + "&groupFilter=" + s2 + ">Alerts<paper-ripple></paper-ripple></A>");
             _alertsMap.put("b_desc","View alerts for this " + s18 + "group");
             actionsList.add(_alertsMap);
         }
@@ -1142,7 +1146,7 @@ public class MonitorGroup extends Monitor {
         if ((httprequest.actionAllowed("_groupEdit") || httprequest.actionAllowed("_groupDisable") || httprequest.actionAllowed("_groupRefresh")) && !httprequest.getPermission("_link", "deleteGroup").equals("hidden")) {
 //            printwriter.print("<tr><td colspan=2><hr></td></tr>");
             java.util.HashMap<String, String> _manageMap = new java.util.HashMap<String, String>();
-            _manageMap.put("a_title","<A HREF=/SiteView/cgi/go.exe/SiteView?page=manage&account=" + httprequest.getAccount() + s17 + ">Manage</A>");
+            _manageMap.put("a_title","<A HREF="+CGI.getTenant(httprequest.getURL())+"/SiteView/cgi/go.exe/SiteView?page=manage&account=" + httprequest.getAccount() + s17 + ">Manage<paper-ripple></paper-ripple></A>");
             _manageMap.put("b_desc","Move, duplicate, delete, disable/enable monitors in any group");
             actionsList.add(_manageMap);
             // printwriter.println("<tr><td></td> <td></td></tr>");
@@ -1191,7 +1195,7 @@ public class MonitorGroup extends Monitor {
         if (s2.length() > 0) {
             expandField(httprequest, printwriter, monitor, s2, "", "", "");
         } else {
-            printwriter.print("<TABLE WIDTH=\"100%\" BORDER=1 CELLSPACING=0><TR class=\"tabhead\">");
+            printwriter.print("<div class='container-fluid table-responsive'><TABLE WIDTH=\"100%\" BORDER=1 CELLSPACING=0 class='table table-striped table-bordered align-center'><TR class=\"tabhead\">");
         }
         boolean aflag[] = new boolean[ai.length];
         for (int i = 0; i < aflag.length; i ++) {
@@ -1399,7 +1403,7 @@ public class MonitorGroup extends Monitor {
                         continue;
                     }
                     if (ai[j1] == GROUP_COLUMN) {
-                        printwriter.println("<TD><A HREF=/SiteView/" + httprequest.getAccountDirectory() + "/" + s12 + ">" + s10 + "</A></TD>\n");
+                        printwriter.println("<TD><A HREF=/SiteView/" + httprequest.getAccountDirectory() + "/" + s12 + ">" + s10 + "<paper-ripple></paper-ripple></a></TD>\n");
                         continue;
                     }
                     if (ai[j1] == CUSTOM_COLUMN) {
@@ -1424,7 +1428,7 @@ public class MonitorGroup extends Monitor {
                 monitor = (Monitor) enumeration.nextElement();
             }
         }
-        printwriter.println("</TABLE>");
+        printwriter.println("</TABLE></div>");
         return s5;
     }
 
@@ -1883,6 +1887,7 @@ public class MonitorGroup extends Monitor {
         pLastSaved = new NumericProperty("lastSaved", "0");
         pParent = new StringProperty("_parent");
         pHealth = new StringProperty("_health");
+        pPath = new StringProperty("pPath");
         pAccountName = new StringProperty("_accountName");
         pMaxErrorCount = new NumericProperty("maxErrorCount", "0");
         pMonitorsInError = new NumericProperty("monitorsInError", "0");
@@ -1892,7 +1897,7 @@ public class MonitorGroup extends Monitor {
         pFrequency.setLabel("Refresh Group every");
         pFrequency.setDescription("Refresh all the monitors in this group according to this schedule. This frequency should not be less than " + minGroupInterval + " seconds." + " When defining a group schedule, the monitors of this group will not "
                 + "run by their own schedule.");
-        StringProperty astringproperty[] = { pLastSaved, pMaxErrorCount, pMonitorsInError, pMonitorsInGroup, pGroupErrorDisplay, pParent, pHealth, pAccountName, pFrequency };
+        StringProperty astringproperty[] = { pLastSaved,pPath, pMaxErrorCount, pMonitorsInError, pMonitorsInGroup, pGroupErrorDisplay, pParent, pHealth, pAccountName, pFrequency };
         addProperties("com.dragonflow.SiteView.MonitorGroup", astringproperty);
         columnNum = 0;
         CATEGORY_COLUMN = columnNum ++;

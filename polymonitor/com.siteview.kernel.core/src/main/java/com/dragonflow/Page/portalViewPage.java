@@ -356,8 +356,8 @@ public class portalViewPage extends com.dragonflow.Page.portalPreferencePage
         String s = TextUtils.getValue(hashmap, "_id");
         String s1 = com.dragonflow.Page.portalViewPage.getValue(hashmap, "_title");
         String s2 = com.dragonflow.Page.portalViewPage.getValue(hashmap, "_parentID");
-        String s3 = "/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&id=" + s + "&account=" + request.getAccount();
-        String s4 = "<A href=/SiteView/cgi/go.exe/SiteView?page=portal&account=" + request.getAccount() + "&view=" + s + " target=\"_top\">";
+        String s3 = CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&id=" + s + "&account=" + request.getAccount();
+        String s4 = "<A href="+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=portal&account=" + request.getAccount() + "&view=" + s + " target=\"_top\">";
         String s5 = "<A href=" + s3 + "&operation=Delete>X</a>";
         String s6 = "<A href=" + s3 + "&operation=Edit>Edit</a>";
         if(!s1.equals(""))
@@ -436,7 +436,7 @@ public class portalViewPage extends com.dragonflow.Page.portalPreferencePage
             String s = null;
             jgl.HashMap hashmap = getMasterConfig();
             s = TextUtils.getValue(hashmap, "_showPortalSubViews");
-            String s1 = "/SiteView/cgi/go.exe/SiteView?page=portalView&account=administrator&toggleview=true";
+            String s1 =CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=portalView&account=administrator&toggleview=true";
             outputStream.println("<SCRIPT LANGUAGE=\"javascript\">");
             outputStream.println("<!--");
             outputStream.println("function ShowSubGroups_onclick() {");
@@ -539,7 +539,7 @@ public class portalViewPage extends com.dragonflow.Page.portalPreferencePage
             {
                 com.dragonflow.Properties.FrameFile.writeToFile(getConfigFilePath(), array);
                 com.dragonflow.SiteView.Portal.signalReload();
-                printRefreshPage("/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount(), 0);
+                printRefreshPage(CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=" + getPageName() + "&operation=List&account=" + request.getAccount(), 0);
             } else
             {
                 printEditForm(s, hashmap, hashmap2);

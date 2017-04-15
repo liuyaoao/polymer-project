@@ -137,7 +137,7 @@ public class appServerSolutionTemplatePage extends
     }
 
     protected void printJavaScript() {
-        String s = "/SiteView/cgi/go.exe/SiteView?page="
+        String s =CGI.getTenant(request.getURL())+ "/SiteView/cgi/go.exe/SiteView?page="
                 + thisPageName + "&operation=showApplicationsTree&group="
                 + request.getValue("group") + "&account="
                 + request.getAccount() + "&templatefile="

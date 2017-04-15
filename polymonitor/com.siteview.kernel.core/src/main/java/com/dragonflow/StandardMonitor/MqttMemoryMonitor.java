@@ -38,11 +38,12 @@ public class MqttMemoryMonitor extends ServerMonitor{
 				 Machine machine=Machine.getMqttMachine(machineName.substring(machineName.indexOf(":")+1));
 				 if(machine!=null)
 					 machineName=machine.getProperty("_host");
+				 ReceiveMessageContainer.getInstance().receiveMessage(id, "".getBytes());
 				 Start.agent.sendMessage(machineName, (id+"free 2>&1").getBytes());
 				 int i=0;
 				 while(i<10){
 					 String msg=ReceiveMessageContainer.getInstance().getMessageString(id);
-					 if(msg==null){
+					 if(msg==null||msg.length()==0){
 						 try {
 							this.getThread().sleep(1000);
 						} catch (InterruptedException e) {
@@ -53,18 +54,18 @@ public class MqttMemoryMonitor extends ServerMonitor{
  						 if(s.length>0){
 							 String s1 = s[s.length-1].trim();
 							 String[] ss=s1.split("       ");
-							 String total = ss[1];
-							 String user = ss[2];
-							 String free = ss[3];
+							 String total = ss[1].trim();
+							 String user = ss[2].trim();
+							 String free = ss[3].trim();
 							 al.add(Long.parseLong(user)*100/Long.parseLong(total));
 							 al.add(Long.parseLong(user));
 							 al.add(Long.parseLong(total));
 						 }
-						 ReceiveMessageContainer.getInstance().removeMessage(id);
 						 break;
 					 }
 					 i++;
 				 }
+				 ReceiveMessageContainer.getInstance().removeMessage(id);
 			 }
 	        long l = 0L;
 	        long l1 = 0L;

@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
 <dom-module id="filter-setting-form">
 	<template>
@@ -88,7 +89,10 @@
 					observer: "_monitorTypeChanged"
 				},
 
-				monitorTypeSelectedItem: String
+				monitorTypeSelectedItem: {
+					type: Number,
+					value: 0
+				}
 			},
 
 			_monitorTypeChanged: function() {

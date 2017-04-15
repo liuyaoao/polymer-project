@@ -1,0 +1,198 @@
+
+===== BEGIN DUMP =============================================================
+JRockit dump produced after 0 days, 07:48:55 on Wed Aug 22 16:34:17 2012
+
+    **************************************************************************
+    *  If you see this dump, please go to                                    *
+    *  http://download.oracle.com/docs/cd/E15289_01/go2troubleshooting.html  *
+    *  for troubleshooting information.                                      *
+    **************************************************************************
+
+Additional information is available in:
+  F:\sea\com.siteview.kernel.core\jrockit.2944.dump
+  F:\sea\com.siteview.kernel.core\jrockit.2944.mdmp
+
+Error Message: Illegal memory access. [54]
+Exception Rec: EXCEPTION_ACCESS_VIOLATION (c0000005) at 0x009DF0B3 - memory at 0x00727F70 could not be read.
+Minidump     : Wrote mdmp. Size is 161MB
+SafeDllMode  : -1
+Version      : Oracle JRockit(R) R28.1.5-20-146757-1.6.0_29-20111004-1748-windows-ia32
+CPU          : Intel Pentium 4 SSE SSE2 NetBurst
+Number CPUs  : 1
+Tot Phys Mem : 2145370112 (2045 MB)
+OS version   : Microsoft Windows XP version 5.1 Service Pack 3 (Build 2600) (32-bit)
+Thread System: Windows Threads
+Java locking : Lazy unlocking enabled (class banning) (transfer banning)
+State        : JVM is running
+Command Line : -Dfile.encoding=GBK -Dsun.java.launcher=SUN_STANDARD SiteViewMain.Start
+Repository   : 
+java.home    : C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5
+j.class.path : F:\sea\com.siteview.kernel.core\classes;F:\sea\com.siteview.kernel.core\lib\deprecated\epm.jar;F:\sea\com.siteview.kernel.core\lib\ext\ant.jar;F:\sea\com.siteview.kernel.core\lib\ext\commons-httpclient-2.0-final.jar;F:\sea\com.siteview.kernel.core\lib\ext\commons-logging.jar;F:\sea\com.siteview.kernel.core\lib\ext\crimson.jar;F:\sea\com.siteview.kernel.core\lib\ext\datachannel.jar;F:\sea\com.siteview.kernel.core\lib\ext\dom.jar;F:\sea\com.siteview.kernel.core\lib\ext\j2ee.jar;F:\sea\com.siteview.kernel.core\lib\ext\JDHCP.jar;F:\sea\com.siteview.kernel.core\lib\ext\jgl.jar;F:\sea\com.siteview.kernel.core\lib\ext\jimi.jar;F:\sea\com.siteview.kernel.core\lib\ext\jmf.jar;F:\sea\com.siteview.kernel.core\lib\ext\lucene-1.2.jar;F:\sea\com.siteview.kernel.core\lib\ext\manager.jar;F:\sea\com.siteview.kernel.core\lib\ext\MIBCompiler.jar;F:\sea\com.siteview.kernel.core\lib\ext\mindterm.jar;F:\sea\com.siteview.kernel.core\lib\ext\msbase.jar;F:\sea\com.siteview.kernel.core\lib\ext\mssqlserver.jar;F:\sea\com.siteview.kernel.core\lib\ext\msutil.jar;F:\sea\com.siteview.kernel.core\lib\ext\mysql.jar;F:\sea\com.siteview.kernel.core\lib\ext\oroinc.jar;F:\sea\com.siteview.kernel.core\lib\ext\rjmf.jar;F:\sea\com.siteview.kernel.core\lib\ext\smtp.jar;F:\sea\com.siteview.kernel.core\lib\ext\Snmp.jar;F:\sea\com.siteview.kernel.core\lib\ext\wsdl4j.jar;F:\sea\com.siteview.kernel.core\lib\ext\xercesImpl.jar;F:\sea\com.siteview.kernel.core\lib\missed\IBMWebAS35\ejs.jar;F:\sea\com.siteview.kernel.core\lib\missed\WebSphere5\ibmorb.jar;F:\sea\com.siteview.kernel.core\lib\missed\IBMWebAS35\repository.jar;F:\sea\com.siteview.kernel.core\lib\missed\IBMWebAS35\ujc.jar;F:\sea\com.siteview.kernel.core\lib\missed\WebSphere5\pmi.jar;F:\sea\com.siteview.kernel.core\lib\missed\WebSphere5\pmiclient.jar;F:\sea\com.siteview.kernel.core\lib\missed\WebSphere5\wssec.jar;F:\sea\com.siteview.kernel.core\lib\ext\freemarker.jar;C:\Documents and Settings\Administrator\桌面\不含RAP的eclipse\plugins\org.eclipse.osgi_3.7.2.v20120110-1415.jar;C:\Documents and Settings\Administrator\桌面\不含RAP的eclipse\plugins\org.eclipse.osgi.services_3.3.0.v20110513.jar;C:\Documents and Settings\Administrator\桌面\不含RAP的eclipse\plugins\org.eclipse.osgi.util_3.2.200.v20110110.jar;F:\sea\com.siteview.kernel.core\lib\smi\j-interop.jar;F:\sea\com.siteview.kernel.core\lib\smi\j-interopdeps.jar;F:\sea\com.siteview.kernel.core\lib\smi\jcifs-1.2.19.jar;F:\sea\com.siteview.kernel.core\lib\j2ee.jar
+j.lib.path   : C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Microsoft SQL Server\80\Tools\Binn\;C:\Program Files\Microsoft SQL Server\90\DTS\Binn\;C:\Program Files\Microsoft SQL Server\90\Tools\binn\;C:\Program Files\Microsoft SQL Server\90\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files\Microsoft Visual Studio 8\Common7\IDE\PrivateAssemblies\;;.
+JAVA_HOME    : <not set>
+_JAVA_OPTIONS: <not set>
+PATH         : C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Microsoft SQL Server\80\Tools\Binn\;C:\Program Files\Microsoft SQL Server\90\DTS\Binn\;C:\Program Files\Microsoft SQL Server\90\Tools\binn\;C:\Program Files\Microsoft SQL Server\90\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files\Microsoft Visual Studio 8\Common7\IDE\PrivateAssemblies\;
+StackOverFlow: 0 StackOverFlowErrors have occured
+OutOfMemory  : 0 OutOfMemoryErrors have occured
+C Heap       : Good; no memory allocations have failed
+GC Strategy  : Mode: throughput, with strategy: genparpar (basic strategy: genparpar)
+GC Status    : OC is not running. Last finished OC was OC#3.
+             : YC is not running. Last finished YC was YC#17.
+YC Promotion : Last YC successfully promoted all objects
+YC History   : Ran 4 YCs before OC#1.
+             : Ran 3 YCs before OC#2.
+             : Ran 5 YCs before OC#3.
+             : Ran 5 YCs since last OC.
+Heap Holes   : 1 hole(s), at 0x04A40000 - 0x1F860000
+Heap         : 0x02340000 - 0x21160000  (Size: 64 MB)
+Compaction   : (no compaction area)
+Allocation   : TLA-min: 2048, TLA-preferred: 65536 TLA-waste limit: 2048
+NurseryList  : 0x0282FFA8 - 0x044FD8C0
+KeepArea     : 0x036E8E80 - 0x03DE7A10
+KA Markers   : [ 0x036E8E80,  0x03DE7A10 , 0x044FD8C0 ]
+Forbidden A  : (none)
+Previous KA  : 0x03DE7A10 - 0x044FD8C0
+Previous FA  : (none)
+CompRefs     : References are 32-bit.
+
+Registers (from ThreadContext: 0x080BFBB0:
+   eax = 07b57960    ecx = 07b565a0    edx = 00727f48    ebx = 00000000 
+   esp = 080bfe7c    ebp = 08f55078    esi = 01f82250    edi = 00000003 
+    es = 00000023     cs = 0000001b     ss = 00000023     ds = 00000023 
+    fs = 0000003b     gs = 00000000 
+   eip = 009df0b3 eflags = 00010246 
+
+Loaded modules:
+(* denotes the module where the exception occured)
+00400000-00434fff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\javaw.exe
+7c920000-7c9b5fff  C:\WINDOWS\system32\ntdll.dll
+7c800000-7c91dfff  C:\WINDOWS\system32\kernel32.dll
+77d10000-77d9ffff  C:\WINDOWS\system32\USER32.dll
+77ef0000-77f38fff  C:\WINDOWS\system32\GDI32.dll
+77da0000-77e48fff  C:\WINDOWS\system32\ADVAPI32.dll
+77e50000-77ee2fff  C:\WINDOWS\system32\RPCRT4.dll
+77fc0000-77fd0fff  C:\WINDOWS\system32\Secur32.dll
+76300000-7631cfff  C:\WINDOWS\system32\IMM32.DLL
+62c20000-62c28fff  C:\WINDOWS\system32\LPK.DLL
+73fa0000-7400afff  C:\WINDOWS\system32\USP10.dll
+7c340000-7c395fff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\msvcr71.dll
+00850000-00b4ffff *C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\jrockit\jvm.dll
+71a20000-71a36fff  C:\WINDOWS\system32\WS2_32.dll
+77be0000-77c37fff  C:\WINDOWS\system32\msvcrt.dll
+71a10000-71a17fff  C:\WINDOWS\system32\WS2HELP.dll
+76b10000-76b39fff  C:\WINDOWS\system32\WINMM.dll
+10000000-1003cfff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\osal.dll
+00c00000-00c32fff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\util.dll
+724c0000-72517fff  C:\WINDOWS\system32\pdh.dll
+76320000-76366fff  C:\WINDOWS\system32\comdlg32.dll
+5d170000-5d209fff  C:\WINDOWS\system32\COMCTL32.dll
+7d590000-7dd83fff  C:\WINDOWS\system32\SHELL32.dll
+77f40000-77fb5fff  C:\WINDOWS\system32\SHLWAPI.dll
+765e0000-76672fff  C:\WINDOWS\system32\CRYPT32.dll
+76db0000-76dc1fff  C:\WINDOWS\system32\MSASN1.dll
+73540000-7357cfff  C:\WINDOWS\system32\ODBC32.dll
+4b4f0000-4b4f5fff  C:\WINDOWS\system32\odbcbcp.dll
+77bd0000-77bd7fff  C:\WINDOWS\system32\VERSION.dll
+76990000-76acdfff  C:\WINDOWS\system32\ole32.dll
+770f0000-7717afff  C:\WINDOWS\system32\OLEAUT32.dll
+77180000-77282fff  C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.6028_x-ww_61e65202\comctl32.dll
+1f840000-1f856fff  C:\WINDOWS\system32\odbcint.dll
+5e8e0000-5e8ecfff  C:\WINDOWS\system32\perfproc.dll
+5e8f0000-5e8f8fff  C:\WINDOWS\system32\perfos.dll
+01510000-0153afff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\jfr.dll
+6d850000-6d85bfff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\verify.dll
+6d3d0000-6d3eefff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\java.dll
+6d330000-6d337fff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\hpi.dll
+6d890000-6d89efff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\zip.dll
+76bc0000-76bcafff  C:\WINDOWS\system32\psapi.dll
+6d6b0000-6d6c2fff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\net.dll
+719c0000-719fdfff  C:\WINDOWS\system32\mswsock.dll
+60fd0000-61024fff  C:\WINDOWS\system32\hnetcfg.dll
+71a00000-71a07fff  C:\WINDOWS\System32\wshtcpip.dll
+76ef0000-76f16fff  C:\WINDOWS\system32\DNSAPI.dll
+76d30000-76d47fff  C:\WINDOWS\system32\iphlpapi.dll
+76f80000-76f87fff  C:\WINDOWS\System32\winrnr.dll
+76f30000-76f5bfff  C:\WINDOWS\system32\WLDAP32.dll
+76f90000-76f95fff  C:\WINDOWS\system32\rasadhlp.dll
+6d830000-6d837fff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\sunmscapi.dll
+68000000-68035fff  C:\WINDOWS\system32\rsaenh.dll
+759d0000-75a7efff  C:\WINDOWS\system32\USERENV.dll
+5fdd0000-5fe24fff  C:\WINDOWS\system32\netapi32.dll
+76d70000-76d91fff  C:\WINDOWS\system32\Apphelp.dll
+6d7a0000-6d7a5fff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\rmi.dll
+0b8b0000-0b9c4fff  C:\Program Files\Java\jrockit-jre1.6.0_29-R28.1.5\bin\dbghelp.dll
+
+Stack:
+(* marks the word pointed to by the stack pointer)
+080bfe7c: 01f82278* 01f82250  67b0281e  00000000  07b57960  00000000  
+080bfe94: 08f55078  08f550f0  08f55444  0000002a  00000000  009df2ce  
+080bfeac: 00727f48  67b0280c  00b2da90  00000000  00000017  01f82250  
+080bfec4: 00000e50  00b24d40  009d8580  00000017  009d8580  00b24d58  
+
+Code:
+(* marks the word pointed to by the instruction pointer)
+009df080: 24448b00  08488b10  488b118b  52008b04  088b118b  52118b52  
+009df098: a908b868  6a016a00  48b06813  15e800ad  83000127  fae91cc4  
+009df0b0: f7000000* 00002842  840f4000  0000011a  75105039  1c3d8336  
+009df0c8: 0200ad48  488b2d7c  8b118b08  008b0448  8b118b52  118b5208  
+
+
+Last optimized methods:
+  #49 java/lang/StringBuffer.toString()Ljava/lang/String;  21863.019-21863.030 0x0A8A9940-0x0A8A9C21 10.48 ms 384KB  
+  #50 COM/dragonflow/SiteView/MonitorGroup.readDynamic()V  21863.380-21865.976 0x0A8A9C40-0x0A8ABABD 2596.42 ms 3904KB  
+  #51 jrockit/vm/StringMaker.toString()Ljava/lang/String;  21865.976-21865.997 0x0A8ABAC0-0x0A8ABDEA 20.80 ms 448KB  
+  #52 COM/dragonflow/Page/GenerateProgress.generate(Ljava/io/PrintWriter;LCOM/dragonflow/HTTP/HTTPRequest;)V  21866.021-21867.016 0x0A8ABE00-0x0A8AED97 994.94 ms 3712KB  
+  #53 java/lang/StringBuffer.<init>()V  21867.016-21867.018 0x0A891AC0-0x0A891B47 1.04 ms 64KB  
+  #54 COM/dragonflow/HTTP/HTTPRequest.getValues(Ljava/lang/String;)Ljava/util/Enumeration;  21867.018-21867.020 0x0A8AEDA0-0x0A8AEEEF 2.26 ms 128KB  
+  #55 java/util/Arrays.copyOf([CI)[C  21867.020-21867.025 0x0A8AEF00-0x0A8AF05B 4.67 ms 128KB  
+  #56 java/lang/StringBuilder.toString()Ljava/lang/String;  21867.025-21867.032 0x0A8AF060-0x0A8AF2BC 6.86 ms 192KB  
+  #57 java/text/DateFormat.format(Ljava/util/Date;)Ljava/lang/String;  21867.032-21867.300 0x0A280000-0x0A280B7F 267.95 ms 960KB  
+  #58 COM/dragonflow/HTTP/HTTPRequest.getValue(Ljava/lang/String;)Ljava/lang/String;  21867.300-21867.302 0x0A280B80-0x0A280BE0 2.02 ms 128KB  
+  #59 COM/dragonflow/Page/CGI.printSecondNavBar(Ljava/io/PrintWriter;LCOM/dragonflow/HTTP/HTTPRequest;LCOM/dragonflow/Page/CGI$menus;IZ)V  21867.302-21868.647 0x0A280BE0-0x0A2837D8 1345.32 ms 4416KB  
+  #60 java/lang/StringValue.from([C)[C  21868.647-21868.652 0x0A2837E0-0x0A2838CA 5.17 ms 256KB  
+  #61 COM/dragonflow/SiteView/MonitorGroup.loadGroup(Ljava/lang/String;Ljava/lang/String;Z)LCOM/dragonflow/SiteView/MonitorGroup;  21868.652-21870.886 0x0A2838E0-0x0A2862BD 2233.28 ms 3904KB  
+  #62 jgl/Array.<init>()V  22825.312-22825.313 0x0A2862C0-0x0A28634A 0.98 ms 128KB  
+  #63 COM/dragonflow/Page/CGI.printFooter(Ljava/io/PrintWriter;LCOM/dragonflow/HTTP/HTTPRequest;Z)V  23063.104-23063.985 0x0A286360-0x0A2877F2 881.33 ms 2240KB  
+ *#64 COM/dragonflow/SiteView/Platform.setupTimeZoneOffset()Ljgl/Array;  27328.366-27333.167 0x0A287800-0x0A288DC1 4800.86 ms 2176KB  
+
+Thread:
+"(VM Periodic Task)" id=6 idx=0x18 tid=1836 lastJavaFrame=0xFFFFFFFC
+Stack 0: start=0x08080000, end=0x080C0000, guards=0x08083000 (ok), forbidden=0x08081000
+
+Thread Stack Trace:
+    at prune_metainfo+259(codeprune.c:96+0)@0x009DF0B3
+    at cmiPruneCodeReferences+174(codeprune.c:156+6)@0x009DF2CE
+    at code_and_classgc_background_task+207(codegctask.c:146+4)@0x009DDBF0
+    at periodic_task_thread+234(periodictask.c:75+8)@0x00A1150B
+    at thread_stub+254(lifecycle.c:808+6)@0x00A2109F
+    at GetModuleFileNameA+441()@0x7C80B729
+    -- Java stack --
+
+Memory usage report:
+Total mapped                  1221304KB           (reserved=1050772KB)
+-              Java heap      1048576KB           (reserved=983040KB)
+-              GC tables        49812KB          
+-          Thread stacks        12032KB           (#threads=29)
+-          Compiled code         2304KB           (used=2049KB)
+-               Internal         1032KB          
+-                     OS        27332KB          
+-                  Other        64344KB          
+-        Java class data        14848KB           (malloced=14559KB #14017 in 2457 classes)
+                                                  Not tracing sites.
+
+- Native memory tracking         1024KB           (malloced=250KB #8)
+                                                  Not tracing sites.
+
+
+Set the env variable TRACE_ALLOC_SITES=1 or use the print_memusage switch
+trace_alloc_sites=true to enable alloc site tracing.
+
+    **************************************************************************
+    *  If you see this dump, please go to                                    *
+    *  http://download.oracle.com/docs/cd/E15289_01/go2troubleshooting.html  *
+    *  for troubleshooting information.                                      *
+    **************************************************************************
+
+===== END DUMP ===============================================================
+
+

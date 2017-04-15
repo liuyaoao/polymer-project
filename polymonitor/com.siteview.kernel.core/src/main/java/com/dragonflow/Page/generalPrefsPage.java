@@ -158,7 +158,7 @@ public class generalPrefsPage extends com.dragonflow.Page.prefsPage {
 		}
 
 		outputStream
-				.print("</UL><HR><p>Use your browser's back button to return\n the SiteView <b>General Preferences</b> form  or click the  <a href=\"/SiteView/cgi/go.exe/SiteView?page=generalPrefs&account="
+				.print("</UL><HR><p>Use your browser's back button to return\n the SiteView <b>General Preferences</b> form  or click the  <a href=\""+CGI.getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView?page=generalPrefs&account="
 						+ request.getAccount() + "\">back</a> link." + " <HR></BODY>\n");
 	}
 
