@@ -322,12 +322,12 @@ public abstract class remoteBase extends com.dragonflow.Page.prefsPage {
 					com.dragonflow.Page.serverPage.getReturnURL(com.dragonflow.Page.serverPage.thisURL, s4));
 			outputStream.println("<a href=\"" + s2 + "&pop=true&storeID=" + s4 + "\">Return to Choose Server<paper-ripple></paper-ripple></a>");
 		}
-//		try {
-//			printDeleteDialog(s);
-//		} catch (java.lang.Exception exception) {
-//			printError("There was a problem deleting the remote server.", exception.toString(),
-//					"/SiteView/" + request.getAccountDirectory() + "/SiteView.html");
-//		}
+		try {
+			printDeleteDialog("Delete");
+		} catch (java.lang.Exception exception) {
+			printError("There was a problem deleting the remote server.", exception.toString(),
+					"/SiteView/" + request.getAccountDirectory() + "/SiteView.html");
+		}
 		outputStream.println("</machine-list-page>");
 		printFooter(outputStream);
 	}
@@ -336,7 +336,7 @@ public abstract class remoteBase extends com.dragonflow.Page.prefsPage {
 		String s1 = getMachineID();
 		String s2 = "ID " + s1;
 		jgl.Array array = readMachines(getRemoteName());
-		
+
 		jgl.HashMap hashmap = findMachine(array, s1);
 		if (hashmap != null) {
 			s2 = TextUtils.getValue(hashmap, "_name");
@@ -344,19 +344,24 @@ public abstract class remoteBase extends com.dragonflow.Page.prefsPage {
 				s2 = TextUtils.getValue(hashmap, "_host");
 			}
 		}
+		String actionUrl = getTenant(request.getURL())+"/SiteView/cgi/go.exe/SiteView";
 		outputStream.println("<machine-delete-dialog>");
 		outputStream.println("<div class='dialogHeader'><FONT SIZE=+1>Are you sure you want to delete the remote server <B>" + s2
 				+ "</B>?</FONT></div>");
-		outputStream.println("<div class='dialogContent'>");
-		
-		outputStream.println("</div>");
-		outputStream.println("<FONT SIZE=+1>Are you sure you want to delete the remote server <B>" + s2
-				+ "</B>?</FONT>" + "<p>" + getPagePOST(getPage(), operation) + "<input type=hidden name=" + getIDName()
-				+ " value=\"" + s1 + "\">" + getReturnLink(true, request.getValue("storeID"))
-				+ "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\""
-				+ operation + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF="
-				+ getPageLink(getPage(), "List") + ">Return to Detail<paper-ripple></paper-ripple></a></TD><TD WIDTH=6%></TD>"
-				+ "</TR></TABLE></FORM>");
+		outputStream.println("<div class='dialogContent'><form action='"+actionUrl+"' method='post'>");
+		String formHideInput = getFormHideInput(getPage(),operation);
+		outputStream.println(formHideInput+"<input type=hidden name='" + getIDName()+ "' value=''>" + getReturnLink(true, request.getValue("storeID")));
+		outputStream.println("<paper-input type=submit value='delete'></paper-input>");
+		outputStream.println("<a class='btn btn-info btn-blue' href="+ getPageLink(getPage(), "List") + ">Return to Detail<paper-ripple></paper-ripple></a>");
+		outputStream.println("</form></div>");
+
+		// outputStream.println("<FONT SIZE=+1>Are you sure you want to delete the remote server <B>" + s2
+		// 		+ "</B>?</FONT>" + "<p>" + getPagePOST(getPage(), operation) + "<input type=hidden name=" + getIDName()
+		// 		+ " value=\"" + s1 + "\">" + getReturnLink(true, request.getValue("storeID"))
+		// 		+ "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\""
+		// 		+ operation + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF="
+		// 		+ getPageLink(getPage(), "List") + ">Return to Detail<paper-ripple></paper-ripple></a></TD><TD WIDTH=6%></TD>"
+		// 		+ "</TR></TABLE></FORM>");
 	}
 
 	void printForm(String operation, jgl.Array array, jgl.HashMap hashmap) throws java.lang.Exception {

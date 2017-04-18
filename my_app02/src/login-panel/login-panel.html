@@ -6,6 +6,10 @@
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
 
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
+
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-in-animation.html">
@@ -84,6 +88,7 @@
           <paper-input label="New password (again)" type='password' name="_newPassword2" size="30" value="{{_newPassword2Value}}">
           </paper-input>
         </div>
+        <content select='.extContent'></content>
       </form>
     </paper-material>
   </template>
@@ -134,6 +139,10 @@
         if(this.opened){
           this.show();
         }
+        this.addEventListener('click', e => this._myClickListener(e));
+      },
+      _myClickListener:function(evt){
+        console.log("evt:",evt);
       },
       show: function() {
         this.opened = true;

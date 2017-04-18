@@ -36,7 +36,30 @@
 
       },
       ready:function(){
-      }
+        this.querySelector("simple-data-table-ext").addEventListener('click', e => this._myClickListener(e));
+      },
+      _myClickListener:function(evt){
+        console.log("evt:",evt);
+        if(evt.target.classList.contains("delete")){
+          var dialog = this.querySelector("machine-delete-dialog");
+          var paramsObj = this.getHrefParams(evt.target.getAttribute("data-href"));
+          dialog.updateData(paramsObj);
+          dialog.show();
+        }
+      },
+      getHrefParams:function(href){
+            var result = '';
+            var tempStr = href;
+            var obj = {};
+            if(tempStr.indexOf('?') == -1){return '';}
+            var paramsArr = tempStr.split("?")[1].split("&");
+            for(var i=0;i<paramsArr.length;i++){
+                var key = paramsArr[i].split("=")[0];
+                var value = paramsArr[i].split("=")[1];
+                obj[key] = decodeURIComponent(value);
+            }
+            return obj；
+        }
 
 
     });

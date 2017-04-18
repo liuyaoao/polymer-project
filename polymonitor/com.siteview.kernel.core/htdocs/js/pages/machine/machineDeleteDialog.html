@@ -78,12 +78,26 @@ Polymer({
     this.$.scrollable.dialogElement = this.$.machineDeleteDialog;
   },
 
-  stateObjChanged: function (newVal) {
+  updateData:function(paramsObj){
+    console.log("paramsObj:", paramsObj);
+    for(var key in paramsObj){
+      if(!this.querySelector("input[name='"+key+"']")){
+        var inputEl = document.createElement("input");
+        inputEl.setAttribute('type','hidden');
+        inputEl.setAttribute('name', key);
+        inputEl.setAttribute('value', paramsObj[key]);
+        this.querySelector("form").appendChild(inputEl);
+      }else{
+        this.querySelector("input[name='"+key+"']").value = paramsObj[key];
+      }
+    }
+  },
+
+  show: function (newVal) {
     if (!newVal) {
       this.dialogOpen = false;
       return;
     }
-
     this.async(function () {
       // allow dialog to render content before showing it so it is
       // positioned correctly.

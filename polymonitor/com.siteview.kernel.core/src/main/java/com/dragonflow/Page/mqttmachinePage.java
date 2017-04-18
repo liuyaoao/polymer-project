@@ -47,7 +47,7 @@ public class mqttmachinePage extends com.dragonflow.Page.remoteBase{
             array.add(new String("<A href=" + getPageLink("mqttmachine", "Edit") + "&mqttMachineID=" + s1 + "&storeID=" + s + ">Edit<paper-ripple></paper-ripple></a>"));
             array.add(new String("<A href=" + getPageLink("mqttmachine", "Test") + "&mqttMachineID=" + s1 + "&storeID=" + s + "&link=true>Test<paper-ripple></paper-ripple></a>"));
             array.add(new String("<A href=" + getPageLink("mqttmachine", "Test") + "&mqttMachineID=" + s1 + "&storeID=" + s + "&detail=true>Detailed Test<paper-ripple></paper-ripple></a>"));
-            array.add(new String("<A href=" + getPageLink("mqttmachine", "Delete") + "&mqttMachineID=" + s1 + "&storeID=" + s + ">X<paper-ripple></paper-ripple></a>"));
+            array.add(new String("<A href='javascript:;' class='delete' data-href=" + getPageLink("mqttmachine", "Delete") + "&mqttMachineID=" + s1 + "&storeID=" + s + ">X<paper-ripple></paper-ripple></a>"));
         }
         return array;
 	}
