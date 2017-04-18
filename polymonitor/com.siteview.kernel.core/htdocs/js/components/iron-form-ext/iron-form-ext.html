@@ -277,7 +277,12 @@ event and do your own custom submission:
             inputEl.setAttribute('value',el.value);
             this.appendChild(inputEl);
           }else{
-            this.$$("input[name='"+el.name+"']").setAttribute("value",el.value);
+            if(el.getAttribute('role') == 'radio'){
+              el.checked ? this.$$("input[name='"+el.name+"']").setAttribute("value",el.value) : null;
+            }else{
+              this.$$("input[name='"+el.name+"']").setAttribute("value",el.value);
+            }
+
           }
         }
         return true;

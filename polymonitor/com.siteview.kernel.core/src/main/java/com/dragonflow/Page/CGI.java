@@ -18,6 +18,7 @@ import jgl.Array;
 import jgl.HashMap;
 import jgl.LessString;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dragonflow.HTTP.HTTPRequest;
 import com.dragonflow.Properties.HashMapOrdered;
 import com.dragonflow.SiteView.Health;
@@ -179,7 +180,6 @@ public abstract class CGI {
 
         String version = Platform.getVersion();
     	if (!Platform.isSiteSeerAccount(s)) {
-
             String s1 = "";
             String logo = "SiteViewlogo.gif";
             if (Platform.isPortal()) {
@@ -187,21 +187,14 @@ public abstract class CGI {
             }
             String copyright = "";
             if (showCopyright) {
-                copyright = "<p align=center><font size=-2>"
-                        + LocaleUtils.createLink(
-                                LocaleUtils
-                                        .getResourceBundle().getString(
-                                                "TermsAndConditions"), 1,
-                                "/SiteView/license.html") + "</font>";
+                copyright = "<p align=center><font size=-2>"+ LocaleUtils.createLink(LocaleUtils.getResourceBundle().getString("TermsAndConditions"), 1,"/SiteView/license.html") + "</font>";
             }
             String s7 = "";
             if (showLogo) {
-                s7 = "<center>" + Platform.companyLogo
-                        + "</center>";
+                s7 = "<center>" + Platform.companyLogo + "</center>";
             }
 
-            printwriter
-                    .println("<table class=fine border=0 cellspacing=0 width=500 align=center><tr><td><p class=fine align=center>"
+            printwriter.println("<table class=fine border=0 cellspacing=0 width=500 align=center><tr><td><p class=fine align=center>"
                             + s7
                             + "<br>\n"
                             + "<small>"
@@ -218,21 +211,13 @@ public abstract class CGI {
         } else {
             String logoLink = "";
             if (showLogo) {
-                logoLink = "<img src=http://www.dragonflow.com/images/common/dragonflow_logo.gif  width=\"184\" height=\"69\" border=\"\" alt=\""
-                        + Platform.companyName
-                        + "\"></a>\n";
+                logoLink = "<img src=http://www.dragonflow.com/images/common/dragonflow_logo.gif  width=\"184\" height=\"69\" border=\"\" alt=\""+ Platform.companyName+ "\"></a>\n";
             }
             String s4 = "";
             if (showCopyright) {
-                s4 =  "<p align=center><font size=-2>"
-                        + LocaleUtils.createLink(
-                                LocaleUtils
-                                        .getResourceBundle().getString(
-                                                "TermsAndConditions"), 1,
-                                "/SiteView/license.html") + "</font>";
+                s4 =  "<p align=center><font size=-2>"+ LocaleUtils.createLink(LocaleUtils.getResourceBundle().getString("TermsAndConditions"), 1, "/SiteView/license.html") + "</font>";
             }
-            printwriter
-                    .println("<table class=fine border=0 cellspacing=0 width=\"100%\" align=center><tr><td><p class=fine align=center><a href="
+            printwriter.println("<table class=fine border=0 cellspacing=0 width=\"100%\" align=center><tr><td><p class=fine align=center><a href="
                             + Platform.homeURLPrefix
                             + ">"
                             + logoLink
@@ -288,9 +273,7 @@ public abstract class CGI {
 
     public static void printFooter(java.io.PrintWriter printwriter,
             HTTPRequest httprequest, boolean flag) {
-        if (httprequest == null
-                || !Platform
-                        .isSiteSeerAccount(httprequest.getAccount())) {
+        if (httprequest == null|| !Platform.isSiteSeerAccount(httprequest.getAccount())) {
             String s = "";
             String s2 = "SiteViewlogo.gif";
             if (Platform.isPortal()) {
@@ -310,16 +293,10 @@ public abstract class CGI {
             }
             String license = "";
             if (flag) {
-                license = license = "<p class=fine align=center><font size=-2>"
-                        + LocaleUtils.createLink(
-                                LocaleUtils
-                                        .getResourceBundle().getString(
-                                                "TermsAndConditions"), 1,
-                                "/SiteView/license.html") + "</font>";
+                license = license = "<p class=fine align=center><font size=-2>"+ LocaleUtils.createLink(LocaleUtils.getResourceBundle().getString("TermsAndConditions"), 1,"/SiteView/license.html") + "</font>";
             }
             String s6 = Platform.getVersion();
-            printwriter
-                    .println("<table class=fine border=0 cellspacing=0 width=500 align=center><tr><td><p class=fine align=center>"
+            printwriter.println("<table class=fine border=0 cellspacing=0 width=500 align=center><tr><td><p class=fine align=center>"
                             + Platform.companyLogo
                             + "<p>\n"
                             + "<p class=fine align=center><small>"
@@ -334,8 +311,7 @@ public abstract class CGI {
                             + "</p>\n</center>\n</td></tr></table></BODY></HTML>");
         } else {
             String s1 = "http://www.dragonflow.com/images/common/dragonflow_logo.gif";
-            printwriter
-                    .println("<table class=fine border=0 cellspacing=0 width=\"100%\" align=center><tr><td><p class=fine align=center><a href="
+            printwriter.println("<table class=fine border=0 cellspacing=0 width=\"100%\" align=center><tr><td><p class=fine align=center><a href="
                             + Platform.homeURLPrefix
                             + ">"
                             + Platform.companyLogo
@@ -436,7 +412,7 @@ public abstract class CGI {
         if (Platform.isSiteSeerAccount(httprequest.getAccount())) {
             return;
         }
-        printwriter.print("<TABLE class=\"subnav\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"4\"><TR class=\"subnav\"><TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td>");
+        printwriter.print("<table class=\"subnav\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"4\"><TR class=\"subnav\"><TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td>");
         String tenant =getTenant(httprequest.getURL());
         if (menus1.size() != 0) {
             for (int j = 0; j < menus1.size(); j++) {
@@ -495,7 +471,61 @@ public abstract class CGI {
             printwriter.print("</TR></table>\n");
         }
     }
-
+    
+    private static void printSecondNavBar(HTTPRequest httprequest, menus menus1, int i,
+            boolean flag) {
+        if (menus1.size() < 3) {
+            if (httprequest.actionAllowed("_browse")) {
+                menus1.add(new menuItems("Browse", "browse", "", "page",
+                        "Browse Monitors"));
+            }
+            if (httprequest.actionAllowed("_preference")) {
+                menus1.add(new menuItems("Remote UNIX/LINUX", "machine", "", "page",
+                        "Add/Edit Remote UNIX/Linux profiles"));
+                menus1.add(new menuItems("Remote MQTT", "mqttmachine", "", "page",
+                        "Add/Edit Remote Mqtt profiles"));
+                menus1.add(new menuItems("Remote Windows", "windowsmachine", "", "page",
+                        "Add/Edit Remote Win NT/2000 profiles"));
+            }
+            if (httprequest.actionAllowed("_tools")) {
+                menus1.add(new menuItems("Tools", "monitor", "Tools",
+                        "operation", "Use monitor diagnostic tools"));
+            }
+            if (httprequest.actionAllowed("_progress")) {
+                menus1.add(new menuItems("Progress", "Progress", "", "url",
+                        "View current monitoring progress"));
+            }
+            if (httprequest.actionAllowed("_browse")) {
+                menus1.add(new menuItems("Summary", "monitorSummary", "",
+                        "page", "View current monitor settings"));
+            }
+        }
+        if (Platform.isSiteSeerAccount(httprequest.getAccount())) {
+            return;
+        }
+//        printwriter.print("<TABLE class=\"subnav\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"4\"><TR class=\"subnav\"><TD><img src=/SiteView/htdocs/artwork/empty1111.gif width=10 height=10 border=0></td>");
+//        String tenant =getTenant(httprequest.getURL());
+//        if (menus1.size() != 0) {
+//            for (int j = 0; j < menus1.size(); j++) {
+//                menuItems menuitems = (menuItems) menus1.at(j);
+//                if(menuitems.menuLink.contains("mqttmachine"))
+//                	System.out.println("ada");
+//                if (menuitems.linkClass.equals("url")) {
+//                    menuitems.opLink = tenant+"/SiteView/" + httprequest.getAccountDirectory() + "/" + menuitems.menuLink + ".html";
+//                } else if (menuitems.linkClass.equals("script")) {
+//                    if (httprequest.isStandardAccount()) {
+//                        menuitems.opLink = "javascript:OpenOverview()";
+//                    }
+//                } else if (menuitems.linkClass.equals("operation")) {
+//                    menuitems.opLink = tenant+"/SiteView/cgi/go.exe/SiteView?page=" + menuitems.menuLink + "&operation=" + menuitems.opLink + "&account=" + httprequest.getAccount();
+//                } else {
+//                    menuitems.opLink = tenant+"/SiteView/cgi/go.exe/SiteView?page="+ menuitems.menuLink + "&account=" + httprequest.getAccount();
+//                }
+//            }
+//
+//        }
+    }
+    
     private static void printSecondNavBar(java.io.PrintWriter printwriter,
             HTTPRequest httprequest, int i, boolean flag) {
         if (Platform.isSiteSeerAccount(httprequest
@@ -699,7 +729,45 @@ public abstract class CGI {
         }
         jsonObjStr += ",'Help':'/SiteView/docs/"+s+"'}";
 
-        printwriter.println("<monitor-tabs-header cur-selected="+curSelected+" json-data-str="+jsonObjStr+"></monitor-tabs-header>");
+//        printwriter.println("<monitor-tabs-header cur-selected="+curSelected+" json-data-str="+jsonObjStr+"></monitor-tabs-header>");
+        
+        printSecondNavBar(httprequest,menus1, 600, flag);
+        
+        java.util.ArrayList<java.util.HashMap> menuList = new java.util.ArrayList<java.util.HashMap>();
+        System.out.println("------------------------------");
+//        String tenant =getTenant(httprequest.getURL());
+        for (int j = 0; j < menus1.size(); j++) {
+        	java.util.HashMap<String, String> menuMap = new java.util.HashMap<String, String>();
+        	menuItems menuitems = (menuItems) menus1.at(j);
+        	menuMap.put("menuLabel", menuitems.menuLabel);
+        	menuMap.put("menuLink", menuitems.menuLink);
+        	menuMap.put("opLink", menuitems.opLink);
+        	menuMap.put("linkClass", menuitems.linkClass);
+        	menuMap.put("toolTip", menuitems.toolTip);
+        	
+        	String itemLink = "";
+        	if(menuitems.menuLink.contains("mqttmachine"))
+            	System.out.println("ada");
+            if (menuitems.linkClass.equals("url")) {
+            	itemLink = tenant+"/SiteView/" + httprequest.getAccountDirectory() + "/" + menuitems.menuLink + ".html";
+            } else if (menuitems.linkClass.equals("script")) {
+                if (httprequest.isStandardAccount()) {
+                	itemLink = "javascript:OpenOverview()";
+                }
+            } else if (menuitems.linkClass.equals("operation")) {
+            	itemLink = tenant+"/SiteView/cgi/go.exe/SiteView?page=" + menuitems.menuLink + "&operation=" + menuitems.opLink + "&account=" + httprequest.getAccount();
+            } else {
+            	itemLink = tenant+"/SiteView/cgi/go.exe/SiteView?page="+ menuitems.menuLink + "&account=" + httprequest.getAccount();
+            }
+            menuMap.put("itemLink", itemLink);
+        	menuList.add(menuMap);
+//        	System.out.println("------------------------------");
+        }
+        
+//        System.out.println("menuList:" + JSONObject.toJSONString(menuList));
+        
+        printwriter.println("<link rel='import' href='/SiteView/htdocs/js/components/layout/layout-home.html'>\n");
+        printwriter.println("<layout-home menu-selected=" + curSelected + " menu-data=" +jsonObjStr +  " second-menu-data='" +JSONObject.toJSONString(menuList) + "'>");
 
         printwriter.print("<table border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\"><TR class=\"navbox\"><TD>\n");
         printwriter.print("<table class=\"topnav\" border=\"0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\"><TR class=\"topnav\">\n");
@@ -707,11 +775,14 @@ public abstract class CGI {
         String productName = Platform.productName;
 
 
+//        printwriter.println("</TR><TR class=\"navbox\"><TD>");
+//        printSecondNavBar(printwriter, httprequest,menus1, 600, flag);
+//        printwriter.println("</td></TR><TR class=\"navbox\"><TD>");
         printwriter.println("</TR><TR class=\"navbox\"><TD>");
-        printSecondNavBar(printwriter, httprequest,menus1, 600, flag);
-        printwriter.println("</td></TR><TR class=\"navbox\"><TD>");
         printNavBarMessages(printwriter);
-        printwriter.print("</TD></TR></TABLE>\n");
+        printwriter.print("</TD></TR></table>\n");
+        printwriter.println("</layout-home>");
+        printwriter.println("</tbody></table>");
     }
 
     void printErrorHeader() {

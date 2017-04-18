@@ -50,7 +50,7 @@ public class SiteViewExternalHttpRequest
             {
                 s4 = "https";
             }
-            jgl.HashMap hashmap1 = User.findUser(User.readUsers(), "administrator");
+            jgl.HashMap hashmap1 = User.findUser(User.readUsers(""), "administrator");
             if(hashmap1 != null)
             {
                 s1 = TextUtils.getValue(hashmap1, "_login");

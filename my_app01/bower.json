@@ -18,7 +18,8 @@
     "paper-dropdown-menu": "^1.5.0",
     "paper-range-slider": "^0.2.5",
     "fecha": "^2.3.0",
-    "px-drawer": "^1.2.7"
+    "px-drawer": "^1.2.7",
+    "paper-dialog": "^1.1.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

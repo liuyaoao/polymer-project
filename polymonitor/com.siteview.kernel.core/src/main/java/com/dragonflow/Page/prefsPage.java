@@ -66,7 +66,7 @@ public class prefsPage extends com.dragonflow.Page.CGI {
         if (s1.length() > 0) {
             return;
         }
-        outputStream.println("<CENTER>");
+        outputStream.println("<CENTER id='thirdMenu' style='display: none'>");
         if (s.equals("General")) {
             outputStream.println("<B>General</B>");
         } else {

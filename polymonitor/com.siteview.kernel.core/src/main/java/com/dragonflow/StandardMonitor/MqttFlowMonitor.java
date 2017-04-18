@@ -117,7 +117,6 @@ public class MqttFlowMonitor extends ServerMonitor {
 			map.put("stat", "error");
 		}
 		map.put("result", result);
-		System.out.println(map);
 		return map;
 	}
 	

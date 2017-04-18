@@ -1,7 +1,8 @@
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <!-- <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html"> -->
-<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<!-- <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html"> -->
+<link rel="import" href="../../components/paper-dropdown-menu2/paper-dropdown-menu2.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../components/paper-item-ext/paper-item-ext.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
@@ -21,8 +22,8 @@
         :host {
           display: block;
           position: relative;
-          /*--paper-button:{
-            text-transform: capitalize;
+          /*--paper-input-container:{
+            padding:0;
           }*/
         }
         paper-button.fancy {
@@ -45,6 +46,11 @@
           --paper-button:{
             text-transform: capitalize;
           }
+        }
+        paper-dropdown-menu{
+          /*--paper-input-container:{
+            padding:0;
+          }*/
         }
 
 

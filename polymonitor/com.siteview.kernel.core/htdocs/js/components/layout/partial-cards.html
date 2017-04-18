@@ -16,7 +16,8 @@
 <!-- <link rel="import" href="./components/ha-start-voice-button.html"> -->
 <link rel="import" href="./components/ha-cards.html">
 <link rel="import" href="./resources/ha-style.html">
-<link rel='import' href='./cards/ha-introduction-card.html'>
+<!-- <link rel='import' href='./cards/ha-introduction-card.html'> -->
+<link rel='import' href='./components/ha-card.html'>
 
 <dom-module id="partial-cards">
   <template>
@@ -25,6 +26,10 @@
         -ms-user-select: none;
         -webkit-user-select: none;
         -moz-user-select: none;
+
+        /*--paper-tab-content-unselected: {
+          opacity: 1;
+        }*/
       }
 
       app-header-layout {
@@ -34,9 +39,18 @@
       paper-tabs {
         margin-left: 12px;
         --paper-tabs-selection-bar-color: #FFF;
-        text-transform: uppercase;
+        /*text-transform: uppercase;*/
       }
-      app-header.partial-cards, app-toolbar.partial-cards {
+      paper-tabs paper-tab a {
+        color: #fff;
+        text-decoration: none;
+        margin-top: 28px;
+      }
+      paper-tabs paper-tab a:hover {
+        color: #fff;
+        opacity: 1;
+      }
+      app-header, app-toolbar {
         background-color: #03A9F4;
         font-weight: 400;
         color: #fff;
@@ -81,18 +95,19 @@
     </style>
 
     <app-header-layout has-scrolling-region id='layout'>
-      <app-header effects="waterfall" condenses fixed class="partial-cards">
-        <app-toolbar class="partial-cards">
+      <app-header effects="waterfall" condenses fixed>
+        <app-toolbar>
           <ha-menu-button narrow='[[narrow]]' show-menu='1'></ha-menu-button>
-          <div main-title>Home Assistant</div>
+          <div main-title>SITEVIEW</div>
           <!-- <ha-start-voice-button hass='[[hass]]'></ha-start-voice-button> -->
         </app-toolbar>
 
         <div sticky>
 
-          <paper-tabs selected="0" scrollable>
-            <template is='dom-repeat' items='[[views]]'>
-              <paper-tab>[[item.name]]</paper-tab>
+          <paper-tabs selected="[[selectMenuItem]]" scrollable>
+            <template is='dom-repeat' items='[[secondMenuList]]'>
+              <!-- <a title='[[item.toolTip]]' href='[[item.opLink]]'><paper-tab>[[item.menuLabel]]</paper-tab></a> -->
+              <paper-tab><a title='[[item.toolTip]]' href='[[item.itemLink]]'>[[item.menuLabel]]</a></paper-tab>
             </template>
           </paper-tabs>
           <!-- <paper-tabs
@@ -139,10 +154,9 @@
           <div class='column12'>
             <div class='zone-card'>
 
-              <ha-introduction-card>
-
+              <ha-card header="">
                 <content></content>
-              </ha-introduction-card>
+              </ha-card>
             </div>
           </div>
         </div>
@@ -171,10 +185,12 @@ Polymer({
   is: 'partial-cards',
 
   properties: {
-    hass: {
-      type: Object,
-      value: null,
-      // observer: 'computeAllViews'
+    secondMenuData: String,
+
+    secondMenuList: {
+      type: Array,
+      value: [],
+      computed: 'computeSecondMenuList(secondMenuData)'
     },
 
     narrow: {
@@ -197,36 +213,15 @@ Polymer({
       value: 1,
     },
 
-    introductionLoaded: {
-      type: Boolean,
-      computed: 'computeIntroductionLoaded(hass)',
+    selectMenuItem: {
+      type: Number,
+      computed: 'computeSelectMenuItem(secondMenuData)',
     },
 
     locationName: {
       type: String,
       value: '',
       // computed: 'computeLocationName(hass)',
-    },
-
-    currentView: {
-      type: String,
-      // computed: 'computeCurrentView(hass)',
-    },
-
-    views: {
-      type: Array,
-      notify: true,
-      value: []
-    },
-
-    defaultView: {
-      type: Object,
-      notify: true,
-    },
-
-    viewStates: {
-      type: Object,
-      // computed: 'computeViewStates(currentView, hass, defaultView)',
     },
   },
 
@@ -265,6 +260,36 @@ Polymer({
     this.mqls.forEach(function (mql) {
       mql.removeListener(this.handleWindowChange);
     });
+  },
+
+  computeSecondMenuList: function(secondMenuData){
+    return secondMenuData ? JSON.parse(secondMenuData) : [];
+  },
+
+  computeSelectMenuItem: function(secondMenuData) {
+    var secondMenuList = JSON.parse(secondMenuData);
+    var href = window.location.href;
+    var num = 0;
+    // console.log(secondMenuList);
+    for (var i = 0; i < secondMenuList.length; i++) {
+      var menuLink = secondMenuList[i].menuLink, linkClass = secondMenuList[i].linkClass, opLink = secondMenuList[i].opLink;
+      var itemstr = '';
+      if(menuLink.indexOf("mqttmachine") > -1)
+      	itemstr = '';
+      if (linkClass == "url") {
+      	itemstr = "/" + menuLink + ".html";
+      } else if (linkClass == "script") {
+          itemstr = '';
+      } else if (linkClass == "operation") {
+      	itemstr = "page=" + menuLink + "&operation=" + opLink;
+      } else {
+      	itemstr = "page="+ menuLink;
+      }
+      if (href.indexOf(itemstr) > -1) {
+        num = i;
+      }
+    }
+    return num;
   },
 
   handleWindowChange: function () {

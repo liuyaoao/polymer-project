@@ -75,7 +75,7 @@ public class MqttFirewallMonitor extends ServerMonitor {
 		String status ="";
 		String tagstr = "MASQUERADE  all  --  any";
 		if(getCountStr(tagstr, msg)==10){
-			result = "Status is good";
+			result = "status is good";
 			status = "good";
 		}else{
 			result = "error";

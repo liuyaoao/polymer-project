@@ -34,6 +34,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
     <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 
+    <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+    <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+
     <link rel="import" href="../bower_components/paper-styles/paper-styles.html">
     <!-- <link rel="import" href="../css/bootstrap-styles.html"> -->
     <link rel="stylesheet" type='text/css' href="../css/bootstrap.css">
@@ -159,6 +162,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="col-xs-12 col-sm-4 col-md-3">col-xs-12 col-sm-4 col-md-3</div>
         <div class="col-xs-12 col-sm-4 col-md-3">col-xs-12 col-sm-4 col-md-3</div>
       </div>
+    </div>
+    <div class='row'>
+      <paper-dialog id='tempDialog'>
+        <h2>Header</h2>
+        <paper-dialog-scrollable>
+          Lorem ipsum...
+        </paper-dialog-scrollable>
+        <div class="buttons">
+          <paper-button dialog-dismiss>Cancel</paper-button>
+          <paper-button dialog-confirm autofocus>Accept</paper-button>
+        </div>
+      </paper-dialog>
     </div>
 
     <script>

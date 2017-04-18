@@ -1,0 +1,104 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<!-- <link rel="import" href="../../bower_components/neon-animation/animations/slide-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/slide-down-animation.html">
+ -->
+
+<dom-module id="machine-delete-dialog">
+  <template>
+    <style>
+      paper-dialog {
+        font-size: 14px;
+        width: 365px;
+      }
+
+      paper-dialog[data-domain=camera] {
+        width: auto;
+      }
+
+      state-card-content {
+        margin-bottom: 24px;
+        font-size: 14px;
+      }
+
+      @media all and (max-width: 450px), all and (max-height: 500px) {
+        paper-dialog {
+          margin: 0;
+          width: 100%;
+          max-height: calc(100% - 64px);
+
+          position: fixed !important;
+          bottom: 0px;
+          left: 0px;
+          right: 0px;
+          overflow: scroll;
+        }
+      }
+
+    </style>
+
+    <!-- entry-animation='slide-up-animation' exit-animation='slide-down-animation' -->
+    <paper-dialog id="machineDeleteDialog" with-backdrop opened='{{dialogOpen}}'>
+      <h2>
+        <content select='.dialogHeader'></content>
+      </h2>
+      <paper-dialog-scrollable id='scrollable'>
+        <content select='.dialogContent'></content>
+      </paper-dialog-scrollable>
+    </paper-dialog>
+  </template>
+</dom-module>
+
+<script>
+Polymer({
+  is: 'machine-delete-dialog',
+
+  properties: {
+
+
+
+
+
+    dialogOpen: {
+      type: Boolean,
+      value: false,
+      observer: 'dialogOpenChanged',
+    },
+
+    delayedDialogOpen: {
+      type: Boolean,
+      value: false,
+    }
+
+  },
+
+  ready: function () {
+    this.$.scrollable.dialogElement = this.$.machineDeleteDialog;
+  },
+
+  stateObjChanged: function (newVal) {
+    if (!newVal) {
+      this.dialogOpen = false;
+      return;
+    }
+
+    this.async(function () {
+      // allow dialog to render content before showing it so it is
+      // positioned correctly.
+      this.dialogOpen = true;
+    }.bind(this), 10);
+  },
+
+  dialogOpenChanged: function (newVal) {
+    if (newVal) {
+      this.async(function () { this.delayedDialogOpen = true; }.bind(this), 100);
+    } else{
+      this.delayedDialogOpen = false;
+    }
+  }
+
+
+});
+</script>

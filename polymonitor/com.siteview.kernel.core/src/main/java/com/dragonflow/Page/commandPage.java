@@ -78,7 +78,7 @@ public class commandPage extends com.dragonflow.Page.CGI
             {
                 if(s2.equals("list"))
                 {
-                    jgl.Array array = User.readUsers();
+                    jgl.Array array = User.readUsers(CGI.getTenant(request.getURL()));
                     for(Enumeration enumeration = array.elements(); enumeration.hasMoreElements(); outputStream.println("</user>"))
                     {
                         jgl.HashMap hashmap3 = (jgl.HashMap)enumeration.nextElement();
@@ -96,7 +96,7 @@ public class commandPage extends com.dragonflow.Page.CGI
                 } else
                 if(s2.equals("edit"))
                 {
-                    jgl.Array array1 = User.readUsers();
+                    jgl.Array array1 = User.readUsers(CGI.getTenant(request.getURL()));
                     jgl.HashMap hashmap2 = User.findUser(array1, s3);
                     if(hashmap2 == null)
                     {
@@ -122,7 +122,7 @@ public class commandPage extends com.dragonflow.Page.CGI
                             hashmap2.put(s8, s16);
                         }
                     } while(true);
-                    User.writeUsers(array1);
+                    User.writeUsers(array1,CGI.getTenant(request.getURL()));
                 } else
                 {
                     throw new Exception("unknown method: " + s2 + ", object=user");

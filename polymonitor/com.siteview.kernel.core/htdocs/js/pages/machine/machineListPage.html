@@ -1,0 +1,44 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html"> -->
+<link rel='import' href='../../components/data-table-ext/simple-data-table-ext.html'>
+<!-- <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html"> -->
+<!-- <link rel="import" href="../../components/paper-dropdown-menu2/paper-dropdown-menu2.html"> -->
+<!-- <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html"> -->
+<!-- <link rel="import" href="../../components/paper-item-ext/paper-item-ext.html"> -->
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<!-- <link rel="import" href="../../bower_components/iron-form/iron-form.html"> -->
+<!-- <link rel="import" href="../../components/iron-form-ext/iron-form-ext.html"> -->
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../components/css/bootstrap-styles.html">
+<link rel="import" href="machineDeleteDialog.html">
+
+<dom-module id="machine-list-page">
+  <template strip-whitespace>
+      <style include="bootstrap-styles">
+        :host {
+          display: block;
+          position: relative;
+        }
+
+      </style>
+      <div id="machineListPageContainer">
+        <content></content>
+      </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'machine-list-page',
+      properties:{
+
+      },
+      ready:function(){
+      }
+
+
+    });
+  </script>
+</dom-module>

@@ -216,8 +216,8 @@ public class setupwzdPage extends com.dragonflow.Page.CGI
                 com.dragonflow.Log.LogManager.log("Error", "Error writing International flag(_isI18N) to Master.config: " + ioexception.getMessage());
             }
             com.dragonflow.SiteView.SiteViewGroup.updateStaticPages();
-            User.unloadUsers();
-            User.loadUsers();
+            User.unloadUsers(CGI.getTenant(request.getURL()));
+            User.loadUsers(CGI.getTenant(request.getURL()));
             outputStream.flush();
         } else
         {

@@ -1,11 +1,13 @@
 package com.dragonflow.Page;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dragonflow.HTTP.HTTPRequestException;
+import com.dragonflow.Properties.FrameFile;
 import com.dragonflow.Properties.HashMapOrdered;
 import com.dragonflow.SiteView.Platform;
 import com.dragonflow.SiteView.Tenant;
@@ -110,7 +112,7 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	        printPrefsBar("Tenants");
 	        outputStream.println("<p><H2>" + s3 + "</H2>\n" + getPagePOST(request.getValue("page"), s) + "<input type=hidden name=tenantid value=" + s1 + ">\n");
 	        outputStream.print("<TABLE>\n");
-	        printAccessFields(s1, hashmap, hashmap1);
+//	        printAccessFields(s1, hashmap, hashmap1);
 	        outputStream.println("<TR><TD ALIGN=RIGHT>Company name</TD><TD><TABLE><TR><TD ALIGN=LEFT><input type=text name=_cName size=50 value=\"" + com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_cName") + "\"></TD></TR>" + "<TR><TD><FONT SIZE=-1>the Company name for this tenant, if empty, no Company name is required</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "cName") + "</I></TD></TR>" 
 	        		+ "<TR><TD ALIGN=RIGHT>Company Number</TD>" + "<TD><TABLE><TR><TD ALIGN=LEFT>" + "<input type=text name=_cNumber value=\""+com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_cNumber") + "\""+" size=50></TD></TR>" +  "<TR><TD><FONT SIZE=-1>the Company Number for this tenant</FONT></TD></TR>" + "<TR><TD><FONT SIZE=-1></FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "cNumber") + "</I></TD></TR>" 
 	        		+ "<TR><TD ALIGN=RIGHT>Number Of Companies</TD>" + "<TD><TABLE><TR><TD ALIGN=LEFT>"+"<input type=text name=_cNumberC value=\""+com.dragonflow.Page.userPrefsPage.getValue(hashmap1, "_cNumberC") + "\""+" size=50></TD></TR>"+"<input type=hidden name=" + s2 + " value=\"" + TextUtils.obscure(s) + "\"> "+ "<TR><TD><FONT SIZE=-1>the Number Of Companies</FONT></TD></TR>" + "</TABLE></TD><TD><I>" + com.dragonflow.Page.userPrefsPage.getValue(hashmap, "cNumberC") + "</I></TD></TR>");
@@ -141,7 +143,7 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	        }
 	        outputStream.println("</TABLE>");
 	        outputStream.println("<TABLE WIDTH=100%><TR><TD><input type=submit value=\"" + s2 + "\"> Tenant\n" + "</TD></TR></TABLE>");
-	        printPermissions(s1, flag, s2, hashmap, hashmap1);
+//	        printPermissions(s1, flag, s2, hashmap, hashmap1);
 	        outputStream.println("</FORM>");
 	        printFooter(outputStream);
 	    }
@@ -302,82 +304,79 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	            ((jgl.HashMap) (obj)).put("_cDesc", request.getValue("_cDesc"));
 	            ((jgl.HashMap) (obj)).put("_cPhone", request.getValue("_cPhone"));
 	            ((jgl.HashMap) (obj)).put("_cEmail", request.getValue("_cEmail"));
-	            if(com.dragonflow.SiteView.Platform.isPortal())
-	            {
-	                ((jgl.HashMap) (obj)).put("_homeView", request.getValue("_homeView"));
-	                ((jgl.HashMap) (obj)).put("_buttonBar", request.getValue("_buttonBar"));
-	                ((jgl.HashMap) (obj)).put("_query", com.dragonflow.Page.portalChooserPage.getQueryChooseListSelectedItem(request));
-	            }
-	            ((jgl.HashMap) (obj)).put("_progress", request.getValue("_progress"));
-	            ((jgl.HashMap) (obj)).put("_topazConfigChangesReport", request.getValue("_topazConfigChangesReport"));
-	            ((jgl.HashMap) (obj)).put("_alertList", request.getValue("_alertList"));
-	            ((jgl.HashMap) (obj)).put("_browse", request.getValue("_browse"));
-	            ((jgl.HashMap) (obj)).put("_tools", request.getValue("_tools"));
-	            ((jgl.HashMap) (obj)).put("_support", request.getValue("_support"));
-	            ((jgl.HashMap) (obj)).put("_preference", request.getValue("_preference"));
-	            ((jgl.HashMap) (obj)).put("_preferenceTest", request.getValue("_preferenceTest"));
-	            ((jgl.HashMap) (obj)).put("_logs", request.getValue("_logs"));
-	            ((jgl.HashMap) (obj)).put("_multiEdit", request.getValue("_multiEdit"));
-	            ((jgl.HashMap) (obj)).put("_groupEdit", request.getValue("_groupEdit"));
-	            ((jgl.HashMap) (obj)).put("_groupDisable", request.getValue("_groupDisable"));
-	            ((jgl.HashMap) (obj)).put("_groupRefresh", request.getValue("_groupRefresh"));
-	            ((jgl.HashMap) (obj)).put("_monitorEdit", request.getValue("_monitorEdit"));
-	            ((jgl.HashMap) (obj)).put("_monitorDisable", request.getValue("_monitorDisable"));
-	            ((jgl.HashMap) (obj)).put("_monitorRefresh", request.getValue("_monitorRefresh"));
-	            ((jgl.HashMap) (obj)).put("_monitorAcknowledge", request.getValue("_monitorAcknowledge"));
-	            ((jgl.HashMap) (obj)).put("_monitorRecent", request.getValue("_monitorRecent"));
-	            ((jgl.HashMap) (obj)).put("_monitorTools", request.getValue("_monitorTools"));
-	            ((jgl.HashMap) (obj)).put("_alertEdit", request.getValue("_alertEdit"));
-	            ((jgl.HashMap) (obj)).put("_alertDisable", request.getValue("_alertDisable"));
-	            ((jgl.HashMap) (obj)).put("_alertTempDisable", request.getValue("_alertTempDisable"));
-	            ((jgl.HashMap) (obj)).put("_alertRecentReport", request.getValue("_alertRecentReport"));
-	            ((jgl.HashMap) (obj)).put("_alertAdhocReport", request.getValue("_alertAdhocReport"));
-	            ((jgl.HashMap) (obj)).put("_alertTest", request.getValue("_alertTest"));
-	            ((jgl.HashMap) (obj)).put("_reportEdit", request.getValue("_reportEdit"));
-	            ((jgl.HashMap) (obj)).put("_reportDisable", request.getValue("_reportDisable"));
-	            ((jgl.HashMap) (obj)).put("_reportAdhoc", request.getValue("_reportAdhoc"));
-	            ((jgl.HashMap) (obj)).put("_reportToolbar", request.getValue("_reportToolbar"));
-	            ((jgl.HashMap) (obj)).put("_reportGenerate", request.getValue("_reportGenerate"));
-	            ((jgl.HashMap) (obj)).put("_healthView", request.getValue("_healthView"));
-	            ((jgl.HashMap) (obj)).put("_healthEdit", request.getValue("_healthEdit"));
-	            ((jgl.HashMap) (obj)).put("_healthDisable", request.getValue("_healthDisable"));
-	            ((jgl.HashMap) (obj)).remove("_group");
-	            Enumeration enumeration = request.getValues("_group");
-	            boolean flag = false;
-	            if(!com.dragonflow.Page.treeControl.useTree())
-	            {
-	                for(; enumeration.hasMoreElements(); ((jgl.HashMap) (obj)).add("_group", (String)enumeration.nextElement())) { }
-	            } else
-	            {
-	                do
-	                {
-	                    if(!enumeration.hasMoreElements())
-	                    {
-	                        break;
-	                    }
-	                    String s8 = com.dragonflow.HTTP.HTTPRequest.decodeString((String)enumeration.nextElement());
-	                    if(!s8.equals("_master"))
-	                    {
-	                        continue;
-	                    }
-	                    flag = true;
-	                    break;
-	                } while(true);
-	                if(!flag)
-	                {
-	                    for(Enumeration enumeration1 = request.getValues("_group"); enumeration1.hasMoreElements(); ((jgl.HashMap) (obj)).add("_group", com.dragonflow.HTTP.HTTPRequest.decodeString((String)enumeration1.nextElement()))) { }
-	                }
-	            }
-	            ((jgl.HashMap) (obj)).put("_demo", request.getValue("_demo"));
-	            ((jgl.HashMap) (obj)).put("_license", request.getValue("_license"));
-	            saveTenantFrames(array);
-//	            if(request.usesCookieLogin())
+	            ((jgl.HashMap) (obj)).put("_realName", request.getValue("_realName"));
+	            ((jgl.HashMap) (obj)).put("_disabled", request.getValue("_disabled"));
+//	            if(com.dragonflow.SiteView.Platform.isPortal())
 //	            {
-//	                request.addOtherHeader("Set-Cookie: value=" + 
-//	            TextUtils.getValue(((jgl.HashMap) (obj)), "_id") + "|" + 
-//	                		TextUtils.getValue(((jgl.HashMap) (obj)), "_cName") + "|" 
-//	            + com.dragonflow.Utils.TextUtils.obscure("") + "; path=/");
+//	                ((jgl.HashMap) (obj)).put("_homeView", request.getValue("_homeView"));
+//	                ((jgl.HashMap) (obj)).put("_buttonBar", request.getValue("_buttonBar"));
+//	                ((jgl.HashMap) (obj)).put("_query", com.dragonflow.Page.portalChooserPage.getQueryChooseListSelectedItem(request));
 //	            }
+//	            ((jgl.HashMap) (obj)).put("_progress", request.getValue("_progress"));
+//	            ((jgl.HashMap) (obj)).put("_topazConfigChangesReport", request.getValue("_topazConfigChangesReport"));
+//	            ((jgl.HashMap) (obj)).put("_alertList", request.getValue("_alertList"));
+//	            ((jgl.HashMap) (obj)).put("_browse", request.getValue("_browse"));
+//	            ((jgl.HashMap) (obj)).put("_tools", request.getValue("_tools"));
+//	            ((jgl.HashMap) (obj)).put("_support", request.getValue("_support"));
+//	            ((jgl.HashMap) (obj)).put("_preference", request.getValue("_preference"));
+//	            ((jgl.HashMap) (obj)).put("_preferenceTest", request.getValue("_preferenceTest"));
+//	            ((jgl.HashMap) (obj)).put("_logs", request.getValue("_logs"));
+//	            ((jgl.HashMap) (obj)).put("_multiEdit", request.getValue("_multiEdit"));
+//	            ((jgl.HashMap) (obj)).put("_groupEdit", request.getValue("_groupEdit"));
+//	            ((jgl.HashMap) (obj)).put("_groupDisable", request.getValue("_groupDisable"));
+//	            ((jgl.HashMap) (obj)).put("_groupRefresh", request.getValue("_groupRefresh"));
+//	            ((jgl.HashMap) (obj)).put("_monitorEdit", request.getValue("_monitorEdit"));
+//	            ((jgl.HashMap) (obj)).put("_monitorDisable", request.getValue("_monitorDisable"));
+//	            ((jgl.HashMap) (obj)).put("_monitorRefresh", request.getValue("_monitorRefresh"));
+//	            ((jgl.HashMap) (obj)).put("_monitorAcknowledge", request.getValue("_monitorAcknowledge"));
+//	            ((jgl.HashMap) (obj)).put("_monitorRecent", request.getValue("_monitorRecent"));
+//	            ((jgl.HashMap) (obj)).put("_monitorTools", request.getValue("_monitorTools"));
+//	            ((jgl.HashMap) (obj)).put("_alertEdit", request.getValue("_alertEdit"));
+//	            ((jgl.HashMap) (obj)).put("_alertDisable", request.getValue("_alertDisable"));
+//	            ((jgl.HashMap) (obj)).put("_alertTempDisable", request.getValue("_alertTempDisable"));
+//	            ((jgl.HashMap) (obj)).put("_alertRecentReport", request.getValue("_alertRecentReport"));
+//	            ((jgl.HashMap) (obj)).put("_alertAdhocReport", request.getValue("_alertAdhocReport"));
+//	            ((jgl.HashMap) (obj)).put("_alertTest", request.getValue("_alertTest"));
+//	            ((jgl.HashMap) (obj)).put("_reportEdit", request.getValue("_reportEdit"));
+//	            ((jgl.HashMap) (obj)).put("_reportDisable", request.getValue("_reportDisable"));
+//	            ((jgl.HashMap) (obj)).put("_reportAdhoc", request.getValue("_reportAdhoc"));
+//	            ((jgl.HashMap) (obj)).put("_reportToolbar", request.getValue("_reportToolbar"));
+//	            ((jgl.HashMap) (obj)).put("_reportGenerate", request.getValue("_reportGenerate"));
+//	            ((jgl.HashMap) (obj)).put("_healthView", request.getValue("_healthView"));
+//	            ((jgl.HashMap) (obj)).put("_healthEdit", request.getValue("_healthEdit"));
+//	            ((jgl.HashMap) (obj)).put("_healthDisable", request.getValue("_healthDisable"));
+//	            ((jgl.HashMap) (obj)).remove("_group");
+//	            Enumeration enumeration = request.getValues("_group");
+//	            boolean flag = false;
+//	            if(!com.dragonflow.Page.treeControl.useTree())
+//	            {
+//	                for(; enumeration.hasMoreElements(); ((jgl.HashMap) (obj)).add("_group", (String)enumeration.nextElement())) { }
+//	            } else
+//	            {
+//	                do
+//	                {
+//	                    if(!enumeration.hasMoreElements())
+//	                    {
+//	                        break;
+//	                    }
+//	                    String s8 = com.dragonflow.HTTP.HTTPRequest.decodeString((String)enumeration.nextElement());
+//	                    if(!s8.equals("_master"))
+//	                    {
+//	                        continue;
+//	                    }
+//	                    flag = true;
+//	                    break;
+//	                } while(true);
+//	                if(!flag)
+//	                {
+//	                    for(Enumeration enumeration1 = request.getValues("_group"); enumeration1.hasMoreElements(); ((jgl.HashMap) (obj)).add("_group", com.dragonflow.HTTP.HTTPRequest.decodeString((String)enumeration1.nextElement()))) { }
+//	                }
+//	            }
+//	            ((jgl.HashMap) (obj)).put("_demo", request.getValue("_demo"));
+//	            ((jgl.HashMap) (obj)).put("_license", request.getValue("_license"));
+	            saveTenantFrames(array);
+	            if(s.equals("Add"))
+	            	createdTenantAdminUser( request.getValue("_cName"), "tenant" + s1);
 	            super.printCGIHeader();
 	            printRefreshPage(getPageLink(request.getValue("page"), ""), 0);
 	        } else
@@ -386,7 +385,77 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	        }
 	    }
 
-	    String getTenantTitle(jgl.HashMap hashmap)
+	    private void createdTenantAdminUser(String value,String id) {
+			// TODO Auto-generated method stub
+			File file = new File(Platform.getRoot()+"/groups/tenants/"+value+"/users.config");
+			if(!file.exists()||!file.isFile()){
+				try {
+					file.createNewFile();
+					Array array = new Array();
+					HashMap hashmap = new HashMap();
+					hashmap.put("_nextID", "2");
+					hashmap.put("_fileEncoding", "UTF-8");
+					array.add(hashmap);
+					hashmap = new HashMap();
+					hashmap.put("_id", value+"1");
+					hashmap.put("_userEdit", "true");
+					hashmap.put("_realName", value);
+					hashmap.put("_password", value);
+					hashmap.put("_login", value);
+					hashmap.put("_tenant", id);
+					hashmap.put("_monitorAcknowledge", "true");
+					hashmap.put("_preference", "true");
+					hashmap.put("_monitorDisable", "true");
+					hashmap.put("_groupRefresh", "true");
+					hashmap.put("_progress", "true");
+					hashmap.put("_alertAdhocReport", "true");
+					hashmap.put("_reportToolbar", "true");
+					hashmap.put("_preferenceTest", "true");
+					hashmap.put("_monitorEdit", "true");
+					hashmap.put("_healthDisable", "true");
+					hashmap.put("_groupEdit", "true");
+					hashmap.put("_alertEdit", "true");
+					hashmap.put("_reportDisable", "true");
+					hashmap.put("_reportAdhoc", "true");
+					hashmap.put("_userEdit", "true");
+					hashmap.put("_monitorRefresh", "true");
+					hashmap.put("_reportGenerate", "true");
+					hashmap.put("_alertRecentReport", "true");
+					hashmap.put("_multiEdit", "true");
+					hashmap.put("_groupDisable", "true");
+					hashmap.put("_monitorRecent", "true");
+					hashmap.put("_alertTempDisable", "true");
+					hashmap.put("_monitorTools", "true");
+					hashmap.put("_browse", "true");
+					hashmap.put("_alertList", "true");
+					hashmap.put("_logs", "true");
+					hashmap.put("_healthView", "true");
+					hashmap.put("_support", "true");
+					hashmap.put("_tools", "true");
+					hashmap.put("_reportEdit", "true");
+					hashmap.put("_alertTest", "true");
+					hashmap.put("_healthEdit", "true");
+					hashmap.put("_alertDisable", "true");
+					array.add(hashmap);
+					User.usersCacheMap.put(value, array);
+					User.loadUsers(value);
+					FrameFile.writeToFile(file.getPath(), array);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	    private void deleteTenant(String value){
+	    	File file = new File (Platform.getRoot()+"/groups/tenants/"+value);
+	    	User.unloadUsers(value);
+	    	if(file.exists()&&file.isDirectory()){
+	    		File[] files = file.listFiles();
+	    		for(File f:files)
+	    			f.delete();
+	    		file.delete();
+	    	}
+	    }
+		String getTenantTitle(jgl.HashMap hashmap)
 	    {
 	        String s = com.dragonflow.Page.userPrefsPage.getValue(hashmap, "_realName");
 	        if(s.length() == 0)
@@ -477,14 +546,15 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	            outputStream.println("<hr>Administrator access only<hr>");
 	            return;
 	        }
-	        String s1 = request.getValue("tenant");
+	        String s1 = request.getValue("tenantid");
 	        jgl.Array array = getTenantFrames();
-	        jgl.HashMap hashmap = User.findUser(array, s1);
+	        jgl.HashMap hashmap = Tenant.findTenant(array, s1);
 	        if(request.isPost())
 	        {
 	            try
 	            {
 	                array.remove(hashmap);
+	                deleteTenant( TextUtils.getValue(hashmap, "_cName"));
 	                saveTenantFrames(array);
 	                printRefreshPage(getPageLink(request.getValue("page"), "List"), 0);
 	            }
@@ -495,7 +565,7 @@ public class tenantPrefsPage extends com.dragonflow.Page.prefsPage{
 	        } else
 	        {
 	            printBodyHeader("Delete Confirmation");
-	            outputStream.println("<FONT SIZE=+1>Are you sure you want to remove the user <B>" + getTenantTitle(hashmap) + "</B>?</FONT>" + "<p>" + getPagePOST(request.getValue("page"), s) + "<input type=hidden name=user value=" + s1 + ">\n" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\"" + s + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=" + getPageLink(request.getValue("page"), "") + ">Return to Detail</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
+	            outputStream.println("<FONT SIZE=+1>Are you sure you want to remove the user <B>" + getTenantTitle(hashmap) + "</B>?</FONT>" + "<p>" + getPagePOST(request.getValue("page"), s) + "<input type=hidden name=tenantid value=" + s1 + ">\n" + "<TABLE WIDTH=100% BORDER=0><TR>" + "<TD WIDTH=6%></TD><TD WIDTH=41%><input type=submit value=\"" + s + "\"></TD>" + "<TD WIDTH=6%></TD><TD ALIGN=RIGHT WIDTH=41%><A HREF=" + getPageLink(request.getValue("page"), "") + ">Return to Detail</A></TD><TD WIDTH=6%></TD>" + "</TR></TABLE></FORM>");
 	            printFooter(outputStream);
 	        }
 	    }

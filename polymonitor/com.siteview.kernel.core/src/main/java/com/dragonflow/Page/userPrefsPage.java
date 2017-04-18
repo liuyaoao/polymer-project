@@ -302,7 +302,7 @@ public class userPrefsPage extends com.dragonflow.Page.prefsPage {
 			outputStream.println("<hr>Permission denied<hr>");
 			return;
 		}
-		jgl.Array array = getUserFrames();
+		jgl.Array array = getUserFrames(getTenant());
 		if (request.isPost() && com.dragonflow.Page.treeControl.notHandled(request)) {
 			String s1 = request.getValue("user");
 			jgl.HashMap hashmap = new HashMap();
@@ -345,7 +345,10 @@ public class userPrefsPage extends com.dragonflow.Page.prefsPage {
 					s1 = "1";
 				}
 				obj = new HashMapOrdered(true);
-				((jgl.HashMap) (obj)).put("_id", "login" + s1);
+				String tenant = getTenant();
+				if(tenant.length()==0)
+					tenant="login";
+				((jgl.HashMap) (obj)).put("_id", tenant + s1);
 				array.add(obj);
 				hashmap2.put("_nextID", com.dragonflow.Utils.TextUtils.increment(s1));
 			} else {
@@ -463,7 +466,7 @@ public class userPrefsPage extends com.dragonflow.Page.prefsPage {
 		// outputStream.println("<TH WIDTH=10%>Edit</TH><TH WIDTH=3%>Del</TH>");
 		// }
 		// outputStream.println("</TR>");
-		jgl.Array array = getUserFrames();
+		jgl.Array array = getUserFrames(getTenant());
 		Enumeration enumeration = array.elements();
 		if (enumeration.hasMoreElements()) {
 			enumeration.nextElement();
@@ -544,7 +547,7 @@ public class userPrefsPage extends com.dragonflow.Page.prefsPage {
 			return;
 		}
 		String s1 = request.getValue("user");
-		jgl.Array array = getUserFrames();
+		jgl.Array array = getUserFrames(getTenant());
 		jgl.HashMap hashmap = User.findUser(array, s1);
 		if (request.isPost()) {
 			try {
@@ -624,7 +627,7 @@ public class userPrefsPage extends com.dragonflow.Page.prefsPage {
 		}
 	}
 
-	jgl.Array getUserFrames() throws java.io.IOException {
+	jgl.Array getUserFrames(String tenant) throws java.io.IOException {
 		jgl.Array array = null;
 		if (isPortalServerRequest()) {
 			try {
@@ -633,9 +636,10 @@ public class userPrefsPage extends com.dragonflow.Page.prefsPage {
 				array = new Array();
 			}
 			jgl.HashMap hashmap = getMasterConfig();
-			User.initializeUsersList(array, hashmap);
+			if(tenant.length()==0)
+				User.initializeUsersList(array, hashmap);
 		} else {
-			array = User.readUsers();
+			array = User.readUsers(tenant);
 		}
 		return array;
 	}
@@ -645,7 +649,7 @@ public class userPrefsPage extends com.dragonflow.Page.prefsPage {
 			WriteGroupFrames("_users", array);
 			return;
 		} else {
-			User.writeUsers(array);
+			User.writeUsers(array,CGI.getTenant(request.getURL()));
 			return;
 		}
 	}

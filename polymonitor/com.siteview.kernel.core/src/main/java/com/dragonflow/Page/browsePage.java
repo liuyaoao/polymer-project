@@ -277,32 +277,12 @@ public class browsePage extends com.dragonflow.Page.CGI implements jgl.BinaryPre
       outputStream.println("<link rel='import' href='/SiteView/htdocs/js/pages/browsePage/browsePage_Form.html' async='true'>\n");
 			if (s18.length() == 0) {
 
-				// outputStream.println("<br><FORM ACTION=/SiteView/cgi/go.exe/SiteView method=GET>"
-        //         +"<input type=hidden name=page value=browse><input type=hidden name=account value="
-				// 				+ request.getAccount() + ">" + "<input type=hidden name=hide value=\"checked\">"
-				// 				+ "<input type=hidden name=machineNameSelect value=\"" + machineNameSelect + "\">"
-				// 				+ "<input type=hidden name=sort value=" + request.getValue("sort") + ">"
-				// 				+ "<input type=hidden name=monitorNameSelect value=\"" + monitorNameSelect + "\">");
         String _refresh = request.getValue("refresh");
         String categorySelect = request.getValue("categorySelect");
         String monitorTypeSelect ="";
     		for (Enumeration enumeration5 = request.getValues("monitorTypeSelect"); enumeration5
     				.hasMoreElements(); monitorTypeSelect = (String)enumeration5.nextElement()) {
     		}
-
-				// outputStream.println("<input type=hidden name=refresh value=" + _refresh + ">"
-				// 		+ "<input type=hidden name=statusSelect value=\"" + statusSelect + "\">"
-				// 		+ "<input type=hidden name=categorySelect value=" + categorySelect + ">");
-				// outputStream.println("<input type=submit value=\"&lt;&lt; Hide Controls\">");
-				// outputStream.println("</form>");
-
-
-				// outputStream.println("<FORM ACTION=/SiteView/cgi/go.exe/SiteView method=GET>"+
-        //       "<input type=hidden name=page value=browse><input type=hidden name=account value="
-				// 				+ request.getAccount() + ">");
-
-				// outputStream.println("<table border=0 width=100% cellspacing=5><tr><td colspan=8><hr></td></tr>");
-				// outputStream.println("<tr>");
 
 				String as[] = {
 						com.dragonflow.SiteView.Monitor.ERROR_CATEGORY
@@ -314,7 +294,6 @@ public class browsePage extends com.dragonflow.Page.CGI implements jgl.BinaryPre
 
         ArrayList<java.util.HashMap> categorySelectDataList= new ArrayList<java.util.HashMap>();
 
-				// outputStream.println("<td valign=top>Category to Show/Hide: </td><td><select name=categorySelect>");
 				boolean flag1 = TextUtils.getValue(getMasterConfig(), "_acknowledgeMonitors").equalsIgnoreCase("CHECKED");
 				for (int k1 = 0; k1 < 2; k1++) {
 					String s26 = k1 != 0 ? "Hide " : "Show ";
@@ -325,7 +304,6 @@ public class browsePage extends com.dragonflow.Page.CGI implements jgl.BinaryPre
               dataMap.put("label", ""+s26 + as1[l1]);
               dataMap.put("value", ""+s27 + as[l1]);
               categorySelectDataList.add(dataMap);
-							// outputStream.println("<option value=" + s27 + as[l1]+ (categorySelectSelectedVal.equals(s27 + as[l1]) ? " selected>" : ">") + s26 + as1[l1] + "</option>\n");
 						}
 					}
 
@@ -335,50 +313,17 @@ public class browsePage extends com.dragonflow.Page.CGI implements jgl.BinaryPre
         tempAllMap.put("value", "ALL");
         categorySelectDataList.add(tempAllMap);
         String categorySelectData = JSONObject.toJSONString(categorySelectDataList);
-				// outputStream.println("<option value=ALL" + (categorySelectSelectedVal.equals("ALL") ? " selected" : "") + ">Show All Categories</option>\n");
-				// outputStream.println("</select></td>\n");
 
-
-				// outputStream.println("<td valign=top>&nbsp;&nbsp;Match Status:</td><td valign=top>"
-        //         +"<input type=text name=statusSelect size=15 value=\""+ statusSelect + "\"></td>");
-				// outputStream.println("<td valign=top>&nbsp;&nbsp;Refresh Option:</td><td valign=top>");
-        // outputStream.println("</td>");
-        // outputStream.println("</tr>");
-        // outputStream.println("<tr>");
         java.util.HashMap<String, String> refreshSelectDataMap = getRefreshSelectData(s6, false);
 
-				// outputStream.println(getMonitorTypeSelectHTML(s1));
         java.util.HashMap<String, String> monitorTypeSelectDataMap = getMonitorTypeSelectData(s1);
 
-				// outputStream.println(
-				// 		"<td valign=top>&nbsp;&nbsp;Match Name:</td><td valign=top><input type=text name=monitorNameSelect size=15 value=\""
-				// 				+ monitorNameSelect + "\"></td>");
-				// outputStream.println("</tr>");
-				// outputStream.println("<tr>");
-
-				// outputStream.println(
-				// 		"<td valign=top>Sort by: </td><td valign=top><select size=1 name=sort>\n<option value=category "
-				// 				+ s15 + ">status</option>\n" + "<option value=group " + s11 + ">group</option>\n"
-				// 				+ "<option value=name " + s13 + ">name</option>\n" + "<option value=status " + s14
-				// 				+ ">status text</option>\n" + "<option value=machine " + s16 + ">machine</option>\n"
-				// 				+ "</select></td>\n");
-
-				// outputStream.println("<td valign=top>&nbsp;Match Machine:</td><td valign=top><input type=text name=machineNameSelect size=15 value=\""+ machineNameSelect + "\"></td>");
-
-				// outputStream.println("<td valign=top>&nbsp;</td>");
-				// outputStream.println("<td valign=top><input type=submit value=\"Update and Refresh\"></td>");
-				// outputStream.println("</tr>");
-				// outputStream.println("</table><br clear=all>");
         String _acknowledgeMonitorsChecked = "";
         String _onlyBrowserUnacknowledged = com.dragonflow.Page.browsePage.getValue(hashmap, "_onlyBrowserUnacknowledged");
         String val = TextUtils.getValue(hashmap, "_acknowledgeMonitors");
         if (TextUtils.getValue(hashmap, "_acknowledgeMonitors").equalsIgnoreCase("CHECKED")) {
           _acknowledgeMonitorsChecked = s8.equals("CHECKED") ? "checked" : "";
-          // outputStream.println("<input type=checkbox " + _acknowledgeMonitorsChecked + " value=CHECKED name=onlyBrowserUnacknowledge"
-          // + com.dragonflow.Page.browsePage.getValue(hashmap, "_onlyBrowserUnacknowledged")
-          // + ">Only display unacknowledged monitors that are in error or warning\n<br>");
         }
-        // outputStream.println("</form>");
 
         outputStream.println("<browse-page-form"
         +" account='"+_account+"' "

@@ -14,17 +14,26 @@
     <style>
     </style>
 
-    <layout-main>
+    <layout-main menu-selected="[[menuSelected]]" menu-data="[[menuData]]" second-menu-data="[[secondMenuData]]">
       <content></content>
     </layout-main>
-    <!-- <content></content> -->
+
   </template>
 
   <script>
 
     Polymer({
 
-      is: 'layout-home'
+      is: 'layout-home',
+
+      properties: {
+
+        menuSelected: String,
+
+        menuData: String,
+
+        secondMenuData: String,
+      }
     });
   </script>
 

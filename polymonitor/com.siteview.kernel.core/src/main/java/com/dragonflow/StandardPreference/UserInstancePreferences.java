@@ -25,6 +25,7 @@ import jgl.HashMap;
 import jgl.LessString;
 
 import com.dragonflow.HTTP.HTTPRequest;
+import com.dragonflow.Page.CGI;
 import com.dragonflow.Properties.BooleanProperty;
 import com.dragonflow.Properties.ScalarProperty;
 import com.dragonflow.Properties.StringProperty;
@@ -125,7 +126,7 @@ public class UserInstancePreferences extends com.dragonflow.SiteView.Preferences
             com.dragonflow.HTTP.HTTPRequest httprequest = new HTTPRequest();
             String s = "";
             String s2 = "";
-            jgl.Array array = User.readUsers();
+            jgl.Array array = User.readUsers(CGI.getTenant(httprequest.getURL()));
             jgl.HashMap hashmap2 = new HashMap(true);
             jgl.HashMap hashmap3 = (jgl.HashMap) array.at(0);
             for (int i = 0; i < hashmap.size(); i ++) {
@@ -161,7 +162,7 @@ public class UserInstancePreferences extends com.dragonflow.SiteView.Preferences
             s4 = String.valueOf(++ j);
             hashmap3.put("_nextID", s4);
             array.put(0, hashmap3);
-            User.writeUsers(array);
+            User.writeUsers(array,CGI.getTenant(httprequest.getURL()));
         } catch (java.lang.Exception exception) {
             throw new SiteViewOperationalException(com.dragonflow.Resource.SiteViewErrorCodes.ERR_OP_SS_PREFERENCE_EXCEPTION, new String[] { "UserInstancePreferences", "addPreferences" }, 0L, exception.getMessage());
         }
@@ -171,7 +172,7 @@ public class UserInstancePreferences extends com.dragonflow.SiteView.Preferences
     public String[] updatePreferences(jgl.HashMap hashmap, String s, String s1) throws com.dragonflow.SiteViewException.SiteViewException {
         String as[] = new String[2];
         try {
-            jgl.Array array = User.readUsers();
+            jgl.Array array = User.readUsers("");
             jgl.HashMap hashmap1 = (jgl.HashMap) array.at(0);
             as[0] = "";
             as[1] = "";
@@ -196,7 +197,7 @@ public class UserInstancePreferences extends com.dragonflow.SiteView.Preferences
                 }
                 i ++;
             } while (true);
-            User.writeUsers(array);
+            User.writeUsers(array,"");
         } catch (java.lang.Exception exception) {
             throw new SiteViewOperationalException(com.dragonflow.Resource.SiteViewErrorCodes.ERR_OP_SS_PREFERENCE_EXCEPTION, new String[] { "UserInstancePreferences", "updatePreferences" }, 0L, exception.getMessage());
         }
@@ -205,7 +206,7 @@ public class UserInstancePreferences extends com.dragonflow.SiteView.Preferences
 
     public void deletePreferences(String s, String s1) throws com.dragonflow.SiteViewException.SiteViewException {
         try {
-            jgl.Array array = User.readUsers();
+            jgl.Array array = User.readUsers("");
             jgl.HashMap hashmap = (jgl.HashMap) array.at(0);
             int i = 1;
             do {
@@ -220,7 +221,7 @@ public class UserInstancePreferences extends com.dragonflow.SiteView.Preferences
                 }
                 i ++;
             } while (true);
-            User.writeUsers(array);
+            User.writeUsers(array,"");
         } catch (java.lang.Exception exception) {
             throw new SiteViewOperationalException(com.dragonflow.Resource.SiteViewErrorCodes.ERR_OP_SS_PREFERENCE_EXCEPTION, new String[] { "UserInstancePreferences", "deletePreferences" }, 0L, exception.getMessage());
         }
@@ -229,7 +230,7 @@ public class UserInstancePreferences extends com.dragonflow.SiteView.Preferences
     public java.util.Vector getPreferenceProperties(String s, String s1, String s2, String s3, int i) throws com.dragonflow.SiteViewException.SiteViewException {
         java.util.Vector vector = new Vector();
         try {
-            jgl.Array array = User.readUsers();
+            jgl.Array array = User.readUsers("");
             Object obj = null;
             jgl.HashMap hashmap1 = (jgl.HashMap) array.at(0);
             int j = 1;

@@ -5,8 +5,8 @@
 <link rel='import' href='../../bower_components/paper-item/paper-item.html'>
 <link rel='import' href='../../bower_components/paper-item/paper-icon-item.html'>
 <link rel='import' href='../../bower_components/paper-icon-button/paper-icon-button.html'>
-
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
 
 <!-- <link rel='import' href='./ha-push-notifications-toggle.html'> -->
 
@@ -69,6 +69,10 @@
         color: var(--primary-color);
       }
 
+      paper-icon-item a {
+        text-decoration: none;
+      }
+
       paper-icon-item.logout {
         margin-top: 16px;
       }
@@ -91,17 +95,24 @@
 
       .dev-tools {
         padding: 0 8px;
-        opacity: var(--dark-secondary-opacity);
+        /*opacity: var(--dark-secondary-opacity);*/
+      }
+
+      .dev-tools a {
+        text-decoration: none;
+        padding-left: 10px;
+        padding-bottom: 8px;
+        display: block;
       }
     </style>
 
     <app-toolbar>
-      <div main-title>Home Assistant</div>
+      <div main-title><img style='width: 155px' src="/SiteView/htdocs/artwork/logo.jpg" /></div>
       <paper-icon-button icon='chevron-left' on-tap='toggleMenu'></paper-icon-button>
     </app-toolbar>
 
-    <paper-menu attr-for-selected='data-panel' selected='states' on-iron-select='menuSelect'>
-      <paper-icon-item on-tap='menuClicked' data-panel='states'>
+    <paper-menu attr-for-selected='data-panel' selected='[[menuSelected]]' on-iron-select='menuSelect'>
+      <!-- <paper-icon-item on-tap='menuClicked' data-panel='states'>
         <iron-icon item-icon icon='weekend'></iron-icon>
         <span class='item-text'>States</span>
       </paper-icon-item>
@@ -116,19 +127,22 @@
       <paper-icon-item on-tap='menuClicked' data-panel='history'>
         <iron-icon item-icon icon='weekend'></iron-icon>
         <span class='item-text'>History</span>
-      </paper-icon-item>
+      </paper-icon-item> -->
 
       <template is='dom-repeat' items='[[panels]]'>
-        <paper-icon-item on-tap='menuClicked' data-panel$='[[item.url_path]]'>
-          <iron-icon item-icon icon='[[item.icon]]'></iron-icon>
-          <span class='item-text'>[[item.title]]</span>
+        <paper-icon-item on-tap='menuClicked' data-panel$='[[item.url_path]]' data-href$='[[item.url]]'>
+          <!-- <a href='[[item.url]]'> -->
+            <iron-icon item-icon icon='[[item.icon]]'></iron-icon>
+            <span class='item-text'>[[item.title]]</span>
+          <!-- </a> -->
         </paper-icon-item>
       </template>
 
-      <paper-icon-item on-tap='menuClicked' data-panel='logout' class='logout'>
-        <iron-icon item-icon icon='mdi:exit-to-app'></iron-icon>
+      <paper-icon-item data-panel='logout' class='logout'>
+        <iron-icon item-icon icon='exit-to-app'></iron-icon>
         <span class='item-text'>Log Out</span>
       </paper-icon-item>
+
     </paper-menu>
 
     <div>
@@ -137,10 +151,7 @@
 
         <paper-item class='horizontal layout justified'>
           <div class='setting'>Push Notifications</div>
-          <ha-push-notifications-toggle
-            hass='[[hass]]'
-            push-supported='{{pushSupported}}'
-          ></ha-push-notifications-toggle>
+          <paper-toggle-button checked></paper-toggle-button>
         </paper-item>
       </template>
 
@@ -148,27 +159,11 @@
 
       <div class='subheader'>Developer Tools</div>
 
-      <div class='dev-tools layout horizontal justified'>
-        <paper-icon-button
-          icon='mdi:remote' data-panel='dev-service'
-          alt="Services" title="Services"
-          on-tap='menuClicked'></paper-icon-button>
-        <paper-icon-button
-          icon='mdi:code-tags' data-panel='dev-state'
-          alt="States" title="States"
-          on-tap='menuClicked'></paper-icon-button>
-        <paper-icon-button
-          icon='mdi:radio-tower' data-panel='dev-event'
-          alt="Events" title="Events"
-          on-tap='menuClicked'></paper-icon-button>
-        <paper-icon-button
-          icon='mdi:file-xml' data-panel='dev-template'
-          alt="Templates" title="Templates"
-          on-tap='menuClicked'></paper-icon-button>
-        <paper-icon-button
-          icon='mdi:information-outline' data-panel='dev-info'
-          alt="Info" title="Info"
-          on-tap='menuClicked'></paper-icon-button>
+      <div class='dev-tools layout justified'>
+        <template is='dom-repeat' items='[[subMenuPanels]]'>
+          <a title='[[item.title]]' href='[[item.href]]' class$='[[item.active]]'><span class='item-text'>[[item.name]]</span></a>
+        </template>
+
       </div>
     </div>
   </template>
@@ -179,16 +174,16 @@ Polymer({
   is: 'layout-sidebar',
 
   properties: {
-    hass: {
-      type: Object,
-    },
-
-    menuShown: {
-      type: Boolean,
+    menuData: {
+      type: String,
     },
 
     menuSelected: {
       type: String,
+    },
+
+    menuShown: {
+      type: Boolean,
     },
 
     narrow: {
@@ -197,70 +192,74 @@ Polymer({
 
     panels: {
       type: Array,
-      computed: 'computePanels(hass)',
+      computed: 'computePanels(menuData)',
     },
 
     pushSupported: {
       type: Boolean,
       value: true,
     },
+
+    subMenuPanels: {
+      type: Array,
+    }
+  },
+
+  ready: function() {
+    // this.subMenuPanels = [
+    //   { name: 'Multi-view', title: 'Open the SiteView Multi-view Window', href: 'javascript:OpenOverview()' },
+    //   { name: 'Manage Monitors/Groups', title: 'Manage Monitors and Groups', href: '/SiteView/cgi/go.exe/SiteView?page=manage&account=administrator'  },
+    //   { name: 'Browse', title: 'Browse Monitors', href: '/SiteView/cgi/go.exe/SiteView?page=browse&account=administrator'  },
+    //   { name: 'Remote UNIX/LINUX', title: 'Add/Edit Remote UNIX/Linux profiles', href: '/SiteView/cgi/go.exe/SiteView?page=machine&account=administrator'  },
+    //   { name: 'Remote MQTT', title: 'Add/Edit Remote MQTT profiles', href: '/SiteView/cgi/go.exe/SiteView?page=mqttmachine&account=administrator'  },
+    //   { name: 'Remote Windows', title: 'Add/Edit Remote Windows profiles', href: '/SiteView/cgi/go.exe/SiteView?page=windowsmachine&account=administrator'  },
+    //   { name: 'Tools', title: 'Use monitor diagnostic tools', href: '/SiteView/cgi/go.exe/SiteView?page=monitor&operation=Tools&account=administrator'  },
+    //   { name: 'Progress', title: 'View current monitoring progress', href: '/SiteView/htdocs/Progress.html'  },
+    //   { name: 'Summary', title: 'View current monitor settings', href: '/SiteView/cgi/go.exe/SiteView?page=monitorSummary&account=administrator'  }
+    // ];
+    var thirdMenu = document.getElementById("thirdMenu");
+    var childNodes = thirdMenu ? thirdMenu.childNodes : [];
+    // console.log(childNodes);
+    var submenus = [];
+    for (var i = 0; i < childNodes.length; i++) {
+      var name = childNodes[i].innerText, title = childNodes[i].title, href = childNodes[i].href || '';
+      if (childNodes[i].nodeName == 'A') {
+        submenus.push({name, title, href, active: ''});
+      } else if (childNodes[i].nodeName == 'B') {
+        submenus.push({name, title, href, active: 'active'});
+      }
+    }
+    // console.log(submenus);
+    this.subMenuPanels = submenus;
+
   },
 
   created: function () {
     this._boundUpdateStyles = this.updateStyles.bind(this);
   },
 
-  computePanels: function (hass) {
-    // var panels = hass.config.panels;
-    panels = {
-      'dev-event': {
-        component_name: 'dev-event',
-        url: '/demo/panels/ha-panel-dev-event.html',
-        url_name: 'dev-event',
-      },
-      'dev-info': {
-        component_name: 'dev-info',
-        url: '/demo/panels/ha-panel-dev-info.html',
-        url_name: 'dev-info',
-      },
-      'dev-service': {
-        component_name: 'dev-service',
-        url: '/demo/panels/ha-panel-dev-service.html',
-        url_name: 'dev-service',
+  computePanels: function (menuData) {
+    menuData = menuData || "";
+    menuData = menuData.replace(/'/g,'"')
+    var menus = JSON.parse(menuData);
+    var panels = {};
+    for (var menu in menus) {
+      var menuObj = {
+        component_name: menu,
+        url: menus[menu],
+        url_path: menu,
+        title: menu,
+        icon: this._getMenuIcon(menu)
       }
+      panels[menu] = menuObj;
     }
-    var sortValue = {
-      map: 1,
-      logbook: 2,
-      history: 3,
-    };
+
     var result = [];
 
     Object.keys(panels).forEach(function (key) {
       if (panels[key].title) {
         result.push(panels[key]);
       }
-    });
-
-    result.sort(function (a, b) {
-      var aBuiltIn = (a.component_name in sortValue);
-      var bBuiltIn = (b.component_name in sortValue);
-
-      if (aBuiltIn && bBuiltIn) {
-        return sortValue[a.component_name] - sortValue[b.component_name];
-      } else if (aBuiltIn) {
-        return -1;
-      } else if (bBuiltIn) {
-        return 1;
-      }
-      // both not built in, sort by title
-      if (a.title < b.title) {
-        return -1;
-      }
-      if (a.title > b.title) {
-        return 1;
-      }
-      return 0;
     });
 
     return result;
@@ -273,38 +272,67 @@ Polymer({
   menuClicked: function (ev) {
     var target = ev.target;
     var checks = 5;
-    var attr = target.getAttribute('data-panel');
+    var attr = target.getAttribute('data-href');
 
     // find panel to select
     while (checks && !attr) {
       target = target.parentElement;
-      attr = target.getAttribute('data-panel');
+      attr = target.getAttribute('data-href');
       checks--;
     }
-
     if (checks) {
       this.selectPanel(attr);
     }
   },
 
   toggleMenu: function () {
-    console.log('toggleMenu');
-    this.fire('hass-close-menu');
+    this.fire('hass-toggle-menu');
   },
 
-  selectPanel: function (newChoice) {
-    if (newChoice === this.hass.currentPanel) {
-      return;
-    } else if (newChoice === 'logout') {
-      this.handleLogOut();
-      return;
+  selectPanel: function (href) {
+    if (href) {
+      window.location.href = href;
     }
-    this.fire('hass-navigate', { panel: newChoice });
-    this.debounce('updateStyles', this._boundUpdateStyles, 1);
+    // if (newChoice === this.hass.currentPanel) {
+    //   return;
+    // } else if (newChoice === 'logout') {
+    //   this.handleLogOut();
+    //   return;
+    // }
+    // this.fire('hass-navigate', { panel: newChoice });
+    // this.debounce('updateStyles', this._boundUpdateStyles, 1);
   },
 
   handleLogOut: function () {
     this.fire('hass-logout');
   },
+
+  _getMenuIcon: function(name) {
+    name = name.toLowerCase();
+    var icon = '';
+    switch (name) {
+      case 'siteview':
+          icon = 'apps';
+        break;
+      case 'alerts':
+          icon = 'alarm';
+        break;
+      case 'reports':
+          icon = 'report';
+        break;
+      case 'health':
+          icon = 'star';
+        break;
+      case 'preferences':
+          icon = 'settings';
+        break;
+      case 'help':
+          icon = 'help';
+        break;
+      default:
+        break;
+    }
+    return icon;
+  }
 });
 </script>

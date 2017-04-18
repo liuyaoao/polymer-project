@@ -9,7 +9,6 @@
       }
     </style>
     <paper-icon-button
-      paper-drawer-toggle
       icon='menu'
       class$='[[computeMenuButtonClass(narrow, showMenu)]]'
       on-tap='toggleMenu'
@@ -35,12 +34,13 @@ Polymer({
 
   computeMenuButtonClass: function (narrow, showMenu) {
     // return !narrow && showMenu ? 'invisible' : '';
+    // return !narrow ? 'invisible' : '';
     return '';
   },
 
   toggleMenu: function (ev) {
     ev.stopPropagation();
-    this.fire('hass-open-menu');
+    this.fire('hass-toggle-menu');
   },
 });
 </script>

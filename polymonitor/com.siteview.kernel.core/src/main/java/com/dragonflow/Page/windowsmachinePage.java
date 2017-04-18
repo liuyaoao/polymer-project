@@ -10,6 +10,7 @@
 package com.dragonflow.Page;
 
 import java.util.Enumeration;
+import java.util.Vector;
 
 import jgl.Array;
 
@@ -38,9 +39,10 @@ public class windowsmachinePage extends com.dragonflow.Page.remoteBase {
 	}
 
 	String getTestDescription() {
-		return new String("<p>This test checks for both network connectivity and permissions to access  the selected machine.\n"
-        +"If an access permission error is returned,\n make sure the user name and password are correct.\n"
-        +"If a network connectivity error is returned check the network connection.\n");
+		return new String(
+				"<p>This test checks for both network connectivity and permissions to access  the selected machine.\n"
+						+ "If an access permission error is returned,\n make sure the user name and password are correct.\n"
+						+ "If a network connectivity error is returned check the network connection.\n");
 	}
 
 	com.dragonflow.SiteView.Machine getTestMachine() {
@@ -98,31 +100,65 @@ public class windowsmachinePage extends com.dragonflow.Page.remoteBase {
 
 	boolean displayFormTable(jgl.HashMap hashmap, String s) {
 		boolean flag = true;
-		outputStream.println(field("NT Server Address",
-				"<input type=text name=host size=50 value=\"" + TextUtils.getValue(hashmap, "_host") + "\">",
-				"Enter the UNC style name (example:  \\\\machinename) or the IP address of the remote machine.  To use the same login credentials for multiple servers, enter multiple server addresses  separated by commas. "));
-		String s1 = TextUtils.getValue(hashmap, "_method");
-		if (s1.length() == 0) {
-			s1 = "NetBIOS";
+		outputStream.println("<div class='row'><div class='col-xs-12 col-sm-6 col-md-4'>"
+				+"<paper-input type='search' id='' name='host' label='NT Server Address:' size='50' value='"+TextUtils.getValue(hashmap, "_host")+"'></paper-input>"
+				+"<div>Enter the UNC style name (example:  \\\\machinename) or the IP address of the remote machine.  To use the same login credentials for multiple servers, enter multiple server addresses  separated by commas. </div>"
+				+"</div></div>");
+//		outputStream.println(field("NT Server Address","<input type=text name=host size=50 value=\"" + TextUtils.getValue(hashmap, "_host") + "\">","Enter the UNC style name (example:  \\\\machinename) or the IP address of the remote machine.  To use the same login credentials for multiple servers, enter multiple server addresses  separated by commas. "));
+		String _method = TextUtils.getValue(hashmap, "_method");
+		if (_method.length() == 0) {
+			_method = "NetBIOS";
 		}
-		outputStream.println(field("Connection Method",
-				"<select name=method size=1>" + com.dragonflow.Page.windowsmachinePage
-						.getOptionsHTML(com.dragonflow.SiteView.Machine.getNTAllowedMethods(), s1) + "</select>",
-				"Select the method used to connect to the remote server. Requires that applicable services be enabled on the remote machine"));
+		//connection Method dropdown select.
+		outputStream.println("<div class='row'><div class='col-xs-12 col-sm-6 col-md-4'>"
+				+"<paper-dropdown-menu id='methodSelect' label='Connection Method:' name='method' horizontal-align='right'>"
+				+"<paper-listbox class='dropdown-content' attr-for-selected='value' selected='"+_method+"'>");
+		printMethodsOptionElement(com.dragonflow.SiteView.Machine.getNTAllowedMethods());
+		outputStream.println("</paper-listbox>"
+						+"</paper-dropdown-menu>"
+						+"<div>Select the method used to connect to the remote server. Requires that applicable services be enabled on the remote machine</div>"
+						+"</div></div>");
+
+//		outputStream.println(field("Connection Method",
+//				"<select name=method size=1>" + com.dragonflow.Page.windowsmachinePage
+//						.getOptionsHTML(com.dragonflow.SiteView.Machine.getNTAllowedMethods(), _method) + "</select>",
+//				"Select the method used to connect to the remote server. Requires that applicable services be enabled on the remote machine"));
 		if (flag) {
 			formLogin(hashmap);
 		}
+		//trace checkbox.
 		String s2 = com.dragonflow.Page.windowsmachinePage.getValue(hashmap, "_trace").length() <= 0 ? "" : "CHECKED";
-		outputStream.println(field("Trace", "<input type=checkbox name=trace " + s2 + ">",
-				"Check to enable trace messages to and from the remote Windows server in the RunMonitor.log file"));
-		outputStream.println(field(s + " and Test", "<input type=\"radio\" name=\"addtest\" value=\"test\" CHECKED>",
-				"Check to " + s + " the profile and test the connection"));
-		outputStream.println(field(s + " Only", "<input type=\"radio\" name=\"addtest\" value=\"add\">",
-				"Check to " + s + " the profile only"));
+		outputStream.println("<div class='row'><div class='col-xs-12 col-sm-12 col-md-12'>"
+				+"<paper-checkbox-ext "+s2+" checked-value='CHECKED' name='trace'><div>Check to enable trace messages to and from the remote Windows server in the RunMonitor.log file</div>"
+				+ "</paper-checkbox-ext></div></div>");
+//		outputStream.println(field("Trace", "<input type=checkbox name=trace " + s2 + ">","Check to enable trace messages to and from the remote Windows server in the RunMonitor.log file"));
+		
+		//addtest radio.		
+		outputStream.println("<div class='row'><div class='col-xs-12 col-sm-12 col-md-12'>"
+				+"<paper-radio-group-ext attr-for-selected='label' selected='test'>"
+				+"<paper-radio-button name='addtest' label='test' value='test'>"+s+" and Test,Check to " + s + " the profile and test the connection</paper-radio-button>"
+				+"<paper-radio-button name='addtest' label='add' value='add'>"+s+" Only,Check to " + s + " the profile only</paper-radio-button>"
+				+"</paper-radio-group-ext>"
+				+"</div></div>");
+//		outputStream.println(field(s + " and Test", "<input type=\"radio\" name=\"addtest\" value=\"test\" CHECKED>",
+//				"Check to " + s + " the profile and test the connection"));
+//		outputStream.println(field(s + " Only", "<input type=\"radio\" name=\"addtest\" value=\"add\">",
+//				"Check to " + s + " the profile only"));
+		
 		outputStream.println(getAdnvacedSSHOptions(hashmap));
 		return flag;
 	}
-
+	private void printMethodsOptionElement(jgl.Array array){
+			java.util.Vector vector = new Vector();
+			for (int i = 0; i < array.size(); i++) {
+					vector.addElement(array.at(i));
+			}
+			for (int i = 0; i < vector.size(); i += 2) {
+					String value = (String) vector.elementAt(i);
+					String label = (String) vector.elementAt(i+1);
+					outputStream.println("<paper-item-ext label='"+label+"' value='"+value+"'>"+label+"<paper-ripple></paper-ripple></paper-item-ext>");
+			}
+	}
 	void saveAddProperties(String s, jgl.HashMap hashmap, String s1) {
 		super.saveAddProperties(s, hashmap, s1);
 		String s2 = request.getValue("method");
@@ -189,12 +225,12 @@ public class windowsmachinePage extends com.dragonflow.Page.remoteBase {
 		array.add(new String("<b><i>" + TextUtils.getValue(hashmap, "_status") + "</i></b>"));
 		array.add(new String(TextUtils.getValue(hashmap, "_method")));
 		if (request.actionAllowed("_preference") || s.length() > 0) {
-			array.add(new String("<A href=" + getPageLink("windowsmachine", "Edit") + "&ntMachineID=" + s1 + "&storeID=" + s
-					+ ">Edit</a>"));
-			array.add(new String("<A href=" + getPageLink("windowsmachine", "Test") + "&ntMachineID=" + s1 + "&storeID=" + s
-					+ "&link=true>Test</a>"));
-			array.add(new String("<A href=" + getPageLink("windowsmachine", "Delete") + "&ntMachineID=" + s1 + "&storeID="
-					+ s + ">X</a>"));
+			array.add(new String("<A href=" + getPageLink("windowsmachine", "Edit") + "&ntMachineID=" + s1 + "&storeID="
+					+ s + ">Edit<paper-ripple></paper-ripple></a>"));
+			array.add(new String("<A href=" + getPageLink("windowsmachine", "Test") + "&ntMachineID=" + s1 + "&storeID="
+					+ s + "&link=true>Test<paper-ripple></paper-ripple></a>"));
+			array.add(new String("<A href=" + getPageLink("windowsmachine", "Delete") + "&ntMachineID=" + s1
+					+ "&storeID=" + s + ">X<paper-ripple></paper-ripple></a>"));
 		}
 		return array;
 	}

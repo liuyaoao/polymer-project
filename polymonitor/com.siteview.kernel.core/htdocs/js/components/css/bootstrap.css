@@ -6439,6 +6439,10 @@ button.close {
 .carousel-caption .btn {
   text-shadow: none;
 }
+.btn.btn-blue{
+  background-color: #03A9F4;
+  border-color: #46b8da;
+}
 @media screen and (min-width: 768px) {
   .carousel-control .glyphicon-chevron-left,
   .carousel-control .glyphicon-chevron-right,

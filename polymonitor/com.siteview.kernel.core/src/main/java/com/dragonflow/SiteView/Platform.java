@@ -447,7 +447,7 @@ public class Platform {
 
     public static boolean isStandardAccount(String s) {
         return s.equals("administrator") || s.equals("user")
-                || s.startsWith("login") || s.length() == 0;
+                || s.startsWith("login") || s.length() == 0||true;
     }
 
     public static boolean isSiteSeerAccount(String s) {
@@ -3754,7 +3754,10 @@ public class Platform {
 
 
     public static String getRoot() {
-		return root;
+    	if(!root.contains("com.siteview.kernel.core"))
+    		root=root.replaceAll("com.siteview.kernel.vertx", "com.siteview.kernel.core");
+    	return root;
+//		return root;
     }
 
     private static void initUserAccessAllowed() {
@@ -3839,8 +3842,9 @@ public class Platform {
 
     public static String copyright;
 
-    public static String companyLogo = "<a href=\"http://www.dragonflow.com/\" target=\"web\"><img src=/SiteView/htdocs/artwork/DragonFlow2_Websafe_xsml.gif  border=\"\" alt=\"\"></a> ";
-
+//    public static String companyLogo = "<a href=\"http://www.dragonflow.com/\" target=\"web\"><img src=/SiteView/htdocs/artwork/DragonFlow2_Websafe_xsml.gif  border=\"\" alt=\"\"></a> ";
+    public static String companyLogo = "<a href=\"http://www.dragonflow.com/\" target=\"web\"><img width='150px' src=/SiteView/htdocs/artwork/logo.jpg  border=\"\" alt=\"\"></a> ";
+    
     public static String salesFooter;
 
     public static String salesContact;

@@ -9,6 +9,7 @@
  */
 package com.dragonflow.SiteView;
 
+import java.io.File;
 /**
  * Comment for <code>User</code>
  * 
@@ -19,6 +20,8 @@ package com.dragonflow.SiteView;
  */
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 
 import jgl.Array;
@@ -71,6 +74,7 @@ public class User extends SiteViewObject {
 
     private static boolean doCaching = false;
 
+    public static Map<String,Array> usersCacheMap;
     static Array usersCache = null;
 
     HashMap permissions;
@@ -190,27 +194,62 @@ public class User extends SiteViewObject {
                 return hashmap;
             }
         }
-
         return null;
     }
 
-    static void clearUsersCache() {
-        usersCache = null;
+    static void clearUsersCache(String tenant) {
+   	 if(tenant.startsWith("/"))
+  		tenant=tenant.substring(1);
+        usersCacheMap.remove(tenant);
     }
 
-    public static Array readUsers() {
-        if (usersCache == null) {
-            usersCache = new Array();
-            try {
-                usersCache = FrameFile.readFromFile(Platform.getRoot() + "/groups/" + "users.config");
-            } catch (Exception exception) {
-            }
-            HashMap hashmap = MasterConfig.getMasterConfig();
-            initializeUsersList(usersCache, hashmap);
-        }
-        return usersCache;
+    public static Map readUsersAll() {
+    	try {
+	        if (usersCacheMap == null) {
+	        	usersCacheMap = new java.util.HashMap();
+	        	usersCache = new Array();
+	        	Array userArray = FrameFile.readFromFile(Platform.getRoot() + "/groups/" + "users.config");
+	        	usersCacheMap.put("", userArray);
+	        	HashMap hashmap = MasterConfig.getMasterConfig();
+	            initializeUsersList(userArray, hashmap);
+	        	File file = new File(Platform.getRoot() + "/groups/tenants/"); 
+	        	if(file.exists()){
+	        		String[] filenames= file.list();
+	        		for(String filename:filenames){
+	        			userArray=FrameFile.readFromFile(Platform.getRoot() + "/groups/tenants/"+filename + "/users.config");
+	        			usersCacheMap.put(filename, userArray);
+//	                    initializeUsersList(userArray, hashmap);
+	        		}
+	        	}
+	        }
+    	} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return usersCacheMap;
     }
-
+    public static Array readUsers(String tenant) {
+    	if(tenant.startsWith("/"))
+    		tenant=tenant.substring(1);
+    	if(usersCacheMap==null)
+    		readUsersAll();
+    	if(usersCacheMap.get(tenant)==null){
+    		HashMap hashmap = MasterConfig.getMasterConfig();
+			try {
+				String filePath=Platform.getRoot() + "/groups/tenants/"+tenant + "/users.config";
+				if(tenant.length()==0)
+					filePath=Platform.getRoot() + "/groups/users.config";
+				Array userArray = FrameFile.readFromFile(filePath);
+				usersCacheMap.put(tenant, userArray);
+				if(tenant.length()>0)
+					initializeUsersList(userArray, hashmap);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+    	}
+    	return usersCacheMap.get(tenant);
+    }
     public static void initializeUsersList(Array array, HashMap hashmap) {
         if (array.size() == 0) {
             HashMap hashmap1 = new HashMap();
@@ -225,15 +264,24 @@ public class User extends SiteViewObject {
         }
     }
 
-    public static void writeUsers(Array array) throws IOException {
-        FrameFile.writeToFile(Platform.getRoot() + "/groups/" + "users.config", array);
-        unloadUsers();
-        loadUsers();
+    public static void writeUsers(Array array,String tenant) throws IOException {
+    	String filename=Platform.getRoot() + "/groups" ;
+    	if(tenant.startsWith("/"))
+    		tenant=tenant.substring(1);
+    	if(tenant.length()>0){
+    		filename+="/tenants/"+tenant;
+    	}
+    	filename+= "/users.config";
+        FrameFile.writeToFile(filename, array);
+        unloadUsers(tenant);
+        loadUsers(tenant);
     }
 
-    public static void loadUsers() {
+    public static void loadUsers(String tenant) {
         LogManager.log("RunMonitor", "Loading users.config");
-        Array array = readUsers();
+        if(tenant.startsWith("/"))
+    		tenant=tenant.substring(1);
+        Array array = readUsers(tenant);
         Enumeration enumeration = array.elements();
         if (enumeration.hasMoreElements()) {
             enumeration.nextElement();
@@ -248,10 +296,35 @@ public class User extends SiteViewObject {
             }
         }
     }
+    
+    public static void loadUsersAll() {
+        LogManager.log("RunMonitor", "Loading users.config");
+        Map map = readUsersAll();
+        Iterator<String> ite = map.keySet().iterator();
+        while(ite.hasNext()){
+        	String key = ite.next();
+        	Array array = (Array) map.get(key);
+	        Enumeration enumeration = array.elements();
+	        if (enumeration.hasMoreElements()) {
+	            enumeration.nextElement();
+	        }
+	        while (enumeration.hasMoreElements()) {
+	            HashMap hashmap = (HashMap) enumeration.nextElement();
+	            String s = TextUtils.getValue(hashmap, "_useGlobalPermissions");
+	            if (s.length() > 0) {
+	                registerUser(TextUtils.getValue(hashmap, "_id"), hashmap, MasterConfig.getMasterConfig());
+	            } else {
+	                registerUser(TextUtils.getValue(hashmap, "_id"), hashmap, hashmap);
+	            }
+	        }
+        }
+    }
 
-    public static void unloadUsers() {
+    public static void unloadUsers(String tenant) {
         LogManager.log("Debug", "unloading users.config");
-        Array array = readUsers();
+        if(tenant.startsWith("/"))
+    		tenant=tenant.substring(1);
+        Array array = readUsers(tenant);
         Enumeration enumeration = array.elements();
         if (enumeration.hasMoreElements()) {
             enumeration.nextElement();
@@ -261,14 +334,28 @@ public class User extends SiteViewObject {
             hashmap = (HashMap) enumeration.nextElement();
         }
 
-        clearUsersCache();
+        clearUsersCache(tenant);
     }
-
+    public static void unloadUsersAll(){
+    	Map map= readUsersAll();
+    	Iterator<String> ite = map.keySet().iterator();
+    	while(ite.hasNext()){
+    		String key = ite.next();
+    		if(key.length()>0)
+    			unloadUsers(key);
+    	}
+    }
+    
+    
     static void unregisterUsers(String s) {
+    	if(s.contains("administor")||s.contains("user"))
+    		System.out.println("adfadf");
         accountTable.remove(s);
     }
 
     public static Array findUsersForLogin(String s, String s1,String tenant) {
+    	 if(tenant.startsWith("/"))
+     		tenant=tenant.substring(1);
         Array array = new Array();
         HashMap hashmap=Tenant.findTenantforName(Tenant.readTenants(), tenant);
         tenant="";
@@ -411,7 +498,7 @@ public class User extends SiteViewObject {
             return getFirstUserForAccount(s);
         }
         if (Platform.isStandardAccount(s)) {
-            loadUsers();
+            loadUsersAll();
             return getFirstUserForAccount(s);
         }
         User user;

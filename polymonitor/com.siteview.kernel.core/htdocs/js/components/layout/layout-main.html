@@ -16,13 +16,16 @@
 <dom-module id='layout-main'>
   <template>
 
-    <paper-drawer-panel id='drawer' force-narrow>
+    <iron-media-query query="(max-width: 870px)" query-matches="{{narrow}}">
+    </iron-media-query>
 
-      <layout-sidebar drawer></layout-sidebar>
+    <paper-drawer-panel id='drawer' force-narrow='[[computeForceNarrow(narrow)]]'>
+
+      <layout-sidebar drawer narrow='[[narrow]]' menu-selected="[[menuSelected]]" menu-data="[[menuData]]"></layout-sidebar>
 
       <div main>
 
-        <partial-cards id='states'>
+        <partial-cards id='states' second-menu-data="[[secondMenuData]]">
           <content></content>
         </partial-cards>
 
@@ -39,22 +42,38 @@
       properties: {
 
         narrow: {
-          type: Boolean
+          type: Boolean,
         },
+
+        menuSelected: String,
+
+        menuData: String,
+
+        secondMenuData: String
 
       },
 
       listeners: {
-        'hass-open-menu': 'handleOpenMenu',
+        'hass-toggle-menu': 'handleToggleMenu',
         'hass-close-menu': 'handleCloseMenu',
       },
 
-      handleOpenMenu: function () {
-        this.$.drawer.openDrawer();
+      handleToggleMenu: function () {
+        if (this.narrow) {
+          this.narrow = false;
+          this.$.drawer.openDrawer();
+        } else {
+          this.narrow = true;
+          this.$.drawer.closeDrawer();
+        }
       },
 
       handleCloseMenu: function () {
         this.$.drawer.closeDrawer()
+      },
+
+      computeForceNarrow: function (narrow) {
+        return narrow;
       },
     });
   </script>

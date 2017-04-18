@@ -1362,8 +1362,8 @@ public class APISiteView
             apipreference.create("UserInstancePreferences", assinstanceproperty);
         }
         SiteViewGroup.updateStaticPages();
-        User.unloadUsers();
-        User.loadUsers();
+        User.unloadUsersAll();
+        User.loadUsersAll();
     }
 
     protected static void initSSChildObjects()
@@ -2182,7 +2182,7 @@ public class APISiteView
             User.initializeUsersList(array, hashmap);
         } else
         {
-            array = User.readUsers();
+            array = User.readUsers("");
         }
         return array;
     }

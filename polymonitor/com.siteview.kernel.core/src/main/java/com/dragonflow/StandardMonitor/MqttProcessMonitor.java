@@ -83,7 +83,7 @@ public class MqttProcessMonitor extends ServerMonitor {
 					result += ";";
 				}
 				if(cmdArr[i].equals("vpnctrl")||cmdArr[i].equals("vppnctrl")){
-					if(getCountStr(cmdArr[i]+" -t", msg)==5){
+					if(getCountStr(cmdArr[i]+" -t", msg)>=5){
 						status = "run";
 						rtag = true;
 					}else{
@@ -92,7 +92,6 @@ public class MqttProcessMonitor extends ServerMonitor {
 					}
 				}else if(cmdArr[i].equals("mqtt-monitord")){
 					status = "run";
-					rtag = true;
 				}else{
 					if(getCountStr("/usr/sbin/"+cmdArr[i], msg)>0){
 						status = "run";
@@ -102,12 +101,13 @@ public class MqttProcessMonitor extends ServerMonitor {
 						dtag = true;
 					}
 				}
-				result += cmdArr[i]+"-"+status;
+				result += cmdArr[i]+":"+status;
 			}
 		}else{
 			result = "no data";
 		}
 		if(!rtag&&dtag){
+			result = result.replace("mqtt-monitord:run", "mqtt-monitord:down");
 			stat = "error";
 		}
 		if(!dtag&&rtag){

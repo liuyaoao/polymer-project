@@ -4,6 +4,7 @@ import jgl.HashMap;
 
 import com.dragonflow.SiteView.MasterConfig;
 import com.dragonflow.SiteView.Platform;
+import com.dragonflow.SiteView.Tenant;
 import com.dragonflow.SiteView.User;
 import com.dragonflow.Utils.TextUtils;
 
@@ -94,6 +95,7 @@ public class loginPage extends com.dragonflow.Page.CGI
         if(users.size() == 1)
         {
             User user = (User)users.at(0);
+            HashMap t = Tenant.findTenantforName(Tenant.readTenants(), tenant); 
             if(user.getProperty("_disabled").length() > 0)
             {
 //                loginDisabledMessage = "This account has been disabled.<hr>";
@@ -106,6 +108,15 @@ public class loginPage extends com.dragonflow.Page.CGI
             	printLoginForm("LoginForm", loginDisabledMessage);
                 return;
 //                loginDisabledMessage = loginDisabledMessage + "<br><a href=\"/SiteView/cgi/go.exe/SiteView?page=login\">Return to login</a>";
+            }else if(t!=null&&TextUtils.getValue(t, "_disabled").length()>0){
+            	  loginDisabledMessage = "This tenant has been disabled";
+                  if(TextUtils.getValue(hashmap, "_loginDisabledMessage").length() > 0)
+                  {
+                      loginDisabledMessage = TextUtils.getValue(hashmap, "_loginDisabledMessage");
+                  }
+                  errormessage = loginDisabledMessage;
+              	printLoginForm("LoginForm", loginDisabledMessage);
+                  return;
             } else
             {
                 boolean flag = true;
@@ -114,13 +125,13 @@ public class loginPage extends com.dragonflow.Page.CGI
                 {
                     if(request.getValue("_newPassword").equals(request.getValue("_newPassword2")))
                     {
-                        jgl.Array array1 = User.readUsers();
+                        jgl.Array array1 = User.readUsers(CGI.getTenant(request.getURL()));
                         jgl.HashMap hashmap1 = User.findUser(array1, user.getProperty(User.pID));
                         if(hashmap1 != null)
                         {
                             hashmap1.put("_password", request.getValue("_newPassword"));
                             s4 = request.getValue("_newPassword");
-                            User.writeUsers(array1);
+                            User.writeUsers(array1,CGI.getTenant(request.getURL()));
                         }
                     } else
                     {
@@ -239,7 +250,7 @@ public class loginPage extends com.dragonflow.Page.CGI
     {
         if(args.length == 1 && args[0].equals("-d"))
         {
-            jgl.Array array = User.readUsers();
+            jgl.Array array = User.readUsers("");
             jgl.HashMap hashmap = new HashMap();
             for(int i = 1; i < array.size(); i++)
             {

@@ -68,38 +68,44 @@ public class MqttConnectedDeviceMonitor extends ServerMonitor {
 	}
 	
 	public Map<String, String> analysisMsg(String msg){
+		Map<String, String> map = new HashMap<String, String>();
 		String result = "";
 		String status = "";
 		String indexvs = "<NewAttachDevice>";
 		String indexve = "</NewAttachDevice>";
 		String substr = msg.substring(msg.indexOf(indexvs)+indexvs.length(), msg.lastIndexOf(indexve));
 		substr = substr.replaceAll("&lt;", "").replaceAll("&gt;", "");
-		String device = "";
-		String[] deviceDetail;
-		String[] arr = substr.split("@");
-		for(int i=1;i<arr.length;i++){
-			device = arr[i];
-			deviceDetail = device.split(";");
-			for(int j=0;j<deviceDetail.length;j++){
-				switch (j) {
-				case 1:
-					result += "@IP:"+deviceDetail[j];
-					break;
-				case 2:
-					result += ";Name:"+deviceDetail[j];
-					break;
-				case 3:
-					result += ";Mac:"+deviceDetail[j];
-					break;
-				default:
-					break;
+		if(substr.equals("0")){
+			map.put("result", "no device");
+			map.put("stat", "good");
+		}else{
+			String device = "";
+			String[] deviceDetail;
+			String[] arr = substr.split("@");
+			for(int i=1;i<arr.length;i++){
+				device = arr[i];
+				deviceDetail = device.split(";");
+				for(int j=0;j<deviceDetail.length;j++){
+					switch (j) {
+					case 1:
+						result += (i==1?"":",") + "@IP:"+deviceDetail[j];
+						break;
+					case 2:
+						result += ";Name:"+deviceDetail[j];
+						break;
+					case 3:
+						result += ";Mac:"+deviceDetail[j];
+						break;
+					default:
+						break;
+					}
 				}
 			}
+			status = result.equals("")?"error":"good";
+			result = result.equals("")?"no data":result;
+			map.put("result", result);
+			map.put("stat", status);
 		}
-		status = result.equals("")?"error":"good";
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("result", result.equals("")?"no data":result);
-		map.put("stat", status);
 		return map;
 	}
 	

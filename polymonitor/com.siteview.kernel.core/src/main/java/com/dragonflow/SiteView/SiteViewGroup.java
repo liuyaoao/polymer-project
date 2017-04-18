@@ -1315,7 +1315,7 @@ public class SiteViewGroup extends MonitorGroup {
             } else if ("multi.config".equals(s)) {
                 Server.unloadServers();
             } else if ("users.config".equals(s)) {
-                User.unloadUsers();
+                User.unloadUsersAll();
             } else if (!"master.config".equals(s)) {
                 if (TEMPLATES_FILE.equals(s)) {
                     resetTemplateCache();
@@ -1361,7 +1361,7 @@ public class SiteViewGroup extends MonitorGroup {
                 LogManager.log("RunMonitor", "Loading dynamic.config");
                 loadDynamicNoSchedule();
             } else if (s.equals("users.config")) {
-                User.loadUsers();
+                User.loadUsersAll();
             } else if (s.equals("multi.config")) {
                 Server.loadServers();
             } else if (s.equals(TEMPLATES_FILE)) {
@@ -1840,7 +1840,7 @@ public class SiteViewGroup extends MonitorGroup {
                 String ppath=monitorgroup2.file.getPath();
                 
                 if((tenant==null||tenant.length()==0)) {
-                	if(!ppath.contains(File.separator+"groups"+File.separator+s10+".mg"))
+                	if(ppath.contains(File.separator+"groups"+File.separator+"tenants"+File.separator))
                 		continue;
                 }else{
                 	if(!ppath.contains(File.separator+"groups"+File.separator+"tenants"+File.separator+tenant+File.separator))
