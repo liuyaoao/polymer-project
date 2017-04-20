@@ -1,0 +1,166 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Any Cell Help</title>
+<style>
+<!--
+p.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0in; margin-right:0in; margin-top:0in}
+li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0in; margin-right:0in; margin-top:0in}
+-->
+</style>
+</head>
+
+<body topmargin="5" leftmargin="5">
+
+<p class="MsoNormal" style="text-align: justify">How to use Any cell: <font size="3"><a href="wbFPW%20Manual%20-%20MPPChinese.html#TA"><font color="#FF0000">
+<a href="http://www.WSQSI.com/mpefefhelp_Chinese.html"><img border="0" src="http://www.WSQSI.com/images/Chineselogo.gif" width="45" height="20"></a></font></a></font></p>
+
+<a name="#TA"/>
+<p class="MsoNormal" style="text-align:justify">
+<span style="font-size:10.0pt;
+color:black">The biggest editable text box in the bottom line, called ANY cell, 
+is used to enter any statement in the pattern setup text area.&nbsp; The filter will 
+keep only the signals with their ANY results being positive, i.e. &gt;0.&nbsp; The ANY 
+statement can be divided into three categories:</span></p>
+<ul style="margin-top: 0in; margin-bottom: 0in" type="disc">
+  <li class="MsoNormal" style="text-align: justify">
+  <span style="font-size:10.0pt;color:black">1. the original one, displaying 
+  ‘Enter any statement here’, will do nothing; </span></li>
+  <li class="MsoNormal" style="text-align: justify">
+  <font size="2">2.</font><span style="font-size:10.0pt;color:black"> beginning 
+  the statement with two capital letters ‘NO’ + some statements; </span></li>
+</a>
+  <li class="MsoNormal" style="text-align: justify">
+  <font size="2">3. Special cases, starting with 'DCR', 'qzi', 'TLR', 'NDN', 'NDU', 
+  'VLI', 'VEM', 'spyCheck' and 'spychk'.</font></li>
+  <a name="#TA"/>
+  <li class="MsoNormal" style="text-align: justify">
+  <font size="2">4</font><span style="font-size:10.0pt;color:black">. any other 
+  case.&nbsp; </span></li>
+</ul>
+<p class="MsoNormal" style="text-align:justify">
+<span style="font-size:10.0pt;
+color:black">In the second case, the program will not go to search the database to 
+load 
+data to calculate the <i>ANY</i> results.&nbsp; It has already carried some data 
+for each signal.&nbsp; The available variables for one to use in this case are 
+limited to these carried data, which are: enw – entry place index; enp- entry 
+price, exp - exit price, endi- entry direction (long: +1, short: -1); sct - sector index, c0 – the signal bar’s close, 
+i.e. the entry price; c1, c2 – the close of one or two bars ago; v0 – the signal bar’s 
+trading volume; v1, v2 – the trading volume of one or two bars ago; r3, r6, r12 – last 
+three, six and twelve bars’ average range, i.e. the volatility; v3, v6, v12, 
+v25, v75, v250 – last three, six, twelve, twenty five, seventy five and 250 
+bars’ average trading volume, c3, c3m, c6, c6m, c12, c12m, c25, c25m, c75, 
+c75m, c250, c250m, rsi7, rsi14, rsi30 and h0, l0, h3, l3, h6, l6, h12, l12, h25, l25, h75, l75, h250, l250, h500 and l500 – last three, six, twelve, twenty five, seventy five, 250 
+and 500 
+bars’ <i>average</i> closes and their 1 bar momentums, 7, 14 and 30 bars rsi, and current, 3, 6, 12, 25, 75 and 250 bars' high and low, and 
+ 
+</span>
+<a name="#PS"/>
+<span style="color:black"><font size="2">Xi,  Xi6,  Xi12,  Xi25,  Xi75, 
+ 
+Xi250 (S&amp;P 500 index itself and averages for 6 12 25 75 and 250 bars), Xr7, 
+Xr14, Xr30, Xr100 (7, 14, 30, and 100 bars rsi of S&amp;P 500 index) </font>and , <font size="2">Xi25m - (mtm(ma(SPXi25,2),1)), 
+ 
+Xi75m - (mtm(ma(SPXi75,6),2)),  Xi250m - (mtm(ma(SPXI250,15),5)).</font></span></a><font size="2"> 
+In addition, several others about stock's basic information are also included: 
+'sct' for sector index, 'noe' for number of employee, '<a href="wbFPW%20Manual%20-%20MP.html#GF">ccode</a>' and 
+'cap' (in $B, market 
+capital at the triggering time). All averages are not including signal-bars. </font>
+<span style="font-size:10.0pt;
+color:black">&nbsp;If only ‘NO’ is entered, it will do nothing. Please note: Any more than one bar's data counts from one bar 
+earlier, does not includes the current bar. lastbs - number of bars between 
+buy-buy or short-short signals. Others (only available to selected users): mpind, stobi, hn, wr, tn, mynh, mydh, Xs, Xhh, Xh[l][0 3 6 12 
+25 75 250 500] and Xih[l][6 12 25 75 250].</span></p>
+<p class="MsoNormal" style="text-align:justify">
+<font size="1">&nbsp; </font></p>
+</a>
+<p class="MsoNormal" style="text-align:justify">
+<font size="2">For the third special cases, when</font></p>
+<ul style="margin-top: 0in; margin-bottom: 0in" type="disc">
+  <a name="#TA"/>
+  <li class="MsoNormal" style="text-align: justify">
+  <span style="font-size:10.0pt;color:black">1) </span>
+<font size="2">starting with 'DCR' following with a positive number (&lt;0 
+or no number entered 
+will re-assign as 1), the number is used as 'weigh' to Dcom1 when to do Dcom 2+1 
+operation, while Dcom2's weight is 1.</font></li>
+  <li class="MsoNormal" style="text-align: justify">
+  <font size="2">2</font>)
+</a>
+<font size="2">starting with 'qzi' following a positive numbers separated by ';' (&lt;=0 or no number entered will re-assign as 1), 
+  if only one number entered, the 
+number will be used to replace any none-ones weights when to do reviewing 
+operation Dcom1 or Dcom2. When paired numbers entered, will use the earlier one 
+  to replace the later one. When used together with others, always put 'qzi' in 
+  the first and separated by coma sign ','.</font><li class="MsoNormal" style="text-align: justify">
+  <font size="2">3</font>)
+<font size="2">starting with 'tlr' following one or two numbers, separated by 
+  coma or space. These two 
+numbers will be used as the net range per share to show when and only when to click 'TradingLists' 
+button. When only one number entered, it will be assigned as the low limit and 
+the high limit assigned as positive 99999. When no number followed, range will be 
+[-99999 99999].</font><a name="#TA"/><li class="MsoNormal" style="text-align: justify">
+  <font size="2">4) starting with 'spychk' or 'spycheck', spy price lines will be shown as background 
+p in the output graph area. 'spyfilter' is still under testing.</font></li>
+</a>
+  <li class="MsoNormal" style="text-align: justify">
+  <font size="2">5) starting with 'NDN' following any or empty, it means no 
+  dollar neutral to output when and only click the 'Equity' button located at 
+  the lower right part.</font></li>
+  <li class="MsoNormal" style="text-align: justify">
+  <font size="2">6) starting with 'NDU' following any or empty, it means the 
+  Dcom output results will not effect previous saved results inside DCOM1 and 
+  DCOM2, when and only click the 'Dcom' green button. It always starts first. 
+  Like 'NDUNO....'.</font></li>
+  <li class="MsoNormal" style="text-align: justify">
+  <font size="2">7) 'VLI' following one or two number seperated by 
+  coma ',' sign&nbsp; is used to decide the position size when to run SIM1, SIM2, 
+  DCOM1, DECOM2 and DCOM2+1. The first number is the percentage of signaling 
+  day's trading volume. The second number is for the ceiling in 1000 shares, 
+  with default value of 1000 when omitted. For example, 'VLI5' means the trading 
+  size will be 5% of its signal day's volume with a ceiling of 1 million shares. 
+  'VLI15,2000' means he trading size will be 15% of its signal day's volume with 
+  a ceiling of 2 million shares. It means to trade 1000 shares for each signal 
+  when no using VLI.<br>
+  When VLI's first number is entered a negative number, it means to simulate in 
+  dollar equal weighted, the number itself means how many thousand dollar to 
+  trade each signal. The meaning for the second VLI number is always the same as 
+  above: share limit.<br>
+  When used together with others, always put 'VLI' at the end.</font></li>
+</ul>
+<a name="#TA"/>
+<p class="MsoNormal" style="text-align:justify"><font size="1">&nbsp;&nbsp;
+</font></p>
+<p class="MsoNormal" style="text-align:justify">
+<span style="font-size:10.0pt;
+color:black">For the 4th case, besides the variables for the second case, one 
+can use any bar’s (better to keep to the most recent 100 bars.) open (o), high (h), low (l), close(c) and volume (v) by using 
+the index <b>i</b> as the index of the signal bar.&nbsp; Like what we've already used in 
+many places, c(i-x) means the close of x bars ago relative to the signal bar.&nbsp; 
+It takes relatively longer time to use this format ANY statement because the 
+program will go to search the database and evaluate the Any statement for each 
+trades.&nbsp; Note: The earlier a simulation was run, the slower  this Any function 
+will run. Because the program needs to load more old data, if the data is 
+still kept. Remember that our databases are growing for each trading second. For 
+intraday database simulation, one month after one run his/her simulation, it'd be better not to run Any operation for this case any more. </span>
+</p>
+</a>
+
+</body>
+
+</html>

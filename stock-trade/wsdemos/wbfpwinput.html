@@ -1,0 +1,791 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<base href="http://www.WSQSI.com"/>
+<script language="JavaScript">
+function gcd(a, b) {
+	while (a != b) { 
+    	if (a > b) {
+        	a = a - b;
+        } else {
+            b = b - a;
+        }
+	}
+    return a;
+}
+function onchangeent02() {
+	if (document.fpwForm.ent02.value=='100')
+		document.fpwForm.ent03.value='1';
+	else 
+		document.fpwForm.ent03.value=100/gcd(parseInt(document.fpwForm.ent02.value),100-parseInt(document.fpwForm.ent02.value));
+}
+function fpwsavehddata() {
+	document.fpwForm.hdzhu62.value=document.fpwForm.zhu62.value;
+	document.fpwForm.hdzhu99.value=document.fpwForm.zhu99.value;	
+	document.fpwForm.hdzhu712.value=document.fpwForm.zhu712.value;
+	document.fpwForm.hdzhu713.value=document.fpwForm.zhu713.value;
+	document.fpwForm.hdzhu89.value=document.fpwForm.zhu89.value;
+	document.fpwForm.hdzhu68.value=document.fpwForm.zhu68.value;
+	document.fpwForm.hdzhu66.value=document.fpwForm.zhu66.value;
+	document.fpwForm.hdzhu97.value=document.fpwForm.zhu97.value;
+	document.fpwForm.hdzhu59.value=document.fpwForm.zhu59.value;
+	document.fpwForm.hdzhu84.value=document.fpwForm.zhu84.value;
+	document.fpwForm.hdzhu04s.value=document.fpwForm.zhu04s.value;
+	document.fpwForm.hdtkdv.value=document.fpwForm.tkdv.value;
+	document.fpwForm.hdPBKE.value=document.fpwForm.PBKE.value;
+	document.fpwForm.hdzhusm.value=document.fpwForm.zhusm.value;
+	document.fpwForm.hdzhuron.value=document.fpwForm.zhuron.value;
+	document.fpwForm.hdfpwptname2.value=document.fpwForm.fpwptname2.value;
+	document.fpwForm.hdzhuyun.value=document.fpwForm.zhuyun.value;
+	document.fpwForm.hdmarent03.value=document.fpwForm.marent03.value;
+	document.fpwForm.hdfpwpttype.value=document.fpwForm.fpwpttype.value;
+	document.fpwForm.hdfpwaddnoise.value=document.fpwForm.fpwaddnoise.value;	
+	document.fpwForm.hdchartdatem.value='K';
+	document.fpwForm.hdfpwptfilefs.value='K';
+	document.fpwForm.hdfpwptfilefb.value='K';
+	document.fpwForm.hdfpwexfilefs.value='K';
+	document.fpwForm.hdfpwexfilefb.value='K';
+	document.fpwForm.hdfpwstfilefs.value='K';
+	document.fpwForm.hdfpwstfilefb.value='K';
+	document.fpwForm.hdfpwobfilefs.value='K';
+	document.fpwForm.hdfpwobfilefb.value='K';
+	document.fpwForm.hdfpwpstopa1s.value='K';
+	document.fpwForm.hdfpwpstopa1b.value='K';	
+	document.fpwForm.hdfpwpstopa2s.value='K';
+	document.fpwForm.hdfpwpstopa2b.value='K';	
+	document.fpwForm.hdfpwpexita1s.value='K';
+	document.fpwForm.hdfpwpexita1b.value='K';	
+	document.fpwForm.hdfpwpexita2s.value='K';
+	document.fpwForm.hdfpwpexita2b.value='K';	
+	document.fpwForm.hdfpwpobjea1s.value='K';
+	document.fpwForm.hdfpwpobjea1b.value='K';	
+	document.fpwForm.hdfpwpobjea2s.value='K';
+	document.fpwForm.hdfpwpobjea2b.value='K';	
+}
+function beforesavedata() {
+	fpwmiddle1=document.fpwForm.hdchartdatem.value;
+	
+	{if (document.fpwForm.fpwptname2.value=='S') 
+	fpwmiddle2=document.fpwForm.fpwptfilef.value;
+	else
+	fpwmiddle2=document.fpwForm.hdfpwptfilefs.value;}
+	{if (document.fpwForm.fpwptname2.value=='B') 
+	fpwmiddle3=document.fpwForm.fpwptfilef.value;
+	else
+	fpwmiddle3=document.fpwForm.hdfpwptfilefb.value;}
+	
+	{if (document.fpwForm.fpwptname2.value=='S') 
+	fpwmiddle16=document.fpwForm.fpwexfilef.value;
+	else
+	fpwmiddle16=document.fpwForm.hdfpwexfilefs.value;}
+	{if (document.fpwForm.fpwptname2.value=='B') 
+	fpwmiddle17=document.fpwForm.fpwexfilef.value;
+	else
+	fpwmiddle17=document.fpwForm.hdfpwexfilefb.value;}
+
+	{if (document.fpwForm.fpwptname2.value=='S') 
+	fpwmiddle18=document.fpwForm.fpwstfilef.value;
+	else
+	fpwmiddle18=document.fpwForm.hdfpwstfilefs.value;}
+	{if (document.fpwForm.fpwptname2.value=='B') 
+	fpwmiddle19=document.fpwForm.fpwstfilef.value;
+	else
+	fpwmiddle19=document.fpwForm.hdfpwstfilefb.value;}
+	
+	{if (document.fpwForm.fpwptname2.value=='S') 
+	fpwmiddle20=document.fpwForm.fpwobfilef.value;
+	else
+	fpwmiddle20=document.fpwForm.hdfpwobfilefs.value;}
+	{if (document.fpwForm.fpwptname2.value=='B') 
+	fpwmiddle21=document.fpwForm.fpwobfilef.value;
+	else
+	fpwmiddle21=document.fpwForm.hdfpwobfilefb.value;}	
+	
+	fpwmiddle4=document.fpwForm.hdfpwpstopa1s.value;
+	fpwmiddle5=document.fpwForm.hdfpwpstopa1b.value;	
+	fpwmiddle6=document.fpwForm.hdfpwpstopa2s.value;
+	fpwmiddle7=document.fpwForm.hdfpwpstopa2b.value;	
+	fpwmiddle8=document.fpwForm.hdfpwpexita1s.value;
+	fpwmiddle9=document.fpwForm.hdfpwpexita1b.value;	
+	fpwmiddle10=document.fpwForm.hdfpwpexita2s.value;
+	fpwmiddle11=document.fpwForm.hdfpwpexita2b.value;	
+	fpwmiddle12=document.fpwForm.hdfpwpobjea1s.value;
+	fpwmiddle13=document.fpwForm.hdfpwpobjea1b.value;	
+	fpwmiddle14=document.fpwForm.hdfpwpobjea2s.value;
+	fpwmiddle15=document.fpwForm.hdfpwpobjea2b.value;
+}
+function aftersavedata() {
+	document.fpwForm.hdchartdatem.value=fpwmiddle1;
+	document.fpwForm.hdfpwptfilefs.value=fpwmiddle2;
+	document.fpwForm.hdfpwptfilefb.value=fpwmiddle3;
+	document.fpwForm.hdfpwexfilefs.value=fpwmiddle16;
+	document.fpwForm.hdfpwexfilefb.value=fpwmiddle17;
+	document.fpwForm.hdfpwstfilefs.value=fpwmiddle18;
+	document.fpwForm.hdfpwstfilefb.value=fpwmiddle19;
+	document.fpwForm.hdfpwobfilefs.value=fpwmiddle20;
+	document.fpwForm.hdfpwobfilefb.value=fpwmiddle21;	
+	document.fpwForm.hdfpwpstopa1s.value=fpwmiddle4;
+	document.fpwForm.hdfpwpstopa1b.value=fpwmiddle5;	
+	document.fpwForm.hdfpwpstopa2s.value=fpwmiddle6;
+	document.fpwForm.hdfpwpstopa2b.value=fpwmiddle7;	
+	document.fpwForm.hdfpwpexita1s.value=fpwmiddle8;
+	document.fpwForm.hdfpwpexita1b.value=fpwmiddle9;	
+	document.fpwForm.hdfpwpexita2s.value=fpwmiddle10;
+	document.fpwForm.hdfpwpexita2b.value=fpwmiddle11;	
+	document.fpwForm.hdfpwpobjea1s.value=fpwmiddle12;
+	document.fpwForm.hdfpwpobjea1b.value=fpwmiddle13;	
+	document.fpwForm.hdfpwpobjea2s.value=fpwmiddle14;
+	document.fpwForm.hdfpwpobjea2b.value=fpwmiddle15;
+}
+function onclickzhu72() {
+	document.fpwForm.fpwpttype.value='R';
+	if (document.fpwForm.zhu46s.value=='S') {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpexita1s.value;
+	    document.fpwForm.fpwptname.value='Exit';
+		document.fpwForm.fpwptname3.value='7';
+		document.fpwForm.fpwptname2.value='S'; }
+	else {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpexita1b.value;
+		document.fpwForm.fpwptname.value='Exit';
+		document.fpwForm.fpwptname3.value='7';
+		document.fpwForm.fpwptname2.value='B';	}
+	}	
+function onclickzhu73() {
+	document.fpwForm.fpwpttype.value='R';
+	if (document.fpwForm.zhu47s.value=='S') {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpstopa1s.value;
+	    document.fpwForm.fpwptname.value='Stop';
+		document.fpwForm.fpwptname3.value='8';
+		document.fpwForm.fpwptname2.value='S'; }
+	else {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpstopa1b.value;
+		document.fpwForm.fpwptname.value='Stop';
+		document.fpwForm.fpwptname3.value='8';
+		document.fpwForm.fpwptname2.value='B';	}
+	}	
+function onclickzhu74() {
+	document.fpwForm.fpwpttype.value='R';
+	if (document.fpwForm.zhu48s.value=='S') {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpobjea1s.value;
+	    document.fpwForm.fpwptname.value='Obje';
+		document.fpwForm.fpwptname3.value='8';
+		document.fpwForm.fpwptname2.value='S'; }
+	else {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpobjea1b.value;
+		document.fpwForm.fpwptname.value='Obje';
+		document.fpwForm.fpwptname3.value='8';
+		document.fpwForm.fpwptname2.value='B';	}
+	}	
+function onclickzhu721() {
+	document.fpwForm.fpwpttype.value='R';
+	if (document.fpwForm.zhu46s.value=='S') {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpexita2s.value;
+	    document.fpwForm.fpwptname.value='Exit';
+		document.fpwForm.fpwptname3.value='8';
+		document.fpwForm.fpwptname2.value='S'; }
+	else {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpexita2b.value;
+		document.fpwForm.fpwptname.value='Exit';
+		document.fpwForm.fpwptname3.value='8';
+		document.fpwForm.fpwptname2.value='B';	}
+	}	
+function onclickzhu731() {
+	document.fpwForm.fpwpttype.value='R';
+	if (document.fpwForm.zhu47s.value=='S') {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpstopa2s.value;
+	    document.fpwForm.fpwptname.value='Stop';
+		document.fpwForm.fpwptname3.value='9';
+		document.fpwForm.fpwptname2.value='S'; }
+	else {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpstopa2b.value;
+		document.fpwForm.fpwptname.value='Stop';
+		document.fpwForm.fpwptname3.value='9';
+		document.fpwForm.fpwptname2.value='B';	}
+	}	
+function onclickzhu741() {
+	document.fpwForm.fpwpttype.value='R';
+	if (document.fpwForm.zhu48s.value=='S') {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpobjea2s.value;
+	    document.fpwForm.fpwptname.value='Obje';
+		document.fpwForm.fpwptname3.value='9';
+		document.fpwForm.fpwptname2.value='S'; }
+	else {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwpobjea2b.value;
+		document.fpwForm.fpwptname.value='Obje';
+		document.fpwForm.fpwptname3.value='9';
+		document.fpwForm.fpwptname2.value='B';	}
+	}
+function onclickzhu03() {
+	if (document.fpwForm.zhu45s.value=='S') {
+		document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwptfilefs.value;
+		document.fpwForm.fpwexfilef.value=document.fpwForm.hdfpwexfilefs.value;
+        document.fpwForm.fpwstfilef.value=document.fpwForm.hdfpwstfilefs.value;
+		document.fpwForm.fpwobfilef.value=document.fpwForm.hdfpwobfilefs.value;	
+		document.fpwForm.fpwptname.value='Enter';
+		document.fpwForm.fpwptname3.value='1';
+		document.fpwForm.fpwptname2.value='S';
+		document.fpwForm.fpwpttype.value='P';
+		}
+	else {
+	    document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwptfilefb.value;
+	    document.fpwForm.fpwexfilef.value=document.fpwForm.hdfpwexfilefb.value;
+        document.fpwForm.fpwstfilef.value=document.fpwForm.hdfpwstfilefb.value;
+		document.fpwForm.fpwobfilef.value=document.fpwForm.hdfpwobfilefb.value;		    
+		document.fpwForm.fpwptname.value='Enter';
+		document.fpwForm.fpwptname3.value='1';
+		document.fpwForm.fpwptname2.value='B';
+		document.fpwForm.fpwpttype.value='P';
+		}
+	}		
+function zhu45status(str) {
+	if (str=='B') {
+  		document.fpwForm.zhu45.checked=true;
+  		document.fpwForm.zhu45s.value='B';
+  		document.fpwForm.zhu46.checked=true;
+  		document.fpwForm.zhu46s.value='B';
+  		document.fpwForm.zhu47.checked=true;
+  		document.fpwForm.zhu47s.value='B';
+  		document.fpwForm.zhu48.checked=true;
+  		document.fpwForm.zhu48s.value='B';
+  		document.fpwForm.zhu06s.value='C>H(enw)'; 
+  		document.fpwForm.zhu17s.value='PL-T';   		  		
+  		document.fpwForm.zhu22s.value='PH+T'; 
+  		document.fpwForm.zhu24s.value='C>PH';}
+  	else {
+  		document.fpwForm.zhu45.checked=false;
+  		document.fpwForm.zhu45s.value='S';
+  		document.fpwForm.zhu46.checked=false;
+  		document.fpwForm.zhu46s.value='S';
+  		document.fpwForm.zhu47.checked=false;
+  		document.fpwForm.zhu47s.value='S';
+  		document.fpwForm.zhu48.checked=false;
+  		document.fpwForm.zhu48s.value='S'; 
+  		document.fpwForm.zhu06s.value='C<L(enw)'; 
+  		document.fpwForm.zhu17s.value='PH+T';   		  		
+  		document.fpwForm.zhu22s.value='PL-T'; 
+  		document.fpwForm.zhu24s.value='C<PL';} 
+   	}
+function onclickzhu45() {
+	document.fpwForm.fpwpttype.value='P';
+  	if (document.fpwForm.zhu45s.value=='B') {
+  	 	zhu45status('S');  
+  		document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwptfilefs.value;
+  		document.fpwForm.fpwexfilef.value=document.fpwForm.hdfpwexfilefs.value;
+        document.fpwForm.fpwstfilef.value=document.fpwForm.hdfpwstfilefs.value;
+		document.fpwForm.fpwobfilef.value=document.fpwForm.hdfpwobfilefs.value;	
+  		document.fpwForm.fpwptname.value='Enter';
+		document.fpwForm.fpwptname3.value='1';
+		document.fpwForm.fpwptname2.value='S';  	 
+		}	
+ 	else {
+ 		zhu45status('B'); 
+		document.fpwForm.fpwptfilef.value=document.fpwForm.hdfpwptfilefb.value;
+		document.fpwForm.fpwexfilef.value=document.fpwForm.hdfpwexfilefb.value;
+        document.fpwForm.fpwstfilef.value=document.fpwForm.hdfpwstfilefb.value;
+		document.fpwForm.fpwobfilef.value=document.fpwForm.hdfpwobfilefb.value;	
+		document.fpwForm.fpwptname.value='Enter';
+		document.fpwForm.fpwptname3.value='1';
+		document.fpwForm.fpwptname2.value='B'; 	
+		}			 		  		  		 	
+  	}
+function onclickzhu46() {
+  	if (document.fpwForm.zhu46s.value=='B') {
+  		document.fpwForm.zhu46.checked=false;
+  		document.fpwForm.zhu46s.value='S';
+		document.fpwForm.zhu06s.value='C<L(enw)';}  		
+  	else {
+  		document.fpwForm.zhu46.checked=true;
+  		document.fpwForm.zhu46s.value='B';
+		document.fpwForm.zhu06s.value='C>H(enw)';}  		  	
+  	}
+function onclickzhu47() {
+  	if (document.fpwForm.zhu47s.value=='B') {
+  		document.fpwForm.zhu47.checked=false;
+  		document.fpwForm.zhu47s.value='S';
+		document.fpwForm.zhu17s.value='PH+T';}
+  	else {
+  		document.fpwForm.zhu47.checked=true;
+  		document.fpwForm.zhu47s.value='B';
+  		document.fpwForm.zhu17s.value='PL-T'; }  	
+  	}
+function onclickzhu48() {
+  	if (document.fpwForm.zhu48s.value=='B') {
+  		document.fpwForm.zhu48.checked=false;
+  		document.fpwForm.zhu48s.value='S';
+  		document.fpwForm.zhu22s.value='PL-T'; 
+  		document.fpwForm.zhu24s.value='C<PL';}   		
+  	else {
+  		document.fpwForm.zhu48.checked=true;
+  		document.fpwForm.zhu48s.value='B';
+  		document.fpwForm.zhu22s.value='PH+T'; 
+  		document.fpwForm.zhu24s.value='C>PH';}   		  	
+  	}  	
+function onclickFT(num,str1,str2) {
+	document.fpwForm.FirstorS.value='1';
+	if (str1=='F') {
+	  {
+	  if (str2=='L')
+	    //findex=math.max(1,findex-num);
+	    if(1 > findex-num)
+		findex = 1;
+	    else
+		findex = findex-num;
+	  else 
+	    if(mxi > findex+num)
+		findex = findex+num;
+	    else
+		findex = mxi;
+	    //findex=math.min(mxi,findex+num);
+	  }
+	  var sub1=document.fpwForm.hdchartdatem.value.substr(6*(findex-1),6); 
+	  document.fpwForm.fpwFdate.value=sub1.substr(0,2)+'/'+sub1.substr(2,2)+'/'+sub1.substr(4,2);
+	  if (document.fpwForm.zhuyun.value=='FT-Link') {
+	   	document.fpwForm.zhu52.value=findex.toString();}	
+	}
+	else {
+	  {
+	  if (str2=='L')
+	    //tindex=math.max(1,tindex-num);
+	    if(1 > tindex-num)
+		tindex= 1;
+	    else
+		tindex= tindex-num;	
+	  else 
+	    //tindex=math.min(mxi,tindex+num);
+	    if(mxi > tindex+num)
+		tindex= tindex+num;
+	    else
+		tindex= mxi;	 
+	  } 
+	  var sub1=document.fpwForm.hdchartdatem.value.substr(6*(tindex-1),6);
+	  document.fpwForm.fpwTdate.value=sub1.substr(0,2)+'/'+sub1.substr(2,2)+'/'+sub1.substr(4,2);	
+	  if (document.fpwForm.zhuyun.value=='FT-Link') {
+	   	document.fpwForm.zhu54.value=(mxi-tindex+1).toString();}
+	  }
+}  	  	
+function Setfpwesos() {
+   for (var i=11; i < 37; i++) {
+     if (document.fpwForm.ESOchosen.value.substr(i-11,1)=='1') 
+        eval("document.fpwForm.fpweso"+i+".checked=true;") } 
+}
+</script>
+<noscript>
+This web page uses JavaScript. To see the full page, make sure that JavaScript is enabled.</noscript>
+<title>PatternWorkshop</title>
+</head>
+
+<body onload="fpwForm.fpwchartspan.value='$fpwchartspan$';
+ 	fpwForm.fpwmrlist.value='$fpwmrlist$'; 
+ 	fpwForm.fpwptname3.value='$fpwptname3$';  		
+ 	fpwForm.zhu24l.value='$zhu24l$'; 	
+ 	fpwForm.zhu22l.value='$zhu22l$'; 	
+ 	fpwForm.zhu17l.value='$zhu17l$'; onchangeent02();
+ 	Setfpwesos(); var middlestr='$zhu45s$'; zhu45status(middlestr);" topmargin="7" leftmargin="10">
+
+<form name="fpwForm" action="/cgi-bin/matweb.exe" method="POST" target="_blank" style="color: #FFFFFF">
+	<input type="hidden" name="mlmfile" value="wbfpwsimu">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">	
+	<input type="hidden" name="filetypeid" value="fpw">
+	<input type="hidden" name="hdfpwptfilefb" value="$hdfpwptfilefb$">	
+	<input type="hidden" name="hdfpwptfilefs" value="$hdfpwptfilefs$">
+	<input type="hidden" name="hdfpwexfilefb" value="$hdfpwexfilefb$">	
+	<input type="hidden" name="hdfpwexfilefs" value="$hdfpwexfilefs$">
+	<input type="hidden" name="hdfpwstfilefb" value="$hdfpwstfilefb$">	
+	<input type="hidden" name="hdfpwstfilefs" value="$hdfpwstfilefs$">
+	<input type="hidden" name="hdfpwobfilefb" value="$hdfpwobfilefb$">	
+	<input type="hidden" name="hdfpwobfilefs" value="$hdfpwobfilefs$">
+	<input type="hidden" name="fpwrunindex" value="$fpwrunindex$">
+	<input type="hidden" name="FirstorS" value="$FirstorS$">
+	<input type="hidden" name="hdfpwfindex" value="$fpwfindex$">	
+	<input type="hidden" name="hdfpwtindex" value="$fpwtindex$">			
+	<input type="hidden" name="hdfpwmxi" value="$fpwMXI$">
+	<input type="hidden" name="hdchartdatem" value="$fpwchartdatem$">	
+	<input type="hidden" name="ESOchosen" value="$ESOchosen$">
+	<input type="hidden" name="hdfpwaddnoise" value="$fpwaddnoise$">
+	<input type="hidden" name="hdzhu62" value="zn">
+	<input type="hidden" name="hdzhu99" value="zn">
+	<input type="hidden" name="hdzhu712" value="zn">
+	<input type="hidden" name="hdzhu713" value="zn">
+	<input type="hidden" name="hdzhu04s" value="zn">
+	<input type="hidden" name="hdzhu89" value="zn">
+	<input type="hidden" name="hdzhu68" value="zn">
+	<input type="hidden" name="hdzhu66" value="zn">
+	<input type="hidden" name="hdzhu97" value="zn">
+	<input type="hidden" name="hdzhu59" value="zn">
+	<input type="hidden" name="hdzhu84" value="zn">
+	<input type="hidden" name="hdtkdv" value="zn">
+	<input type="hidden" name="hdPBKE" value="zn">
+	<input type="hidden" name="hdzhusm" value="zn">
+	<input type="hidden" name="hdzhuron" value="zn">
+	<input type="hidden" name="hdfpwptname2" value="zn">
+	<input type="hidden" name="hdzhuyun" value="zn">
+	<input type="hidden" name="hdmarent03" value="zn">
+	<input type="hidden" name="hdfpwpttype" value="zn">
+	<input type="hidden" name="hdfpwptez" value="1">
+	<input type="hidden" name="hdfpwptez1" value="1">
+	<input type="hidden" name="hdfpwpstopa1b" value="$hdfpwpstopa1b$">	
+	<input type="hidden" name="hdfpwpstopa1s" value="$hdfpwpstopa1s$">
+	<input type="hidden" name="hdfpwpstopa2b" value="$hdfpwpstopa2b$">	
+	<input type="hidden" name="hdfpwpstopa2s" value="$hdfpwpstopa2s$">	
+	<input type="hidden" name="hdfpwpexita1b" value="$hdfpwpexita1b$">	
+	<input type="hidden" name="hdfpwpexita1s" value="$hdfpwpexita1s$">
+	<input type="hidden" name="hdfpwpexita2b" value="$hdfpwpexita2b$">	
+	<input type="hidden" name="hdfpwpexita2s" value="$hdfpwpexita2s$">	
+	<input type="hidden" name="hdfpwpobjea1b" value="$hdfpwpobjea1b$">	
+	<input type="hidden" name="hdfpwpobjea1s" value="$hdfpwpobjea1s$">
+	<input type="hidden" name="hdfpwpobjea2b" value="$hdfpwpobjea2b$">	
+	<input type="hidden" name="hdfpwpobjea2s" value="$hdfpwpobjea2s$">	
+   		
+	<script language="JavaScript">
+		var findex=parseInt(document.fpwForm.hdfpwfindex.value);
+		var tindex=parseInt(document.fpwForm.hdfpwtindex.value);
+		var mxi=parseInt(document.fpwForm.hdfpwmxi.value);
+		var fpwmiddle1; var fpwmiddle2; var fpwmiddle3; var fpwmiddle4; var fpwmiddle5; 
+		var fpwmiddle6; var fpwmiddle7; var fpwmiddle8; var fpwmiddle9; var fpwmiddle10; 
+		var fpwmiddle11; var fpwmiddle12; var fpwmiddle13; var fpwmiddle14; var fpwmiddle15;
+    </script>		
+		
+<div align="center">
+  <center>
+  <table border="1" width="1142" height="471">
+    <tr>
+      <td width="481" height="17" bgcolor="#FFFFFF">
+      <p align="center"><font size="5" color="#0000FF"><a href="/wbFPW Manual - PW.html#FT" target="_blank" title="To open User's Manual to get online help.">F</a></font><input style="width: 18px" type="button" value="<-" name="Fleft50" onclick="javascript: onclickFT(50,'F','L');" ondblclick="javascript: onclickFT(1000,'F','L');" onmouseout="window.status='Done'" title="F date move backward 50 trading days, double click for 1050 days." onmouseover="window.status='F date move backward 50 trading days, double click for 1050 days.';"><input style="width: 18px" type="button" value="<" name="Fleft1" onclick="javascript: onclickFT(1,'F','L');" ondblclick="javascript: onclickFT(20,'F','L');" onmouseout="window.status='Done'" title="F date move backward 1 trading day, double click for 21 days." onmouseover="window.status='F date move backward 1 trading day, double click for 21 days.';"><input type="text" name="fpwFdate" value="$fpwFdate$" size="7" onfocus="javascript: fpwForm.FirstorS.value='1';" onmouseout="window.status='Done'" title="To show the beginning date (called as F date) for all kinds of data." onmouseover="window.status='To show the beginning date (called as F date) for all kinds of data.';" style="text-align: center"><input style="width: 18px" type="button" value=">" name="Fright1" onclick="javascript: onclickFT(1,'F','R');" ondblclick="javascript: onclickFT(20,'F','R');" onmouseout="window.status='Done'" title="F date move forward 1 trading day, double click for 21 days." onmouseover="window.status='F date move forward 1 trading day, double click for 21 days.';"><input style="width: 18px" type="button" value="->" name="Fright50" onclick="javascript: onclickFT(50,'F','R');" ondblclick="javascript: onclickFT(1000,'F','R');" onmouseout="window.status='Done'" title="F date move forward 50 trading days, double click for 1050 days." onmouseover="window.status='F date move forward 50 trading days, double click for 1050 days.';">&nbsp;<font size="5" color="#0000FF">&nbsp; <a href="/wbFPW Manual - PW.html#FT" target="_blank" title="To open User's Manual to get online help.">T</a></font><input style="width: 18px" type="button" value="<-" name="Tleft50" onclick="javascript: onclickFT(50,'T','L');" ondblclick="javascript: onclickFT(1000,'T','L');" onmouseout="window.status='Done'" title="T date move backward 50 trading days, double click for 1050 days." onmouseover="window.status='T date move backward 50 trading days, double click for 1050 days.';"><input style="width: 18px" type="button" value="<" name="Tleft1" onclick="javascript: onclickFT(1,'T','L');" ondblclick="javascript: onclickFT(20,'T','L');" onmouseout="window.status='Done'" title="T date move backward 1 trading day, double click for 21 days." onmouseover="window.status='T date move backward 1 trading day, double click for 21 days.';"><input type="text" name="fpwTdate" value="$fpwTdate$" size="7" onfocus="javascript: fpwForm.FirstorS.value='1';" onmouseout="window.status='Done'" title="To show the ending date (called as T date) of the showing data, designed not working for intraday data." onmouseover="window.status='To show the ending date (called as T date) of the showing data, designed not working for intraday data.';" style="text-align: center"><input style="width: 18px" type="button" value=">" name="Tright1" onclick="javascript: onclickFT(1,'T','R');" ondblclick="javascript: onclickFT(20,'T','R');" onmouseout="window.status='Done'" title="T date move forward 1 trading day, double click for 21 days." onmouseover="window.status='T date move forward 1 trading day, double click for 21 days.';"><input style="width: 18px" type="button" value="->" name="Tright50" onclick="javascript: onclickFT(50,'T','R');" ondblclick="javascript: onclickFT(1000,'T','R');" onmouseout="window.status='Done'" title="T date move forward 50 trading days, double click for 1050 days." onmouseover="window.status='T date move forward 50 trading days, double click for 1050 days.';">&nbsp; 
+    <select size="1" name="fpwchartspan" onfocus="javascript: fpwForm.FirstorS.value='1';" onmouseout="window.status='Done'" onmouseover="window.status='To choose data time span for each bar data.';">
+		<option value="DM">Monthly</option>
+		<option value="DW">Weekly</option>    
+		<option selected value="DD">Daily</option>
+		<option value="T05">5 Min</option> 
+		<option value="T15">15 Min</option>
+		<option value="T30">30 Min</option> 
+		<option value="T60">Hourly</option>					
+    </select>
+      <input style="width: 25px; background-color:#00FF00" type="button" value="Go" name="fpwgo" onclick="javascript: fpwsavehddata(); fpwForm.fpwrunindex.value='21'; fpwForm.mlmfile.value='wbfpwsimu'; target='_blank'; fpwForm.FirstorS.value='1'; fpwForm.submit(); window.open('','_self'); window.close();" title="Used to show parameterrized chart of an initialized market (initialized by Ok button)." onmouseover="window.status='Used to show parameterrized chart of an initialized market (initialized by Ok button).'" onmouseout="window.status='Done'"></td>
+      <td width="148" height="17" bgcolor="#00FF00">
+      <p align="right"><b><font size="4"><a href="/wbFPW Manual - PW.html#EN" target="_blank" title="To open User's Manual to get online help.">Enter</a></font> &nbsp;&nbsp;&nbsp; </b> 
+      <font face="Arial" size="2"> 
+                            <input type="radio" name="zhu45" value="Enter" onclick="javascript: onclickzhu45();" title="B-Long,S-Short"></font><input type="text" name="zhu45s" size="1" value="S" style="font-weight: bold; text-align: center"> </td>
+      <td width="148" height="17" bgcolor="#00FF00">
+      <p align="right"><b><font size="4"><a href="/wbFPW Manual - PW.html#EX" target="_blank" title="To open User's Manual to get online help.">Exit</a></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b> <font face="Arial" size="2"> 
+                            <input type="radio" name="zhu46" value="Exit" onclick="javascript: onclickzhu46();" title="B-Long,S-Short"></font><input type="text" name="zhu46s" size="1" value="S" style="font-weight: bold; text-align: center"></td>
+      <td width="399" height="496" bgcolor="#FFFFFF" rowspan="5">
+      <p align="right"><b><font color="#0000FF" size="4"><a href="/wbFPW Manual - PW.html#EO" target="_blank" title="To open User's Manual to get online help about this function.">Special Any-Exit Rule:</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></b>
+      <input style="width: 25px" type="button" value="EZ" name="fpwptez2" onclick="  beforesavedata(); fpwsavehddata(); fpwForm.hdfpwptez.value='2'; fpwForm.hdfpwptez1.value='1'; target='_blank'; fpwForm.mlmfile.value='wbfpwezcode'; fpwForm.submit(); aftersavedata();" title="Easy Mode to auto-generate general Special Any-Exit codes." onmouseover="window.status='Easy Mode to auto-generate general Special Any-Exit codes.'" onmouseout="window.status='Done'">
+      <br>
+      <textarea rows="12" name="fpwexfilef" cols="66" title="Here to enter any exit rule. Any function, any variable. Must match if-end pairs, and ends each statement by ;. All limits are the same as to code any pattern files. The output format is [Price Time_type(1,2,3)]." onmouseover="window.status='Here to enter any exit rule. Any function, any variable. Must match if-end pairs, and ends each statement by ;. All limits are the same as to code any pattern files. The output format is [Price Time_type(1,2,3)].'" onmouseout="window.status='Done'" style="font-family: Tahoma; font-size: 8pt; color:#000000; background-color:#EFEFEF">$fpwexfilef$</textarea><br>
+      <b><font color="#0000FF" size="4"><a href="/wbFPW Manual - PW.html#EO" target="_blank" title="To open User's Manual to get online help about this function.">Special Any-Stop Rule:</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></b>
+      <input style="width: 25px" type="button" value="EZ" name="fpwptez3" onclick="javascript:  beforesavedata(); fpwsavehddata(); fpwForm.hdfpwptez.value='3'; fpwForm.hdfpwptez1.value='1'; target='_blank'; fpwForm.mlmfile.value='wbfpwezcode'; fpwForm.submit(); aftersavedata();" title="Easy Mode to auto-generate general Special Any-Stop codes." onmouseover="window.status='Easy Mode to auto-generate general Special Any-Stop codes.'" onmouseout="window.status='Done'"><textarea rows="13" name="fpwstfilef" cols="66" title="Here to enter any stop rule. Any function, any variable. Must match if-end pairs, and ends each statement by ;. All limits are the same as to code any pattern files. The output format is [Price Time_type(1,2,3)]." onmouseover="window.status='Here to enter any stop rule. Any function, any variable. Must match if-end pairs, and ends each statement by ;. All limits are the same as to code any pattern files. The output format is [Price Time_type(1,2,3)].'" onmouseout="window.status='Done'" style="font-family: Tahoma; font-size: 8pt; color:#000000; background-color:#EFEFEF">$fpwstfilef$</textarea><br>
+      <b><font color="#0000FF" size="4"><a href="/wbFPW Manual - PW.html#EO" target="_blank" title="To open User's Manual to get online help about this function.">Special Any-Objective Rule:</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></b>
+      <input style="width: 25px" type="button" value="EZ" name="fpwptez4" onclick="javascript:  beforesavedata(); fpwsavehddata(); fpwForm.hdfpwptez.value='4'; fpwForm.hdfpwptez1.value='1'; target='_blank'; fpwForm.mlmfile.value='wbfpwezcode'; fpwForm.submit(); aftersavedata();" title="Easy Mode to auto-generate Special general Any-Objective codes." onmouseover="window.status='Easy Mode to auto-generate general Special Any-Objective codes.'" onmouseout="window.status='Done'"><textarea rows="12" name="fpwobfilef" cols="66" title="Here to enter any objective rule. Any function, any variable. Must match if-end pairs, and ends each statement by ;. All limits are the same as to code any pattern files. The output format is [Price Time_type(1,2,3)]." onmouseover="window.status='Here to enter any objective rule. Any function, any variable. Must match if-end pairs, and ends each statement by ;. All limits are the same as to code any pattern files. The output format is [Price Time_type(1,2,3)].'" onmouseout="window.status='Done'" style="font-family: Tahoma; font-size: 8pt; color:#000000; background-color:#EFEFEF">$fpwobfilef$</textarea></td>
+    </tr>
+    <tr>
+      <td width="455" height="493" bgcolor="#FFFFFF" rowspan="3" valign="top">
+      <table border="1" cellpadding="0" cellspacing="1" width="103%" height="317">
+        <tr>
+          <td width="100%" height="314">
+      <p align="center">
+      <img border="0" src="/$fpwjpeg$" alt="The white bars are hourly, daily, monthly open or Friday bars."></td>
+        </tr>
+      </table>
+      <table border="1" cellpadding="0" cellspacing="1" width="103%" height="192">
+        <tr>
+          <td width="100%" height="182" valign="top">
+          <p align="center">
+        <b><font face="Times New Roman"><a href="/wbFPW Manual - PW.html#PR" target="_blank" title="To open User's Manual to get online help.">P/R Editor</a><font size="1">
+        </font></font></b><input style="width: 25px" type="button" value="EZ" name="fpwptez1" onclick="javascript: beforesavedata(); fpwsavehddata(); fpwForm.hdfpwptez.value='1'; fpwForm.hdfpwptez1.value='1'; target='_blank'; fpwForm.mlmfile.value='wbfpwezcode'; fpwForm.submit(); aftersavedata();" title="Easy Mode to auto-generate general Entry Pattern codes." onmouseover="window.status='Easy Mode to auto-generate general Entry Pattern codes.'" onmouseout="window.status='Done'">&nbsp;<input style="width: 47px" type="button" value="Delete" name="fpwptdelete" onclick="javascript: fpwsavehddata(); fpwForm.fpwrunindex.value='82'; fpwForm.mlmfile.value='wbfpwsimu'; target='_blank'; fpwForm.submit(); window.open('','_self'); window.close();" title="To delete previously saved pattern data or rule function file from SERVER side." onmouseover="window.status='To delete previously saved pattern data or rule function file from SERVER side.'" onmouseout="window.status='Done'"><font size="1">
+        </font>
+        <input style="width: 39px" type="button" value="Load" name="fpwptload" onclick="javascript: fpwsavehddata(); fpwForm.fpwrunindex.value='81'; fpwForm.mlmfile.value='wbfpwsimu'; target='_blank'; fpwForm.submit(); window.open('','_self'); window.close();" title="To load previously saved pattern data or rule function file from SERVER side." onmouseover="window.status='To load previously saved pattern data or rule function file from SERVER side.'" onmouseout="window.status='Done'">
+        <input style="width: 20px" type="button" value="$fpwpttype$" name="fpwpttype" onclick="javascript: {if (value=='P') value='R'; else value='P';} if (fpwulvl.value!='4') value='P';" title="P- to save or to load pattern data file; R(PW Pro only) - to save or to load ESO-rule function file." onmouseover="window.status='P- to save or to load pattern data file; R(PW Pro only) - to save or to load ESO-rule function file.'" onmouseout="window.status='Done'"><input type="text" name="fpwptname" size="7" value="$fpwptname$" style="text-align: center" title="Entering a file name to save the current pattern or rule to SERVER by clicking next Save button." onmouseover="window.status='Entering a file name to save the current pattern or rule to SERVER by clicking next Save button.'"><select size="1" name="fpwptname3" title="Together with the rightside button and leftside text to decide the full file name, this works as a serial No." onmouseover="window.status='Together with the rightside button and leftside text to decide the full file name, this works as a serial No.'" onmouseout="window.status='Done'">
+    		  <option value="0">0</option>
+    		  <option value="1">1</option>    
+    		  <option value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option selected value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+    		  <option value="9">9</option>         
+          </select><input style="width: 20px" type="button" value="$fpwptname2$" name="fpwptname2" onclick="javascript: if (value=='S') value='B'; else value='S';" title="B is for buy model or rule, S for sell. this works like a catagory ID to name patterns or rules." onmouseover="window.status='B is for buy model or rule, S for sell. this works like a catagory ID to name patterns or rules.'" onmouseout="window.status='Done'"> 
+        <input style="width: 39px" type="button" value="Save" name="fpwptsave" onclick="javascript: beforesavedata(); fpwsavehddata(); fpwForm.fpwrunindex.value='61'; fpwForm.mlmfile.value='wbfpwsimu'; target='FPWrunstatus'; fpwForm.submit(); aftersavedata();" title="Save the current Pattern or current showing ESO rules only to a filename you named in the left three forms to SERVER." onmouseover="window.status='Save the current Pattern or current showing ESO rules only to a filename you named in the left three forms to SERVER.'" onmouseout="window.status='Done'"> 
+        <input style="width: 34px; height: 23px; background-color:#00FF00" type="button" value="Run" name="fpwptrun" onclick="javascript: beforesavedata(); fpwsavehddata(); fpwForm.fpwrunindex.value='11'; fpwForm.mlmfile.value='wbfpwsimu'; target='_blank'; fpwForm.submit(); aftersavedata();" title="To run the simulation. It will firstly check if needs to run a MiMi parameter setting program. We know a run may take a long time, but one has to wait after a run finished to restart another run, otherwise both runs are damaged and wrong! One can use IRQ to stop a running one." onmouseover="window.status='To run the simulation. It will firstly check if needs to run a MiMi parameter setting program.'" onmouseout="window.status='Done'"><font size="1">
+        </font> 
+          <input style="width: 21px; height: 23px; color:#000000; background-color:#FF0000" type="button" value="M" name="fpwmoniW" onclick="javascript: if (fpwForm.zhusm.value=='M') window.open('$ProgressM$','','top=115,left=190,width=700,height=450'); else window.open('$ProgressM$','','top=160,left=370,width=210,height=105,toolbar=0,status=0,menubar=0');" onmouseout="window.status='Done'" title="To open a monitor window, because some simulations may take really long, one will feel good to open a window to monitor it." onmouseover="window.status='Cause some simulations may take really long, one will feel good to open a window to monitor it.';"><br>
+                <textarea rows="12" name="fpwptfilef" cols="89" title="Pattern/rule description text window.Any function, any variable. Must match if-end pairs, and ends each statement by ;." onmouseover="window.status='Pattern/rule description text window. Any function, any variable. Must match if-end pairs, and ends each statement by ;.'" onmouseout="window.status='Done'" style="font-family: Tahoma; font-size: 8pt; color:#000000; background-color:#EFEFEF">$fpwptfilef$</textarea></td>
+        </tr>
+      </table>
+      </td>
+      <td width="175" height="216">
+      <table border="1" cellpadding="0" cellspacing="1" width="100%" height="204">
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF">
+          <p align="center"> 
+          <input style="width: 42px" type="button" value="Disp" name="zhu03" onclick="javascript: onclickzhu03();" title="Refresh most recent buy or sell pattern deppending on what the radio button is showing in the Enter title line." onmouseover="window.status='Refresh most recent buy or sell pattern deppending on what the radio button is showing in the Enter title line.'" onmouseout="window.status='Done'"><font face="Arial" size="1">&nbsp;</font><font face="Arial" size="2"><input type="text" name="zhu52" size="3" value="$zhu52$" style="text-align: center" title="Simulation period\'s beginning index (zhu52) from beginning" onmouseover="window.status='Simulation period\'s beginning index from beginning'" onmouseout="window.status='Done'"></font><font face="Arial" size="1"> </font><font face="Arial" size="2"> <input type="text" name="zhu54" size="3" value="$zhu54$" style="text-align: center" title="Simulation period\'s end index (zhu54) from end" onmouseover="window.status='Simulation period\'s end index from end'" onmouseout="window.status='Done'"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF" align="center">
+        <input style="width: 55px" type="button" value="Review" name="zhu05" onclick="javascript: fpwsavehddata(); fpwForm.fpwrunindex.value='41'; fpwForm.mlmfile.value='wbfpwsimu'; target='_blank'; fpwForm.submit(); window.open('','_self'); window.close();" title="To retrieve what user previousely saved patterns in server side." onmouseover="window.status='To retrieve what user previousely saved patterns in server side.'" onmouseout="window.status='Done'"> <input style="width: 76px" type="button" value="$zhuyun$" name="zhuyun" onclick="javascript: if (value=='FT-Link') value='FT-Unlink'; else value='FT-Link';" title="Help decide the begin and end index from F-T dates. During run, will use F-T dates if in FT-Link." onmouseover="window.status='Help decide the begin and end index from F-T dates. During run, will use F-T dates if in FT-Link.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF" align="center">
+          <font face="Arial" size="1">
+          <input type="text" name="zhu06s24" size="2" value="Tic$:" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="ent01" size="3" value="$ent01$" style="text-align: center" title="Tick value in dollar(s) (ent01) of the Primary Market, stocks are $20." onmouseover="window.status='Tick value in dollar(s) of the Primary Market, stocks are $20.'" onmouseout="window.status='Done'"> </font><input style="width: 52px" type="button" value="R-New" name="zhuron" onclick="javascript: {if (value=='R-Old') value='R-New'; else value='R-Old';} if (fpwForm.zhusm.value=='M') value='R-New'; " title="R-Old: Run most recent simu with new managing rules. Fast, cause signals are existed. R-New: run everything. Single market only." onmouseover="window.status='R-Old: Run most recent simu with new managing rules. Fast, cause signals are existed. R-New: run everything. Single market only.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF" align="center">
+          <font face="Arial" size="1">
+          <input type="text" name="zhu06s25" size="5" value="Scale:" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="ent02" size="5" value="$ent02$" style="text-align: center" onchange="javascript: onchangeent02();" title="Read as in what percentage of a position to take its first partial profits if hit, 100 means no partial profit taking. (ent02)" onmouseover="window.status='Read as in what percentage of a position to take its first partial profits if hit, 100 means no partial profit taking.'" onmouseout="window.status='Done'"></font><font face="Arial" size="1"> </font>
+        <input style="width: 23px" type="button" value="$PBKE$" name="PBKE" onclick="javascript: if (value=='1') value='0'; else value='1';" title="Control if move stop upto break-even (after S+C) after first profit taking, if stop is still not that tight yet. 1-yes, 0-not. (PBKE)" onmouseover="window.status='Control if move stop upto break-even (after S+C) after first profit taking, if stop is still not that tight yet. 1-yes, 0-not.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF" align="center">
+          <font face="Arial" size="1">
+          <input type="text" name="zhu06s22" size="1" value="Lots:" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="ent03" size="1" value="$ent03$" style="text-align: center" title="Initial minimum lots in order to take partial profit by integer lots,simu-output bases on per lot, 1 lot=1000 shares for stocks. (ent03)" onmouseover="window.status='Initial minimum lots in order to take partial profit by integer lots,simu-output bases on per lot, 1 lot=1000 shares for stocks.'" onmouseout="window.status='Done'"></font><font face="Times New Roman"><b><font size="1">
+          </font></b></font><font face="Arial" size="1">
+          <input type="text" name="zhu06s23" size="1" value="S+C:" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu75" size="1" value="$zhu75$" style="text-align: center" title="Slippage plus commision in dollars per round trade per lot (1000 shares for stocks) (zhu75)." onmouseover="window.status='Slippage plus commision in dollars per round trade per lot (1000 shares for stocks).'" onmouseout="window.status='Done'"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF" align="center">
+          <p><input style="width: 42px" type="button" value="Rules" name="fpwmrr" onclick="javascript: if (fpwulvl.value=='4') {fpwsavehddata(); fpwForm.fpwrunindex.value='71'; fpwForm.mlmfile.value='wbfpwsimu'; target='_blank'; fpwForm.submit(); window.open('','_self'); window.close();}" onmouseover="window.status='For Multi-Market simulation, to review simulation managing rules of the market that is shown in the right.'" onmouseout="window.status='Done'" title="PW Pro Function. For Multi-Market simulation, to review simulation managing rules of the market that is shown in the right."><font size="1">
+          </font>$MRlist$<font size="1"> </font><input style="width: 25px; font-family:Wingdings; font-size:12pt" type="button" value="0" name="fpwmrs" onclick="javascript: if (fpwulvl.value=='4') {beforesavedata(); fpwsavehddata(); fpwForm.fpwrunindex.value='51'; fpwForm.mlmfile.value='wbfpwsimu'; target='FPWrunstatus'; fpwForm.submit(); aftersavedata();}" onmouseover="window.status='Save the current SHOWING managing rules for the market that is shown in the left.'" onmouseout="window.status='Done'" title="PW Pro Function. Save the current SHOWING managing rules for the market that is shown in the left."></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF" align="center">
+          <p> 
+          <input style="width: 54px" type="button" value="AN: 0" name="fpwaddnoise" onclick="javascript: {if (value=='AN: 0') value='AN: 5'; else {if (value=='AN: 5') value='AN:15'; else {if (value=='AN:15') value='AN:30'; else value='AN: 0';}}} if (fpwulvl.value!='4') value='AN: 0';" onmouseover="window.status='AN:X, randomly Add Noise by X% percent of the (intraday tick data) bar\'s range. X=0 means to add no noise.'" onmouseout="window.status='Done'" title="PW Pro Function. AN:X, randomly Add Noise by X% percent of the (intraday tick data) bar\'s range. X=0 means to add no noise.">
+        <input style="width: 78px" type="button" value="$marent03$" name="marent03" onclick="javascript: {if (value=='Different') value='AllSame'; else value='Different';} if (fpwulvl.value!='4') value='AllSame';" onmouseover="window.status='For multi-markets simulation; AllSame - All use the same SHOWING managing rules, Different - different market different rules.'" onmouseout="window.status='Done'" title="PW Pro Function. For multi-markets simulation; AllSame - All use the same SHOWING managing rules, Different - different market different rules."></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF" align="center">
+        <input style="width: 54px" type="button" value="ANY" name="zhu711" onclick="javascript: if (fpwulvl.value=='4') {fpwsavehddata(); fpwForm.fpwrunindex.value='31'; fpwForm.mlmfile.value='wbfpwsimu'; target='_blank'; fpwForm.submit(); window.open('','_self'); window.close();}" onmouseover="window.status='User defined ESOs manager, for details, click above Enter-title for help.'" onmouseout="window.status='Done'" title="PW Pro Function. User defined ESOs manager, for details, click above Enter-title for help.">
+        <input style="width: 51px" type="button" value="$zhu712$" name="zhu712" onclick="javascript: if (value=='Exit') value='Stop'; else {if (value=='Stop') value='Obje'; else value='Exit';}" title="PW Pro Function. To work together with the ANY button." onmouseover="window.status='To work together with the ANY button.'" onmouseout="window.status='Done'">
+        <input style="width: 23px" type="button" value="$zhu713$" name="zhu713" onclick="javascript: if (value=='1') value='2'; else value='1';" title="PW Pro Function. To work together with the ANY button." onmouseover="window.status='To work together with the ANY button.'" onmouseout="window.status='Done'"></td>
+        </tr>
+      </table>
+      </td>
+      <td width="121" height="216">
+      <table border="1" cellpadding="0" cellspacing="1" width="106%" height="206" align="left">
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF">
+          <p align="left"> 
+                            <input type="checkbox" value="1" name="fpweso11" title="Note: In any case, it compares with global 'tot' time to use the earlier one, if entered in pattern editor.  -----  This exit decides how many days and at what time or how many tick bars to be out. There are four cells on the right: the 1st button decides whether an intraday or day-close out. For an intraday out, the third and the fourth ones are useless, only the second (this should be an integer) indicates to hold how many tick bars before exit. For a day out, see help details over the fourth button."><input style="width: 17px" type="button" value="$zhu04s$" name="zhu04s" onclick="javascript: if (value=='D') value='T'; else value='D';" title="This is the T/D button (zhu04s) to decide Tick Out or Day Out. For each case, there are different meanings for the three forms on its right side." onmouseover="window.status='Tick out or day out, (zhu04s).'" onmouseout="window.status='Done'"><font face="Arial" size="1"> </font><font face="Arial" size="2"><input type="text" name="zhu200" size="3" value="$zhu200$" style="text-align: center" title="The x (zhu200)"> 
+                          <input type="text" name="zhu61" size="1" value="$zhu61$" style="text-align: center" title="The y (zhu61)"> </font><input style="width: 20px" type="button" value="$zhu62$" name="zhu62" onclick="javascript: if (value=='C') value='O'; else value='C';" title="If it is a day out (tells by the left T/D button), this button decides to be out at the open or on the close. (zhu62). If out on the close, the third one indicates on which day’s close (0 means the same day as the signal triggered, 1 for the next day and so on) and the number x further tells the program at what time (local military time) as if the market were closed. If x is 20.00, it means at normal market close." onmouseover="window.status='If it is a day out, this button decides to be out at the open or on the close. (zhu62).'; return true" onmouseout="window.status='Done'; return true"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso12" title="No.1 Consecutive Out: Whenever x days' consecutive closes are higher or lower than the enty day's high or low for a long or short signal respectively, then time out on the close.  x is a non-zero positive integer."><font face="Arial" size="1"><input type="text" name="zhu06s" size="7" value="C&lt;L(enw)" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"> 
+                            <input type="text" name="zhu63" size="4" value="$zhu63$" style="text-align: center" title="The x (zhu63)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <p align="left"> 
+                            <input type="checkbox" value="1" name="fpweso13" title="No.2 Consecutive Out: Whenever profits are up or down consecutively in x days, counted on a close-to-close way, then time out on nthe close.  x is a non-zero integer; positive means profits are up while negetive means down. Therefore, a negetive x somehow like a stop out."><font face="Arial" size="1"><input type="text" name="zhu06s2" size="7" value="Con(-/+)C" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial Narrow"> </font><font face="Arial" size="2"> 
+                            <input type="text" name="zhu64" size="4" value="$zhu64$" style="text-align: center" title="The x (zhu64)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso14" title="Cumulative Up Out: x days after a signal is triggered (counted from entry day), whenever it cumulates y days open-open or close-close (decided by the push button) profits up, then time out on that open or close."><font face="Arial" size="1"><input type="text" name="zhu06s3" size="3" value="O/C+" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu65new" size="1" value="$zhu65new$" style="text-align: center"  title="The x (zhu65new)"><input type="text" name="zhu65" size="1" value="$zhu65$" style="text-align: center" title="The y (zhu65)"></font><input style="width: 17px" type="button" value="$zhu66$" name="zhu66" onclick="javascript: if (value=='C') value='O'; else value='C';" titlt="zhu66" onmouseover="window.status='.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso15" title="Breakeven Out: x days after a signal triggered (counted from entry day), whenever it cumulates y days open or close (decided by the push button) at better than breakeven price, then time out on that open or close."><font face="Arial" size="1"><input type="text" name="zhu06s4" size="3" value="BKE" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu67new" size="1" value="$zhu67new$" style="text-align: center" title="The x (zhu67new)"><input type="text" name="zhu67" size="1" value="$zhu67$" style="text-align: center" title="The y (zhu67)"></font><input style="width: 17px" type="button" value="$zhu68$" name="zhu68" onclick="javascript: if (value=='C') value='O'; else value='C';" titlt="zhu68" onmouseover="window.status='.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso16" title="Zig-Zag Out"><font face="Arial" size="1"><input type="text" name="zhu06s5" size="13" value="Zig-Zag Simu." style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso17" onclick="javascript: onclickzhu72();" title="No.1 User Defined Out: User can use provided two interactive text boxes x and y to exchange control parameters, in addition to all the other available parameters, which are the same as for setup pattern scripts."><font face="Arial" size="1"><input type="text" name="zhu06s6" size="2" value="Any1" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="new301" size="3" value="$new301$" style="text-align: center" title="The x (new301)"><input type="text" name="new302" size="3" value="$new302$" style="text-align: center" title="The y (new302)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso18" onclick="javascript: onclickzhu721();" title="No.2 User Defined Out: User can use provided two interactive text boxes x and y to exchange control parameters, in addition to all the other available parameters, which are the same as for setup pattern scripts."><font face="Arial" size="1"><input type="text" name="zhu06s9" size="2" value="Any2" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu722" size="3" value="$zhu722$" style="text-align: center" title="The x (zhu722)"><input type="text" name="zhu723" size="3" value="$zhu723$" style="text-align: center" title="The y (zhu723)"></font></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td width="148" height="23" bgcolor="#00FF00">
+      <p align="right"><b><font size="4"><a href="/wbFPW Manual - PW.html#ST" target="_blank" title="To open User's Manual to get online help.">Stop</a></font>&nbsp;&nbsp;&nbsp;&nbsp; </b> <font face="Arial" size="2"> 
+                            <input type="radio" name="zhu47" value="Stop" onclick="javascript: onclickzhu47();" title="B-Long,S-Short"></font><input type="text" name="zhu47s" size="1" value="S" style="font-weight: bold; text-align: center"> </td>
+      <td width="148" height="23" bgcolor="#00FF00">
+      <p align="right"><b><font size="4"><a href="/wbFPW Manual - PW.html#OB" target="_blank" title="To open User's Manual to get online help.">Obje.</a></font>&nbsp;&nbsp;&nbsp; </b> <font face="Arial" size="2"> 
+                            <input type="radio" name="zhu48" value="Objective" onclick="javascript: onclickzhu48();" title="B-Long,S-Short"></font><input type="text" name="zhu48s" size="1" value="S" style="font-weight: bold; text-align: center"></td>
+    </tr>
+    <tr>
+      <td width="160" height="246">
+      <table border="1" cellpadding="0" cellspacing="1" width="100%" height="191">
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF">
+          <p align="left"> 
+                            <input type="checkbox" value="1" name="fpweso19" title="Dollar Stop: Fixed value stop, based on tick(T), volatility(V) and dollar value($) controlled by the TVD button, wich is also used by other stops and objectives.  The amount entered into the textbox represents how many ticks, how many times of its volatility (5 days) or how many hundreds of US dollars respectively."><font face="Arial" size="1"><input type="text" name="zhu06s18" size="3" value="$Mg" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu81" size="5" value="$zhu81$" style="text-align: center" title="The x (zhu81)"> </font>
+        <input style="width: 20px" type="button" value="$tkdv$" name="tkdv" onclick="javascript: if (value=='T') value='$'; else {if (value=='$') value='V'; else {if (value=='V') value='C'; else value='T';}}" title="The TVD button. (tkdv)" onmouseover="window.status='The TVD button. (tkdv)'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+              <input type="checkbox" value="1" name="fpweso20" title="Pivot Stop: The latest pivot low or high minus or plus x ticks for long or short signals rspectively.  The select drop down menu is used to choose what pivot level, and next text box used to enter the parameter x."><font face="Arial" size="2"><input type="text" name="zhu17s" size="4" value="PH+T" style="border:1px solid #F4F4F4; text-align: center; font-size:10pt; background-color:#EBEBEB"></font><select size="1" name="zhu17l" title="The dropdown (zhu17l)" onmouseover="window.status='The drop down select (zhu17l).'" onmouseout="window.status='Done'">
+    		  <option value="1">1</option>    
+    		  <option value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option selected value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+    		  <option value="9">9</option>         
+          </select><font face="Arial" size="2"><input type="text" title="The x (zhu82)" name="zhu82" size="2" value="$zhu82$" style="text-align: center"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso21"  title="Trailing Stop: Keep stop price x (entered in the text box) ticks or x hundreds of dollars away from the high, low or close of the last intraday or daily bar, based on the TVD button or the second push button and depended on its running a intraday or daily simulation. When the TVD is in T or V, x is in ticks; but when the second push button here is in $, x is in hundreds of dollars away from the last intraday/daily bar's close.  When the TVD is in $, x is in hundreds of dollars.  The first push button controls whether the trailing stop begins after breakeven (0) or from the beginning of a signal."><font face="Arial" size="1"><input type="text" name="zhu06s19" size="2" value="Trail" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><input style="width: 19px" type="button" value="$zhu59$" name="zhu59" onclick="javascript: if (value=='1') value='0'; else value='1';" title="0: trailing stop after breakeven. 1: trailing from the beginning. (zhu59)" onmouseover="window.status='0: trailing stop after breakeven. 1: trailing from the beginning. (zhu59)'" onmouseout="window.status='Done'"><font face="Arial" size="1">
+                            </font><font face="Arial" size="2"> 
+                          <input type="text" name="zhu83" size="3" title="The x (zhu83)" value="$zhu83$" style="text-align: center"></font><input style="width: 19px" type="button" value="$zhu84$" name="zhu84" onclick="javascript: if (value=='H') value='L'; else {if (value=='L') value='C'; else {if (value=='C') value='$'; else value='H';}}" title="Choose where the trailing distance to count from. (zhu84)" onmouseover="window.status='Choose where the trailing distance to count from. (zhu84)'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="26" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso22" title="Time BKE Stop: x days after a signal in the market and its previous day's close is better than just breakeven (always means net after all fees - C+S), then set the stop price to breakeven from the beginning of this day."><font face="Arial" size="1"><input type="text" name="zhu06s20" size="7" value="B/E Time" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu85" size="5" value="$zhu85$" style="text-align: center" title="The x (zhu85)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="26" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso23" title="Profit BKE Stop: After the previous day close (daily data) or last close (tick data) is x tick (TVD is in T or V) or hundreds of dollars (TVD is in $) in profits (with minimum of 5 times of C+S), set the stop price to breakeven plus y ticks or hundres of dollars in profits from the beginning of this day (daily data) or this moment (tick data).  There is no requirement for x>=y, but if y<x and profit condition satisfied, then it is immediately 'stopped' out at x profits, like a objective taking."><font face="Arial" size="1"><input type="text" name="zhu06s21" size="2" value="B/E" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu86" size="3" value="$zhu86$" title="The x (zhu86)" style="text-align: center"><input type="text" name="zhu87" size="3" value="$zhu87$" title="The y (zhu87)" style="text-align: center"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso24" title="Chart Stop: Stop out at the minimum or the maximum of highs, lows, closes or opens of x days period before the signal day for long or short signals respectively."><font face="Arial" size="1"><input type="text" name="zhu06s14" size="3" value="Chart" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu88" size="5" value="$zhu88$" style="text-align: center" title="The x (zhu88)"> </font>
+        <input style="width: 20px" type="button" value="$zhu89$" name="zhu89" onclick="javascript: if (value=='H') value='L'; else {if (value=='L') value='C'; else {if (value=='C') value='O'; else value='H';}}" title="Chart reference: H-high, L-low, C-last, O-open. (zhu89)" onmouseover="window.status='Chart reference: H-high, L-low, C-last, O-open. (zhu89)'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso25" title="Volatility Stop: Stop price is set to be x (can be over 100) percentage of its 5 days volatility (mean(h(i-5:i-1)-l(i-5:i-1)) or vo(h,l,i-1,5), i is the signal day) with y ticks minimum."><font face="Arial" size="1"><input type="text" name="zhu06s12" size="2" value="V-T" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="new401" size="3" value="$new401$" style="text-align: center" title="The x (new401)"><input type="text" name="new402" size="3" value="$new402$" style="text-align: center" title="The y (new402)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso26" onclick="javascript: onclickzhu73();" title="No.1 User Defined Stop: User can use provided two interactive text boxes x and y to exchange control parameters, in addition to all the other available parameters, which are the same as for setup pattern scripts."><font face="Arial" size="1"><input type="text" name="zhu06s8" size="2" value="Any1" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="new303" size="3" value="$new303$" style="text-align: center" title="The x (new303)"><input type="text" name="new304" size="3" value="$new304$" style="text-align: center" title="The y (new304)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso27" onclick="javascript: onclickzhu731();" title="No.2 User Defined Stop: User can use provided two interactive text boxes x and y to exchange control parameters, in addition to all the other available parameters, which are the same as for setup pattern scripts."><font face="Arial" size="1"><input type="text" name="zhu06s11" size="2" value="Any2" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu732" size="3" value="$zhu732$" style="text-align: center" title="The x (zhu732)"><input type="text" name="zhu733" size="3" value="$zhu733$" style="text-align: center" title="The y (zhu733)"></font></td>
+        </tr>
+      </table>
+      </td>
+      <td width="121" height="246">
+      <table border="1" cellpadding="0" cellspacing="1" width="106%" height="231">
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF">
+          <p align="left"> 
+                            <input type="checkbox" value="1" name="fpweso28" title="Dollar Objective: It's exactly same as dollar stop, except these are for profits and there are two parameters here instead of one for the stop. y should be larger than x.  They are used to take profits partially according to the rules set in Enter section."><font face="Arial" size="1"><input type="text" name="zhu06s17" size="2" value="$Mg" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu91" size="2" value="$zhu91$" style="text-align: center" title="The x (zhu91)"> 
+                            <input type="text" name="obje2nd" size="3" value="$obje2nd$" style="text-align: center" title="The y (obje2nd)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso29" title="Reward Objective: x times the maximum potential lost, i.e. the initial stop value, which named as 'riskd' and is available for all programs."><font face="Arial" size="2"><input type="text" name="zhu18s" size="5" value="X*Risk" style="border:1px solid #EBEBEB; text-align: center; font-size:10pt; background-color:#EBEBEB">&nbsp;<input type="text" name="zhu98" size="6" value="$zhu98$" style="text-align: center" title="The x (zhu98)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso30" title="Large Range Day Objective: If today's range is at least x times wider than its last 5 days' average, and closes at least y percentage(100 means high for long, and low for short) of today's range in favor of the signal, then out at close if it can breakeven."><font face="Arial" size="1"><input type="text" name="zhu06s16" size="2" value="LRD" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu92" size="3" value="$zhu92$" style="text-align: center" title="The x (zhu92)"><input type="text" name="zhu93" size="3" value="$zhu93$" style="text-align: center" title="The y (zhu93)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="26" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso31" title="Pivot Objective 1: The latest pivot high or low plus or minus x ticks for long or short signals respectively.  The dropdown select menu is used to choose what pivot level to use. Use the next text box to enter the parameter x."><font face="Arial" size="2"><input type="text" name="zhu22s" size="3" value="PL-T" style="border:1px solid #EBEBEB; text-align: center; font-size:10pt; background-color:#EBEBEB"></font><select size="1" name="zhu22l" title="The dropdown menu to choose which pivot level to use. (zhu22l)" onmouseover="window.status='The dropdown menu to choose which pivot level to use. (zhu22l)'" onmouseout="window.status='Done'">
+    		  <option value="1">1</option>    
+    		  <option value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option selected value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+    		  <option value="9">9</option>         
+          </select><font face="Arial" size="2"><input type="text" name="zhu94" size="3" value="$zhu94$" style="text-align: center" title="The x (zhu94)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="26" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso32" title="Pivot Objective 2: Out at close whenever cumulated x days' closes are higher or lower than the latest pivot high or low for long or short respectively.  Breakeven is a must.   The dropdown select menu is used to choose what pivot level to use."><font face="Arial" size="2"><input type="text" name="zhu24s" size="3" value="C&lt;PL" style="border:1px solid #EBEBEB; text-align: center; font-size:10pt; background-color:#EBEBEB"></font><select size="1" name="zhu24l" title="The dropdown menu to choose which pivot level to use. (zhu24l)" onmouseover="window.status='The dropdown menu to choose which pivot level to use. (zhu24l)'" onmouseout="window.status='Done'">
+    		  <option value="1">1</option>    
+    		  <option value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option selected value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+    		  <option value="9">9</option>         
+          </select><font face="Arial" size="2"><input type="text" name="zhu95" size="3" value="$zhu95$" style="text-align: center" title="The x (zhu95)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso33" title="Chart Objective: Take profits at the maximum or the minimum of highs, lows, closes or opens (decided by the push button) of x days period before the signal day for long or short signals respectively."><font face="Arial" size="1"><input type="text" name="zhu06s15" size="3" value="Chart" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu96" size="4" value="$zhu96$" style="text-align: center" title="The x (zhu96)"> </font>
+        <input style="width: 20px" type="button" value="$zhu97$" name="zhu97" onclick="javascript: if (value=='H') value='L'; else {if (value=='L') value='C'; else {if (value=='C') value='O'; else value='H';}}" title="Chart reference: H-high, L-low, C-last, O-open. (zhu97)." onmouseover="window.status='Chart reference: H-high, L-low, C-last, O-open. (zhu97).'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso34" title="Volatility Objective: Objective price is set to be x (can be over 100) percentage of its 5 days volatility (mean(h(i-5:i-1)-l(i-5:i-1)) or vo(h,l,i-1,5), i is the signal day) with y ticks minimum."><font face="Arial" size="1"><input type="text" name="zhu06s13" size="2" value="V-T" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="new403" size="3" value="$new403$" style="text-align: center" title="The x (new403)"><input type="text" name="new404" size="3" value="$new404$" style="text-align: center" title="The y (new404)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso35" onclick="javascript: onclickzhu74();" title="No.1 User Defined Objective: User can use provided two interactive text boxes x and y to exchange control parameters, in addition to all the other available parameters, which are the same as for setup pattern scripts."><font face="Arial" size="1"><input type="text" name="zhu06s7" size="2" value="Any1" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="new305" size="3" value="$new305$" style="text-align: center" title="The x (new305)"><input type="text" name="new306" size="3" value="$new306$" style="text-align: center" title="The y (new306)"></font></td>
+        </tr>
+        <tr>
+          <td width="100%" height="27" bgcolor="#EFEFEF"> 
+                            <input type="checkbox" value="1" name="fpweso36" onclick="javascript: onclickzhu741();" title="No.2 User Defined Objective: User can use provided two interactive text boxes x and y to exchange control parameters, in addition to all the other available parameters, which are the same as for setup pattern scripts."><font face="Arial" size="1"><input type="text" name="zhu06s10" size="2" value="Any2" style="border:1px solid #EBEBEB; font-family: Arial (fantasy); text-align:center; background-color:#EBEBEB"></font><font face="Arial" size="2"><input type="text" name="zhu742" size="3" value="$zhu742$" style="text-align: center" title="The x (zhu742)"><input type="text" name="zhu743" size="3" value="$zhu743$" style="text-align: center" title="The y (zhu743)"></font></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td width="455" height="1" bgcolor="#FFFFFF">
+      <iframe name="FPWrunstatus" width="466" height="24" src="$FPWsrsource$" align="left"></iframe>
+        </td>
+      <td width="319" height="1" colspan="2" bgcolor="#EFEFEF">
+      <p align="center">
+      <input style="width: 20px" type="button" value="$zhusm$" name="zhusm" onclick="javascript: {if (value=='M') value='S'; else {value='M'; fpwForm.zhuron.value='R-New';}} if (fpwulvl.value!='4') value='S';" title="S: single market simulation, i.e. the primary market; M: multi-market simulation." onmouseover="window.status='S: single market simulation, i.e. the primary market; M: multi-market simulation.'" onmouseout="window.status='Done'" title="PW Pro Function"><input style="width: 29px" type="button" value="Mkt" name="zhu25" onclick="javascript: if (fpwulvl.value=='4') {fpwsavehddata(); fpwForm.fpwrunindex.value='91'; fpwForm.mlmfile.value='wbfpwsimu'; target='_blank'; fpwForm.submit(); window.open('','_self'); window.close();}" title="To initiate a user interactive window to choose markets for multi-market simulation." onmouseover="window.status='To initiate a user interactive window to choose markets for multi-market simulation.'" onmouseout="window.status='Done'" title="PW Pro Function"> <input style="width: 20px" type="button" value="$zhu99$" name="zhu99" onclick="javascript: if (value=='F') value='S'; else value='F';" title="For the primary market: F- Futures, S - Stocks." onmouseover="window.status='For the primary market: F- Futures, S - Stocks.'" onmouseout="window.status='Done'"><font face="Arial" size="2"><input type="text" name="zhu26" size="2" value="$zhu26$" style="text-align: center" title="The symbol of the primary market." onmouseover="window.status='The symbol of the primary market.'" onmouseout="window.status='Done'"></font><input style="width: 24px; background-color:#00FF00" type="button" value="Ok" name="zhu30" onclick="javascript: fpwsavehddata(); fpwForm.fpwrunindex.value='21'; fpwForm.mlmfile.value='wbfpwsimu'; target='_blank'; fpwForm.FirstorS.value='0'; fpwForm.submit(); window.open('','_self'); window.close();" title="To initilize the chart window, used after entering a new market symbol." onmouseover="window.status='To initilize the chart window, used after entering a new market symbol.'" onmouseout="window.status='Done'"><font face="Arial" size="2">&nbsp; 
+      <input type="text" name="zhu101" size="2" value="$zhu101$" style="text-align: center" title="The 1st Secondary market, name format: F/S+symbol." onmouseover="window.status='The 1st Secondary market, name format: F/S+symbol.'" onmouseout="window.status='Done'"><input type="text" name="zhu1013" size="2" value="$zhu1013$" style="text-align: center" title="The 2nd Secondary market, name format: F/S+symbol." onmouseover="window.status='The 2nd Secondary market, name format: F/S+symbol.'" onmouseout="window.status='Done'"><input type="text" name="zhu1014" size="2" value="$zhu1014$" style="text-align: center" title="The 3rd Secondary market, name format: F/S+symbol." onmouseover="window.status='The 3rd Secondary market, name format: F/S+symbol.'" onmouseout="window.status='Done'"><input type="text" name="zhu1015" size="2" value="$zhu1015$" style="text-align: center" title="The 4th Secondary market, name format: F/S+symbol." onmouseover="window.status='The 4th Secondary market, name format: F/S+symbol.'" onmouseout="window.status='Done'"></font></td>
+    </tr>
+  </table>
+  </center>
+</div>
+</form>
+<form name="stock2Form" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+<input type="hidden" name="mlmfile" value="wbstmpsimu">
+<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+<input type="hidden" name="mlid" value="$fpwusername$">
+<input type="hidden" name="mlid4" value="$fpwusername4$">
+<input type="hidden" name="WhereOrderFrom" value="INDX">
+<input type="hidden" name="mlmfvar" value="leavemealone">
+<input type="hidden" name="hdfpwaddnoise" value="AN: 0">
+<p align="center"><b>
+<script language="JavaScript">
+function onclickstock26(str) {
+   document.stock2Form.mlmfile.value=str;
+   stock2Form.submit(); }
+</script>
+    <a href="javascript: onclickstock26('wbmpinitial');">MarketPulse</a> | 
+    <a href="javascript: onclickstock26('wbstmpsimu');">MarketPulse Pro</a> | 
+    <a href="javascript: onclickstock26('wbfpwoutput');">PatternWorkshop Pro</a> | 
+    <a href="javascript: onclickstock26('wbfpwstat');">Forward Statistics</a> | 
+    <a href="javascript: onclickstock26('wbfpwport');">Portfolio Manager</a></b><br>
+    <a href="JavaScript: onclickstock26('wbstanalog');">Analog</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstfpz691');">Zone</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstswing');">Swing</a> |&nbsp;<a href="JavaScript: onclickstock26('wbstsea');">Season</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstsnr');">SNR</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstleadi');">Leading Indicator</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstchart');">Detail Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstmmct');">Multi-Markets Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstrdata');">Data</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbfpwmpstat');">MP 
+Stat</a><br>
+    <b><font size="2">&nbsp;</font></b><font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+ 
+WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp;&nbsp; 
+Username: $fpwusername$</font></p>
+</form>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>

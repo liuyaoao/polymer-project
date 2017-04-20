@@ -1,0 +1,92 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<title>Details/Lists</title>
+
+<script language="JavaScript"> 
+function onclickstockqdv(str) { 
+   document.pplnForm.mlmfvar.value=str;  
+   pplnForm.mlmfile.value='wbstockqdv';  
+   pplnForm.submit();}     
+</script> 
+
+</head>
+<!--  used by wbstsimulist and wbstsimustat  -->
+
+<body topmargin="5" leftmargin="5">
+
+<form name="pplnForm" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+		<input type="hidden" name="mlmfile" value="wbstmpsls1">
+		<input type="hidden" name="WhereOrderFrom" value="PPLN">
+		<input type="hidden" name="mlid" value="$fpwusername$">
+		<input type="hidden" name="mlid4" value="$fpwusername4$">
+		<input type="hidden" name="thousandnum" value="$thousandnum$">
+		<input type="hidden" name="addminus" value="$addminus$">
+		<input type="hidden" name="TLinextl" value="$TLinextl$">
+        <input type="hidden" name="TLinexth" value="$TLinexth$">
+		<input type="hidden" name="mpplistnet" value="$mpplistnet$">
+		<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+		<input type="hidden" name="fpwGL" value="AA">
+		<input type="hidden" name="WhereOrderFrom" value="MPST">
+		<input type="hidden" name="mlmfvar" value="leavemealone">
+
+<div align="center">
+  <center>
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="733" height="27">
+    <tr>
+      <td width="296" height="27">
+      <p align="left">
+      <input style="WIDTH: 25px" type="button" value="-" name="fsadd1004" onclick="javascript: var sub2; sub2=eval(pplnForm.thousandnum.value); sub2=sub2-1; pplnForm.fsam.value=sub2; pplnForm.thousandnum.value=sub2;" onmouseover="window.status='To set previous page as current.'" onmouseout="window.status='Done'">
+      <input style="WIDTH: 40px" type="button" value="Page" name="fszsobx39">
+      <input style="WIDTH: 25px" type="button" value="+" name="fsadd1005" onclick="javascript: var sub2; sub2=eval(pplnForm.thousandnum.value); sub2=sub2+1; pplnForm.fsam.value=sub2; pplnForm.thousandnum.value=sub2;" onmouseover="window.status='To set nest page as current.'" onmouseout="window.status='Done'"><font color="#0000FF" size="4">:</font>&nbsp;
+      <input style="WIDTH: 45px" type="text" value="$thousandnum$" name="fsam" onKeyDown="if(event.keyCode==13) {var sub3; sub3=value; pplnForm.thousandnum.value=sub3; pplnForm.addminus.value='0'; pplnForm.fpwGL.value='AA'; pplnForm.submit(); window.open('','_self'); window.close();} " onmouseover="window.status='The current page number is shown on the right.'" onmouseout="window.status='Done'" size="20"></td>
+      <td width="117" height="27">
+      <p align="center">
+      <input style="WIDTH: 110px; float:left" type="button" value="To the Beginning" name="add1003" onclick="javascript: pplnForm.addminus.value='-1'; pplnForm.fpwGL.value='AA'; pplnForm.thousandnum.value='0'; pplnForm.submit(); window.open('','_self'); window.close(); " onmouseover="window.status='To show the beginning page lists.'" onmouseout="window.status='Done'"></td>
+      <td width="317" height="27">
+      <input style="WIDTH: 98px" type="button" value="Next Page" name="add1000" onclick="javascript: pplnForm.addminus.value='1'; pplnForm.fpwGL.value='AA'; pplnForm.submit(); window.open('','_self'); window.close(); " onmouseover="window.status='To show next page lists.'" onmouseout="window.status='Done'">&nbsp;
+      <input style="WIDTH: 98px" type="button" value="Previous Page" name="zsobx38" onclick="javascript:pplnForm.addminus.value='-1'; pplnForm.fpwGL.value='AA'; pplnForm.submit(); window.open('','_self'); window.close(); " onmouseover="window.status='To show previous page lists.'" onmouseout="window.status='Done'">&nbsp;
+      <input style="WIDTH: 98px" type="button" value="To the End" name="add1001" onclick="javascript: pplnForm.addminus.value='1'; pplnForm.fpwGL.value='AA'; pplnForm.thousandnum.value='1000'; pplnForm.submit(); window.open('','_self'); window.close(); " onmouseover="window.status='To show the last page lists.'" onmouseout="window.status='Done'"></td>
+    </tr>
+  </table>
+    <iframe name="S1" width="733" height="560" src="$wbstsimulist$"></iframe>
+  </center>
+</div>
+</form>
+<form name="stock2Form" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+<input type="hidden" name="mlmfile" value="wbstmpsimu">
+<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+<input type="hidden" name="mlid" value="$fpwusername$">
+<input type="hidden" name="mlid4" value="$fpwusername4$">
+<input type="hidden" name="WhereOrderFrom" value="INDX">
+<input type="hidden" name="mlmfvar" value="leavemealone">
+<input type="hidden" name="hdfpwaddnoise" value="AN: 0">
+<p align="center"><b>
+<script language="JavaScript">
+function onclickstock26(str) {
+   document.stock2Form.mlmfile.value=str;
+   stock2Form.submit(); }
+</script>
+    <a href="javascript: onclickstock26('wbmpinitial');">MarketPulse</a> | 
+    <a href="javascript: onclickstock26('wbfpwsimu');">PatternWorkshop</a> | 
+    <a href="javascript: onclickstock26('wbfpwoutput');">PatternWorkshop Pro</a> | 
+    <a href="javascript: onclickstock26('wbfpwstat');">Forward Statistics</a> | 
+    <a href="javascript: onclickstock26('wbfpwport');">Portfolio Manager</a></b><br>
+    <a href="JavaScript: onclickstock26('wbstanalog');">Analog</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstfpz691');">Zone</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstswing');">Swing</a> |&nbsp;<a href="JavaScript: onclickstock26('wbstsea');">Season</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstsnr');">SNR</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstleadi');">Leading Indicator</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstchart');">Detail Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstmmct');">Multi-Markets Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstrdata');">Data</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbfpwmpstat');">MP 
+Stat</a><br>
+    <b><font size="2">&nbsp;</font></b><font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+ 
+WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp;&nbsp; Username: $fpwusername$</font></p>
+ </form></body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>
