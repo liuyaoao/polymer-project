@@ -1,0 +1,43 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="financial-company">
+  <template>
+      <style >
+        :host {
+          display: block;
+          color:#000000;
+          width:40%;
+          margin:30px auto;
+          font-size:16px;
+        }
+        .companyContent span{
+          font-weight:bold;
+          color:#0000ff;
+          font-size:18px;
+        }
+      </style>
+      <div class="companyContent">
+        <h2>About Us</h2>
+        <p>WSQSI.com is where to run the Web version of Financial PatternWorkshop (<span>FPW</span>) and WSQSI.com is WSQSI.com is where to run the Web version of Financial PatternWorkshop (FPW)
+          and WSQSI.com is managed by Wall Street Quantitative Systems Inc (<span>WSQSI</span>), the developer of the FPW.</p>
+        <p>Wall Street Quantitative Systems Inc is a financial consulting firm that has specialized in developing trading systems for over twenty years.
+          The firm is also in Trading Advisory Services to selected clients and other businesses.</p>
+        <h3>We  provide four different service levels about FPW:</h3>
+        <p><span>MarketPulse: </span>MarketPulse is the most basic level, it is a multi-function <b>real time Intraday Stock Screener </b>for stock traders. In today’s market, a successful trader needs an edge.
+          MarketPulse’s proprietary analysis tools let traders capture the pulse of the market in real time. Users can easily scan out stocks they are interested
+          in by different criteria and parameters, such as exchange, sector, PE ratio, capital size, digital patterns, analog patterns or statistics between any kind of time interval.  All scan tools here are for stock markets only.</p>
+        <p><span>MarketPulse Pro: </span>MarketPulse Pro is a simulation tool.  Its goal is to find proper patterns for MarketPulse to scan. Although MarketPulse is very powerful and easy to use, it assumes that the trader knows what
+           pattern he or she wants to look for.  MarketPulse Pro can help users find the right patterns based on historical statistics. All simulation tools here are for stock markets only.</p>
+        <p><span>PatternWorkshop:</span>PatternWorkshop is a software kit to simulate the real stock and futures financial markets with only a couple of lines of code and a couple of mouse clicks. One can simulate almost any pattern that
+          one can imagine with full managing rules of stops, exits and objectives, scaling in or out, over one or a group of markets with the same or different managing rules for each market. </p>
+        <p><span>PatternWorkshop Pro: </span>PatternWorkshop Pro provides more interactive tools to analyze or to improve PatternWorkshop's simulation results. For example, the software can
+          automatically find the premature conditions to improve its quality and analyze it with your other trading models to see how it affects your whole trading system, and it can also help developer find proper managing rules of Enter, Exits, Stops and Objectives. It's a key tool kit for developing a high quality trading system, which helps user on how to avoid risk before a signal triggering and how to face the risk after it triggered.</p>
+      </div>
+    </template>
+
+    <script>
+      Polymer({
+        is: 'financial-company',
+      });
+    </script>
+</dom-module>

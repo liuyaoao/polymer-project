@@ -1,0 +1,55 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+<dom-module id="financial-chinese">
+  <template>
+      <style >
+        :host {
+          display: block;
+          color:#000000;
+          width:40%;
+          margin:30px auto;
+          font-size:15px;
+          font-family: 'STHeiti';
+        }
+        .chineseContent span{
+          font-weight:bold;
+          color:#0000ff;
+          font-size:16px;
+        }
+        .chineseContent font{
+          color:#ff0000;
+        }
+      </style>
+      <div class="chineseContent">
+        <div class="topLogo"><img src="../images/logo.png"/><img src="../images/login/tb_01.jpg"/></div>
+        <hr color="ffc875"/>
+        <paper-styles>
+          <p>
+          <iron-selector role="navigation" class="menu-list" selected="[[page]]" attr-for-selected="name">
+            <a name="reason" href="/test/home/reason">[English]</a>
+          </iron-selector>
+              金融模式站(Financial PatternWorkshop [FPW])是由美国华尔街量化系统公司(Wall Street Quantitative Systems Inc [WSQSI])开发完成的。WSQSI是一个专长于交易系统开发的金融咨询公司。FPW是一个独一无二的金融服务超级软件包，操作人员通过输入几行简单的程序及或点击几下鼠标则可对股票及期货等金融市场进行即时分析和扫描。其视觉化的输入输出介面及众多的互动式分析工具组成了一个完整的多功能交易系统测试平台。任何人通过互联网就可随时随地使用它。</p>
+              <p>众所周知，很多金融机构雇用了大量的具有博士学位的量化分析师来开发交易系统，但这些高薪雇来的分析师却在开发偶而一用则弃的测试工具方面而非交易系统本身上花费了大量的时间。为什么会是这样呢？因为目前市场上还没有可靠的、易学易用的商业性通用交易系统测试平台软件可用，即使对个人电脑而言也都是如此，更别提网络在线多用户式的了。我们还会经常听到系统开发人员中互相打听：“你在哪里买过去的日间(Tick)数据？”这些情况每年浪费掉了金融机构大量的人力财力。</p>
+            </p>金融模式站FPW提供的服务填补了这个空白，它为金融界提供一个通用的交易系统测试平台，并同时提供过去及即时的日间数据。更重要的是，FPW是通过互联网采多用户式来提供所有这些服务。使任何用户都有能力随时随地使用这些过去连顶级金融机构都不曾完全具备的工具及资源。</p>
+          <h4><span>FPW服务分为四级(<font>高级别服务自动包含所有低级别的服务</font>)</span></h4>
+          <p><span>股市之脉(MarketPulse)<font>($99/每月*)</font></span>:股市之脉是FPW的最基本级,它 本质上就是一个多功能实时股票扫描工具(Real Time Intraday Stock Scanner)。在今天的市场里，成功的交易员需要有绝招。股市之脉的各种独有的分析工具让交易员能即时捕捉市场的走向。用户可以方便地按各种约定或参数对感兴趣的股票进行扫描。例如对不同板块、不同PE比或任意时间间隔下的数字模式、模拟模式或各种不同的统计结果进行扫描。这个级别上的所有工具都是只针对股票市场的。</p>
+          <p><span>股市之脉专业版(MarketPulse Pro)<font>($599/每月)</font></span>:股市之脉专业版是一个模拟工具，其目的是找到适当的模式让股市之脉去扫描。尽管股市之脉易用且功能强大，但它假定用户知道自己是要找什么模式。股市之脉专业版依据历史统计结果能帮助交易员识别他的什么模式是正确的。这个级别上的所有模拟分析工具也都是只针对股票市场的。</p>
+          <p><span>模式站(PatternWorkshop)<font>($1499/每月)</font></span>:模式站是一个综合软件包，操作人员通过输入几行简单的程序及或点击几下鼠标则可对股票及期货等金融市场的各种复杂交易系统进行模拟。操作人员针对股票及期货市场几乎可以模拟想象中的任何由各种规则组成的模式和由各种入场、离场方式(如逐步渐入渐出)，各种止损及各种交易目标组成的资金管理方式的交易系统；操作人员可以一次针对一个或一组市场用相同或不同的资金管理方式进行模拟。</p>
+          <p><span>模式站专业版(PatternWorkshop Pro)<font>($1999/每月)</font></span>:模式站专业版提供更多的互动式分析工具帮助操作人员改进提高其交易系统的模拟结果。例如：它可自动帮助开发人员找到预设前提条件以提高其交易系统的质量；它可以分析目前研究中的模型与你已开发好的模型之间的关系及其将如何影响你的整体交易系统；它还可自动帮助开发人员找到其所研究模式所应对应的适当资金管理方式，象如何进场离场、如何设定止损及目标等。总之，它是一个专为开发高质量的交易系统而配备的关键工具箱，它帮助操作人员分析信号触发前如何躲避风险及信号触发后又如何面。</p>
+        </paper-styles>
+      </div>
+    </template>
+    <script>
+      Polymer({
+        is: 'financial-chinese',
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChanged'
+        },
+        _pageChanged: function(page, oldPage) {
+          var path = page;
+        },
+      });
+    </script>
+</dom-module>

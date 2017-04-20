@@ -1,0 +1,169 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<title>Detailed Charts</title>
+<base href="http://www.WSQSI.com"/>
+<script language="JavaScript">
+function onclickFT(num,str1,str2) {
+	document.chartForm.FirstorS.value='1';
+	if (str1=='F') {
+	  {
+	  if (str2=='L')
+	    //findex=math.max(1,findex-num);
+	    if(1 > findex-num)
+		findex = 1;
+	    else
+		findex = findex-num;
+	  else 
+	    if(mxi > findex+num)
+		findex = findex+num;
+	    else
+		findex = mxi;
+	    //findex=math.min(mxi,findex+num);
+	  }
+	  var sub1=document.chartForm.hdchartdatem.value.substr(6*(findex-1),6); 
+	  document.chartForm.fpwFdate.value=sub1.substr(0,2)+'/'+sub1.substr(2,2)+'/'+sub1.substr(4,2);	
+	}
+	else {
+	  {
+	  if (str2=='L')
+	    //tindex=math.max(1,tindex-num);
+	    if(1 > tindex-num)
+		tindex= 1;
+	    else
+		tindex= tindex-num;	
+	  else 
+	    //tindex=math.min(mxi,tindex+num);
+	    if(mxi > tindex+num)
+		tindex= tindex+num;
+	    else
+		tindex= mxi;	 
+	  } 
+	  var sub1=document.chartForm.hdchartdatem.value.substr(6*(tindex-1),6);
+	  document.chartForm.fpwTdate.value=sub1.substr(0,2)+'/'+sub1.substr(2,2)+'/'+sub1.substr(4,2);	
+	  }
+}
+function savehddata() {
+	document.chartForm.hdfpwfstype.value=document.chartForm.fpwfstype.value;
+	document.chartForm.hdchartdatem.value='KaKaKa';	
+	} 
+</script>
+<noscript>
+This web page uses JavaScript. To see the full page, make sure that JavaScript is enabled.</noscript>
+</head>
+
+<body onload="chartForm.fpwsymbol.value='$FSfpwsymbol$'; 
+	chartForm.fpwfstype.value='$FSfpwfstype$';
+ 	chartForm.fpwchartspan.value='$FSfpwchartspan$'; 
+ 	chartForm.fpwchartbase.value='$FSfpwchartbase$'; 
+ 	chartForm.fpwFdate.value='$FSfpwFdate$'; 
+ 	chartForm.fpwTdate.value='$FSfpwTdate$';" topmargin="5" leftmargin="10">
+<center> 	
+<form name="chartForm" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+	<input type="hidden" name="mlmfile" value="wbstchart">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="mlmfvar" value="leavemealone">
+	<input type="hidden" name="fpwcurrentm" value="$fpwcurrentm$">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">
+	<input type="hidden" name="FirstorS" value="$FSFirstorS$">
+	<input type="hidden" name="hdfpwfstype" value="KaKaKa">	
+	<input type="hidden" name="hdfpwfindex" value="$FSfpwfindex$">	
+	<input type="hidden" name="hdfpwtindex" value="$FSfpwtindex$">			
+	<input type="hidden" name="hdfpwmxi" value="$fpwMXI$">
+	<input type="hidden" name="WhereCTP" value="$WhereCTP$">
+	<input type="hidden" name="WhereCTPT" value="0">
+	<input type="hidden" name="hdchartdatem" value="$FSchartdatem$">	
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	<script language="JavaScript">
+		var findex=parseInt(document.chartForm.hdfpwfindex.value);
+		var tindex=parseInt(document.chartForm.hdfpwtindex.value);
+		var mxi=parseInt(document.chartForm.hdfpwmxi.value);
+		var userl=parseInt(document.chartForm.fpwulvl.value);
+    </script>
+
+<p align="center"><font size="5" color="#0000FF">F</font><input style="width: 18px" type="button" value="<-" name="Fleft50" onclick="javascript: onclickFT(50,'F','L');" ondblclick="javascript: onclickFT(1000,'F','L');" onmouseout="window.status='Done'" title="F date move backward 50 trading days, double click for 1050 days." onmouseover="window.status='F date move backward 50 trading days, double click for 1050 days.';"><input style="width: 18px" type="button" value="<" name="Fleft1" onclick="javascript: onclickFT(1,'F','L');" ondblclick="javascript: onclickFT(20,'F','L');" onmouseout="window.status='Done'" title="F date move backward 1 trading day, double click for 21 days." onmouseover="window.status='F date move backward 1 trading day, double click for 21 days.';"><input type="text" name="fpwFdate" value="11/5/86" size="7" onfocus="javascript: chartForm.FirstorS.value='1';" onmouseout="window.status='Done'" title="To show the beginning date (called as F date) for all kinds of chart. Can enter a date manually." onmouseover="window.status='To show the beginning date (called as F date) for all kinds of chart. Can enter a date manually.';"><input style="width: 18px" type="button" value=">" name="Fright1" onclick="javascript: onclickFT(1,'F','R');" ondblclick="javascript: onclickFT(20,'F','R');" onmouseout="window.status='Done'" title="F date move forward 1 trading day, double click for 21 days." onmouseover="window.status='F date move forward 1 trading day, double click for 21 days.';"><input style="width: 18px" type="button" value="->" name="Fright50" onclick="javascript: onclickFT(50,'F','R');" ondblclick="javascript: onclickFT(1000,'F','R');" onmouseout="window.status='Done'" title="F date move forward 50 trading days, double click for 1050 days." onmouseover="window.status='F date move forward 50 trading days, double click for 1050 days.';">&nbsp;<font size="5" color="#0000FF">T</font><input style="width: 18px" type="button" value="<-" name="Tleft50" onclick="javascript: onclickFT(50,'T','L');" ondblclick="javascript: onclickFT(1000,'T','L');" onmouseout="window.status='Done'" title="T date move backward 50 trading days, double click for 1050 days." onmouseover="window.status='T date move backward 50 trading days, double click for 1050 days.';"><input style="width: 18px" type="button" value="<" name="Tleft1" onclick="javascript: onclickFT(1,'T','L');" ondblclick="javascript: onclickFT(20,'T','L');" onmouseout="window.status='Done'" title="T date move backward 1 trading day, double click for 21 days." onmouseover="window.status='T date move backward 1 trading day, double click for 21 days.';"><input type="text" name="fpwTdate" value="7/25/01" size="7" onfocus="javascript: chartForm.FirstorS.value='1';" onmouseout="window.status='Done'" title="To show the ending date (the T date) of the showing chart, designed not working for intraday chart. Can enter a date manually." onmouseover="window.status='To show the ending date (the T date) of the showing chart, designed not working for intraday chart. Can enter a date manually.';"><input style="width: 18px" type="button" value=">" name="Tright1" onclick="javascript: onclickFT(1,'T','R');" ondblclick="javascript: onclickFT(20,'T','R');" onmouseout="window.status='Done'" title="T date move forward 1 trading day, double click for 21 days." onmouseover="window.status='T date move forward 1 trading day, double click for 21 days.';"><input style="width: 18px" type="button" value="->" name="Tright50" onclick="javascript: onclickFT(50,'T','R');" ondblclick="javascript: onclickFT(1000,'T','R');" onmouseout="window.status='Done'" title="T date move forward 50 trading days, double click for 1050 days." onmouseover="window.status='T date move forward 50 trading days, double click for 1050 days.';">&nbsp; <input style="width: 30px;" type="button" value="<-S" name="Sileft" onclick="javascript: savehddata(); chartForm.WhereCTPT.value='-1'; chartForm.mlmfile.value='wbstchart'; chartForm.submit(); window.open('','_self'); window.close();" onmouseout="window.status='Done'" title="To Show latest Simulation's tick data: one signal earlier when click, current signal date shown in F-date, next one in T-date." onmouseover="window.status='To Show latest Simulation\'s tick data: one signal earlier when click, current signal date shown in F-date, next one in T-date.';"><input style="width: 30px;" type="button" value="S->" name="Siright" onclick="javascript: savehddata(); chartForm.WhereCTPT.value='1'; chartForm.mlmfile.value='wbstchart'; chartForm.submit(); window.open('','_self'); window.close();" onmouseout="window.status='Done'" title="To Show latest Simulation's tick data: one signal forward when click, current signal date shown in F-date, next one in T-date." onmouseover="window.status='To Show latest Simulation\'s tick data: one signal forward when click, current signal date shown in F-date, next one in T-date.';"> <input style="width: 30px" type="button" value="<Z>" name="Czone" onmouseout="window.status='Done'" title="For intraday chart only: to show the 6 trading zones of F date overlapping the main chart." onmouseover="window.status='For intraday chart only: to show the 6 trading zones of F date overlapping the main chart.';"><input style="width: 30px" type="button" value="<->" name="YTT" onmouseout="window.status='Done'" title="To show (yesterday, today and tomorrow) daily bars on the far right side for intraday chart, relative to F date." onmouseover="window.status='To show (yesterday, today and tomorrow) daily bars on the far right side for intraday chart, relative to F date.';">&nbsp;
+
+	<select size="1" name="fpwchartbase" onfocus="javascript: chartForm.FirstorS.value='1';" onmouseout="window.status='Done'" title="To choose your favorite technic index to show in the lower axis." onmouseover="window.status='To choose your favorite technic index to show in the lower axis.';">
+		<option selected value="V">Volume</option>
+		<option value="N">Net</option>     
+		<option value="S">SNR</option>
+		<option value="R">RSI</option> 
+		<option value="L">Volatility</option>
+		<option value="I">Dire Index</option>		
+		<option value="C">%C</option> 
+		<option value="D">%D</option>
+		<option value="K">V Shock</option>
+		<option value="H">HVR</option>	
+		<option value="E">Range Exp.</option>		
+		<option value="T">Stochastic</option>					
+		<option value="Q">Sequential</option>	
+    </select><select size="1" name="fpwchartspan" onfocus="javascript: chartForm.FirstorS.value='1';" onmouseout="window.status='Done'" title="To choose chart time span. When data length <135, output bar chart, otherwise plain line." onmouseover="window.status='To choose chart time span. When data length <135, output bar chart, otherwise plain line.';">
+		<option value="DM">Monthly</option>
+		<option value="DW">Weekly</option>    
+		<option selected value="DD">Daily</option>
+		<option value="T05">5 Min (1 Day)</option> 
+		<option value="T03">5 Min (3 Day)</option> 
+		<option value="T25">5 Min (5 Days)</option>		
+		<option value="T15">15 Min</option>
+		<option value="T30">30 Min</option> 
+		<option value="T60">Hourly</option>					
+    </select><input style="width: 18px" type="button" value="F" name="fpwfstype" onclick="javascript: chartForm.FirstorS.value='0'; {if (userl<3) this.value='S'; else {if (this.value=='F') this.value='S'; else this.value='F';}}" title="F: futures, S: Stocks. Futures data are available for PatternWorkshop or higher level users." onmouseout="window.status='Done'" onmouseover="window.status='F: future, S: Stock.';"><input type="text" name="fpwsymbol" value="UrSym" size="5" onfocus="javascript: if (this.value=='UrSym') this.value='';" onchange="javascript: chartForm.FirstorS.value='0';" onmouseout="window.status='Done'" title="Entered an FPW stock(1-6 letters) or future(1-2 letters) symbol here, which one wants to show." onmouseover="window.status='Entered an FPW stock(1-6 letters) or future(1-2 letters) symbol here, which one wants to show.';" onKeyDown="if(event.keyCode==13) {event.keyCode=9; savehddata(); chartForm.mlmfile.value='wbstchartold'; chartForm.submit(); window.open('','_self'); window.close();}"><input style="width: 30px" type="button" value="GO" name="Torun" onclick="javascript: savehddata(); chartForm.mlmfile.value='wbstchartold'; chartForm.submit(); window.open('','_self'); window.close();" onmouseout="window.status='Done'" title="To show the chart accoding to your choices. To initialize a new chart requesting." onmouseover="window.status='To show the chart accoding to your choices. To initialize a new chart requesting.';">&nbsp;
+    <b><font color="#0000FF" size="2"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></b><br>
+        <font color="#0000FF">
+
+    <iframe name="I1" width="916" height="580" src="$sq195Page$"></iframe>
+      </font></p>
+</form>
+</font>
+
+<form name="zone2Form" action="/cgi-bin/matweb.exe" method="POST" target="_blank'">
+	<input type="hidden" name="mlmfile" value="wbstfpz691">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	<input type="hidden" name="mlmfvar" value="leavemealone">
+	<input type="hidden" name="fpwcurrentm" value="$fpwcurrentm$">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">
+    <script language="JavaScript">
+	   	var str=document.zone2Form.fpwcurrentm.value;
+	   	function onclickstock10(str2) {
+	   		zone2Form.mlmfvar.value=zone2Form.fpwcurrentm.value;
+	   		zone2Form.mlmfile.value=str2;
+	   		zone2Form.submit(); }
+		function onclickstockpn(str3) {
+	   		if (str.charAt(0)=='S') {
+	   			zone2Form.mlmfvar.value=str3+str.substr(1,str.length-1); 
+	   			zone2Form.mlmfile.value='wbsttoyahoo'; 
+	   			zone2Form.submit();}}   
+    </script>
+    <p align="center">
+      <a href="javascript: onclickstock10('wbstanalog');">Analog</a> 
+    | <a href="javascript: onclickstock10('wbstrdata');">Data</a> 
+    | <a href="JavaScript: onclickstock10('wbfpwmpstat');">MP Stat</a>
+    | <a href="javascript: if (str.charAt(0)=='S') onclickstock10('wbstockqd');"> P-Chart</a> 
+    | <a href="javascript: if (str.charAt(0)=='S') onclickstock10('wbstockqdv');"> PV-Chart</a> 
+    | <a href="javascript: onclickstock10('wbstsnr');"> SNR</a> 
+    | <a href="javascript: onclickstock10('wbstfpz691');"> Zone</a> 
+    | <a href="javascript: onclickstock10('wbstswing');"> Swing</a>
+    | <a href="javascript: onclickstock10('wbstsea');"> Seasonal</a>
+    | <a href="javascript: onclickstock10('wbstleadi');"> LI</a>
+    | <a href="http://finance.yahoo.com/q/pr?s=$FSfpwsymbol$" target="_blank'"> Profile</a> 
+    | <a href="http://finance.yahoo.com/q/h?s=$FSfpwsymbol$" target="_blank'"> News</a><br>
+      <font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+      WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp;&nbsp; Username: 
+      $fpwusername$</font></p>
+</form>
+</center>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>

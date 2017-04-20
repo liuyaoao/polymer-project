@@ -1,0 +1,128 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<title>Multi-Markets Chart</title>
+<script language="JavaScript">
+function onclickFT(num,str1,str2) {
+	document.mmctForm.FirstorS.value='1';
+	if (str1=='F') {
+	  {
+	  if (str2=='L')
+	    //findex=math.max(1,findex-num);
+	    if(1 > findex-num)
+		findex = 1;
+	    else
+		findex = findex-num;
+	  else 
+	    if(mxi > findex+num)
+		findex = findex+num;
+	    else
+		findex = mxi;
+	    //findex=math.min(mxi,findex+num);
+	  }
+	  var sub1=document.mmctForm.hdmmctdatem.value.substr(6*(findex-1),6); 
+	  document.mmctForm.fpwFdate.value=sub1.substr(0,2)+'/'+sub1.substr(2,2)+'/'+sub1.substr(4,2);	
+	}
+	else {
+	  {
+	  if (str2=='L')
+	    //tindex=math.max(1,tindex-num);
+	    if(1 > tindex-num)
+		tindex= 1;
+	    else
+		tindex= tindex-num;	
+	  else 
+	    //tindex=math.min(mxi,tindex+num);
+	    if(mxi > tindex+num)
+		tindex= tindex+num;
+	    else
+		tindex= mxi;	 
+	  } 
+	  var sub1=document.mmctForm.hdmmctdatem.value.substr(6*(tindex-1),6);
+	  document.mmctForm.fpwTdate.value=sub1.substr(0,2)+'/'+sub1.substr(2,2)+'/'+sub1.substr(4,2);	
+	  }
+}
+function savehddata() {
+	document.mmctForm.hdfpwfstype1.value=document.mmctForm.fpwfstype1.value;
+	document.mmctForm.hdfpwfstype2.value=document.mmctForm.fpwfstype2.value;
+	document.mmctForm.hdfpwfstype3.value=document.mmctForm.fpwfstype3.value;
+	document.mmctForm.hdfpwfstype4.value=document.mmctForm.fpwfstype4.value;			
+	document.mmctForm.hdmmctdatem.value='KaKaKa';	
+	} 
+</script>
+<noscript>
+This web page uses JavaScript. To see the full page, make sure that JavaScript is enabled.</noscript>
+</head>
+
+<body onload="mmctForm.fpwsymbol1.value='$FSfpwsymbol1$';
+ mmctForm.fpwsymbol2.value='$FSfpwsymbol2$'; mmctForm.fpwsymbol3.value='$FSfpwsymbol3$';
+ mmctForm.fpwsymbol4.value='$FSfpwsymbol4$';
+ mmctForm.fpwfstype1.value='$FSfpwfstype1$'; mmctForm.fpwfstype2.value='$FSfpwfstype2$';
+ mmctForm.fpwfstype3.value='$FSfpwfstype3$'; mmctForm.fpwfstype4.value='$FSfpwfstype4$';
+ mmctForm.fpwmmctspan.value='$FSfpwmmctspan$'; mmctForm.fpwFdate.value='$FSfpwFdate$';
+ mmctForm.fpwTdate.value='$FSfpwTdate$';" topmargin="10" leftmargin="10" bgcolor="#FFFFFF">
+<form name="mmctForm" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+	<input type="hidden" name="mlmfile" value="wbstmmct">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">
+	<input type="hidden" name="FirstorS" value="$FSFirstorS$">
+	<input type="hidden" name="hdfpwfstype1" value="KaKaKa">	
+	<input type="hidden" name="hdfpwfstype2" value="KaKaKa">	
+	<input type="hidden" name="hdfpwfstype3" value="KaKaKa">	
+	<input type="hidden" name="hdfpwfstype4" value="KaKaKa">			
+	<input type="hidden" name="hdfpwfindex" value="$FSfpwfindex$">	
+	<input type="hidden" name="hdfpwtindex" value="$FSfpwtindex$">			
+	<input type="hidden" name="hdfpwmxi" value="$fpwMXI$">
+	<input type="hidden" name="hdmmctdatem" value="$FSmmctdatem$">	
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	<script language="JavaScript">
+		var findex=parseInt(document.mmctForm.hdfpwfindex.value);
+		var tindex=parseInt(document.mmctForm.hdfpwtindex.value);
+		var mxi=parseInt(document.mmctForm.hdfpwmxi.value);
+		var userl=parseInt(document.mmctForm.fpwulvl.value);
+    </script>
+
+<p align="center"><font size="5" color="#0000FF">F</font><input style="width: 18px" type="button" value="<-" name="Fleft50" onclick="javascript: onclickFT(50,'F','L');" ondblclick="javascript: onclickFT(1000,'F','L');" onmouseout="window.status='Done'" title="F date move backward 50 trading days. double click for 1050." onmouseover="window.status='F date move backward 50 trading days. double click for 1050.';"><input style="width: 18px" type="button" value="<" name="Fleft1" onclick="javascript: onclickFT(1,'F','L');" ondblclick="javascript: onclickFT(20,'F','L');" onmouseout="window.status='Done'" title="F date move backward 1 trading day. Double click for 21 days." onmouseover="window.status='F date move backward 1 trading day. Double click for 21 days.';"><input type="text" name="fpwFdate" value="11/5/86" size="7" onfocus="javascript: mmctForm.FirstorS.value='1';" onmouseout="window.status='Done'" title="To show the beginning date (called as F date) for all kinds of chart." onmouseover="window.status='To show the beginning date (called as F date) for all kinds of chart.';"><input style="width: 18px" type="button" value=">" name="Fright1" onclick="javascript: onclickFT(1,'F','R');" ondblclick="javascript: onclickFT(20,'F','R');" onmouseout="window.status='Done'" title="'F date move forward 1 trading day. Double click for 21 days." onmouseover="window.status='F date move forward 1 trading day. Double click for 21 days.';"><input style="width: 18px" type="button" value="->" name="Fright50" onclick="javascript: onclickFT(50,'F','R');" ondblclick="javascript: onclickFT(1000,'F','R');" onmouseout="window.status='Done'" title="F date move forward 50 trading days. Double click for 1050 days." onmouseover="window.status='F date move forward 50 trading days. Double click for 1050 days.';">
+<font size="5" color="#0000FF">T</font><input style="width: 18px" type="button" value="<-" name="Tleft50" onclick="javascript: onclickFT(50,'T','L');" ondblclick="javascript: onclickFT(1000,'T','L');" onmouseout="window.status='Done'" title="F date move backward 50 trading days. double click for 1050." onmouseover="window.status='T date move backward 50 trading days. Double click for 1050 days.';"><input style="width: 18px" type="button" value="<" name="Tleft1" onclick="javascript: onclickFT(1,'T','L');" ondblclick="javascript: onclickFT(20,'T','L');" onmouseout="window.status='Done'" title="T date move backward 1 trading day. Double click for 21 days." onmouseover="window.status='T date move backward 1 trading day. Double click for 21 days.';"><input type="text" name="fpwTdate" value="7/25/01" size="7" onfocus="javascript: mmctForm.FirstorS.value='1';" onmouseout="window.status='Done'" title="To show the ending date (called as T date) of the showing chart, designed not working for intraday chart." onmouseover="window.status='To show the ending date (called as T date) of the showing chart, designed not working for intraday chart.';"><input style="width: 18px" type="button" value=">" name="Tright1" onclick="javascript: onclickFT(1,'T','R');" ondblclick="javascript: onclickFT(20,'T','R');" onmouseout="window.status='Done'" title="'T date move forward 1 trading day. Double click for 21 days." onmouseover="window.status='T date move forward 1 trading day. Double click for 21 days.';"><input style="width: 18px" type="button" value="->" name="Tright50" onclick="javascript: onclickFT(50,'T','R');" ondblclick="javascript: onclickFT(1000,'T','R');" onmouseout="window.status='Done'" title="T date move forward 50 trading days. Double click for 1050 days." onmouseover="window.status='T date move forward 50 trading days. Double click for 1050 days.';">&nbsp; <select size="1" name="fpwmmctspan" onfocus="javascript: mmctForm.FirstorS.value='1';" onmouseout="window.status='Done'" onmouseover="window.status='To choose chart time span. When data length <135, output bar chart, otherwise plain line.';">
+		<option value="DM">Monthly</option>
+		<option value="DW">Weekly</option>    
+		<option selected value="DD">Daily</option>
+		<option value="T05">5 Min</option> 
+		<option value="T15">15 Min</option>
+		<option value="T30">30 Min</option> 
+		<option value="T60">Hourly</option>					
+    </select>
+<input style="width: 18px; color:#000000; font-weight:bold" type="button" value="S" name="fpwfstype1" onclick="javascript: mmctForm.FirstorS.value='0'; {if (userl<3) this.value='S'; else {if (this.value=='F') this.value='S'; else this.value='F';}}" onmouseout="window.status='Done'" onmouseover="window.status='F: future, S: Stock. One can enter stocks and futures into this chart at the same time.';" title="F: future, S: Stock. Futures data are available for PatternWorkshop or higher level users."><input type="text" name="fpwsymbol1" value="UrSym" size="4" onfocus="javascript: if (this.value=='UrSym') this.value='';" onchange="javascript: mmctForm.FirstorS.value='0';" onmouseout="window.status='Done'" title="Entered an FPW stock(1-6 letters) or future(1-2 letters) symbol here, which one wants to show." onmouseover="window.status='Entered an FPW stock(1-6 letters) or future(1-2 letters) symbol here, which one wants to show.';" style="color: #000000; font-size: 10pt; border: 3px solid #0000FF">
+<input style="width: 18px" type="button" value="S" name="fpwfstype2" onclick="javascript: mmctForm.FirstorS.value='0'; {if (userl<3) this.value='S'; else {if (this.value=='F') this.value='S'; else this.value='F';}}" title="F: future, S: Stock. Futures data are available for PatternWorkshop or higher level users." onmouseout="window.status='Done'" onmouseover="window.status='F: future, S: Stock. One can enter stocks and futures into this chart at the same time.';"><input type="text" name="fpwsymbol2" value="UrSym" size="4" onfocus="javascript: if (this.value=='UrSym') this.value='';" onmouseout="window.status='Done'" title="Entered an FPW stock(1-6 letters) or future(1-2 letters) symbol here, which one wants to show." onmouseover="window.status='Entered an FPW stock(1-6 letters) or future(1-2 letters) symbol here, which one wants to show.';">
+<input style="width: 18px" type="button" value="S" name="fpwfstype3" onclick="javascript: mmctForm.FirstorS.value='0'; {if (userl<3) this.value='S'; else {if (this.value=='F') this.value='S'; else this.value='F';}}" title="F: future, S: Stock. Futures data are available for PatternWorkshop or higher level users." onmouseout="window.status='Done'" onmouseover="window.status='F: future, S: Stock. One can enter stocks and futures into this chart at the same time.';"><input type="text" name="fpwsymbol3" value="UrSym" size="4" onfocus="javascript: if (this.value=='UrSym') this.value='';" onmouseout="window.status='Done'" title="Entered an FPW stock(1-6 letters) or future(1-2 letters) symbol here, which one wants to show." onmouseover="window.status='Entered an FPW stock(1-6 letters) or future(1-2 letters) symbol here, which one wants to show.';">
+<input style="width: 18px" type="button" value="S" name="fpwfstype4" onclick="javascript: mmctForm.FirstorS.value='0'; {if (userl<3) this.value='S'; else {if (this.value=='F') this.value='S'; else this.value='F';}}" title="F: future, S: Stock. Futures data are available for PatternWorkshop or higher level users." onmouseout="window.status='Done'" onmouseover="window.status='F: future, S: Stock. One can enter stocks and futures into this chart at the same time.';"><input type="text" name="fpwsymbol4" value="UrSym" size="4" onfocus="javascript: if (this.value=='UrSym') this.value='';" onmouseout="window.status='Done'" title="Entered an FPW stock(1-6 letters) or future(1-2 letters) symbol here, which one wants to show." onmouseover="window.status='Entered an FPW stock(1-6 letters) or future(1-2 letters) symbol here, which one wants to show.';"><input style="width: 30px" type="button" value="GO" name="Torun" onclick="javascript: savehddata(); mmctForm.submit(); window.open('','_self'); window.close();" onmouseout="window.status='Done'" title="To show the chart accoding to your choices.  The only place to initialize a new chart requesting." onmouseover="window.status='To show the chart accoding to your choices.  The only place to initialize a new chart requesting.';"><br>
+<br>
+<img border="0" src="$MMChartjpeg$" alt="Aligned each market to the top one">
+</form>
+<div align="center">
+  <center>
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="695" height="19">
+    <tr>
+      <td width="695" height="19">
+      <p align="right">
+    <font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+    WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </font>
+    <b><font color="#0000FF" size="2"> $FDTimeh$</font></b></td>
+    </tr>
+  </table>
+  </center>
+</div>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>

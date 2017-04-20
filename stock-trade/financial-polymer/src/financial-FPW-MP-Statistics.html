@@ -1,0 +1,132 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+<dom-module id="financial-FPW-MP-Statistics">
+
+  <template>
+
+      <style include="app-grid-style">
+      :host {
+        display: block;
+        color:#000;
+        width:80%;
+        padding:0;
+        margin:30px auto;
+        --app-grid-columns:3;
+        --app-grid-expandible-item-columns: 2;
+      }
+      </style>
+      <div class="FPWMPStatistics">
+          <div class="generalMost">
+              <div class="generalMarkets">
+                  <h2>General Markets</h2>
+                  <template is="dom-repeat" items="{{tables}}">
+                      <div>
+                        <h4>{{item.title}}}<font>{{item.val1}}{{item.val2}}</font></h4>
+                        <table>
+                            <tr><td>Ups:</td><td>{{item.v1}}</td></tr>
+                            <tr><td>Unch.:</td><td>{{item.v2}}</td></tr>
+                            <tr><td>Downs:</td><td>{{item.v3}}</td></tr>
+                            <tr><td>Up Vol.:</td><td>{{item.v4}}</td></tr>
+                            <tr><td>Unch. Vol.:</td><td>{{item.v5}}</td></tr>
+                        </table>
+                      </div>
+                  </template>
+                  <div>
+                    <h2>Index (Today)</h2>
+                    <a href="javascript:void(0);" on-click="">DJIA</a><span>:{{downum}}</span>
+                  </div>
+                  <div>
+                    <a href="javascript:void(0);" on-click="">SPX</a><span>:{{spxnum}}</span><br/>
+                    <a href="javascript:void(0);" on-click="">NDX</a><span>:{{ndxnum}}</span><br/>
+                    <a href="javascript:void(0);" on-click="">NADQ</a><span>:{{nasnum}}</span><br/>
+                  </div>
+                  <div>
+                    <a href="" ><span>Holidays</span></a>
+                    <a href="" ><span>Econ Data</span></a><br/>
+                    <a href="http://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" ><span>FOMC</span></a>
+                    <a href="http://www.wunderground.com/cgi-bin/findweather/getForecast?query=10001&wuSelect=WEATHER" ><span>Weather</span></a><br/>
+                    <span>{{wbmpstattime}}</span>
+                  </div>
+              </div>
+              <div class="mostActive">
+                  <h2>Most Active</h2>
+                  <template is="dom-repeat" items="{{}}">
+                    <div></div>
+                  </template>
+              </div>
+          </div>
+          <div class="bestWorst">
+
+
+          </div>
+      </div>
+ </template>
+ <script>
+ Polymer({
+   is: 'financial-FPW-MP-Statistics',
+   properties: {
+       ST8:String,
+       ST9:String,
+       AUnum:String,
+       Anum:String,
+       ADnum:String,
+       AUVnum:String,
+       A0Vnum:String,
+
+       NUnum:String,
+       Nnum:String,
+       NDnum:String,
+       NUVnum:String,
+       N0Vnum:String,
+
+       OUnum:String,
+       Onum:String,
+       ODnum:String,
+       OUVnum:String,
+       O0Vnum:String,
+
+       tables:Array,
+       mostActive:Array,
+
+       spxnum:String,
+       downum:String,
+       ndxnum:String,
+       nasnum:String,
+
+       wbmpstattime:String,
+     },
+     ready:function(){
+       this.tables=[
+         {"title":"AMEX","val1":this.ST8,"val2":this.ST9,"v1":this.AUnum,"v2":this.Anum,"v3":this.ADnum,"v4":this.AUVnum,"v5":this.A0Vnum},
+         {"title":"NYSE","val1":this.ST8,"val2":this.ST9,"v1":this.NUnum,"v2":this.Nnum,"v3":this.NDnum,"v4":this.NUVnum,"v5":this.N0Vnum},
+         {"title":"Nasdaq","val1":this.ST8,"val2":this.ST9,"v1":this.OUnum,"v2":this.Onum,"v3":this.ODnum,"v4":this.OUVnum,"v5":this.O0Vnum}];
+       this.mostActive=[
+         {"title":"Most Active",},
+       ];
+     },
+   });
+ </script>
+ </dom-module>

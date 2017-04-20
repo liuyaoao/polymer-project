@@ -1,0 +1,127 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<title>Simulation Setup Graph</title>
+<base href="http://www.WSQSI.com"/>
+<script language="JavaScript">
+function onclickFT(num,str1,str2) {
+	if (str1=='F') {{
+	  if (str2=='L')
+	    if(1 > findex-num)
+		findex = 1;
+	    else
+		findex = findex-num;
+	  else 
+	    if(mxi > findex+num)
+		findex = findex+num;
+	    else
+		findex = mxi; }
+	  eval("document.setForm.zhu33gg.value="+findex+";")}}  	  	
+</script>
+<noscript>
+This web page uses JavaScript. To see the full page, make sure that JavaScript is enabled.</noscript>
+</head>
+
+<body onload="setForm.zhu51gg.value='$zhu51gg$';" topmargin="20" leftmargin="10">
+
+<form name="setForm" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+	<input type="hidden" name="mlmfile" value="wbfpwsetup">
+	<input type="hidden" name="WhereOrderFrom" value="SETG">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="mlmfvar" value="leavemealone">
+	<!--<input type="hidden" name="hdoutfindex" value="5">				
+	<input type="hidden" name="hdoutmxi" value="250">		-->
+	<input type="hidden" name="hdoutmxi" value="$outMXI$">	
+	<input type="hidden" name="hdoutfindex" value="$zhu33gg$">
+	<input type="hidden" name="fpwsource" value="$fpwsource$">
+	<input type="hidden" name="fpwmname1" value="$fpwmname1$">
+	<input type="hidden" name="fpwmname2" value="$fpwmname2$">
+	<input type="hidden" name="fpwmname3" value="$fpwmname3$">
+	<input type="hidden" name="fpwmname4" value="$fpwmname4$">
+	<input type="hidden" name="fpwname1" value="$fpwname1$">
+	<input type="hidden" name="fpwname2" value="$fpwname2$">
+	<input type="hidden" name="fpwname3" value="$fpwname3$">
+	<input type="hidden" name="fpwname4" value="$fpwname4$">
+	<input type="hidden" name="setgoutd" value="Ka">
+	<input type="hidden" name="setgdate" value="Ka">
+
+	<script language="JavaScript">
+		var findex=parseInt(document.setForm.hdoutfindex.value);
+		var mxi=parseInt(document.setForm.hdoutmxi.value);
+    </script>	
+
+<div align="center">
+  <center>
+  <table border="0" width="674" height="497">
+    <tr>
+      <td width="8" height="23">&nbsp;</td>
+      <td width="164" height="23"><font size="4" color="#0000FF">
+      &nbsp;&nbsp;Start:</font> 
+          <input style="width: 72px" type="button" value="$zhu32gg1$" name="zhu32gg1" onclick="javascript: setForm.setgdate.value=setForm.zhu32gg1.value; setForm.setgoutd.value='1'; setForm.mlmfile.value='wbstchart'; setForm.submit();" title="Clicking this button will bring you to its tick data chart directly for the showing day." onmouseover="window.status='Clicking this button will bring you to its tick data chart directly for the showing day.'" onmouseout="window.status='Done'"></td>
+      <td width="266" height="23" align="center"><b>
+      <font color="#0000FF" size="4"><a href="/wbFPW Manual - PWP.html#SC" target="_blank" title="To open User's Manual to get online help.">Setup Details</a></font></b></td>
+      <td width="189" height="23" align="right">
+      <font size="4" color="#0000FF">Start:</font> 
+          <input style="width: 72px" type="button" value="$zhu32gg2$" name="zhu32gg2" onclick="javascript: setForm.setgdate.value=setForm.zhu32gg2.value; setForm.setgoutd.value='2'; setForm.mlmfile.value='wbstchart'; setForm.submit();" title="Clicking this button will bring you to its tick data chart directly for the showing day." onmouseover="window.status='Clicking this button will bring you to its tick data chart directly for the showing day.'" onmouseout="window.status='Done'"></td>
+      <td width="9" height="23">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="674" height="423" colspan="5" align="center">
+      <table border="1" cellpadding="0" cellspacing="1" width="100%" height="474">
+        <tr>
+          <td width="100%" height="471" align="center">
+      <img border="0" src="$setupjpeg$"></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="674" height="27" colspan="5" align="center">
+      <table border="0" cellpadding="0" cellspacing="1" width="100%">
+        <tr>
+          <td width="24%"><font size="4" color="#0000FF">
+      &nbsp;&nbsp;&nbsp; Start:</font> 
+          <input style="width: 72px" type="button" value="$zhu32gg3$" name="zhu32gg3" onclick="javascript: setForm.setgdate.value=setForm.zhu32gg3.value; setForm.setgoutd.value='3'; setForm.mlmfile.value='wbstchart'; setForm.submit();" title="Clicking this button will bring you to its tick data chart directly for the showing day." onmouseover="window.status='Clicking this button will bring you to its tick data chart directly for the showing day.'" onmouseout="window.status='Done'"></td>
+          <td width="50%" align="center">
+          <b><font color="#0000FF">Setup Scope:</font></b><select size="1" name="zhu51gg" onfocus="javascript: ;" onmouseout="window.status='Done'" title="To choose how many bars to show on each side of the signal." onmouseover="window.status='To choose how many bars to show on each side of the signal.';"> 
+		<option selected value="5">5</option>
+		<option value="8">8</option> 
+		<option value="10">10</option>
+		<option value="15">15</option> 
+		<option value="25">25</option>					
+    </select>&nbsp; <input style="width: 18px" type="button" value="<-" name="Fleft50" onclick="javascript: onclickFT(40,'F','L');" ondblclick="javascript: onclickFT(200,'F','L');" onmouseout="window.status='Done'" title="Single click moves backward 40 trades, double click for 240 trades." onmouseover="window.status='Single click moves backward 40 trades, double click for 240 trades.';"><input style="width: 18px" type="button" value="<" name="Fleft1" onclick="javascript: onclickFT(4,'F','L');" ondblclick="javascript: onclickFT(20,'F','L');" onmouseout="window.status='Done'" title="Single click moves backward 4 trades, double click for 24 trades." onmouseover="window.status='Single click moves backward 4 trades, double click for 24 trades.';"><input type="text" name="zhu33gg" value="$zhu33gg$" size="4" onmouseout="window.status='Done'" title="The beginning trades number for next run. One can also type in a number manaully." onmouseover="window.status='The beginning trades number for next run. One can also type in a number manaully.';" style="text-align: center; background-color:#E6E6E6"><input style="width: 18px" type="button" value=">" name="Fright1" onclick="javascript: onclickFT(4,'F','R');" ondblclick="javascript: onclickFT(20,'F','R');" onmouseout="window.status='Done'" title="Single click moves forward 4 trades, double click for 24 trades." onmouseover="window.status='Single click moves forward 4 trades, double click for 24 trades.';"><input style="width: 18px" type="button" value="->" name="Fright50" onclick="javascript: onclickFT(40,'F','R');" ondblclick="javascript: onclickFT(200,'F','R');" onmouseout="window.status='Done'" title="Single click moves forward 40 trades, double click for 240 trades." onmouseover="window.status='Single click moves forward 40 trades, double click for 240 trades.';"> 
+          <input style="width: 25px; background-color:#00FF00" type="button" value="Ok" name="zhu52gg" onclick="javascript: setForm.mlmfile.value='wbfpwsetup'; setForm.submit(); window.open('','_self'); window.close();" title="To initiate the next page." onmouseover="window.status='To initiate the next page.'" onmouseout="window.status='Done'"></td>
+          <td width="22%" align="right"><font size="4" color="#0000FF">
+          Start:</font> 
+          <input style="width: 72px" type="button" value="$zhu32gg4$" name="zhu32gg4" onclick="javascript: setForm.setgdate.value=setForm.zhu32gg4.value; setForm.setgoutd.value='4'; setForm.mlmfile.value='wbstchart'; setForm.submit();" title="Clicking this button will bring you to its tick data chart directly for the showing day." onmouseover="window.status='Clicking this button will bring you to its tick data chart directly for the showing day.'" onmouseout="window.status='Done'"></td>
+          <td width="4%" align="right">&nbsp;</td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+
+  </table>
+  </center>
+</div>
+</form>
+<p align="center"><font size="1" color="#0000FF">Note for X: [11&nbsp; 12&nbsp; 
+13] [Open Intraday Close] Stopped Out,&nbsp; [21&nbsp; 22&nbsp; 23] [Open 
+Intraday Close] Exit,&nbsp; [31&nbsp; 32&nbsp; 33] [Open Intraday Close] Hit 
+Objective<br>
+</font><font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp;&nbsp; Username: $fpwusername$</font></p>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>

@@ -1,0 +1,95 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<title>Zone Analysis</title>
+<script language="JavaScript">
+</script>
+<noscript>
+This web page uses JavaScript. To see the full page, make sure that JavaScript is enabled.</noscript>
+</head>
+
+<body onload="zoneForm.fpwfstype.value='$fpwfstype$'" topmargin="10" leftmargin="10">
+
+<form name="zoneForm" action="/cgi-bin/matweb.exe" method="POST" target="Zoneoutput">
+	<input type="hidden" name="mlmfile" value="wbstfpz691">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="mlmfvar" value="leavemealone">
+	<input type="hidden" name="fpwcurrentm" value="$fpwcurrentm$">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	
+	<script language="JavaScript">
+		var userl=parseInt(document.zoneForm.fpwulvl.value);
+    </script>		
+
+	<p align="center">
+
+	<font color="#0000FF"><b>Zone Analysis: </b></font>
+
+	<select size="1" name="fpwfstype" onclick="javascript: if (userl<3) this.value='S';" title="Futures data are available for PatternWorkshop or higher level users." onmouseout="window.status='Done'" onmouseover="window.status='The analysis is about a Future or a stock?';">
+		<option value="F">Futures</option>
+		<option selected value="S">Stock</option>    
+    </select>
+    <select size="1" name="fpwzone69" onmouseout="window.status='Done'" title="Zone9 is just Zone6 add High, Low and Close." onmouseover="window.status='Zone9 is just Zone6 add High, Low and Close.';">
+        <option selected value="62">Zone6 w YOC</option>
+        <option value="61">Zone6 wt YOC</option>
+        <option value="92">Zone9 w YOC</option>
+    	<option value="91">Zone9 wt YOC</option>    
+    </select>
+  <input type="text" name="fpwsymbol" value="$fpwsymbol$" size="8" onfocus="javascript: if (value=='UrSymbol') value='';" title="Entering the interesting stock or futures symbol." onmouseover="window.status='Entering the interesting stock or futures symbol.'" onmouseout="window.status='Done'" onKeyDown="if(event.keyCode==13) {event.keyCode=9; zoneForm.submit();}"><input style="width: 30px; hight: 22px" type="button" value="GO" name="zoneGO" onclick="javascript: zoneForm.submit();" title="To run the selected zone analysis" onmouseover="window.status='To run the selected zone analysis'" onmouseout="window.status='Done'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <b><font color="#0000FF"><a href="/wbFPW Manual - tool.html#ZO" target="_blank" title="To open User's Manual to get online help.">Need help?</a></font></b><br>
+      <iframe name="Zoneoutput" width="620" height="550" src="$ZoneResultsOut$"></iframe></p>
+    </p>
+</form>    
+<form name="zone2Form" action="/cgi-bin/matweb.exe" method="POST" target="_blank'">
+	<input type="hidden" name="mlmfile" value="wbstfpz691">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	<input type="hidden" name="mlmfvar" value="leavemealone">
+	<input type="hidden" name="fpwcurrentm" value="$fpwcurrentm$">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">
+    <script language="JavaScript">
+	   	var str=document.zone2Form.fpwcurrentm.value;
+	   	function onclickstock10(str2) {
+	   		zone2Form.mlmfvar.value=zone2Form.fpwcurrentm.value;
+	   		zone2Form.mlmfile.value=str2;
+	   		zone2Form.submit(); }
+		function onclickstockpn(str3) {
+	   		if (str.charAt(0)=='S') {
+	   			zone2Form.mlmfvar.value=str3+str.substr(1,str.length-1); 
+	   			zone2Form.mlmfile.value='wbsttoyahoo'; 
+	   			zone2Form.submit();}}   
+    </script>
+    <p align="center">
+      <a href="javascript: onclickstock10('wbstanalog');">Analog</a> 
+    | <a href="javascript: onclickstock10('wbstrdata');">Data</a> 
+    | <a href="JavaScript: onclickstock10('wbfpwmpstat');">MP Stat</a>    
+    | <a href="javascript: onclickstock10('wbstchart');"> DetailChart</a>
+    | <a href="javascript: if (str.charAt(0)=='S') onclickstock10('wbstockqd');"> P-Chart</a> 
+    | <a href="javascript: if (str.charAt(0)=='S') onclickstock10('wbstockqdv');"> PV-Chart</a> 
+    | <a href="javascript: onclickstock10('wbstsnr');"> SNR</a> 
+    | <a href="javascript: onclickstock10('wbstswing');"> Swing</a>
+    | <a href="javascript: onclickstock10('wbstsea');"> Seasonal</a>
+    | <a href="javascript: onclickstock10('wbstleadi');"> LI</a>
+    <!--| <a href="javascript: onclickstockpn('F');"> Profile</a> 
+    | <a href="javascript: onclickstockpn('E');"> News</a><br> -->
+    | <a href="http://finance.yahoo.com/q/pr?s=$fpwsymbol$" target="_blank'"> Profile</a> 
+    | <a href="http://finance.yahoo.com/q/h?s=$fpwsymbol$" target="_blank'"> News</a><br>
+      <font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+      WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp;&nbsp; Username: 
+      $fpwusername$</font></p>
+</form>
+
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>

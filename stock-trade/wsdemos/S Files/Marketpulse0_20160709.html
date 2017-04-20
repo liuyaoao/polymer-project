@@ -1,0 +1,891 @@
+<html>
+
+<head>
+
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0"/>
+<meta name="ProgId" content="FrontPage.Editor.Document"/>
+<meta name="author" content="Ning Zhu, October 2003"/>
+<meta name="description" content="Chapter 9 of Financial Pattern Workshop"/>
+<meta name="copyright" content="Copyright 2014, Wall Street Quantitative Systems Inc"/>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
+<meta http-equiv="keywords" content="Financial trading simulation platform"/>
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="reply-to" content="ning@WSQSI.com"/>
+<!--<base href="http://192.168.2.8/"/> -->
+<base href="http://www.WSQSI.com"/>
+<title>MP - $FDzsobx53$</title>
+
+<script language="JavaScript">
+var popwindow;
+function onclickUD(num,num1,str2) {
+	// num: how many px to change up or down the height of num1 button/picture
+	// num1: button/picture serial number
+	// str2: 'U' or 'D'
+    if (str2=='D')
+		eval("document.stockForm.Mybar"+num1+".style.height=Math.max(3,parseInt(document.stockForm.Mybar"+num1+".style.height)-"+num+");");
+	else 
+		eval("document.stockForm.Mybar"+num1+".style.height=Math.min(83,parseInt(document.stockForm.Mybar"+num1+".style.height)+"+num+");");
+    //eval("document.stockForm.mybarh"+num1+".value=document.stockForm.Mybar"+num+".style.height;");
+	  }
+function MPpopupfileopen() {
+	popwindow=window.open("MPopenfile1.html","fpwmp_openfile","top=240,left=170,width=414,height=270");	}
+	
+function Onclickzsobx39() {
+    if (document.stockForm.zsobx39.value=='Link')
+        document.stockForm.zsobx39.value='Unlink';
+    else {
+    	document.stockForm.zsobx39.value='Link'; 
+    	document.stockForm.zsobx41.value=document.stockForm.zsobx312.value; 
+	    document.stockForm.zsobx55.value=document.stockForm.zsobx311.value;
+	    if (document.stockForm.zsobx311.value=='D') {
+	    	document.stockForm.zsobx46.value='Daily';
+	    	document.stockForm.zsobx64.value='Daily';}
+	    else {
+	    	document.stockForm.zsobx46.value='Tick';
+	    	document.stockForm.zsobx64.value='Tick';}}}
+    		
+function onclickzsobx311() {
+	if (document.stockForm.zsobx311.value=='D') {
+		document.stockForm.zsobx311.value='T';  
+		document.stockForm.zsobx46.value='Tick';
+	    document.stockForm.zsobx64.value='Tick';
+	    document.stockForm.zsobx55.value=document.stockForm.zsobx311.value;}
+	else {
+    	document.stockForm.zsobx311.value='D';
+    	document.stockForm.zsobx55.value=document.stockForm.zsobx311.value;
+        document.stockForm.zsobx46.value='Daily';
+     	document.stockForm.zsobx64.value='Daily';}}
+
+//	if (document.stockForm.zsobx39.value=='Link') {
+//	    document.stockForm.zsobx55.value=document.stockForm.zsobx311.value;
+//	    if (document.stockForm.zsobx311.value=='D') {
+//	    	document.stockForm.zsobx46.value='Daily';
+//	    	document.stockForm.zsobx64.value='Daily';}
+//	    else {
+//	    	document.stockForm.zsobx46.value='Tick';
+//	    	document.stockForm.zsobx64.value='Tick';}}};       
+		
+function onclickzsobx46() { 
+     //   if (document.stockForm.zsobx39.value!='Link') {
+		  if (document.stockForm.zsobx46.value=='Daily') 
+			document.stockForm.zsobx46.value='Tick';
+		  else 
+			document.stockForm.zsobx46.value='Daily';}
+						
+function onclickzsobx55() { 
+    //    if (document.stockForm.zsobx39.value!='Link') {
+		  if (document.stockForm.zsobx55.value=='D') 
+			document.stockForm.zsobx55.value='T';
+		  else 
+			document.stockForm.zsobx55.value='D';}
+			
+function onclickzsobx64() { 
+    //    if (document.stockForm.zsobx39.value!='Link') {
+	      if (document.stockForm.zsobx64.value=='Daily') 
+			document.stockForm.zsobx64.value='Tick';
+		  else 
+			document.stockForm.zsobx64.value='Daily';}
+			
+function onclickzsobx453() { 
+          if (document.stockForm.zsobx453.value=='0') {
+	      if ((document.stockForm.zsobx452.value=='0') &&
+			(document.stockForm.zsobx451.value=='0')	)  
+			document.stockForm.zsobx453.value='1';}	}	
+			
+function savehddatabs() {
+		document.stockForm.hdzsobx39.value=document.stockForm.zsobx39.value;
+		document.stockForm.hdzsobx311.value=document.stockForm.zsobx311.value;
+		document.stockForm.hdzsobx42.value=document.stockForm.zsobx42.value;	
+		document.stockForm.hdzsobx43.value=document.stockForm.zsobx43.value;
+		document.stockForm.hdzsobx46.value=document.stockForm.zsobx46.value;	
+		document.stockForm.hdzsobx55.value=document.stockForm.zsobx55.value;
+		document.stockForm.hdzsobx64.value=document.stockForm.zsobx64.value;
+        document.stockForm.mybarh1.value=document.stockForm.Mybar1.style.height;
+        document.stockForm.mybarh2.value=document.stockForm.Mybar2.style.height;
+        document.stockForm.mybarh3.value=document.stockForm.Mybar3.style.height;
+        document.stockForm.mybarh4.value=document.stockForm.Mybar4.style.height;
+        document.stockForm.mybarh5.value=document.stockForm.Mybar5.style.height;
+        document.stockForm.mybarh6.value=document.stockForm.Mybar6.style.height;
+        document.stockForm.mybarh7.value=document.stockForm.Mybar7.style.height;
+        document.stockForm.mybarh8.value=document.stockForm.Mybar8.style.height;
+        document.stockForm.mybarh9.value=document.stockForm.Mybar9.style.height;
+        document.stockForm.mybarh10.value=document.stockForm.Mybar10.style.height;
+        document.stockForm.mybarh11.value=document.stockForm.Mybar11.style.height;
+        document.stockForm.mybarh12.value=document.stockForm.Mybar12.style.height;
+        document.stockForm.mybarh13.value=document.stockForm.Mybar13.style.height;
+        document.stockForm.mybarh14.value=document.stockForm.Mybar14.style.height;
+        document.stockForm.mybarh15.value=document.stockForm.Mybar15.style.height;
+        document.stockForm.mybarh16.value=document.stockForm.Mybar16.style.height;
+        document.stockForm.mybarh17.value=document.stockForm.Mybar17.style.height;
+        document.stockForm.mybarh18.value=document.stockForm.Mybar18.style.height;
+        document.stockForm.mybarh19.value=document.stockForm.Mybar19.style.height;		
+ 		document.stockForm.mybarh20.value=document.stockForm.Mybar20.style.height;
+		}			
+		
+function onclickzsobx73GO() {
+		if (document.stockForm.zsobx71.value=='V') {
+			document.stockForm.mlmfile.value='wbstockqdv'; }
+		else 
+		if (document.stockForm.zsobx71.value=='P') {
+			document.stockForm.mlmfile.value='wbstockqd'; }			
+		else 		
+		if (document.stockForm.zsobx71.value=='Z') {
+			document.stockForm.mlmfile.value='wbstfpz691'; }
+		else 		
+		if (document.stockForm.zsobx71.value=='W')
+			document.stockForm.mlmfile.value='wbstswing';
+		else 		
+		if (document.stockForm.zsobx71.value=='S')
+			document.stockForm.mlmfile.value='wbstsea';
+		else 		
+		if (document.stockForm.zsobx71.value=='N')
+			document.stockForm.mlmfile.value='wbstsnr';			
+		else 		
+		if (document.stockForm.zsobx71.value=='D')
+			document.stockForm.mlmfile.value='wbstchart';
+		else 		
+		if (document.stockForm.zsobx71.value=='L')
+			document.stockForm.mlmfile.value='wbstleadi';
+		else 		
+		if (document.stockForm.zsobx71.value=='R')
+			document.stockForm.mlmfile.value='wbstrdata';	
+		else 		
+		if (document.stockForm.zsobx71.value=='F')
+			document.stockForm.mlmfile.value='wbsttoyahoo';
+		else 		
+		if (document.stockForm.zsobx71.value=='E')
+			document.stockForm.mlmfile.value='wbsttoyahoo';							
+		else 
+		if (document.stockForm.zsobx71.value=='A')
+			document.stockForm.mlmfile.value='wbstanalog';	} 
+
+var onclickrnum = 0, timeoi, findex, findex1;
+function onclickzsobx37() {
+    findex=parseInt(document.stockForm.mybarh21.value);
+    findex1=parseInt(document.stockForm.mybarh22.value);
+	onclickrnum++;
+	if (onclickrnum>=findex1) { 
+	window.clearTimeout(timeoi); }
+	else {
+	savehddatabs(); 
+	document.stockForm.mlmfvar2.value='1'; 
+	document.stockForm.mlmfile.value='wbdzhjust'; 
+	target='PulseOutputMain'; 
+	stockForm.submit();
+	timeoi=window.setTimeout("onclickzsobx37()",findex); }}
+	
+var onclickrnums = 0, timeois, findexs, findex1s;
+function onclickzsobx47() {
+    findexs=parseInt(document.stockForm.mybarh21.value);
+    findex1s=parseInt(document.stockForm.mybarh22.value);
+	onclickrnums++;
+	if (onclickrnums>=findex1s) {
+	window.clearTimeout(timeois); }
+	else {
+	savehddatabs();
+	document.stockForm.mlmfvar2.value='5'; 
+	document.stockForm.mlmfile.value='wbdzhckout'; 
+	target='PulseOutputMain'; 
+	stockForm.submit();
+	timeois=window.setTimeout("onclickzsobx47()",findexs); }}
+
+var onclickrnumt = 0, timeoit, findext, findex2;
+function onclickquotelink() {
+    findex2=parseInt(document.stockForm.mybarh22.value);
+	onclickrnumt++;
+	if (onclickrnums>=findex2) {
+	window.clearTimeout(timeoit); }
+	else {
+	document.stockForm.mlmfvar2.value='10';
+	document.stockForm.mlmfvar3.value='10';
+	document.stockForm.mlmfile.value='wbstquote'; 
+	target='PulseOutputMain'; 
+	stockForm.submit();
+	timeoit=window.setTimeout("onclickquotelink()",5000); }}	
+	
+function CloseAllTimeout() {
+    if (onclickrnum > 0) {
+    window.clearTimeout(timeoi);
+    onclickrnum = 0;}
+    if (onclickrnums > 0) {
+    window.clearTimeout(timeois);
+    onclickrnums = 0;}
+    if (onclickrnumt > 0) {
+    window.clearTimeout(timeoit);
+    onclickrnumt = 0;} }
+			
+</script>
+
+<noscript>
+This web page uses JavaScript. To see the full page, make sure that JavaScript is enabled.</noscript>
+
+</head>
+
+<body onload="stockForm.zsobx312.value='$FDzsobx312$';stockForm.zsobx41.value='$FDzsobx41$';stockForm.zsobx44.value='$FDzsobx44$';stockForm.zsobx451.value='$FDzsobx451$';stockForm.zsobx452.value='$FDzsobx452$';stockForm.zsobx453.value='$FDzsobx453$';stockForm.zsobx62.value='$FDzsobx62$';stockForm.zsobxSG.value='$FDzsobxSG$';stockForm.zsobx71.value='$FDzsobx71$'; stockForm.mlmfvar2.value='$FDmlmfvar2$';" leftmargin="10" topmargin="20" bottommargin="10" border="0">
+<form name="stockForm" action="/cgi-bin/matweb.exe" method="POST" target="PulseOutputMain">
+		<input type="hidden" name="mlmfile" value="wbdzhjust">
+		<input type="hidden" name="hdzsobx39" value="KaKaKa">
+		<input type="hidden" name="hdzsobx311" value="KaKaKa">
+		<input type="hidden" name="hdzsobx42" value="KaKaKa">
+		<input type="hidden" name="hdzsobx43" value="KaKaKa">
+		<input type="hidden" name="hdzsobx46" value="KaKaKa">
+		<input type="hidden" name="hdzsobx55" value="KaKaKa">
+		<input type="hidden" name="hdzsobx64" value="KaKaKa">
+		<input type="hidden" name="WhereOrderFrom" value="MPLG">
+		<input type="hidden" name="mlid" value="$FDfpwusername$">
+		<input type="hidden" name="mlid4" value="$FDfpwusername4$">
+		<input type="hidden" name="mlmfvar" value="leavemealone">
+		<input type="hidden" name="mlmfvar3" value="1">
+		<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+		<input type="hidden" name="filetypeid" value="mpdzh">	
+		<input type="hidden" name="mybarh1" value="$mybarh1$">
+		<input type="hidden" name="mybarh2" value="$mybarh2$">
+		<input type="hidden" name="mybarh3" value="$mybarh3$">
+		<input type="hidden" name="mybarh4" value="$mybarh4$">
+		<input type="hidden" name="mybarh5" value="$mybarh5$">
+		<input type="hidden" name="mybarh6" value="$mybarh6$">
+		<input type="hidden" name="mybarh7" value="$mybarh7$">
+		<input type="hidden" name="mybarh8" value="$mybarh8$">
+		<input type="hidden" name="mybarh9" value="$mybarh9$">
+		<input type="hidden" name="mybarh10" value="$mybarh10$">
+		<input type="hidden" name="mybarh11" value="$mybarh11$">
+		<input type="hidden" name="mybarh12" value="$mybarh12$">
+		<input type="hidden" name="mybarh13" value="$mybarh13$">
+		<input type="hidden" name="mybarh14" value="$mybarh14$">
+		<input type="hidden" name="mybarh15" value="$mybarh15$">
+		<input type="hidden" name="mybarh16" value="$mybarh16$">
+		<input type="hidden" name="mybarh17" value="$mybarh17$">
+		<input type="hidden" name="mybarh18" value="$mybarh18$">
+		<input type="hidden" name="mybarh19" value="$mybarh19$">
+		<input type="hidden" name="mybarh20" value="$mybarh20$">
+		<input type="hidden" name="mybarh21" value="$mybarh21$">
+		<input type="hidden" name="mybarh22" value="$mybarh22$">						
+	
+<center>
+	<table border="1" width="738" height="445">
+  	<tr>
+    <td width="515" height="433" rowspan="3">
+    <table border="1" cellpadding="0" cellspacing="1" width="100%" height="35">
+      <tr>
+        <td width="48%" height="32">
+        <p align="center"> 
+        <select size="1" name="zsobx71" onmouseout="window.status='Done'" title="Choose what kind of analysis to do. It's also what the link will be for the output results." onmouseover="window.status='Choose what kind of analysis to do. It\'s also what the link will be for the output results.'">
+              <option selected value="P">Charts Wt Volume</option>
+    		  <option value="V">Charts W Volume</option>    
+    		  <option value="W">Swing Analysis</option>
+    		  <option value="S">Season Analysis</option>    
+    		  <option value="Z">Zone Analysis</option>
+              <option value="A">Analog Analysis</option> 
+              <option value="N">SignalNoiseRatio</option>
+              <option value="D">Detail Chart</option> 
+              <option value="R">Data Extract</option>               
+              <option value="L">Leading Indicator</option>                                                      
+              <option value="F">Company Profile</option>
+              <option value="E">Headline News</option>  
+          </select><font size="1">&nbsp;</font><input type="text" name="zsobx72" value="UrSymbol" size="8" onfocus="javascript: CloseAllTimeout(); if (value=='UrSymbol') value='';" onKeyDown="javascript: if(event.keyCode==13) {event.keyCode=9; savehddatabs(); stockForm.mlmfile.value='wbdzhshows'; target='_blank'; onclickzsobx73GO(); stockForm.submit();}" title="Entering the interesting stock symbol here to analyze." onmouseover="window.status='Entering the interesting stock symbol here to analyze.'" onmouseout="window.status='Done'"><input style="width: 30px; hight: 22px" type="button" value="GO" name="zsobx73" onclick="javascript: savehddatabs(); stockForm.mlmfile.value='wbdzhshows'; target='_blank'; onclickzsobx73GO(); stockForm.submit();" onmouseover="window.status='To run the selected analysis for your entering stock.';" onmouseout="window.status='Done'" title="To run the selected analysis for your entering stock."></td>
+        <td width="34%" height="32">
+        <p align="center">
+  <b>
+  <font color="#0000ff" size="5"><font face="Times New Roman"><a href="/wbFPW Manual - MP.html#OU" target="_blank" title="To open User's Manual to get online help.">
+  List</a></font><font face="Arial Narrow">:</font></font></b><select size="1" name="mlmfvar2" hight="20px" title="Sorting menu to choose. ORIG menas Original output order." onmouseover="window.status='Sorting menu to choose. ORIG menas Original output order.'" onmouseout="window.status='Done'">
+        	<option value="0">ZONE</option>
+        	<option selected value="1">SYMB</option>
+    		<option value="2">LAST</option>    
+    		<option value="3">NET</option>
+    		<option value="4">VOL_K</option>
+    		<option value="5">ORIG</option>
+    		<option value="6">PE</option>
+    		<option value="7">CAP</option>
+    		<option value="8">Sector</option>
+    		<option value="10">Quote</option>
+        </select><input style="width: 40px" type="button" value="Sort" name="zsobx4542768" onclick="javascript: CloseAllTimeout(); if (stockForm.mlmfvar2.value!='0'){ if (stockForm.mlmfvar2.value!='10') {savehddatabs(); stockForm.mlmfile.value='wbstmpsort'; target='PulseOutputMain'; stockForm.submit();}}" ondblclick="javascript: stockForm.mlmfvar2.value='5'; savehddatabs(); stockForm.mlmfile.value='wbstmpsort'; target='PulseOutputMain'; stockForm.submit();" title="Sort output in the order showing on left. But no action for ZONE and Quote results. Double click to quick restore to ORIG. This operation will stop current automatic update, if any." onmouseover="window.status='Sort output in the order showing on left. But no action for ZONE and Quote results. Double click to quick restore to ORIG.'" onmouseout="window.status='Done'"></td>
+        <td width="18%" height="32" align="center" valign="bottom">
+        <a onclick="javascript: CloseAllTimeout();" title="To stop all current running automatic updating operation, if any.">
+        <img border="0" src="/images/StopSignSmall.jpg" width="25" height="25"></a><font size="2">&nbsp;</font><a href="javascript: CloseAllTimeout(); onclickquotelink();" title="This is the quote LINK button, will turn flash quote on every 5 second for up to 2-15 minutes depending on user's registered level. For paid users only, it will work the same as the right quote 'Q' button for none paid users. "><img border="0" src="/images/wbfpdfull.jpg" width="23" height="25"></a><font size="2">&nbsp;</font><a href="javascript: CloseAllTimeout(); stockForm.mlmfvar2.value='10'; stockForm.mlmfvar3.value='1'; target='PulseOutputMain'; stockForm.mlmfile.value='wbstquote'; stockForm.submit();" title="Clicking this 'Q' button to view last flash quotes for up to 12 stocks in the output area.  Entering stock symbol in any editing text box under 'SYMB' column will output an instant real time quotes for all symbols there. To get continue data update, clicking the left refresh link button."><img border="0" src="/images/wbfpdfullq.jpg" width="23" height="25"></a></td>
+    </tr>
+    </table>
+    <iframe name="PulseOutputMain" width="512" height="362" src="$MPmainoutputdata$"></iframe>
+    <table borderColor="#21366a" height="148" cellSpacing="1" cellPadding="0" width="493" border="1">
+      <tr>
+        <td align="left" width="395" height="33">
+        <p align="right"><b><font color="#0000ff" size="5"><a href="/wbFPW Manual - MP.html#GF" target="_blank" title="General Filtering Conditions. Click To open User's Manual to get online help.">General</a></font><font color="#0000ff" size="1">&nbsp;</font></b><select name=zsobxSG style="font-size: 10pt; font-family:Aria" title="To select a scan scope">
+	 <option selected value="-1">To Scan All Stocks (-1)
+	 <option value="-100">S&amp;P 100 Stocks (-100)
+	 <option value="-500">S&amp;P 500 Stocks (-500)
+	 <option value="-30">Dow 30 Industry Stocks (-30)
+	 <option value="-101">Nasdaq 100 Stocks (-101)
+     <option value="1">Basic Materials (1)
+     <option value="1.01"> -- Agricultural Chemicals (1.01)
+     <option value="1.02"> -- Aluminum (1.02)
+     <option value="1.03"> -- Chemicals - Major Diversified (1.03)
+     <option value="1.04"> -- Copper (1.04)
+     <option value="1.05"> -- Gold (1.05)
+     <option value="1.06"> -- Independent Oil & Gas (1.06)
+     <option value="1.07"> -- Industrial Metals & Minerals (1.07)
+     <option value="1.08"> -- Major Integrated Oil & Gas (1.08)
+     <option value="1.09"> -- Nonmetallic Mineral Mining (1.09)
+     <option value="1.10"> -- Oil & Gas Drilling & Exploration (1.10)
+     <option value="1.11"> -- Oil & Gas Equipment & Services (1.11)
+     <option value="1.12"> -- Oil & Gas Pipelines (1.12)
+     <option value="1.13"> -- Oil & Gas Refining & Marketing (1.13)
+     <option value="1.14"> -- Silver (1.14)
+     <option value="1.15"> -- Specialty Chemicals (1.15)
+     <option value="1.16"> -- Steel & Iron (1.16)
+     <option value="1.17"> -- Synthetics (1.17)
+     <option value="2">Conglomerates (2)
+     <option value="3">Consumer Goods (3)
+     <option value="3.01"> -- Appliances (3.01)
+     <option value="3.02"> -- Auto Manufacturers - Major (3.02)
+     <option value="3.03"> -- Auto Parts (3.03)
+     <option value="3.04"> -- Beverages-Brewers (3.04)
+     <option value="3.05"> -- Beverages-Soft Drinks (3.05)
+     <option value="3.06"> -- Beverages-Wineries & Distillers(3.06)
+     <option value="3.07"> -- Business Equipment (3.07)
+     <option value="3.08"> -- Cigarettes (3.08)
+     <option value="3.09"> -- Cleaning Products (3.09)
+     <option value="3.10"> -- Confectioners (3.10)
+     <option value="3.11"> -- Dairy Products (3.11)
+     <option value="3.12"> -- Electronic Equipment (3.12)
+     <option value="3.13"> -- Farm Products (3.13)
+     <option value="3.14"> -- Food - Major Diversified (3.14)
+     <option value="3.15"> -- Home Furnishings & Fixtures (3.15)
+     <option value="3.16"> -- Housewares & Accessories (3.16)
+     <option value="3.17"> -- Meat Products (3.17)
+     <option value="3.18"> -- Office Supplies (3.18)
+     <option value="3.19"> -- Packaging & Containers (3.19)
+     <option value="3.20"> -- Paper & Paper Products (3.20)
+     <option value="3.21"> -- Personal Products (3.21)
+     <option value="3.22"> -- Photo Equipment & Supplies(3.22)
+     <option value="3.23"> -- Processed & Packaged Goods (3.23)
+     <option value="3.24"> -- Recreational Goods, Other (3.24)
+     <option value="3.25"> -- Recreational Vehicles (3.25)
+     <option value="3.26"> -- Rubber & Plastics (3.26)
+     <option value="3.27"> -- Sporting Goods (3.27)
+     <option value="3.28"> -- Textile - Apparel Clothing (3.28)
+     <option value="3.29"> -- Textile-Apparel Footwear & Acces.(3.29)
+     <option value="3.30"> -- Tobacco Products, Other (3.30)
+     <option value="3.31"> -- Toys & Games (3.31)
+     <option value="3.32"> -- Trucks & Other Vehicles (3.32)
+     <option value="4">Financial (4)
+     <option value="4.01"> -- Accident & Health Insurance (4.01)
+     <option value="4.02"> -- Asset Management (4.02)
+     <option value="4.03"> -- Closed-End Fund - Debt (4.03)
+     <option value="4.04"> -- Closed-End Fund - Equity (4.04)
+     <option value="4.05"> -- Closed-End Fund - Foreign (4.05)
+     <option value="4.06"> -- Credit Services (4.06)
+     <option value="4.07"> -- Diversified Investments (4.07)
+     <option value="4.08"> -- Foreign Money Center Banks (4.08)
+     <option value="4.09"> -- Foreign Regional Banks (4.09)
+     <option value="4.10"> -- Insurance Brokers (4.10)
+     <option value="4.11"> -- Investment Brokerage - National (4.11)
+     <option value="4.12"> -- Investment Brokerage - Regional (4.12)
+     <option value="4.13"> -- Life Insurance (4.13)
+     <option value="4.14"> -- Money Center Banks (4.14)
+     <option value="4.15"> -- Mortgage Investment (4.15)
+     <option value="4.16"> -- Property & Casualty Insurance (4.16)
+     <option value="4.17"> -- Property Management (4.17)
+     <option value="4.18"> -- Real Estate Development (4.18)
+     <option value="4.19"> -- Regional - Mid-Atlantic Banks (4.19)
+     <option value="4.20"> -- Regional - Midwest Banks (4.20)
+     <option value="4.21"> -- Regional - Northeast Banks (4.21)
+     <option value="4.22"> -- Regional - Pacific Banks (4.22)
+     <option value="4.23"> -- Regional - Southeast Banks (4.23)
+     <option value="4.24"> -- Regional - Southwest Banks (4.24)
+     <option value="4.25"> -- REIT - Diversified (4.25)
+     <option value="4.26"> -- REIT - Healthcare Facilities (4.26)
+     <option value="4.27"> -- REIT - Hotel/Motel (4.27)
+     <option value="4.28"> -- REIT - Industrial (4.28)
+     <option value="4.29"> -- REIT - Office (4.29)
+     <option value="4.30"> -- REIT - Residential (4.30)
+     <option value="4.31"> -- REIT - Retail (4.31)
+     <option value="4.32"> -- Savings & Loans (4.32)
+     <option value="4.33"> -- Surety & Title Insurance (4.33)
+     <option value="5">Healthcare (5)
+     <option value="5.01"> -- Biotechnology (5.01)
+     <option value="5.02"> -- Diagnostic Substances (5.02)
+     <option value="5.03"> -- Drug Delivery (5.03)
+     <option value="5.04"> -- Drug Manufacturers - Major (5.04)
+     <option value="5.05"> -- Drug Manufacturers - Other (5.05)
+     <option value="5.06"> -- Drug Related Products (5.06)
+     <option value="5.07"> -- Drugs - Generic (5.07)
+     <option value="5.08"> -- Health Care Plans (5.08)
+     <option value="5.09"> -- Home Health Care (5.09)
+     <option value="5.10"> -- Hospitals (5.10)
+     <option value="5.11"> -- Long-Term Care Facilities (5.11)
+     <option value="5.12"> -- Medical Appliances & Equipment (5.12)
+     <option value="5.13"> -- Medical Instruments & Supplies (5.13)
+     <option value="5.14"> -- Medical Laboratories & Research (5.14)
+     <option value="5.15"> -- Medical Practitioners (5.15)
+     <option value="5.16"> -- Specialized Health Services (5.16)
+     <option value="6">Industrial Goods (6)
+     <option value="6.01"> -- Aerospace/Defense - Major Divers.(6.01)
+     <option value="6.02"> -- Aerospace/Defense-Prod & Services(6.02)
+     <option value="6.03"> -- Cement (6.03)
+     <option value="6.04"> -- Diversified Machinery (6.04)
+     <option value="6.05"> -- Farm & Construction Machinery (6.05)
+     <option value="6.06"> -- General Building Materials (6.06)
+     <option value="6.07"> -- General Contractors (6.07)
+     <option value="6.08"> -- Heavy Construction (6.08)
+     <option value="6.09"> -- Industrial Electrical Equipment (6.09)
+     <option value="6.10"> -- Industrial Equip. & Components (6.10)
+     <option value="6.11"> -- Lumber, Wood Production (6.11)
+     <option value="6.12"> -- Machine Tools & Accessories (6.12)
+     <option value="6.13"> -- Manufactured Housing (6.13)
+     <option value="6.14"> -- Metal Fabrication (6.14)
+     <option value="6.15"> -- Pollution & Treatment Controls (6.15)
+     <option value="6.16"> -- Residential Construction (6.16)
+     <option value="6.17"> -- Small Tools & Accessories (6.17)
+     <option value="6.18"> -- Textile Industrial (6.18)
+     <option value="6.19"> -- Waste Management (6.19)
+     <option value="7">Services (7)
+     <option value="7.01"> -- Advertising Agencies (7.01)
+     <option value="7.02"> -- Air Delivery & Freight Services (7.02)
+     <option value="7.03"> -- Air Services, Other (7.03)
+     <option value="7.04"> -- Apparel Stores (7.04)
+     <option value="7.05"> -- Auto Dealerships (7.05)
+     <option value="7.06"> -- Auto Parts Stores (7.06)
+     <option value="7.07"> -- Auto Parts Wholesale (7.07)
+     <option value="7.08"> -- Basic Materials Wholesale (7.08)
+     <option value="7.09"> -- Broadcasting - Radio (7.09)
+     <option value="7.10"> -- Broadcasting - TV (7.10)
+     <option value="7.11"> -- Building Materials Wholesale (7.11)
+     <option value="7.12"> -- Business Services (7.12)
+     <option value="7.13"> -- Catalog & Mail Order Houses (7.13)
+     <option value="7.14"> -- CATV Systems (7.14)
+     <option value="7.15"> -- Computers Wholesale (7.15)
+     <option value="7.16"> -- Consumer Services (7.16)
+     <option value="7.17"> -- Department Stores (7.17)
+     <option value="7.18"> -- Discount, Variety Stores (7.18)
+     <option value="7.19"> -- Drug Stores (7.19)
+     <option value="7.20"> -- Drugs Wholesale (7.20)
+     <option value="7.21"> -- Education & Training Services (7.21)
+     <option value="7.22"> -- Electronics Stores (7.22)
+     <option value="7.23"> -- Electronics Wholesale (7.23)
+     <option value="7.24"> -- Entertainment - Diversified (7.24)
+     <option value="7.25"> -- Food Wholesale (7.25)
+     <option value="7.26"> -- Gaming Activities (7.26)
+     <option value="7.27"> -- General Entertainment (7.27)
+     <option value="7.28"> -- Grocery Stores (7.28)
+     <option value="7.29"> -- Home Furnishing Stores (7.29)
+     <option value="7.30"> -- Home Improvement Stores (7.30)
+     <option value="7.31"> -- Industrial Equipment Wholesale (7.31)
+     <option value="7.32"> -- Jewelry Stores (7.32)
+     <option value="7.33"> -- Lodging (7.33)
+     <option value="7.34"> -- Major Airlines (7.34)
+     <option value="7.35"> -- Management Services (7.35)
+     <option value="7.36"> -- Marketing Services (7.36)
+     <option value="7.37"> -- Medical Equipment Wholesale (7.37)
+     <option value="7.38"> -- Movie Production, Theaters (7.38)
+     <option value="7.39"> -- Music & Video Stores (7.39)
+     <option value="7.40"> -- Personal Services (7.40)
+     <option value="7.41"> -- Publishing - Books (7.41)
+     <option value="7.42"> -- Publishing - Newspapers (7.42)
+     <option value="7.43"> -- Publishing - Periodicals (7.43)
+     <option value="7.44"> -- Railroads (7.44)
+     <option value="7.45"> -- Regional Airlines (7.45)
+     <option value="7.46"> -- Rental & Leasing Services (7.46)
+     <option value="7.47"> -- Research Services (7.47)
+     <option value="7.48"> -- Resorts & Casinos (7.48)
+     <option value="7.49"> -- Restaurants (7.49)
+     <option value="7.50"> -- Security & Protection Services (7.50)
+     <option value="7.51"> -- Shipping (7.51)
+     <option value="7.52"> -- Specialty Eateries (7.52)
+     <option value="7.53"> -- Specialty Retail, Other (7.53)
+     <option value="7.54"> -- Sporting Activities (7.54)
+     <option value="7.55"> -- Sporting Goods Stores (7.55)
+     <option value="7.56"> -- Staffing & Outsourcing Services (7.56)
+     <option value="7.57"> -- Technical Services (7.57)
+     <option value="7.58"> -- Toy & Hobby Stores (7.58)
+     <option value="7.59"> -- Trucking (7.59)
+     <option value="7.60"> -- Wholesale, Other (7.60)
+     <option value="8">Technology (8)
+     <option value="8.01"> -- Application Software (8.01)
+     <option value="8.02"> -- Business Software & Services (8.02)
+     <option value="8.03"> -- Communication Equipment (8.03)
+     <option value="8.04"> -- Computer Based Systems (8.04)
+     <option value="8.05"> -- Computer Peripherals (8.05)
+     <option value="8.06"> -- Data Storage Devices (8.06)
+     <option value="8.07"> -- Diversified Communication Services (8.07)
+     <option value="8.08"> -- Diversified Computer Systems (8.08)
+     <option value="8.09"> -- Diversified Electronics (8.09)
+     <option value="8.10"> -- Healthcare Information Services (8.10)
+     <option value="8.11"> -- Information & Delivery Services (8.11)
+     <option value="8.12"> -- Information Technology Services (8.12)
+     <option value="8.13"> -- Internet Information Providers (8.13)
+     <option value="8.14"> -- Internet Service Providers (8.14)
+     <option value="8.15"> -- Internet Software & Services (8.15)
+     <option value="8.16"> -- Long Distance Carriers (8.16)
+     <option value="8.17"> -- Multimedia & Graphics Software (8.17)
+     <option value="8.18"> -- Networking & Communication Devices (8.18)
+     <option value="8.19"> -- Personal Computers (8.19)
+     <option value="8.20"> -- Printed Circuit Boards (8.20)
+     <option value="8.21"> -- Processing Systems & Products (8.21)
+     <option value="8.22"> -- Scientific & Technical Instruments (8.22)
+     <option value="8.23"> -- Security Software & Services (8.23)
+     <option value="8.24"> -- Semiconductor - Broad Line (8.24)
+     <option value="8.25"> -- Semiconductor-Integrated Circuits (8.25)
+     <option value="8.26"> -- Semiconductor - Specialized (8.26)
+     <option value="8.27"> -- Semiconductor Equip. & Materials (8.27)
+     <option value="8.28"> -- Semiconductor- Memory Chips (8.28)
+     <option value="8.29"> -- Technical & System Software (8.29)
+     <option value="8.30"> -- Telecom Services - Domestic (8.30)
+     <option value="8.31"> -- Telecom Services - Foreign (8.31)
+     <option value="8.32"> -- Wireless Communications (8.32)
+     <option value="9">Utilities (9)
+     <option value="9.01"> -- Diversified Utilities (9.01)
+     <option value="9.02"> -- Electric Utilities (9.02)
+     <option value="9.03"> -- Foreign Utilities (9.03)
+     <option value="9.04"> -- Gas Utilities (9.04)
+     <option value="9.05"> -- Water Utilities (9.05)
+     <option value="13">Others: Holder/Structure/Index (13)
+     <option value="13.01"> -- Holders (13.01)
+     <option value="13.02"> -- Structures (13.02)
+     <option value="13.03"> -- Index (13.03)
+     <option value="0">Anything Un-assigned in above (0)</select></td>
+        <td width="102" height="33">
+        <p align="center">
+        <input style="WIDTH: 48px" type="button" value='STAT' name="zsobx39" onclick="javascript: stockForm.mlmfile.value='wbfpwmpstat'; target='_blank'; stockForm.submit(); target='PulseOutputMain';" title="To open FPW real time intraday market statistcs table." onmouseover="window.status='To open FPW real time intraday market statistcs table.'" onmouseout="window.status='Done'">
+        <input type="button" value="RUN" name="zsobx37" onclick="javascript: CloseAllTimeout(); onclickzsobx37();" title="To run General Filtering. Paid users will get automatic update every 5 minutes. Before running any other operations, it will also automatic run General Filtering first." onmouseover="window.status='To run General Filtering. Before running any other operations, it will also automatic run General Filtering first.'" onmouseout="window.status='Done'"></td>
+      </tr>
+      <tr>
+        <td align="left" width="502" colSpan="2" height="76">
+        <!-- General Filter Section -->
+        <table height="89" cellSpacing="0" width="487">
+          <tr>
+            <td align="right" height="87">
+            <table height="78" cellSpacing="0" cellPadding="0" width="504">
+              <tr>
+                <td style="COLOR: #0000ff" align="middle" width="397" height="49" rowspan="2">
+  <textarea rows="4" name="zsobx31" cols="47" onclick="javascript: CloseAllTimeout();" title="Available variable list: SInd, RmSI, RmKW, KWIN, PE, CAP, BPS, CPS, EPS, SPS, PTB, PTS, PTCF, TSO, SFL, SSH, BETA, CCODE, YD, [O,  H, L, C, V, N, R](0-7), [AC, AR, AV, HM, LM, PH, PL, PO, PC](0-7, 12, 25, 75, 250). One can enter as many LOGIC conditions as one wants using ANY function but only the ABOVE variables. ENDING each conditions by sign ';'. Note: Clicking on any place of this text edit area will end all automatic updating operation, if any." onmouseover="window.status='Entering LOGIC conditions as many as you want, using ANY function but only the BELOW variables, ENDING conditions by sign ;.'" onmouseout="window.status='Done'">$FDzsobx31$</textarea></td>
+                <td style="COLOR: #0000ff" align="middle" width="107" height="24">
+                <input style="WIDTH: 21px" type="button" value='$FDhdzsobx311$' name="zsobx311" onclick="javascript: onclickzsobx311();" title="To change Quick Look, Digital Scan and Analog Scan's Daily or Tick database at the same time. It has no any effect on General Filter operation at all, though it's located near the General Filter." onmouseover="window.status='To change Quick Look, Digital Scan and Analog Scan\'s Daily or Tick database at the same time.'" onmouseout="window.status='Done'">
+          <select size="1" name="zsobx312" hight="20px" onclick="zsobx41.value=this.value;" title="Market Switch, to choose which market database to use when running General Filtering." onmouseover="window.status='Market Switch, to choose which market database to use when running General Filtering.'" onmouseout="window.status='Done'">              
+          	  <option value="AllMrkts">AllMrkts</option>
+    		  <option value="AMEX">AMEX</option>    
+    		  <option selected value="NYSE">NYSE</option>
+    		  <option value="Nasdaq">Nasdaq</option> 
+          </select></td>
+              </tr>
+              <tr>
+                <td style="COLOR: #0000ff" align="middle" width="107" height="25">
+                <input style="WIDTH: 98px" type="button" value="ZONESCAN*" name="zsobx38" onclick="javascript: CloseAllTimeout(); savehddatabs(); stockForm.mlmfvar2.value='0'; stockForm.mlmfile.value='wbzonescaa'; stockForm.submit();" title="After General Filtering operation, then makes Zone scan. Optional, special order needed. No automatic update for analog scan since it takes too much CPU time." onmouseover="window.status='After General Filtering operation, then makes Zone scan. Optional, special order needed.'" onmouseout="window.status='Done'"></td>
+              </tr>
+              <tr>
+                <td style="COLOR: #0000ff" align="middle" width="504" colSpan="2" height="10">
+                <b>
+                <font size="1" face="Arial">SInd, RmSI, RmKW, KWIN, </font>
+                <font size="1" face="Arial Narrow">PE, CAP, YD,&nbsp;[O,  H, L, C, V, 
+                N, R](0-7),&nbsp;[AC, AR, AV, HM, LM, PH, PL, PO, PC](0-7, 12, 
+                25, 75, 250)</font></b></td>
+              </tr>
+              <tr>
+                <td style="COLOR: #0000ff" align="middle" width="504" colSpan="2" height="19">
+                <p align="left">
+                <iframe name="MPSatusReport" width="504" height="22" src="$MPstatusreport$">
+                Your browser does not support inline frames or is currently configured not to display inline frames.</iframe></td>
+              </tr>
+            </table>
+            </td>
+          </tr>
+        </table>
+        </td>
+      </tr>
+    </table>
+    </td>
+    <td width="236" height="140">
+    <table border="1" cellpadding="0" cellspacing="1" width="100%" height="141">
+      <tr>
+        <td width="100%" height="31">
+        <p align="center"><b><font color="#0000FF" size="5"><a href="/wbFPW Manual - MP.html#QL" target="_blank" title="To open User's Manual to get online help.">Quick Look</a></font></b></td>
+      </tr>
+      <tr>
+        <td width="100%" height="33">
+          <p align="center">
+          <select size="1" name="zsobx41" hight="20px" onclick="javascript: stockForm.zsobx312.value=this.value;" title="Choose market for Quick Look scan if GF is on Unlink." onmouseover="window.status='Choose market for Quick Look scan if GF is on Unlink.'" onmouseout="window.status='Done'">
+              <option value="AllMrkts">AllMrkts</option>
+    		  <option value="AMEX">AMEX</option>    
+    		  <option selected value="NYSE">NYSE</option>
+    		  <option value="Nasdaq">Nasdaq</option> 
+          </select>&nbsp;
+          <input style="WIDTH: 105px" type="button" value='$FDhdzsobx42$' name="zsobx42" onclick="javascript: if (value=='Price') value='Volume';else value='Price';" title="Quick Look scan is based on Price or Volume conditions." onmouseover="window.status='Quick Look scan is based on Price or Volume conditions.'" onmouseout="window.status='Done'"></td>
+      </tr>
+      <tr>
+        <td width="100%" height="32">
+        <p align="center">
+        <input style="WIDTH: 105px" type="button" value='$FDhdzsobx43$' name="zsobx43" onclick="javascript: if (value=='Net Change') value='Percentage';else value='Net Change';" title="Net Change or Percantage Change of the Price or Volume." onmouseover="window.status='Net Change or Percantage Change of the Price or Volume.'" onmouseout="window.status='Done'"> &nbsp;
+        <select size="1" name="zsobx44" hight="20px" title="Scan among Ups, Downs or all relative to the time range one selected." onmouseover="window.status='Scan among Ups, Downs or all relative to the time range one selected.'" onmouseout="window.status='Done'">
+        	<option selected value="All U+D">All U+D</option>
+    		<option value="Ups">Ups</option>    
+    		<option value="Downs">Downs</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td width="100%" height="33">
+        <p align="center">
+          <select size="1" name="zsobx451" title="Together these 3 selectors to decide between how many daily or intraday bars to compare." onmouseover="window.status='Together these 3 selectors to decide between how many daily or intraday bars to compare.'" onmouseout="window.status='Done'">
+              <option selected value="0">0</option>
+    		  <option value="1">1</option>    
+    		  <option value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>    		  
+          </select> <select size="1" name="zsobx452" title="Together these 3 selectors to decide between how many daily or intraday bars to compare." onmouseover="window.status='Together these 3 selectors to decide between how many daily or intraday bars to compare.'" onmouseout="window.status='Done'">
+              <option selected value="0">0</option>
+    		  <option value="1">1</option>    
+    		  <option value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+    		  <option value="9">9</option>         
+          </select> <select size="1" name="zsobx453" onclick="javascript: onclickzsobx453();" title="Together these 3 selectors to decide between how many daily or intraday bars to compare." onmouseover="window.status='Together these 3 selectors to decide between how many daily or intraday bars to compare.'" onmouseout="window.status='Done'">
+    		  <option value="0">0</option>
+    		  <option value="1">1</option>    
+    		  <option value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+    		  <option selected value="9">9</option>       
+          </select>&nbsp;
+          <input style="WIDTH: 40px" type="button" value='$FDhdzsobx46$' name="zsobx46" onclick="javascript: onclickzsobx46();" title="To decide between how many daily or intraday bars to compare for Quick Look scan, not for GF. They are independent each other." onmouseover="window.status='To decide between how many daily or intraday bars to compare for Quick Look scan, not for GF. They are independent each other.'" onmouseout="window.status='Done'"> <input style="width: 40px" type="button" value="Run" name="zsobx47" onclick="javascript: CloseAllTimeout(); onclickzsobx47();" title="To run Quick Look scan, remembering that program will run General Filtering first. Paid users will get automatic update every 5 minutes." onmouseover="window.status='To run Quick Look scan, remembering that program will run General Filtering first.'" onmouseout="window.status='Done'"></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+  <tr>
+    <td width="223" height="160">
+    <table border="1" cellpadding="0" cellspacing="1" width="99%" height="180">
+      <tr>
+        <td width="100%" height="36">
+        <p align="center"><b><font color="#0000FF" size="5"><a href="/wbFPW Manual - MP.html#DS" target="_blank" title="To open User's Manual to get online help.">Digital Scan</a>*</font></b></td>
+      </tr>
+      <tr>
+        <td width="100%" height="33">
+        <p align="center">
+        <input style="width: 20; font-family:Wingdings; font-size:12pt" type="button" value="x" name="zsobx4541" onclick="javascript: var usernameh=document.stockForm.mlid.value; if ((usernameh != 'User01')&&(usernameh != 'User02')&&(usernameh != 'User03')&&(usernameh != 'User04')) {savehddatabs(); stockForm.mlmfile.value='wbdzhputmi1'; stockForm.filetypeid.value='mpdzhD'; target='_blank'; stockForm.submit(); window.open('','_self'); window.close(); } else window.open('fpwUser0Note.html','','top=160,left=200,width=530,height=100');" title="Delete previously saved file in SERVER side. Will open an interface for you to choose which file to delete." onmouseover="window.status='Delete previously saved file in SERVER side. Will open an interface for you to choose which file to delete.'" onmouseout="window.status='Done'"> <input style="width: 27px; font-family:Wingdings; font-size:12pt; text-align:left" type="button" value="1" name="zsobx52" onclick="javascript: var usernameh=document.stockForm.mlid.value;	if ((usernameh != 'User01')&&(usernameh != 'User02')&&(usernameh != 'User03')&&(usernameh != 'User04')) {savehddatabs(); stockForm.mlmfile.value='wbdzhputmi1'; stockForm.filetypeid.value='mpdzhL'; target='_blank'; stockForm.submit(); window.open('','_self'); window.close(); } else window.open('fpwUser0Note.html','','top=160,left=200,width=530,height=100');" title="Load previously saved file from SERVER side. Will open an interface for you to choose which file to open." onmouseover="window.status='Load previously saved file from SERVER side. Will open an interface for you to choose which file to open.'" onmouseout="window.status='Done'"> <input type="text" name="zsobx53" value="$FDzsobx53$" size="7" onKeyDown="javascript: if(event.keyCode==13) {event.keyCode=9; savehddatabs(); stockForm.mlmfile.value='wbdzhsave'; target='MPSatusReport'; stockForm.submit();}" title="Entering a file name to save all infomation of the current page to SERVER by clicking right next S button." onmouseover="window.status='Entering a file name to save all infomation of the current page to SERVER by clicking right next S button.'" style="text-align: center"> <input style="width: 23px; font-family:Wingdings; font-size:12pt" type="button" value="0" name="zsobx54" onclick="javascript: savehddatabs(); stockForm.mlmfile.value='wbdzhsave'; target='MPSatusReport'; stockForm.submit();" title="Save the current PAGE to a file named in the left textbox. Will overwrite the old one, if existed, without warning." onmouseover="window.status='Save the current PAGE to a file named in the left textbox. Will overwrite the old one, if existed, without warning.'" onmouseout="window.status='Done'"><font size="1">
+        </font> 
+  		<input style="width: 18px" type="button" value='$FDhdzsobx55$' name="zsobx55" onclick="javascript: onclickzsobx55();" title="Choose database for Digital Scan, not for GF. They are independent each other." onmouseover="window.status='Choose database for Digital Scan, not for GF. They are independent each other.'" onmouseout="window.status='Done'"><font size="1">
+        </font> <input style="width: 30px" type="button" value="Run" name="zsobx56" onclick="javascript: CloseAllTimeout(); savehddatabs(); stockForm.mlmfvar2.value='1'; stockForm.mlmfile.value='wbdzhsdigi'; target='PulseOutputMain'; stockForm.submit();" title="To run Digital scan, remembering that program will run General Filtering first. Optional, special order needed. No automatic update for digital scan since it takes too much CPU time." onmouseover="window.status='To run Digital scan, remembering that program will run General Filtering first. Optional, special order needed.'" onmouseout="window.status='Done'"></td>
+      </tr>
+      <tr>
+        <td width="100%" height="12">
+                <textarea rows="8" name="zsobx57" cols="35" title="Pattern description, any function, any variable(except: ii NPPV y1 cuslenf). Must match if-end pairs, end each statement by ;." onmouseover="window.status='Pattern description, any function, any variable(except: ii NPPV y1 cuslenf). Must match if-end pairs, end each statement by ';'.'" onmouseout="window.status='Done'" style="font-size: 10pt; font-family: Tahoma">$FDzsobx57$</textarea></td>
+      </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td width="236" height="129">
+    <table border="1" cellpadding="0" cellspacing="1" width="100%" height="179">
+      <tr>
+        <td width="100%" height="36">
+        <p align="center"><b><font color="#0000FF" size="5"><a href="/wbFPW Manual - MP.html#AS" target="_blank" title="To open User's Manual to get online help.">Analog Scan</a>*</font></b></td>
+      </tr>
+      <tr>
+        <td width="100%" height="32">
+          <p align="center">
+          <b><font size="4">Times</font><font size="1"> </font></b><select size="1" name="zsobx62" title="To linearly interplate how many points between any two points of the basic 20 points pattern." onmouseover="window.status='To linearly interplate how many points between any two points of the basic 20 points pattern.'" onmouseout="window.status='Done'">
+              <option value="0">0</option>
+    		  <option value="1">1</option>    
+    		  <option selected value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+    		  <option value="9">9</option>
+    		  <option value="10">10</option>          
+          </select><font size="1"> </font> 
+          <input style="WIDTH: 37px" type="button" value="Save" name="zsobx63" onclick="javascript: savehddatabs(); stockForm.mlmfile.value='wbdzhscsav'; target='MPSatusReport'; stockForm.submit();" title="Save the current PAGE info to a default file in server, used to initialize the page when you open next time." onmouseover="window.status='Save the current PAGE info to a default file in server, used to initialize the page when you open next time.'" onmouseout="window.status='Done'"><font size="1">
+          </font> 
+          <input style="WIDTH: 37px" type="button" value='$FDhdzsobx64$' name="zsobx64" onclick="javascript: onclickzsobx64();" title="Choose database for Analog Scan, not for General Filtering. They are independent each other." onmouseover="window.status='Choose database for Analog Scan, not for General Filtering. They are independent each other.'" onmouseout="window.status='Done'"><font size="1">
+          </font> 
+          <input style="WIDTH: 32px" type="button" value="Run" name="zsobx65" onclick="javascript: CloseAllTimeout(); savehddatabs(); stockForm.mlmfvar2.value='5'; stockForm.mlmfile.value='wbdzhptern'; target='PulseOutputMain'; stockForm.submit();" title="To run Analog scan, remembering that program will run General Filtering first.  Optional, special order needed. No automatic update for analog scan since it takes too much CPU time." onmouseover="window.status='To run Analog scan, remembering that program will run General Filtering first.  Optional, special order needed.'" onmouseout="window.status='Done'">
+        </td>
+      </tr>
+      <tr>
+        <td width="100%" height="102" align="center" valign="top">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" height="10">
+            <tr>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,1,'U');" ondblclick="javascript: onclickUD(9,1,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,2,'U');" ondblclick="javascript: onclickUD(9,2,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,3,'U');" ondblclick="javascript: onclickUD(9,3,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,4,'U');" ondblclick="javascript: onclickUD(9,4,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,5,'U');" ondblclick="javascript: onclickUD(9,5,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,6,'U');" ondblclick="javascript: onclickUD(9,6,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,7,'U');" ondblclick="javascript: onclickUD(9,7,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,8,'U');" ondblclick="javascript: onclickUD(9,8,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,9,'U');" ondblclick="javascript: onclickUD(9,9,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,10,'U');" ondblclick="javascript: onclickUD(9,10,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,11,'U');" ondblclick="javascript: onclickUD(9,11,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,12,'U');" ondblclick="javascript: onclickUD(9,12,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,13,'U');" ondblclick="javascript: onclickUD(9,13,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,14,'U');" ondblclick="javascript: onclickUD(9,14,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,15,'U');" ondblclick="javascript: onclickUD(9,15,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,16,'U');" ondblclick="javascript: onclickUD(9,16,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,17,'U');" ondblclick="javascript: onclickUD(9,17,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,18,'U');" ondblclick="javascript: onclickUD(9,18,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,19,'U');" ondblclick="javascript: onclickUD(9,19,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1" align="center">
+              <img border="0" src="http://www.WSQSI.com/images/myuparrow.jpg" onclick="javascript: onclickUD(1,20,'U');" ondblclick="javascript: onclickUD(9,20,'U');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this uparrow sign will move the height of the bar right below it higher by 1px, double click by 10px.'"></td>
+            </tr>
+          </table>
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" height="86">
+            <tr>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; WIDTH: 6; background-color:#0000FF; height: $mybarh1$;" type="button" value=' ' name="Mybar1" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height: $mybarh2$; background-color:#0000FF; width:6;" type="button" value='' name="Mybar2" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height: $mybarh3$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar3" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh4$; WIDTH: 6; background-color:#0000FF" type="button" value='' name="Mybar4" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh5$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar5" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh6$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar6" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh7$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar7" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh8$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar8" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh9$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar9" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh10$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar10" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh11$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar11" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh12$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar12" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh13$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar13" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh14$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar14" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh15$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar15" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh16$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar16" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh17$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar17" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh18$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar18" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh19$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar19" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+              <td width="5%" height="86" align="left" valign="bottom" style="border: 1px dotted #E5E5E5">
+              <input style="border:1px solid #0000FF; height:$mybarh20$; WIDTH: 6px; background-color:#0000FF" type="button" value='' name="Mybar20" onmouseout="window.status='Done'" onmouseover="window.status='The heights of this bar and 19 others consists of the pattern we are scanning for. Each has 81px range to choose, 3-83px.'"></td>
+            </tr>
+          </table>
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" height="10">
+            <tr>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,1,'D');" ondblclick="javascript: onclickUD(9,1,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,2,'D');" ondblclick="javascript: onclickUD(9,2,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,3,'D');" ondblclick="javascript: onclickUD(9,3,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,4,'D');" ondblclick="javascript: onclickUD(9,4,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,5,'D');" ondblclick="javascript: onclickUD(9,5,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,6,'D');" ondblclick="javascript: onclickUD(9,6,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,7,'D');" ondblclick="javascript: onclickUD(9,7,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,8,'D');" ondblclick="javascript: onclickUD(9,8,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,9,'D');" ondblclick="javascript: onclickUD(9,9,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,10,'D');" ondblclick="javascript: onclickUD(9,10,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,11,'D');" ondblclick="javascript: onclickUD(9,11,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,12,'D');" ondblclick="javascript: onclickUD(9,12,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,13,'D');" ondblclick="javascript: onclickUD(9,13,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,14,'D');" ondblclick="javascript: onclickUD(9,14,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,15,'D');" ondblclick="javascript: onclickUD(9,15,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,16,'D');" ondblclick="javascript: onclickUD(9,16,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,17,'D');" ondblclick="javascript: onclickUD(9,17,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,18,'D');" ondblclick="javascript: onclickUD(9,18,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,19,'D');" ondblclick="javascript: onclickUD(9,19,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+              <td width="5%" height="1">
+              <img border="0" src="http://www.WSQSI.com/images/mydownarrow.jpg" onclick="javascript: onclickUD(1,20,'D');" ondblclick="javascript: onclickUD(9,20,'D');" style="width=7; height=7;" onmouseout="window.status='Done'" onmouseover="window.status='Click this downarrow sign will lower the bar right above it by 1px, double click by 10px.'"></td>
+            </tr>
+          </table>          
+        </td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+    </table>
+    </center>
+    </form>
+<form name="stock2Form" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+<input type="hidden" name="mlmfile" value="wbmpinitial">
+<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+<input type="hidden" name="mlid" value="$FDfpwusername$">
+<input type="hidden" name="mlid4" value="$FDfpwusername4$">
+<input type="hidden" name="WhereOrderFrom" value="INDX">
+<input type="hidden" name="mlmfvar" value="leavemealone">
+<input type="hidden" name="hdfpwaddnoise" value="AN: 0">
+<p align="center"><b>
+<script language="JavaScript">
+function onclickstock26(str) {
+   document.stock2Form.mlmfile.value=str;
+   stock2Form.submit(); }
+</script>
+    <a href="javascript: onclickstock26('wbstmpsimu');">MarketPulse Pro</a> | 
+    <a href="javascript: onclickstock26('wbfpwsimu');">PatternWorkshop</a> | 
+    <a href="javascript: onclickstock26('wbfpwoutput');">PatternWorkshop Pro</a> | 
+    <a href="javascript: onclickstock26('wbfpwstat');">Forward Statistics</a> | 
+    <a href="javascript: onclickstock26('wbfpwport');">Portfolio Manager</a></b><br>
+    
+    <a href="JavaScript: onclickstock26('wbstanalog');">Analog</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstfpz691');">Zone</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstswing');">Swing</a> |&nbsp;<a href="JavaScript: onclickstock26('wbstsea');">Season</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstsnr');">SNR</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstleadi');">Leading Indicator</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstchart');">Detail Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstmmct');">Multi-Markets Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstrdata');">Data</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbfpwmpstat');">MP 
+Stat</a><br>
+<b><font size="2">&nbsp;</font></b><font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+ 
+WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp; Username:&nbsp; 
+$FDfpwusername$</font></p>
+ </form>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>

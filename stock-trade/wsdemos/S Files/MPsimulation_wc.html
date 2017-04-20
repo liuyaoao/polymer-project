@@ -1,0 +1,818 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<base href="http://www.WSQSI.com"/>
+<title>MarketPulse Pro</title>
+<script language="JavaScript">
+function onclickmpefls() {
+	if (document.mpsimForm.mpefls.value=='+/-')
+		document.mpsimForm.mpefls.value='++';
+	else
+		if (document.mpsimForm.mpefls.value=='++')
+		document.mpsimForm.mpefls.value='- -';
+	else
+	if (document.mpsimForm.mpefls.value=='- -')	
+		document.mpsimForm.mpefls.value='+/-';	
+} 
+function mpsavehddata() {
+	document.mpsimForm.hdmpefls.value=document.mpsimForm.mpefls.value;
+	document.mpsimForm.hdmpefco.value=document.mpsimForm.mpefco.value;
+	document.mpsimForm.hdmpefcoqs.value=document.mpsimForm.mpefcoqs.value;	
+	document.mpsimForm.hdmpptdt.value=document.mpsimForm.mpptdt.value;	
+}
+function ondblclickmpefef() {
+  	window.open("/mpefefhelp.html","","top=20,left=30,width=1150,height=700");
+}
+function onclickmpefrs() {
+	document.mpsimForm.mpefsp.value='1500';
+	document.mpsimForm.mpefls.value='+/-';
+	document.mpsimForm.mpefhl.value='30';
+	document.mpsimForm.mpefco.value='Close';
+	document.mpsimForm.mpefef.value='Enter any statement here.';	
+	document.mpsimForm.mpefvb.value='0';
+	document.mpsimForm.mpefve.value='999';
+	document.mpsimForm.mpefpb.value='0';
+	document.mpsimForm.mpefpe.value='999';
+	document.mpsimForm.mpefvpb.value='0';
+	document.mpsimForm.mpefvpe.value='999';
+	document.mpsimForm.mpsrsindex.value='1';	
+}
+</script>
+</head>
+
+<body onload="mpsimForm.mpptmrk.value='$mpptmrk$';
+	mpsimForm.mpmruon.value='$mpmruon$';
+	mpsimForm.mpmrkind.value='$mpmrkind$';
+	mpsimForm.mpmrvo.value='$mpmrvo$';	
+	mpsimForm.mprunindex.value='$mprunindex$';	
+	mpsimForm.mpptdt.value='$mpptdt$';
+	mpsimForm.mpefhl.value='$mpefhl$';	
+	mpsimForm.mpefco.value='$mpefco$';
+	mpsimForm.mpefls.value='$mpefls$';	
+	mpsimForm.mpefcoqs.value='$mpefcoqs$';
+	mpsimForm.mpefhlqs.value='$mpefhlqs$';" topmargin="10" leftmargin="10" bgcolor="#FFFFFF">
+
+<form name="mpsimForm" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+	<input type="hidden" name="mlmfile" value="wbstmpsimu">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">
+	<input type="hidden" name="hdmpefls" value="KaKaKa">	
+	<input type="hidden" name="hdmpefco" value="KaKaKa">
+	<input type="hidden" name="hdmpefcoqs" value="KaKaKa">
+	<input type="hidden" name="hdmpptdt" value="KaKaKa">		
+	<input type="hidden" name="mprunindex" value="$mprunindex$">
+	<input type="hidden" name="mpsrsindex" value="$mpsrsindex$">
+	<input type="hidden" name="mpswinno" value="$mpswinno$">
+	<input type="hidden" name="mpslossno" value="$mpslossno$">	
+	<input type="hidden" name="mpsdrawno" value="$mpsdrawno$">	
+	<input type="hidden" name="mpswinper" value="$mpswinper$">	
+	<input type="hidden" name="mpsevdd" value="$mpsevdd$">	
+	<input type="hidden" name="mpsprfr" value="$mpsprfr$">	
+	<input type="hidden" name="mpsequity" value="$mpsequity$">	
+	<input type="hidden" name="mpsmaxfp" value="$mpsmaxfp$">	
+	<input type="hidden" name="mpsmaxdd" value="$mpsmaxdd$">	
+	<input type="hidden" name="mpsavet" value="$mpsavet$">	
+	<input type="hidden" name="mpsavew" value="$mpsavew$">	
+	<input type="hidden" name="mpsavel" value="$mpsavel$">	
+	<input type="hidden" name="mpsmaxw" value="$mpsmaxw$">	
+	<input type="hidden" name="mpsmaxl" value="$mpsmaxl$">	
+	<input type="hidden" name="filetypeid" value="mpsim">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">	
+
+<div align="center">
+  <center>
+  <table border="1" width="795" height="193">
+    <tr>
+      <td width="233" height="334" rowspan="2" colspan="2">
+      <table border="1" cellpadding="0" cellspacing="1" width="100%" height="372">
+        <tr>
+          <td width="100%" bgcolor="#FFFFFF" height="27" colspan="2">
+          <p align="center"><font color="#0000FF" size="4"><a href="/wbFPW Manual - MPP.html#SO" target="_blank" title="To open User's Manual to get online help.">Simulation 
+          Statistics</a></font></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="14" style="background-color: #00FF00"><b><font size="2">Win No.</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="14" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpswinno$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="19" style="background-color: #00FF00"><b><font size="2">&nbsp;Loss No.</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="19" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpslossno$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="20" style="background-color: #00FF00"><b><font size="2">&nbsp;Draw No.</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="20" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsdrawno$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="20" style="background-color: #00FF00"><b><font size="2">&nbsp;Win %</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="20" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpswinper$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="19" style="background-color: #00FF00"><b><font size="2">&nbsp;$ Vs. D/D</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="19" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsevdd$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="18" style="background-color: #00FF00"><b><font size="2">&nbsp;Pr. Factor</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="18" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsprfr$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="19" style="background-color: #00FF00">
+          <p align="left">
+          <b><font size="2">&nbsp;Equity (K$)</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="19" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsequity$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="20" style="background-color: #00FF00"><b><font size="2">&nbsp;Max FP</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="20" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsmaxfp$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="19" style="background-color: #00FF00"><b><font size="2">&nbsp;Max D/D</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="19" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsmaxdd$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="19" style="background-color: #00FF00"><b><font size="2">&nbsp;Ave Trade</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="19" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsavet$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="20" style="background-color: #00FF00"><b><font size="2">&nbsp;Ave Win</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="20" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsavew$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="21" style="background-color: #00FF00"><b><font size="2">&nbsp;Ave Loss</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="21" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsavel$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="25" style="background-color: #00FF00"><b><font size="2">&nbsp;Max Win</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="25" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsmaxw$</font></b></td>
+        </tr>
+        <tr>
+          <td width="46%" bgcolor="#FFFFFF" height="9" style="background-color: #00FF00"><b><font size="2">&nbsp;Max Loss</font></b></td>
+          <td width="54%" bgcolor="#FFFFFF" height="9" align="center" style="background-color: #00FF00">
+          <b>
+          <font size="2">$mpsmaxl$</font></b></td>
+        </tr>
+        <tr>
+          <td width="100%" bgcolor="#FFFFFF" height="28" colspan="2">
+          <p align="center"><font size="4" color="#0000FF"><a href="/wbFPW Manual - MPP.html#PA" target="_blank" title="To open User's Manual to get online help.">Simulation 
+          Parameters</a></font></td>
+        </tr>
+      </table>
+      </td>
+      <td width="563" height="290" colspan="2" align="center">
+      <img border="0" src="$Mpsimujpeg$" align="center"></td>
+    </tr>
+    <tr>
+      <td width="563" height="41" colspan="2">
+      <table border="1" cellpadding="0" cellspacing="1" width="102%" height="54">
+        <tr>
+          <td width="100%" height="23">
+          <p align="center">
+          <input style="width: 49px; color:#000000; background-color:#00FF00" type="button" value="Reset" name="mpefrs" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='91'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close();" onmouseout="window.status='Done'" title="Reset all decomposition parameters, and the initial working file back to Simu-1 from Decom-1." onmouseover="window.status='Reset all decomposition parameters, and the initial working file back to Simu-1 from Decom-1.'"><font size="2">&nbsp;</font><input type="text" name="mpefvb" value="$mpefvb$" size="4" onmouseout="window.status='Done'" title="Decomposition filter condition: the lowest Volume limit." onmouseover="window.status='Decomposition filter condition: the lowest Volume limit.';" style="color: #000000; font-size: 10pt; background-color:#D2D2D2; text-align:center"><input style="width: 32px; color:#000000;" type="button" value="Vol" name="mpb1" onmouseout="window.status='Done'" title="=<Volume>=" onmouseover="window.status='=<Volume>=';"><input type="text" name="mpefve" value="$mpefve$" size="5" onmouseout="window.status='Done'" title="Decomposition filter condition: the highest Volume limit." onmouseover="window.status='Decomposition filter condition: the highest Volume limit.';" style="color: #000000; font-size: 10pt; background-color:#D2D2D2; text-align:center"><font size="2"> &nbsp;</font><input type="text" name="mpefpb" value="$mpefpb$" size="4" onmouseout="window.status='Done'" title="Decomposition filter condition: the lowest Price limit." onmouseover="window.status='Decomposition filter condition: the lowest Price limit.';" style="color: #000000; font-size: 10pt; background-color:#D2D2D2; text-align:center"><input style="width: 41px; color:#000000;" type="button" value="Price" name="mpb2" onmouseout="window.status='Done'" title="=<Price Range>=" onmouseover="window.status='=<Price Range>=';"><input type="text" name="mpefpe" value="$mpefpe$" size="5" onmouseout="window.status='Done'" title="Decomposition filter condition: the highest Price limit." onmouseover="window.status='Decomposition filter condition: the highest Price limit.';" style="color: #000000; font-size: 10pt; background-color:#D2D2D2; text-align:center"><font size="2"> </font><input type="text" name="mpefvpb" value="$mpefvpb$" size="5" onmouseout="window.status='Done'" title="Decomposition filter condition: the lowest Volume*Price limit." onmouseover="window.status='Decomposition filter condition: the lowest Volume*Price limit.';" style="color: #000000; font-size: 10pt; background-color:#D2D2D2; text-align:center"><input style="width: 45px; color:#000000;" type="button" value="Vol*P" name="mpb3" onmouseout="window.status='Done'" title="=<volume*Price>=" onmouseover="window.status='=<volume*Price>=';"><input type="text" name="mpefvpe" value="$mpefvpe$" size="5" onmouseout="window.status='Done'" title="Decomposition filter condition: the highest Volume*Price limit." onmouseover="window.status='Decomposition filter condition: the highest Volume*Price limit.';" style="color: #000000; font-size: 10pt; background-color:#D2D2D2; text-align:center"> <input style="width: 45px; color:#000000; background-color:#00FF00" type="button" value="Dcom" name="mpefrun" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='71'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close();" onmouseout="window.status='Done'" title="To run the decompositon simulation." onmouseover="window.status='To run the decompositon simulation.';"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="25" bgcolor="#FFFFFF">
+          <p align="center">
+          <input type="text" name="mpefsp" value="$mpefsp$" size="4" onmouseout="window.status='Done'" title="Decompositon-simulation period. It should be shorter than the simulation period (SP), otherwise assigns it same as the SP." onmouseover="window.status='Decompositon-simulation period. It should be shorter than the simulation period (SP), otherwise assigns it same as the SP.';" style="color: #000000; font-size: 10pt; background-color:#D2D2D2; text-align:center"><font size="1">&nbsp;</font><select size="1" name="mpefhlqs" title="Decompositon-simulation start time. Default is 0, i.e c(0)." onmouseover="window.status='Decompositon-simulation start time. Default is 0, i.e c(0).'" onmouseout="window.status='Done'">
+    		  <option selected value="0">0</option>    
+    		  <option value="1">1</option>
+    		  <option value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+    		  <option value="9">9</option>  
+    		  <option value="10">10</option>  
+    		  <option value="11">11</option>     		    
+    		  <option value="12">12</option>
+    		  <option value="13">13</option>    
+    		  <option value="14">14</option>
+              <option value="15">15</option>    
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+    		  <option value="19">19</option> 
+    		  <option value="20">20</option>  
+    		  <option value="21">21</option>    		    
+    		  <option value="22">22</option>
+    		  <option value="23">23</option>    
+    		  <option value="24">24</option>
+              <option value="25">25</option>    
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+    		  <option value="29">29</option>
+    		  <option value="30">30</option>
+    		  <option value="31">31</option>    		    
+    		  <option value="32">32</option>
+    		  <option value="33">33</option>    
+    		  <option value="34">34</option>
+              <option value="35">35</option>    
+              <option value="36">36</option>
+              <option value="37">37</option>
+              <option value="38">38</option>
+    		  <option value="39">39</option>
+    		  <option value="40">40</option>
+    		  <option value="41">41</option>    		    
+    		  <option value="42">42</option>
+    		  <option value="43">43</option>    
+    		  <option value="44">44</option>
+              <option value="45">45</option>
+              <option value="46">46</option>    		    
+    		  <option value="47">47</option>
+    		  <option value="48">48</option>    
+    		  <option value="49">49</option>
+              <option value="50">50</option>    
+              <option value="51">51</option>
+              <option value="52">52</option>
+              <option value="53">53</option>
+    		  <option value="54">54</option>
+    		  <option value="55">55</option>
+    		  <option value="56">56</option>    		    
+    		  <option value="57">57</option>
+    		  <option value="58">58</option>    
+    		  <option value="59">59</option>
+              <option value="60">60</option>  
+              <option value="61">61</option>    		    
+    		  <option value="62">62</option>
+    		  <option value="63">63</option>    
+    		  <option value="64">64</option>
+              <option value="65">65</option>    
+              <option value="66">66</option>
+              <option value="67">67</option>
+              <option value="68">68</option>
+    		  <option value="69">69</option>
+    		  <option value="70">70</option>
+    		  <option value="71">71</option>    		    
+    		  <option value="72">72</option>
+    		  <option value="73">73</option>    
+    		  <option value="74">74</option>
+              <option value="75">75</option>
+              <option value="76">76</option>    		    
+    		  <option value="77">77</option>
+    		  <option value="78">78</option>    
+    		  <option value="79">79</option>
+              <option value="80">80</option>    
+              <option value="81">81</option>
+              <option value="82">82</option>
+              <option value="83">83</option>
+    		  <option value="84">84</option>
+    		  <option value="85">85</option>
+    		  <option value="86">86</option>    		    
+    		  <option value="87">87</option>
+    		  <option value="88">88</option>    
+    		  <option value="89">89</option>
+              <option value="90">90</option>  
+              <option value="91">91</option>    		    
+    		  <option value="92">92</option>
+    		  <option value="93">93</option>    
+    		  <option value="94">94</option>
+              <option value="95">95</option>    
+              <option value="96">96</option>
+              <option value="97">97</option>
+              <option value="98">98</option>
+    		  <option value="99">99</option>
+    		  <option value="100">100</option>
+    		  <option value="101">101</option>
+    		  <option value="102">102</option>
+    		  <option value="103">103</option>    
+    		  <option value="104">104</option>
+              <option value="105">105</option>    
+              <option value="106">106</option>
+              <option value="107">107</option>
+              <option value="108">108</option>
+    		  <option value="109">109</option>  
+    		  <option value="110">110</option>  
+    		  <option value="111">111</option>     		    
+    		  <option value="112">112</option>
+    		  <option value="113">113</option>    
+    		  <option value="114">114</option>
+              <option value="115">115</option>    
+              <option value="116">116</option>
+              <option value="117">117</option>
+              <option value="118">118</option>
+    		  <option value="119">119</option> 
+    		  <option value="120">120</option>  
+    		  <option value="121">121</option>    		    
+    		  <option value="122">122</option>
+    		  <option value="123">123</option>    
+    		  <option value="124">124</option>
+              <option value="125">125</option>    
+              <option value="126">126</option>
+              <option value="127">127</option>
+              <option value="128">128</option>
+    		  <option value="129">129</option>
+    		  <option value="130">130</option>
+    		  <option value="131">131</option>    		    
+    		  <option value="132">132</option>
+    		  <option value="133">133</option>    
+    		  <option value="134">134</option>
+              <option value="135">135</option>    
+              <option value="136">136</option>
+              <option value="137">137</option>
+              <option value="138">138</option>
+    		  <option value="139">139</option>
+    		  <option value="140">140</option>
+    		  <option value="141">141</option>    		    
+    		  <option value="142">142</option>
+    		  <option value="143">143</option>    
+    		  <option value="144">144</option>
+              <option value="145">145</option>
+              <option value="146">146</option>    		    
+    		  <option value="147">147</option>
+    		  <option value="148">148</option>    
+    		  <option value="149">149</option>
+              <option value="150">150</option>    
+              <option value="151">151</option>
+              <option value="152">152</option>
+              <option value="153">153</option>
+    		  <option value="154">154</option>
+    		  <option value="155">155</option>
+    		  <option value="156">156</option>    		    
+    		  <option value="157">157</option>
+    		  <option value="158">158</option>    
+    		  <option value="159">159</option>
+              <option value="160">160</option>  
+              <option value="161">161</option>    		    
+    		  <option value="162">162</option>
+    		  <option value="163">163</option>    
+    		  <option value="164">164</option>
+              <option value="165">165</option>    
+              <option value="166">166</option>
+              <option value="167">167</option>
+              <option value="168">168</option>
+    		  <option value="169">169</option>
+    		  <option value="170">170</option>
+    		  <option value="171">171</option>    		    
+    		  <option value="172">172</option>
+    		  <option value="173">173</option>    
+    		  <option value="174">174</option>
+              <option value="175">175</option>
+              <option value="176">176</option>    		    
+    		  <option value="177">177</option>
+    		  <option value="178">178</option>    
+    		  <option value="179">179</option>
+              <option value="180">180</option>    
+              <option value="181">181</option>
+              <option value="182">182</option>
+              <option value="183">183</option>
+    		  <option value="184">184</option>
+    		  <option value="185">185</option>
+    		  <option value="186">186</option>    		    
+    		  <option value="187">187</option>
+    		  <option value="188">188</option>    
+    		  <option value="189">189</option>
+              <option value="190">190</option>  
+              <option value="191">191</option>    		    
+    		  <option value="192">192</option>
+    		  <option value="193">193</option>    
+    		  <option value="194">194</option>
+              <option value="195">195</option>    
+              <option value="196">196</option>
+              <option value="197">197</option>
+              <option value="198">198</option>
+    		  <option value="199">199</option>
+          </select><input style="width: 43px; color:#000000;" type="button" value="Close" name="mpefcoqs" onclick="javascript: if (value=='Close') value='Open'; else value='Close';" onmouseout="window.status='Done'" title="To choose decomposition-simulation start time from close or open." onmouseover="window.status='To choose decomposition-simulation start time from close or open.';"><font size="1">
+          </font><input style="width: 25px; color:#000000;" type="button" value="+/-" name="mpefls" onclick="javascript: onclickmpefls();" onmouseout="window.status='Done'" title="++: long, - -: short, +/-: both long and short." onmouseover="window.status='++: long, - -: short, +/-: both long and short.';"><font size="1">
+          </font><select size="1" name="mpefhl" title="Decomposition-simulation holding period,to decide how many bars\' forward decomposition-simulation to run." onmouseover="window.status='Decomposition-simulation holding period,to decide how many bars\' forward decomposition-simulation to run.'" onmouseout="window.status='Done'">
+    		  <option value="1">1</option>    
+    		  <option value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+    		  <option value="9">9</option>  
+    		  <option value="10">10</option>  
+    		  <option value="11">11</option>     		    
+    		  <option value="12">12</option>
+    		  <option value="13">13</option>    
+    		  <option value="14">14</option>
+              <option value="15">15</option>    
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+    		  <option value="19">19</option> 
+    		  <option value="20">20</option>  
+    		  <option value="21">21</option>    		    
+    		  <option value="22">22</option>
+    		  <option value="23">23</option>    
+    		  <option value="24">24</option>
+              <option value="25">25</option>    
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+    		  <option value="29">29</option>
+    		  <option selected value="30">30</option>
+    		  <option value="31">31</option>    		    
+    		  <option value="32">32</option>
+    		  <option value="33">33</option>    
+    		  <option value="34">34</option>
+              <option value="35">35</option>    
+              <option value="36">36</option>
+              <option value="37">37</option>
+              <option value="38">38</option>
+    		  <option value="39">39</option>
+    		  <option value="40">40</option>
+    		  <option value="41">41</option>    		    
+    		  <option value="42">42</option>
+    		  <option value="43">43</option>    
+    		  <option value="44">44</option>
+              <option value="45">45</option>    
+              <option value="46">46</option>    		    
+    		  <option value="47">47</option>
+    		  <option value="48">48</option>    
+    		  <option value="49">49</option>
+              <option value="50">50</option>    
+              <option value="51">51</option>
+              <option value="52">52</option>
+              <option value="53">53</option>
+    		  <option value="54">54</option>
+    		  <option value="55">55</option>
+    		  <option value="56">56</option>    		    
+    		  <option value="57">57</option>
+    		  <option value="58">58</option>    
+    		  <option value="59">59</option>
+              <option value="60">60</option>  
+              <option value="61">61</option>    		    
+    		  <option value="62">62</option>
+    		  <option value="63">63</option>    
+    		  <option value="64">64</option>
+              <option value="65">65</option>    
+              <option value="66">66</option>
+              <option value="67">67</option>
+              <option value="68">68</option>
+    		  <option value="69">69</option>
+    		  <option value="70">70</option>
+    		  <option value="71">71</option>    		    
+    		  <option value="72">72</option>
+    		  <option value="73">73</option>    
+    		  <option value="74">74</option>
+              <option value="75">75</option>
+              <option value="76">76</option>    		    
+    		  <option value="77">77</option>
+    		  <option value="78">78</option>    
+    		  <option value="79">79</option>
+              <option value="80">80</option>    
+              <option value="81">81</option>
+              <option value="82">82</option>
+              <option value="83">83</option>
+    		  <option value="84">84</option>
+    		  <option value="85">85</option>
+    		  <option value="86">86</option>    		    
+    		  <option value="87">87</option>
+    		  <option value="88">88</option>    
+    		  <option value="89">89</option>
+              <option value="90">90</option>  
+              <option value="91">91</option>    		    
+    		  <option value="92">92</option>
+    		  <option value="93">93</option>    
+    		  <option value="94">94</option>
+              <option value="95">95</option>    
+              <option value="96">96</option>
+              <option value="97">97</option>
+              <option value="98">98</option>
+    		  <option value="99">99</option>
+    		  <option value="100">100</option>
+    		  <option value="101">101</option>
+    		  <option value="102">102</option>
+    		  <option value="103">103</option>    
+    		  <option value="104">104</option>
+              <option value="105">105</option>    
+              <option value="106">106</option>
+              <option value="107">107</option>
+              <option value="108">108</option>
+    		  <option value="109">109</option>  
+    		  <option value="110">110</option>  
+    		  <option value="111">111</option>     		    
+    		  <option value="112">112</option>
+    		  <option value="113">113</option>    
+    		  <option value="114">114</option>
+              <option value="115">115</option>    
+              <option value="116">116</option>
+              <option value="117">117</option>
+              <option value="118">118</option>
+    		  <option value="119">119</option> 
+    		  <option value="120">120</option>  
+    		  <option value="121">121</option>    		    
+    		  <option value="122">122</option>
+    		  <option value="123">123</option>    
+    		  <option value="124">124</option>
+              <option value="125">125</option>    
+              <option value="126">126</option>
+              <option value="127">127</option>
+              <option value="128">128</option>
+    		  <option value="129">129</option>
+    		  <option value="130">130</option>
+    		  <option value="131">131</option>    		    
+    		  <option value="132">132</option>
+    		  <option value="133">133</option>    
+    		  <option value="134">134</option>
+              <option value="135">135</option>    
+              <option value="136">136</option>
+              <option value="137">137</option>
+              <option value="138">138</option>
+    		  <option value="139">139</option>
+    		  <option value="140">140</option>
+    		  <option value="141">141</option>    		    
+    		  <option value="142">142</option>
+    		  <option value="143">143</option>    
+    		  <option value="144">144</option>
+              <option value="145">145</option>
+              <option value="146">146</option>    		    
+    		  <option value="147">147</option>
+    		  <option value="148">148</option>    
+    		  <option value="149">149</option>
+              <option value="150">150</option>    
+              <option value="151">151</option>
+              <option value="152">152</option>
+              <option value="153">153</option>
+    		  <option value="154">154</option>
+    		  <option value="155">155</option>
+    		  <option value="156">156</option>    		    
+    		  <option value="157">157</option>
+    		  <option value="158">158</option>    
+    		  <option value="159">159</option>
+              <option value="160">160</option>  
+              <option value="161">161</option>    		    
+    		  <option value="162">162</option>
+    		  <option value="163">163</option>    
+    		  <option value="164">164</option>
+              <option value="165">165</option>    
+              <option value="166">166</option>
+              <option value="167">167</option>
+              <option value="168">168</option>
+    		  <option value="169">169</option>
+    		  <option value="170">170</option>
+    		  <option value="171">171</option>    		    
+    		  <option value="172">172</option>
+    		  <option value="173">173</option>    
+    		  <option value="174">174</option>
+              <option value="175">175</option>
+              <option value="176">176</option>    		    
+    		  <option value="177">177</option>
+    		  <option value="178">178</option>    
+    		  <option value="179">179</option>
+              <option value="180">180</option>    
+              <option value="181">181</option>
+              <option value="182">182</option>
+              <option value="183">183</option>
+    		  <option value="184">184</option>
+    		  <option value="185">185</option>
+    		  <option value="186">186</option>    		    
+    		  <option value="187">187</option>
+    		  <option value="188">188</option>    
+    		  <option value="189">189</option>
+              <option value="190">190</option>  
+              <option value="191">191</option>    		    
+    		  <option value="192">192</option>
+    		  <option value="193">193</option>    
+    		  <option value="194">194</option>
+              <option value="195">195</option>    
+              <option value="196">196</option>
+              <option value="197">197</option>
+              <option value="198">198</option>
+    		  <option value="199">199</option>
+          </select><input style="width: 43px; color:#000000;" type="button" value="Close" name="mpefco" onclick="javascript: if (value=='Close') value='Open'; else value='Close';" onmouseout="window.status='Done'" title="decomposition-simulation holding period closed at close or open." onmouseover="window.status='decomposition-simulation holding period closed at close or open.';"> 
+          <input style="width: 20px; color:#000000;" type="button" value="V" name="mpefv" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='21'; mpsimForm.submit();" onmouseout="window.status='Done'" title="To print out the latest decomposition forward simulation statistics in V scale." onmouseover="window.status='To print out the latest decomposition forward simulation statistics in V scale.';"><font size="1">
+          </font> 
+          <input style="width: 20px; color:#000000;" type="button" value="P" name="mpefp" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='22'; mpsimForm.submit();" onmouseout="window.status='Done'" title="To print out the latest decomposition forward simulation statistics in P scale." onmouseover="window.status='To print out the latest decomposition forward simulation statistics in P scale.';"><font size="1">
+          </font> 
+          <input style="width: 26px; color:#000000;" type="button" value="VP" name="mpefvp" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='23'; mpsimForm.submit();" onmouseout="window.status='Done'" title="To print out the latest decomposition forward simulation statistics in VP scale." onmouseover="window.status='To print out the latest decomposition forward simulation statistics in VP scale.';"><font size="1">
+          </font>
+          <font color="#0000FF" size="4"><a href="/wbFPW Manual - MPP.html#TA" target="_blank" title="To open User's Manual to get online help.">F</a></font><input type="text" name="mpefef" value="$mpefef$" size="25" onfocus="javascript: if (value=='Enter any statement here.') value='';" onmouseout="window.status='Done'" title="Decomposion filter: Any logic condition, any function and limited rules. Double click for help details." onmouseover="window.status='Decomposion filter: Any logic condition, any function and limited rules. Double click for help details.';" ondblclick="javascript: ondblclickmpefef();" style="color: #000000; font-size: 10pt; border: 1px solid #000000; background-color:#D2D2D2; text-align:left; font-family:Tahoma"><font size="1">
+          </font> 
+          <input style="width: 20px; color:#000000; background-color:#FF0000" type="button" value="M" name="ProgmoniW" onclick="javascript: window.open('$ProgressM$','','top=140,left=640,width=165,height=100');" onmouseout="window.status='Done'" title="To open a new window, because some simulations may take really long, one will feel good to open a window to monitor it." onmouseover="window.status='Cause some simulations may take really long, one will feel good to open a window to monitor it.';"></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td width="203" height="22" bgcolor="#FFFFFF" align="left" style="background-color: #00FF00"><b>
+      <font size="2">Simulation period</font></b></td>
+      <td width="68" height="22" bgcolor="#D2D2D2">
+      <p align="center">
+          <input type="text" name="mpspsp" value="$mpspsp$" size="11" onmouseout="window.status='Done'" title="Simulation periods, 1500 means recent 6 years if daily database used." onmouseover="window.status='Simulation periods, 1500 means recent 6 years if daily database used.';" style="color: #000000; font-size: 8pt; background-color:#D2D2D2; text-align:center"></td>
+      <td width="434" height="57" rowspan="8">
+    <table border="1" cellpadding="0" cellspacing="1" width="99%" height="126">
+      <tr>
+        <td width="100%" height="34" valign="center">
+        <p align="center">
+        <font size="4" color="#0000FF"><a href="/wbFPW Manual - MPP.html#PS" target="_blank" title="To open User's Manual to get online help.">P</a></font><input style="width: 58px" type="button" value="Delete" name="mpptdelete" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='63'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close();" title="To delete previously saved file from SERVER side." onmouseover="window.status='To delete previously saved file from SERVER side.'" onmouseout="window.status='Done'"><font size="1">
+        </font>
+        <input style="width: 45px" type="button" value="Load" name="mpptload" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='62'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close();" title="To load previously saved file from SERVER side and showing the saved simulation results in it." onmouseover="window.status='To load previously saved file from SERVER side and showing the saved simulation results in it.'" onmouseout="window.status='Done'"><font size="1">
+        </font>
+  		<input type="text" name="mpptname" size="11" value="$mpptname$" onKeyDown="if(event.keyCode==13) {event.keyCode=9; mpsavehddata(); mpsimForm.mprunindex.value='61'; mpsimForm.mlmfile.value='wbstmpsimu'; target='MPrunstatus'; mpsimForm.submit();}" title="Entering a file name to save all infomation of the current page to SERVER by clicking right next Save button." onmouseover="window.status='Entering a file name to save all infomation of the current page to SERVER by clicking right next Save button.'" style="text-align: center"><input style="width: 40px" type="button" value="Save" name="mpptsave" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='61'; mpsimForm.mlmfile.value='wbstmpsimu'; target='MPrunstatus'; mpsimForm.submit();" title="Save the current PAGE + lastsimu to a filename you named in the left text box to SERVER." onmouseover="window.status='Save the current PAGE + lastsimu to a filename you named in the left text box to SERVER.'" onmouseout="window.status='Done'"><font size="1">
+        </font> 
+  		<input style="width: 40px" type="button" value="Daily" name="mpptdt" onclick="javascript: if (this.value=='Daily') value='Tick'; else value='Daily';" title="Choose database for MarketPulse forward simulation, i.e. to decide the variables, used to describe your pattern, are related to daily bar or intraday bar." onmouseover="window.status='Choose database for MarketPulse forward simulation, i.e. to decide the variables, used to describe your pattern, are related to daily bar or intraday bar.'" onmouseout="window.status='Done'">
+  		<select size="1" name="mpptmrk" hight="20px" title="Choose a market for the forward simulation to run over." onmouseover="window.status='Choose a market for the forward simulation to run over.'" onmouseout="window.status='Done'">
+              <option value="AllMrkts">AllMrkts</option>
+    		  <option value="AMEX">AMEX</option>    
+    		  <option selected value="NYSE">NYSE</option>
+    		  <option value="Nasdaq">Nasdaq</option> 
+          </select><font size="1"> </font> 
+        <input style="width: 35px; background-color:#00FF00" type="button" value="Run" name="mpptrun" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='11'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close(); window.open('$ProgressM$','','top=140,left=640,width=165,height=100');" title="To run your forward simulation, program will run General Filter part first." onmouseover="window.status='To run your forward simulation, program will run General Filter part first.'" onmouseout="window.status='Done'"></td>
+      </tr>
+      <tr>
+        <td width="100%" height="12">
+                <p align="center">
+                <textarea rows="12" name="mpptfilef" cols="81" title="Pattern description, any function, any variable(except: ii NPPV y1 cuslenf). Must match if-end pairs, end each statement by ;." onmouseover="window.status='Pattern description, any function, any variable(except: ii NPPV y1 cuslenf). Must match if-end pairs, end each statement by ;.'" onmouseout="window.status='Done'" style="font-family: Tahoma; font-size: 8pt; color:#000000; background-color:#FFFFFF">$mpptfilef$</textarea><iframe name="MPrunstatus" width="426" height="25" src="$MPsrsource$" align="left"></iframe>
+        </td>
+      </tr>
+      </table>
+      </td>
+      <td width="157" height="28" valign="center">
+        <p align="center">
+        <input style="width: 128px" type="button" value="Simu2 <-> Simu1" name="mprun51" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='51'; mpsimForm.mlmfile.value='wbstmpsimu'; target='MPrunstatus'; mpsimForm.submit();" title="To exchange previously saved latest two simulation order marks." onmouseover="window.status='To exchange previously saved latest two simulation order marks.'" onmouseout="window.status='Done'"></td>
+    </tr>
+    <tr>
+      <td width="203" height="24" bgcolor="#FFFFFF" align="left" style="background-color: #00FF00"><b>
+      <font size="2">Holding length</font></b></td>
+      <td width="68" height="24" bgcolor="#D2D2D2">
+      <p align="center">
+          <input type="text" name="mpsphl" value="$mpsphl$" size="11" onmouseout="window.status='Done'" title="How long to hold a position after trigered, therefore it also controls to output how many bars\' simulation details." onmouseover="window.status='How long to hold a position after trigered, therefore it also controls to output how many bars\' simulation details.';" style="color: #000000; font-size: 8pt; background-color:#D2D2D2; text-align:center"></td>
+      <td width="157" height="52" rowspan="2" valign="center">
+        <p align="center">
+        <input style="width: 128px" type="button" value="Dcom2 <-> Dcom1" name="mprun52" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='52'; mpsimForm.mlmfile.value='wbstmpsimu'; target='MPrunstatus'; mpsimForm.submit();" title="To exchange previously saved latest two decomposion-simulattion order marks." onmouseover="window.status='To exchange previously saved latest two decomposion-simulattion order marks.'" onmouseout="window.status='Done'"><br>
+        <input style="width: 128px" type="button" value="Dcom2+1 -&gt; Dcom2" name="mprun53" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='53'; mpsimForm.mlmfile.value='wbstmpsimu'; target='MPrunstatus'; mpsimForm.submit();" title="To save the latest Dcom2+1's operation data file as the 2nd latest decomposion-simulattion file." onmouseover="window.status='To save the latest Dcom2+1\'s operation data file as the 2nd latest decomposion-simulattion file.'" onmouseout="window.status='Done'"></td>
+    </tr>
+    <tr>
+      <td width="203" height="14" bgcolor="#FFFFFF" align="left" style="background-color: #00FF00"><b>
+      <font size="2">Vol [Begin 
+      Step]</font></b></td>
+      <td width="68" height="14" bgcolor="#D2D2D2" align="center">
+          <input type="text" name="mpspv" value="$mpspv$" size="11" onmouseout="window.status='Done'" title="Used as V scale when to output simulation details." onmouseover="window.status='Used as V scale when to output simulation details.';" style="color: #000000; font-size: 8pt; background-color:#D2D2D2; text-align:center"></td>
+    </tr>
+    <tr>
+      <td width="203" height="27" bgcolor="#FFFFFF" align="left" style="background-color: #00FF00"><b>
+      <font size="2">Price[Begin 
+      Step]</font></b></td>
+      <td width="68" height="27" bgcolor="#D2D2D2" align="center">
+          <input type="text" name="mpspp" value="$mpspp$" size="11" onmouseout="window.status='Done'" title="Used as P scale when to output simulation details." onmouseover="window.status='Used as P scale when to output simulation details.';" style="color: #000000; font-size: 8pt; background-color:#D2D2D2; text-align:center"></td>
+      <td width="157" height="20" valign="center">
+        <p align="center"><font color="#0000FF" size="4">Graphic</font><font color="#0000FF" size="1"> </font><font color="#0000FF" size="4">Review</font></td>
+    </tr>
+    <tr>
+      <td width="203" height="23" bgcolor="#FFFFFF" align="left" style="background-color: #00FF00"><b>
+      <font size="2">V*P [Begin 
+      Step]</font></b></td>
+      <td width="68" height="23" bgcolor="#D2D2D2" align="center">
+          <input type="text" name="mpspvp" value="$mpspvp$" size="11" onmouseout="window.status='Done'" title="Used as VP scale when to output simulation details." onmouseover="window.status='Used as VP scale when to output simulation details.';" style="color: #000000; font-size: 8pt; background-color:#D2D2D2; text-align:center"></td>
+      <td width="157" height="52" rowspan="2" valign="center">
+        <p align="center">
+        <input style="width: 35px" type="button" value="Sim1" name="mprun83" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='91'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close();" title="To output the latest simulation results to the monitor window, together with its original setings." onmouseover="window.status='To output the latest simulation results to the monitor window, together with its original setings.'" onmouseout="window.status='Done'"><font size="1">
+        </font>
+        <input style="width: 37px" type="button" value="Sim2" name="mprun41" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='41'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close();" title="To output the second latest simulation results to the monitor window, together with its original setings." onmouseover="window.status='To output the second latest simulation results to the monitor window, together with its original setings.'" onmouseout="window.status='Done'"><font size="1">
+        </font><input style="width: 50px" type="button" value="Dcom1" name="mprun42" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='42'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close();" title="To output the latest decomposition-simulation results to the monitor window, together with its original setings." onmouseover="window.status='To output the latest decomposition-simulation results to the monitor window, together with its original setings.'" onmouseout="window.status='Done'"><br>
+        <input style="width: 75px" type="button" value="Dcom2+1" name="mprun43" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='43'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close();" title="To combine Dcom1 and Dcom2, then show it in the monitor window. NOTE: many original settings will be lost after combining." onmouseover="window.status='To combine Dcom1 and Dcom2, then show it in the monitor window. NOTE: many original settings will be lost after combining.'" onmouseout="window.status='Done'"><font size="1">
+        </font>
+        <input style="width: 50px" type="button" value="Dcom2" name="mprun44" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='44'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close();" title="To output the second latest decomposition-simulation results to the monitor window, together with its original setings." onmouseover="window.status='To output the second latest decomposition-simulation results to the monitor window, together with its original setings.'" onmouseout="window.status='Done'"></td>
+    </tr>
+    <tr>
+      <td width="252" height="28" bgcolor="#FFFFFF" align="left" colspan="2">
+      <p align="center"><font color="#0000FF" size="4"><a href="/wbFPW Manual - MPP.html#PA" target="_blank" title="To open User's Manual to get online help.">Simple Managing Rules</a></font></td>
+    </tr>
+    <tr>
+      <td width="252" height="26" bgcolor="#FFFFFF" align="left" colspan="2">
+      <p align="center">
+      <select size="1" name="mpmruon" hight="20px" title="To use this simple managing rules or not. There is no any managing rules for a pure forward simulation." onmouseover="window.status='To use this simple managing rules or not. There is no any managing rules for a pure forward simulation.'" onmouseout="window.status='Done'" style="font-size: 10pt">
+              <option value="1">Use</option>
+    		  <option selected value="0">NotUse</option>    
+          </select><font size="1"> </font> 
+      <select size="1" name="mpmrkind" hight="20px" title="Controls the meanings of stop/objective #. Value: # itself in $; Volatility: in % of volatility; EntPrice: in % of entry price." onmouseover="window.status='Controls the meanings of stop/objective \#. Value: \# itself in $; Volatility: in \% of volatility; EntPrice: in \% of entry price.'" onmouseout="window.status='Done'">
+    		  <option value="1">Volatility</option>    
+    		  <option selected value="2">EntPrice</option>
+              <option value="3">Value</option>
+              <option value="4">|Enp-c1|</option>
+          </select><select size="1" name="mpmrvo" title="To use this number of bars to calculate the volatility when chosen by the left drop-down menu." onmouseover="window.status='To use this number of bars to calculate the volatility when chosen by the left drop-down menu.'" onmouseout="window.status='Done'">
+    		  <option value="1">1</option>    
+    		  <option value="2">2</option>
+    		  <option value="3">3</option>    
+    		  <option value="4">4</option>
+              <option value="5">5</option>    
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+    		  <option value="9">9</option>  
+    		  <option value="10">10</option>  
+    		  <option value="11">11</option>     		    
+    		  <option value="12">12</option>
+    		  <option value="13">13</option>    
+    		  <option value="14">14</option>
+              <option value="15">15</option>    
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+    		  <option value="19">19</option> 
+    		  <option value="20">20</option>  
+    		  <option value="21">21</option>    		    
+    		  <option value="22">22</option>
+    		  <option value="23">23</option>    
+    		  <option value="24">24</option>
+              <option value="25">25</option>    
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+    		  <option value="29">29</option>
+    		  <option selected value="30">30</option>     		      		         
+          </select></td>
+      <td width="157" height="28" valign="center" bgcolor="#FFFFFF">
+        <p align="center">
+          <input style="width: 43px; " type="button" value="Equity" name="mprun82" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='81'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit();" title="To output the showing simulation\'s daily net and position details in a table list." onmouseover="window.status='To output the showing simulation\'s daily net and position details in a table list.'" onmouseout="window.status='Done'"><font size="2">
+          </font>
+        <input style="width: 82px" type="button" value="TradingLists" name="mprun31" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='31'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit();" title="To print out the trading lists of whatever is showing in the monitor window." onmouseover="window.status='To print out the trading lists of whatever is showing in the monitor window.'" onmouseout="window.status='Done'"></td>
+    </tr>
+    <tr>
+      <td width="252" height="1" bgcolor="#FFFFFF" align="left" colspan="2">
+      <table border="1" cellpadding="0" cellspacing="1" width="100%" height="15">
+        <tr>
+          <td width="19%" height="13" style="background-color: #00FF00">
+          <p align="center"><b><font size="2">Stop</font></b></td>
+          <td width="22%" bgcolor="#D2D2D2" height="13" align="center">
+          <p align="center">
+          <input type="text" name="mpmrstop" value="$mpmrstop$" size="3" onmouseout="window.status='Done'" title="Used as stop value if choosed." onmouseover="window.status='Used as stop value if choosed.';" style="color: #000000; font-size: 8pt; background-color:#D2D2D2; text-align:center"></td>
+          <td width="19%" height="13" style="background-color: #00FF00">
+          <p align="center"><b><font size="2">Obje</font></b></td>
+          <td width="22%" bgcolor="#D2D2D2" height="13" align="center">
+          <p align="center">
+          <input type="text" name="mpmrobje" value="$mpmrobje$" size="3" onmouseout="window.status='Done'" title="Used as objective valuse if choosed." onmouseover="window.status='Used as objective valuse if choosed.';" style="color: #000000; font-size: 8pt; background-color:#D2D2D2; text-align:center"><font size="1">
+          </font></td>
+          <td width="20%" bgcolor="#D2D2D2" height="13" align="center">
+          <input style="width: 30px; color:#000000; background-color:#00FF00" type="button" value="RM" name="mpefrun2" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='77'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit(); window.open('','_self'); window.close(); window.open('$ProgressM$','','top=140,left=640,width=165,height=100');" onmouseout="window.status='Done'" title="To re-run the model in Simu 1 with current showing Money Managing rules for the same period. No Simu1-2 update." onmouseover="window.status='To re-run the model in Simu 1 with current showing Money Managing rules for the same period.  No Simu1-2 update.';"></td>
+        </tr>
+      </table>
+      </td>
+      <td width="157" height="28" align="center" bgcolor="#FFFFFF">
+        <p align="center">
+        <input style="width: 129px" type="button" value="Simulation Details" name="mprun24" onclick="javascript: mpsavehddata(); mpsimForm.mprunindex.value='24'; mpsimForm.mlmfile.value='wbstmpsimu'; target='_blank'; mpsimForm.submit();" title="To print out forward simulation full statistics of whatever is showing in the monitor window." onmouseover="window.status='To print out forward simulation full statistics of whatever is showing in the monitor window.'" onmouseout="window.status='Done'"></td>
+    </tr>
+  </table>
+  </center>
+</div>
+</form>
+ <form name="stock2Form" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+<input type="hidden" name="mlmfile" value="wbstmpsimu">
+<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+<input type="hidden" name="mlid" value="$fpwusername$">
+<input type="hidden" name="mlid4" value="$fpwusername4$">
+<input type="hidden" name="WhereOrderFrom" value="INDX">
+<input type="hidden" name="mlmfvar" value="leavemealone">
+<input type="hidden" name="hdfpwaddnoise" value="AN: 0">
+<p align="center"><b>
+<script language="JavaScript">
+function onclickstock26(str) {
+   document.stock2Form.mlmfile.value=str;
+   stock2Form.submit(); }
+</script>
+    <a href="javascript: onclickstock26('wbmpinitial');">MarketPulse</a> | 
+    <a href="javascript: onclickstock26('wbfpwsimu');">PatternWorkshop</a> | 
+    <a href="javascript: onclickstock26('wbfpwoutput');">PatternWorkshop Pro</a> | 
+    <a href="javascript: onclickstock26('wbfpwstat');">Forward Statistics</a> | 
+    <a href="javascript: onclickstock26('wbfpwport');">Portfolio Manager</a></b><br>
+    <a href="JavaScript: onclickstock26('wbstanalog');">Analog</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstfpz691');">Zone</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstswing');">Swing</a> |&nbsp;<a href="JavaScript: onclickstock26('wbstsea');">Season</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstsnr');">SNR</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstleadi');">Leading Indicator</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstchart');">Detail Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstmmct');">Multi-Markets Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstrdata');">Data</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbfpwmpstat');">MP 
+Stat</a><br>
+    <b><font size="2">&nbsp;</font></b><font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+ 
+WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp; Username: $fpwusername$</font></p>
+ </form></body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>
