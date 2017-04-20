@@ -1,0 +1,105 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<title>SNR Analysis</title>
+<script language="JavaScript">
+</script>
+<noscript>
+This web page uses JavaScript. To see the full page, make sure that JavaScript is enabled.</noscript>
+</head>
+
+<body onload="snrForm.fpwsnrsf.value='$FSfpwsnrsf$'; snrForm.fpwfstype.value='$FSfpwfstype$'; snrForm.fpwsnrp.value='$FSfpwsnrp$'; snrForm.fpwsymbol.value='$FSfpwsymbol$';" topmargin="10" leftmargin="10" bgcolor="#FFFFFF">
+
+<form name="snrForm" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+	<input type="hidden" name="mlmfile" value="wbstsnr">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">
+	<input type="hidden" name="mlmfvar" value="leavemealone">
+	<input type="hidden" name="fpwcurrentm" value="$fpwcurrentm$">
+	<input type="hidden" name="hdfpwsnrtd" value="KaKaKa">
+	
+	<script language="JavaScript">
+		var userl=parseInt(document.snrForm.fpwulvl.value);
+    </script>
+    
+	<p align="center">
+
+	<select size="1" name="fpwfstype" onclick="javascript: if (userl<3) this.value='S';" title="Futures data are available for PatternWorkshop or higher level users." onmouseout="window.status='Done'" onmouseover="window.status='The analysis is about a Future or a stock?';">
+		<option value="F">Futures</option>
+		<option selected value="S">Stock</option>    
+    </select>
+    <select size="1" name="fpwsnrp" onmouseout="window.status='Done'" title="This is the period to analyze for Signal Noise Ratio tools." onmouseover="window.status='This is the period to analyze for Signal Noise Ratio tools.';">
+    	<option value="63">ThreeMonths/63</option>
+    	<option value="125">HalfYear/125</option>  
+    	<option value="250">OneYear/250</option>
+    	<option selected value="500">TwoYears/500</option>   
+        <option value="1250">FiveYears/1250</option>
+    	<option value="2500">TenYears/2500</option>  
+    	<option value="10000">History</option>  
+    </select>
+
+    <input style="width: 18px" type="button" value="$FSfpwsnrtd$" name="fpwsnrtd" onclick="javascript: if (this.value=='D') value='T'; else value='D';" title="Database Switch; D: daily; T: Tick. The meaning on the left text: how long physical period (D) or how many tick bars (T)." onmouseover="window.status='Database Switch; D: daily; T: Tick. The meaning on the left text: how long physical period (D) or how many tick bars (T).'" onmouseout="window.status='Done'"> <font color="#0000FF">&nbsp;&nbsp; 
+    <b>SMA:</b></font><input type="text" name="fpwsnrsf" size="3" value="10" onmouseout="window.status='Done'" title="This number is used to do SMA on noise, signal and SNR showed on pictures." onmouseover="window.status='This number is used to do SMA on noise, signal and SNR showed on pictures.';">
+  <input type="text" name="fpwsymbol" value="UrSymbol" size="10" onfocus="javascript: if (value=='UrSymbol') value='';" title="Entering the interesting stock or futures symbol." onmouseover="window.status='Entering the interesting stock or futures symbol.'" onmouseout="window.status='Done'" onKeyDown="if(event.keyCode==13) {event.keyCode=9; snrForm.hdfpwsnrtd.value=snrForm.fpwsnrtd.value;
+; snrForm.submit(); window.open('','_self'); window.close();}"><input style="width: 30px; hight: 22px" type="button" value="GO" name="SNRGO" onclick="javascript: snrForm.hdfpwsnrtd.value=snrForm.fpwsnrtd.value;
+; snrForm.submit(); window.open('','_self'); window.close();" title="To run the selected SNR analysis" onmouseover="window.status='To run the selected SNR analysis'" onmouseout="window.status='Done'">&nbsp;&nbsp;&nbsp;&nbsp;
+    <b><font color="#0000FF" size="2">&nbsp; 
+    $FDTimeh$</font></b><font size="1"><br>
+    <font color="#FFFFFF">.</font><br>
+    </font><img border="0" src="$SNRjpeg1$" width="673" height="264" alt="Signal: abs(c(i)-c(i-1)). Noise: (h(i)-c(i)+o(i)-l(i))/2 for open-close up bars and (h(i)-o(i)+c(i)-l(i))/2 for down bars.  When a Signal Noise Ratio (SNR) is higher than 2, it means one can develop some reliable short-term models otherwise it is hard to find.">
+<img border="0" src="$SNRjpeg2$" width="673" height="192" alt="Signal: abs(c(i)-c(i-1)). Noise: (h(i)-c(i)+o(i)-l(i))/2 for open-close up bars and (h(i)-o(i)+c(i)-l(i))/2 for down bars.  When a Signal Noise Ratio (SNR) is higher than 2, it means one can develop some reliable short-term models otherwise it is hard to find.">
+<img border="0" src="$SNRjpeg3$" width="673" height="264" alt="Signal: abs(c(i)-c(i-1)). Noise: (h(i)-c(i)+o(i)-l(i))/2 for open-close up bars and (h(i)-o(i)+c(i)-l(i))/2 for down bars.  When a Signal Noise Ratio (SNR) is higher than 2, it means one can develop some reliable short-term models otherwise it is hard to find."><p>
+    </p>
+</form>
+<form name="zone2Form" action="/cgi-bin/matweb.exe" method="POST" target="_blank'">
+	<input type="hidden" name="mlmfile" value="wbstfpz691">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	<input type="hidden" name="mlmfvar" value="leavemealone">
+	<input type="hidden" name="fpwcurrentm" value="$fpwcurrentm$">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">
+    <script language="JavaScript">
+	   	var str=document.zone2Form.fpwcurrentm.value;
+	   	function onclickstock10(str2) {
+	   		zone2Form.mlmfvar.value=zone2Form.fpwcurrentm.value;
+	   		zone2Form.mlmfile.value=str2;
+	   		zone2Form.submit(); }
+		function onclickstockpn(str3) {
+	   		if (str.charAt(0)=='S') {
+	   			zone2Form.mlmfvar.value=str3+str.substr(1,str.length-1); 
+	   			zone2Form.mlmfile.value='wbsttoyahoo'; 
+	   			zone2Form.submit();}}   
+    </script>
+    <p align="center">
+      <a href="javascript: onclickstock10('wbstanalog');">Analog</a> 
+    | <a href="javascript: onclickstock10('wbstrdata');">Data</a> 
+    | <a href="JavaScript: onclickstock10('wbfpwmpstat');">MP Stat</a>    
+    | <a href="javascript: onclickstock10('wbstchart');"> DetailChart</a>
+    | <a href="javascript: if (str.charAt(0)=='S') onclickstock10('wbstockqd');"> P-Chart</a> 
+    | <a href="javascript: if (str.charAt(0)=='S') onclickstock10('wbstockqdv');"> PV-Chart</a> 
+    | <a href="javascript: onclickstock10('wbstfpz691');"> Zone</a> 
+    | <a href="javascript: onclickstock10('wbstswing');"> Swing</a>
+    | <a href="javascript: onclickstock10('wbstsea');"> Seasonal</a>
+    | <a href="javascript: onclickstock10('wbstleadi');"> LI</a>
+    <!--| <a href="javascript: onclickstockpn('F');"> Profile</a> 
+    | <a href="javascript: onclickstockpn('E');"> News</a><br> -->
+    | <a href="http://finance.yahoo.com/q/pr?s=$FSfpwsymbol$" target="_blank'"> Profile</a> 
+    | <a href="http://finance.yahoo.com/q/h?s=$FSfpwsymbol$" target="_blank'"> News</a><br>
+      <font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+      WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp;&nbsp; 
+      Username: $fpwusername$</font></p>
+</form>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>
