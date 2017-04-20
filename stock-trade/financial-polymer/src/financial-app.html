@@ -1,0 +1,350 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="news-nav.html">
+<link rel="import" href="financial-footer.html">
+
+<!-- <link rel="import" href="financial-login.html">
+<link rel="import" href="financial-company.html">
+<link rel="import" href="financial-contact.html">
+<link rel="import" href="financial-whyUseFPW.html">
+<link rel="import" href="financial-service.html">
+<link rel="import" href="financial-chinese.html"> -->
+<!-- <link rel="import" href="financial-register-app.html"> -->
+<!-- <link rel="import" href="financial-feedback-app.html"> -->
+<!-- <link rel="import" href="financial-pattern-work-app.html"> -->
+<!-- <link rel="import" href="financial-privacy-policy.html">
+<link rel="import" href="financial-terms-use.html">
+<link rel="import" href="financial-thankyou.html"> -->
+
+
+<dom-module id="financial-app">
+
+  <template>
+
+    <style>
+    </style>
+
+    <news-analytics key="UA-39334307-18"></news-analytics>
+    <!-- <jquery-analytics key="UA-39334307-11"></jquery-analytics> -->
+    <!--
+      app-location and app-route elements provide the state of the URL for the app.
+    -->
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+    <app-route
+        route="{{subroute}}"
+        pattern="/:id"
+        data="{{subrouteData}}"></app-route>
+
+    <news-nav
+        id="nav"
+        page="[[page]]"
+        categories="[[categories]]"
+        category="[[category]]"
+        load-complete="[[loadComplete]]">
+    </news-nav>
+    <iron-pages role="main" selected="[[page]]" attr-for-selected="name" fallback-selection="path-warning">
+      <financial-login
+        name="login"
+        login= "[[appData]]"
+        >
+      </financial-login>
+      <financial-company
+        name="company"
+        route="[[subroute]]"
+        >
+      </financial-company>
+      <financial-contact
+        name="contact"
+        route="[[subroute]]"
+      >
+     </financial-contact>
+     <financial-privacy-policy
+        name="privacy"
+     >
+     </financial-privacy-policy>
+     <financial-terms-use
+      name="use">
+     </financial-terms-use>
+     <financial-whyUseFPW
+      name="reason"
+      route="[[subroute]]">
+      </financial-whyUseFPW>
+      <financial-service
+      name="service"
+      route="[[subroute]]">
+      </financial-service>
+      <financial-chinese
+       name="chinese"
+       route="[[subroute]]">
+     </financial-chinese>
+     <financial-registerForm
+       name="signUp"
+       route="[[subroute]]">
+     </financial-registerForm>
+     <financial-feedbackForm
+      name="feedback"
+      route="[[subroute]]"
+     >
+   </financial-feedbackForm>
+     <financial-pattern-work-app
+      name="loginOn"
+     >
+    </financial-pattern-work-app>
+     <financial-pattern-work-app
+        name="record"
+     >
+   </financial-pattern-work-app>
+   <financial-pattern-work-app
+      name="PatternWorkshopPro"
+   >
+   </financial-pattern-work-app>
+   <financial-pattern-work-app
+      name="ForwardStatistics"
+   >
+   </financial-pattern-work-app>
+   <financial-pattern-work-app
+      name="PortfolioManager"
+   >
+   </financial-pattern-work-app>
+   <financial-pattern-work-app
+    name="PatternWorkshop">
+  </financial-pattern-work-app>
+  <financial-pattern-work-app
+   name="seo">
+  </financial-pattern-work-app>
+  <financial-pattern-work-app
+   name="soMesh">
+  </financial-pattern-work-app>
+  <financial-pattern-work-app
+   name="MarketPulsePro">
+  </financial-pattern-work-app>
+  <financial-pattern-work-app
+   name="MarketPulse">
+  </financial-pattern-work-app>
+  <financial-pattern-work-app
+   name="MPStatistics">
+  </financial-pattern-work-app>
+  <financial-pattern-work-app
+    name='AnalogAnalytictool'>
+  </financial-pattern-work-app>
+   <financial-thankyou
+      name="reLogin"
+   >
+ </financial-thankyou>
+
+
+    <news-path-warning name="path-warning"></news-path-warning>
+    </iron-pages>
+    <financial-footer></financial-footer>
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'financial-app',
+
+      properties: {
+        appData: String,
+        page: {
+          type: String,
+          // reflectToAttribute:true,
+          observer: '_pageChanged'
+        },
+        pagepath: {
+          type: String
+        },
+        offline: {
+          type: Boolean,
+          value: false,
+          readOnly: true
+        },
+        failure: Boolean,
+        loadComplete: Boolean,
+        isMain: Boolean
+      },
+
+      observers: [
+        '_routePageChanged(subrouteData.id)',
+      ],
+
+      listeners: {
+        'refresh-data': '_refreshData'
+      },
+
+      _networkSnackbar: null,
+
+      created: function() {
+
+        this.removeAttribute('unresolved');
+        var ua = navigator.userAgent;
+        var cMatch = navigator.userAgent.match(/Android.*Chrome[\/\s](\d+\.\d+)/);
+        if (ua.match('CriOS') || (cMatch && cMatch[0] && cMatch[1] < 56)) {
+          document.body.classList.add('fixed-viewport-height');
+        }
+      },
+
+      attached: function() {
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          this.listen(window, 'online', '_notifyNetworkStatus');
+          this.listen(window, 'offline', '_notifyNetworkStatus');
+        });
+      },
+
+      detached: function() {
+        this.unlisten(window, 'online', '_notifyNetworkStatus');
+        this.unlisten(window, 'offline', '_notifyNetworkStatus');
+      },
+
+      _routePageChanged: function(page) {
+        console.log("page1111--:",page);
+        if (!page) {
+          this.set('route.path', '/test/home/login');
+          return;
+        }
+        this.page = page;
+        this.pagepath =  this.route.path;
+        var remainingPieces = this.pagepath.split('/');
+        this.page = remainingPieces[3];//这种是对应 this.set('route.path', 'instantloading/home');
+        if(!this.page){
+            this.page = page;
+            console.log("new page1111:",page);
+        }
+      },
+
+      _pageChanged: function(page, oldPage) {
+        var href;
+        var path = this.route.path;
+        console.log("this.route.path11111:"+path);
+        switch(page) {
+           case 'login':
+             href = 'financial-login.html';
+             break;
+           case 'reason':
+             href = 'financial-whyUseFPW.html';
+             break;
+           case 'company':
+             href = 'financial-company.html';
+             break;
+           case 'contact':
+             href = 'financial-contact.html';
+             break;
+           case 'privacy':
+             href = 'financial-privacy-policy.html';
+             break;
+           case 'home':
+             href = 'financial-login.html';
+             break;
+           case 'service':
+             href = 'financial-service.html';
+             break;
+           case 'chinese':
+             href = 'financial-chinese.html';
+             break;
+           case 'signUp':
+             href = 'financial-register-app.html';
+             break;
+           case 'feedback':
+             href = 'financial-feedbackForm.html';
+             break;
+          case 'loginOn':
+             href = 'financial-pattern-work-app.html';
+             break;
+          case 'use':
+             href = 'financial-terms-use.html';
+             break;
+          case 'reLogin':
+            href = 'financial-thankyou.html';
+            break;
+          case 'seo':
+            href= 'financial-seo.html';
+            break;
+          case 'soMesh':
+            href = 'financial-somesh.html';
+            break;
+           default:
+             href = 'news-path-warning.html';
+             break;
+         };
+        this.importHref(
+            this.resolveUrl(href),
+            null,
+            null,
+            true);
+      },
+
+      // _pageLoaded: function(shouldResetLayout) {
+      //   this._ensureLazyLoaded();
+      // },
+
+      // _ensureLazyLoaded: function() {
+      //   // load lazy resources after render and set `loadComplete` when done.
+      //   if (!this.loadComplete) {
+      //     Polymer.RenderStatus.afterNextRender(this, function() {
+      //       this.importHref(this.resolveUrl('lazy-resources.html'), function() {
+      //         this._notifyNetworkStatus();
+      //         this.loadComplete = true;
+      //
+      //         // Load pre-caching Service Worker
+      //         if ('serviceWorker' in navigator) {
+      //           navigator.serviceWorker.register('/service-worker.js');
+      //         }
+      //       });
+      //     });
+      //   }
+      // },
+      //
+      // _notifyNetworkStatus: function() {
+      //   var oldOffline = this.offline;
+      //   this._setOffline(!window.navigator.onLine);
+      //   // Show the snackbar if the user is offline when starting a new session
+      //   // or if the network status changed.
+      //   if (this.offline || (!this.offline && oldOffline === true)) {
+      //     if (!this._networkSnackbar) {
+      //       this._networkSnackbar = document.createElement('news-snackbar');
+      //       Polymer.dom(this.root).appendChild(this._networkSnackbar);
+      //     }
+      //     Polymer.dom(this._networkSnackbar).textContent = this.offline ?
+      //         'You are offline' : 'You are online';
+      //     this._networkSnackbar.open();
+      //   }
+      // },
+      //
+      // _updateArticleHeadline: function(articleHeadline) {
+      //   this.articleHeadline = articleHeadline;
+      // },
+      //
+      // // Elements in the app can notify section changes.
+      // // Response by a11y announcing the section and syncronizing the category.
+      // _updateDocumentTitle: function(page, categoryTitle, articleHeadline, appTitle) {
+      //   //document.title = (page === 'list' ? categoryTitle : articleHeadline) + ' - ' + appTitle;
+      //   document.title = appTitle;
+      // },
+      //
+      // _refreshData: function() {
+      //   this.$.data.refresh();
+      // }
+
+    });
+
+  </script>
+
+</dom-module>
