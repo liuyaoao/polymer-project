@@ -1,0 +1,90 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<title>Stop-Objective Mesh</title>
+<script language="JavaScript">
+function onclickFT(num,str1,str2) {
+	if (str1=='F') {
+	{
+	  if (str2=='L')
+	    if(mni > findex-num)
+		findex = mni;
+	    else
+		findex = findex-num;
+	  else 
+	    if(mxi > findex+num)
+		findex = findex+num;
+	    else
+		findex = mxi; }
+	  eval("document.sosForm.AZ.value="+findex+";")}
+	else {{
+	  if (str2=='L')
+	    if(mni > tindex-num)
+		tindex = mni;
+	    else
+		tindex = tindex-num;
+	  else 
+	    if(mxi > tindex+num)
+		tindex = tindex+num;
+	    else
+		tindex = mxi; }
+	  eval("document.sosForm.EL.value="+tindex+";")}
+}  	  	
+</script>
+<noscript>
+This web page uses JavaScript. To see the full page, make sure that JavaScript is enabled.</noscript>
+
+</head>
+
+<body>
+<form name="sosForm" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="mlmfile" value="wbfpwstat">
+	<input type="hidden" name="WhereOrderFrom" value="SOSR">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+    <input type="hidden" name="fpwsource" value="$fpwsource$">
+    <input type="hidden" name="outrunindex" value="Ka">
+    <input type="hidden" name="hdAZ" value="$AZ$">
+    <input type="hidden" name="hdEL" value="$EL$">
+    <input type="hidden" name="tdN" value="$tdN$">
+    <input type="hidden" name="NewoRew" value="$NewoRew$">
+    <input type="hidden" name="ZZxy" value="$ZZxy$">
+    <input type="hidden" name="delaynumthn" value="$delaynumthn$">
+    <input type="hidden" name="bestp" value="$bestp$">
+
+	<script language="JavaScript">
+		var findex=parseInt(document.sosForm.hdAZ.value);
+        var tindex=parseInt(document.sosForm.hdEL.value); 
+		var mxi=360;
+		var mni=-360;
+    </script>
+    	
+<p align="center"><font size="4" color="#0000FF"><b>Stop-Objective 3D Mesh<br>
+</b></font><font color="#0000FF">This is a Stop-Objective $tdN$ $NewoRew$ on $ZZxy$, with $delaynumthn$ 
+delayed.<br>
+<br>
+</font>
+<input style="width: 120px" type="button" value="Default View Angle" name="DVA" onclick="javascript: sosForm.AZ.value='-37'; sosForm.EL.value='30';" onmouseout="window.status='Done'" title="Set the view angle back to default ones: AZ=-37, EL=30" onmouseover="window.status='Set the view angle back to default ones: AZ=-37, EL=30'"><b>&nbsp;
+<font color="#0000FF">Azimuth:</font></b><input style="width: 18px" type="button" value="<-" name="Fleft50" onclick="javascript: onclickFT(10,'F','L');" ondblclick="javascript: onclickFT(50,'F','L');" onmouseout="window.status='Done'" title="Single click moves Azimuth angle backward 10 degrees, double click for 50 degrees." onmouseover="window.status='Single click moves Azimuth angle backward 10 degrees, double click for 50 degrees.';"><input style="width: 18px" type="button" value="<" name="Fleft1" onclick="javascript: onclickFT(1,'F','L');" ondblclick="javascript: onclickFT(5,'F','L');" onmouseout="window.status='Done'" title="Single click moves Azimuth angle backward 1 degree, double click for 5 degrees." onmouseover="window.status='Single click moves Azimuth angle backward 1 degree, double click for 5 degrees.';"><input type="text" name="AZ" value="$AZ$" size="4" onmouseout="window.status='Done'" title="The view Azimuth angle." onmouseover="window.status='The view Azimuth angle.';" style="text-align: center; background-color:#E6E6E6"><input style="width: 18px" type="button" value=">" name="Fright1" onclick="javascript: onclickFT(1,'F','R');" ondblclick="javascript: onclickFT(5,'F','R');" onmouseout="window.status='Done'" title="Single click moves azimuth angle forward 1 degree, double click for 5 degree." onmouseover="window.status='Single click moves azimuth angle forward 1 degree, double click for 5 degree.';"><input style="width: 18px" type="button" value="->" name="Fright50" onclick="javascript: onclickFT(10,'F','R');" ondblclick="javascript: onclickFT(50,'F','R');" onmouseout="window.status='Done'" title="Single click moves azimuth angle forward 10 degrees, double click for 50 degrees." onmouseover="window.status='Single click moves azimuth angle forward 10 degrees, double click for 50 degrees.';">&nbsp;&nbsp;&nbsp; 
+<b><font color="#0000FF">Elevation:</font></b><input style="width: 18px" type="button" value="<-" name="Tleft50" onclick="javascript: onclickFT(10,'T','L');" ondblclick="javascript: onclickFT(50,'T','L');" onmouseout="window.status='Done'" title="EL angle move backward 10 degrees, double click for 60 degrees." onmouseover="window.status='EL angle move backward 10 degrees, double click for 60 degrees.';"><input style="width: 18px" type="button" value="<" name="Tleft1" onclick="javascript: onclickFT(1,'T','L');" ondblclick="javascript: onclickFT(5,'T','L');" onmouseout="window.status='Done'" title="EL view angle moves backward 1 degree, double click for 6 degrees." onmouseover="window.status='EL view angle moves backward 1 degree, double click for 6 degrees.';"><input type="text" name="EL" value="$EL$" size="4" onmouseout="window.status='Done'" title="The elevation view angle." onmouseover="window.status='The elevation view angle.';" style="text-align: center; background-color:#E6E6E6"><input style="width: 18px" type="button" value=">" name="Tright1" onclick="javascript: onclickFT(1,'T','R');" ondblclick="javascript: onclickFT(5,'T','R');" onmouseout="window.status='Done'" title="EL view angle moves forward 1 degree, double click for 6 degrees." onmouseover="window.status='EL view angle moves forward 1 degree, double click for 6 degrees.';"><input style="width: 18px" type="button" value="->" name="Tright50" onclick="javascript: onclickFT(10,'T','R');" ondblclick="javascript: onclickFT(50,'T','R');" onmouseout="window.status='Done'" title="EL view angle moves forward 10 degrees, double click for 60 degrees." onmouseover="window.status='EL view angle moves forward 10 degrees, double click for 60 degrees.';"> &nbsp;&nbsp;&nbsp;
+<input style="width: 45px; background-color:#00FF00" type="button" value="View" name="Runview" onclick="javascript: sosForm.outrunindex.value='422'; sosForm.submit(); window.open('','_self'); window.close();" onmouseout="window.status='Done'" title="To review the mesh by the new AZ-EL angle." onmouseover="window.status='To review the mesh by the new AZ-EL angle.';"><br>
+      <img border="0" src="$sosjpeg1$"><br>
+<b><font color="#0000FF">Best Final Equity Place: $bestp$</font></b></p>
+    	
+<p align="center">
+<font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp;&nbsp; Username: $fpwusername$</font></p>
+</form>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>

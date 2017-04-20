@@ -1,0 +1,524 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<title>PatternWorkshop Pro</title>
+<base href="http://www.WSQSI.com"/>
+<script language="JavaScript">
+function outsavehddata() {
+	document.outForm.hdchartdatem.value='k';
+	document.outForm.hdoutonoff.value=document.outForm.outonoff.value;
+	document.outForm.hdoutGOror.value=document.outForm.outGOror.value;
+}
+function beforesavedata() {
+	fpwmiddle1=document.outForm.hdchartdatem.value;
+}
+function aftersavedata() {
+	document.outForm.hdchartdatem.value=fpwmiddle1;
+}
+function onclickFT(num,str1,str2) {
+	document.outForm.FirstorS.value='1';
+	if (str1=='F') {
+	  {
+	  if (str2=='L')
+	    //findex=math.max(1,findex-num);
+	    if(1 > findex-num)
+		findex = 1;
+	    else
+		findex = findex-num;
+	  else 
+	    if(mxi > findex+num)
+		findex = findex+num;
+	    else
+		findex = mxi;
+	    //findex=math.min(mxi,findex+num);
+	  }
+	  var sub1=document.outForm.hdchartdatem.value.substr(6*(findex-1),6); 
+	  document.outForm.outFdate.value=sub1.substr(0,2)+'/'+sub1.substr(2,2)+'/'+sub1.substr(4,2);
+	}
+	else {
+	  {
+	  if (str2=='L')
+	    //tindex=math.max(1,tindex-num);
+	    if(1 > tindex-num)
+		tindex= 1;
+	    else
+		tindex= tindex-num;	
+	  else 
+	    //tindex=math.min(mxi,tindex+num);
+	    if(mxi > tindex+num)
+		tindex= tindex+num;
+	    else
+		tindex= mxi;	 
+	  } 
+	  var sub1=document.outForm.hdchartdatem.value.substr(6*(tindex-1),6);
+	  document.outForm.outTdate.value=sub1.substr(0,2)+'/'+sub1.substr(2,2)+'/'+sub1.substr(4,2);	
+	  }
+}  	  	
+</script>
+<noscript>
+This web page uses JavaScript. To see the full page, make sure that JavaScript is enabled.</noscript>
+</head>
+
+<body onload="outForm.outFSspan.value='$outFSspan$'; outForm.outDSM.value='$outDSM$';
+ 	outForm.outTW.value='$outTW$';" topmargin="7" leftmargin="10">
+
+<form name="outForm" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+	<input type="hidden" name="mlmfile" value="wbfpwoutput">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">
+	<input type="hidden" name="filetypeid" value="out">
+	<input type="hidden" name="outrunindex" value="$outrunindex$">
+	<input type="hidden" name="FirstorS" value="$FirstorS$">
+	<input type="hidden" name="hdoutfindex" value="$outfindex$">	
+	<input type="hidden" name="hdouttindex" value="$outtindex$">			
+	<input type="hidden" name="hdoutmxi" value="$outMXI$">
+	<input type="hidden" name="hdchartdatem" value="$outchartdatem$">	
+	<input type="hidden" name="fpwsource" value="$fpwsource$">				
+	<input type="hidden" name="hdoutonoff" value="KaKaKa">
+	<input type="hidden" name="hdoutGOror" value="KaKaKa">
+  
+	<script language="JavaScript">
+		var findex=parseInt(document.outForm.hdoutfindex.value);
+		var tindex=parseInt(document.outForm.hdouttindex.value);
+		var mxi=parseInt(document.outForm.hdoutmxi.value);
+		var fpwmiddle1;	
+    </script>	
+    
+<div align="center">
+  <center>
+  <table border="1" width="789" height="378">
+    <tr>
+      <td width="344" height="26" colspan="2">
+      <table border="1" cellpadding="0" cellspacing="1" width="100%" height="185">
+        <tr>
+          <td width="26%" height="19" bgcolor="#00FF00"><b><font size="2">&nbsp;Win 
+          No.</font></b></td>
+          <td width="24%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA12$</font></b></td>
+          <td width="29%" height="19" bgcolor="#00FF00"><b><font size="2">&nbsp;Max 
+          D/D</font></b></td>
+          <td width="21%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA14$</font></b></td>
+        </tr>
+        <tr>
+          <td width="26%" height="20" bgcolor="#00FF00"><b><font size="2">&nbsp;Loss 
+          No.</font></b></td>
+          <td width="24%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA22$</font></b></td>
+          <td width="29%" height="20" bgcolor="#00FF00"><b><font size="2">&nbsp;Ave. 
+          Trade</font></b></td>
+          <td width="21%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA24$</font></b></td>
+        </tr>
+        <tr>
+          <td width="26%" height="19" bgcolor="#00FF00"><b><font size="2">&nbsp;Win %</font></b></td>
+          <td width="24%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA32$</font></b></td>
+          <td width="29%" height="19" bgcolor="#00FF00"><b><font size="2">&nbsp;Ave. 
+          Win</font></b></td>
+          <td width="21%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA34$</font></b></td>
+        </tr>
+        <tr>
+          <td width="26%" height="19" bgcolor="#00FF00"><b><font size="2">&nbsp;$ 
+          / DD</font><font size="1">1</font><font size="2"> / Y</font></b></td>
+          <td width="24%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA42$</font></b></td>
+          <td width="29%" height="19" bgcolor="#00FF00"><b><font size="2">&nbsp;Ave. 
+          Loss</font></b></td>
+          <td width="21%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA44$</font></b></td>
+        </tr>
+        <tr>
+          <td width="26%" height="21" bgcolor="#00FF00"><b><font size="2">&nbsp;$ 
+          / DD</font><font size="1">3</font><font size="2"> / Y</font></b></td>
+          <td width="24%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA52$</font></b></td>
+          <td width="29%" height="21" bgcolor="#00FF00"><b><font size="2">&nbsp;Max 
+          Win</font></b></td>
+          <td width="21%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA54$</font></b></td>
+        </tr>
+        <tr>
+          <td width="26%" height="21" bgcolor="#00FF00"><b><font size="2">&nbsp;$ / 
+          DD</font><font size="1">1</font><font size="2"> / Y5</font></b></td>
+          <td width="24%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA74$</font></b></td>
+          <td width="29%" height="21" bgcolor="#00FF00"><b><font size="2">&nbsp;Max 
+          Loss</font></b></td>
+          <td width="21%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA64$</font></b></td>
+        </tr>
+        <tr>
+          <td width="26%" height="21" bgcolor="#00FF00" style="color: #000000"><b><font size="2" color="black">
+          &nbsp;<a href="javascript: onclickstock26('wbfpwdailynet');">Equity</a></font></b></td>
+          <td width="24%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA72$</font></b></td>
+          <td width="29%" height="21" bgcolor="#00FF00"><b><font size="2">&nbsp;Pr. 
+          Factor</font></b></td>
+          <td width="21%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA62$</font></b></td>
+        </tr>
+        <tr>
+          <td width="26%" height="21" bgcolor="#00FF00"><b><font size="2">&nbsp;Max 
+          FP</font><font size="1"> (TD)</font></b></td>
+          <td width="24%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA82$</font></b></td>
+          <td width="29%" height="21" bgcolor="#00FF00"><b><font size="2">&nbsp;Max. 
+          Con. L</font></b></td>
+          <td width="21%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oA84$</font></b></td>
+        </tr>
+      </table>
+      </td>
+      <td width="429" height="451" rowspan="4" colspan="2">
+      <table border="1" cellpadding="0" cellspacing="1" width="100%" height="464">
+        <tr>
+          <td width="100%" height="16" align="center" colspan="3"><font size="5" color="#0000FF">F</font><input style="width: 18px" type="button" value="<-" name="Fleft50" onclick="javascript: onclickFT(50,'F','L');" ondblclick="javascript: onclickFT(1000,'F','L');" onmouseout="window.status='Done'" title="F date move backward 50 trading days, double click for 1050 days." onmouseover="window.status='F date move backward 50 trading days, double click for 1050 days.';"><input style="width: 18px" type="button" value="<" name="Fleft1" onclick="javascript: onclickFT(1,'F','L');" ondblclick="javascript: onclickFT(20,'F','L');" onmouseout="window.status='Done'" title="F date move backward 1 trading day, double click for 21 days." onmouseover="window.status='F date move backward 1 trading day, double click for 21 days.';"><input type="text" name="outFdate" value="$outFdate$" size="6" onfocus="javascript: outForm.FirstorS.value='1';" onmouseout="window.status='Done'" title="To show the beginning date, called as F date." onmouseover="window.status='To show the beginning date, called as F date.';" style="text-align: center; background-color:#E6E6E6"><input style="width: 18px" type="button" value=">" name="Fright1" onclick="javascript: onclickFT(1,'F','R');" ondblclick="javascript: onclickFT(20,'F','R');" onmouseout="window.status='Done'" title="F date move forward 1 trading day, double click for 21 days." onmouseover="window.status='F date move forward 1 trading day, double click for 21 days.';"><input style="width: 18px" type="button" value="->" name="Fright50" onclick="javascript: onclickFT(50,'F','R');" ondblclick="javascript: onclickFT(1000,'F','R');" onmouseout="window.status='Done'" title="F date move forward 50 trading days, double click for 1050 days." onmouseover="window.status='F date move forward 50 trading days, double click for 1050 days.';">&nbsp;<font size="5" color="#0000FF">T</font><input style="width: 18px" type="button" value="<-" name="Tleft50" onclick="javascript: onclickFT(50,'T','L');" ondblclick="javascript: onclickFT(1000,'T','L');" onmouseout="window.status='Done'" title="T date move backward 50 trading days, double click for 1050 days." onmouseover="window.status='T date move backward 50 trading days, double click for 1050 days.';"><input style="width: 18px" type="button" value="<" name="Tleft1" onclick="javascript: onclickFT(1,'T','L');" ondblclick="javascript: onclickFT(20,'T','L');" onmouseout="window.status='Done'" title="T date move backward 1 trading day, double click for 21 days." onmouseover="window.status='T date move backward 1 trading day, double click for 21 days.';"><input type="text" name="outTdate" value="$outTdate$" size="6" onfocus="javascript: outForm.FirstorS.value='1';" onmouseout="window.status='Done'" title="To show the ending date, called as T date." onmouseover="window.status='To show the ending date, called as T date.';" style="text-align: center; background-color:#E6E6E6"><input style="width: 18px" type="button" value=">" name="Tright1" onclick="javascript: onclickFT(1,'T','R');" ondblclick="javascript: onclickFT(20,'T','R');" onmouseout="window.status='Done'" title="T date move forward 1 trading day, double click for 21 days." onmouseover="window.status='T date move forward 1 trading day, double click for 21 days.';"><input style="width: 18px" type="button" value="->" name="Tright50" onclick="javascript: onclickFT(50,'T','R');" ondblclick="javascript: onclickFT(1000,'T','R');" onmouseout="window.status='Done'" title="T date move forward 50 trading days, double click for 1050 days." onmouseover="window.status='T date move forward 50 trading days, double click for 1050 days.';">
+      <input style="width: 25px; background-color:#00FF00" type="button" value="Go" name="outNETgo" onclick="javascript: outsavehddata(); outForm.outrunindex.value='11'; outForm.mlmfile.value='wbfpwoutput'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); window.open('','_self'); window.close();" title="To get the new chart." onmouseover="window.status='Used to get new chart.'" onmouseout="window.status='Done'"><input style="width: 50px" type="button" value="$outN$" name="outName" onclick="javascript: outForm.outonoff.value='1'; outsavehddata(); outForm.outrunindex.value='11'; outForm.mlmfile.value='wbfpwoutput'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); window.open('','_self'); window.close();" title="To get new net chart with the underline market close price line to compare with." onmouseover="window.status='To get new net chart with the underline market close price line to compare with.'" onmouseout="window.status='Done'"><input style="width: 18px" type="button" value="$outonoff$" name="outonoff" onclick="javascript: if (value=='1') value='0'; else value='1';" onmouseout="window.status='Done'" title="0: equity chart alone; MM trading list in market order. 1: equity line with close price; Trading list in time order." onmouseover="window.status='0: equity chart alone; MM trading list in market order. 1: equity line with close price; Trading list in time order.';"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="408" align="center" colspan="3">
+      <img border="0" src="/$fpwoutjpeg$"></td>
+        </tr>
+        <tr>
+          <td width="12%" height="31">
+        <p align="center">
+      <input style="width: 42px" type="button" value="Time" name="outTime" onclick="javascript: outsavehddata(); outForm.outrunindex.value='12'; outForm.mlmfile.value='wbfpwoutput'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); window.open('','_self'); window.close();" title="To replace the volatility distribution data with signal's entry time distribution." onmouseover="window.status='To replace the volatility distribution data with signal\'s entry time distribution.'" onmouseout="window.status='Done'"></td>
+          <td width="34%" height="31">
+        <p align="center">
+      <select size="1" name="outDSM" onfocus="javascript: ;" title="Simulation output menu." onmouseout="window.status='Done'" title="" onmouseover="window.status='Simulation output menu.';"> 
+		<option selected value="1">Simulation 1</option>
+		<option value="2">Simulation 2</option> 
+		<option value="3">Simu 2+1</option> 		
+		<option value="4">Decom 1</option>
+		<option value="5">Decom 2</option> 
+		<option value="6">MMFuture 1</option>	
+		<option value="7">MMFuture 2</option>	
+		<option value="8">MMStock 1</option>	
+		<option value="9">MMStock 2</option>	
+		<option value="10">MM DcomF</option>
+		<option value="11">MM DcomS</option>				
+    </select><input style="width: 38px; background-color:#00FF00" type="button" value="Run" name="outDSMRun" onclick="javascript: outsavehddata(); outForm.outrunindex.value='31'; outForm.mlmfile.value='wbfpwoutput'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); window.open('','_self'); window.close();" title="To reload latest simulation results. 1-latest, 2-second latest, MM-Multi-Market Simu, Decom-output from any operation." onmouseover="window.status='To reload latest simulation results. 1-latest, 2-second latest, MM-Multi-Market Simu, Decom-output from any operation.'" onmouseout="window.status='Done'"></td>
+          <td width="54%" height="31">
+        <p align="center">
+      <select size="1" name="outTW" onfocus="javascript: ;" onmouseout="window.status='Done'" title="Data transfer menu." onmouseover="window.status='Data transfer menu.';"> 
+		<option selected value="1">Simu 1 <-> Simu 2</option>
+		<option value="2">Decom 1 <-> Decom 2</option> 
+		<option value="3">Decom 1 -> Simu 1</option>
+		<option value="4">Decom 2 -> Simu 1</option> 
+		<option value="5">Simu 1 -> Decom 1</option>					
+    </select><input style="width: 60px" type="button" value="Transfer" name="outTGo" onclick="javascript: beforesavedata(); outsavehddata(); outForm.outrunindex.value='32'; outForm.mlmfile.value='wbfpwoutput'; target='FPWoutstatus'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();" title="To make the corresponding data transfer or exchange." onmouseover="window.status='To make the corresponding data transfer or exchange.'" onmouseout="window.status='Done'"></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td width="344" height="94" colspan="2">
+      <table border="1" cellpadding="0" cellspacing="1" width="100%" height="92">
+        <tr>
+          <td width="17%" height="19" bgcolor="#FF0000">
+          <p align="center"><b>
+          <a href="javascript: onclickstock26('wbfpwmycodes');" style="text-decoration: none">
+          <font color="#000000">Entry</font></a></b></td>
+          <td width="15%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">Mon</font></b></td>
+          <td width="17%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">Tue</font></b></td>
+          <td width="15%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">Wed</font></b></td>
+          <td width="17%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">Thu</font></b></td>
+          <td width="19%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">Fri</font></b></td>
+        </tr>
+        <tr>
+          <td width="17%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">&nbsp;$Net</font></b></td>
+          <td width="15%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB22$</font></b></td>
+          <td width="17%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB23$</font></b></td>
+          <td width="15%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB24$</font></b></td>
+          <td width="17%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB25$</font></b></td>
+          <td width="19%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB26$</font></b></td>
+        </tr>
+        <tr>
+          <td width="17%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">&nbsp;Win</font></b></td>
+          <td width="16%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB32$</font></b></td>
+          <td width="17%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB33$</font></b></td>
+          <td width="16%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB34$</font></b></td>
+          <td width="16%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB35$</font></b></td>
+          <td width="18%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB36$</font></b></td>
+        </tr>
+        <tr>
+          <td width="17%" height="23" bgcolor="#00FF00" align="center"><b>
+          <font size="2">&nbsp;Loss</font></b></td>
+          <td width="16%" height="22" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB42$</font></b></td>
+          <td width="17%" height="22" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB43$</font></b></td>
+          <td width="16%" height="22" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB44$</font></b></td>
+          <td width="16%" height="22" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB45$</font></b></td>
+          <td width="18%" height="22" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oB46$</font></b></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td width="344" height="80" colspan="2">
+      <table border="1" cellpadding="0" cellspacing="1" width="100%" height="89">
+        <tr>
+          <td width="17%" height="19" bgcolor="#FF0000" align="center"><b>
+          <font size="2">$oC11$</font></b></td>
+          <td width="16%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oC12$</font></b></td>
+          <td width="17%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oC13$</font></b></td>
+          <td width="16%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oC14$</font></b></td>
+          <td width="17%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oC15$</font></b></td>
+          <td width="17%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oC16$</font></b></td>
+        </tr>
+        <tr>
+          <td width="17%" height="18" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oC21$</font></b></td>
+          <td width="16%" height="18" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC22$</font></b></td>
+          <td width="17%" height="18" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC23$</font></b></td>
+          <td width="16%" height="18" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC24$</font></b></td>
+          <td width="17%" height="18" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC25$</font></b></td>
+          <td width="17%" height="18" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC26$</font></b></td>
+        </tr>
+        <tr>
+          <td width="17%" height="20" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oC31$</font></b></td>
+          <td width="16%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC32$</font></b></td>
+          <td width="17%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC33$</font></b></td>
+          <td width="16%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC34$</font></b></td>
+          <td width="17%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC35$</font></b></td>
+          <td width="17%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC36$</font></b></td>
+        </tr>
+        <tr>
+          <td width="17%" height="20" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oC41$</font></b></td>
+          <td width="16%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC42$</font></b></td>
+          <td width="17%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC43$</font></b></td>
+          <td width="16%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC44$</font></b></td>
+          <td width="17%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC45$</font></b></td>
+          <td width="17%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oC46$</font></b></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td width="344" height="83" colspan="2">
+      <table border="1" cellpadding="0" cellspacing="1" width="100%" height="92">
+        <tr>
+          <td width="17%" height="20" bgcolor="#FF0000" align="center"><b>
+          <font size="2">$oD11$</font></b></td>
+          <td width="16%" height="20" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oD12$</font></b></td>
+          <td width="17%" height="20" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oD13$</font></b></td>
+          <td width="16%" height="20" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oD14$</font></b></td>
+          <td width="17%" height="20" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oD15$</font></b></td>
+          <td width="17%" height="20" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oD16$</font></b></td>
+        </tr>
+        <tr>
+          <td width="17%" height="20" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oD21$</font></b></td>
+          <td width="16%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD22$</font></b></td>
+          <td width="17%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD23$</font></b></td>
+          <td width="16%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD24$</font></b></td>
+          <td width="17%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD25$</font></b></td>
+          <td width="17%" height="20" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD26$</font></b></td>
+        </tr>
+        <tr>
+          <td width="17%" height="21" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oD31$</font></b></td>
+          <td width="16%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD32$</font></b></td>
+          <td width="17%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD33$</font></b></td>
+          <td width="16%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD34$</font></b></td>
+          <td width="17%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD35$</font></b></td>
+          <td width="17%" height="21" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD36$</font></b></td>
+        </tr>
+        <tr>
+          <td width="17%" height="19" bgcolor="#00FF00" align="center"><b>
+          <font size="2">$oD41$</font></b></td>
+          <td width="16%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD42$</font></b></td>
+          <td width="17%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD43$</font></b></td>
+          <td width="16%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD44$</font></b></td>
+          <td width="17%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD45$</font></b></td>
+          <td width="17%" height="19" bgcolor="#E6E6E6" align="center"><b>
+          <font size="2">$oD46$</font></b></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td width="212" height="29">
+      <p align="center">
+      <input style="width: 45px" type="button" value="Delete" name="outDelete" onclick="javascript: outsavehddata(); outForm.outrunindex.value='35'; outForm.mlmfile.value='wbfpwoutput'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); window.open('','_self'); window.close();" title="Delete previously saved simulation result, will open an interface to let user choose." onmouseover="window.status='Delete previously saved simulation result, will open an interface to let user choose.'" onmouseout="window.status='Done'"><font size="1">
+      </font> <input style="width: 38px" type="button" value="Load" name="outLoad" onclick="javascript: outsavehddata(); outForm.outrunindex.value='34'; outForm.mlmfile.value='wbfpwoutput'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); window.open('','_self'); window.close();" title="Load previously saved simulation output, will open an interface to let user choose." onmouseover="window.status='Load previously saved simulation output, will open an interface to let user choose.'" onmouseout="window.status='Done'"><font size="1">
+      </font>
+      <input type="text" name="outptname" size="6" value="$outptname$" style="text-align: center; background-color:#E6E6E6" title="File name rules: fsname + 1-2 digits to let portfolio manager to recognize it." onmouseover="window.status='File name rules: fsname + 1-2 digits to let portfolio manager to recognize it.'"><font size="1">
+      </font> <input style="width: 38px" type="button" value="Save" name="outSave" onclick="javascript:  beforesavedata(); outsavehddata(); outForm.outrunindex.value='33'; outForm.mlmfile.value='wbfpwoutput'; target='FPWoutstatus'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();" title="To save current showing model in a file, named in the lfet text box. Will overwrite old file, if any, WITHOUT warning." onmouseover="window.status='To save current showing model in a file, named in the lfet text box. Will overwrite old file, if any, WITHOUT warning.'" onmouseout="window.status='Done'"></td>
+      <td width="126" height="29">
+      <p align="center"><font color="#0000FF"><b><a href="/wbFPW Manual - PWP.html#FS" target="_blank" title="To open User's Manual to get online help.">FS:</a><font size="1">
+      </font> </b></font>
+      <select size="1" name="outFSspan" onfocus="javascript: ;" onmouseout="window.status='Done'" title="Forward simulation menu." onmouseover="window.status='Forward simulation menu.';"> 
+		<option selected value="DD">Daily</option>
+		<option value="T05">5 Min</option> 
+		<option value="T15">15 Min</option>
+		<option value="T30">30 Min</option> 
+		<option value="T60">Hourly</option>					
+    </select><input style="width: 25px; background-color:#00FF00" type="button" value="Go" name="outFSgo" onclick="javascript: beforesavedata(); outsavehddata(); outForm.outrunindex.value='14'; outForm.mlmfile.value='wbfpwoutput'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();" title="To get corresponding forward simulation results of the current showing output; aimed to help user find proper exit way." onmouseover="window.status='To get corresponding forward simulation results of the current showing output; aimed to help user find proper exit way.'" onmouseout="window.status='Done'"></td>
+            <td width="396" height="56" rowspan="2">
+      <table border="0" cellpadding="0" cellspacing="0" width="108%" height="57">
+        <tr>
+          <td width="10%" height="26">
+          <p align="right"><b><font color="#0000FF"><a href="/wbFPW Manual - PWP.html#TA" target="_blank" title="To open User's Manual to get online help.">Any:</a>&nbsp; </font></b></td>
+          <td width="79%" height="26">
+      <input type="text" name="outAnyU" size="53" value="$outAnyU$" style="text-align: left; background-color:#E6E6E6" title="Upper, or the first part of the Any statement." onmouseover="window.status='Upper, or the first part of any statement.'"></td>
+          <td width="11%" height="26">
+          <p align="center">
+      <input type="text" name="outAnyS" size="3" value="$outAnyS$" style="text-align: center; background-color:#E6E6E6" title="Distribution scale of Any output. When a negetive number entered, U - L >= 0 trades will be output as a new simulation - Decom." onmouseover="window.status='Distribution scale of Any output. When a negetive number entered, U - L >= 0 trades will be output as a new simulation - Decom.'"></td>
+        </tr>
+        <tr>
+          <td width="10%" height="25" align="right">
+          <input style="width: 42px" type="button" value="View" name="outView" onclick="javascript: if (document.outForm.fpwulvl.value=='4') { beforesavedata(); outsavehddata(); outForm.outrunindex.value='17'; outForm.mlmfile.value='wbfpwanyview'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();}" title="To view output results of lower Any part on the left side in a new window." onmouseover="window.status='To view output results of lower Any part on the left side in a new window.'" onmouseout="window.status='Done'"></td>
+          <td width="79%" height="25" align="right">
+      <p align="center">
+      <input type="text" name="outAnyD" size="53" value="$outAnyD$" style="text-align: left; background-color:#E6E6E6" title="Lower, or the second part of the Any statement." onmouseover="window.status='Lower, or the second part of any statement.'"></td>
+          <td width="11%" height="25" align="right">
+          <p align="center">
+        <input style="width: 38px; background-color:#00FF00" type="button" value="Ok" name="outAnyOk" onclick="javascript: outsavehddata(); outForm.outrunindex.value='16'; outForm.mlmfile.value='wbfpwoutput'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); window.open('','_self'); window.close();" title="Same as the left Ok button, to make the Any run: Upper-Lower. This is a very useful tool."  onmouseover="window.status='Same as the left Ok button, to make the Any run: Upper-Lower. This is a very useful tool.'" onmouseout="window.status='Done'"></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td width="344" height="27" colspan="2">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td width="63%">
+          <p align="right">
+      <font color="#0000FF"><b><a href="/wbFPW Manual - PWP.html#GO" target="_blank" title="To open User's Manual to get online help.">
+      G:</a></b></font><input style="width: 115px" type="button" value="New Genetic Run" name="outGOror" onclick="javascript: if (value=='New Genetic Run') value='Review Latest Run'; else value='New Genetic Run';"  title="To run new one or just review the latest results, when clicking Genetic Opetimizers buttons." onmouseover="window.status='To run new one or just review the latest results, when clicking Genetic Opetimizers buttons.'" onmouseout="window.status='Done'"><input style="width: 20px" type="button" value="1" name="outGO1" onclick="javascript: if (document.outForm.fpwulvl.value=='4') { beforesavedata(); outsavehddata(); outForm.outrunindex.value='21'; outForm.mlmfile.value='wbfpwoutany'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();}" title="Level I Genetic Optimizer: marry once only among all possible relationships of last 10 days's elements. OhL mAR" onmouseover="window.status='Level I Genetic Optimizer: marry once only among all possible relationships of last 10 days\'s elements.'" onmouseout="window.status='Done'"><input style="width: 22px" type="button" value="12" name="outGO12" onclick="javascript: if (document.outForm.fpwulvl.value=='4') { beforesavedata(); outsavehddata(); outForm.outrunindex.value='22'; outForm.mlmfile.value='wbfpwoutany'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();}" title="Level II Genetic Optimizer: marry twice among all possible relationship of last 10 days's elements." onmouseover="window.status='Level II Genetic Optimizer: marry twice among all possible relationship of last 10 days\'s elements.'" onmouseout="window.status='Done'"><input style="width: 28px" type="button" value="123" name="outGO123" onclick="javascript: if (document.outForm.fpwulvl.value=='4') { beforesavedata(); outsavehddata(); outForm.outrunindex.value='23'; outForm.mlmfile.value='wbfpwoutany'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();}" title="Level I Genetic Optimizer: marry three times among all possible relationship of last 10 days's elements." onmouseover="window.status='Level I Genetic Optimizer: marry three times among all possible relationship of last 10 days\'s elements.'" onmouseout="window.status='Done'"></td>
+          <td width="25%">
+          <p align="center"><input style="width: 34px" type="button" value="12X" name="outGO12X" onclick="javascript: if (document.outForm.fpwulvl.value=='4') { beforesavedata(); outsavehddata(); outForm.outrunindex.value='24'; outForm.mlmfile.value='wbfpwoutany'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();}" title="Crossing markets optimizer II: marry twice between all possible relatioships of last 10 day's elements of both studying and Secondary mrkts." onmouseover="window.status='Crossing markets optimizer II: marry twice between all possible relatioships of last 10 day\'s elements of both studying and Secondary mrkts.'" onmouseout="window.status='Done'"><input style="width: 39px" type="button" value="123X" name="outGO123X" onclick="javascript: if (document.outForm.fpwulvl.value=='4') { beforesavedata(); outsavehddata(); outForm.outrunindex.value='25'; outForm.mlmfile.value='wbfpwoutany'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();}" title="Crossing markets optimizer III: marry three times between all possible relatioships of last 10 day's elements of both studying and Secondary mrkts." onmouseover="window.status='Crossing markets optimizer III: marry three times between all possible relatioships of last 10 day\'s elements of both studying and Secondary mrkts.'" onmouseout="window.status='Done'"></td>
+          <td width="13%"><input type="text" name="outGOsm" size="4" value="$outGOsm$" onfocus="javascript: if (value=='UrSym') value='';" ondblclick="javascript: value='UrSym'" style="text-align: center; background-color:#E6E6E6" title="If in UrSym, means all optimizers are running on the studying market(s); if entered a fsname, on this Secondary mrkt." onmouseover="window.status='If in UrSym, means all optimizers are running on the studying market(s); if entered a fsname, on this Secondary mrkt.'"></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+    <tr>
+      <td width="773" height="1" colspan="4" valign="baseline">
+      <table border="1" cellpadding="0" cellspacing="1" width="110%" height="32">
+        <tr>
+          <td width="17%" height="29">
+          <p align="center">
+          <input style="width: 48px" type="button" value="T-List" name="outTlist" onclick="javascript: beforesavedata(); outsavehddata(); outForm.outrunindex.value='13'; outForm.mlmfile.value='wbfpwoutput'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();" title="To show the trading list in details, in the order of time and/or in market group for MM." onmouseover="window.status='To show the trading list in details, in the order of time and/or in market group for MM.'" onmouseout="window.status='Done'"> <input style="width: 84px" type="button" value="Setup Charts" name="outSG" onclick="javascript: beforesavedata(); outsavehddata(); outForm.outrunindex.value='15'; outForm.mlmfile.value='wbfpwsetup'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();" title="To show the signal one by one in chart, how did it in, out and more, and link to tick chart if any and needed." onmouseover="window.status='To show the signal one by one in chart, how did it in, out and more, and link to tick chart if any and needed.'" onmouseout="window.status='Done'"></td>
+          <td width="17%" height="29">
+          <p align="center"> 
+          <input style="width: 72px" type="button" value="Statistics II" name="outMS1" onclick="javascript: beforesavedata(); outsavehddata(); outForm.outrunindex.value='42'; outForm.mlmfile.value='wbfpwstat'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();" title="To open the second output statistics page, mainly aimed to help user find right managing rules about the current showing sim." onmouseover="window.status='To open the second output statistics page, mainly aimed to help user find right managing rules about the current showing sim.'" onmouseout="window.status='Done'"> 
+          <input style="width: 60px" type="button" value="Portfolio" name="outPO1" onclick="javascript: beforesavedata(); outsavehddata(); outForm.outrunindex.value='41'; outForm.mlmfile.value='wbfpwport'; target='_blank'; outForm.FirstorS.value='1'; outForm.submit(); aftersavedata();" title="To open the portofolio manager program, and initiate it to the studying market." onmouseover="window.status='To open the portofolio manager program, and initiate it to the studying market.'" onmouseout="window.status='Done'"></td>
+          <td width="76%" height="29">
+          <iframe name="FPWoutstatus" width="491" height="22" src="$FPWoutstatus$">
+          Your browser does not support inline frames or is currently configured not to display inline frames.</iframe></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+  </table>
+  </center>
+</div>
+</form>
+<form name="stock2Form" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+<input type="hidden" name="mlmfile" value="wbstmpsimu">
+<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+<input type="hidden" name="mlid" value="$fpwusername$">
+<input type="hidden" name="mlid4" value="$fpwusername4$">
+<input type="hidden" name="WhereOrderFrom" value="INDX">
+<input type="hidden" name="mlmfvar" value="leavemealone">
+<input type="hidden" name="hdfpwaddnoise" value="AN: 0">
+<p align="center"><b>
+<script language="JavaScript">
+function onclickstock26(str) {
+   document.stock2Form.mlmfile.value=str;
+   stock2Form.submit(); }
+</script>
+    <a href="javascript: onclickstock26('wbmpinitial');">MarketPulse</a> | 
+    <a href="javascript: onclickstock26('wbstmpsimu');">MarketPulse Pro</a> | 
+    <a href="javascript: onclickstock26('wbfpwsimu');">PatternWorkshop</a> | 
+    <a href="javascript: onclickstock26('wbfpwstat');">Forward Statistics</a> | 
+    <a href="javascript: onclickstock26('wbfpwport');">Portfolio Manager</a></b><br>
+    <a href="JavaScript: onclickstock26('wbstanalog');">Analog</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstfpz691');">Zone</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstswing');">Swing</a> |&nbsp;<a href="JavaScript: onclickstock26('wbstsea');">Season</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstsnr');">SNR</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstleadi');">Leading Indicator</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstchart');">Detail Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstmmct');">Multi-Markets Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstrdata');">Data</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbfpwmpstat');">MP 
+Stat</a><br>
+    <b><font size="2">&nbsp;</font></b><font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+ 
+WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp;&nbsp; 
+Username: $fpwusername$</font></p>
+</form>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>
