@@ -1,0 +1,400 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="financial-pattern-footer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
+
+<dom-module id="financial-forward-statistic">
+
+  <template>
+      <style type="text/css">
+      :host{
+        display: block;
+        color:#000000;
+        width:55%;
+        font-size: 16px;
+        margin:30px auto;
+        padding:0;
+        height:auto;
+      }
+      .forwardStatistic{
+        margin-bottom: 15px;
+      }
+      .topItem,.displayTable{
+        border:1px solid #ddd;
+        text-align: center;
+        margin:5px;
+      }
+      .topItem{
+        padding:3px 0;
+      }
+      .topItem span{
+        font-weight:bold;
+        color:#00f;
+      }
+      input{
+        width:70px;
+      }
+      .openClose{
+        background:#0f0;
+        padding:2px;
+        margin-top:2px;
+      }
+      a{
+        font-weight:bold;
+      }
+      paper-button{
+        min-width:3.14em;
+        margin:0 0.1em;
+        padding:0.1em 0;
+        background-color: #ededed;
+      }
+      .displayTable table tr td{
+        width:200px;
+        height:20px;
+        border:1px solid #ddd;
+        text-align:center;
+      }
+      </style>
+
+      <div class="forwardStatistic" >
+        <div class="statFormContent">
+          <form id="statForm" name="statForm" action="[[appData]]/wbfpwstat" method="POST">
+            <input type="hidden" name="submitValue" id="submitInput" value=""/>
+          </form>
+          <input type="hidden" name="mlid" id="mlid" value="[[userName]]" />
+        	<input type="hidden" name="mlid4" id="mlid4" value="[[userName4]]$" />
+        	<input type="hidden" name="mlmfile" id="mlmfile" value="wbfpwstat" />
+        	<input type="hidden" name="fpwulvl" id="fpwulvl" value="[[serviceData]]" />
+          <input type="hidden" name="fpwsource" id="fpwsource" value="[[source]]" />
+          <input type="hidden" name="outrunindex" id="outrunindex" value="[[runIndex]]" />
+          <input type="hidden" name="WhereOrderFrom" id="WhereOrderFrom" value="SLFE" />
+        	<input type="hidden" name="hdAzhuAA" id="hdAzhuAA" value="Ka" />
+        	<input type="hidden" name="hdAzhuTD" id="hdAzhuTD" value="Ka" />
+        	<input type="hidden" name="hdNewoRew" id="hdNewoRew" value="Ka" />
+        </div>
+        <div class="topItem">
+          <a href="" name="">Help?</a>
+          <a href="" name="" class="openClose">Open to Close</a>
+          <span >Day no:</span>
+          <input is="iron-input" name="Azhus2" id="Azhus2" value="[[zhus2]]"/>
+          <paper-button raised on-click="changeCandD">[[zhuAA]]</paper-button>
+          <paper-button raised on-click="clickOk">OK</paper-button>
+          <a name="seo" href="/test/home/seo"><paper-button raised  >SEO</paper-button></a>
+          <a name="soMesh" href="/test/home/soMesh"><paper-button raised >SO Mesh</paper-button></a>
+          <input is="iron-input" name="AzhuTE" id="AzhuTE" value="[[zhuTE]]"/>
+          <paper-button raised on-click="changeTandD">[[zhuTD]]</paper-button>
+          <a href="" name="" class="openClose">Open to Close</a>
+          <paper-button raised on-click="clickNewRun">[[NewORew]]</paper-button>
+        </div>
+        <div class="displayTable">
+          <table>
+              <template is="dom-repeat"  items="[[closeOpen]]">
+                <tr ><td>[[item.value1]]</td><td>[[item.value2]]</td><td>[[item.value3]]</td><td>[[item.value4]]</td><td>[[item.value5]]</td></tr>
+              </template>
+              <tr><td colspan="2"></td><td>Open to Heigh</td><td colspan="2"></td><tr>
+              <template is="dom-repeat"  items="[[toHeigh]]">
+                <tr class="tableStyle"><td>[[item.value1]]</td><td>[[item.value2]]</td><td>[[item.value3]]</td><td>[[item.value4]]</td><td>[[item.value5]]</td></tr>
+              </template>
+              <tr><td colspan="2"></td><td>Open to Low</td><td colspan="2"></td><tr>
+              <template is="dom-repeat"  items="[[toLow]]">
+                <tr class="tableStyle"><td>[[item.value1]]</td><td>[[item.value2]]</td><td>[[item.value3]]</td><td>[[item.value4]]</td><td>[[item.value5]]</td></tr>
+              </template>
+              <tr ><td colspan="2"></td><td>Close from Heigh</td><td colspan="2"></td><tr>
+              <template is="dom-repeat" class="tableStyle" items="[[fromHeigh]]">
+                <tr class="tableStyle"><td>[[item.value1]]</td><td>[[item.value2]]</td><td>[[item.value3]]</td><td>[[item.value4]]</td><td>[[item.value5]]</td></tr>
+              </template>
+              <tr><td colspan="2"></td><td>Close from Low</td><td colspan="2"></td><tr>
+              <template is="dom-repeat" class="tableStyle" items="[[fromLow]]">
+                <tr class="tableStyle"><td>[[item.value1]]</td><td>[[item.value2]]</td><td>[[item.value3]]</td><td>[[item.value4]]</td><td>[[item.value5]]</td></tr>
+              </template>
+          </table>
+        </div>
+      </div>
+      <financial-pattern-footer login="[[appData]]"></financial-pattern-footer>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'financial-forward-statistic',
+      properties: {
+        appData:String,
+        userName:String,
+        userName4:String,
+        serviceData:String,
+        source:String,
+        runIndex:String,
+        zhuAA:String,
+        zhus2:String,
+        zhuTE:String,
+        zhuTD:String,
+        NewORew:String,
+
+        closeOpen:Array,
+        toHeigh:Array,
+        toLow:Array,
+        fromHeigh:Array,
+        fromLow:Array,
+
+        sA11:String,
+        sA12:String,
+        sA13:String,
+        sA14:String,
+        sA15:String,
+
+        sA21:String,
+        sA22:String,
+        sA23:{
+          type:String,
+          value:"Close>Open",
+        },
+        sA24:String,
+        sA25:String,
+
+        sA31:String,
+        sA32:String,
+        sA33:{
+          type:String,
+          value:"Close<Open",
+        },
+        sA34:String,
+        sA35:String,
+
+        sA41:String,
+        sA42:String,
+        sA43:{
+          type:String,
+          value:"Close>Close(1)",
+            },
+        sA44:String,
+        sA45:String,
+
+        sA51:String,
+        sA52:String,
+        sA53:{
+          type:String,
+          value:"Close<Close(1)",
+        },
+        sA54:String,
+        sA55:String,
+
+        sA61:String,
+        sA62:String,
+        sA63:{
+          type:String,
+          value:"Open>Close(1)",
+        },
+        sA64:String,
+        sA65:String,
+
+        sA71:String,
+        sA72:String,
+        sA73:{
+          type:String,
+          value:"Open<Close(1)",
+        },
+        sA74:String,
+        sA75:String,
+
+        sA81:String,
+        sA82:String,
+        sA83:{
+          type:String,
+          value:"Total Higher High",
+        },
+        sA84:String,
+        sA85:String,
+
+        sA91:String,
+        sA92:String,
+        sA93:{
+          type:String,
+          value:"Total Lower High",
+        },
+        sA94:String,
+        sA95:String,
+
+        sA101:String,
+        sA102:String,
+        sA103:{
+          type:String,
+          value:"Total Higher Low",
+        },
+        sA104:String,
+        sA105:String,
+
+        sA111:String,
+        sA112:String,
+        sA113:{
+          type:String,
+          value:"Total Lower Low",
+        },
+        sA114:String,
+        sA115:String,
+
+        sA131:String,
+        sA132:String,
+        sA133:{
+          type:String,
+          value:"Largest Up"
+        },
+        sA134:String,
+        sA135:String,
+
+        sA141:String,
+        sA142:String,
+        sA143:{
+          type:String,
+          value:"Average Up"
+        },
+        sA144:String,
+        sA145:String,
+
+        sA161:String,
+        sA162:String,
+        sA163:{
+          type:String,
+          value:"Largest Down"
+        },
+        sA164:String,
+        sA165:String,
+
+        sA171:String,
+        sA172:String,
+        sA173:{
+          type:String,
+          value:"Average Down"
+        },
+        sA174:String,
+        sA175:String,
+
+        sA191:String,
+        sA192:String,
+        sA193:{
+          type:String,
+          value:"Lowest Close"
+        },
+        sA194:String,
+        sA195:String,
+
+        sA201:String,
+        sA202:String,
+        sA203:{
+          type:String,
+          value:"Average Close"
+        },
+        sA204:String,
+        sA205:String,
+
+        sA221:String,
+        sA222:String,
+        sA223:{
+          type:String,
+          value:"Highest Close"
+        },
+        sA224:String,
+        sA225:String,
+
+
+        sA231:String,
+        sA232:String,
+        sA233:{
+          type:String,
+          value:"Average Close"
+        },
+        sA234:String,
+        sA235:String,
+      },
+      ready:function(){
+        this.closeOpen = [
+            {"value1":this.sA11,"value2":this.sA12,"value3":this.sA13,"value4":this.sA14,"value5":this.sA15},
+            {"value1":this.sA21,"value2":this.sA22,"value3":this.sA23,"value4":this.sA24,"value5":this.sA25},
+            {"value1":this.sA31,"value2":this.sA32,"value3":this.sA33,"value4":this.sA34,"value5":this.sA35},
+            {"value1":this.sA41,"value2":this.sA42,"value3":this.sA43,"value4":this.sA44,"value5":this.sA45},
+            {"value1":this.sA51,"value2":this.sA52,"value3":this.sA53,"value4":this.sA54,"value5":this.sA55},
+            {"value1":this.sA61,"value2":this.sA62,"value3":this.sA63,"value4":this.sA64,"value5":this.sA65},
+            {"value1":this.sA71,"value2":this.sA72,"value3":this.sA73,"value4":this.sA74,"value5":this.sA75},
+            {"value1":this.sA81,"value2":this.sA82,"value3":this.sA83,"value4":this.sA84,"value5":this.sA85},
+            {"value1":this.sA91,"value2":this.sA92,"value3":this.sA93,"value4":this.sA94,"value5":this.sA95},
+            {"value1":this.sA101,"value2":this.sA102,"value3":this.sA103,"value4":this.sA104,"value5":this.sA105},
+            {"value1":this.sA111,"value2":this.sA112,"value3":this.sA113,"value4":this.sA114,"value5":this.sA115}
+        ];
+        this.toHeigh=[
+            {"value1":this.sA131,"value2":this.sA132,"value3":this.sA133,"value4":this.sA134,"value5":this.sA135},
+            {"value1":this.sA141,"value2":this.sA142,"value3":this.sA143,"value4":this.sA144,"value5":this.sA145}
+        ];
+        this.toLow=[
+            {"value1":this.sA161,"value2":this.sA162,"value3":this.sA163,"value4":this.sA164,"value5":this.sA165},
+            {"value1":this.sA171,"value2":this.sA172,"value3":this.sA173,"value4":this.sA174,"value5":this.sA175}
+        ];
+        this.fromHeigh=[
+            {"value1":this.sA191,"value2":this.sA192,"value3":this.sA193,"value4":this.sA194,"value5":this.sA195},
+            {"value1":this.sA201,"value2":this.sA202,"value3":this.sA203,"value4":this.sA204,"value5":this.sA205}
+        ];
+        this.fromLow=[
+            {"value1":this.sA221,"value2":this.sA222,"value3":this.sA223,"value4":this.sA224,"value5":this.sA225},
+            {"value1":this.sA231,"value2":this.sA232,"value3":this.sA233,"value4":this.sA234,"value5":this.sA235}
+        ];
+      },
+      statsavehddata:function() {
+      	this.$.hdAzhuAA.value=this.zhuAA;
+      	this.$.hdAzhuTD.value=this.zhuTD;
+      	this.$.hdNewoRew.value=this.NewoRew;
+      },
+      changeCandD:function(){
+          if(this.zhuAA=="C"){
+            this.zhuAA="D";
+          }else{
+            this.zhuAA="C"
+          }
+      },
+      colectSubmitValue:function(){
+          var submit=this.$.submitInput;
+          var zhuAA=this.$.hdAzhuAA.value;
+          var zhuTD=this.$.hdAzhuTD.value;
+          var NewoRew=this.$.hdNewoRew.value;
+          submit.value='{"mlid":"'+this.userName+'","mlid4":"'+this.userName4+'","mlmfile":"wbfpwstat","fpwulvl":"'+this.serviceData+'","fpwsource":"'+this.source+
+          '","outrunindex":"'+this.runIndex+'","WhereOrderFrom":"SLFE","hdAzhuAA":"'+zhuAA+'","hdAzhuTD":"'+zhuTD+'","hdNewoRew":"'+NewoRew+'","Azhus2":"'+this.zhus2+'","AzhuTE":"'+this.zhuTE+'}';
+          this.$.statForm.submit();
+      },
+      clickOk:function(){
+        this.statsavehddata();
+        this.runIndex="42";
+        this.colectSubmitValue();
+      },
+      clickSEO:function(){
+        this.statsavehddata();
+        this.runIndex="421";
+        this.colectSubmitValue();
+      },
+      clickSoMesh:function(){
+        this.statsavehddata();
+        this.runIndex="422";
+        this.colectSubmitValue();
+      },
+      changeTandD:function(){
+        if(this.zhuTD=="T"){
+          this.zhuTD="D";
+        }else{
+          this.zhuTD="T";
+        }
+      },
+      clickNewRun:function(){
+        if(this.NewORew=="New Run"){
+          this.NewORew="Review";
+        }else{
+          this.NewORew="New Run";
+        }
+      },
+    });
+  </script>
+</dom-module>

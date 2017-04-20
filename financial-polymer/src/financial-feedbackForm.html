@@ -1,0 +1,126 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/gold-email-input/gold-email-input.html">
+
+<dom-module id="financial-feedbackForm">
+
+  <template>
+    <style>
+    :host {
+      display: block;
+      color:#0000ff;
+      width:40%;
+      margin:30px auto;
+      padding:0;
+      height:auto;
+    }
+    .formContent{
+      overflow:hidden;
+    }
+    iron-label{
+      font-weight: bold;
+      display:inline-block;
+      width:30%;
+      text-align: right;
+      margin:5px 8px 5px 0;
+    }
+    gold-email-input{
+      display:inline-block;
+      width:60%;
+    }
+    input{
+      width:60%;
+      margin:5px 0;
+    }
+    textarea{
+      width:60%;
+      margin:5px 0;
+    }
+    p{
+      width:80%;
+      margin:10px auto;
+    }
+    </style>
+    <div class="feedbackFormContent">
+      <div ><img src="../images/logo.png"/><img src="../images/login/tb_01.jpg"/></div>
+      <hr color="ffc875"/>
+      <div class="formContent">
+          <h1>Feedback Form</h1>
+          <p>Please give us your comments and suggestions.</p>
+          <form is="iron-form" id="feedbackForm" method="post" action="">
+            <iron-label for="messageType">Message type</iron-label>
+            <paper-radio-group  allow-empty-selection id="messageType" selected="{{button}}" attr-for-selected="value">
+              <template is="dom-repeat" items="[[messageTypedData]]">
+                <paper-radio-button name="{{item.name}}" value="{{item.value}}"><span>[[item.value]]</span></paper-radio-button>
+              </template>
+            </paper-radio-group>
+            <iron-label for="Email">Email</iron-label>
+            <gold-email-input id="Email" label="your email address"></gold-email-input>
+            <iron-label for="name">Name</iron-label>
+            <input is="iron-input" id="name" name="fdkName" /><br/>
+            <iron-label for="subject">Subject</iron-label>
+            <input is="iron-input" id="subject" name="fdkSubject" /><br/>
+            <iron-label for="fdkContent"></iron-label>
+            <textarea  rows="11" name="fdkContent" cols="38" id="fdkContent"> </textarea><br/>
+            <iron-label for=""></iron-label>
+            <paper-button raised onclick="submitForm()">Submit</paper-button>
+            <paper-button raised onclick="resetForm()">Reset</paper-button><br/>
+            <iron-label for=""></iron-label>
+            <textarea rows="7" name="fdkRemark" cols="73" style="color: #0000FF">Notes from FPW:</textarea>
+          </form>
+      </div>
+   </div>
+  </template>
+
+  <script>
+
+    Polymer({
+      is: 'financial-feedbackForm',
+      properties: {
+        userName: String,
+        time: String,
+        appTitle: String,
+
+        page: {
+          type: String,
+          observer: '_pageChanged'
+        },
+        pagepath: {
+          type: String
+        },
+        pageName:String,
+        messageTypeData: Array,
+      },
+      ready:function(){
+        this.messageTypedData=[
+            {name:'fdkType',value:'site comment'},
+            {name:'fdkType',value:'technical problem'},
+            {name:'fdkType',value:'others'}
+        ]
+      },
+      observers: [
+        '_routePageChanged(routeData.page)',
+      ],
+
+      listeners: {
+      },
+
+    });
+
+  </script>
+
+</dom-module>

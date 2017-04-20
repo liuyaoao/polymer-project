@@ -1,0 +1,185 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="news-nav.html">
+<link rel="import" href="financial-footer.html">
+<link rel="import" href="financial-login.html">
+<link rel="import" href="financial-company.html">
+<link rel="import" href="financial-contact.html">
+<link rel="import" href="financial-registerForm.html">
+<link rel="import" href="financial-privacy-policy.html">
+<link rel="import" href="financial-terms-use.html">
+
+
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+
+<dom-module id="financial-register-app">
+  <template>
+      <style >
+        :host {
+          display: block;
+          margin-top:30px;
+          color:#0000ff;
+          margin:0 auto;
+          padding:0;
+          height:auto;
+        }
+      </style>
+      <iron-ajax id="ajax"
+        url="https://randomuser.me/api/"
+        handle-as="json"
+        params=''
+        on-response="categoriesLoaded"
+        timeout="3000"
+        on-error="categoriesLoadederror">
+      </iron-ajax>
+      <app-location route="{{route}}"></app-location>
+      <app-route
+          route="{{route}}"
+          pattern="/:page"
+          data="{{routeData}}"
+          tail="{{subroute}}"></app-route>
+      <app-route
+          route="{{subroute}}"
+          pattern="/:id"
+          data="{{subrouteData}}"></app-route>
+      <!-- <news-nav
+          id="nav"
+          page="[[page]]"
+          categories="[[categories]]"
+          category="[[category]]">
+      </news-nav> -->
+
+     <iron-pages role="main" selected="[[page]]" attr-for-selected="name" fallback-selection="path-warning">
+       <financial-registerForm
+         name="signUp"
+         notice= "[[noticeData]]"
+       >
+      </financial-registerForm>
+       <financial-login
+         name="login"
+         login= "[[appData]]"
+       >
+       </financial-login>
+       <financial-company
+         name="company"
+         route="[[subroute]]"
+         >
+       </financial-company>
+       <financial-contact
+         name="contact"
+         route="[[subroute]]"
+       >
+      </financial-contact>
+      <financial-privacy-policy
+        name="privacy">
+      </financial-privacy-policy>
+      <financial-terms-use
+       name="use">
+      </financial-terms-use>
+     <news-path-warning name="path-warning"></news-path-warning>
+     </iron-pages>
+    <financial-footer></financial-footer>
+    </template>
+    <script>
+      Polymer({
+        is: 'financial-register-app',
+        properties:{
+          page: {
+             type: String,
+             reflectToAttribute: true,
+             observer: '_pageChanged'
+           },
+          noticeData: String,
+          notice: String
+         },
+         observers: [
+           '_routePageChanged(subrouteData.id)',
+         ],
+        _pageChanged: function(page, oldPage) {
+          var path = page;
+        },
+        // _submitFormLogin:function(){
+        //   var username=this.$.inputUser.value;
+        //   var userPassword=this.$.inputPsw.value;
+        //   var submit=this.$.submitValue;
+        //   submit.value='{"fpwusername":"'+username+'","fpwpassword":"'+userPassword+'","UserIPAddress":"192.168.2.8","UserHostName":"Verizon.net"}';
+        //   this.$.loginForm.submit();
+        // },
+        // _submitFormCheckTestUser:function(){
+        //   ar username=this.$.inputUser.value;
+        //   var userPassword=this.$.inputPsw.value;
+        //   var submit=this.$.submitValue;
+        // submit.value='{"fpwusername":"'+username+'","fpwpassword":"'+userPassword+'","UserIPAddress":"192.168.2.8","UserHostName":"Verizon.net"}';
+        //   this.$.loginForm.submit();
+        // },
+        _routePageChanged:function(page){
+          console.log("page--:",page);
+          // if (!page) {
+          //   this.set('route.path', '/test/home/signUp');
+          //   return;
+          // }
+          this.page = page;
+          this.pagepath =  this.route.path;
+          var remainingPieces = this.pagepath.split('/');
+          this.page = remainingPieces[3];//这种是对应 this.set('route.path', 'instantloading/lala/home');
+          if(!this.page){
+              page = this.page;
+              console.log("new page:",page);
+          }
+        },
+        _pageChanged: function(page, oldPage) {
+          var href;
+          var path = this.route.path;
+          console.log("this.route.path:"+path);
+          switch(page) {
+             case 'login':
+               href = 'financial-login.html';
+               break;
+             case 'company':
+               href = 'financial-company.html';
+               break;
+             case 'contact':
+               href = 'financial-contact.html';
+               break;
+             case 'privacy':
+               href = 'financial-privacy-policy.html';
+               break;
+             case 'home':
+               href = 'financial-login.html';
+               break;
+            case 'signUp':
+               href = 'financial-registerForm.html';
+               break;
+            case 'feedback':
+               href = 'financial-feedbackForm.html';
+               break;
+             default:
+               href = 'news-path-warning.html';
+               break;
+           };
+          this.importHref(
+              this.resolveUrl(href),
+              null,
+              null,
+              true);
+        },
+        _testgetdata:function () {
+    			this.$.ajax.generateRequest();
+		    },
+        categoriesLoaded:function(e){
+          var self = this;
+          var people = e.detail.response.results;
+          if(people.cell!=""){
+
+          }
+        },
+        categoriesLoadederror:function(e){
+          var self = this;
+          var people = e.detail.error;
+        }
+      });
+    </script>
+</dom-module>

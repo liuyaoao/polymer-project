@@ -1,0 +1,1081 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="paper-dropdown-menu2/paper-dropdown-menu2.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="paper-item-ext/paper-item-ext.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+
+<link rel="import" href="financial-pattern-footer.html">
+
+<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+
+<dom-module id="financial-market-pulse">
+
+  <template>
+
+    <style include="app-grid-style">
+    :host {
+      display: block;
+      color:#000;
+      width:63%;
+      padding:0;
+      margin:30px auto;
+      --app-grid-columns:2;
+      /*--app-grid-expandible-item-columns: 3;*/
+    }
+    input{
+      width:40px;
+    }
+    .item{
+      border:1px solid #ddd;
+    }
+    .topItem>div{
+      display:inline-block;
+      vertical-align: bottom;
+      text-align: center;
+    }
+    .topItem .leftList{
+      width:49%;
+    }
+    .topItem .middleList{
+      width:29%;
+    }
+    .topItem .rightList{
+      width:19%;
+    }
+    .bottomItem .bottomItemTop>div,.bottomItem .bottomItemMiddle>div{
+      display:inline-block;
+      border:1px solid #ddd;
+    }
+    .bottomItem .bottomItemTop .left,.bottomItem .bottomItemMiddle .left{
+      width:79%;
+    }
+    .bottomItem .bottomItemTop .right,.bottomItem .bottomItemMiddle .right{
+      width:19%;
+    }
+    .itemList>div{
+      display:inline-block;
+      width:49%;
+      text-align: center;
+      border:1px solid #ddd;
+    }
+     a{
+      font-weight:bold;
+      font-size:22px;
+      padding:10px 0;
+    }
+    paper-button{
+      min-width:2.14em;
+      margin:0.1em;
+      padding:1px;
+      background-color: #ededed;
+      --paper-button:{
+       text-transform: none;
+     }
+    }
+    paper-dropdown-menu{
+        width:3.00em;
+        --paper-input-container:{
+            padding:0;
+          }
+    }
+    paper-item{
+      width:100%；
+    }
+    #zsobx71{
+      width:12.14em;
+    }
+    #zsobx312,#zsobx44,#zsobx41{
+      width:6.14em;
+    }
+    #zsobxSG{
+      width:15.14em;
+    }
+    #mlmfvar2{
+      width:5.14em;
+    }
+    iron-autogrow-textarea{
+      width:466px;
+      height:80px;
+    }
+    #zsobx57{
+      width:98%;
+    }
+    .financialMarketPulse{
+      margin-bottom: 15px;
+    }
+    table tr td input{
+      border:1px solid #00f;
+      width:6px;
+      padding:1px 0;
+      background-color: #00f;
+    }
+    </style>
+    <div class="financialMarketPulse">
+      <form name="stockForm" action="" method="POST" target="PulseOutputMain">
+            <input type="hidden" name="submitValue" id="submitValue" value="" />
+      </form>
+      		<input type="hidden" name="mlmfile" id="mlmfile" value="wbdzhjust" />
+      		<input type="hidden" name="hdzsobx39" id="hdzsobx39" value="KaKaKa">
+      		<input type="hidden" name="hdzsobx311" id="hdzsobx311" value="KaKaKa">
+      		<input type="hidden" name="hdzsobx42" id="hdzsobx42" value="KaKaKa">
+      		<input type="hidden" name="hdzsobx43" id="hdzsobx43" value="KaKaKa">
+      		<input type="hidden" name="hdzsobx46" id="hdzsobx46" value="KaKaKa">
+      		<input type="hidden" name="hdzsobx55" id="hdzsobx55" value="KaKaKa">
+      		<input type="hidden" name="hdzsobx64" id="hdzsobx64" value="KaKaKa">
+      		<input type="hidden" name="WhereOrderFrom" id="WhereOrderFrom" value="MPLG">
+      		<input type="hidden" name="mlid" value="$FDfpwusername$">
+      		<input type="hidden" name="mlid4" value="$FDfpwusername4$">
+      		<input type="hidden" name="mlmfvar" value="leavemealone">
+      		<input type="hidden" name="mlmfvar3" id="mlmfvar3" value="1">
+      		<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+      		<input type="hidden" name="filetypeid" id="filetypeid" value="mpdzh">
+      		<input type="hidden" name="mybarh1" value="$mybarh1$">
+      		<input type="hidden" name="mybarh2" value="$mybarh2$">
+      		<input type="hidden" name="mybarh3" value="$mybarh3$">
+      		<input type="hidden" name="mybarh4" value="$mybarh4$">
+      		<input type="hidden" name="mybarh5" value="$mybarh5$">
+      		<input type="hidden" name="mybarh6" value="$mybarh6$">
+      		<input type="hidden" name="mybarh7" value="$mybarh7$">
+      		<input type="hidden" name="mybarh8" value="$mybarh8$">
+      		<input type="hidden" name="mybarh9" value="$mybarh9$">
+      		<input type="hidden" name="mybarh10" value="$mybarh10$">
+      		<input type="hidden" name="mybarh11" value="$mybarh11$">
+      		<input type="hidden" name="mybarh12" value="$mybarh12$">
+      		<input type="hidden" name="mybarh13" value="$mybarh13$">
+      		<input type="hidden" name="mybarh14" value="$mybarh14$">
+      		<input type="hidden" name="mybarh15" value="$mybarh15$">
+      		<input type="hidden" name="mybarh16" value="$mybarh16$">
+      		<input type="hidden" name="mybarh17" value="$mybarh17$">
+      		<input type="hidden" name="mybarh18" value="$mybarh18$">
+      		<input type="hidden" name="mybarh19" value="$mybarh19$">
+      		<input type="hidden" name="mybarh20" value="$mybarh20$">
+      		<input type="hidden" name="mybarh21" value="$mybarh21$">
+      		<input type="hidden" name="mybarh22" value="$mybarh22$">
+      		<input type="hidden" name="mybarh23" value="$mybarh23$">
+      		<input type="hidden" name="mybarh24" value="$mybarh24$">
+      		<input type="hidden" name="mybarh25" value="$mybarh25$">
+      		<input type="hidden" name="mybarh26" value="$mybarh26$">
+      		<input type="hidden" name="mybarh27" value="$mybarh27$">
+      		<input type="hidden" name="mybarh28" value="$mybarh28$">
+      		<input type="hidden" name="mybarh29" value="$mybarh29$">
+      		<input type="hidden" name="mybarh30" value="$mybarh30$">
+      		<input type="hidden" name="mybarh31" value="$mybarh31$">
+      		<input type="hidden" name="mybarh32" value="$mybarh32$">
+      		<input type="hidden" name="mybarh33" value="$mybarh33$">
+      		<input type="hidden" name="mybarh34" value="$mybarh34$">
+      		<input type="hidden" name="mybarh35" value="$mybarh35$">
+      		<input type="hidden" name="mybarh36" value="$mybarh36$">
+      		<input type="hidden" name="mybarh37" value="$mybarh37$">
+      		<input type="hidden" name="mybarh38" value="$mybarh38$">
+      		<input type="hidden" name="mybarh39" value="$mybarh39$">
+      		<input type="hidden" name="mybarh40" value="$mybarh40$">
+      		<input type="hidden" name="mybarh41" value="$mybarh41$">
+      		<input type="hidden" name="mybarh42" value="$mybarh42$">
+      		<input type="hidden" name="mybarh43" value="$mybarh43$">
+      		<input type="hidden" name="mybarh44" value="$mybarh44$">
+      		<input type="hidden" name="mybarh45" value="$mybarh45$">
+      		<input type="hidden" name="mybarh46" value="$mybarh46$">
+      		<input type="hidden" name="mybarh47" value="$mybarh47$">
+      		<input type="hidden" name="mybarh48" value="$mybarh48$">
+      		<input type="hidden" name="mybarh49" value="$mybarh49$">
+      		<input type="hidden" name="mybarh50" value="$mybarh50$">
+      		<input type="hidden" name="mybarh51" value="$mybarh51$">
+      		<input type="hidden" name="mybarh52" value="$mybarh52$">
+      		<input type="hidden" name="hdpatseed" value="$hdpatseed$">
+      		<input type="hidden" name="hdpatseed1" id="hdpatseed1" value="K">
+      		<input type="hidden" name="hdpatseed2" id="hdpatseed2" value="K">
+      		<input type="hidden" name="hdpatseed3" id="hdpatseed3" value="K">
+        <div class="app-grid">
+          <div class="item">
+            <div class="topItem">
+              <div class="leftList">
+                <paper-dropdown-menu id="zsobx71" name="zsobx71" value="" dynamicAlign="true">
+                  <paper-listbox class="dropdown-content" selected="{{chartInfoSelectedValue}}" attr-for-selected="value">
+                    <template is="dom-repeat" items="{{chartInfo}}" >
+                      <paper-item label="{{item.title}}" value="{{item.value}}">
+                        <span>{{item.title}}</span></paper-item>
+                    </template>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                <input is="iron-input" name="zsobx72" id="zsobx72" bind-value="UrSymbol" on-focus="handleChangezsobx72" on-keyDown="handleKeyDown1"/>
+                <paper-button raised id="zsobx73" on-click="handleClickGo" >GO</paper-button>
+              </div>
+              <div class="middleList">
+                <span>List:</span>
+                <paper-dropdown-menu id="mlmfvar2" name="mlmfvar2"  dynamicAlign="true">
+                  <paper-listbox class="dropdown-content" selected="{{listStyleSelectedValue}}" attr-for-selected="value" >
+                    <template is="dom-repeat" items="{{listStyle}}" >
+                      <paper-item label="{{item.title}}" value="{{item.value}}">
+                        <span>{{item.title}}</span></paper-item>
+                    </template>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-button raised id="zsobx4542768" on-click="handleClickSort" on-dbclick="handleDbclickSort">Sort</paper-button>
+              </div>
+              <div class="rightList">
+                  <a href="javascript:void(0);" on-click="CloseAllTimeout"><img src="../images/StopSignSmall.jpg"></a>
+                  <a href="javascript:void(0);" on-click="handleClickFull"><img src="../images/wbfpdfull.jpg"></a>
+                  <a href="javascript:void(0);" on-click="handleClickQ"><img src="../images/wbfpdfullq.jpg"></a>
+              </div>
+            </div>
+            <div class="middleItem">
+              <iframe name="PulseOutputMain" width="100%" height="254" src="{{MPmainoutputdata}}"></iframe>
+            </div>
+            <div class="bottomItem">
+                <div class="bottomItemTop">
+                  <div class="left">
+                    <a href="" name="">General Filter</a>
+                    <paper-dropdown-menu id="zsobxSG" name="zsobxSG" value="" dynamicAlign="true">
+                      <paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{modelStyleSelectedValue}}">
+                        <template is="dom-repeat" items="{{modelStyle}}" >
+                          <paper-item label="{{item.title}}" value="{{item.value}}">
+                            <span>{{item.title}}</span></paper-item>
+                        </template>
+                      </paper-listbox>
+                    </paper-dropdown-menu>
+                  </div>
+                  <div class="right">
+                    <paper-button raised id="zsobx39" on-click="handleClickStat" >STAT</paper-button>
+                    <paper-button raised id="zsobx37" on-click="handleClickRun" >RUN</paper-button>
+                  </div>
+                </div>
+                <div class="bottomItemMiddle">
+                    <div class="left"><iron-autogrow-textarea name="zsobx31" id="zsobx31" on-click="CloseAllTimeout">{{FDzsobx31}}</iron-autogrow-textarea></div>
+                    <div class="right">
+                      <paper-button raised id="zsobx311" on-click="onclickzsobx311" >{{FDhdzsobx311}}</paper-button>
+                      <paper-dropdown-menu id="zsobx312" name="zsobx312" value="" dynamicAlign="true" on-click="handleClickzsobx312">
+                        <paper-listbox class="dropdown-content" selected="{{zsobx312SelectedValue}}" attr-for-selected="value">
+                            <paper-item label="AllMrkts" value="AllMrkts"><span>AllMrkts</span></paper-item>
+                            <paper-item label="AMEX" value="AMEX"><span>AMEX</span></paper-item>
+                            <paper-item label="NYSE" value="NYSE"><span>NYSE</span></paper-item>
+                            <paper-item label="Nasdaq" value="Nasdaq"><span>Nasdaq</span></paper-item>
+                        </paper-listbox>
+                      </paper-dropdown-menu>
+                      <paper-button raised id="zsobx38" on-click="handleClickZONESCAN" >ZONESCAN*</paper-button>
+                  </div>
+                </div>
+                <div class="bottomItemBottom">
+                  <div>SInd, RmSI, RmKW, KWIN,PE, CAP, YD,[O,  H, L, C, V,
+                    N, R](0-7),[AC, AR, AV, HM, LM, PH, PL, PO, PC](0-7, 12,
+                    25, 75, 250)</div>
+                  <iframe name="MPSatusReport" width="100%" height="22" src="{{MPstatusreport}}">
+                      Your browser does not support inline frames or is currently configured not to display inline frames.</iframe>
+                </div>
+            </div>
+          </div>
+          <div class="item">
+              <div class="itemList">
+                <div><a href="" name="">Quick Look</a></div>
+                <div>
+                <paper-button raised id="zsobx43" on-click="" >{{FDhdzsobx43}}</paper-button>
+                <paper-dropdown-menu id="zsobx44" name="zsobx44" value="" dynamicAlign="true">
+                  <paper-listbox class="dropdown-content" selected="{{zsobx44SelectedValue}}" attr-for-selected="value">
+                      <paper-item label="All U+D" value="All U+D"><span>All U+D</span></paper-item>
+                      <paper-item label="Ups" value="Ups"><span>Ups</span></paper-item>
+                      <paper-item label="Downs" value="Downs"><span>Downs</span></paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                </div>
+              </div>
+              <div class="itemList">
+                <div>
+                  <paper-dropdown-menu id="zsobx41" name="zsobx41" value="" dynamicAlign="true" on-click="handleClickzsobx41">
+                    <paper-listbox class="dropdown-content" selected="{{zsobx41SelectedValue}}" attr-for-selected="value">
+                        <paper-item label="AllMrkts" value="AllMrkts"><span>AllMrkts</span></paper-item>
+                        <paper-item label="AMEX" value="AMEX"><span>AMEX</span></paper-item>
+                        <paper-item label="NYSE" value="NYSE"><span>NYSE</span></paper-item>
+                        <paper-item label="Nasdaq" value="Nasdaq"><span>Nasdaq</span></paper-item>
+                    </paper-listbox>
+                  </paper-dropdown-menu>
+                  <paper-button raised id="zsobx42" on-click="handleClickPorV" >{{FDhdzsobx42}}</paper-button>
+                </div>
+                <div>
+                  <paper-dropdown-menu id="zsobx451" name="zsobx451" value="" dynamicAlign="true">
+                    <paper-listbox class="dropdown-content" selected="{{zsobx451SelectedValue}}" attr-for-selected="value" >
+                      <template is="dom-repeat" items="{{nums}}" >
+                        <paper-item label="{{item.val}}" value="{{item.val}}">
+                          <span>{{item.val}}</span></paper-item>
+                      </template>
+                    </paper-listbox>
+                  </paper-dropdown-menu>
+                  <paper-dropdown-menu id="zsobx452" name="zsobx452" value="" dynamicAlign="true">
+                    <paper-listbox class="dropdown-content" selected="{{zsobx452SelectedValue}}" attr-for-selected="value">
+                      <template is="dom-repeat" items="{{nums}}" >
+                        <paper-item label="{{item.val}}" value="{{item.val}}">
+                          <span>{{item.val}}</span></paper-item>
+                      </template>
+                    </paper-listbox>
+                  </paper-dropdown-menu>
+                  <paper-dropdown-menu id="zsobx453" name="zsobx453" value="" dynamicAlign="true" on-click="onclickzsobx453">
+                    <paper-listbox class="dropdown-content" selected="{{zsobx453SelectedValue}}" attr-for-selected="value">
+                      <template is="dom-repeat" items="{{nums}}" >
+                        <paper-item label="{{item.val}}" value="{{item.val}}">
+                          <span>{{item.val}}</span></paper-item>
+                      </template>
+                    </paper-listbox>
+                  </paper-dropdown-menu>
+                  <paper-button raised id="zsobx46" on-click="onclickzsobx46" >{{FDhdzsobx46}}</paper-button>
+                  <paper-button raised id="zsobx47" on-click="handleClickRun47" >Run</paper-button>
+                </div>
+              </div>
+              <div class="itemList">
+                  <div><a href="" name="">Digital Scan*</a></div>
+                  <div>
+                    <paper-button raised id="zsobx4541" on-click='handleClickXor1("mpdzhD")'>x</paper-button>
+                    <paper-button raised id="zsobx52" on-click='handleClickXor1("mpdzhL")' >1</paper-button>
+                    <input is="iron-input" name="zsobx53"  bind-value="{{FDzsobx53}}" on-keydown="handleKeyDown2"/>
+                    <paper-button raised id="zsobx54" on-click="handleClick0" >0</paper-button>
+                    <paper-button raised id="zsobx55" on-click="onclickzsobx55" >{{FDhdzsobx55}}</paper-button>
+                    <paper-button raised id="zsobx56" on-click='handleClickRun567("1","wbdzhsdigi")' >Run</paper-button>
+                  </div>
+              </div>
+              <div class="itemList">
+                  <iron-autogrow-textarea name="zsobx57" id="zsobx57">{{FDzsobx57}}</iron-autogrow-textarea>
+              </div>
+              <div class="itemList">
+                  <div><a href="" name="">Analog Scan*</a></div>
+                  <div><a href="" name="">PW PatSeed Setup*</a></div>
+              </div>
+              <div class="itemList">
+                  <div>
+                    <font>Times</font>
+                    <paper-dropdown-menu id="zsobx62" name="zsobx62" value="" dynamicAlign="true">
+                      <paper-listbox class="dropdown-content" selected="{{zsobx62SelectedValue}}" attr-for-selected="value">
+                        <template is="dom-repeat" items="{{nums}}" >
+                          <paper-item label="{{item.val}}" value="{{item.val}}">
+                            <span>{{item.val}}</span></paper-item>
+                        </template>
+                          <paper-item label="0">
+                            <span>10</span></paper-item>
+                      </paper-listbox>
+                    </paper-dropdown-menu>
+                    <paper-button raised id="zsobx63" on-click='handleClickSave("1")' >Save</paper-button>
+                    <paper-button raised id="zsobx64" on-click="onclickzsobx64" >{{FDhdzsobx64}}</paper-button>
+                    <paper-button raised id="zsobx65" on-click='handleClickRun567("5","wbdzhptern")' >Run</paper-button>
+                  </div>
+                  <div>
+                    <font>Seed No.</font>
+                    <paper-dropdown-menu id="zsobx622" name="zsobx622" value="" dynamicAlign="true">
+                      <paper-listbox class="dropdown-content" selected="{{zsobx622SelectedValue}}" attr-for-selected="value">
+                        <template is="dom-repeat" items="{{num2s}}" >
+                          <paper-item label="{{item.val}}" value="{{item.val}}">
+                            <span>{{item.val}}</span></paper-item>
+                        </template>
+                      </paper-listbox>
+                      <paper-button raised id="zsobx623" on-click='handleClickSave("2")'>Save</paper-button>
+                      <paper-button raised id="zsobx624" on-click="onclickview" >View</paper-button>
+                  </div>
+
+              </div>
+              <div class="itemList">
+                <table>
+                  <tr>
+                    <template is="dom-repeat" items="{{udItem}}">
+                      <td><img src="../images/myuparrow.jpg" on-click="onclickUD(1,{{item.val}},'U')" on-db-click="onclickUD(9,{{item.val}},'U')"/></td>
+                    </template>
+                  </tr>
+                  <tr>
+                    <template is="dom-repeat" items="{{udItemMap}}">
+                      <td><input type="button" name="{{item.name}}"  style="height:{{item.height}}" value=""/></td>
+                    </template>
+                  </tr>
+                  <tr>
+                    <template is="dom-repeat" items="{{udItem}}">
+                      <td><img src="../images/mydownarrow.jpg" on-click="onclickUD(1,{{item.val}},'D')" on-db-click="onclickUD(9,{{item.val}},'D')"/></td>
+                    </template>
+                  </tr>
+              </table>
+
+              </div>
+          </div>
+        </div>
+    </div>
+    <financial-pattern-footer></financial-pattern-footer>
+  </template>
+  <script>
+  Polymer({
+    is: 'financial-market-pulse',
+    properties:{
+        modelStyleSelectedValue:{
+          type:String,
+          value:"-1",
+        },
+        chartInfoSelectedValue:{
+          type:String,
+          value:"P",
+        },
+        zsobx312SelectedValue:{
+          type:String,
+          value:"NYSE",
+        },
+        zsobx44SelectedValue:{
+          type:String,
+          value:"All U+D",
+        },
+        zsobx41SelectedValue:{
+          type:String,
+          value:"NYSE",
+        },
+        zsobx451SelectedValue:{
+          type:String,
+          value:"0",
+        },
+        zsobx452SelectedValue:{
+          type:String,
+          value:"0",
+        },
+        zsobx453SelectedValue:{
+          type:String,
+          value:"9",
+        },
+        zsobx622SelectedValue:{
+          type:String,
+          value:"2",
+        },
+        listStyleSelectedValue:{
+          type:String,
+          value:"1",
+        },
+        zsobx62SelectedValue:{
+          type:String,
+          value:'0',
+        },
+
+        onclickrnum:Number,
+        onclickrnums:Number,
+        onclickrnumt:Number,
+        timeoi:String,
+        timeois:String,
+        timeoit:String,
+
+
+        chartInfo:Array,
+        listStyle:Array,
+        modelStyle:Array,
+        nums:Array,
+        num2s:Array,
+        udItem:Array,
+        udItemMap:Array,
+
+
+        MPmainoutputdata:String,
+        MPstatusreport:String,
+        FDzsobx31:String,
+        FDhdzsobx311:String,
+        FDzsobx53:String,
+        FDhdzsobx43:String,
+        FDhdzsobx42:String,
+        FDhdzsobx46:String,
+        FDhdzsobx55:String,
+        FDzsobx57:String,
+        FDhdzsobx64:String,
+        FDzsobx312:String,
+        FDzsobx41:String,
+        FDzsobx44:String,
+        FDzsobx451:String,
+        FDzsobx452:String,
+        FDzsobx453:String,
+        FDzsobx62:String,
+        FDzsobx622:String,
+        FDzsobxSG:String,
+        FDzsobx71:String,
+        FDmlmfvar2:String,
+
+        mybarh1:String,mybarh2:String,mybarh3:String,mybarh4:String,mybarh5:String,mybarh6:String,mybarh7:String,mybarh8:String,mybarh9:String,mybarh10:String,
+        mybarh11:String,mybarh12:String,mybarh13:String,mybarh14:String,mybarh15:String,mybarh16:String,mybarh17:String,mybarh18:String,mybarh19:String,mybarh20:String,
+        mybarh21:String,mybarh22:String,mybarh23:String,mybarh24:String,mybarh25:String,mybarh26:String,mybarh27:String,mybarh28:String,mybarh29:String,mybarh30:String,
+        mybarh31:String,mybarh32:String,mybarh33:String,mybarh34:String,mybarh35:String,mybarh36:String,mybarh37:String,mybarh38:String,mybarh39:String,mybarh40:String,
+        mybarh41:String,mybarh42:String,mybarh43:String,mybarh44:String,mybarh45:String,mybarh46:String,mybarh47:String,mybarh48:String,mybarh49:String,mybarh50:String,
+
+        popwindow:String,
+    },
+    ready:function(){
+        this.chartInfo=[
+          {"value":"P","title":"Charts Wt Volume"},
+          {"value":"V","title":"Charts W Volume"},
+          {"value":"W","title":"Swing Analysis"},
+          {"value":"S","title":"Season Analysis"},
+          {"value":"Z","title":"Zone Analysis"},
+          {"value":"A","title":"Analog Analysis"},
+          {"value":"N","title":"SignalNoiseRatio"},
+          {"value":"D","title":"Detail Chart"},
+          {"value":"R","title":"Data Extract"},
+          {"value":"L","title":"Leading Indicator"},
+          {"value":"F","title":"Company Profile"},
+          {"value":"E","title":"Headline News"}
+        ];
+        this.listStyle=[
+          {"value":"0","title":"ZONE"},
+          {"value":"1","title":"SYMB"},
+          {"value":"2","title":"LAST"},
+          {"value":"3","title":"NET"},
+          {"value":"4","title":"VOL_K"},
+          {"value":"5","title":"ORIG"},
+          {"value":"6","title":"PE"},
+          {"value":"7","title":"CAP"},
+          {"value":"8","title":"Sector"},
+          {"value":"10","title":"Quote"},
+        ];
+        this.modelStyle=[
+          {"value":"-1","title":"To Scan All Stocks (-1)"},{"value":"-100","title":"S&P 100 Stocks (-100)"},
+          {"value":"-500","title":"S&P 500 Stocks (-500)"},{"value":"-30","title":"Dow 30 Industry Stocks (-30)"},
+          {"value":"-101","title":"Nasdaq 100 Stocks (-101)"},{"value":"1","title":"Basic Materials (1)"},
+          {"value":"1.01","title":"-- Agricultural Chemicals (1.01)"},{"value":"1.02","title":"-- Aluminum (1.02)"},
+          {"value":"1.03","title":"-- Chemicals - Major Diversified (1.03)"},{"value":"1.04","title":"-- Copper (1.04)"},
+          {"value":"1.05","title":"-- Gold (1.05)"},{"value":"1.06","title":"-- Independent Oil & Gas (1.06)"},
+          {"value":"1.07","title":"-- Industrial Metals & Minerals (1.07)"},{"value":"1.08","title":"-- Major Integrated Oil & Gas (1.08)"},
+          {"value":"1.09","title":"-- Nonmetallic Mineral Mining (1.09)"},{"value":"1.10","title":"-- Oil & Gas Drilling & Exploration (1.10)"},
+          {"value":"1.11","title":"-- Oil & Gas Equipment & Services (1.11)"},{"value":"1.12","title":"-- Oil & Gas Pipelines (1.12)"},
+          {"value":"1.13","title":"-- Oil & Gas Refining &Marketing (1.13)"},{"value":"1.14","title":"-- Silver (1.14)"},
+          {"value":"1.15","title":"-- Specialty Chemicals (1.15)"},{"value":"1.16","title":"-- Steel &Iron (1.16)"},
+          {"value":"1.17","title":" -- Synthetics (1.17)"},{"value":"2","title":"Conglomerates (2)"},
+          {"value":"3","title":"Consumer Goods (3)"},{"value":"3.01","title":"-- Appliances (3.01)"},
+          {"value":"3.02","title":" -- Auto Manufacturers - Major (3.02)"},{"value":"3.03","title":" -- Auto Parts (3.03)"},
+          {"value":"3.04","title":"-- Beverages-Brewers (3.04)"},{"value":"3.05","title":"-- Beverages-Soft Drinks (3.05)"},
+          {"value":"3.06","title":"-- Beverages-Wineries & Distillers(3.06)"},{"value":"3.07","title":"-- Business Equipment (3.07)"},
+          {"value":"3.08","title":"-- Cigarettes (3.08)"},{"value":"3.09","title":"-- Cleaning Products (3.09)"},
+          {"value":"3.10","title":"-- Confectioners (3.10)"},{"value":"3.11","title":" -- Dairy Products (3.11)"},
+          {"value":"3.12","title":"To Scan All Stocks (-1)"},{"value":"3.13","title":"To Scan All Stocks (-1)"},
+          {"value":"3.14","title":"To Scan All Stocks (-1)"},{"value":"3.15","title":"To Scan All Stocks (-1)"},
+          {"value":"3.16","title":"To Scan All Stocks (-1)"},{"value":"3.17","title":"To Scan All Stocks (-1)"},
+          {"value":"3.18","title":"To Scan All Stocks (-1)"},{"value":"3.19","title":"To Scan All Stocks (-1)"},
+          {"value":"3.20","title":"To Scan All Stocks (-1)"},{"value":"3.21","title":"To Scan All Stocks (-1)"},
+          {"value":"3.22","title":"To Scan All Stocks (-1)"},{"value":"3.23","title":"To Scan All Stocks (-1)"},
+          {"value":"3.24","title":"To Scan All Stocks (-1)"},{"value":"3.25","title":"To Scan All Stocks (-1)"},
+          {"value":"3.26","title":"To Scan All Stocks (-1)"},{"value":"3.27","title":"To Scan All Stocks (-1)"},
+          {"value":"3.28","title":"To Scan All Stocks (-1)"},{"value":"3.29","title":"To Scan All Stocks (-1)"},
+          {"value":"3.30","title":"To Scan All Stocks (-1)"},{"value":"3.31","title":"To Scan All Stocks (-1)"},
+          {"value":"3.32","title":"To Scan All Stocks (-1)"},{"value":"4","title":"To Scan All Stocks (-1)"},
+          {"value":"4.01","title":"To Scan All Stocks (-1)"},{"value":"4.02","title":"To Scan All Stocks (-1)"},
+          {"value":"4.03","title":"To Scan All Stocks (-1)"},{"value":"4.04","title":"To Scan All Stocks (-1)"},
+          {"value":"4.05","title":"To Scan All Stocks (-1)"},{"value":"4.06","title":"To Scan All Stocks (-1)"},
+          {"value":"4.07","title":"To Scan All Stocks (-1)"},{"value":"4.08","title":"To Scan All Stocks (-1)"},
+          {"value":"4.09","title":"To Scan All Stocks (-1)"},{"value":"4.10","title":"To Scan All Stocks (-1)"},
+          {"value":"4.11","title":"To Scan All Stocks (-1)"},{"value":"4.12","title":"To Scan All Stocks (-1)"},
+          {"value":"4.13","title":"To Scan All Stocks (-1)"},{"value":"4.14","title":"To Scan All Stocks (-1)"},
+          {"value":"4.15","title":"To Scan All Stocks (-1)"},{"value":"4.16","title":"To Scan All Stocks (-1)"},
+          {"value":"4.17","title":"To Scan All Stocks (-1)"},{"value":"4.18","title":"To Scan All Stocks (-1)"},
+          {"value":"4.19","title":"To Scan All Stocks (-1)"},{"value":"4.20","title":"To Scan All Stocks (-1)"},
+          {"value":"4.21","title":"To Scan All Stocks (-1)"},{"value":"4.22","title":"To Scan All Stocks (-1)"},
+          {"value":"4.23","title":"To Scan All Stocks (-1)"},{"value":"4.24","title":"To Scan All Stocks (-1)"},
+          {"value":"4.25","title":"To Scan All Stocks (-1)"},{"value":"4.26","title":"To Scan All Stocks (-1)"},
+          {"value":"4.27","title":"To Scan All Stocks (-1)"},{"value":"4.28","title":"To Scan All Stocks (-1)"},
+          {"value":"4.29","title":"To Scan All Stocks (-1)"},{"value":"4.30","title":"To Scan All Stocks (-1)"},
+          {"value":"4.31","title":"To Scan All Stocks (-1)"},{"value":"4.32","title":"To Scan All Stocks (-1)"},
+          {"value":"5","title":"To Scan All Stocks (-1)"},
+          {"value":"5.01","title":"To Scan All Stocks (-1)"},{"value":"5.02","title":"To Scan All Stocks (-1)"},
+          {"value":"5.03","title":"To Scan All Stocks (-1)"},{"value":"5.04","title":"To Scan All Stocks (-1)"},
+          {"value":"5.05","title":"To Scan All Stocks (-1)"},{"value":"5.06","title":"To Scan All Stocks (-1)"},
+          {"value":"5.07","title":"To Scan All Stocks (-1)"},{"value":"5.08","title":"To Scan All Stocks (-1)"},
+          {"value":"5.09","title":"To Scan All Stocks (-1)"},{"value":"5.10","title":"To Scan All Stocks (-1)"},
+          {"value":"5.11","title":"To Scan All Stocks (-1)"},{"value":"5.12","title":"To Scan All Stocks (-1)"},
+          {"value":"5.13","title":"To Scan All Stocks (-1)"},{"value":"5.14","title":"To Scan All Stocks (-1)"},
+          {"value":"5.15","title":"To Scan All Stocks (-1)"},{"value":"5.16","title":"To Scan All Stocks (-1)"},
+          {"value":"6","title":"To Scan All Stocks (-1)"},
+          {"value":"6.01","title":"To Scan All Stocks (-1)"},{"value":"6.02","title":"To Scan All Stocks (-1)"},
+          {"value":"6.03","title":"To Scan All Stocks (-1)"},{"value":"6.04","title":"To Scan All Stocks (-1)"},
+          {"value":"6.05","title":"To Scan All Stocks (-1)"},{"value":"6.06","title":"To Scan All Stocks (-1)"},
+          {"value":"6.07","title":"To Scan All Stocks (-1)"},{"value":"6.08","title":"To Scan All Stocks (-1)"},
+          {"value":"6.09","title":"To Scan All Stocks (-1)"},{"value":"6.10","title":"To Scan All Stocks (-1)"},
+          {"value":"6.11","title":"To Scan All Stocks (-1)"},{"value":"6.12","title":"To Scan All Stocks (-1)"},
+          {"value":"6.13","title":"To Scan All Stocks (-1)"},{"value":"6.14","title":"To Scan All Stocks (-1)"},
+          {"value":"6.15","title":"To Scan All Stocks (-1)"},{"value":"6.16","title":"To Scan All Stocks (-1)"},
+          {"value":"6.17","title":"To Scan All Stocks (-1)"},{"value":"6.18","title":"To Scan All Stocks (-1)"},
+          {"value":"6.19","title":"To Scan All Stocks (-1)"},
+          {"value":"7","title":"To Scan All Stocks (-1)"},
+          {"value":"7.01","title":"To Scan All Stocks (-1)"},{"value":"7.02","title":"To Scan All Stocks (-1)"},
+          {"value":"7.03","title":"To Scan All Stocks (-1)"},{"value":"7.04","title":"To Scan All Stocks (-1)"},
+          {"value":"7.05","title":"To Scan All Stocks (-1)"},{"value":"7.06","title":"To Scan All Stocks (-1)"},
+          {"value":"7.07","title":"To Scan All Stocks (-1)"},{"value":"7.08","title":"To Scan All Stocks (-1)"},
+          {"value":"7.09","title":"To Scan All Stocks (-1)"},{"value":"7.10","title":"To Scan All Stocks (-1)"},
+          {"value":"7.11","title":"To Scan All Stocks (-1)"},{"value":"7.12","title":"To Scan All Stocks (-1)"},
+          {"value":"7.13","title":"To Scan All Stocks (-1)"},{"value":"7.14","title":"To Scan All Stocks (-1)"},
+          {"value":"7.15","title":"To Scan All Stocks (-1)"},{"value":"7.16","title":"To Scan All Stocks (-1)"},
+          {"value":"7.17","title":"To Scan All Stocks (-1)"},{"value":"7.18","title":"To Scan All Stocks (-1)"},
+          {"value":"7.19","title":"To Scan All Stocks (-1)"},{"value":"7.20","title":"To Scan All Stocks (-1)"},
+          {"value":"7.21","title":"To Scan All Stocks (-1)"},{"value":"7.22","title":"To Scan All Stocks (-1)"},
+          {"value":"7.23","title":"To Scan All Stocks (-1)"},{"value":"7.24","title":"To Scan All Stocks (-1)"},
+          {"value":"7.25","title":"To Scan All Stocks (-1)"},{"value":"7.26","title":"To Scan All Stocks (-1)"},
+          {"value":"7.27","title":"To Scan All Stocks (-1)"},{"value":"7.28","title":"To Scan All Stocks (-1)"},
+          {"value":"7.29","title":"To Scan All Stocks (-1)"},{"value":"7.30","title":"To Scan All Stocks (-1)"},
+          {"value":"7.31","title":"To Scan All Stocks (-1)"},{"value":"7.32","title":"To Scan All Stocks (-1)"},
+          {"value":"7.33","title":"To Scan All Stocks (-1)"},{"value":"7.34","title":"To Scan All Stocks (-1)"},
+          {"value":"7.35","title":"To Scan All Stocks (-1)"},{"value":"7.36","title":"To Scan All Stocks (-1)"},
+          {"value":"7.37","title":"To Scan All Stocks (-1)"},{"value":"7.38","title":"To Scan All Stocks (-1)"},
+          {"value":"7.39","title":"To Scan All Stocks (-1)"},{"value":"7.40","title":"To Scan All Stocks (-1)"},
+          {"value":"7.41","title":"To Scan All Stocks (-1)"},{"value":"7.42","title":"To Scan All Stocks (-1)"},
+          {"value":"7.43","title":"To Scan All Stocks (-1)"},{"value":"7.44","title":"To Scan All Stocks (-1)"},
+          {"value":"7.45","title":"To Scan All Stocks (-1)"},{"value":"7.46","title":"To Scan All Stocks (-1)"},
+          {"value":"7.47","title":"To Scan All Stocks (-1)"},{"value":"7.48","title":"To Scan All Stocks (-1)"},
+          {"value":"7.49","title":"To Scan All Stocks (-1)"},{"value":"7.50","title":"To Scan All Stocks (-1)"},
+          {"value":"7.51","title":"To Scan All Stocks (-1)"},{"value":"7.52","title":"To Scan All Stocks (-1)"},
+          {"value":"7.53","title":"To Scan All Stocks (-1)"},{"value":"7.54","title":"To Scan All Stocks (-1)"},
+          {"value":"7.55","title":"To Scan All Stocks (-1)"},{"value":"7.56","title":"To Scan All Stocks (-1)"},
+          {"value":"7.57","title":"To Scan All Stocks (-1)"},{"value":"7.58","title":"To Scan All Stocks (-1)"},
+          {"value":"7.59","title":"To Scan All Stocks (-1)"},{"value":"7.60","title":"To Scan All Stocks (-1)"},
+
+          {"value":"8","title":"To Scan All Stocks (-1)"},
+          {"value":"8.01","title":"To Scan All Stocks (-1)"},{"value":"8.02","title":"To Scan All Stocks (-1)"},
+          {"value":"8.03","title":"To Scan All Stocks (-1)"},{"value":"8.04","title":"To Scan All Stocks (-1)"},
+          {"value":"8.05","title":"To Scan All Stocks (-1)"},{"value":"8.06","title":"To Scan All Stocks (-1)"},
+          {"value":"8.07","title":"To Scan All Stocks (-1)"},{"value":"8.08","title":"To Scan All Stocks (-1)"},
+          {"value":"8.09","title":"To Scan All Stocks (-1)"},{"value":"8.10","title":"To Scan All Stocks (-1)"},
+          {"value":"8.11","title":"To Scan All Stocks (-1)"},{"value":"8.12","title":"To Scan All Stocks (-1)"},
+          {"value":"8.13","title":"To Scan All Stocks (-1)"},{"value":"8.14","title":"To Scan All Stocks (-1)"},
+          {"value":"8.15","title":"To Scan All Stocks (-1)"},{"value":"8.16","title":"To Scan All Stocks (-1)"},
+          {"value":"8.17","title":"To Scan All Stocks (-1)"},{"value":"8.18","title":"To Scan All Stocks (-1)"},
+          {"value":"8.19","title":"To Scan All Stocks (-1)"},{"value":"8.20","title":"To Scan All Stocks (-1)"},
+          {"value":"8.21","title":"To Scan All Stocks (-1)"},{"value":"8.22","title":"To Scan All Stocks (-1)"},
+          {"value":"8.23","title":"To Scan All Stocks (-1)"},{"value":"8.24","title":"To Scan All Stocks (-1)"},
+          {"value":"8.25","title":"To Scan All Stocks (-1)"},{"value":"8.26","title":"To Scan All Stocks (-1)"},
+          {"value":"8.27","title":"To Scan All Stocks (-1)"},{"value":"8.28","title":"To Scan All Stocks (-1)"},
+          {"value":"8.29","title":"To Scan All Stocks (-1)"},{"value":"8.30","title":"To Scan All Stocks (-1)"},
+          {"value":"8.31","title":"To Scan All Stocks (-1)"},{"value":"8.32","title":"To Scan All Stocks (-1)"},
+
+          {"value":"9","title":"To Scan All Stocks (-1)"},
+          {"value":"9.01","title":"To Scan All Stocks (-1)"},{"value":"9.02","title":"To Scan All Stocks (-1)"},
+          {"value":"9.03","title":"To Scan All Stocks (-1)"},{"value":"9.04","title":"To Scan All Stocks (-1)"},
+          {"value":"9.05","title":"To Scan All Stocks (-1)"},
+
+          {"value":"13","title":"To Scan All Stocks (-1)"},
+          {"value":"13.01","title":"To Scan All Stocks (-1)"},{"value":"13.02","title":"To Scan All Stocks (-1)"},
+          {"value":"13.03","title":"To Scan All Stocks (-1)"},{"value":"0","title":"Anything Un-assigned in above (0)"}];
+
+          this.nums=[
+            {"val":"0"},{"val":"1"},{"val":"2"},{"val":"3"},{"val":"4"},{"val":"5"},{"val":"6"},{"val":"7"},{"val":"8"},{"val":"9"}];
+          this.num2s=[
+            {"val":"1"},{"val":"2"},{"val":"3"},{"val":"4"},{"val":"5"},{"val":"6"},{"val":"7"},{"val":"8"},{"val":"9"},{"val":"10"},
+            {"val":"11"},{"val":"12"},{"val":"13"},{"val":"14"},{"val":"15"},{"val":"16"},{"val":"17"},{"val":"18"},{"val":"19"},{"val":"20"}];
+          this.udItem=[
+            {"val":"1"},{"val":"2"},{"val":"3"},{"val":"4"},{"val":"5"},{"val":"6"},{"val":"7"},{"val":"8"},{"val":"9"},{"val":"10"},
+            {"val":"11"},{"val":"12"},{"val":"13"},{"val":"14"},{"val":"15"},{"val":"16"},{"val":"17"},{"val":"18"},{"val":"19"},{"val":"20"},
+            {"val":"21"},{"val":"22"},{"val":"23"},{"val":"24"},{"val":"25"},{"val":"26"},{"val":"27"},{"val":"28"},{"val":"29"},{"val":"30"},
+            {"val":"31"},{"val":"32"},{"val":"33"},{"val":"34"},{"val":"35"},{"val":"36"},{"val":"37"},{"val":"38"},{"val":"39"},{"val":"40"},
+            {"val":"41"},{"val":"42"},{"val":"43"},{"val":"44"},{"val":"45"},{"val":"46"},{"val":"47"},{"val":"48"},{"val":"49"},{"val":"50"}
+          ];
+          this.udItemMap=[
+            {"name":"Mybar1","height":this.mybarh1},{"name":"Mybar2","height":this.mybarh2},{"name":"Mybar3","height":this.mybarh3},{"name":"Mybar4","height":this.mybarh4},{"name":"Mybar5","height":this.mybarh5},
+            {"name":"Mybar6","height":this.mybarh6},{"name":"Mybar7","height":this.mybarh7},{"name":"Mybar8","height":this.mybarh8},{"name":"Mybar9","height":this.mybarh9},{"name":"Mybar10","height":this.mybarh10},
+            {"name":"Mybar11","height":this.mybarh11},{"name":"Mybar12","height":this.mybarh12},{"name":"Mybar13","height":this.mybarh13},{"name":"Mybar14","height":this.mybarh14},{"name":"Mybar15","height":this.mybarh15},
+            {"name":"Mybar16","height":this.mybarh16},{"name":"Mybar17","height":this.mybarh17},{"name":"Mybar18","height":this.mybarh18},{"name":"Mybar19","height":this.mybarh19},{"name":"Mybar20","height":this.mybarh20},
+            {"name":"Mybar21","height":this.mybarh21},{"name":"Mybar22","height":this.mybarh22},{"name":"Mybar23","height":this.mybarh23},{"name":"Mybar24","height":this.mybarh24},{"name":"Mybar25","height":this.mybarh25},
+            {"name":"Mybar26","height":this.mybarh26},{"name":"Mybar27","height":this.mybarh27},{"name":"Mybar28","height":this.mybarh28},{"name":"Mybar29","height":this.mybarh29},{"name":"Mybar30","height":this.mybarh30},
+            {"name":"Mybar31","height":this.mybarh31},{"name":"Mybar32","height":this.mybarh32},{"name":"Mybar33","height":this.mybarh33},{"name":"Mybar34","height":this.mybarh34},{"name":"Mybar35","height":this.mybarh35},
+            {"name":"Mybar36","height":this.mybarh36},{"name":"Mybar37","height":this.mybarh37},{"name":"Mybar38","height":this.mybarh38},{"name":"Mybar39","height":this.mybarh39},{"name":"Mybar40","height":this.mybarh40},
+            {"name":"Mybar41","height":this.mybarh41},{"name":"Mybar42","height":this.mybarh42},{"name":"Mybar43","height":this.mybarh43},{"name":"Mybar44","height":this.mybarh44},{"name":"Mybar45","height":this.mybarh45},
+            {"name":"Mybar46","height":this.mybarh46},{"name":"Mybar47","height":this.mybarh47},{"name":"Mybar48","height":this.mybarh48},{"name":"Mybar49","height":this.mybarh49},{"name":"Mybar50","height":this.mybarh50},
+          ];
+          var hdpsvalue=this.hdpatseed;
+          // this.zsobx312SelectedValue=this.FDzsobx312;
+          // this.zsobx41SelectedValue=this.FDzsobx41;
+          // this.zsobx44SelectedValue=this.FDzsobx44;
+          // this.zsobx451SelectedValue=this.FDzsobx451;
+          // this.zsobx452SelectedValue=this.FDzsobx452;
+          // this.zsobx453SelectedValue=this.FDzsobx453;
+          // this.zsobx62SelectedValue=this.FDzsobx62;
+          // this.zsobx622SelectedValue=this.FDzsobx622;
+          // this.modelStyleSelectedValue=this.FDzsobxSG;
+          // this.chartInfoSelectedValue=this.FDzsobx71;
+          // this.listStyleSelectedValue=this.FDmlmfvar2;
+
+    },
+      onclickUD:function(num,num1,str2){
+          var mybar="Mybar"+num1;
+          if(str2=="D"){
+            this.$.mybar.style.height=Math.max(3,parseInt((this.$.mybar.style.height)-num));
+          }else{
+            this.$.mybar.style.height=Math.max(83,parseInt((this.$.mybar.style.height)+num));
+          }
+      },
+      MPpopupfileopen:function(){
+        this.popwindow=window.open("financial-openFile.html","fpwmp_openfile","top=240,left=170,width=414,height=270");
+      },
+      Onclickzsobx39:function(){
+        if(this.$.zsobx39.innerText()=="Link"){
+            this.$.zsobx39.innerText("Unlink");
+        }else{
+            this.$.zsobx39.innerText("Link");
+            this.zsobx41SelectedValue=this.$.zsobx312.value;
+            this.FDhdzsobx55=this.FDhdzsobx311;
+            if(this.FDhdzsobx311=="D"){
+              this.FDhdzsobx46="Daily";
+              this.FDhdzsobx64="Daily";
+            }else{
+              this.FDhdzsobx46="Tick";
+              this.FDhdzsobx64="Tick";
+            }
+        }
+      },
+      onclickzsobx311:function(){
+        if(this.FDhdzsobx311=="D"){
+          this.FDhdzsobx311="T";
+          this.FDhdzsobx46="Tick";
+          this.FDhdzsobx64="Tick";
+          this.FDhdzsobx55=this.FDhdzsobx311;
+        }else{
+          this.FDhdzsobx311="D";
+          this.FDhdzsobx55=this.FDhdzsobx311;
+          this.FDhdzsobx46="Daily";
+          this.FDhdzsobx64="Daily";
+        }
+      },
+      onclickzsobx46:function(){
+        if(this.FDhdzsobx46=="Daily"){
+          this.FDhdzsobx46="Tick";
+        }else{
+          this.FDhdzsobx46=="Daily";
+        }
+      },
+      onclickzsobx55:function(){
+        if(this.FDhdzsobx55=="D"){
+          this.FDhdzsobx55="T";
+        }else{
+          this.FDhdzsobx55="D";
+        }
+      },
+      onclickzsobx64:function(){
+        if(this.FDhdzsobx64=="Daily"){
+          this.FDhdzsobx64="Tick";
+        }else{
+          this.FDhdzsobx64=="Daily";
+        }
+      },
+      onclickzsobx453:function(){
+        if(this.zsobx453SelectedValue=="0"){
+          if(this.zsobx452SelectedValue=="0" && this.zsobx451SelectedValue=="0"){
+              this.zsobx453SelectedValue="1";
+          }
+        }
+      },
+    savehddatabs:function(){
+        this.$.hdzsobx39.value=this.$.zsobx39.innerText();
+        this.$.hdzsobx311.value=this.FDhdzsobx311;
+        this.$.hdzsobx42.value=this.FDhdzsobx42;
+        this.$.hdzsobx43.value=this.FDhdzsobx43;
+        this.$.hdzsobx46.value=this.FDhdzsobx46;
+        this.$.hdzsobx55.value=this.FDhdzsobx55;
+        this.$.hdzsobx64.value=this.FDhdzsobx64;
+        for(var  i=1;i<51;i++){
+            var mybarh="mybarh"+i;
+            var Mybar="Mybar"+i;
+            this.mybarh=this.$.Mybar.style.height;
+        }
+    },
+    onclickview:function(){
+        this.$.hdpatseed2.value=this.zsobx622SelectedValue;
+        var tindex=parseInt(this.$.hdpatseed2.value);
+        if(this.hdpatseed==2000){
+          var sub1=this.this.$.hdpatseed.value.substr(100*(tindex-1),100);
+          this.hdpatseed1=sub1;
+          for(var i=1;i<51;i++){
+            var j=0;
+            var Mybar="Mybar"+i;
+            this.$.Mybar.style.height=parseInt(sub1.substr(j,2));
+                j=j+2;
+          }
+        }
+    },
+    FormatNumberLength:function(num,length){
+      var r=""+num;
+        while (r.length<length) {
+          r="0"+r;
+        }
+        return r;
+    },
+    onclicksaveafter:function(){
+      this.$.hdpatseed2.value=this.zsobx622SelectedValue;
+      var tindex=parseInt(this.$.hdpatseed2.value);
+      var str2='';
+      var str3='';
+      for(var i=1;i<51;i++){
+        var Mybar="Mybar"+i;
+        var height=this.$.Mybar.style.height;
+        str2=str2+this.FormatNumberLength(height,2);
+      }
+      this.$.hdpatseed1.value=str2;
+      if(this.hdpatseed.length==2000){
+        if(tindex==1){
+          str3=str2+this.hdpatseed.substr(100,1900);
+        }
+        if(tindex==20){
+          str3=this.hdpatseed.substr(0,1900)+str2;
+        }else{
+          str3=this.hdpatseed.substr(0,(tindex-1)*100)+str2+this.hdpatseed.substr(tindex*100,(20-tindex)*100);
+          this.hdpatseed=str3;
+        }
+      }
+    },
+    onclickzsobx73GO:function(){
+      switch(this.chartInfoSelectedValue){
+        case "V":
+          this.$.mlmfile.value="wbstockqdv";
+          break;
+        case "P":
+          this.$.mlmfile.value="wbstockqd";
+          break;
+          case "Z":
+            this.$.mlmfile.value="wbstfpz691";
+            break;
+            case "W":
+              this.$.mlmfile.value="wbstswing";
+              break;
+              case "S":
+                this.$.mlmfile.value="wbstsea";
+                break;
+                case "N":
+                  this.$.mlmfile.value="wbstsnr";
+                  break;
+                  case "D":
+                    this.$.mlmfile.value="wbstchart";
+                    break;
+                    case "L":
+                      this.$.mlmfile.value="wbstleadi";
+                      break;
+                      case "R":
+                        this.$.mlmfile.value="wbstrdata";
+                        break;
+                        case "F":
+                          this.$.mlmfile.value="wbsttoyahoo";
+                          break;
+                          case "E":
+                            this.$.mlmfile.value="wbsttoyahoo";
+                            break;
+                            case "A":
+                              this.$.mlmfile.value="wbstanalog";
+                              break;
+      }
+    },
+    onclickzsobx37:function(){
+       var findex, findex1;
+      findex=parseInt(this.mybarh21);
+      findex1=parseInt(this.mybarh22);
+      this.onclickrnum++;
+      if(onclickrnum>=findex1){
+        window.clearTimeout(this.timeoi);
+      }else{
+        this.savehddatabs();
+        this.listStyleSelectedValue="1";
+        this.$.mlmfile.value="wbdzhjust";
+        target="PulseOutputMain";
+        this.MyFinalSent();
+        this.timeoi=window.setTimeout(this.onclickzsobx37(),findex);
+      }
+    },
+    onclickzsobx47:function(){
+      var findexs, findex1s;
+      findexs=parseInt(this.mybarh21);
+      findex1s=parseInt(this.mybarh22);
+      this.onclickrnums++;
+      if(onclickrnums>=findexs){
+        window.clearTimeout(this.timeois);
+      }else{
+        this.savehddatabs();
+        this.listStyleSelectedValue="5";
+        this.$.mlmfile.value="wbdzhckout";
+        target="PulseOutputMain";
+        this.MyFinalSent();
+        this.timeois=window.setTimeout(this.onclickzsobx47(),findexs);
+      }
+    },
+    onclickquotelink:function(){
+      var findext, findex2;
+      findex2=parseInt(this.mybarh22);
+      this.onclickrnumt++;
+      if(onclickrnumt>=findex2){
+        window.clearTimeout(this.timeoit);
+      }else{
+        this.listStyleSelectedValue="10";
+        this.$.mlmfvar3.value="10";
+        this.$.mlmfile.value='wbstquote';
+        target='PulseOutputMain';
+      	this.MyFinalSent();
+      	this.timeoit=window.setTimeout(this.onclickquotelink(),5000);
+      }
+    },
+    MyFinalSent:function(){
+      this.onclicksaveafter();
+      var hdpsvalue=this.hdpatseed;
+        this.hdpatseed="1";
+        stockForm.submit();
+        this.hdpatseed=hdpsvalue;
+    },
+    CloseAllTimeout:function(){
+        if(this.onclickrnum>0){
+          window.clearTimeout(this.timeoi);
+          this.onclickrnum = 0;
+        }
+        if (this.onclickrnums > 0) {
+         window.clearTimeout(this.timeois);
+      this.onclickrnums = 0;}
+      if (this.onclickrnumt > 0) {
+      window.clearTimeout(this.timeoit);
+      this.onclickrnumt = 0;
+      }
+    },
+
+
+    handleChangezsobx72:function(){
+        this.CloseAllTimeout();
+        if(this.$.zsobx72.value=="UrSymbol"){
+          this.$.zsobx72.value="";
+        }
+    },
+    handleKeyDown1:function(){
+      if(event.keyCode){
+        if(event.keyCode==13){
+          event.keyCode=9;
+          this.savehddatabs();
+          this.$.mlmfile.value="wbdzhshows";
+          this.onclickzsobx73GO();
+          this.MyFinalSent();
+        }
+      }else if(event.which){
+        if(event.which==13){
+          event.which=9;
+          this.savehddatabs();
+          this.$.mlmfile.value="wbdzhshows";
+          this.onclickzsobx73GO();
+          this.MyFinalSent();
+        }
+      }
+    },
+    handleClickGo:function(){
+        this.savehddatabs();
+        this.$.mlmfile.value='wbdzhshows';
+        this.onclickzsobx73GO();
+        this.MyFinalSent();
+    },
+    handleClickSort:function(){
+        this.CloseAllTimeout();
+        if(this.listStyleSelectedValue!="0"){
+          if(this.listStyleSelectedValue!="10"){
+            this.savehddatabs();
+            this.$.mlmfile.value="wbstmpsort";
+            target="PulseOutputMain";
+            this.MyFinalSent();
+          }
+        }
+    },
+    handleDbclickSort:function(){
+      this.listStyleSelectedValue="5";
+      this.savehddatabs();
+      this.$.mlmfile.value="wbstmpsort";
+      target="PulseOutputMain";
+      this.MyFinalSent();
+    },
+
+    handleClickFull:function(){
+        this.CloseAllTimeout();
+        this.onclickquotelink();
+    },
+    handleClickQ:function(){
+        this. CloseAllTimeout();
+        this.listStyleSelectedValue="10";
+        this.$.mlmfvar3.value="1";
+        target="PulseOutputMain";
+        this.$.mlmfile.value="wbstquote";
+        this.MyFinalSent();
+    },
+    handleClickStat:function(){
+      this.$.mlmfile.value="wbfpwmpstat";
+      this.MyFinalSent();
+      target='PulseOutputMain';
+    },
+    handleClickRun:function(){
+      this.CloseAllTimeout();
+      this.onclickzsobx37();
+    },
+    handleClickzsobx312:function(){
+      this.zsobx41SelectedValue=this.zsobx312SelectedValue;
+    },
+    handleClickZONESCAN:function(){
+      this.CloseAllTimeout();
+      this.savehddatabs();
+      this.listStyleSelectedValue='0';
+      this.$.mlmfile.value="wbzonescaa";
+      this.MyFinalSent();
+    },
+    handleClickzsobx41:function(){
+        this.zsobx312SelectedValue=this.zsobx41SelectedValue;
+    },
+    handleClickPorV:function(){
+      if(this.FDhdzsobx42=="Price"){
+        this.FDhdzsobx42="Volume";
+      }else{
+        this.FDhdzsobx42="Price";
+      }
+    },
+    handleClickRun47:function(){
+      this.CloseAllTimeout();
+      this.onclickzsobx47();
+    },
+    handleClickXor1:function(str){
+      var usernameh=this.$.mlid.value;
+      if(usernameh!="User01"&&usernameh!="User02"&&usernameh!="User03"&&usernameh!="User04"){
+        this.savehddatabs();
+        this.$.mlmfile.value="wbdzhputmi1";
+        this.$.filetypeid.value=str;
+        this.MyFinalSent();
+        window.open('','_self');
+        window.close();
+      }else{
+        window.open('fpwUser0Note.html','','top=160,left=200,width=530,height=100');
+      }
+    },
+    handleKeyDown2:function(){
+      if(event.keyCode){
+        if(event.keyCode==13){
+          event.keyCode=9;
+          this.savehddatabs();
+          this.$.mlmfile.value="wbdzhsave";
+          target='MPSatusReport';
+          this.MyFinalSent();
+        }
+      }else if(event.which){
+        if(event.which==13){
+          event.which=9;
+          this.savehddatabs();
+          this.$.mlmfile.value="wbdzhsave";
+          target='MPSatusReport';
+          this.MyFinalSent();
+        }
+      }
+    },
+    handleClick0:function(){
+        this.savehddatabs();
+        this.$.hdpatseed3.value="1";
+        this.$.mlmfile.value="wbdzhsave";
+        target='MPSatusReport';
+         this.MyFinalSent();
+    },
+    handleClickRun567:function(str1,str2){
+        this.CloseAllTimeout();
+         this.savehddatabs();
+         this.listStyleSelectedValue="str1";
+         this.$.mlmfile.value="str2";
+         target='PulseOutputMain';
+         this.MyFinalSent();
+    },
+    handleClickSave:function(str1){
+      this.savehddatabs();
+      this.$.hdpatseed3.value=str1;
+      this.$.mlmfile.value="wbdzhscsav";
+      target='MPSatusReport';
+      this.MyFinalSent();
+    },
+
+  });
+  </script>
+  </dom-module>

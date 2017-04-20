@@ -1,0 +1,211 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="pattern-nav.html">
+<link rel="import" href="financial-footer.html">
+<!-- <link rel="import" href="financial-company.html">
+<link rel="import" href="financial-contact.html">
+<link rel="import" href="financial-pattern-work.html">
+<link rel="import" href="financial-privacy-policy.html">
+<link rel="import" href="financial-patternwork-user-record.html"> -->
+<!-- <link rel="import" href="financial-patternworkshop-pro.html">
+<link rel="import" href="financial-forward-statistic.html">
+<link rel="import" href="financial-portfolioManager.html">
+<link rel="import" href="financial-pattern-work-shop.html"> -->
+
+
+
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
+<dom-module id="financial-pattern-work-app">
+  <template>
+      <style >
+        :host {
+          display: block;
+          color:#0000ff;
+          margin:30px auto;
+          padding:0;
+          height:auto;
+        }
+      </style>
+      <app-location route="{{route}}"></app-location>
+      <app-route
+          route="{{route}}"
+          pattern="/:page"
+          data="{{routeData}}"
+          tail="{{subroute}}"></app-route>
+      <app-route
+          route="{{subroute}}"
+          pattern="/:id"
+          data="{{subrouteData}}"></app-route>
+      <!-- <pattern-nav
+          id="nav"
+          page="[[page]]"
+      ></pattern-nav> -->
+
+     <iron-pages role="main" selected="[[page]]" attr-for-selected="name" fallback-selection="path-warning">
+       <financial-pattern-work
+         name = "loginOn"
+         if-link="[[flag]]">
+       </financial-pattern-work>
+       <financial-patternwork-user-record
+         name = "record"
+         >
+       </financial-patternwork-user-record>
+       <financial-patternworkshop-pro
+          name="PatternWorkshopPro"
+          login-Url = "[[appData]]"
+          user-name="[[userName]]"
+          user-name4="[[userName4]]"
+          service-data="[[serviceData]]">
+       </financial-patternworkshop-pro>
+       <financial-forward-statistic
+          name="ForwardStatistics">
+        </financial-forward-statistic>
+        <financial-portfolioManager
+         name="PortfolioManager">
+        </financial-portfolioManager>
+        <financial-pattern-work-shop
+         name="PatternWorkshop">
+       </financial-pattern-work-shop>
+       <financial-market-pulse-pro
+         name="MarketPulsePro">
+       </financial-market-pulse-pro>
+       <financial-market-pulse
+         name="MarketPulse">
+       </financial-market-pulse>
+       <financial-mp-statistics
+         name="MPStatistics">
+       </financial-mp-statistics>
+       <analog-analytic-tool
+          name="AnalogAnalytictool"
+       >
+       </analog-analytic-tool>
+       <financial-seo
+         name="seo">
+       </financial-seo>
+       <financial-somesh
+       name="soMesh">
+       </financial-somesh>
+       <!-- <financial-company
+         name="company"
+         route="[[subroute]]"
+         >
+       </financial-company>
+       <financial-contact
+         name="contact"
+         route="[[subroute]]"
+       >
+      </financial-contact>
+      <financial-privacy-policy
+        name="privacy"
+      >
+      </financial-privacy-policy> -->
+
+
+     <news-path-warning name="path-warning"></news-path-warning>
+     </iron-pages>
+    <financial-footer
+     if-help="[[flags]]"></financial-footer>
+  </template>
+
+  <script>
+  Polymer({
+    is: 'financial-pattern-work-app',
+    properties:{
+      page: {
+         type: String,
+         reflectToAttribute: true,
+         observer: '_pageChanged'
+       },
+       notice: String,
+       ifLink:String,
+       appData:String,
+       userName:String,
+       userName4:String,
+       serviceData:String,
+       flag:String,
+       ifHelp:String,
+       flags:String,
+     },
+     observers: [
+       '_routePageChanged(subrouteData.id)',
+     ],
+     _routePageChanged:function(page){
+       console.log("page2222--:",page);
+       // if (!page) {
+       //   this.set('route.path', '/test/home/signUp');
+       //   return;
+       // }
+       this.page = page;
+       this.pagepath =  this.route.path;
+       var remainingPieces = this.pagepath.split('/');
+       this.page = remainingPieces[3];//这种是对应 this.set('route.path', 'instantloading/lala/home');
+       if(!this.page){
+           page = this.page;
+           console.log("new page2222:",page);
+       }
+     },
+     _pageChanged: function(page, oldPage) {
+       var href;
+       var path = this.route.path;
+       console.log("this.route.path222:"+path);
+       switch(page) {
+         case 'loginOn':
+           href = 'financial-pattern-work.html';
+           break;
+        //  case 'patternWork':
+        //    href = 'financial-pattern-work.html';
+        //    break;
+        //   case 'company':
+        //     href = 'financial-company.html';
+        //     break;
+        //   case 'contact':
+        //     href = 'financial-contact.html';
+        //     break;
+        //   case 'privacy':
+        //     href = 'financial-privacy-policy.html';
+        //     break;
+        //   case 'record':
+        //     href = 'financial-patternwork-user-record.html';
+        //     break;
+          case 'PatternWorkshopPro':
+            href ='financial-patternworkshop-pro.html';
+            break;
+          case 'ForwardStatistics':
+            href ='financial-forward-statistic.html';
+            break;
+          case 'PortfolioManager':
+            href = 'financial-portfolioManager.html';
+            break;
+          case 'PatternWorkshop':
+            href = 'financial-pattern-work-shop.html';
+            break;
+          case 'MarketPulsePro':
+            href = 'financial-market-pulse-pro.html';
+            break;
+          case 'MarketPulse':
+            href ='financial-market-pulse.html';
+            break;
+          case 'MPStatistics':
+            href ='financial-mp-statistics.html';
+            break;
+          case 'AnalogAnalytictool':
+            href="analog-analytic-tool.html";
+            break;
+          default:
+            href = 'news-path-warning.html';
+            break;
+        };
+       this.importHref(
+           this.resolveUrl(href),
+           null,
+           null,
+           true);
+     },
+  });
+  </script>
+  </dom-module>

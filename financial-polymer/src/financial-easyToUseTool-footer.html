@@ -1,0 +1,138 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+
+
+
+<dom-module id="financial-easyToUseTool-footer">
+
+  <template>
+      <style>
+        .container{
+          width: 100%;
+          margin:0 auto;
+        }
+        /*头部*/
+        .menu-list{
+          /*margin:0 0 0 600px;*/
+          margin:0;
+          padding:0;
+        }
+        .menu-list p,.footer{
+          text-align: center;
+          margin:0;
+        }
+        p.mainContent{
+          font-weight: bold;
+        }
+        .menu-list a{
+          margin:0 15px;
+          display: inline-block;
+          position: relative;
+          left:0;
+          top:0;
+          line-height: 25px;
+          color: #000;
+        }
+        .menu-list a.iron-selected {
+          letter-spacing: 0em;
+          font-weight: bold;
+        }
+        footer{
+          text-align: center;
+        }
+        /*@media screen and (max-width:768px){
+          .container{
+            width: auto;
+            margin: 0 15px;
+          }
+          header .top,
+          header .bg{
+            display: none;
+          }
+          header{
+            height: 50px;
+          }
+          .logo_container{
+            background-color: #000;
+            height: 50px;
+          }
+        }*/
+      </style>
+    <!--
+      Header at the scroll top of the page.
+    -->
+    <header>
+          <div class="container">
+            <form name="zone2Form" action="" method="POST" target="_blank">
+              <input type="hidden" name="mlmfile" value="wbstfpz691">
+              <input type="hidden" name="mlid" value="$fpwusername$">
+              <input type="hidden" name="mlid4" value="$fpwusername4$">
+              <input type="hidden" name="mlmfvar" value="leavemealone">
+              <input type="hidden" name="fpwcurrentm" value="$fpwcurrentm$">
+              <input type="hidden" name="fpwulvl" value="$fpwulvl$">
+              <input type="hidden" name="WhereOrderFrom" value="SLFE">
+                <iron-selector role="navigation" class="menu-list" selected="[[page]]" attr-for-selected="name">
+                    <p class="mainContent">
+                    <a name="MarketPulse" href="/test/home/MarketPulse" on-click="">Data</a>
+                    <a name="PatternWorkshop" href="/test/home/PatternWorkshop">MP Stat</a>
+                    <a name="PatternWorkshopPro" href="/test/home/PatternWorkshopPro">DetailChart</a>
+                    <a name="ForwardStatistics" href="/test/home/ForwardStatistics"> P-Chart</a>
+                    <a name="PortfolioManager" href="/test/home/PortfolioManager"> PV-Chart</a>
+                    </p>
+                    <p>
+                    <a name="analog" href="/test/home/analog">Analog</a>
+                    <a name="zone" href="/test/home/zone" on-click="">Zone</a>
+                    <a name="swing" href="/test/home/swing">Swing</a>
+                    <a name="season" href="/test/home/season">Season</a>
+                    <a name="snr" href="/test/home/snr"> SNR</a>
+                    <a name="leadingIndicator" href="/test/home/leadingIndicator">  Leading Indicator</a>
+                    <a name="detailChart" href="/test/home/detailChart">Detail Chart</a>
+                    <a name="multiMarketChart" href="/test/home/multiMarketChart"> Multi-Markets Chart</a>
+                    <a name="data" href="/test/home/data">  Data</a>
+                    <a name="mpStat" href="/test/home/mpStat"> MP Stat</a>
+                  </p>
+                </iron-selector>
+            </form>
+            <div class="footer"><span> ©2014 WSQSI http://www.WSQSI.com. All rights reserved.     Username: [[userName]]</span></div>
+          </div>
+    </header>
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'financial-pattern-footer',
+
+      properties: {
+
+        userName: String,
+
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChanged'
+        },
+
+
+      },
+      _pageChanged: function(page, oldPage) {
+
+        var path = page;
+      }
+
+    });
+
+  </script>
+
+</dom-module>
