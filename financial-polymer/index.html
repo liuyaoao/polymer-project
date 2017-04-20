@@ -1,21 +1,6 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:py="http://genshi.edgewall.org/"
-      xmlns:xi="http://www.w3.org/2001/XInclude"
-      xmlns:i18n="http://genshi.edgewall.org/i18n">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"/>
@@ -25,24 +10,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="shortcut icon" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBGRkIxMDU2MEQxNDExRTc5RDAxQTgzODZDN0U5REMzIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBGRkIxMDU3MEQxNDExRTc5RDAxQTgzODZDN0U5REMzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEZGQjEwNTQwRDE0MTFFNzlEMDFBODM4NkM3RTlEQzMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEZGQjEwNTUwRDE0MTFFNzlEMDFBODM4NkM3RTlEQzMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6myx32AAAIc0lEQVR42pxXWWxcVxn+7jqe1Z4Zx3bi2E6cEJImabNIpQ0NbVq10DyEUBACIR7gpW8gFQGqxAPqC1L6xgMiVdUHJAoSVXEqkCCVcFLEokKFaes0G44TO4sz9iye5c7M3fj+c8dbEopTW7/Ombuc7zvfv5z/aljnX+5rL+c5HKcdoT1I2xpqWkruaWFY43CF9j5tnDZW/PX3F9azrrYOYAF7sWlbX25ksxbSxIwnANNc+7bnA00HqNZgl8teymm+was/IZH3PxEBAqc5nPBTiee/+cxB7ejeIYxk4tB1YK7WxkShhrFrJfyr5qLiByRAC2h+SCOZShW4ORfmqtWTXOcHJFJdNwGC76a8pz7/xP5tL33xIAbTMbQI0CJQm4urOc3hrv90fRG/v1GFQ/CS62Oq7SOkKUKuBxSKSM7MTsU87xhJTP5fAgR/xLXM08e+8Ej658f3wQ9CggpgBKzmq37L/Hy5idevLXLzIQiNBq9daHoIhYCQqTZgX56qpRznaZL4+2o8486dE/zsns8dTL96bJ+61uSump5YoEaHvx01Bmre4DzGbTi8P9sOEMqiuoZ+S4dlGljkXOLF7+m225Xq17OfPnLK+fDtwl0ExOe+rp8J9z8wcPKZBzCQsiNAAV4F2nCDzpykOvMG58wEnHM48l8wDU1DytBg8UdFLmg6wkzGDkrlo927nnyNJNqCq68S4ISzfcu2Y9v6sSufRJ3S1dueshrntc68ocboXrVzT8gkuRWdoIYeKSDWDGkklKUSiFtAKo7W6MgWxtfLa2JAUs3JpCbiB3ZrP/3MCB4eSK8EnfjaD5QLouDzcXthARc/mECpOI8wCCMpCX6+4S7vps3rfueeH0/j5t7DDFLGhMNnLkyFucL8PklRs/P8i86WIa2XTDdT+rrrrwmyVicGZP6Pd8Yx8ZczSA7vQNOwoVFaXYv2onWkrvB9T1ITEYHAToG7VkqULF4fHtS8YulHvPVVUypcJZH4CroziFM/n3ks8i7ttulHOxcClyb/jfOTH6Kx/WHUWBA0Lio+5MCRslPlQq2h3lkd315+gAqRiLjIYkAmurCYyz4n2PL+cT+fM/skag1h7yl/11b5esn/H7z3LuZ7RxHqhpLc6EhvdAKv2HBI1Lurrrg9OaWAWEaYmITdkJfXj5uqtnenYXYi9qNSEzsz9hrZXVGhyZ1RSsMwVOAkumzsGR5EjKRDbv3dYhN6q404omLoMStccQFd4seT0BgPhhYqFbhToCcDZt1TJlk9hFgMpshJEmfn6+i3+VIQuUClCu8FTh0uCQi45Pe3nnoMG3rSCBnpp67XYcVd9BKk1RKijHYSCGh1ms61BFgLRYUQ3ZKaJN607QMmWWxVTlT+1DDPYnJ6ro7PZm0FZvNBm7u2Uin1jEi+d2gTNuYyjHTg7VsNXG/6sLmoxsVrb72KwIghPrID7t5DqOtGlGy8F8qCoaY2JEHhm8aQ7mtaUu7XyF5CR+wiFzxbavPgMZi+BhKMj958Hn25rOI61NuNG40Av52p49zfzqDw5ivwLkxQRR1m/zDKPYMoLpSQHH8T9pqCr62EpsSEricMa9+zP3b7++Bwp4FkAaJdVui+C81A+VP86EmamTbOT89goSuLS2EC5XP/xPTkJBp6DNW5m+ge2Y6gVuSJ3EBgWmgTLpZMoJXMqITUQtU7qLlkinazQNJBWOfvpCoevNOiEovUIQyZ34yBS9Q5VXaRIqmExoUGt6LYbGMjF2qWiyRtRblOtZzFMt9jsAU+r5vK7MINRvzgHXkR1QeScXQzCKb5FpTd9Ux0uglrcY3M08OjyNAk2TL7H0eCKSZ/drobsVwf/IVbcE1rJQU1c82y/tLaEpx+MGMaQTDBs3u3IEj5tPRwOVqXnCcF1pajlioIsN4h67OobD5yFG1mCGJxuPVFNAq3gb7RZUBn40i0uXBl55FkxPJcVYrHUa99A6kY6ryY7ThLSARaBCYE4r97Da7rwvuY9krkr+aHV5oNZo/fnY1URLgcAw05I5otdLXafxACYyhXTiKfNVQrxSrlq1QJ0ckbWNUieNKinhvG/fz5fZsEdhl8yc1S3DBfEq+O6dK9JsuVMbS4T57v4gZhqXUkk6dS0x+hncjeF7iU6/bmrVAtShit6XfmLK0kUDwt2KofYL/2Em7fDqWzrUv1k4dVBYtesGYuswp2rR+dseLv2AM31qXcroVLJICSrM8+MVdZ/OFyR8TuZC4zenhzq7vnABjBTZbauFQ2FQ5suRpsaPWoxTLFrGg04nEEGzYB+X62XDkaPx1o3uhOtOj7JZ9rnbIs/aTLfsC8OPWr+i+++zPBXs4R0/dfwNVrz2LnjkEpky3dQkyXs15H4aHD6iRT1WuJtXaPhlo6cuV1LMuuwDtKyomKqauFTLX2fPHOnlB6tNynHv+j43rfRiZjulwmZtwBuowTXbuXLcWPvmrnAl5qEXz2lpubnn2Uvp/92La82N8/jtGhLsRYyXjstplOQmQzCfXQeFiqw0fcZHeUkCpa5U4vtwKU5ejlCZgJeaJybAj49Tk385+rTyz+8oW//s+2vKPEbG7roTGn4XwJyVTaj85jmokskbclLOxK2ziQ7cKh3i481hfHhi6DhHR+nAAzbtRD9rAcl9hPuE1m15WZheyVmUcrr3/vvTvxjHsFsfTtuW2HX2mVK0MU8kHYtvrcapHHAAMwHzOQYb1Im1SBilSYvrN1FxerbZR4TrSkZZddL5R5tF55IzdXeLK0Svb7/jgtZtIneB4/jQ05NgeWKlYas2CAyohCBUoeSnGRYJNPsmIxQKH0Z3a+3/nEH6f3+jxn8/LcYiJxLIzZe5mTA0zNmFqBrobnzcFtT2ZqjbdMz/vNej/P/yvAAATaumLZnTpdAAAAAElFTkSuQmCC">
   <meta name="theme-color" content="#000"/>
 
-  <link rel="import" href="src/news-app.html" async="true"/>
+  <!-- <link rel="import" href="${chrome.htdocs_location}financial-polymer/src/financial-app.html" async="true" /> -->
+  <!-- <link rel="import" href="../bower_components/polymer/polymer.html"> -->
+  <!-- <link rel="import" href="src/financial-app.html"/> -->
+  <!-- <link rel="import" href="../bower_components/polymer/polymer.html" async> -->
+  <link rel="import" href="src/financial-app.html" async="true"/>
+  <link rel="import" href="theme/everest/everest.html" async/>
+  <!-- <link rel="import" href="theme/citric-flames/citric-flames.html" async/> -->
+  <!-- <link rel="import" href="theme/sky/sky.html" async/> -->
 
   <style type="text/css">
     body {
       margin: 0 !important;
       padding:0 !important;
+      font-size:16px;
+      color: #000;
+      overflow-x:hidden;
+      overflow-y:auto
     }
     .instant{
       text-align: center;
-      font-size: 14px;
+      font-size: 16px;
       margin:0 20px;
     }
   </style>
 </head>
 <body>
 
-  <news-app unresolved="true" app-title="Instant Loading">
-    <div class="instant">Financial Loading</div></news-app>
+  <financial-app unresolved="true" app-title="Instant Loading" app-data = "${abs_href.base}" user-one = "" user-two = "" user-three = "" user-four = "">
+    <div class="instant">Financial Loading</div></financial-app>
 
   <script type="text/javascript">
     Polymer = {lazyRegister: true, dom: 'shadow'};

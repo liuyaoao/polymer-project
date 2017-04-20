@@ -11,13 +11,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
 
+
 <link rel="import" href="news-header.html">
 
 <dom-module id="news-nav">
 
   <template>
-
-    <iron-media-query query="max-width: 767px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <style>
+      :host{
+        width:100%;
+        height:100%;
+      }
+    </style>
+    <!-- <iron-media-query query="max-width: 767px" query-matches="{{_smallScreen}}"></iron-media-query> -->
 
     <news-header
         app-title="[[appTitle]]"
@@ -29,16 +35,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <content></content>
     </news-header>
 
-    <!--
-      Lazy-create the drawer on small viewports.
-    -->
-    <template is="dom-if" if="[[_shouldRenderDrawer(_smallScreen, loadComplete)]]">
-      <news-drawer
-          categories="[[categories]]"
-          category="[[category]]"
-          drawer-opened="{{_drawerOpened}}">
-      </news-drawer>
-    </template>
 
   </template>
 
