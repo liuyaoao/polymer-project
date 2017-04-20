@@ -1,0 +1,644 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Expires" content="0">
+<base href="http://www.WSQSI.com"/>
+<script language="JavaScript">
+function fpwportset() {
+   for (var i=1; i < 100; i++) {
+     if (document.portForm.portchosen.value.substr(i-1,1)=='1') 
+        eval("document.portForm.pS"+i+".checked=true;") } 
+}
+function fpwportsetall() {
+   for (var i=1; i < 100; i++) {
+        if (eval("document.portForm.PAzhu"+i+".value!=' '"))
+        eval("document.portForm.pS"+i+".checked=true;") } 
+}
+function fpwportsetnone() {
+   for (var i=1; i < 100; i++) {
+        eval("document.portForm.pS"+i+".checked=false;") } 
+}
+function portsavehddata(){
+	document.portForm.hdPzhu300.value=document.portForm.Pzhu300.value;
+	document.portForm.portFE.value='Ka';
+	document.portForm.portMQ.value='Ka';
+	document.portForm.portDD.value='Ka';
+	document.portForm.portFP.value='Ka';
+	document.portForm.portWP.value='Ka';	
+}
+function beforesavedata() {
+	portmiddle1=document.portForm.portFE.value;
+	portmiddle2=document.portForm.portMQ.value;
+	portmiddle3=document.portForm.portDD.value;
+	portmiddle4=document.portForm.portFP.value;
+	portmiddle5=document.portForm.portWP.value;		
+}
+function aftersavedata() {
+	document.portForm.portFE.value=portmiddle1;
+	document.portForm.portMQ.value=portmiddle2;
+	document.portForm.portDD.value=portmiddle3;
+	document.portForm.portFP.value=portmiddle4;
+	document.portForm.portWP.value=portmiddle5;	
+}
+function onclickPBClear() {
+	if (document.portForm.PBClear.value=='Clear') {
+		document.portForm.PBClear.value='Recall';
+		for (var i=1; i < 13; i++) {
+			eval("document.portForm.hdPBzhu"+i+".value=document.portForm.PBzhu"+i+".value;");
+			eval("document.portForm.PBzhu"+i+".value=' ';"); }
+	}
+	else {
+		document.portForm.PBClear.value='Clear';
+		for (var i=1; i < 13; i++) {
+			eval("document.portForm.PBzhu"+i+".value=document.portForm.hdPBzhu"+i+".value;") }
+	}
+}	
+function onclickPCClear() {
+	if (document.portForm.PCClear.value=='Clear') {
+		document.portForm.PCClear.value='Recall';
+		for (var i=1; i < 21; i++) {
+			eval("document.portForm.hdPCzhu"+i+".value=document.portForm.PCzhu"+i+".value;");
+			eval("document.portForm.PCzhu"+i+".value=' ';"); }}
+	else {
+		document.portForm.PCClear.value='Clear';
+		for (var i=1; i < 21; i++) {
+			eval("document.portForm.PCzhu"+i+".value=document.portForm.hdPCzhu"+i+".value;") }}
+}
+function onclickPzhuShow() {
+	eval("portmiddle6=document.portForm.port"+document.portForm.Pzhu110.value+".value;");
+	var nta = parseInt(document.portForm.portGN.value);
+	var bestn = parseInt(document.portForm.Pzhu111.value);{
+	if (bestn > parseInt(document.portForm.portGC.value)) 
+		bestn=parseInt(document.portForm.portGC.value);}
+	for (var i=1; i < 21; i++) {
+		if (i<=nta) {
+		    var sub1, sub2;
+			sub1=portmiddle6.substr((2*(i-1)+2*(bestn-1)*nta),2);
+			if (sub1.substr(0,1)=='0') {
+			    sub2=sub1.substr(1,1); 
+			    if (sub2.substr(0,1)=='0') 
+			    	eval("document.portForm.PCzhu"+i+".value=' ';");
+			    else
+					eval("document.portForm.PCzhu"+i+".value=sub2;");				
+			  }
+			else
+				eval("document.portForm.PCzhu"+i+".value=sub1;");
+			}
+		else {
+		  eval("document.portForm.PCzhu"+i+".value=' ';"); } 
+	}
+}
+</script>
+<noscript>
+This web page uses JavaScript. To see the full page, make sure that JavaScript is enabled.</noscript>
+<title>Portfolio Manager</title>
+</head>
+
+<body onload="javvascript: document.portForm.Pzhu110.value='$Pzhu110$'; 
+	document.portForm.Pzhu111.value='$Pzhu111$';
+    fpwportset();">
+<form name="portForm" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+	<input type="hidden" name="mlmfile" value="wbfpwport">
+	<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+	<input type="hidden" name="mlid" value="$fpwusername$">
+	<input type="hidden" name="mlid4" value="$fpwusername4$">
+	<input type="hidden" name="runmodel" value="Ka">
+	<input type="hidden" name="hdPzhu300" value="Ka">
+	<input type="hidden" name="WhereOrderFrom" value="SLFE">	
+	<input type="hidden" name="outrunindex" value="$outrunindex$">
+	<input type="hidden" name="hdPBzhu1" value="$PBzhu1$">
+	<input type="hidden" name="hdPBzhu2" value="$PBzhu2$">
+	<input type="hidden" name="hdPBzhu3" value="$PBzhu3$">
+	<input type="hidden" name="hdPBzhu4" value="$PBzhu4$">
+	<input type="hidden" name="hdPBzhu5" value="$PBzhu5$">
+	<input type="hidden" name="hdPBzhu6" value="$PBzhu6$">
+	<input type="hidden" name="hdPBzhu7" value="$PBzhu7$">
+	<input type="hidden" name="hdPBzhu8" value="$PBzhu8$">	
+	<input type="hidden" name="hdPBzhu9" value="$PBzhu9$">
+	<input type="hidden" name="hdPBzhu10" value="$PBzhu10$">
+	<input type="hidden" name="hdPBzhu11" value="$PBzhu11$">
+	<input type="hidden" name="hdPBzhu12" value="$PBzhu12$">
+	<input type="hidden" name="hdPCzhu1" value="$PCzhu1$">
+	<input type="hidden" name="hdPCzhu2" value="$PCzhu2$">
+	<input type="hidden" name="hdPCzhu3" value="$PCzhu3$">
+	<input type="hidden" name="hdPCzhu4" value="$PCzhu4$">
+	<input type="hidden" name="hdPCzhu5" value="$PCzhu5$">
+	<input type="hidden" name="hdPCzhu6" value="$PCzhu6$">
+	<input type="hidden" name="hdPCzhu7" value="$PCzhu7$">
+	<input type="hidden" name="hdPCzhu8" value="$PCzhu8$">	
+	<input type="hidden" name="hdPCzhu9" value="$PCzhu9$">
+	<input type="hidden" name="hdPCzhu10" value="$PCzhu10$">
+	<input type="hidden" name="hdPCzhu11" value="$PCzhu11$">
+	<input type="hidden" name="hdPCzhu12" value="$PCzhu12$">	
+	<input type="hidden" name="hdPCzhu13" value="$PCzhu13$">
+	<input type="hidden" name="hdPCzhu14" value="$PCzhu14$">
+	<input type="hidden" name="hdPCzhu15" value="$PCzhu15$">	
+	<input type="hidden" name="hdPCzhu16" value="$PCzhu16$">
+	<input type="hidden" name="hdPCzhu17" value="$PCzhu17$">
+	<input type="hidden" name="hdPCzhu18" value="$PCzhu18$">	
+	<input type="hidden" name="hdPCzhu19" value="$PCzhu19$">
+	<input type="hidden" name="hdPCzhu20" value="$PCzhu20$">
+	<input type="hidden" name="portchosen" value="$portchosen$">
+	<input type="hidden" name="portFE" value="$portFE$">
+	<input type="hidden" name="portMQ" value="$portMQ$">
+	<input type="hidden" name="portDD" value="$portDD$">
+	<input type="hidden" name="portFP" value="$portFP$">
+	<input type="hidden" name="portWP" value="$portWP$">
+	<input type="hidden" name="portGN" value="$portGN$">
+	<input type="hidden" name="portGC" value="$portGC$">
+    	
+	<script language="JavaScript">
+		var portmiddle1, portmiddle2, portmiddle3, portmiddle4, portmiddle5, portmiddle6;	
+    </script>		
+	
+<div align="center">
+  <center>
+  <table border="1" width="820" height="537">
+    <tr>
+      <td width="820" height="537" align="center">
+      <table border="0" cellpadding="0" cellspacing="1" width="100%" height="494">
+        <tr>
+          <td width="100%" height="28" colspan="12">
+          <table border="0" cellpadding="0" cellspacing="1" width="100%" height="7">
+            <tr>
+              <td width="34%" height="34" valign="bottom">
+              <p align="left"><font color="#0000FF" size="4"><b>&nbsp;&nbsp; <a href="/wbFPW Manual - PWP.html#PM" target="_blank" title="To open User's Manual to get online help.">Market Name:</a></b></font><input type="text" name="pMname" value="$pMname$" size="5" onfocus="javascript: " onmouseout="window.status='Done'" title="To show or to enter the market name, whose models will be analyzed by portfolio manager program." onmouseover="window.status='To show or to enter the market name, whose models will be analyzed by portfolio manager program.';" style="text-align: center; background-color:#E6E6E6"><input style="width: 25px; background-color:#00FF00" type="button" value="Go" name="pGo" onclick="javascript: portsavehddata(); portForm.outrunindex.value='415'; target='_blank'; portForm.submit(); window.open('','_self'); window.close();" title="To initiate a new portfolio page about the input new market." onmouseover="window.status='To initiate a new portfolio page about the input new market.'" onmouseout="window.status='Done'"></td>
+              <td width="34%" rowspan="2" height="7">
+              <p align="center"></td>
+              <td width="32%" rowspan="2" height="7" valign="top">
+              <p align="right"><font color="#0000FF" size="5"><b>
+              <a href="/wbFPW%20Manual%20-%20PWP.html#PM" target="_blank" title="To open User's Manual to get online help.">Portfolio 
+              Manager</a></b></font></td>
+            </tr>
+            <tr>
+              <td width="37%" rowspan="2" height="1">
+              </td>
+            </tr>
+            <tr>
+              <td width="31%" rowspan="2" height="2">
+              <p align="center"><b><font color="#0000FF" size="4"><a href="/wbFPW Manual - PWP.html#PM" target="_blank" title="To open User's Manual to get online help.">Available 
+              Model List</a></font></b></td>
+              <td width="32%" rowspan="2" height="2">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input style="width: 60px" type="button" value="All" name="PAzhuAll" onclick="javascript: fpwportsetall();" title="To choose all models." onmouseover="window.status='To choose all models.'" onmouseout="window.status='Done'"> <input style="width: 60px" type="button" value="None" name="PAzhuNone" onclick="javascript: fpwportsetnone();" title="To uncheck all models." onmouseover="window.status='To uncheck all models.'" onmouseout="window.status='Done'"></td>
+            </tr>
+            <tr>
+              <td width="34%" height="7">
+              </td>
+            </tr>
+          </table>
+          </td>
+        </tr>
+        <tr>
+          <td width="21%" height="286" rowspan="10" align="center" valign="middle">
+          <table border="1" cellpadding="0" cellspacing="1" width="91%" height="303">
+            <tr>
+              <td width="100%" height="31">
+              <p align="center">
+              <input style="width: 60px" type="button" value="Model" name="pMCTrun" onclick="javascript:javascript: portsavehddata(); portForm.outrunindex.value='414'; portForm.submit(); window.open('','_self'); window.close();" title="To get the correlation list about the model in the right." onmouseover="window.status='To get the correlation list about the model in the right.'" onmouseout="window.status='Done'"> <input type="text" name="pMCT" size="2" value="$pMCT$" style="text-align: center; background-color:#E6E6E6" title="Model number, to find its coorelation with other models." onmouseover="window.status='Model number, to find its coorelation with other models. A nummer with fraction means all L/S models. An integer means same L/S only.'"></td>
+            </tr>
+            <tr>
+              <td width="100%" height="266" align="center">
+              <table border="0" cellpadding="0" cellspacing="0" width="92%" height="264">
+                <tr>
+                  <td width="34%" height="27" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  <font color="#FF0000">$c11$</font></td>
+                  <td width="33%" height="27" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  <font color="#FF0000">$c12$</font></td>
+                  <td width="33%" height="27" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  <font color="#FF0000">$c13$</font></td>
+                </tr>
+                <tr>
+                  <td width="34%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c21$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c22$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c23$</td>
+                </tr>
+                <tr>
+                  <td width="34%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c31$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c32$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c33$</td>
+                </tr>
+                <tr>
+                  <td width="34%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c41$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c42$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c43$</td>
+                </tr>
+                <tr>
+                  <td width="34%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c51$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c52$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c53$</td>
+                </tr>
+                <tr>
+                  <td width="34%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c61$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c62$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c63$</td>
+                </tr>
+                <tr>
+                  <td width="34%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c71$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c72$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c73$</td>
+                </tr>
+                <tr>
+                  <td width="34%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c81$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c82$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c83$</td>
+                </tr>
+                <tr>
+                  <td width="34%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c91$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c92$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c93$</td>
+                </tr>
+                <tr>
+                  <td width="34%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c101$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c102$</td>
+                  <td width="33%" height="26" align="center" style="font-size: 10pt; font-family: Arial Narrow; font-weight: bold">
+                  $c103$</td>
+                </tr>
+              </table>
+              </td>
+            </tr>
+          </table>
+          </td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" value="1" name="pS1" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'"><input style="width: 30px" type="button" value="$PAzhu1$" name="PAzhu1" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS2"><input style="width: 30px" type="button" value="$PAzhu2$" name="PAzhu2" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS3"><input style="width: 30px" type="button" value="$PAzhu3$" name="PAzhu3" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS4"><input style="width: 30px" type="button" value="$PAzhu4$" name="PAzhu4" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS5"><input style="width: 30px" type="button" value="$PAzhu5$" name="PAzhu5" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS6"><input style="width: 30px" type="button" value="$PAzhu6$" name="PAzhu6" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS7"><input style="width: 30px" type="button" value="$PAzhu7$" name="PAzhu7" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS8"><input style="width: 30px" type="button" value="$PAzhu8$" name="PAzhu8" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS9"><input style="width: 30px" type="button" value="$PAzhu9$" name="PAzhu9" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS10"><input style="width: 30px" type="button" value="$PAzhu10$" name="PAzhu10" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="286" rowspan="10">
+          &nbsp;</td>
+        </tr>
+        <tr>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS11"><input style="width: 30px" type="button" value="$PAzhu11$" name="PAzhu11" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS12"><input style="width: 30px" type="button" value="$PAzhu12$" name="PAzhu12" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS13"><input style="width: 30px" type="button" value="$PAzhu13$" name="PAzhu13" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS14"><input style="width: 30px" type="button" value="$PAzhu14$" name="PAzhu14" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS15"><input style="width: 30px" type="button" value="$PAzhu15$" name="PAzhu15" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS16"><input style="width: 30px" type="button" value="$PAzhu16$" name="PAzhu16" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS17"><input style="width: 30px" type="button" value="$PAzhu17$" name="PAzhu17" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS18"><input style="width: 30px" type="button" value="$PAzhu18$" name="PAzhu18" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS19"><input style="width: 30px" type="button" value="$PAzhu19$" name="PAzhu19" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS20"><input style="width: 30px" type="button" value="$PAzhu20$" name="PAzhu20" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS21"><input style="width: 30px" type="button" value="$PAzhu21$" name="PAzhu21" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS22"><input style="width: 30px" type="button" value="$PAzhu22$" name="PAzhu22" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS23"><input style="width: 30px" type="button" value="$PAzhu23$" name="PAzhu23" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS24"><input style="width: 30px" type="button" value="$PAzhu24$" name="PAzhu24" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS25"><input style="width: 30px" type="button" value="$PAzhu25$" name="PAzhu25" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS26"><input style="width: 30px" type="button" value="$PAzhu26$" name="PAzhu26" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS27"><input style="width: 30px" type="button" value="$PAzhu27$" name="PAzhu27" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS28"><input style="width: 30px" type="button" value="$PAzhu28$" name="PAzhu28" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS29"><input style="width: 30px" type="button" value="$PAzhu29$" name="PAzhu29" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS30"><input style="width: 30px" type="button" value="$PAzhu30$" name="PAzhu30" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS31"><input style="width: 30px" type="button" value="$PAzhu31$" name="PAzhu31" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS32"><input style="width: 30px" type="button" value="$PAzhu32$" name="PAzhu32" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS33"><input style="width: 30px" type="button" value="$PAzhu33$" name="PAzhu33" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS34"><input style="width: 30px" type="button" value="$PAzhu34$" name="PAzhu34" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS35"><input style="width: 30px" type="button" value="$PAzhu35$" name="PAzhu35" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS36"><input style="width: 30px" type="button" value="$PAzhu36$" name="PAzhu36" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS37"><input style="width: 30px" type="button" value="$PAzhu37$" name="PAzhu37" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS38"><input style="width: 30px" type="button" value="$PAzhu38$" name="PAzhu38" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS39"><input style="width: 30px" type="button" value="$PAzhu39$" name="PAzhu39" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS40"><input style="width: 30px" type="button" value="$PAzhu40$" name="PAzhu40" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS41"><input style="width: 30px" type="button" value="$PAzhu41$" name="PAzhu41" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS42"><input style="width: 30px" type="button" value="$PAzhu42$" name="PAzhu42" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS43"><input style="width: 30px" type="button" value="$PAzhu43$" name="PAzhu43" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS44"><input style="width: 30px" type="button" value="$PAzhu44$" name="PAzhu44" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS45"><input style="width: 30px" type="button" value="$PAzhu45$" name="PAzhu45" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS46"><input style="width: 30px" type="button" value="$PAzhu46$" name="PAzhu46" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS47"><input style="width: 30px" type="button" value="$PAzhu47$" name="PAzhu47" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS48"><input style="width: 30px" type="button" value="$PAzhu48$" name="PAzhu48" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS49"><input style="width: 30px" type="button" value="$PAzhu49$" name="PAzhu49" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS50"><input style="width: 30px" type="button" value="$PAzhu50$" name="PAzhu50" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS51"><input style="width: 30px" type="button" value="$PAzhu51$" name="PAzhu51" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS52"><input style="width: 30px" type="button" value="$PAzhu52$" name="PAzhu52" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS53"><input style="width: 30px" type="button" value="$PAzhu53$" name="PAzhu53" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS54"><input style="width: 30px" type="button" value="$PAzhu54$" name="PAzhu54" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS55"><input style="width: 30px" type="button" value="$PAzhu55$" name="PAzhu55" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS56"><input style="width: 30px" type="button" value="$PAzhu56$" name="PAzhu56" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS57"><input style="width: 30px" type="button" value="$PAzhu57$" name="PAzhu57" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS58"><input style="width: 30px" type="button" value="$PAzhu58$" name="PAzhu58" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS59"><input style="width: 30px" type="button" value="$PAzhu59$" name="PAzhu59" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS60"><input style="width: 30px" type="button" value="$PAzhu60$" name="PAzhu60" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS61"><input style="width: 30px" type="button" value="$PAzhu61$" name="PAzhu61" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS62"><input style="width: 30px" type="button" value="$PAzhu62$" name="PAzhu62" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS63"><input style="width: 30px" type="button" value="$PAzhu63$" name="PAzhu63" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS64"><input style="width: 30px" type="button" value="$PAzhu64$" name="PAzhu64" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS65"><input style="width: 30px" type="button" value="$PAzhu65$" name="PAzhu65" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS66"><input style="width: 30px" type="button" value="$PAzhu66$" name="PAzhu66" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS67"><input style="width: 30px" type="button" value="$PAzhu67$" name="PAzhu67" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS68"><input style="width: 30px" type="button" value="$PAzhu68$" name="PAzhu68" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS69"><input style="width: 30px" type="button" value="$PAzhu69$" name="PAzhu69" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="30"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS70"><input style="width: 30px" type="button" value="$PAzhu70$" name="PAzhu70" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS71"><input style="width: 30px" type="button" value="$PAzhu71$" name="PAzhu71" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS72"><input style="width: 30px" type="button" value="$PAzhu72$" name="PAzhu72" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS73"><input style="width: 30px" type="button" value="$PAzhu73$" name="PAzhu73" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS74"><input style="width: 30px" type="button" value="$PAzhu74$" name="PAzhu74" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS75"><input style="width: 30px" type="button" value="$PAzhu75$" name="PAzhu75" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS76"><input style="width: 30px" type="button" value="$PAzhu76$" name="PAzhu76" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS77"><input style="width: 30px" type="button" value="$PAzhu77$" name="PAzhu77" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS78"><input style="width: 30px" type="button" value="$PAzhu78$" name="PAzhu78" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS79"><input style="width: 30px" type="button" value="$PAzhu79$" name="PAzhu79" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS80"><input style="width: 30px" type="button" value="$PAzhu80$" name="PAzhu80" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS81"><input style="width: 30px" type="button" value="$PAzhu81$" name="PAzhu81" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS82"><input style="width: 30px" type="button" value="$PAzhu82$" name="PAzhu82" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS83"><input style="width: 30px" type="button" value="$PAzhu83$" name="PAzhu83" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS84"><input style="width: 30px" type="button" value="$PAzhu84$" name="PAzhu84" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS85"><input style="width: 30px" type="button" value="$PAzhu85$" name="PAzhu85" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS86"><input style="width: 30px" type="button" value="$PAzhu86$" name="PAzhu86" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS87"><input style="width: 30px" type="button" value="$PAzhu87$" name="PAzhu87" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS88"><input style="width: 30px" type="button" value="$PAzhu88$" name="PAzhu88" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS89"><input style="width: 30px" type="button" value="$PAzhu89$" name="PAzhu89" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="29"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS90"><input style="width: 30px" type="button" value="$PAzhu90$" name="PAzhu90" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="8%" height="18"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS91"><input style="width: 30px" type="button" value="$PAzhu91$" name="PAzhu91" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="18"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS92"><input style="width: 30px" type="button" value="$PAzhu92$" name="PAzhu92" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="18"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS93"><input style="width: 30px" type="button" value="$PAzhu93$" name="PAzhu93" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="18"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS94"><input style="width: 30px" type="button" value="$PAzhu94$" name="PAzhu94" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="18"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS95"><input style="width: 30px" type="button" value="$PAzhu95$" name="PAzhu95" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="18"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS96"><input style="width: 30px" type="button" value="$PAzhu96$" name="PAzhu96" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="18"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS97"><input style="width: 30px" type="button" value="$PAzhu97$" name="PAzhu97" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="18"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS98"><input style="width: 30px" type="button" value="$PAzhu98$" name="PAzhu98" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="18"> 
+                            <input type="checkbox" onmouseover="window.status='Checked: Allow this model to join all portofolio operations. Unchecked: Rule out this model from all portfolio operations.'" onmouseout="window.status='Done'" value="1" name="pS99"><input style="width: 30px" type="button" value="$PAzhu99$" name="PAzhu99" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='411'; portForm.runmodel.value=value; portForm.submit(); aftersavedata();" onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+          <td width="8%" height="18"> 
+                            <input style="width: 50px" type="button" value="Add all" name="PAddAll" onclick="javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='416'; portForm.submit(); aftersavedata();" title="Add all chosen models together and show it in the output page." onmouseover="window.status='Add all chosen models together and show it in the output page.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="46" colspan="12">
+          <p align="center"><font color="#0000FF"><b>
+          Model to reserve:</b></font><input type="text" name="PBzhu1" size="2" value="$PBzhu1$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'"> 
+          <input type="text" name="PBzhu2" size="2" value="$PBzhu2$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'"> 
+          <input type="text" name="PBzhu3" size="2" value="$PBzhu3$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'"> 
+          <input type="text" name="PBzhu4" size="2" value="$PBzhu4$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'">
+          <input type="text" name="PBzhu5" size="2" value="$PBzhu5$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'"> 
+          <input type="text" name="PBzhu6" size="2" value="$PBzhu6$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'"> 
+          <input type="text" name="PBzhu7" size="2" value="$PBzhu7$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'"> 
+          <input type="text" name="PBzhu8" size="2" value="$PBzhu8$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'"><input type="text" name="PBzhu9" size="2" value="$PBzhu9$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'"> 
+          <input type="text" name="PBzhu10" size="2" value="$PBzhu10$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'"> 
+          <input type="text" name="PBzhu11" size="2" value="$PBzhu11$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'"> 
+          <input type="text" name="PBzhu12" size="2" value="$PBzhu12$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Reserve model list, these models will keep no matter how to optimize the portfolio.'">
+          <input style="width: 45px" type="button" value="Clear" name="PBClear" onclick="javascript: onclickPBClear();" title="To clear or recall back previous reserve model list." onmouseover="window.status='To clear or recall back previous reserve model list.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="24" colspan="12">
+          <p align="center"><font color="#0000FF"><b>How many models to combine:</b></font> 
+          <input type="text" name="Pzhu108" size="3" value="$Pzhu108$" style="text-align: center; background-color:#E6E6E6" title="How many models to trade together when to calculate the sorting results." onmouseover="window.status='How many models to trade together when to calculate the sorting results.'">
+          <input style="width: 60px" type="button" value="Sort" name="Pzhu109" onclick="javascript:javascript: portsavehddata(); portForm.outrunindex.value='412'; portForm.submit(); window.open('','_self'); window.close();" title="Sort models into various combinations, and ready for [Show Me] button to use the results." onmouseover="window.status='Sort models into various combinations, and ready for [Show Me] button to use the results.'" onmouseout="window.status='Done'"> 
+          <input style="width: 22px; color:#000000; background-color:#FF0000" type="button" value="M" name="fpwmoniW" onclick="javascript: window.open('$ProgressM$','','top=160,left=370,width=165,height=100');" onmouseout="window.status='Done'" title="To open a new window, because some portfolio analysis may take really long, one will feel good to open a window to monitor it." onmouseover="window.status='Cause some portfolio analysis may take really long, one will feel good to open a window to monitor it.';"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="32" colspan="12">
+          <p align="center"><b><font color="#0000FF">What sorting results to review: </font>
+          </b>
+      <select size="1" name="Pzhu110" onfocus="javascript: ;" onmouseout="window.status='Done'" title="To choose data time span for each bar data." onmouseover="window.status='To choose data time span for each bar data.';"> 
+		<option selected value="FE">Portfolio gives Best Final Equity</option>
+		<option value="MQ">Portfolio gives Best Model Quality</option> 
+		<option value="DD">Portfolio gives Smallest Draw Down</option>
+		<option value="FP">Portfolio gives Shortest Flat Period</option> 
+		<option value="WP">Portfolio gives Best Winning Percentage</option>					
+    </select>
+      <select size="1" name="Pzhu111" onfocus="javascript: ;" onmouseout="window.status='Done'" title="To choose data time span for each bar data." onmouseover="window.status='To choose data time span for each bar data.';"> 
+		<option selected value="1">Best #1</option>
+		<option value="2">Best #2</option> 
+		<option value="3">Best #3</option>
+		<option value="4">Best #4</option> 
+		<option value="5">Best #5</option>
+		<option value="6">Best #6</option>
+		<option value="7">Best #7</option>
+		<option value="8">Best #8</option> 
+		<option value="9">Best #9</option>
+		<option value="10">Best #10</option> 
+		<option value="11">Best #11</option>
+		<option value="12">Best #12</option>
+		<option value="13">Best #13</option>
+		<option value="14">Best #14</option> 
+		<option value="15">Best #15</option>
+		<option value="16">Best #16</option> 
+		<option value="17">Best #17</option>
+		<option value="18">Best #18</option>
+		<option value="19">Best #19</option>
+		<option value="20">Best #20</option> 										
+    </select>
+          <input style="width: 68px" type="button" value="Show Me" name="PzhuShow" onclick="javascript: onclickPzhuShow();" title="Show proper model composition into model list in the bottom line." onmouseover="window.status='Show proper model composition into model list in the bottom line.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="28" colspan="12">
+          <p align="center">
+          <input style="width: 350px" type="button" value="Run below model combination by maximum position of:" name="Pzhu120" onclick="javascript: javascript: beforesavedata(); portsavehddata(); portForm.outrunindex.value='413'; portForm.submit(); aftersavedata();" title="Combine all models in the reserve list and models in the bottom line and show it in output page." onmouseover="window.status='Combine all models in the reserve list and models in the bottom line and show it in output page.'" onmouseout="window.status='Done'"> 
+          <input type="text" name="Pzhu121" size="3" value="$Pzhu121$" style="text-align: center; background-color:#E6E6E6" title="Maximum limited model/lot number." onmouseover="window.status='Maximum limited model/lot number.'"> 
+          <input style="width: 60px" type="button" value="$Pzhu300$" name="Pzhu300" onclick="javascript: if (value=='Models') value='Lots'; else value='Models';" title="Link to this model's simulation output details by click the button." onmouseover="window.status='Link to this model\'s simulation output details by click the button.'" onmouseout="window.status='Done'"></td>
+        </tr>
+        <tr>
+          <td width="100%" height="43" colspan="12">
+          <p align="center">
+          <input type="text" name="PCzhu1" size="1" value="$PCzhu1$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu2" size="1" value="$PCzhu2$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu3" size="1" value="$PCzhu3$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu4" size="1" value="$PCzhu4$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu5" size="1" value="$PCzhu5$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu6" size="1" value="$PCzhu6$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu7" size="1" value="$PCzhu7$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu8" size="1" value="$PCzhu8$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu9" size="1" value="$PCzhu9$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu10" size="1" value="$PCzhu10$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu11" size="1" value="$PCzhu11$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu12" size="1" value="$PCzhu12$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu13" size="1" value="$PCzhu13$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu14" size="1" value="$PCzhu14$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu15" size="1" value="$PCzhu15$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu16" size="1" value="$PCzhu16$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu17" size="1" value="$PCzhu17$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu18" size="1" value="$PCzhu18$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu19" size="1" value="$PCzhu19$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input type="text" name="PCzhu20" size="1" value="$PCzhu20$" style="text-align: center; background-color:#E6E6E6" onmouseover="window.status='Extra model list except the reserve model lists.'">
+          <input style="width: 45px" type="button" value="Clear" name="PCClear" onclick="javascript: onclickPCClear();" title="To clear or recall back previous model list." onmouseover="window.status='To clear or recall back previous model list.'" onmouseout="window.status='Done'"></td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+  </table>
+  </center>
+</div>
+</form>
+<form name="stock2Form" action="/cgi-bin/matweb.exe" method="POST" target="_blank">
+<input type="hidden" name="mlmfile" value="wbstmpsimu">
+<input type="hidden" name="fpwulvl" value="$fpwulvl$">
+<input type="hidden" name="mlid" value="$fpwusername$">
+<input type="hidden" name="mlid4" value="$fpwusername4$">
+<input type="hidden" name="WhereOrderFrom" value="INDX">
+<input type="hidden" name="mlmfvar" value="leavemealone">
+<input type="hidden" name="hdfpwaddnoise" value="AN: 0">
+<p align="center"><b>
+<script language="JavaScript">
+function onclickstock26(str) {
+   document.stock2Form.mlmfile.value=str;
+   stock2Form.submit(); }
+</script>
+    <a href="javascript: onclickstock26('wbmpinitial');">MarketPulse</a> | 
+    <a href="javascript: onclickstock26('wbstmpsimu');">MarketPulse Pro</a> | 
+    <a href="javascript: onclickstock26('wbfpwsimu');">PatternWorkshop</a> | 
+    <a href="javascript: onclickstock26('wbfpwoutput');">PatternWorkshop Pro</a> | 
+    <a href="javascript: onclickstock26('wbfpwstat');">Forward Statistics</a></b><br>
+    <a href="JavaScript: onclickstock26('wbstanalog');">Analog</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstfpz691');">Zone</a>&nbsp;|
+    <a href="JavaScript: onclickstock26('wbstswing');">Swing</a> |&nbsp;<a href="JavaScript: onclickstock26('wbstsea');">Season</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstsnr');">SNR</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstleadi');">Leading Indicator</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstchart');">Detail Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstmmct');">Multi-Markets Chart</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbstrdata');">Data</a>&nbsp;|&nbsp;<a href="JavaScript: onclickstock26('wbfpwmpstat');">MP 
+Stat</a><br>
+    <b><font size="2">&nbsp;</font></b><font color="#0000FF" size="2">©2014</font><font size="2" color="#0000FF" face="Arial"> 
+ 
+WSQSI http://www.WSQSI.com. All rights reserved.&nbsp;&nbsp;&nbsp;&nbsp; 
+Username: $fpwusername$</font></p>
+</form>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+</head>
+</html>
