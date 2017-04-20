@@ -1,0 +1,239 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+
+<dom-module id="financial-login">
+  <template>
+      <style include="app-grid-style">
+        :host {
+          display: block;
+          color:#0000ff;
+          width:40%;
+          margin:30px auto;
+          padding:0;
+          --app-grid-columns:3;
+          --app-grid-expandible-item-columns: 2;
+        }
+        paper-button{
+          font-size: 14px;
+          --paper-button:{
+           text-transform: none;
+         }
+
+        }
+        .item {
+          background-color: white;
+        }
+        .item:nth-child(5){
+          @apply(--app-grid-expandible-item);
+        }
+        .item:nth-child(4){
+          margin-top:45px;
+        }
+        .logoImg{
+            margin:0 1%;
+        }
+        .notice{
+          text-align: center;
+          margin-top:20px;
+        }
+        .notice>.link{
+          margin:20px 0 0 10px;
+        }
+        header{
+          overflow:hidden;
+        }
+        .linkStyle{
+          float:right;
+        }
+        .linkStyle a{
+          margin-right:10px;
+        }
+        .link>ul{
+          margin:0;
+          padding:0;
+          list-style: none;
+          overflow:hidden;
+        }
+        .link>ul>li{
+          display:inline-block;
+          float:left;
+          margin-right:15px;
+        }
+        .imgSize{
+        max-width:none;
+        padding:20px 0 0 30px;
+        }
+      </style>
+
+      <iron-ajax id="ajax"
+        url="https://randomuser.me/api/"
+        handle-as="json"
+        params=''
+        on-response="categoriesLoaded"
+        timeout="3000"
+        on-error="categoriesLoadederror">
+      </iron-ajax>
+      <header>
+           <div class="logoImg">
+             <a href="#"><img src="../images/login/b_logo.png"/></a>
+             <img src="../images/login/toplong111.jpg"/>
+           </div>
+           <div class="linkStyle">
+               <a name="chinese" href="/test/home/chinese">[中文]</a>
+               <a name="service" href="/test/home/service">Services?</a>
+               <a name="reason"  href="/test/home/reason">Why Use FPW?</a>
+           </div>
+     </header>
+          <div class="topIntroduce">
+              <span><b>Financial PatternWorkshop (FPW) is a unique financial trading strategy test platform, which can be used </b>to scan or to simulate the real-time stock and futures financial markets with only a couple of mouse clicks or a couple of lines of code.  One can simulate almost any pattern that one can imagine with full managing rules of stops, exits and objectives, scaling in or out, over one or a group of markets with same or different managing rules for each market.  FPW provides  many unique technical tools and financial functions.</span>
+              <template is="dom-if" if="[[flag]]">
+                  <div >
+                    <span>User ID does not exist or User ID and/or Password do not match, check and try again, or <a href="mailto:ning@WSQSI.com?subject=Forgot FPW password">contact us</a>.</span>
+                  </div>
+              </template>
+              <template is="dom-if" if="[[closeFlag]]">
+                <div >
+                    <p>  you haven't done anything for a while,  or the main FPW page being closed by accident, please close all other FPW pages before to re-login from here.<br/>Free test user needs to click the <span>Check Available Test User ID(s)</span>button to verify the availability of the free login-in account(s).</p>
+                </div>
+              </template>
+          </div>
+          <div class="app-grid">
+              <div class="item">
+                <div class="notice">
+                  <b>Notice</b></br>
+                  <a href="#">Maintaining Time</a></br>
+                  <span>(System may offline)</span></br>
+                  <span>Monthly Last Friday</span></br>
+                  <span>EDT&nbsp;21:00-23:59</span>
+                  <div class="link">
+                    <a name="setupIe" href="/test/home/setup">Setup IE to Use FPW Property</a>
+                    <a name="econData" href="/test/home/econData">Econ-Data</a>
+                    <a name="holidays" href="/test/home/holidays">Holidays</a>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                  <paper-input    id="inputUser"  type ="text" name="fpwusername" label="User ID"/>
+                    <div suffix><img src="../images/login/icon-user.gif"></div>
+                  </paper-input>
+                  <paper-input    id="inputPsw"  type ="password" name="fpwpassword" label="Password" on-keydown="_submitFormLogin"/>
+                    <div suffix><img src="../images/login/icon-pwd.png"></div>
+                  </paper-input>
+                <form action="[[login]]/wbfpwlogin" method="post" id="loginForm">
+                  <input type="hidden" name="submitVlue" id="submitValue" value=""/>
+                  <paper-button raised on-click="_submitFormLogin" >Login on</paper-button>
+                </form><br/>
+
+              </div>
+              <div class="item"><img src="../images/login/Middlesmall07.jpg" class="imgSize"/></div>
+              <div class="item">
+                  <paper-button raised on-click="_submitFormCheckTestUser">Check Available Test User ID</paper-button>
+              </div>
+              <div class="item">
+                <div class="link">
+                  <p><a href="mailto:ning@WSQSI.com?subject=Forgot FPW password">Forget your password?</a><b>New user?</b>
+                      <iron-selector role="navigation" class="menu-list" selected="[[page]]" attr-for-selected="name">
+                        <a href="/test/home/signUp" name="signUp" >Sign Up</a>
+                        <a href="/test/home/loginOn" name="loginOn">Login on</a>
+                        <a href="/test/home/reLogin" name="reLogin">reLogin</a>
+                      <iron-selector>
+                  </p>
+                </div>
+                  <template is="dom-if" if="[[ifTest]]">
+                    <div class="link">
+                      <ul>
+                        <li><b>User01:</b><span>[[userOne]]</span></li>
+                        <li><b>User02:</b><span>[[userTwo]]</span></li>
+                        <li><b>User03:</b><span>[[userThree]]</span></li>
+                        <li><b>User04:</b><span>[[userFour]]</span></li>
+                      </ul>
+                    </div>
+                  </template>
+
+                    <div class="link">
+                      <ul>
+                        <li><b>User01:</b><span>NA</span></li>
+                        <li><b>User02:</b><span>NA</span></li>
+                        <li><b>User03:</b><span>NA</span></li>
+                        <li><b>User04:</b><span>OK</span></li>
+                      </ul>
+                    </div>
+
+
+                <p><b>Clicking on any above OK link to login.<span>It's FREE.</span></b></P>
+              </div>
+          </div>
+          <p><b>Note:</b><span>FPW PC version and LAN multi-user version are no more supported by our tech staff.
+                             We strongly  recommend users to switch to the more powerful Web version.</span></p>
+        </div>
+    </template>
+
+    <script>
+      Polymer({
+        is: 'financial-login',
+        properties:{
+            login:String,
+            flag:String,
+            closeFlag:String,
+            ifTest:String,
+            page: {
+              type: String,
+              // reflectToAttribute: true,
+              // observer: '_pageChanged'
+            }
+        },
+        // ready:function(){
+        //   var username=this.$.inputUser.value;
+        //     var userPassword=this.$.inputPsw.value;
+        //     var submit=this.$.submitValue;
+        //     submit.value='{"fpwusername":"username","fpwpassword":"userPassword","UserIPAddress":"192.168.2.8","UserHostName":"Verizon.net"}';
+        //     var login=this.login;
+        //     this.$.loginForm.action = login + "/wbfpwlogincheck";
+        //     this.$.loginForm.submit();
+        // },
+        // _pageChanged: function(page, oldPage) {
+        //   var path = page;
+        // },
+        _submitFormLogin:function(){
+          var username=this.$.inputUser.value;
+          var userPassword=this.$.inputPsw.value;
+          var submit=this.$.submitValue;
+          submit.value='{"fpwusername":"'+username+'","fpwpassword":"'+userPassword+'","UserIPAddress":"192.168.2.8","UserHostName":"Verizon.net"}';
+          this.$.loginForm.submit();
+        },
+        _signUp:function(){
+          var username=this.$.inputUser.value;
+          var userPassword=this.$.inputPsw.value;
+          var submit=this.$.submitValue;
+          submit.value='{"fpwusername":"'+username+'","fpwpassword":"'+userPassword+'","UserIPAddress":"192.168.2.8","UserHostName":"Verizon.net"}';
+          this.$.loginForm.submit();
+        },
+        _submitFormCheckTestUser:function(){
+          var username=this.$.inputUser.value;
+          var userPassword=this.$.inputPsw.value;
+          var submit=this.$.submitValue;
+          submit.value='{"fpwusername":"'+username+'","fpwpassword":"'+userPassword+'","UserIPAddress":"192.168.2.8","UserHostName":"Verizon.net"}';
+          this.$.loginForm.submit();
+        },
+        _testgetdata:function () {
+    			this.$.ajax.generateRequest();
+		    },
+        categoriesLoaded:function(e){
+          var self = this;
+          var people = e.detail.response.results;
+          if(people.cell!=""){
+
+          }
+        },
+        categoriesLoadederror:function(e){
+          var self = this;
+          var people = e.detail.error;
+        }
+      });
+    </script>
+</dom-module>
