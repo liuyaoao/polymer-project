@@ -1,0 +1,39 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+<dom-module id="financial-whyUseFPW">
+  <template>
+      <style >
+        :host {
+          display: block;
+          color:#000000;
+          width:40%;
+          margin:30px auto;
+          font-size:16px;
+        }
+        .fpwContent span{
+          font-weight:bold;
+          color:#0000ff;
+          font-size:18px;
+        }
+      </style>
+      <div class="fpwContent">
+        <div class="topLogo"><img src="../images/logo.png"/><img src="../images/login/tb_01.jpg"/></div>
+        <hr color="ffc875"/>
+        <paper-styles>
+          <h3>About WSQSI and FPW:</h3>
+          Wall Street Quantitative Systems Inc (WSQSI), the developer of the Financial PatternWorkshop (FPW), is a financial consulting firm that has specialized in developing trading systems for over fifteen years. FPW is a software package to screen or to simulate the real stock and futures financial markets with only a couple of lines of code and a couple of mouse clicks. Its visualized input, output interfaces and many other interactive analytical tools combine to make it a highly friendly trading strategy test platform.
+          Financial institutes hire PhD quantitative analysts to develop trading systems, but these high paid analysts waste time developing temporary test tools instead of the trading system itself.  Why?  Because there is no reliable, sophisticated and easy to use commercial trading strategy test platform software available yet, even to run on a desktop PC.  Trading system developers often ask each other: "Where do you buy your historical tick data?"  This situation costs financial institutions a lot of money each year.
+          Our service will fill this empty by bringing to the industry a general trading strategy test platform, together with the historical and real-time intraday data at the same time.  And more importantly, we bring all these services to users via the Web. Therefore, anyone can be affordable to get this kind of resources anytime anywhere, which were only partially available to the players in the first class financial institutes before.
+          <h4>FPW is divided into four different service levels:</h4>
+          <p><span>MarketPulse: </span>MarketPulse is the most basic level. It is a multi-function real time Intraday Stock Screener for stock traders.  In today’s market, a successful trader needs an edge. MarketPulse’s proprietary analysis tools let traders capture the pulse of the market in real time. Users can easily scan out stocks they are interested in by different criteria and parameters, such as exchange, sector, PE ratio, capital size, digital patterns, analog patterns or statistics between any kind of time interval.  All scan tools here are for stock markets only.</p>
+          <p><span>MarketPulse Pro:   </span>MarketPulse Pro is a simulation tool.  Its goal is to find proper patterns for MarketPulse to scan. Although MarketPulse is very powerful and easy to use, it assumes that the trader knows what pattern he or she wants to look for.  MarketPulse Pro can help users find the right patterns based on historical statistics. All simulation tools here are for stock markets only.</p>
+          <p><span>PatternWorkshop: </span>PatternWorkshop is a software kit to simulate the real stock and futures financial markets with only a couple of lines of code and a couple of mouse clicks. One can simulate almost any pattern that one can imagine with full managing rules of stops, exits and objectives, scaling in or out, over one or a group of markets with the same or different managing rules for each market. </p>
+          <p><span>PatternWorkshop Pro: </span>PatternWorkshop Pro provides more interactive tools to analyze or to improve PatternWorkshop's simulation results. For example, the software can automatically find the premature conditions to improve its quality and analyze it with your other trading models to see how it affects your whole trading system, and it can also help developer find proper managing rules of Enter, Exits, Stops and Objectives. It's a key tool kit for developing a high quality trading system, which helps user on how to avoid risk before a signal triggering and how to face the risk after it triggered.</p>
+        </paper-styles>
+    </template>
+    <script>
+      Polymer({
+        is: 'financial-whyUseFPW',
+      });
+    </script>
+</dom-module>
