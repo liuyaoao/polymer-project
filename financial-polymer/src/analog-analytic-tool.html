@@ -23,11 +23,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <style >
       :host {
         display: block;
-        color:#000;
         width:50%;
         padding:0;
         margin:30px auto;
         text-align:center;
+      }
+      input{
+        width:70px;
+      }
+      paper-dropdown-menu{
+        width:8.5em;
+        --paper-input-container:{
+            padding:0;
+          }
+      }
+      #fpwfstype{
+        width:5.5em;
+      }
+      paper-button{
+        min-width:2.49em;
+        min-height:1.49em;
+        margin:1px;
+        padding:0;
+        font-size: 14px;
+        --paper-button:{
+             text-transform: none;
+           }
+      }
+      paper-item{
+        width:100%;
       }
       </style>
       <div class="analogAnalyticTool">
@@ -35,23 +59,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Analog Analysis:</span>
             <paper-dropdown-menu id="fpwfstype" name="fpwfstype" value="" dynamicAlign="true">
               <paper-listbox class="dropdown-content" selected="{{fpwfstypeSelectedValue}}" attr-for-selected="value">
-                <template is="dom-repeat" items="{{chartInfo}}" >
-                  <paper-item label="{{item.title}}" value="{{item.value}}">
-                    <span>{{item.title}}</span></paper-item>
-                </template>
+                  <paper-item label="Futures" value="F">
+                    <span>Futures</span></paper-item>
+                  <paper-item label="Stock" value="S">
+                      <span>Stock</span></paper-item>
               </paper-listbox>
             </paper-dropdown-menu>
             <paper-dropdown-menu id="fpwanalogp" name="fpwanalogp" value="" dynamicAlign="true">
               <paper-listbox class="dropdown-content" selected="{{fpwanalogpSelectedValue}}" attr-for-selected="value">
-                <template is="dom-repeat" items="{{chartInfo}}" >
-                  <paper-item label="{{item.title}}" value="{{item.value}}">
-                    <span>{{item.title}}</span></paper-item>
+                <template is="dom-repeat" items="{{fpwanalogpData}}" >
+                  <paper-item label="{{item.label}}" value="{{item.value}}">
+                    <span>{{item.label}}</span></paper-item>
                 </template>
               </paper-listbox>
             </paper-dropdown-menu>
             <paper-button id="fpwanalogtd" on-click="">{{FSfpwanalogtd}}</paper-button>
             <input is="iron-input" id="fpwsymbol" bind-value="UrSymbol" on-focus="" />
-            <paper-button id="analogGO" on-click="">GO</paper-button>
+            <paper-button raised id="analogGO" class="success" on-click="">GO</paper-button>
             <a href="" name="">Need help?</a>
           </p>
           <div><img src="../images/wbstanalog.jpg" /></div>
@@ -61,13 +85,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'analog-analytic-tool',
       properties: {
+        fpwanalogpData:Array,
             fpwfstypeSelectedValue:{
               type:String,
-              value:"63",
+              value:"S",
             },
-            FSfpwanalogtd:String,
-            Analogjpeg:String,
+            fpwanalogpSelectedValue:{
+              type:String,
+              value:"10",
+            }
+            // FSfpwanalogtd:String,
+            // Analogjpeg:String,
       },
+      ready:function(){
+        this.fpwanalogpData=[
+          {"label":"TwoWeeks/10","value":"10"},
+          {"label":"OneMonth/22","value":"22"},
+          {"label":"ThreeMonths/63","value":"63"},
+          {"label":"HalfYear/125","value":"125"},
+          {"label":"OneYear/250","value":"250"},
+          {"label":"TwoYears/500","value":"500"}
+        ];
+      }
     });
  </script>
  </dom-module>

@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <!-- <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html"> -->
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <!-- <link rel="import" href="news-data.html"> -->
 <!-- <link rel="import" href="news-nav.html"> -->
@@ -44,23 +45,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin:5px 0;
         padding:5px 0;
         list-style: none;
+        /*text-align: ;*/
       }
       .heightLevel li{
-        width:30%;
+        width:32%;
         border:1px solid #ddd;
         float:left;
-        height:auto;
-        margin:5px;
-        padding:5px;
-      }
-      a{
-        font-weight: bold;
-        text-decoration: underline;
-        color:#ffb740 !important;
-        padding-right: 5px;
+        height:310px;
+        margin:2px;
+        padding:3px;
       }
       table tr td{
         padding:0 15px;
+      }
+      paper-button{
+        min-height:0.90em;
+        --paper-button:{
+             text-transform: none;
+           }
       }
     </style>
     <div class="financialPatternWork">
@@ -75,27 +77,56 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </form>
         <ul class="heightLevel">
           <li >
-            <a href="/PatternWorkshopPro" name="PatternWorkshopPro">PatternWorkshop Pro:</a>
+            <a href="/PatternWorkshopPro" name="PatternWorkshopPro">
+              <paper-button class="link info" flat>PatternWorkshop Pro:</paper-button></a>
             <p>For system developers.  Provides many tools to work on simulation outputs.
               Discovers optimizing conditions, proper managing rules, optimized  portfolios
               combined from multi-models and much more. For more express links:</p>
-            <a href="/ForwardStatistics" name="ForwardStatistics">Forward Statistics</a>,
-            <a href="/PortfolioManager" name="PortfolioManager">Portfolio Manager</a>
+            <a href="/ForwardStatistics" name="ForwardStatistics">
+              <paper-button class="link " flat>Forward Statistics</paper-button>
+              </a>
+                <br/>
+            <a href="/PortfolioManager" name="PortfolioManager">
+              <paper-button class="link " flat>Portfolio Manager</paper-button>
+            </a>
           </li>
-          <li><a href="/PatternWorkshop" name="PatternWorkshop">PatternWorkshop</a>:For traders and system developers. It is a full simulation platform to simulate sophisticated models with full managing rules. To review the last studied model: <a href="/PatternWorkshopPro" name="PatternWorkshopPro">Simulation Result</a></li>
-          <li><a href="/MarketPulsePro" name="MarketPulsePro">MarketPulse Pro</a>:For traders and system developers.  It is a simplified simulation platform to find trading patterns among a group of stocks, then lets the MarketPulse to monitor the patterns.</li>
+          <li>
+            <a href="/PatternWorkshop" name="PatternWorkshop">
+              <paper-button class="link " flat>PatternWorkshop:</paper-button>
+            </a>
+            <p>For traders and system developers. It is a full simulation platform to simulate sophisticated
+              models with full managing rules. To review the last studied model: </p>
+            <a href="/PatternWorkshopPro" name="PatternWorkshopPro">
+              <paper-button class="link " flat>Simulation Result</paper-button></a>
+          </li>
+          <li>
+            <a href="/MarketPulsePro" name="MarketPulsePro">
+              <paper-button class="link info" flat>MarketPulse Pro:</paper-button>
+            </a>
+            <p>For traders and system developers.  It is a simplified simulation platform to
+              find trading patterns among a group of stocks, then lets the MarketPulse to monitor
+              the patterns.
+            </p>
+          </li>
         </ul>
         <p class="freeFunction"><img src="../images/login/ArrowDownY.gif"/><font face="Comic Sans MS" color="red">Free test Users can only use part of below functions</font><img src="../images/login/ArrowDownY.gif"/></p>
         <ul>
-          <li><a href="/MarketPulse" name="MarketPulse">MarketPulse</a>:This is for all kinds of traders. It is a real time Intraday Stock Screener. It works in any time frame with any criteria for over 4000 symbols in the US stock markets.</li>
-          <li><a href="/MPStatistics" name="MPStatistics">MP Statistics</a><img src="../images/login/new.gif" />:Designed for really active short-term intraday stock traders, who buy and sell stocks again and again in just minutes or even in seconds.</li>
+          <li>
+            <a href="/MarketPulse" name="MarketPulse">
+              <paper-button class="link info" flat>MarketPulse</paper-button>
+            </a>:This is for all kinds of traders. It is a real time Intraday Stock Screener. It works in any time frame with any criteria for over 4000 symbols in the US stock markets.</li>
+          <li>
+            <a href="/MPStatistics" name="MPStatistics">
+              <paper-button class="link info" flat>MP Statistics</paper-button>
+            </a><img src="../images/login/new.gif" />:Designed for really active short-term intraday stock traders, who buy and sell stocks again and again in just minutes or even in seconds.</li>
           <li>
             <template is="dom-if" if="[[ifLink]]">
               <a name="easyToUse" href="/easyToUse">Easy-to-Use tools</a>
             </template>
 
-              <a href="jsvascript:void(0);">Easy-to-Use tools</a>
-
+              <a href="jsvascript:void(0);">
+                <paper-button class="link info" flat>Easy-to-Use tools</paper-button>
+              </a>
               : For entry level researchers and system developers.
               <table>
                   <tr><td><a href="/AnalogAnalytictool" name="AnalogAnalytictool">Analog Analytic tool </a></td><td><a href="/ZoneAnalytictool" name="ZoneAnalytictool"> Zone Analytic tool</a></td><td><a href="/SwingAnalytictool" name="SwingAnalytictool">Swing Analytic tool </a></td><td><a href="/EconData" name="EconData"> Econ-Data</a></td></tr>
