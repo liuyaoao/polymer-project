@@ -1,21 +1,20 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+<!-- <link rel="import" href="../bower_components/paper-styles/paper-styles.html"> -->
 <dom-module id="financial-terms-use">
+  <link rel="import" href="../theme/denim/denim.css" type="css">
   <template>
       <style>
         :host {
           display: block;
-          color:#000000;
-          width:40%;
+          width:50%;
           margin:30px auto;
-          font-size:16px;
+        }
+        a{
+          text-decoration: underline;
+          color:#ffb74d !important;
         }
       </style>
       <div class="ptivacyContent">
-        <div class="topLogo"><img src="../images/logo.png"/><img src="../images/login/tb_01.jpg"/></div>
-        <hr color="ffc875"/>
-        <h1><span>Terms of Use</span></h1>
-        <paper-styles>
           <p>Thank you for using FPW. By becoming a registered member you accept and agree to be bound by the following terms and
             conditions. We may make changes to these Terms of Use or policies from time to time without notice. We encourage
             you to review these terms periodically for any updates or changes. This agreement shall be effective upon your
@@ -48,10 +47,10 @@
           <h3>Copyright</h3>
           <p>All Web site design, text, graphics, logos, button icons, images, and all software are copyrighted with all rights reserved.  Under copyright laws, they may not be copied, whole or in part, without the express written consent of Wall Street Quantitative Systems Inc</p>
           <h3>Publicity</h3>
-          <p><font face="Comic Sans MS" color="#007000">WSQSI™</font>,<font face="Comic Sans MS" color="#007000"> WSQSI.com™</font>, <font face="Comic Sans MS" color="#007000">MarketPulse™</font> and <font face="Comic Sans MS" color="#007000">Trade Stock? Think WSQSI! <sup>SM</sup></font>
+          <p><font face="Comic Sans MS" color="#ffb740;">WSQSI™</font>,<font face="Comic Sans MS" color="#ffb740;"> WSQSI.com™</font>, <font face="Comic Sans MS" color="#ffb740;">MarketPulse™</font> and <font face="Comic Sans MS" color="#ffb740;">Trade Stock? Think WSQSI! <sup>SM</sup></font>
               Customer shall not use these above trademarks or any trademark, trade name, trade dress or any name, picture or logo which is commonly identified with WSQSI in any manner without the prior written permission of WSQSI.</p>
           <h3>Privacy</h3>
-          <p>Please review our <a name="privacy" href="/test/home/privacy">Privacy Policy</a>. It is part of our Terms of Use agreement.</p>
+          <p>Please review our <a name="privacy" href="/privacy">Privacy Policy</a>. It is part of our Terms of Use agreement.</p>
           <h3>Changes or Updates</h3>
           <p>WSQSI.com reserves the right to make changes to the service or any portion thereof.  If such a change adversely affects your use of the service, and we cannot reasonably mitigate the impact, then you may terminate the service without further obligation.</p>
           <h3>Choice of Law </h3>
@@ -59,7 +58,7 @@
           <h3>Miscellaneous</h3>
           <p>The terms and conditions of this Agreement supersede all previous agreements, proposals or representations related to the service.</p>
           <p>THE RISK OF LOSS IN TRADING COMMODITIES AND STOCK CAN BE SUBSTANTIAL. YOU SHOULD THEREFORE CAREFULLY CONSIDER WHETHER SUCH TRADING IS SUITABLE FOR YOU IN LIGHT OF YOUR FINANCIAL CONDITION. THE HIGH DEGREE OF LEVERAGE THAT IS OFTEN OBTAINABLE IN COMMODITY TRADING CAN WORK AGAINST, AS WELL AS FOR YOU. THE USE OF LEVERAGE CAN QUICKLY LEAD TO LARGE LOSSES AS WELL AS LARGE GAINS. THIS BRIEF STATEMENT CANNOT DISCLOSE ALL OF THE RISKS AND OTHER SIGNIFICANT ASPECTS OF THE FINANCIAL MARKETS.</p>
-        </paper-styles>
+        </div>
     </template>
     <script>
       Polymer({

@@ -22,20 +22,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 
 <!-- <link rel="import" href="news-data.html"> -->
 <link rel="import" href="news-nav.html">
-<link rel="import" href="financial-company.html">
-<link rel="import" href="financial-contact.html">
+<!-- <link rel="import" href="financial-company.html">
+<link rel="import" href="financial-contact.html"> -->
 
 <dom-module id="financial-registerForm">
-
+<link rel="import" href="../theme/denim/denim.css" type="css">
   <template>
 
     <style>
     :host {
       display: block;
-      color:#0000ff;
+      /*color:#0000ff;*/
       width:40%;
       padding:0;
       margin:30px auto;
@@ -62,6 +63,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       width:60%;
       position:relative;
     }
+    paper-item{
+      width:100%;
+    }
     div.wfrufee{
       display:inline-block;
       width:60%;
@@ -75,16 +79,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     p{
       margin:10px auto;
+      color:#ffb740;
     }
     paper-button{
       --paper-button:{
        text-transform: none;
      }
     }
+  h1{
+    text-align:center;
+  }
+  iron-autogrow-textarea{
+    width:100%;
+    max-height:100px;
+  }
     </style>
     <div class="registerFormContent">
-      <div ><img src="../images/logo.png"/><img src="../images/login/tb_01.jpg"/></div>
-      <hr color="ffc875"/>
       <div class="formContent">
           <h1>Register Form</h1>
           <h5><span>*</span>[[noticeData]]</h5>
@@ -105,7 +115,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-dropdown-menu id="state" name="wfrState" value="[[selectedItem]]">
                 <paper-listbox class="dropdown-content" selected="1">
                   <template is="dom-repeat" items="[[stateProvince]]" >
-                    <paper-item ><span>[[item.title]]</span></paper-item>
+                    <paper-item class="x-scope paper-item-0"><span>[[item.title]]</span></paper-item>
                   </template>
                 </paper-listbox>
             </paper-dropdown-menu><br/>
@@ -115,7 +125,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            <paper-dropdown-menu id="country" name="wfrCountry">
              <paper-listbox class="dropdown-content" selected="1">
                <template is="dom-repeat" items="[[country]]" >
-                 <paper-item label="{{item.value}}"><span>[[item.value]]</span></paper-item>
+                 <paper-item label="{{item.value}}" class="x-scope paper-item-0"><span>[[item.value]]</span></paper-item>
                </template>
              </paper-listbox>
            </paper-dropdown-menu>
@@ -126,7 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            <paper-dropdown-menu id="userlevel" name="wfrulevel" value="[[selectedItem]]">
              <paper-listbox class="dropdown-content" selected="1">
                <template is="dom-repeat" items="[[userLevel]]" >
-                 <paper-item ><span>[[item.title]]</span></paper-item>
+                 <paper-item class="x-scope paper-item-0"><span>[[item.title]]</span></paper-item>
                </template>
              </paper-listbox>
            </paper-dropdown-menu>
@@ -143,11 +153,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-checkbox   name="{{item.name}}" value="{{item.value}}">[[item.title]]</paper-checkbox>
             </template>
           </div>
-            <p>By registering with us, you agree to accept our <a name="use" href="/test/home/use">Terms of Use</a>.
-              <paper-button raised on-click="submitForm()">Submit</paper-button>
-              <paper-button raised on-click="resetForm()">Reset</paper-button>
+            <p>By registering with us, you agree to accept our <a name="use" href="/use">Terms of Use</a>.
+              <paper-button raised on-click="submitForm()" class="secondary">Submit</paper-button>
+              <paper-button raised on-click="resetForm()" class="info">Reset</paper-button>
             </p>
-            <textarea rows="2" name="wfrremark" cols="100" on-focus="javascript: if (wfrremark.value=='Your Remarks: ') value='';" style="color: #0000FF">$wfrremark$</textarea>
+            <iron-autogrow-textarea  name="wfrremark"  class="paper-input-input style-scope paper-textarea" on-focus="javascript: if (wfrremark.value=='Your Remarks: ') value='';" style="color: #0000FF">$wfrremark$</iron-autogrow-textarea>
           </form>
       </div>
    </div>

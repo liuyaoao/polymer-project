@@ -22,14 +22,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
 
 <dom-module id="financial-market-pulse-pro">
-
+<link rel="import" href="../theme/denim/denim.css" type="css">
   <template>
 
     <style include="app-grid-style">
     :host {
       display: block;
-      color:#000;
-      width:52%;
+      width:55%;
       padding:0;
       margin:30px auto;
       --app-grid-columns:4;
@@ -39,22 +38,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .item:nth-child(2){
       @apply(--app-grid-expandible-item);
       padding-left:10px;
-      /*width:600px;*/
+      text-align: center;
+      padding-top:5px;
     }
+
     table{
       width:100%;
     }
     .table1 tr td{
       width:50%;
-      background:#00FF00;
+      border:1px solid #ddd;
+      text-align: center;
+      /*background:#00FF00;*/
     }
     .table2 tr td{
-      width:63%;
-      background:#00FF00;
+      width:68%;
+      border:1px solid #ddd;
+      /*text-align: center;*/
+      /*background:#00FF00;*/
     }
 
     paper-dropdown-menu{
       width:3.14em;
+      --paper-input-container:{
+          padding:0;
+        }
     }
     #mpmruon,#mpmrkind{
       width:4.14em;
@@ -69,7 +77,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       min-width:2.10em;
       margin:0.1em;
       padding:1px;
-      background-color: #ededed;
+      /*background-color: #ededed;*/
+      font-size:14px;
       --paper-button:{
        text-transform: none;
      }
@@ -80,25 +89,58 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     .pleft,.pRight{
         float:left;
-        /*border:1px solid #ddd;*/
+        border:1px solid #ddd;
+        border-top-color:transparent;
     }
     .pRight{
-      text-align: center;
+      width:39%;
+      border-color:transparent;
     }
+    .pRight>span{
+      display:inline-block;
+      width:100%;
+      border-bottom:1px solid #ddd;
+      /*border-top-color: transparent;*/
+    }
+    /*.pRight>span:nth-child(4){
+      border-top-color: #ddd;
+    }*/
     .pRight paper-button{
       margin-bottom: 2px;
     }
     .pleft{
       width:60%;
+      border-right-color: transparent;
+    }
+    .pleft>div{
+      margin:0 auto;
+      width:99%;
+      border:1px solid #ddd;
+      border-top-color: transparent;
     }
     iron-autogrow-textarea{
-      width:430px;
+      width:98%;
       height:100px;
+      border:none;
     }
     .item{
       border:1px solid #ddd;
     }
+    .item:first-child{
+      border-right-color: transparent;
+    }
     .item>div{
+      border-bottom: 1px solid #ddd;
+    }
+    div.simpleManagingRules{
+      border-bottom-color:transparent;
+    }
+    .simpleManagingRules>div{
+      width:98%;
+      text-align: center;
+    }
+    .simpleManagingRules>div:first-child{
+      padding-bottom: 3px;
       border-bottom: 1px solid #ddd;
     }
     p ,h4{
@@ -108,11 +150,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .financialMarketPulsePro{
       margin-bottom: 15px;
     }
-    .green{
-      background-color:#0f0;
-    }
-    .red{
-      background-color: #f00;
+    iframe{
+      border-bottom: none;
     }
     </style>
     <div class="financialMarketPulsePro">
@@ -194,25 +233,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <input is="iron-input" name="mpmrstop"  bind-value="{{mpmrstop}}"/>
                 <font class="green">Obje</font>
                 <input is="iron-input" name="mpmrobje"  bind-value="{{mpmrobje}}"/>
-                <paper-button raised id="mpefrun2" class="green" on-click="" >RM</paper-button>
+                <paper-button raised id="mpefrun2" class="green primary" on-click="" >RM</paper-button>
               </div>
             </div>
         </div>
         <div class="item">
           <div><img src="../images/Mpsimujpeg.jpg"/></div>
           <div>
-            <paper-button raised id="" on-click="" >L1</paper-button>
-            <paper-button raised id="mpefrs" on-click="" class="green">Reset</paper-button>
+            <paper-button raised id="" class="primary" on-click="" >L1</paper-button>
+            <paper-button raised id="mpefrs" class="primary" on-click="" class="green">Reset</paper-button>
             <input is="iron-input" name="mpefvb"  bind-value="{{mpefvb}}"/>
-            <paper-button raised id="mpb1" on-click="" >Vol</paper-button>
+            <paper-button raised id="mpb1" class="primary" on-click="" >Vol</paper-button>
             <input is="iron-input" name="mpefve"  bind-value="{{mpefve}}"/>
             <input is="iron-input" name="mpefpb"  bind-value="{{mpefpb}}"/>
-            <paper-button raised id="mpb2" on-click="" >Price</paper-button>
+            <paper-button raised id="mpb2" class="primary" on-click="" >Price</paper-button>
             <input is="iron-input" name="mpefpe"  bind-value="{{mpefpe}}"/>
             <input is="iron-input" name="mpefvpb"  bind-value="{{mpefvpb}}"/>
-            <paper-button raised id="mpb3" on-click="" >Vol*P</paper-button>
+            <paper-button raised id="mpb3" class="primary" on-click="" >Vol*P</paper-button>
             <input is="iron-input" name="mpefvpe"  bind-value="{{mpefvpe}}"/>
-            <paper-button raised id="mpefrun" on-click="" class="green">Dcom</paper-button>
+            <paper-button raised id="mpefrun" class="primary" on-click="" class="green">Dcom</paper-button>
           </div>
           <div>
             <input is="iron-input" name="mpefsp"  bind-value="{{mpefsp}}"/>
@@ -224,8 +263,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   </template>
                 </paper-listbox>
             </paper-dropdown-menu>
-            <paper-button raised id="mpefcoqs" on-click="" >Close</paper-button>
-            <paper-button raised id="mpefls" on-click="" >+/-</paper-button>
+            <paper-button raised id="mpefcoqs" class="warning" on-click="" >Close</paper-button>
+            <paper-button raised id="mpefls" class="primary" on-click="" >+/-</paper-button>
             <paper-dropdown-menu id="mpefhl" name="mpefhl" value="" dynamicAlign="true">
                 <paper-listbox class="dropdown-content" selected="1">
                   <template is="dom-repeat" items="{{mpefhlData}}" >
@@ -234,23 +273,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   </template>
                 </paper-listbox>
             </paper-dropdown-menu>
-            <paper-button raised id="mpefco" on-click="" >Close</paper-button>
-            <paper-button raised id="mpefv" on-click="" >V</paper-button>
-            <paper-button raised id="mpefp" on-click="" >P</paper-button>
-            <paper-button raised id="mpefvp" on-click="" >VP</paper-button>
+            <paper-button raised id="mpefco" class="warning" on-click="" >Close</paper-button>
+            <paper-button raised id="mpefv" class="primary" on-click="" >V</paper-button>
+            <paper-button raised id="mpefp" class="primary" on-click="" >P</paper-button>
+            <paper-button raised id="mpefvp" class="primary" on-click="" >VP</paper-button>
             <a href="" name="">F</a>
             <input is="iron-input" name="mpefef"  bind-value="{{mpefef}}"/>
-            <paper-button raised id="ProgmoniW" on-click="" class="red">M</paper-button>
+            <paper-button raised id="ProgmoniW" class="primary" on-click="" class="red">M</paper-button>
           </div>
           <div>
             <div class="pleft">
               <div>
                 <a href='' name="">P</a>
-                <paper-button raised id="mpptdelete" on-click="" >Delete</paper-button>
-                <paper-button raised id="mpptload" on-click="" >Load</paper-button>
+                <paper-button raised id="mpptdelete" class="warning" on-click="" >Delete</paper-button>
+                <paper-button raised id="mpptload" class="success" on-click="" >Load</paper-button>
                 <input is="iron-input" name="mpptname"  bind-value="{{mpptname}}"/>
-                <paper-button raised id="mpptsave" on-click="" >Save</paper-button>
-                <paper-button raised id="mpptdt" on-click="" >Daily</paper-button>
+                <paper-button raised id="mpptsave" class="primary" on-click="" >Save</paper-button>
+                <paper-button raised id="mpptdt" class="primary" on-click="" >Daily</paper-button>
                 <paper-dropdown-menu id="mpptmrk" name="mpptmrk" value="" dynamicAlign="true">
                     <paper-listbox class="dropdown-content" selected="1">
                         <paper-item label="AllMrkts"><span>AllMrkts</span></paper-item>
@@ -259,26 +298,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <paper-item label="Nasdaq"><span>Nasdaq</span></paper-item>
                     </paper-listbox>
                 </paper-dropdown-menu>
-                <paper-button raised id="mpptrun" on-click="" class="green">Run</paper-button>
+                <paper-button raised id="mpptrun" class="success" on-click="" class="green">Run</paper-button>
             </div>
             <div>
               <iron-autogrow-textarea name="mpptfilef" id="mpptfilef">{{mpptfilef}}</iron-autogrow-textarea><br />
-              <iframe name="MPrunstatus" width="426" height="55" src="/{{MPsrsource}}" align="left"></iframe>
+              <iframe name="MPrunstatus" width="99%" height="55" src="/{{MPsrsource}}" align="left"></iframe>
             </div>
           </div>
           <div class="pRight">
-            <span><paper-button raised id="mprun51" on-click="" >Simu2 <-> Simu1</paper-button></span><br/>
-            <span><paper-button raised id="mprun52" on-click="" >Dcom2 <-> Dcom1</paper-button></span><br/>
-            <span><paper-button raised id="mprun53" on-click="" >Dcom2+1 ->Dcom2</paper-button></span><br/>
+            <span><paper-button raised id="mprun51" class="primary" on-click="" >Simu2 <-> Simu1</paper-button></span><br/>
+            <span><paper-button raised id="mprun52" class="primary" on-click="" >Dcom2 <-> Dcom1</paper-button></span><br/>
+            <span><paper-button raised id="mprun53" class="primary" on-click="" >Dcom2+1 ->Dcom2</paper-button></span><br/>
             <h4>Graphic Review</h4>
-            <span><paper-button raised id="mprun83" on-click="" >Sim1</paper-button>
-            <paper-button raised id="mprun41" on-click="" >Sim2</paper-button>
-            <paper-button raised id="mprun42" on-click="" >Dcom1</paper-button></span><br/>
-            <span><paper-button raised id="mprun43" on-click="" >Dcom2+1</paper-button>
-            <paper-button raised id="mprun44" on-click="" >Dcom2</paper-button></span><br/>
-            <span><paper-button raised id="mprun82" on-click="" >Equity</paper-button>
-            <paper-button raised id="mprun31" on-click="" >TradingLists</paper-button></span><br/>
-            <span><paper-button raised id="mprun24" on-click="" >Simulation Details</paper-button></span>
+            <span><paper-button raised id="mprun83" class="primary" on-click="" >Sim1</paper-button>
+            <paper-button raised id="mprun41" class="primary" on-click="" >Sim2</paper-button>
+            <paper-button raised id="mprun42" class="primary" on-click="" >Dcom1</paper-button></span><br/>
+            <span><paper-button raised id="mprun43" class="primary" on-click="" >Dcom2+1</paper-button>
+            <paper-button raised id="mprun44" class="primary" on-click="" >Dcom2</paper-button></span><br/>
+            <span><paper-button raised id="mprun82" class="primary" on-click="" >Equity</paper-button>
+            <paper-button raised id="mprun31" class="primary" on-click="" >TradingLists</paper-button></span><br/>
+            <span><paper-button raised id="mprun24" class="primary" on-click="" >Simulation Details</paper-button></span>
           </div>
         </div>
       </div>

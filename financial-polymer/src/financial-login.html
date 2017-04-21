@@ -7,16 +7,15 @@
 <link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
 
 <dom-module id="financial-login">
-  <link rel="import" href="../theme/everest/everest.css" type="text/css">
-  <!-- <link rel="import" href="../theme/citric-flames/citric-flames.css" type="text/css"> -->
+  <link rel="import" href="../theme/denim/denim.css" type="css">
+  <!-- <link rel="import" href="../theme/citric-flames/citric-flames.css" type="css"> -->
   <!-- <link rel="import" href="../theme/sky/sky.css" type="css"> -->
   <template>
       <style include="app-grid-style">
         :host {
           display: block;
-          color:#0000ff;
-          width:40%;
-          margin:30px auto;
+          width:60%;
+          margin:20px auto;
           padding:0;
           --app-grid-columns:3;
           --app-grid-expandible-item-columns: 2;
@@ -27,9 +26,6 @@
            text-transform: none;
          }
 
-        }
-        .item {
-          background-color: white;
         }
         .item:nth-child(5){
           @apply(--app-grid-expandible-item);
@@ -50,12 +46,7 @@
         header{
           overflow:hidden;
         }
-        .linkStyle{
-          float:right;
-        }
-        .linkStyle a{
-          margin-right:10px;
-        }
+
         .link>ul{
           margin:0;
           padding:0;
@@ -81,18 +72,8 @@
         timeout="3000"
         on-error="categoriesLoadederror">
       </iron-ajax>
-      <header>
-           <div class="logoImg">
-             <a href="#"><img src="../images/login/b_logo.png"/></a>
-             <img src="../images/login/toplong111.jpg"/>
-           </div>
-           <div class="linkStyle">
-               <a name="chinese" href="/test/home/chinese">[中文]</a>
-               <a name="service" href="/test/home/service">Services?</a>
-               <a name="reason"  href="/test/home/reason">Why Use FPW?</a>
-           </div>
-     </header>
           <div class="topIntroduce">
+            <paper-button raised class="success">vjeioreoi</paper-button>
               <span><b>Financial PatternWorkshop (FPW) is a unique financial trading strategy test platform, which can be used </b>to scan or to simulate the real-time stock and futures financial markets with only a couple of mouse clicks or a couple of lines of code.  One can simulate almost any pattern that one can imagine with full managing rules of stops, exits and objectives, scaling in or out, over one or a group of markets with same or different managing rules for each market.  FPW provides  many unique technical tools and financial functions.</span>
               <template is="dom-if" if="[[flag]]">
                   <div >
@@ -114,9 +95,9 @@
                   <span>Monthly Last Friday</span></br>
                   <span>EDT&nbsp;21:00-23:59</span>
                   <div class="link">
-                    <a name="setupIe" href="/test/home/setup">Setup IE to Use FPW Property</a>
-                    <a name="econData" href="/test/home/econData">Econ-Data</a>
-                    <a name="holidays" href="/test/home/holidays">Holidays</a>
+                    <a name="setupIe" href="/setupIe">Setup IE to Use FPW Property</a>
+                    <a name="econData" href="/econData">Econ-Data</a>
+                    <a name="holidays" href="/holidays">Holidays</a>
                   </div>
                 </div>
               </div>
@@ -129,7 +110,9 @@
                   </paper-input>
                 <form action="[[login]]/wbfpwlogin" method="post" id="loginForm">
                   <input type="hidden" name="submitVlue" id="submitValue" value=""/>
-                  <paper-button raised on-click="_submitFormLogin" >Login on</paper-button>
+                  <a href="/loginOn" name="loginOn">
+                    <paper-button raised on-click="_submitFormLogin" >Login on</paper-button>
+                  </a>
                 </form><br/>
 
               </div>
@@ -141,9 +124,8 @@
                 <div class="link">
                   <p><a href="mailto:ning@WSQSI.com?subject=Forgot FPW password">Forget your password?</a><b>New user?</b>
                       <iron-selector role="navigation" class="menu-list" selected="[[selectTab]]" attr-for-selected="name">
-                        <a href="/test/home/signUp" name="signUp" >Sign Up</a>
-                        <a href="/test/home/loginOn" name="loginOn">Login on</a>
-                        <a href="/test/home/reLogin" name="reLogin">reLogin</a>
+                        <a href="/signUp" name="signUp" >Sign Up</a>
+                        <a href="/reLogin" name="reLogin">reLogin</a>
                       <iron-selector>
                   </p>
                 </div>

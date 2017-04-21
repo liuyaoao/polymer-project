@@ -11,11 +11,11 @@
 
 
 <dom-module id="financial-portfolioManager">
+  <link rel="import" href="../theme/denim/denim.css" type="css">
   <template>
       <style include="app-grid-style">
         :host{
           display: block;
-          color:#000000;
           width:69%;
           font-size: 14px;
           margin:30px auto;
@@ -64,18 +64,21 @@
         .table2 tr td{
           border:1px solid #ddd;
           height:40px;
+          line-height: 40px;
         }
         paper-checkbox{
           float:left;
+          margin-top:9px;
+          /*vertical-align: bottom;*/
         }
         #pS208{
           float:none;
         }
         paper-button{
           min-width:2.10em;
+          min-height:1.54em;
           padding:0.2em 0.50em;
           margin:0.1em;
-          background:#ededed;
           --paper-button:{
            text-transform: none;
          }
@@ -89,7 +92,6 @@
         }
         .modelCombine>span,.resultReview>span,.modelReserve>span{
           font-weight:bold;
-          color:blue;
           font-size:16px;
         }
         .modelReserve input,.doClear input,.runCombination input{
@@ -97,7 +99,9 @@
         }
         paper-dropdown-menu{
           width:3.5em;
-          padding:0;
+          --paper-input-container:{
+              padding:0;
+            }
         }
         #Pzhu110{
           width:20.5em;
@@ -183,13 +187,13 @@
             	<input type="hidden" name="portGC" id="portGC" value="{{portGc}}" />
             <div>
               <div class="topItem">
-                <span><a href="/test/home/marketName" name="marketName">Market Name:</a>
+                <span><a href="/marketName" name="marketName">Market Name:</a>
                 <input is="iron-input" name="pMname" bind-value="{{pmName}}"/>
-                <paper-button raised on-click="">Go</paper-button></span>
-                <span ><a href="/test/home/portfolioManager" name="portfolioManager">Portfolio Manager</a></span>
+                <paper-button raised class="success" on-click="">Go</paper-button></span>
+                <span ><a href="/portfolioManager" name="portfolioManager">Portfolio Manager</a></span>
               </div>
               <div class="middleItem">
-                <a href="/test/home/availableModelList" name="availableModelList">Available Model List:</a>
+                <a href="/availableModelList" name="availableModelList">Available Model List:</a>
                 <span>
                   <paper-button raised on-click="">Row</paper-button>
                   <paper-dropdown-menu id="" name="" value="{{selectedItem}}">
@@ -199,18 +203,18 @@
                         </template>
                       </paper-listbox>
                   </paper-dropdown-menu>
-                  <paper-button raised on-click="">Colm</paper-button>
-                  <paper-button raised on-click="">Even</paper-button>
-                  <paper-button raised on-click="">Odd</paper-button>
-                  <paper-button raised on-click="">All</paper-button>
-                  <paper-button raised on-click="">None</paper-button>
+                  <paper-button raised class="primary" on-click="">Colm</paper-button>
+                  <paper-button raised class="primary" on-click="">Even</paper-button>
+                  <paper-button raised class="primary" on-click="">Odd</paper-button>
+                  <paper-button raised class="primary" on-click="">All</paper-button>
+                  <paper-button raised class="primary" on-click="">None</paper-button>
                 </span>
               </div>
               <div class="app-grid">
                 <div class="item">
                   <div>
-                  <paper-button raised on-click="">CCoef</paper-button>
-                  <paper-button raised on-click="">Model</paper-button>
+                  <paper-button raised class="primary" on-click="">CCoef</paper-button>
+                  <paper-button raised class="primary" on-click="">Model</paper-button>
                   <input is="iron-input" name="pMCT" bind-value="{{pmCt}}"/>
                   </div>
                   <table class="table1">
@@ -225,66 +229,66 @@
                       <tr>
                          <td>
                            <paper-checkbox  value="1" name="{{item.name1}}" id="{{item.name1}}" ></paper-checkbox>
-                           <paper-button raised on-click="" id="{{item.value1}}">{{item.value1}}</paper-button></td>
+                           <paper-button raised class="primary" on-click="" id="{{item.value1}}">{{item.value1}}</paper-button></td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name12}}" id="{{item.name12}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value2}}">{{item.value2}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value2}}">{{item.value2}}</paper-button>
                           </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name3}}" id="{{item.name3}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value3}}">{{item.value3}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value3}}">{{item.value3}}</paper-button>
                          </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name4}}" id="{{item.name4}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value4}}">{{item.value4}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value4}}">{{item.value4}}</paper-button>
                          </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name5}}" id="{{item.name5}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value5}}">{{item.value5}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value5}}">{{item.value5}}</paper-button>
                           </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name6}}" id="{{item.name6}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value6}}">{{item.value6}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value6}}">{{item.value6}}</paper-button>
                          </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name7}}" id="{{item.name7}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value7}}">{{item.value7}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value7}}">{{item.value7}}</paper-button>
                          </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name8}}" id="{{item.name8}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value8}}">{{item.value8}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value8}}">{{item.value8}}</paper-button>
                           </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name9}}" id="{{item.name9}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value9}}">{{item.value9}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value9}}">{{item.value9}}</paper-button>
                           </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name10}}" id="{{item.name10}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value10}}">{{item.value10}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value10}}">{{item.value10}}</paper-button>
                           </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name11}}" id="{{item.name11}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value11}}">{{item.value11}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value11}}">{{item.value11}}</paper-button>
                           </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name12}}" id="{{item.name12}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value12}}">{{item.value12}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value12}}">{{item.value12}}</paper-button>
                           </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name13}}" id="{{item.name13}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value13}}">{{item.value13}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value13}}">{{item.value13}}</paper-button>
                           </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name14}}" id="{{item.name14}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value14}}">{{item.value14}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value14}}">{{item.value14}}</paper-button>
                           </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name15}}" id="{{item.name15}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value15}}">{{item.value15}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value15}}">{{item.value15}}</paper-button>
                          </td>
                           <td>
                             <paper-checkbox  value="1" name="{{item.name16}}" id="{{item.name16}}" ></paper-checkbox>
-                            <paper-button raised on-click="" id="{{item.value16}}">{{item.value16}}</paper-button>
+                            <paper-button raised class="primary" on-click="" id="{{item.value16}}">{{item.value16}}</paper-button>
                         </td>
                       </tr>
                     </template>
@@ -297,13 +301,13 @@
                   <template is="dom-repeat" items="{{pbzhus}}">
                     <input is="iron-input" name="{{item.name}}" id="{{item.name}}" bind-value="{{item.value}}" />
                   </template>
-                <paper-button raised on-click="" id="PBClear" value="Clear">Clear</paper-button>
+                <paper-button raised class="warning" on-click="" id="PBClear" value="Clear">Clear</paper-button>
               </div>
               <div class="modelCombine">
                 <span>How many models to combine: </span>
                 <input is="iron-input" name="{{PZhu108}}" bind-value="{{PZhu108}}" />
-                <paper-button raised on-click="">Sort</paper-button>
-                <paper-button raised on-click="">M</paper-button>
+                <paper-button raised class="primary" on-click="">Sort</paper-button>
+                <paper-button raised class="primary" on-click="">M</paper-button>
               </div>
               <div class="resultReview">
                 <span>What sorting results to review:</span>
@@ -321,20 +325,20 @@
                       </template>
                     </paper-listbox>
                 </paper-dropdown-menu>
-                <paper-button raised on-click="">show me</paper-button>
+                <paper-button raised class="primary" on-click="">show me</paper-button>
               </div>
               <div class="runCombination">
-                  <paper-button raised on-click="" id="Pzhu120" >Run Combination:</paper-button>
-                  <paper-button raised on-click="" id="{{pZhu601}}">{{pZhu601}}</paper-button>
+                  <paper-button raised class="success" on-click="" id="Pzhu120" >Run Combination:</paper-button>
+                  <paper-button raised class="primary" on-click="" id="{{pZhu601}}">{{pZhu601}}</paper-button>
                   <input is="iron-input" name="{{PZhu121}}" bind-value="{{PZhu121}}" />
-                  <paper-button raised on-click="">MaxPosiAnyTime</paper-button>
+                  <paper-button raised class="primary" on-click="">MaxPosiAnyTime</paper-button>
                   <input is="iron-input" name="{{PZhu301}}" bind-value="{{PZhu301}}" />
-                  <paper-button raised on-click="" id="Pzhu300" value="MaxOverNight">MaxOverNight</paper-button>
+                  <paper-button raised class="primary" on-click="" id="Pzhu300" value="MaxOverNight">MaxOverNight</paper-button>
                   <input is="iron-input" name="{{PZhu303}}" bind-value="{{PZhu303}}" />
-                  <paper-button raised on-click="">In MXL Out</paper-button>
+                  <paper-button raised class="primary" on-click="">In MXL Out</paper-button>
                   <input is="iron-input" name="{{pZhu602}}" bind-value="{{pZhu602}}" />
                   <input is="iron-input" name="{{PZhu305}}" bind-value="{{PZhu305}}" />
-                  <paper-button raised on-click="">VolatilityCap%</paper-button>
+                  <paper-button raised class="primary" on-click="">VolatilityCap%</paper-button>
                   <paper-checkbox  value="1" name="pS208" id="pS208"></paper-checkbox>
                   <paper-dropdown-menu id="Pzhu112" name="Pzhu112" value="{{selectedItem}}">
                       <paper-listbox class="dropdown-content" selected="1">
@@ -343,13 +347,13 @@
                         </template>
                       </paper-listbox>
                   </paper-dropdown-menu>
-                  <paper-button raised on-click="">Edit</paper-button>
+                  <a name="pmEdit" href="/pmEdit"><paper-button raised class="success" >Edit</paper-button></a>
               </div>
               <div class="doClear">
                 <template is="dom-repeat" items="{{pczhus}}" >
                   <input is="iron-input" name="{{item.name}}" id="{{item.name}}"bind-value="{{item.value}}" />
                 </template>
-                <paper-button raised on-click="" id="PCClear" value="Clear">Clear</paper-button>
+                <paper-button raised class="warning" on-click="" id="PCClear" value="Clear">Clear</paper-button>
               </div>
 
             </div>

@@ -14,14 +14,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-input/iron-input.html">
 
 <dom-module id="financial-forward-statistic">
-
+<link rel="import" href="../theme/denim/denim.css" type="css" >
   <template>
-      <style type="text/css">
+      <style type="css">
       :host{
         display: block;
-        color:#000000;
         width:55%;
-        font-size: 16px;
         margin:30px auto;
         padding:0;
         height:auto;
@@ -39,24 +37,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       .topItem span{
         font-weight:bold;
-        color:#00f;
       }
       input{
         width:70px;
       }
       .openClose{
-        background:#0f0;
+        /*background:#0f0;*/
         padding:2px;
         margin-top:2px;
-      }
-      a{
-        font-weight:bold;
       }
       paper-button{
         min-width:3.14em;
         margin:0 0.1em;
         padding:0.1em 0;
-        background-color: #ededed;
+        font-size:12px;
+        --paper-button:{
+         text-transform: none;
+       }
       }
       .displayTable table tr td{
         width:200px;
@@ -87,14 +84,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <a href="" name="" class="openClose">Open to Close</a>
           <span >Day no:</span>
           <input is="iron-input" name="Azhus2" id="Azhus2" value="[[zhus2]]"/>
-          <paper-button raised on-click="changeCandD">[[zhuAA]]</paper-button>
-          <paper-button raised on-click="clickOk">OK</paper-button>
-          <a name="seo" href="/test/home/seo"><paper-button raised  >SEO</paper-button></a>
-          <a name="soMesh" href="/test/home/soMesh"><paper-button raised >SO Mesh</paper-button></a>
+          <paper-button class="primary" raised on-click="changeCandD">[[zhuAA]]</paper-button>
+          <paper-button class="success" raised on-click="clickOk">OK</paper-button>
+          <a name="seo" href="/seo"><paper-button raised  class="primary">SEO</paper-button></a>
+          <a name="soMesh" href="/soMesh"><paper-button raised class="primary">SO Mesh</paper-button></a>
           <input is="iron-input" name="AzhuTE" id="AzhuTE" value="[[zhuTE]]"/>
-          <paper-button raised on-click="changeTandD">[[zhuTD]]</paper-button>
+          <paper-button raised class="primary" on-click="changeTandD">[[zhuTD]]</paper-button>
           <a href="" name="" class="openClose">Open to Close</a>
-          <paper-button raised on-click="clickNewRun">[[NewORew]]</paper-button>
+          <paper-button raised class="primary" on-click="clickNewRun">[[NewORew]]</paper-button>
         </div>
         <div class="displayTable">
           <table>

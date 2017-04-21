@@ -1,8 +1,7 @@
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
-
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
@@ -12,27 +11,68 @@
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
+<!-- <link rel="import" href="../bower_components/paper-styles/paper-styles.html"> -->
 
 <link rel="import" href="../financial-login.html">
 
 <dom-module id="layout-main">
-
+  <!-- <link rel="import" href="../../theme/denim/denim.css" type="css"> -->
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host{
         width:100%;
         height:100%;
       }
+      paper-button{
+        --paper-button:{
+          text-transform: capitalize;
+        }
+      }
+      paper-button{
+        border: 0;
+      }
+      paper-button.link:hover{
+        box-shadow: 0;
+        text-decoration:underline;
+        background-color: var(--dark-primary-color);
+        --paper-button:{
+          text-transform: capitalize;
+        }
+      }
       paper-drawer-panel {
+        --paper-drawer-panel-scrim-opacity:0;
         --paper-drawer-panel-scrim:{
           opacity:0;
           z-index:0;
           width:0;
+          pointer-events: none;
         };
       }
       paper-drawer-panel .content.fit{
         height:100%;
+      }
+      paper-header-panel{
+        position:relative;
+      }
+      paper-header-panel .center_logo{
+        /*width:50%;*/
+        position:absolute;
+        right:50%;
+        transform:translate(50%,0);
+        z-index:0;
+      }
+      paper-header-panel .header_right{
+        position:absolute;
+        right:1%;
+        z-index:1;
+      }
+      paper-drawer-panel paper-header-panel[main]{
+        transition: margin-left 0.5s;
+        -moz-transition: margin-left 0.5s;	/* Firefox 4 */
+        -webkit-transition: margin-left 0.5s;	/* Safari 和 Chrome */
+        -o-transition: margin-left 0.5s;	/* Opera */
       }
       /*paper-header-panel{
         width:100%;
@@ -41,29 +81,34 @@
         height: 100%;
       }*/
     </style>
-    <iron-media-query query="max-width: 767px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <iron-media-query query="max-width: 1000px" query-matches="{{_smallScreen}}"></iron-media-query>
 
-    <paper-drawer-panel id="drawerContainer" responsive-width="4000px" drawer-width="208" style="touch-action:pan-y;" narrow selected="main">
+    <paper-drawer-panel id="drawerContainer"
+        responsive-width="400px"
+        drawer-width="220px"
+        style="touch-action:pan-y;"
+         force-narrow selected="{{selected}}"
+        drawer-focus-selector=""
+        disable-swipe>
         <!-- main part -->
-          <paper-header-panel main mode="standard" style="left:0;">
+          <paper-header-panel main mode="standard" style="[[_computedDrawerMainStyle(selected)]]">
             <paper-toolbar class="animate has-shadow">
                 <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-                <div id="top-nav-right-links">
-                  <a href="http://polymertemplates.com/" target="_blank" title="Premium Polymer Website Templates">Premium Templates</a>
-                  <a href="https://madewithpolymer.com/" target="_blank" title="Apps and websites made with Polymer">Made With <span class="hidden-mobile">Polymer</span>
-                    <span class="hidden-desktop"><i class="material-icons">polymer</i></span>
-                  </a>
+                <div class="center_logo"><img src="../../images/login/tb_01.jpg" style="height:56px;"></div>
+                <div class="header_right">
+                  <paper-button class='link' raised>Sign In</paper-button>
+                  <paper-button class='link' raised>Sign up</paper-button>
                 </div>
             </paper-toolbar>
             <!-- main content pages -->
-            <div class="content fit"><content select=".mainContent"></content></div>
+            <div class="content fit "><content select=".mainContent"></content></div>
           </paper-header-panel>
           <!-- drawer part -->
-          <paper-header-panel drawer mode="standard" >
+          <paper-header-panel drawer mode="standard" style="width:220px;">
             <paper-toolbar>
                 <div main-title>
                   <a href="/pulse/homepage.html" target="_self">
-                    <img style='width: 155px;height: 60px;' src="../../images/login/b_logo.png" />
+                    <img style='width: 150px;height: 60px;' src="../../images/login/b_logo.png" />
                   </a>
                 </div>
                 <paper-icon-button icon="arrow-back" paper-drawer-toggle label="Go back"></paper-icon-button>
@@ -82,9 +127,15 @@
     Polymer({
 
       is: 'layout-main',
-
+      behaviors: [Polymer.NeonAnimationRunnerBehavior],
       properties: {
+        selected:{
+          type:String,
+          value:"drawer",
+          notify:true
+        },
         categories: Array,
+        _smallScreen:Boolean,
 
         category: Object,
 
@@ -99,12 +150,25 @@
         }
 
       },
+      observers:["_observerDrawerSelected(selected)"],
       ready:function(){
         this.$.drawerContainer.openDrawer();
       },
 
       closeDrawer: function() {
         this.drawerOpened = false;
+      },
+      _observerDrawerSelected:function(selected){
+
+      },
+      _computedDrawerMainStyle:function(selected){
+        var style = "";
+        if(selected == "drawer"){
+          style = "margin-left:220px;";
+        }else if(selected == "main"){
+          style = "margin-left:0;";
+        }
+        return style;
       },
 
       _shouldRenderDrawer: function(smallScreen, loadComplete) {

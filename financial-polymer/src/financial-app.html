@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/paper-styles/paper-styles.html"> -->
 <!-- <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
@@ -44,8 +45,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="financial-app">
 
   <!-- <link rel="import" href="../theme/sky/sky.css" type="css"> -->
-  <link rel="import" href="../theme/everest/everest.css" type="text/css">
-  <!-- <link rel="import" href="../theme/citric-flames/citric-flames.css" type="text/css"> -->
+  <!-- <link rel="import" href="../theme/everest/everest.css" type="css"> -->
+  <!-- <link rel="import" href="../theme/denim/denim.css" type="css"> -->
+  <!-- <link rel="import" href="../theme/citric-flames/citric-flames.css" type="css"> -->
   <template>
     <style>
     .menu-items{
@@ -91,41 +93,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            <financial-terms-use name="use"></financial-terms-use>
 
            <financial-whyUseFPW name="reason" route="[[subroute]]"></financial-whyUseFPW>
-            <financial-service name="service" route="[[subroute]]"></financial-service>
-            <financial-chinese name="chinese" route="[[subroute]]"></financial-chinese>
+          <financial-service name="service" route="[[subroute]]"></financial-service>
+          <financial-chinese name="chinese" route="[[subroute]]"></financial-chinese>
            <financial-registerForm name="signUp" route="[[subroute]]"></financial-registerForm>
            <financial-feedbackForm name="feedback"route="[[subroute]]"></financial-feedbackForm>
-           <financial-pattern-work-app name="loginOn"></financial-pattern-work-app>
-           <financial-pattern-work-app name="record"></financial-pattern-work-app>
-           <financial-pattern-work-app name="PatternWorkshopPro">
-           </financial-pattern-work-app>
-           <financial-pattern-work-app
+           <financial-pattern-work name="loginOn"></financial-pattern-work>
+           <financial-patternwork-user-record name="record"></financial-patternwork-user-record>
+           <financial-patternworkshop-pro name="PatternWorkshopPro">
+           </financial-patternworkshop-pro>
+           <financial-forward-statistic
               name="ForwardStatistics">
-           </financial-pattern-work-app>
-           <financial-pattern-work-app
+           </financial-forward-statistic>
+           <financial-portfolioManager
               name="PortfolioManager" >
-           </financial-pattern-work-app>
-           <financial-pattern-work-app
+           </financial-portfolioManager>
+           <financial-pattern-work-shop
             name="PatternWorkshop">
-          </financial-pattern-work-app>
-          <financial-pattern-work-app
+          </financial-pattern-work-shop>
+          <financial-seo
            name="seo">
-          </financial-pattern-work-app>
-          <financial-pattern-work-app
+         </financial-seo>
+          <financial-somesh
            name="soMesh">
-          </financial-pattern-work-app>
-          <financial-pattern-work-app
+         </financial-somesh>
+         <financial-PM-Edit
+           name="pmEdit">
+           </financial-PM-Edit>
+          <financial-market-pulse-pro
            name="MarketPulsePro">
-          </financial-pattern-work-app>
-          <financial-pattern-work-app
+          </financial-market-pulse-pro>
+          <financial-market-pulse
            name="MarketPulse">
-          </financial-pattern-work-app>
-          <financial-pattern-work-app
+          </financial-market-pulse>
+          <financial-mp-statistics
            name="MPStatistics">
-          </financial-pattern-work-app>
-          <financial-pattern-work-app
+          </financial-mp-statistics>
+          <analog-analytic-tool
             name='AnalogAnalytictool'>
-          </financial-pattern-work-app>
+          </analog-analytic-tool>
            <financial-thankyou name="reLogin" >
          </financial-thankyou>
 
@@ -242,13 +247,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              href = 'financial-chinese.html';
              break;
            case 'signUp':
-             href = 'financial-register-app.html';
+             href = 'financial-registerForm.html';
              break;
            case 'feedback':
              href = 'financial-feedbackForm.html';
              break;
           case 'loginOn':
-             href = 'financial-pattern-work-app.html';
+             href = 'financial-pattern-work.html';
              break;
           case 'use':
              href = 'financial-terms-use.html';
@@ -256,11 +261,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           case 'reLogin':
             href = 'financial-thankyou.html';
             break;
+          case 'PatternWorkshopPro':
+           href = 'financial-patternworkshop-pro.html';
+           break;
+
+          case 'ForwardStatistics':
+           href = 'financial-forward-statistic.html';
+            break;
+          case 'PortfolioManager':
+           href = 'financial-portfolioManager.html';
+           break;
+          case 'PatternWorkshop':
+           href = 'financial-pattern-work-shop.html';
+           break;
+          case 'MarketPulsePro':
+            href = 'financial-market-pulse-pro.html';
+            break;
+          case 'MarketPulse':
+             href = 'financial-market-pulse.html';
+             break;
+          case 'MPStatistics':
+              href = 'financial-mp-statistics.html';
+              break;
+          case 'AnalogAnalytictool':
+               href = 'analog-analytic-tool.html';
+               break;
           case 'seo':
             href= 'financial-seo.html';
             break;
           case 'soMesh':
-            href = 'financial-somesh.html';
+              href = 'financial-somesh.html';
+              break;
+          case 'pmEdit':
+            href = 'financial-PM-Edit.html';
+            break;
+          case 'record':
+           href = 'financial-patternwork-user-record.html';
             break;
            default:
              href = 'news-path-warning.html';
@@ -284,13 +320,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       _pageLoaded: function(shouldResetLayout) {
         this._ensureLazyLoaded();
-        if (shouldResetLayout) {
-          // The size of the header depends on the page (e.g. on some pages the tabs
-          // do not appear), so reset the header's layout only when switching pages.
-          this.async(function() {
-            this.$.header.resetLayout();
-          }, 1);
-        }
+        // The size of the header depends on the page (e.g. on some pages the tabs
+        // do not appear), so reset the header's layout only when switching pages.
+        // if (shouldResetLayout) {
+        //   this.async(function() {
+        //     this.$.header.resetLayout();
+        //   }, 1);
+        // }
       },
 
       _ensureLazyLoaded: function() {

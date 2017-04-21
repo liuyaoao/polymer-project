@@ -8,6 +8,7 @@
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
 <link rel='import' href='../bower_components/paper-item/paper-icon-item.html'>
 
 <!-- <link rel="import" href="../bower_components/paper-button/paper-button.html"> -->
@@ -15,7 +16,7 @@
 <!-- <link rel="import" href="../bower_components/paper-styles/demo-pages.html"> -->
 
 <dom-module id="news-header">
-
+<link rel="import" href="../../theme/denim/denim.css" type="css">
   <template>
       <style include="iron-flex iron-flex-alignment iron-positioning">
       :host{
@@ -35,9 +36,9 @@
       }
       paper-menu {
         height: 98%;
-        overflow: auto;
+        overflow: hidden;
         padding-bottom: 0;
-        background-color: #fff;
+        /*background-color: #fff;*/
       }
 
       paper-icon-item {
@@ -50,30 +51,32 @@
         };
 
         --paper-item-selected: {
-          color: var(--default-primary-color);
+          /*color: var(--default-primary-color);*/
           background-color: var(--paper-grey-200);
           opacity: 1;
         };
       }
-      paper-icon-item a {
-        font-family: 'Roboto',sans-serif;
+      paper-menu a {
+        text-decoration: none;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         text-decoration: none;
       }
-      paper-icon-item .item-text {
+      paper-menu .item-text {
+        display:inline-block;
+        width:100%;
+        height:100%;
         @apply(--side-item-text);
       }
-      paper-icon-item.iron-selected .item-text {
+      /*paper-icon-item.iron-selected {
         opacity: 1;
-      }
-      paper-icon-item.feedback {
+      }*/
+      /*paper-icon-item.feedback {
         margin-top: 16px;
-      }
+      }*/
       paper-icon-item:hover {
-        text-decoration: none;
-        background-color: var(--paper-grey-100);
+        background-color: var(--dark-primary-color);
       }
       paper-icon-item.iron-selected {
         --paper-item-icon: {
@@ -85,35 +88,65 @@
       </style>
       <div class="logo_container">
         <paper-menu attr-for-selected='data-panel' selected='[[hass.currentPanel]]' on-iron-select='menuSelect'>
-          <paper-icon-item on-tap='menuClicked' data-panel='login'>
-            <iron-icon item-icon icon='home'></iron-icon>
-            <a name="login" href="/test/home/login" class='item-text'>home</a>
-          </paper-icon-item>
+            <a name="login" href="/login" class='item-text'>
+              <paper-icon-item two-line on-tap='menuClicked' data-panel='login'>
+                <iron-icon item-icon icon='home'></iron-icon>home
+                <paper-ripple></paper-ripple>
+              </paper-icon-item>
+            </a>
 
-          <paper-icon-item on-tap='menuClicked' data-panel='company'>
-            <iron-icon item-icon icon='room'></iron-icon>
-            <a name="company" href="/test/home/company" class='item-text'>Company</a>
-          </paper-icon-item>
+            <a name="company" href="/company" class='item-text'>
+              <paper-icon-item two-line on-tap='menuClicked' data-panel='company'>
+                <iron-icon item-icon icon='room'></iron-icon>Company
+                <paper-ripple></paper-ripple>
+              </paper-icon-item>
+            </a>
 
-          <paper-icon-item on-tap='menuClicked' data-panel='contact' class='contact'>
-            <iron-icon item-icon icon='settings-phone'></iron-icon>
-            <a name="contact" href="/test/home/contact" class='item-text'>Contact Us</a>
-          </paper-icon-item>
+            <a name="contact" href="/contact" class='item-text'>
+              <paper-icon-item on-tap='menuClicked' data-panel='contact' class='contact'>
+                <iron-icon item-icon icon='settings-phone'></iron-icon>Contact Us
+                <paper-ripple></paper-ripple>
+              </paper-icon-item>
+            </a>
 
-          <paper-icon-item on-tap='menuClicked' data-panel='privacy' class='privacy'>
-            <iron-icon item-icon icon='account-box'></iron-icon>
-            <a name="privacy" href="/test/home/privacy" class='item-text'>Privacy</a>
-          </paper-icon-item>
+            <a name="privacy" href="/privacy" class='item-text'>
+              <paper-icon-item on-tap='menuClicked' data-panel='privacy' class='privacy'>
+                <iron-icon item-icon icon='account-box'></iron-icon>Privacy
+                <paper-ripple></paper-ripple>
+              </paper-icon-item>
+            </a>
 
-          <paper-icon-item on-tap='menuClicked' data-panel='use' class='use'>
-            <iron-icon item-icon icon='work'></iron-icon>
-            <a name="use" href="/test/home/use" class='item-text'>Terms of Use</a>
-          </paper-icon-item>
+            <a name="use" href="/use" class='item-text'>
+              <paper-icon-item on-tap='menuClicked' data-panel='use' class='use'>
+                <iron-icon item-icon icon='shop'></iron-icon>Terms of Use
+                <paper-ripple></paper-ripple>
+              </paper-icon-item>
+            </a>
 
-          <paper-icon-item on-tap='menuClicked' data-panel='feedback' class='feedback' on-click="_feedback">
-            <iron-icon item-icon icon='feedback'></iron-icon>
-            <a href="javascript:;" class='item-text'>Feedback</a>
-          </paper-icon-item>
+            <a name="feedback" href="/feedback"  class='item-text'>
+              <paper-icon-item on-tap='menuClicked' data-panel='feedback' class='feedback' >
+                <iron-icon item-icon icon='feedback'></iron-icon>Feedback
+                <paper-ripple></paper-ripple>
+              </paper-icon-item>
+            </a>
+
+            <a name="service" href="/service" class='item-text'>
+              <paper-icon-item on-tap='menuClicked' data-panel='service' class='service'>
+                <iron-icon item-icon icon='settings'></iron-icon>Service
+              </paper-icon-item>
+            </a>
+
+            <a name="reason" href="/reason" class='item-text'>
+              <paper-icon-item on-tap='menuClicked' data-panel='reason' class='reason'>
+                <iron-icon item-icon icon='book'></iron-icon>Why use FPW?
+              </paper-icon-item>
+            </a>
+
+            <a name="chinese" href="/chinese" class='item-text'>
+              <paper-icon-item on-tap='menuClicked' data-panel='chinese' class='chinese'>
+                <iron-icon item-icon icon='work'></iron-icon>中文
+              </paper-icon-item>
+            </a>
         </paper-menu>
 
           <!-- <div class="container">
@@ -159,6 +192,19 @@
           notify: true
         }
 
+      },
+      created: function () {
+        this._boundUpdateStyles = this.updateStyles.bind(this);
+      },
+      menuSelect: function () {
+        // this.debounce('updateStyles', this._boundUpdateStyles, 1);
+      },
+      menuClicked: function (ev) {
+        var target = ev.target;
+        // var href = target.getAttribute('data-href');
+        // if (href) {
+        //   window.location.href = href;
+        // }
       },
       _feedback:function(){
 

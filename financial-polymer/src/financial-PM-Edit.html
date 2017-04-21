@@ -20,13 +20,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 <dom-module id="financial-PM-Edit">
-
+<link rel="import" href="../theme/denim/denim.css" type="css">
   <template>
 
     <style include="app-grid-style">
     :host {
       display: block;
-      color:#0000ff;
       width:40%;
       padding:0;
       margin:30px auto;
@@ -54,9 +53,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <input type="hidden" name="mlid4" id="mlid4"value="[[userName4]]" />
         <input type="hidden" name="outrunindex" id="outrunindex" value="[[runIndex]]" />
         <input type="hidden" name="WhereOrderFrom" id="WhereOrderFrom" value="SLFE" />
-        =
+
           <div class="pmFilterEditor">
-            <a href="test/home/PMfilterEditor" name="PMfilterEditor">PM filter Editor</a>
+            <a href="/PMfilterEditor" name="PMfilterEditor">PM filter Editor</a>
             <paper-button raised on-click="clickDelete" id="fpwptload3">Delete</paper-button>
             <paper-button raised on-click="clickReview" id="fpwptload1">Review</paper-button>
             <input is="iron-input" name="Pzhu118" id="Pzhu118" bind-value="[[PZhu118]]" />
@@ -130,7 +129,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         submit.value='{"mlmfile":"wbfpwpmts","fpwulvl":"'+this.serviceData+'","mlid":"'+this.userName+'","mlid4":"'+this.userName4+'","outrunindex":"'+this.runIdex+
         '","WhereOrderFrom":"SLFE","Pzhu118":"'+this.PZhu118+'","Pzhu112":"'+selectV+'","fpwpmt1":"'+this.fpwpmt1+'","fpwpmt2":"'+this.fpwpmt2+
       '","fpwpmt3":"'+this.fpwpmt3+'","fpwpmt4":"'+this.fpwpmt4+'","fpwpmt5":"'+this.fpwpmt5+'","fpwpmt6":"'+this.fpwpmt6+'","fpwpmt7":"'
-      +this.fpwpmt7+'","fpwpmt8":"'+this.fpwpmt8+'","fpwpmt9":"'+this.fpwpmt9'}';
+      +this.fpwpmt7+'","fpwpmt8":"'+this.fpwpmt8+'","fpwpmt9":"'+this.fpwpmt9+'"}';
         this.$.fpwPMTSform.submit();
       },
       clickDelete:function(){

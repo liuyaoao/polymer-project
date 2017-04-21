@@ -1,19 +1,20 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 <dom-module id="financial-contact">
+  <!-- <link rel="import" href="../theme/denim/denim.css" type="css"> -->
   <template>
       <style >
         :host {
           display: block;
-          color:#000000;
-          width:40%;
+          width:50%;
           margin:30px auto;
-          font-size:16px;
         }
         .companyContent span{
           font-weight:bold;
-          color:#0000ff;
-          font-size:18px;
+        }
+        a{
+          text-decoration: underline;
+          color:#ffb74d !important;
         }
       </style>
       <div class="contactContent">
@@ -24,7 +25,7 @@
           <li><a href="#">  To Open Account</a></li>
           <li><a href="#">  About Website</a></li>
         </ul>
-        <p>To report program errors or to ask for technical support, please using our <a href="#">feedback form </a>
+        <p>To report program errors or to ask for technical support, please using our <a href="/feedback" name="feedback">feedback form </a>
           to get immediate answers. For registered members, if it is an emergency, please call us directly.</p>
       </div>
     </template>

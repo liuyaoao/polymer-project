@@ -18,12 +18,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 
 <dom-module id="financial-patternworkshop-pro">
-
+<link rel="import" href="../theme/denim/denim.css" type="css">
   <template>
       <style include="app-grid-style" type="text/css">
         :host{
           display: block;
-          color:#000000;
           width:65%;
           font-size: 14px;
           margin:30px auto;
@@ -49,16 +48,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           float:left;
           width:50%;
         }
-        .topTable tr td{
+        /*.topTable tr:first-child td{
           border:1px solid #ddd;
+        }*/
+        .topTable tr td{
+          border-right:1px solid #ddd;
+          border-bottom:1px solid #ddd;
         }
+        /*.topTable tr:first-child td{
+          border-top:1px solid #ddd;
+        }*/
         .topTable tr td:first-child{
           width:98px;
-          background:#0f0;
-          border:1px solid #ddd;
+          border-left:1px solid #ddd;
         }
         .topTable tr td:nth-child(2){
-          width:96px;
+          width:98px;
         }
         .middleTable tr{
           width:100%;
@@ -70,10 +75,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         input{
           width:60px;
           height:21px;
+          margin:1px;
         }
 
         .FS,.G{
-          border:1px solid #ddd;
+          border-bottom:1px solid #ddd;
         }
         .FS input,.G input{
           width:110px;
@@ -83,9 +89,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           font-size: 16px;
         }
         paper-button {
-          padding:0.1em 0;
+          padding:2px 0;
           min-width: 2.14em ;
-          margin:0;
+          margin:2px 1px;
           height:2.14em;
           font-size:12px;
           --paper-button:{
@@ -94,7 +100,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         paper-dropdown-menu{
           width:6.5em;
-          padding:0;
+          --paper-input-container:{
+              padding:0;
+            }
         }
         paper-dropdown-menu.runStatus{
           width:9.5em;
@@ -126,21 +134,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .mainBottom input.long{
           width:84%;
         }
+        .finalFooter .item{
+          border:1px solid #ddd;
+          border-top:none;
+        }
         .finalFooter paper-button{
           min-width: 5.14em ;
-          margin-left:7px;
+          margin:2px 0 3px 7px;
         }
         .finalFooter iframe{
           margin-left:10px;
+          border:none;
         }
         .patternworkshopPro{
           margin-bottom: 15px;
         }
         financial-pattern-footer{
           font-size:16px;
-        }
-        paper-button{
-          background-color: #ededed;
         }
       </style>
     <div class="patternworkshopPro">
@@ -186,11 +196,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <tr><td>Loss</td><td></td><td></td><td></td><td></td><td></td></tr>
             </table>
             <div class="FS">
-                <paper-button raised on-click="_handleDeleteClick" title="Delete previously saved simulation result, will open an interface to let user choose.">Del</paper-button>
-                <paper-button raised on-click="_handleLoadClick">Load</paper-button>
-                <input is="iron-input" name="outptname"  bind-value="{{outputName}}"/>
-                <paper-button raised on-click="_handleSaveClick" id="outSave">Save</paper-button>
-                <paper-button raised on-click="" >|</paper-button>
+                <paper-button raised  class="warning" on-click="_handleDeleteClick" title="Delete previously saved simulation result, will open an interface to let user choose.">Del</paper-button>
+                <paper-button raised  class="primary" on-click="_handleLoadClick">Load</paper-button>
+                <input is="iron-input"   bind-value="{{outputName}}"/>
+                <paper-button raised  class="primary" on-click="_handleSaveClick" id="outSave">Save</paper-button>
+                <paper-button raised  class="primary" on-click="" >|</paper-button>
                 <a class="link" href="" name="">FS</a>
                 <paper-dropdown-menu id="outFSspan" name="outFSspan" value="" dynamicAlign="true">
                     <paper-listbox class="dropdown-content" selected="1">
@@ -200,16 +210,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       </template>
                     </paper-listbox>
                 </paper-dropdown-menu>
-                <paper-button raised on-click="_handleGoClick" >Go</paper-button>
+                <paper-button raised class="success" on-click="_handleGoClick" >Go</paper-button>
             </div>
             <div class="G">
                 <a class="link" href="" name="">G:</a>
-                <paper-button raised on-click="_handleNewGeneticRunClick" id="outGOror">New Genetic Run</paper-button>
-                <paper-button raised on-click="_handle1Click">1</paper-button>
-                <paper-button raised on-click="">12</paper-button>
-                <paper-button raised on-click="">123</paper-button>
-                <paper-button raised on-click="">12X</paper-button>
-                <paper-button raised on-click="">123X</paper-button>
+                <paper-button raised class="primary" on-click="_handleNewGeneticRunClick" id="outGOror">New Genetic Run</paper-button>
+                <paper-button raised class="primary" on-click="_handle1Click">1</paper-button>
+                <paper-button raised class="primary" on-click="">12</paper-button>
+                <paper-button raised class="primary" on-click="">123</paper-button>
+                <paper-button raised class="primary" on-click="">12X</paper-button>
+                <paper-button raised class="primary" on-click="">123X</paper-button>
                 <input is="iron-input" name="outGOsm" validator="" bind-value="{{outGosm}}"/>
             </div>
         </div>
@@ -222,7 +232,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </template>
                   </paper-listbox>
               </paper-dropdown-menu>
-              <paper-button raised on-click="_handleRunClick" id="outDSMRun">Run</paper-button>
+              <paper-button raised class="success" on-click="_handleRunClick" id="outDSMRun">Run</paper-button>
               <paper-dropdown-menu id="outTW" class="outTW" name="outTW" value="{{selectedItem}}" dynamicAlign="true">
                   <paper-listbox class="dropdown-content" selected="1">
                     <template is="dom-repeat" items="{{outTW}}" >
@@ -230,22 +240,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </template>
                   </paper-listbox>
               </paper-dropdown-menu>
-              <paper-button raised on-click="_handleTransferClick" id="outTGo">Transfer</paper-button>
+              <paper-button raised class="success" on-click="_handleTransferClick" id="outTGo">Transfer</paper-button>
               <span class="link">F</span>
-              <paper-button raised on-click="javascript: onclickFT(50,'F','L');" ><-</paper-button>
-              <paper-button raised on-click="javascript: onclickFT(1,'F','L');" ><</paper-button>
+              <paper-button raised class="primary" on-click="javascript: onclickFT(50,'F','L');" ><-</paper-button>
+              <paper-button raised class="primary" on-click="javascript: onclickFT(1,'F','L');" ><</paper-button>
               <input is="iron-input" name="outFdate" id="outFdate" validator="" bind-value="{{outFdate}}"/>
-              <paper-button raised on-click="javascript: onclickFT(1,'F','R');" >></paper-button>
-              <paper-button raised on-click="javascript: onclickFT(50,'F','R');" >>-</paper-button>
+              <paper-button raised class="primary" on-click="javascript: onclickFT(1,'F','R');" >></paper-button>
+              <paper-button raised class="primary" on-click="javascript: onclickFT(50,'F','R');" >>-</paper-button>
               <span class="link">T</span>
-              <paper-button raised on-click="javascript: onclickFT(50,'T','L');" ><-</paper-button>
-              <paper-button raised on-click="javascript: onclickFT(1,'T','L');" ><</paper-button>
+              <paper-button raised class="primary" on-click="javascript: onclickFT(50,'T','L');" ><-</paper-button>
+              <paper-button raised class="primary" on-click="javascript: onclickFT(1,'T','L');" ><</paper-button>
               <input is="iron-input" name="outTdate" id="outTdate" validator="" bind-value="{{outTdate}}"/>
-              <paper-button raised on-click="javascript: onclickFT(1,'T','R');" >></paper-button>
-              <paper-button raised on-click="javascript: onclickFT(50,'T','R');" >-></paper-button>
-              <paper-button raised on-click="_handleNETgoClick" id="outNETgo">Go</paper-button>
-              <paper-button raised on-click="_handleOutNClick" >{{outn}}</paper-button>
-              <paper-button raised on-click="_handleoutonoffClick" id="outonoff">{{outOnoff}}</paper-button>
+              <paper-button raised class="primary" on-click="javascript: onclickFT(1,'T','R');" >></paper-button>
+              <paper-button raised class="primary" on-click="javascript: onclickFT(50,'T','R');" >-></paper-button>
+              <paper-button raised class="success" on-click="_handleNETgoClick" id="outNETgo">Go</paper-button>
+              <paper-button raised class="primary" on-click="_handleOutNClick" >12{{outn}}</paper-button>
+              <paper-button raised class="primary" on-click="_handleoutonoffClick" id="outonoff">23{{outOnoff}}</paper-button>
             </div>
             <div><img src="../images/fpwoutjpeg.jpg" /></div>
             <div class="mainBottom">
@@ -255,23 +265,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <input is="iron-input" name="outAnyS" id="outAnyS" validator="" bind-value="{{outAnyS}}"/>
                 </div>
                 <div>
-                  <paper-button raised on-click="_handleViewClick" >View</paper-button>
+                  <paper-button raised class="success" on-click="_handleViewClick" >View</paper-button>
                   <input is="iron-input" class="long" name="outAnyD" id="outAnyD" validator="" bind-value="{{outAnyD}}"/>
-                  <paper-button class="ok" raised on-click="_handleOKClick" >OK</paper-button>
+                  <paper-button class="success ok" raised on-click="_handleOKClick" >OK</paper-button>
                 </div>
             </div>
         </div>
       </div>
       <div class="app-grid finalFooter">
         <div class="item">
-          <paper-button raised on-click="" >T-List</paper-button>
-          <paper-button raised on-click="" >Setup Chart</paper-button>
-          <paper-button raised on-click="" >Statistics ||</paper-button>
-          <paper-button raised on-click="" >Portfolio</paper-button>
-          <paper-button raised on-click="" >Time</paper-button>
+          <paper-button raised class="primary" on-click="" >T-List</paper-button>
+          <paper-button raised class="primary" on-click="" >Setup Chart</paper-button>
+          <paper-button raised class="primary" on-click="" >Statistics ||</paper-button>
+          <paper-button raised class="primary" on-click="" >Portfolio</paper-button>
+          <paper-button raised class="primary" on-click="" >Time</paper-button>
         </div>
         <div class="item">
-          <iframe name="FPWoutstatus" width="807" height="22" src="{{outStatus}}">
+          <iframe name="FPWoutstatus" width="98%" height="22" src="{{outStatus}}">
             Your browser does not support inline frames or is currently configured not to display inline frames.</iframe>
         </div>
       </div>

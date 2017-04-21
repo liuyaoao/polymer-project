@@ -17,13 +17,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/gold-email-input/gold-email-input.html">
 
 <dom-module id="financial-feedbackForm">
-
+<link rel="import" href="../theme/denim/denim.css" type="css">
   <template>
     <style>
     :host {
       display: block;
-      color:#0000ff;
-      width:40%;
+      width:50%;
       margin:30px auto;
       padding:0;
       height:auto;
@@ -54,10 +53,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       width:80%;
       margin:10px auto;
     }
+    h1{
+      text-align: center;
+    }
+    paper-button{
+      --paper-button:{
+       text-transform: none;
+     }
+    }
     </style>
     <div class="feedbackFormContent">
-      <div ><img src="../images/logo.png"/><img src="../images/login/tb_01.jpg"/></div>
-      <hr color="ffc875"/>
       <div class="formContent">
           <h1>Feedback Form</h1>
           <p>Please give us your comments and suggestions.</p>

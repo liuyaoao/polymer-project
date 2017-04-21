@@ -27,30 +27,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 <dom-module id="financial-pattern-work-shop">
-
+<link rel="import" href="../theme/denim/denim.css" type="css">
   <template>
 
     <style include="app-grid-style">
     :host {
       display: block;
-      color:#000;
-      width:80%;
+      width:82%;
       padding:0;
       margin:30px auto;
       --app-grid-columns:3;
       --app-grid-expandible-item-columns: 2;
     }
-    .item,.item>div{
+    .item{
       border:1px solid #ddd;
     }
+    .item:first-child{
+      border-right-color:transparent;
+    }
+    .item:nth-child(2){
+      border-right-color:transparent;
+    }
+    .item>div{
+      border-bottom:1px solid #ddd;
+      margin:1px;
+    }
       iframe{
-        height:40px;
+        /*height:auto;*/
+        border:none;
       }
     paper-button{
-      min-width:0.79em;
-      margin:2px;
+      min-width:1.49em;
+      min-height:1.49em;
+      margin:1px;
       padding:0;
-      background-color: #ededed;
+      font-size: 14px;
       --paper-button:{
            text-transform: none;
          }
@@ -64,7 +75,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     paper-dropdown-menu{
       width:2.5em;
-      padding:0;
+      --paper-input-container:{
+          padding:0;
+        }
     }
     #fpwchartspan{
       width:5.0em;
@@ -77,14 +90,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }*/
 
     .zhu06s{
-      border:1px solid #ebebeb;
+      border-bottom:1px solid #ebebeb;
       font-family:Arial (fantasy);
       text-align:center;
       background-color:#EBEBEB;
-
     }
     .zhus{
-      border:1px solid #EBEBEB;
+      border-bottom:1px solid #EBEBEB;
       text-align: center;
       font-size:10pt;
       background-color:#EBEBEB
@@ -99,6 +111,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .enter>div,.exit>div,.stop>div,.obje>div{
       width:99%;
       border:1px solid #ddd;
+      margin:1px;
       text-align: center;
       overflow:hidden;
     }
@@ -108,7 +121,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     iron-autogrow-textarea{
       width:99%;
-      height:150px;
+      /*height:190px;*/
     }
     .exitRole>div>iron-autogrow-textarea,
     .stopRole>div>iron-autogrow-textarea,
@@ -120,15 +133,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     .ez{
       float:right;
-      background-color: #0f0;
-      color:#fff;
-      font-weight:bold;
     }
     financial-pattern-footer{
       font-size:16px;
     }
     .financialPatternWorkShop{
       margin-bottom:15px;
+    }
+    div.bottomMkt{
+        border-bottom: 1px solid transparent;
+        padding-left:3px;
     }
     </style>
     <div class="financialPatternWorkShop">
@@ -194,17 +208,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <div class="item">
                 <div >
                   <a href="test/home/" name="">F</a>
-                  <paper-button raised on-click="" id="Fleft50"><-</paper-button>
-                  <paper-button raised on-click="" id="Fleft1"><</paper-button>
+                  <paper-button raised class="primary" on-click="" id="Fleft50"><-</paper-button>
+                  <paper-button raised class="primary" on-click="" id="Fleft1"><</paper-button>
                   <input is="iron-input" name="fpwFdate" id="fpwFdate" bind-value="{{fpwFdate}}"/>
-                  <paper-button raised on-click="" id="Fright1">></paper-button>
-                  <paper-button raised on-click="" id="Fright50">-></paper-button>
+                  <paper-button raised class="primary" on-click="" id="Fright1">></paper-button>
+                  <paper-button raised class="primary" on-click="" id="Fright50">-></paper-button>
                   <a href="test/home/" name="">T</a>
-                  <paper-button raised on-click="" id="Tleft50"><-</paper-button>
-                  <paper-button raised on-click="" id="Tleft1"><</paper-button>
+                  <paper-button raised class="primary" on-click="" id="Tleft50"><-</paper-button>
+                  <paper-button raised class="primary" on-click="" id="Tleft1"><</paper-button>
                   <input is="iron-input" name="fpwTdate" id="fpwTdate" bind-value="{{fpwTdate}}"/>
-                  <paper-button raised on-click="">></paper-button>
-                  <paper-button raised on-click="">-></paper-button>
+                  <paper-button raised class="primary" on-click="">></paper-button>
+                  <paper-button raised class="primary" on-click="">-></paper-button>
                   <paper-dropdown-menu  name="fpwchartspan" id="fpwchartspan" value="{{selectedItem}}">
                       <paper-listbox class="dropdown-content" selected="1">
                         <template is="dom-repeat" items="{{frequency}}" >
@@ -212,17 +226,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         </template>
                       </paper-listbox>
                   </paper-dropdown-menu>
-                  <paper-button raised on-click="" id="fpwgo">Go</paper-button>
+                  <paper-button raised class="success" on-click="" id="fpwgo">Go</paper-button>
                 </div>
                 <div>
-                  <iron-image  src="/{{fpwjpeg}}" style="width:460px;height:310px;"alt="The white bars are hourly, daily, monthly open or Friday bars."></iron-image>
+                  <iron-image  src="/{{fpwjpeg}}" style="width:100%;height:310px;" ></iron-image>
                 </div>
                 <div>
                    <a href="test/name/" name="">P/R Editor</a>
-                   <paper-button raised on-click="" id="fpwptez1">EZ</paper-button>
-                   <paper-button raised on-click="" id="fpwptdelete">Delete</paper-button>
-                   <paper-button raised on-click="" id="fpwptez1">Load</paper-button>
-                   <paper-button raised on-click="" id="fpwpttype" >{{fpwpttype}}</paper-button>
+                   <paper-button raised class="primary" on-click="" id="fpwptez1">EZ</paper-button>
+                   <paper-button raised class="warning" on-click="" id="fpwptdelete">Delete</paper-button>
+                   <paper-button raised class="primary" on-click="" id="fpwptez1">Load</paper-button>
+                   <paper-button raised class="primary" on-click="" id="fpwpttype" >{{fpwpttype}}</paper-button>
                    <input is="iron-input" name="fpwptname" id="fpwptname" bind-value="{{fpwptname}}"/>
                    <paper-dropdown-menu  name="fpwptname3" id="fpwptname3" value="{{selectedItem}}">
                        <paper-listbox class="dropdown-content" selected="6">
@@ -231,10 +245,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                          </template>
                        </paper-listbox>
                    </paper-dropdown-menu>
-                   <paper-button raised on-click="" id="fpwptname2">{{fpwptname2}}</paper-button>
-                   <paper-button raised on-click="" id="fpwptsave">Save</paper-button>
-                   <paper-button raised on-click="" id="fpwptrun">Run</paper-button>
-                   <paper-button raised on-click="" id="fpwmoniW" >M</paper-button>
+                   <paper-button raised class="primary" on-click="" id="fpwptname2">{{fpwptname2}}</paper-button>
+                   <paper-button raised class="success" on-click="" id="fpwptsave">Save</paper-button>
+                   <paper-button raised class="success" on-click="" id="fpwptrun">Run</paper-button>
+                   <paper-button raised class="primary" on-click="" id="fpwmoniW" >M</paper-button>
                 </div>
                 <div>
                   <iron-autogrow-textarea name="fpwptfilef" id="fpwptfilef">{{fpwptfilef}}</iron-autogrow-textarea>
@@ -250,23 +264,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       <input is="iron-input" name="zhu45s" id="zhu45s" class="zhus" bind-value="S"/>
                     </div>
                     <div>
-                      <paper-button raised on-click="" id="zhu03" >Disp</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu03" >Disp</paper-button>
                       <input is="iron-input" name="zhu52" id="zhu52" bind-value="{{zhu52}}"/>
                       <input is="iron-input" name="zhu53" id="zhu53" bind-value="{{zhu53}}"/>
                     </div>
                     <div>
-                      <paper-button raised on-click="" id="zhu05" >Review</paper-button>
-                      <paper-button raised on-click="" id="zhuyun" >{{zhuyun}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu05" >Review</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhuyun" >{{zhuyun}}</paper-button>
                     </div>
                     <div>
                       <input is="iron-input" name="zhu06s24" id="zhu06s24" class="zhu06s" bind-value="Tic$:"/>
                       <input is="iron-input" name="ent01" id="ent01" bind-value="{{ent01}}"/>
-                      <paper-button raised on-click="" id="zhuron" >R-New</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhuron" >R-New</paper-button>
                     </div>
                     <div>
                       <input is="iron-input" name="zhu06s25" id="zhu06s25" class="zhu06s" bind-value="Scale:"/>
                       <input is="iron-input" name="ent02" id="ent02" bind-value="{{ent02}}"/>
-                      <paper-button raised on-click="" id="PBKE" >{{pbke}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="PBKE" >{{pbke}}</paper-button>
                     </div>
                     <div>
                       <input is="iron-input" name="zhu06s22" id="zhu06s22" class="zhu06s" bind-value="Lots:"/>
@@ -275,18 +289,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       <input is="iron-input" name="zhu75" id="zhu75" bind-value="{{zhu75}}"/>
                     </div>
                     <div>
-                      <paper-button raised on-click="" id="fpwmrr" >Rules</paper-button>
+                      <paper-button raised class="primary" on-click="" id="fpwmrr" >Rules</paper-button>
                       <span>{{MRlist}}</span>
-                      <paper-button raised on-click="" id="fpwmrs" >0</paper-button>
+                      <paper-button raised class="primary" on-click="" id="fpwmrs" >0</paper-button>
                     </div>
                     <div>
-                      <paper-button raised on-click="" id="fpwaddnoise" >AN: 0</paper-button>
-                      <paper-button raised on-click="" id="marent03" >{{marent03}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="fpwaddnoise" >AN: 0</paper-button>
+                      <paper-button raised class="primary" on-click="" id="marent03" >{{marent03}}</paper-button>
                     </div>
                     <div>
-                      <paper-button raised on-click="" id="zhu711" >ANY</paper-button>
-                      <paper-button raised on-click="" id="zhu712" >{{zhu712}}</paper-button>
-                      <paper-button raised on-click="" id="zhu713" >{{zhu713}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu711" >ANY</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu712" >{{zhu712}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu713" >{{zhu713}}</paper-button>
                     </div>
                   </div>
                   <div class="exit">
@@ -297,10 +311,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </div>
                     <div>
                       <paper-checkbox name="fpweso11" id="fpweso11" value="1"></paper-checkbox>
-                      <paper-button raised on-click="" id="zhu04s" class="zhus" >{{zhu04s}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu04s" class="zhus" >{{zhu04s}}</paper-button>
                       <input is="iron-input" name="zhu200" id="zhu200" bind-value="{{zhu200}}"/>
                       <input is="iron-input" name="zhu61" id="zhu61" bind-value="{{zhu61}}"/>
-                      <paper-button raised on-click="" id="zhu62" >{{zhu62}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu62" >{{zhu62}}</paper-button>
                     </div>
                     <div>
                       <paper-checkbox name="fpweso12" id="fpweso12" value="1"></paper-checkbox>
@@ -317,14 +331,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       <input is="iron-input" name="zhu06s3" id="zhu06s3" class="zhu06s" bind-value="O/C+"/>
                       <input is="iron-input" name="zhu65new" id="zhu65new" bind-value="{{zhu65new}}"/>
                       <input is="iron-input" name="zhu65" id="zhu65" bind-value="{{zhu65}}"/>
-                      <paper-button raised on-click="" id="zhu66" >{{zhu66}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu66" >{{zhu66}}</paper-button>
                     </div>
                     <div>
                       <paper-checkbox name="fpweso15" id="fpweso15" value="1"></paper-checkbox>
                       <input is="iron-input" name="zhu06s4" id="zhu06s4" class="zhu06s" bind-value="BKE"/>
                       <input is="iron-input" name="zhu67new" id="zhu67new" bind-value="{{zhu67new}}"/>
                       <input is="iron-input" name="zhu67" id="zhu67" bind-value="{{zhu67}}"/>
-                      <paper-button raised on-click="" id="zhu68" >{{zhu68}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu68" >{{zhu68}}</paper-button>
                     </div>
                     <div>
                       <paper-checkbox name="fpweso16" id="fpweso16" value="1"></paper-checkbox>
@@ -356,7 +370,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       <paper-checkbox name="fpweso19" id="fpweso19" value="1"></paper-checkbox>
                       <input is="iron-input" name="zhu06s18" id="zhu06s18" class="zhu06s" bind-value="$Mg"/>
                       <input is="iron-input" name="zhu81" id="zhu81" bind-value="{{zhu81}}"/>
-                      <paper-button raised on-click="" id="tkdv" >{{tkdv}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="tkdv" >{{tkdv}}</paper-button>
                     </div>
                     <div>
                       <paper-checkbox name="fpweso20" id="fpweso20" value="1"></paper-checkbox>
@@ -373,9 +387,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <div>
                       <paper-checkbox name="fpweso21" id="fpweso21" value="1"></paper-checkbox>
                       <input is="iron-input" name="zhu06s19" id="zhu06s19" class="zhu06s" bind-value="Trail"/>
-                      <paper-button raised on-click="" id="zhu59" >{{zhu59}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu59" >{{zhu59}}</paper-button>
                       <input is="iron-input" name="zhu83" id="zhu83" bind-value="{{zhu83}}"/>
-                      <paper-button raised on-click="" id="zhu83" >{{zhu84}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu83" >{{zhu84}}</paper-button>
                     </div>
                     <div>
                       <paper-checkbox name="fpweso22" id="fpweso22" value="1"></paper-checkbox>
@@ -392,7 +406,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       <paper-checkbox name="fpweso24" id="fpweso24" value="1"></paper-checkbox>
                       <input is="iron-input" name="zhu06s14" id="zhu06s14" class="zhu06s" bind-value="Chart"/>
                       <input is="iron-input" name="zhu88" id="zhu88" bind-value="{{zhu88}}"/>
-                      <paper-button raised on-click="" id="zhu89" >{{zhu89}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu89" >{{zhu89}}</paper-button>
                     </div>
                     <div>
                       <paper-checkbox name="fpweso25" id="fpweso25" value="1"></paper-checkbox>
@@ -415,7 +429,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   </div>
                   <div class="obje">
                     <div>
-                      <a href="/test/name/" name="">Obje</a>
+                      <a href="" name="">Obje</a>
                       <paper-radio-button name="zhu48" id="zhu48" on-click="" value="Objective"></paper-radio-button>
                       <input is="iron-input" name="zhu48s" id="zhu48s" class="zhus" bind-value="S"/>
                     </div>
@@ -464,7 +478,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       <paper-checkbox name="fpweso33" id="fpweso33" value="1"></paper-checkbox>
                       <input is="iron-input" name="zhu06s15" id="zhu06s15" class="zhu06s" bind-value="Chart"/>
                       <input is="iron-input" name="zhu96" id="zhu96" bind-value="{{zhu96}}"/>
-                      <paper-button raised on-click="" id="zhu97" >{{zhu97}}</paper-button>
+                      <paper-button raised class="primary" on-click="" id="zhu97" >{{zhu97}}</paper-button>
                     </div>
                     <div>
                       <paper-checkbox name="fpweso34" id="fpweso34" value="1"></paper-checkbox>
@@ -486,12 +500,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </div>
                   </div>
                 </div>
-                <div>
-                  <paper-button raised on-click="" id="zhusm" >{{zhusm}}</paper-button>
-                  <paper-button raised on-click="" id="zhu25" >Mkt</paper-button>
-                  <paper-button raised on-click="" id="zhu99" >{{zhu99}}</paper-button>
+                <div class="bottomMkt">
+                  <paper-button raised class="primary" on-click="" id="zhusm" >{{zhusm}}</paper-button>
+                  <paper-button raised class="primary" on-click="" id="zhu25" >Mkt</paper-button>
+                  <paper-button raised class="primary" on-click="" id="zhu99" >{{zhu99}}</paper-button>
                   <input is="iron-input" name="zhu26" id="zhu26" bind-value="{{zhu26}}"/>
-                  <paper-button raised on-click="" id="zhu30" >OK</paper-button>
+                  <paper-button raised class="success" on-click="" id="zhu30" >OK</paper-button>
                   <input is="iron-input" name="zhu101" id="zhu101" bind-value="{{zhu101}}"/>
                   <input is="iron-input" name="zhu1013" id="zhu1013" bind-value="{{zhu1013}}"/>
                   <input is="iron-input" name="zhu1014" id="zhu1014" bind-value="{{zhu1014}}"/>
@@ -502,7 +516,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <div class="exitRole">
                     <div>
                       <a href="test/name/" name="">Special Any-Exit Rule:</a>
-                      <paper-button raised on-click="" id="fpwptez2" class="ez">EZ</paper-button>
+                      <paper-button raised class="success ez" on-click="" id="fpwptez2" >EZ</paper-button>
                     </div>
                     <div>
                       <iron-autogrow-textarea name="fpwexfilef" id="fpwexfilef">{{fpwexfilef}}</iron-autogrow-textarea>
@@ -511,7 +525,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <div class="stopRole">
                     <div>
                       <a href="test/name/" name="">Special Any-Stop Rule:</a>
-                      <paper-button raised on-click="" id="fpwptez3" class="ez">EZ</paper-button>
+                      <paper-button raised class="success ez" on-click="" id="fpwptez3" >EZ</paper-button>
                     </div>
                     <div>
                       <iron-autogrow-textarea name="fpwstfilef" id="fpwstfilef">{{fpwstfilef}}</iron-autogrow-textarea>
@@ -520,7 +534,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <div class="objeRole">
                     <div>
                       <a href="test/name/" name="">Special Any-Objective Rule:</a>
-                      <paper-button raised on-click="" id="fpwptez4" class="ez">EZ</paper-button>
+                      <paper-button raised class="success ez" on-click="" id="fpwptez4" >EZ</paper-button>
                     </div>
                     <div>
                       <iron-autogrow-textarea name="fpwobfilef" id="fpwobfilef">{{fpwexfilef}}</iron-autogrow-textarea>
