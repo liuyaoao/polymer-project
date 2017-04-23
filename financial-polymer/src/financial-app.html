@@ -21,12 +21,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html"> -->
 
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
 
 <link rel="import" href="financial-login.html">
 
 <link rel="import" href="financial-layout/layout-main.html">
 <link rel="import" href="news-nav.html">
 <link rel="import" href="financial-footer.html">
+<link rel="import" href="styles-theme.html">
+<!-- <link rel="import" href="../theme/denim/denim.html"/> -->
+<!-- <link rel="import" href="../bower_components/paper-styles/paper-styles.html"/> -->
 
 <!-- <link rel="import" href="financial-login.html">
 <link rel="import" href="financial-company.html">
@@ -67,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
     <iron-media-query query="max-width: 767px" query-matches="{{smallScreen}}"></iron-media-query>
-
+    <styles-theme></styles-theme>
 
     <layout-main>
       <!-- left menu items -->
@@ -177,7 +181,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _networkSnackbar: null,
+      ready:function(){
 
+      },
       created: function() {
 
         this.removeAttribute('unresolved');

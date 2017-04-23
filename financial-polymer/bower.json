@@ -39,7 +39,8 @@
     "paper-dialog": "PolymerElements/paper-dialog#^1.1.0",
     "paper-header-panel": "PolymerElements/paper-header-panel#^1.1.7",
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.1.7",
-    "paper-dialog-scrollable": "^1.1.5"
+    "paper-dialog-scrollable": "^1.1.5",
+    "app-storage": "^1.0.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

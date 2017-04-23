@@ -5,9 +5,17 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+<!-- <link rel="import" href="styles-theme.html"> -->
+<link rel="import" href="styles-theme2.html">
+<link rel="import" href="../theme/denim/denim.html"/>
+
 
 <dom-module id="financial-login">
-  <link rel="import" href="../theme/denim/denim.css" type="css">
+  <script>
+  var sty =Polymer.StyleUtil.cssFromModule("styles-theme2");
+  console.log("style:",sty);
+  </script>
+  <!-- <link rel="import" href="../theme/denim/denim.css" type="css"> -->
   <!-- <link rel="import" href="../theme/citric-flames/citric-flames.css" type="css"> -->
   <!-- <link rel="import" href="../theme/sky/sky.css" type="css"> -->
   <template>
@@ -72,8 +80,9 @@
         timeout="3000"
         on-error="categoriesLoadederror">
       </iron-ajax>
+      <!-- <styles-theme></styles-theme> -->
+      <paper-button raised class="success">vjeioreoi</paper-button>
           <div class="topIntroduce">
-            <paper-button raised class="success">vjeioreoi</paper-button>
               <span><b>Financial PatternWorkshop (FPW) is a unique financial trading strategy test platform, which can be used </b>to scan or to simulate the real-time stock and futures financial markets with only a couple of mouse clicks or a couple of lines of code.  One can simulate almost any pattern that one can imagine with full managing rules of stops, exits and objectives, scaling in or out, over one or a group of markets with same or different managing rules for each market.  FPW provides  many unique technical tools and financial functions.</span>
               <template is="dom-if" if="[[flag]]">
                   <div >
@@ -172,15 +181,9 @@
               // observer: '_pageChanged'
             }
         },
-        // ready:function(){
-        //   var username=this.$.inputUser.value;
-        //     var userPassword=this.$.inputPsw.value;
-        //     var submit=this.$.submitValue;
-        //     submit.value='{"fpwusername":"username","fpwpassword":"userPassword","UserIPAddress":"192.168.2.8","UserHostName":"Verizon.net"}';
-        //     var login=this.login;
-        //     this.$.loginForm.action = login + "/wbfpwlogincheck";
-        //     this.$.loginForm.submit();
-        // },
+        ready:function(){
+          // this.updateStyles();
+        },
         // _pageChanged: function(page, oldPage) {
         //   var path = page;
         // },
