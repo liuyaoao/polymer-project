@@ -73,14 +73,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </div>
               <div class="mostActive">
                   <h2>Most Active</h2>
-                  <template is="dom-repeat" items="{{}}">
-                    <div></div>
-                  </template>
+                  <table>
+                    <template is="dom-repeat" items="{{mostActiveData}}">
+                      <tr><td>{{item.t1}}</td><td>{{item.t1}}</td><td>{{item.t1}}</td><td>{{item.t1}}</td><td>{{item.t1}}</td></tr>
+                    </template>
+                  </table>
               </div>
           </div>
           <div class="bestWorst">
-
-
+              <div class="bestWinners">
+                <h2>Best Winners</h2>
+                <table>
+                  <template is="dom-repeat" items="{{bestWinnerData}}">
+                    <tr><td>{{item.t1}}</td><td>{{item.t1}}</td><td>{{item.t1}}</td><td>{{item.t1}}</td><td>{{item.t1}}</td></tr>
+                  </template>
+                </table>
+              </div>
+              <div class="worstLosers">
+                <h2>Worst Losers</h2>
+                <table>
+                  <template is="dom-repeat" items="{{worstLoserData}}">
+                    <tr><td>{{item.t1}}</td><td>{{item.t1}}</td><td>{{item.t1}}</td><td>{{item.t1}}</td><td>{{item.t1}}</td></tr>
+                  </template>
+                </table>
+              </div>
           </div>
       </div>
  </template>
@@ -109,7 +125,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        O0Vnum:String,
 
        tables:Array,
-       mostActive:Array,
+       mostActiveData:Array,
+       bestWinnerData:Array,
+       worstLoserData:Array,
+       ST6:String,
+       ST7:String,
+       ST1:String,
+       ST2:String,
+       ST3:String,
+       ST4:String,
+       ST5:String,
 
        spxnum:String,
        downum:String,
@@ -117,14 +142,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        nasnum:String,
 
        wbmpstattime:String,
+
+       ATt1:String,ATt2:String,ATt3:String,ATt4:String,ATt5:String,ATt6:String,ATt7:String,ATt8:String,ATt9:String,
+       A5t1:String,A5t2:String,A5t3:String,A5t4:String,A5t5:String,A5t6:String,A5t7:String,A5t8:String,A5t9:String,
+       A1t1:String,A1t2:String,A1t3:String,A1t4:String,A1t5:String,A1t6:String,A1t7:String,A1t8:String,A1t9:String,
+       A6t1:String,A6t2:String,A6t3:String,A6t4:String,A6t5:String,A6t6:String,A6t7:String,A6t8:String,A6t9:String,
+       A2t1:String,A2t2:String,A2t3:String,A2t4:String,A2t5:String,A2t6:String,A2t7:String,A2t8:String,A2t9:String,
+       WTt1:String,WTt2:String,WTt3:String,WTt4:String,WTt5:String,WTt6:String,WTt7:String,WTt8:String,WTt9:String,
+       W5t1:String,W5t2:String,W5t3:String,W5t4:String,W5t5:String,W5t6:String,W5t7:String,W5t8:String,W5t9:String,
+       W1t1:String,W1t2:String,W1t3:String,W1t4:String,W1t5:String,W1t6:String,W1t7:String,W1t8:String,W1t9:String,
+       W6t1:String,W6t2:String,W6t3:String,W6t4:String,W6t5:String,W6t6:String,W6t7:String,W6t8:String,W6t9:String,
+       W2t1:String,W2t2:String,W2t3:String,W2t4:String,W2t5:String,W2t6:String,W2t7:String,W2t8:String,W2t9:String,
+
      },
      ready:function(){
        this.tables=[
          {"title":"AMEX","val1":this.ST8,"val2":this.ST9,"v1":this.AUnum,"v2":this.Anum,"v3":this.ADnum,"v4":this.AUVnum,"v5":this.A0Vnum},
          {"title":"NYSE","val1":this.ST8,"val2":this.ST9,"v1":this.NUnum,"v2":this.Nnum,"v3":this.NDnum,"v4":this.NUVnum,"v5":this.N0Vnum},
          {"title":"Nasdaq","val1":this.ST8,"val2":this.ST9,"v1":this.OUnum,"v2":this.Onum,"v3":this.ODnum,"v4":this.OUVnum,"v5":this.O0Vnum}];
-       this.mostActive=[
-         {"title":"Most Active",},
+       this.mostActiveData=[
+         {"t1":this.ST5+this.ST7,"t2":this.ST1,"t3":this.ST2,"t4":this.ST3+this.ST5,"t5":this.ST5+"Hrs"},
+         {"t1":this.ATt1,"t2":this.A5t1,"t3":this.A1t1,"t4":this.A6t1,"t5":this.A2t1},
+         {"t1":this.ATt2,"t2":this.A5t2,"t3":this.A1t2,"t4":this.A6t2,"t5":this.A2t2},
+         {"t1":this.ATt3,"t2":this.A5t3,"t3":this.A1t3,"t4":this.A6t3,"t5":this.A2t3},
+         {"t1":this.ATt4,"t2":this.A5t4,"t3":this.A1t4,"t4":this.A6t4,"t5":this.A2t4},
+         {"t1":this.ATt5,"t2":this.A5t5,"t3":this.A1t5,"t4":this.A6t5,"t5":this.A2t5},
+         {"t1":this.ATt6,"t2":this.A5t6,"t3":this.A1t6,"t4":this.A6t6,"t5":this.A2t6},
+         {"t1":this.ATt7,"t2":this.A5t7,"t3":this.A1t7,"t4":this.A6t7,"t5":this.A2t7},
+         {"t1":this.ATt8,"t2":this.A5t8,"t3":this.A1t8,"t4":this.A6t8,"t5":this.A2t8},
+         {"t1":this.ATt9,"t2":this.A5t9,"t3":this.A1t9,"t4":this.A6t9,"t5":this.A2t9}
+       ];
+       this.bestWinnerData=[
+         {"t1":this.ST5+this.ST7,"t2":this.ST1,"t3":this.ST2,"t4":this.ST3+this.ST5,"t5":this.ST5+"Hrs"},
+         {"t1":this.WTt1,"t2":this.W5t1,"t3":this.W1t1,"t4":this.W6t1,"t5":this.W2t1},
+         {"t1":this.WTt2,"t2":this.W5t1,"t3":this.W1t2,"t4":this.W6t2,"t5":this.W2t2},
+         {"t1":this.WTt3,"t2":this.W5t1,"t3":this.W1t3,"t4":this.W6t3,"t5":this.W2t3},
+         {"t1":this.WTt4,"t2":this.W5t1,"t3":this.W1t4,"t4":this.W6t4,"t5":this.W2t4},
+         {"t1":this.WTt5,"t2":this.W5t1,"t3":this.W1t5,"t4":this.W6t5,"t5":this.W2t5},
+         {"t1":this.WTt6,"t2":this.W5t1,"t3":this.W1t6,"t4":this.W6t6,"t5":this.W2t6},
+         {"t1":this.WTt7,"t2":this.W5t1,"t3":this.W1t7,"t4":this.W6t7,"t5":this.W2t7},
+         {"t1":this.WTt8,"t2":this.W5t1,"t3":this.W1t8,"t4":this.W6t8,"t5":this.W2t8},
+         {"t1":this.WTt9,"t2":this.W5t1,"t3":this.W1t9,"t4":this.W6t9,"t5":this.W2t9}
+       ];
+       this.worstLoserData[
+         {"t1":this.ST5+this.ST7,"t2":this.ST1,"t3":this.ST2,"t4":this.ST3+this.ST5,"t5":this.ST5+"Hrs"},
+         {"t1":this.LTt1,"t2":this.L5t1,"t3":this.L1t1,"t4":this.L6t1,"t5":this.L2t1},
+         {"t1":this.LTt2,"t2":this.L5t2,"t3":this.L1t2,"t4":this.L6t2,"t5":this.L2t2},
+         {"t1":this.LTt3,"t2":this.L5t3,"t3":this.L1t3,"t4":this.L6t3,"t5":this.L2t3},
+         {"t1":this.LTt4,"t2":this.L5t4,"t3":this.L1t4,"t4":this.L6t4,"t5":this.L2t4},
+         {"t1":this.LTt5,"t2":this.L5t5,"t3":this.L1t5,"t4":this.L6t5,"t5":this.L2t5},
+         {"t1":this.LTt6,"t2":this.L5t6,"t3":this.L1t6,"t4":this.L6t6,"t5":this.L2t6},
+         {"t1":this.LTt7,"t2":this.L5t7,"t3":this.L1t7,"t4":this.L6t7,"t5":this.L2t7},
+         {"t1":this.LTt8,"t2":this.L5t8,"t3":this.L1t8,"t4":this.L6t8,"t5":this.L2t8},
+         {"t1":this.LTt9,"t2":this.L5t9,"t3":this.L1t9,"t4":this.L6t9,"t5":this.L2t9}
        ];
      },
    });

@@ -1,0 +1,68 @@
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<!-- <link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html"> -->
+
+<!-- <link rel="import" href="../bower_components/paper-styles/paper-styles.html"> -->
+<link rel="import" href="../theme/denim/denim-styles.html" async="true">
+<link rel="import" href="../theme/sky/sky-styles.html" async="true">
+
+
+<dom-module id="styles-themes">
+    <template>
+    <style></style>
+    <!-- <app-localstorage-document key="styles-themes" data="{{selectedTheme}}"></app-localstorage-document> -->
+    </template>
+    <script>
+      var allThemeNames = ["citric-flames","denim","everest","sky"];
+
+      Polymer({
+        is: 'styles-themes',
+        properties: {
+          isAppRoot:{
+            type:Boolean,
+            value:false
+          },
+          selectedTheme:{
+            type:String,
+            value:function(){
+              var themename=window.localStorage.getItem("styles-themes")||"denim";
+              window.localStorage.setItem("styles-themes",themename);
+              return themename;
+            }
+          }
+
+        },
+        ready:function(){
+          var that = this;
+          if(this.selectedTheme){
+            if(this.isAppRoot){
+              this.importHref(this.resolveUrl('../theme/'+that.selectedTheme+'/'+ that.selectedTheme +'.html'), function() {
+                that.updateStyles();
+              },true);
+            }else{
+              var styleEle = document.createElement('style');
+              styleEle.setAttribute('include', that.selectedTheme + '-styles');
+              var sty =Polymer.StyleUtil.cssFromModule(that.selectedTheme + "-styles");
+              styleEle.append(sty);
+              that.parentNode.prepend(styleEle);
+            }
+
+          }
+
+        }
+        // _listenerThemeChange:function(){
+        //   window.location.reload();
+        // },
+        //
+        // _observerSelectedTheme:function(selectedTheme,oldTheme){
+        //   if(selectedTheme && selectedTheme != oldTheme){
+        //     window.location.reload();
+        //   }
+        // }
+
+
+
+      });
+    </script>
+</dom-module>

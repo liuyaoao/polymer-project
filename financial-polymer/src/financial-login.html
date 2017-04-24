@@ -6,19 +6,20 @@
 
 <link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
 <!-- <link rel="import" href="styles-theme.html"> -->
-<link rel="import" href="styles-theme2.html">
-<link rel="import" href="../theme/denim/denim.html"/>
+<link rel="import" href="styles-themes.html" async="true">
+<!-- <link rel="import" href="../theme/denim/denim-styles.html"/> -->
 
 
 <dom-module id="financial-login">
   <script>
-  var sty =Polymer.StyleUtil.cssFromModule("styles-theme2");
-  console.log("style:",sty);
+  // var sty =Polymer.StyleUtil.cssFromModule("styles-theme2");
+  // console.log("style:",sty);
   </script>
   <!-- <link rel="import" href="../theme/denim/denim.css" type="css"> -->
   <!-- <link rel="import" href="../theme/citric-flames/citric-flames.css" type="css"> -->
   <!-- <link rel="import" href="../theme/sky/sky.css" type="css"> -->
   <template>
+    <!-- /*<style include="theme-styles"></style>*/ -->
       <style include="app-grid-style">
         :host {
           display: block;
@@ -71,7 +72,7 @@
         padding:20px 0 0 30px;
         }
       </style>
-
+      <styles-themes></styles-themes>
       <iron-ajax id="ajax"
         url="https://randomuser.me/api/"
         handle-as="json"
@@ -80,21 +81,21 @@
         timeout="3000"
         on-error="categoriesLoadederror">
       </iron-ajax>
-      <!-- <styles-theme></styles-theme> -->
+
       <paper-button raised class="success">vjeioreoi</paper-button>
-          <div class="topIntroduce">
-              <span><b>Financial PatternWorkshop (FPW) is a unique financial trading strategy test platform, which can be used </b>to scan or to simulate the real-time stock and futures financial markets with only a couple of mouse clicks or a couple of lines of code.  One can simulate almost any pattern that one can imagine with full managing rules of stops, exits and objectives, scaling in or out, over one or a group of markets with same or different managing rules for each market.  FPW provides  many unique technical tools and financial functions.</span>
-              <template is="dom-if" if="[[flag]]">
-                  <div >
-                    <span>User ID does not exist or User ID and/or Password do not match, check and try again, or <a href="mailto:ning@WSQSI.com?subject=Forgot FPW password">contact us</a>.</span>
-                  </div>
-              </template>
-              <template is="dom-if" if="[[closeFlag]]">
-                <div >
-                    <p>  you haven't done anything for a while,  or the main FPW page being closed by accident, please close all other FPW pages before to re-login from here.<br/>Free test user needs to click the <span>Check Available Test User ID(s)</span>button to verify the availability of the free login-in account(s).</p>
-                </div>
-              </template>
-          </div>
+      <div class="topIntroduce">
+          <span><b>Financial PatternWorkshop (FPW) is a unique financial trading strategy test platform, which can be used </b>to scan or to simulate the real-time stock and futures financial markets with only a couple of mouse clicks or a couple of lines of code.  One can simulate almost any pattern that one can imagine with full managing rules of stops, exits and objectives, scaling in or out, over one or a group of markets with same or different managing rules for each market.  FPW provides  many unique technical tools and financial functions.</span>
+          <template is="dom-if" if="[[flag]]">
+              <div >
+                <span>User ID does not exist or User ID and/or Password do not match, check and try again, or <a href="mailto:ning@WSQSI.com?subject=Forgot FPW password">contact us</a>.</span>
+              </div>
+          </template>
+          <template is="dom-if" if="[[closeFlag]]">
+            <div>
+                <p>  you haven't done anything for a while,  or the main FPW page being closed by accident, please close all other FPW pages before to re-login from here.<br/>Free test user needs to click the <span>Check Available Test User ID(s)</span>button to verify the availability of the free login-in account(s).</p>
+            </div>
+          </template>
+      </div>
           <div class="app-grid">
               <div class="item">
                 <div class="notice">
@@ -106,7 +107,7 @@
                   <div class="link">
                     <a name="setupIe" href="/setupIe">Setup IE to Use FPW Property</a>
                     <a name="econData" href="/econData">Econ-Data</a>
-                    <a name="holidays" href="/holidays">Holidays</a>
+                    <a name="Holidays" href="/Holidays">Holidays</a>
                   </div>
                 </div>
               </div>
@@ -120,7 +121,7 @@
                 <form action="[[login]]/wbfpwlogin" method="post" id="loginForm">
                   <input type="hidden" name="submitVlue" id="submitValue" value=""/>
                   <a href="/loginOn" name="loginOn">
-                    <paper-button raised on-click="_submitFormLogin" >Login on</paper-button>
+                    <paper-button raised on-click="" >Login on</paper-button>
                   </a>
                 </form><br/>
 
@@ -182,7 +183,17 @@
             }
         },
         ready:function(){
-          // this.updateStyles();
+          // var that = this;
+          // var styleEle = document.createElement('style');
+          // styleEle.setAttribute('include', 'theme-styles');
+          // var sty =Polymer.StyleUtil.cssFromModule("styles-theme2");
+          // styleEle.append(sty);
+          // that.shadowRoot.prepend(styleEle);
+
+          // this.importHref(this.resolveUrl('../theme/denim/denim-styles.html'), function() {
+          //
+          //   that.updateStyles();
+          // },true);
         },
         // _pageChanged: function(page, oldPage) {
         //   var path = page;

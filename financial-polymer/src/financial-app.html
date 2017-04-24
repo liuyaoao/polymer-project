@@ -1,12 +1,3 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
@@ -28,9 +19,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="financial-layout/layout-main.html">
 <link rel="import" href="news-nav.html">
 <link rel="import" href="financial-footer.html">
-<link rel="import" href="styles-theme.html">
+<link rel="import" href="styles-themes.html" async>
 <!-- <link rel="import" href="../theme/denim/denim.html"/> -->
-<!-- <link rel="import" href="../bower_components/paper-styles/paper-styles.html"/> -->
 
 <!-- <link rel="import" href="financial-login.html">
 <link rel="import" href="financial-company.html">
@@ -45,20 +35,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="financial-terms-use.html">
 <link rel="import" href="financial-thankyou.html"> -->
 
-
 <dom-module id="financial-app">
-
-  <!-- <link rel="import" href="../theme/sky/sky.css" type="css"> -->
-  <!-- <link rel="import" href="../theme/everest/everest.css" type="css"> -->
-  <!-- <link rel="import" href="../theme/denim/denim.css" type="css"> -->
-  <!-- <link rel="import" href="../theme/citric-flames/citric-flames.css" type="css"> -->
   <template>
     <style>
     .menu-items{
       height:100%;
     }
     </style>
-
+    <styles-themes is-app-root></styles-themes>
     <news-analytics key="UA-39334307-18"></news-analytics>
     <!-- <jquery-analytics key="UA-39334307-11"></jquery-analytics> -->
     <!--
@@ -71,8 +55,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
     <iron-media-query query="max-width: 767px" query-matches="{{smallScreen}}"></iron-media-query>
-    <styles-theme></styles-theme>
-
     <layout-main>
       <!-- left menu items -->
       <div class="menu-items">
@@ -135,10 +117,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <analog-analytic-tool
             name='AnalogAnalytictool'>
           </analog-analytic-tool>
-           <financial-thankyou name="reLogin" >
-         </financial-thankyou>
-
-          <news-path-warning name="path-warning"></news-path-warning>
+          <zone-analytic-tool
+          name = "ZoneAnalytictool">
+          </zone-analytic-tool>
+          <swing-analytic-tool
+           name="SwingAnalytictool">
+         </swing-analytic-tool>
+         <seasonal-analysis name="SeasonalAnalytictool">
+         </seasonal-analysis>
+         <SNR-analysis name="SNRAnalytictool"></SNR-analysis>
+         <leading-indicator name="LeadingIndicatortool"></leading-indicator>
+         <detail-chart name="DetailCharttool"></detail-chart>
+         <multi-markets-chart name="MultiMarketsChart"></multi-markets-chart>
+         <data-extract-tool name="DataExtracttool"></data-extract-tool>
+         <stock-market-holidays name="Holidays"></stock-market-holidays>
+         <financial-thankyou name="reLogin" ></financial-thankyou>
+         <news-path-warning name="path-warning"></news-path-warning>
         </iron-pages>
       </div>
     </layout-main>
@@ -292,21 +286,48 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           case 'AnalogAnalytictool':
                href = 'analog-analytic-tool.html';
                break;
-          case 'seo':
-            href= 'financial-seo.html';
-            break;
-          case 'soMesh':
-              href = 'financial-somesh.html';
-              break;
-          case 'pmEdit':
-            href = 'financial-PM-Edit.html';
-            break;
-          case 'record':
-           href = 'financial-patternwork-user-record.html';
-            break;
-           default:
-             href = 'news-path-warning.html';
+         case 'ZoneAnalytictool':
+                href = 'zone-analytic-tool.html';
+                break;
+          case 'SwingAnalytictool':
+             href= 'swing-analytic-tool.html';
              break;
+          case 'SeasonalAnalytictool':
+            href=" seasonal-analysis.html";
+            break;
+        case 'SNRAnalytictool':
+           href=" SNR-analysis.html";
+           break;
+        case 'LeadingIndicatortool':
+           href="leading-indicator.html";
+           break;
+        case 'DetailCharttool':
+          href = 'detail-chart.html';
+          break;
+        case 'MultiMarketsChart':
+          href = 'multi-markets-chart.html';
+          break;
+        case 'DataExtracttool':
+          href = "data-extract-tool.html";
+          break;
+        case 'Holidays':
+          href = "stock-market-holidays.html";
+          break;
+        case 'seo':
+          href= 'financial-seo.html';
+          break;
+        case 'soMesh':
+          href = 'financial-somesh.html';
+          break;
+        case 'pmEdit':
+          href = 'financial-PM-Edit.html';
+          break;
+        case 'record':
+          href = 'financial-patternwork-user-record.html';
+          break;
+        default:
+          href = 'news-path-warning.html';
+          break;
          };
         this.importHref(this.resolveUrl(href), cb,cb, true);
       },
