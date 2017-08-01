@@ -1,0 +1,905 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+
+<link rel="import" href="news-data.html">
+<link rel="import" href="news-nav.html">
+
+<link rel="import" href="sameview-home.html">
+
+<dom-module id="news-app">
+
+  <template>
+
+    <style include="polymer-bootstrap">
+      footer{
+        background-color: #0d2167;
+        padding: 40px 0;
+        /*display:flex;
+        justify-content:center;
+        align-items:center;*/
+      }
+      footer .container{
+        text-align: left;
+        color: #A8B1E7;
+        font-size: 14px;
+        line-height: 24px;
+      }
+      footer .container .footLift{
+        float: left;
+      }
+      footer .container .footRight{
+        float: right;
+        padding: 16px 0 0 0;
+      }
+      footer .container .footLift img{
+        height: 36px;
+        margin-bottom: 10px;
+      }
+      footer .container .footRight div{
+        padding: 0 15px;
+        display: inline-block;
+      }
+      footer .container .footRight p{
+        text-align: center;
+        margin-top: 5px;
+      }
+      .container p{
+        margin: 0;
+      }
+      @media screen and (max-width:768px){
+        footer{
+          height: auto;
+          padding: 30px 0;
+        }
+        footer span{
+          display: block;
+        }
+        footer span{
+          margin-right: 0;
+        }
+        footer .container{
+          padding: 0 25px;
+        }
+        footer .container .footRight div{
+          padding: 0 20px 0 0;
+        }
+        footer .container .footRight{
+          float: left;
+          margin-top: 20px;
+        }
+      }
+      @media screen and (width:768px){
+        footer .code{
+          position: absolute;
+          right: 15px;
+        }
+      }
+
+    </style>
+    <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+
+    <!--
+      app-location and app-route elements provide the state of the URL for the app.
+    -->
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+    <!--
+      news-data provides the list of categories and the articles for the category.
+    -->
+    <news-data
+        id="data"
+        categories="{{categories}}"
+        category-name="[[categoryName]]"
+        category="{{category}}"
+        article-id="[[articleId]]"
+        article="{{article}}"
+        loading="{{loading}}"
+        offline="[[offline]]"
+        failure="{{failure}}"></news-data>
+
+    <news-nav
+        id="nav"
+        app-title="[[appTitle]]"
+        page="[[page]]"
+        categories="[[categories]]"
+        category="[[category]]"
+        category-name="{{categoryName}}"
+        load-complete="[[loadComplete]]">
+      [[articleHeadline]]
+    </news-nav>
+
+    <iron-pages id="ironPages" role="main" selected="[[pageName]]" attr-for-selected="name" fallback-selection="path-warning">
+      <sameview-home
+        name="home"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-home>
+      <sameview-product
+        name="product"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-product>
+      <sameview-contact
+        name="contact"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-contact>
+      <sameview-valueMove
+        name="valueMove"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-valueMove>
+      <sameview-valueControl
+        name="valueControl"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-valueControl>
+      <sameview-quotation
+        name="quotation"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-quotation>
+      <sameview-download
+        name="download"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-download>
+      <sameview-document
+        name="document"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-document>
+      <sameview-docEnter
+        name="docEnter"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docEnter>
+      <sameview-docMessage
+        name="docMessage"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docMessage>
+      <sameview-docDialogue
+        name="docDialogue"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docDialogue>
+      <sameview-docNotice
+        name="docNotice"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docNotice>
+      <sameview-docSeek
+        name="docSeek"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docSeek>
+      <sameview-docTeam
+        name="docTeam"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docTeam>
+      <sameview-docMember
+        name="docMember"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docMember>
+      <sameview-docOrganization
+        name="docOrganization"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docOrganization>
+      <sameview-docApplication
+        name="docApplication"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docApplication>
+      <sameview-docMessages
+        name="docMessages"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docMessages>
+      <sameview-docTeammates
+        name="docTeammates"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docTeammates>
+      <sameview-docFormatting
+        name="docFormatting"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docFormatting>
+      <sameview-docShare
+        name="docShare"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docShare>
+      <sameview-docPerform
+        name="docPerform"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docPerform>
+      <sameview-docMail
+        name="docMail"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docMail>
+      <sameview-docShortcuts
+        name="docShortcuts"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docShortcuts>
+      <sameview-docFixed
+        name="docFixed"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docFixed>
+      <sameview-docAccount
+        name="docAccount"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docAccount>
+      <sameview-docTheme
+        name="docTheme"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docTheme>
+      <sameview-docChannel
+        name="docChannel"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docChannel>
+      <sameview-docTeamSet
+        name="docTeamSet"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docTeamSet>
+      <sameview-docExpression
+        name="docExpression"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docExpression>
+      <sameview-docIntegration
+        name="docIntegration"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docIntegration>
+      <sameview-docAdministratorTask
+        name="docAdministratorTask"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docAdministratorTask>
+      <sameview-docLoading
+        name="docLoading"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docLoading>
+      <sameview-docMobileApp
+        name="docMobileApp"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docMobileApp>
+      <sameview-docActive
+        name="docActive"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docActive>
+      <sameview-docCertification
+        name="docCertification"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docCertification>
+      <sameview-docSAML
+        name="docSAML"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docSAML>
+      <sameview-docExpand
+        name="docExpand"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docExpand>
+
+      <news-path-warning name="path-warning"></news-path-warning>
+
+    </iron-pages>
+
+    <footer id="foot">
+          <div class="container">
+            <div class="footLift">
+              <img src="../images/logo_foot.svg" alt="">
+              <!-- <p>地址：湖南省长沙市天心区劳动西路308号凯华大厦B栋12楼</p>
+              <p>电话：0731 - 8518 1565</p>
+              <p>手机：155 8084 2233</p>
+              <p>Email:contact@3ren.com</p> -->
+              <p>地址：北京宣武门外大街6号庄胜广场北楼东翼3层</p>
+              <p>电话：010 - 51655987 - 800</p>
+              <p>手机：135 2083 0552</p>
+              <p>Email:contact@3ren.com</p>
+            </div>
+            <div class="footRight">
+              <!-- <div class="">
+                <img src="../images/code_01.png" alt="">
+                <p>扫码下载</p>
+              </div> -->
+              <div class="">
+                <img src="../images/code_02.jpg" alt="">
+                <p>关注公众账号</p>
+              </div>
+
+            </div>
+
+          </div>
+        </footer>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'news-app',
+
+      properties: {
+
+        appTitle: String,
+
+        page: {
+          type: String,
+          observer: '_pageChanged',
+          notify: true
+        },
+        pagepath: {
+          type: String
+        },
+        pageName:String,
+        categories: Array,
+
+        categoryName: String,
+
+        category: Object,
+
+        articleId: String,
+
+        article: Object,
+
+        articleHeadline: {
+          type: String,
+          value: ''
+        },
+
+        offline: {
+          type: Boolean,
+          value: false,
+          readOnly: true
+        },
+
+        failure: Boolean,
+
+        loadComplete: Boolean,
+
+        _smallScreen: Boolean
+
+      },
+
+      observers: [
+        '_routePageChanged(routeData.page)',
+        '_updateArticleHeadline(article.headline)',
+        '_updateDocumentTitle(page, category.title, articleHeadline, appTitle)'
+      ],
+
+      listeners: {
+        'refresh-data': '_refreshData'
+      },
+
+      _networkSnackbar: null,
+
+      ready: function(){
+        var _this = this;
+        var sWidth = document.body.clientWidth;
+        var beforeScrollTop = document.body.scrollTop;
+
+
+        var beforeScrollTop = document.body.scrollTop;
+          var ironHeight = document.documentElement.clientHeight;
+          if(this.page === "contact" || this.page === "download"){
+              ironHeight = (ironHeight-275) +"px";
+              this.$.ironPages.style.minHeight= ironHeight;
+          }else {
+            ironHeight = ironHeight +"px";
+            this.$.ironPages.style.minHeight= ironHeight;
+          }
+          // window.onscroll = function(){
+          //   if(document.body.scrollTop > 600){
+          //     _this.$.goTop.classList.add("block");
+          //   }else{
+          //     _this.$.goTop.classList.remove("block");
+          //     var afterScrollTop = document.body.scrollTop;
+          //     if(beforeScrollTop > afterScrollTop){
+          //       _this.$.goTop.classList.add("none");
+          //     }
+          //     beforeScrollTop = afterScrollTop;
+          //   }
+          // }
+          if (this.page === "document" || this.page === "docEnter" || this.page === "docMessage" || this.page === "docDialogue" || this.page === "docNotice"
+        || this.page === "docSeek" || this.page === "docTeam" || this.page === "docMember" || this.page === "docOrganization" || this.page === "docApplication"
+        || this.page === "docMessages" || this.page === "docTeammates" || this.page === "docFormatting" || this.page === "docShare" || this.page === "docPerform"
+        || this.page === "docMail"  || this.page === "docShortcuts" || this.page === "docFixed" || this.page === "docAccount" || this.page === "docTheme" || this.page === "docChannel"
+        || this.page === "docTeamSet" || this.page === "docExpression" || this.page === "docIntegration" || this.page === "docAdministratorTask" || this.page === "docLoading"
+        || this.page === "docMobileApp"  || this.page === "docActive" || this.page === "docCertification" || this.page === "docSAML" || this.page === "docExpand") {
+            $(this.$.foot).css("display","none");
+            $(this.$.nav).css("display","none");
+          }else {
+            $(this.$.foot).css("display","block");
+            $(this.$.nav).css("display","block");
+          }
+        },
+
+      created: function() {
+        // Custom elements polyfill safe way to indicate an element has been upgraded.
+        this.removeAttribute('unresolved');
+
+        // Chrome on iOS recomputes "vh" unit when URL bar goes off screen. Since we use "vh" unit
+        // to size the cover image and the title, those items will resize in response to the URL
+        // bar being shown or hidden. FWIW, this is not an issue in Chrome 56 on Android or iOS
+        // Safari. To workaround this on Chrome on iOS, we will use a
+        // fixed viewport height in places where normally relying on "vh" unit and replace them with
+        // custom property "--viewport-height".
+        var ua = navigator.userAgent;
+        var cMatch = navigator.userAgent.match(/Android.*Chrome[\/\s](\d+\.\d+)/);
+        if (ua.match('CriOS') || (cMatch && cMatch[0] && cMatch[1] < 56)) {
+          document.body.classList.add('fixed-viewport-height');
+        }
+      },
+
+      attached: function() {
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          this.listen(window, 'online', '_notifyNetworkStatus');
+          this.listen(window, 'offline', '_notifyNetworkStatus');
+        });
+      },
+
+      detached: function() {
+        this.unlisten(window, 'online', '_notifyNetworkStatus');
+        this.unlisten(window, 'offline', '_notifyNetworkStatus');
+      },
+
+      _routePageChanged: function(page) {
+        if (!page) {
+          // set default route if route path is empty
+          // this.set('route.path', 'list/home');
+          // this.set('route.path', 'sameviewloading/home');
+          this.set('route.path', 'home');
+          return;
+        }
+        this.page = page;
+        this.pagepath =  this.route.path;
+        var remainingPieces = this.pagepath.split('/');
+        // this.pageName = remainingPieces[2];//这种是对应 this.set('route.path', 'sameviewloading/home');
+        this.pageName = remainingPieces[1];//这种是对应 this.set('route.path', 'home');
+        // Scroll to the top of the page on every *route* change. Use `Polymer.AppLayout.scroll`
+        // with `behavior: 'silent'` to disable header scroll effects during the scroll.
+        // Polymer.AppLayout.scroll({ top: 0, behavior: 'silent' });
+        // Close the drawer - in case the *route* change came from a link in the drawer.
+        this.categoryName = this.pageName;
+        this.$.nav.closeDrawer();
+      },
+
+      _pageChanged: function(page, oldPage) {
+        var href;
+        var path = this.route;
+        if(page !== "images"){
+          switch(page) {
+             case 'home':
+               href = 'sameview-home.html';
+               break;
+             case 'product':
+               href = 'sameview-product.html';
+               break;
+             case 'contact':
+               href = 'sameview-contact.html';
+               break;
+             case 'valueMove':
+               href = 'sameview-valueMove.html';
+               break;
+             case 'valueControl':
+               href = 'sameview-valueControl.html';
+               break;
+             case 'quotation':
+               href = 'sameview-quotation.html';
+               break;
+             case 'download':
+               href = 'sameview-download.html';
+               break;
+             case 'document':
+               href = 'sameview-document.html';
+               break;
+             case 'docEnter':
+               href = 'sameview-docEnter.html';
+               break;
+             case 'docMessage':
+               href = 'sameview-docMessage.html';
+               break;
+             case 'docDialogue':
+               href = 'sameview-docDialogue.html';
+               break;
+             case 'docNotice':
+               href = 'sameview-docNotice.html';
+               break;
+             case 'docSeek':
+               href = 'sameview-docSeek.html';
+               break;
+             case 'docTeam':
+               href = 'sameview-docTeam.html';
+               break;
+             case 'docMember':
+               href = 'sameview-docMember.html';
+               break;
+             case 'docOrganization':
+               href = 'sameview-docOrganization.html';
+               break;
+             case 'docApplication':
+               href = 'sameview-docApplication.html';
+               break;
+             case 'docMessages':
+               href = 'sameview-docMessages.html';
+               break;
+             case 'docTeammates':
+               href = 'sameview-docTeammates.html';
+               break;
+             case 'docFormatting':
+               href = 'sameview-docFormatting.html';
+               break;
+             case 'docShare':
+               href = 'sameview-docShare.html';
+               break;
+             case 'docPerform':
+               href = 'sameview-docPerform.html';
+               break;
+             case 'docMail':
+               href = 'sameview-docMail.html';
+               break;
+             case 'docShortcuts':
+               href = 'sameview-docShortcuts.html';
+               break;
+             case 'docFixed':
+               href = 'sameview-docFixed.html';
+               break;
+             case 'docAccount':
+               href = 'sameview-docAccount.html';
+               break;
+             case 'docTheme':
+               href = 'sameview-docTheme.html';
+               break;
+             case 'docChannel':
+               href = 'sameview-docChannel.html';
+               break;
+             case 'docTeamSet':
+               href = 'sameview-docTeamSet.html';
+               break;
+             case 'docExpression':
+               href = 'sameview-docExpression.html';
+               break;
+             case 'docIntegration':
+               href = 'sameview-docIntegration.html';
+               break;
+             case 'docAdministratorTask':
+               href = 'sameview-docAdministratorTask.html';
+               break;
+             case 'docLoading':
+               href = 'sameview-docLoading.html';
+               break;
+             case 'docMobileApp':
+               href = 'sameview-docMobileApp.html';
+               break;
+             case 'docActive':
+               href = 'sameview-docActive.html';
+               break;
+             case 'docCertification':
+               href = 'sameview-docCertification.html';
+               break;
+             case 'docSAML':
+               href = 'sameview-docSAML.html';
+               break;
+             case 'docExpand':
+               href = 'sameview-docExpand.html';
+               break;
+             default:
+               href = 'sameview-home.html';
+               break;
+
+           };
+          this.importHref(
+              this.resolveUrl(href),
+              this._pageLoaded.bind(this, Boolean(oldPage)),
+              null,
+              true);
+        }
+        //contact页面设置高度
+        if(page === "contact" || page === "download"){
+            var ironHeight = document.documentElement.clientHeight;
+            var footerHeight = $(this.$.footer).height();
+            ironHeight = (ironHeight-275) +"px";
+            this.$.ironPages.style.minHeight= ironHeight;
+        }
+        if (page === "document" || page === "docEnter" || page === "docMessage" || page === "docDialogue" || page === "docNotice" || page === "docSeek"
+         || page === "docTeam" || page === "docMember" || page === "docOrganization" || page === "docApplication" || page === "docMessages" || page === "docTeammates" || page === "docFormatting"
+         || page === "docShare" || page === "docPerform" || page === "docMail" || page === "docShortcuts" || page === "docFixed" || page === "docAccount" || page === "docTheme" || page === "docChannel"
+         || page === "docTeamSet" || page === "docExpression" || page === "docIntegration" || page === "docAdministratorTask" || page === "docLoading" || page === "docMobileApp" || page === "docActive"
+         || page === "docCertification" || page === "docSAML" || page === "docExpand") {
+          $(this.$.foot).css("display","none");
+          $(this.$.nav).css("display","none");
+        }
+        if (page === "home") {
+          $(this.$.foot).css("display","block");
+          $(this.$.nav).css("display","block");
+        }
+      },
+
+      _pageLoaded: function(shouldResetLayout) {
+        this._ensureLazyLoaded();
+      },
+
+      _ensureLazyLoaded: function() {
+        // load lazy resources after render and set `loadComplete` when done.
+        if (!this.loadComplete) {
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            this.importHref(this.resolveUrl('lazy-resources.html'), function() {
+              this._notifyNetworkStatus();
+              this.loadComplete = true;
+
+              // Load pre-caching Service Worker
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js');
+              }
+            });
+          });
+        }
+      },
+
+      _notifyNetworkStatus: function() {
+        var oldOffline = this.offline;
+        this._setOffline(!window.navigator.onLine);
+        // Show the snackbar if the user is offline when starting a new session
+        // or if the network status changed.
+        if (this.offline || (!this.offline && oldOffline === true)) {
+          if (!this._networkSnackbar) {
+            this._networkSnackbar = document.createElement('news-snackbar');
+            Polymer.dom(this.root).appendChild(this._networkSnackbar);
+          }
+          Polymer.dom(this._networkSnackbar).textContent = this.offline ?
+              'You are offline' : 'You are online';
+          this._networkSnackbar.open();
+        }
+      },
+
+      _updateArticleHeadline: function(articleHeadline) {
+        this.articleHeadline = articleHeadline;
+      },
+
+      // Elements in the app can notify section changes.
+      // Response by a11y announcing the section and syncronizing the category.
+      _updateDocumentTitle: function(page, categoryTitle, articleHeadline, appTitle) {
+        //document.title = (page === 'list' ? categoryTitle : articleHeadline) + ' - ' + appTitle;
+        document.title = appTitle;
+      },
+
+      _refreshData: function() {
+        this.$.data.refresh();
+      },
+
+
+
+    });
+
+  </script>
+
+</dom-module>

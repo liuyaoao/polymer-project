@@ -1,0 +1,94 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docExpression">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>设置 »</font></p>
+            <p>自定义表情符号</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section">
+                <h1>自定义表情符号</h1>
+                <p>通过点击通道边栏顶部的三个点，可以从<strong>主菜单</strong>访问自定义表情符号的设置。单击自定义表情<strong>符号可</strong>打开一个页面，您可以在其中查看现有的自定义Emojis并创建新的自定义Emojis。</p>
+                <p>创建自定义表情符号：</p>
+                <ol class="arabic simple">
+                  <li>点击通道侧边栏顶部的三个点，打开<strong>主菜单</strong>。</li>
+                  <li>选择<strong>自定义表情符号</strong>。</li>
+                  <li>单击<strong>添加自定义表情符号</strong>。</li>
+                  <li>输入您的自定义表情符号的名称。（这是在表情符号自动填充中显示的名称）。</li>
+                  <li>单击<strong>选择</strong>，然后选择要用于表情符号的图像。</li>
+                  <li>单击<strong>保存</strong>。</li>
+                </ol>
+                <p>选择图像时，小方块图片效果最佳。该文件可以是任何JPG，GIF或PNG。</p>
+                <p>保存后，您的表情符号将显示在自定义表情符号列表中。要将自定义表情符号添加到消息中，只需键入“：”，然后输入您的表情符号名称即可将其显示在表情符号自动填充中。网站上的其他用户也可以在自动填充中查看您的表情符号，并可以在自己的信息中使用。</p>
+                <p>注意：如果在菜单中看不到<strong>自定义表情符号</strong>选项，则系统管理员可能对某些用户的访问受限。请与系统管理员联系以获取帮助</p>
+              </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docExpression',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

@@ -1,0 +1,295 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html"> -->
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-styles/demo-pages.html">
+<link rel="import" href="./jquery2-import.html">
+
+<dom-module id="news-header">
+
+  <template>
+      <style>
+        :host{
+          font-family: microsoft yahei;
+        }
+        .container{
+          width: 1170px;
+          margin:0 auto;
+        }
+        /*头部*/
+        header{
+          height: auto;
+          font-size: 18px;
+          position: fixed;
+          left:0;
+          top:0;
+          width: 100%;
+          z-index: 10;
+        }
+        header .top{
+          height: 28px;
+          color: #fff;
+          background-color: #000;
+          padding: 5px 0;
+          position: relative;
+          left:0;
+          top:0;
+          z-index: 2;
+        }
+        header .top .phone,
+        header .top .mail{
+          padding-left: 20px;
+          font-size: 14px;
+          margin-right: 40px;
+          float: right;
+          line-height: 28px;
+        }
+        header .top .phone{
+          background: url(../images/icon_phone.png) left 5px no-repeat;
+        }
+        header .top .mail{
+          background: url(../images/icon_mail.png) left 5px no-repeat;
+        }
+        .logo_container{
+          padding: 6px 0 0 0;
+          height: 49px;
+          background-color: rgba(0,0,0,0.46);
+          position: relative;
+          left:0;
+          top:0;
+          z-index: 2;
+        }
+        .logo_container .container{
+          position: relative;
+          left:0;
+          top:0;
+        }
+        .logo-toolbar{
+          position: absolute;
+          left:0;
+          width: 218px;
+          height: 40px;
+          padding:0;
+        }
+        .menu-list{
+          float: right;
+          margin-right: -3px;
+          padding:0;
+        }
+        .menu-list a,.menu-list .dropdown>h5{
+          margin:0 36px;
+          display: inline-block;
+          position: relative;
+          left:0;
+          top:0;
+          line-height: 48px;
+          color: #fff;
+          padding:0 3px;
+          font-size: 18px;
+          text-decoration: none;
+          font-weight: normal;
+          cursor: pointer;
+        }
+
+        .menu-list .dropdown{
+          display: inline-block;
+          margin:0 36px;
+          position: relative;
+          left:0;
+          top:0;
+        }
+        .menu-list .dropdown ul{
+          display: none;
+        }
+        .menu-list .dropdown:hover{
+          height: 200px;
+        }
+
+        .menu-list .dropdown:hover ul{
+          display: block;
+          position: absolute;
+          left: 30px;
+          top: 49px;
+          list-style: none;
+          width: 200px;
+          padding: 0;
+          margin: 0;
+        }
+        .menu-list .dropdown:hover ul a{
+          display: block;
+          width:100%;
+          box-sizing: border-box;
+          padding:8px;
+          height: auto;
+          overflow: hidden;
+          background-color: rgba(0,0,0,0.46);
+          margin:0;
+        }
+        .menu-list .dropdown:hover ul a:hover{
+            color: #f87676;
+            border:0;
+            background-color: rgba(0,0,0,.6);
+        }
+        .menu-list .dropdown li h5,
+        .menu-list .dropdown li h6{
+          margin:0;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 20px;
+          font-family: microsoft yahei;
+          margin: 0;
+          display: block;
+        }
+        .menu-list .dropdown h6{
+          font-size: 12px;
+          line-height: 20px;
+        }
+        .menu-list a:hover,
+        .menu-list a.iron-selected,
+        .menu-list .dropdown:hover>h5 {
+          letter-spacing: 0em;
+          border-bottom: solid 2px #C1272D;
+        }
+        paper-icon-button{
+          display: none;
+        }
+        @media screen and (max-width:768px){
+          .container{
+            width: auto;
+            margin: 0 15px;
+          }
+          header .top{
+            display: none;
+          }
+          paper-icon-button{
+            display: block;
+            color: #fff;
+            position: absolute;
+            right:0;
+            top:0;
+          }
+          .logo-toolbar{
+            width: 100%;
+          }
+        }
+      </style>
+    <!--
+      Header at the scroll top of the page.
+    -->
+    <header>
+      <div class="top" id="top">
+          <div class="container">
+              <span class="mail">contact@uipin.cn</span>
+              <span class="phone">请拨打400免费热线：13520830552</span>
+          </div>
+      </div>
+      <div class="logo_container">
+          <div class="container">
+              <div class="logo-toolbar">
+                  <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+                  <div class="logo">
+                   <a href="/"><img src="../images/logo.png" /></a>
+                  </div>
+              </div>
+              <template is="dom-if" if="[[!smallScreen]]">
+                <iron-selector role="navigation" class="menu-list" selected="[[category.name]]" attr-for-selected="name">
+                    <a name="home" href="/home">首 页</a>
+                    <a href="/service" name="service">服 务</a>
+                    <!--
+                    <div class="dropdown">
+                        <h5>服 务</h5>
+                        <ul>
+                          <li>
+                              <a href="/service" name="service">
+                                  <h5>网页应用开发</h5>
+                                  <h6>Web App Development</h6>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="/uipin-mobile" name="uipin-mobile">
+                                  <h5>移动应用开发</h5>
+                                  <h6>Mobile App Development</h6>
+                              </a>
+                          </li>
+                        </ul>
+                    </div> -->
+                    <a name="technology" href="/technology">技 术</a>
+                    <a name="example" href="/example">案  例</a>
+                    <a name="contact" href="/contact">联系我们</a>
+                </iron-selector>
+              </template>
+          </div>
+      </div>
+    </header>
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'news-header',
+
+      properties: {
+
+        appTitle: String,
+
+        page: {
+          type: String,
+          observer: '_pageChanged'
+        },
+
+        categories: Array,
+
+        category: Object,
+
+        smallScreen: Boolean,
+
+        drawerOpened: {
+          type: Boolean,
+          notify: true
+        }
+
+      },
+
+      _toggleDrawer: function() {
+        this.drawerOpened = !this.drawerOpened;
+      },
+
+      _pageChanged: function(page, oldPage) {
+
+        var path = page;
+      },
+
+      ready: function(){
+        var top = $(this.$.top);
+        $(window).scroll(function(){
+          if($(this).scrollTop()>100){
+            top.slideUp('slow');
+          }else{
+            top.slideDown('slow');
+          }
+        })
+      }
+    });
+
+  </script>
+
+</dom-module>

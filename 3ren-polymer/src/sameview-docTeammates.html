@@ -1,0 +1,113 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docTeammates">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>消息 »</font></p>
+            <p>提到队友</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section" id="mentioning-teammates">
+                <h1>提到队友</h1>
+                <div class="section" id="mentions">
+                  <h2>@Mentions</h2>
+                  <p>使用@mentions来获取特定团队成员的注意力。</p>
+                  <div class="section" id="username">
+                    <h3>@用户名</h3>
+                    <p>您可以通过使用<em>@</em>符号及其用户名来向他们提出一个提及通知。</p>
+                    <p>键入<em>@</em>以显示可以提及的团队成员的列表。要过滤列表，请键入任何用户名，名字，姓氏或昵称的前几个字母。使用向上和向下箭头键滚动列表中的条目，然后按ENTER键选择要提及的人员。选择后，用户名将替换全名或昵称。</p>
+                    <p>以下示例向Alice发送特别提示通知，其用户名为<strong>alice</strong>。通知提醒她她被提及的频道和讯息。如果爱丽丝远离三人即时通并且已经打开电子邮件通知，那么她会收到一封电子邮件提醒她提及的消息文本。</p>
+                    <div class="highlight-none"><div class="highlight"><pre><span></span>@alice你的面试和新的候选人怎么样？</pre></div></div>
+                    <p>如果您提到的人不属于该频道，系统消息将被发布以通知您。这是一个临时信息，你是唯一可以看到它的人。要将所提到的人添加到频道，请转到频道名称旁边的下拉菜单，然后选择<strong>添加成员</strong>。</p>
+                  </div>
+                  <div class="section" id="channel-and-all">
+                    <h3>@channel和@all</h3>
+                    <p>您可以输入<code class="docutils literal"><span class="pre">@channel</span></code>或输入整个频道<code class="docutils literal"><span class="pre">@all</span></code>。频道的所有成员都收到提醒通知，其行为方式与会员已被亲自提及的方式相同。如果在城市广场使用，它会通知您团队的所有成员。</p>
+                    <div class="highlight-none"><div class="highlight"><pre><span></span>@channel这个星期的采访很棒。我想我们找到了一些优秀的潜在候选人！</pre></div></div>
+                    <p>如果频道有五个或更多成员，系统会提示您确认是否要将通知发送给频道中的所有人。</p>
+                  </div>
+                  <div class="section" id="here">
+                    <h3>@这里</h3>
+                    <p>您可以通过键入来提及在频道中在线的所有人<code class="docutils literal"><span class="pre">@here</span></code>。这将发送一个桌面通知并推送通知给在线的频道的成员。它被列为侧栏中的一个提及。离线的会员没有收到通知，当他们回到网站时，他们将不会在频道侧栏中看到提及。离开的会员只有在通知设置为“所有活动”的情况下才会收到桌面通知，而侧边栏中不会显示提示。</p>
+                    <div class="highlight-none"><div class="highlight"><pre><span></span>有人可以快速回顾一下吗？</pre></div></div>
+                  </div>
+                </div>
+                <div class="section" id="words-that-trigger-mentions">
+                  <h2>触发提示的词</h2>
+                  <p>您可以自定义在<strong>触发提示的帐户设置&gt;通知&gt;单词中触发提示通知的单词</strong>。默认情况下，您会收到通知提及您的用户名和<em>@channel</em>，<em>@all</em>和<em>@here</em>。您可以选择让您的名字成为一个触发提及的词。</p>
+                  <p>您可以添加自定义单词列表以获取提示通知，方法是将其输入到输入框中，用逗号分隔。如果您希望收到有关某些主题的所有帖子（例如“面试”或“营销”）的通知，这将非常有用。</p>
+                </div>
+                <div class="section" id="recent-mentions">
+                  <h2>最近提及</h2>
+                  <p>点击搜索框旁边的<strong>@</strong>可以查询您最近发现的“引用”和“触发提示”的单词。点击<strong>跳转</strong>旁边的搜索结果在右侧边栏中的跳中心窗格与提及消息的渠道和位置。</p>
+                </div>
+              </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docTeammates',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

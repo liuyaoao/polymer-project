@@ -1,0 +1,197 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docTheme">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>设置 »</font></p>
+            <p>主题颜色</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section" >
+                <h1>主题颜色</h1>
+                <p>三人即时通用户界面的颜色可以在“ <strong>帐户设置”&gt;“显示”&gt;“主题”</strong>中自定义。您可以从Slack导入主题颜色，自定义颜色，或从三人即时通团队设计的四个标准主题中进行选择。</p>
+                <p>您所做的任何更改都将应用于您所属的所有团队。在企业版中，您可以选择仅将主题应用于当前团队，从而允许您为每个团队使用不同的主题。</p>
+                <div class="section">
+                  <h2>标准主题</h2>
+                  <p>选择<strong>主题颜色，</strong>以选择由三人即时通团队设计的四个标准主题。要对四种标准主题颜色进行自定义调整，请单击标准主题，然后选择<strong>自定义主题</strong>将标准主题加载到自定义主题颜色选择器中。</p>
+                </div>
+                <div class="section">
+                  <h2>从Slack导入主题</h2>
+                  <p>要导入主题，请从Slack中的<strong>“首选项”&gt;“侧栏主题”</strong>打开自定义主题选项，复制主题颜色矢量，然后将其粘贴到三人即时通中的<em>输入松弛主题</em>输入框中。在Slack中无法自定义的任何主题设置将默认为“三人即时通”标准主题设置。</p>
+                </div>
+                <div class="section">
+                  <h2>自定义主题</h2>
+                  <p>在自定义主题颜色时观察实时预览，然后单击<strong>保存</strong>以确认更改。退出设置窗口并单击<strong>是，丢弃</strong>放弃您的更改。</p>
+                  <div class="section">
+                    <h3>侧栏样式</h3>
+                    <dl class="docutils">
+                      <dt>边栏BG</dt>
+                          <dd>“通道”窗格的背景颜色，“帐户”和“团队”设置导航侧边栏。</dd>
+                      <dt>侧栏文字</dt>
+                          <dd>“通道”窗格中读取通道的文字颜色以及“帐户”和“团队”设置导航边栏中的标签。</dd>
+                      <dt>侧栏头BG</dt>
+                          <dd>“通道”窗格上方标题的背景颜色以及所有对话窗口标题。</dd>
+                      <dt>侧栏标题文字</dt>
+                          <dd>“通道”窗格上方的标题文字颜色以及所有对话窗口标题。</dd>
+                      <dt>边栏未读文本</dt>
+                          <dd>“通道”窗格中未读通道的文字颜色。</dd>
+                      <dt>侧栏文字悬停BG</dt>
+                          <dd>当您将鼠标悬停在其上时，通道名称和设置选项卡背后的颜色。</dd>
+                      <dt>边栏文本活动边框</dt>
+                          <dd>“通道”窗格左侧的“矩形”标记的颜色或“设置”边栏指示活动通道或选项卡的颜色。</dd>
+                      <dt>侧栏文字活动颜色</dt>
+                          <dd>“通道”窗格或“设置”边栏中活动通道或选项卡的文本颜色。</dd>
+                      <dt>在线指标</dt>
+                          <dd>Direct Messages列表中出现在团队成员名称旁边的在线指示器的颜色。</dd>
+                      <dt>离开指示器</dt>
+                          <dd>当直播消息列表中没有浏览器活动5分钟时，远程指示器的颜色显示在“直接消息”列表中的组成员名称旁边。</dd>
+                      <dt>提到宝石BG</dt>
+                          <dd>珠宝的背景色指示通道名称右侧显示的未读提示。这也是在较短的浏览器窗口的“通道”窗格的顶部或底部出现的“未读的帖子下面/上面”指示符的背景颜色。</dd>
+                      <dt>提到宝石文本</dt>
+                          <dd>提到宝石上的文字颜色，表示未读提及的数量。这也是“未读的帖子下面/上面”指示符上的文本颜色。</dd>
+                    </dl>
+                  </div>
+                  <div class="section">
+                    <h3>中心频道样式</h3>
+                    <dl class="docutils">
+                      <dt>中心频道BG</dt>
+                          <dd>中心窗格的颜色，右侧边栏和所有对话框窗口背景。</dd>
+                      <dt>中心频道文本</dt>
+                          <dd>所有文本的颜色 - 除了提及，链接，主题标签和代码块 - 在中心窗格，右侧边栏和对话框中。</dd>
+                      <dt>新消息分隔符</dt>
+                          <dd>当您单击进入具有未读消息的通道时，新的按摩分隔符将出现在最后一条阅读消息的下方。</dd>
+                      <dt>提醒BG</dt>
+                          <dd>突出显示您的单词后面的颜色，在中心窗格和右侧边栏中触发提示。</dd>
+                      <dt>提醒亮点链接</dt>
+                          <dd>在中心窗格和右侧边栏中触发提示的文字的文字颜色。</dd>
+                      <dt>代码主题</dt>
+                          <dd>所有代码块的背景和语法颜色。</dd>
+                    </dl>
+                  </div>
+                  <div class="section">
+                    <h3>链接和按钮样式</h3>
+                    <dl class="docutils">
+                      <dt>链接颜色</dt>
+                      <dd>所有链接的文字颜色，主题标签，队友提及和低优先级的UI按钮。</dd>
+                      <dt>按钮BG</dt>
+                      <dd>所有高优先级UI按钮背后的矩形背景颜色。</dd>
+                      <dt>按钮文字</dt>
+                      <dd>所有高优先级UI按钮的矩形背景上显示文字颜色。</dd>
+                    </dl>
+                  </div>
+                  <div class="section">
+                    <h3>导出自定义主题</h3>
+                    <p>您可以通过从“自定义主题”菜单中复制“主题代码”来导出主题。</p>
+                    <p>转到<strong>帐户设置&gt;显示&gt;自定义主题&gt;复制并粘贴以共享主题颜色</strong>并复制主题代码以导出它。</p>
+                  </div>
+                  <div class="section">
+                    <h3>导入自定义主题</h3>
+                    <p>您可以通过将“主题代码”粘贴到自定义主题菜单中来导入主题。</p>
+                    <p>转到<strong>帐户设置&gt;显示&gt;自定义主题&gt;复制并粘贴以共享主题颜色</strong>并粘贴主题代码进行导入，然后单击<strong>保存</strong>。</p>
+                  </div>
+                  <div class="section">
+                    <h3>自定义主题示例</h3>
+                    <p>自定义您的主题颜色，并通过将主题向量复制并粘贴到输入框中与他人共享。以下是一些示例主题及其相应的主题向量。</p>
+                    <div class="section">
+                      <h4>GitHub主题</h4>
+                      <img alt="THEME2" src="../images/theme2.PNG">
+                      <div class="highlight-none">
+                        <div class="highlight"><pre><span></span>{ “awayIndi&#8203;&#8203;cator”： “＃D4B579”， “buttonBg”： “＃66CCCC”， “buttonColor”： “＃FFFFFF”， “centerChannelBg”： “＃FFFFFF”， “centerChannelColor”： “＃444444”， “codeTheme”： “github上”， “LINKCOLOR”： “＃3DADAD”， “mentionBg”： “＃66CCCC”， “mentionColor”： “＃FFFFFF”， “mentionHighlightBg”： “＃3DADAD”， “mentionHighlightLink”： “＃FFFFFF”，” newMessageSeparator “：” ＃F2777A “ ”onlineIndicator“： ”＃52ADAD“， ”sidebarBg“： ”＃F2F0EC“， ”sidebarHeaderBg“： ”＃E8E6DF“， ”sidebarHeaderTextColor“： ”＃424242“， ”sidebarText“：” ＃ 2E2E2E “ ”sidebarTextActiveBorder“： ”＃66CCCC“，”sidebarTextActiveColor “：” ＃594545" ， “sidebarTextHoverBg”： “＃E0E0E0”， “sidebarUnreadText”： “＃515151”}</pre></div>
+                    </div>
+                  </div>
+                  <div class="section">
+                    <h4>Monokai主题</h4>
+                    <img alt="THEME3" src="../images/theme3.PNG">
+                    <div class="highlight-none">
+                      <div class="highlight"><pre><span></span>{ “awayIndi&#8203;&#8203;cator”： “＃B8B884”， “buttonBg”： “＃90AD58”， “buttonColor”： “＃FFFFFF”， “centerChannelBg”： “＃FFFFFF”， “centerChannelColor”： “＃444444”， “codeTheme”： “monokai”， “LINKCOLOR”： “＃90AD58”， “mentionBg”： “＃7E9949”， “mentionColor”： “＃FFFFFF”， “mentionHighlightBg”： “＃54850C”， “mentionHighlightLink”： “＃FFFFFF”，” newMessageSeparator “：” ＃90AD58" ， “onlineIndicator”： “＃99CB3F”， “sidebarBg”： “＃262626”， “sidebarHeaderBg”： “＃363636”， “sidebarHeaderTextColor”： “＃FFFFFF”， “sidebarText”：“＃ FFFFFF “ ”sidebarTextActiveBorder“： ”＃7E9949“，”sidebarTextActiveColor “：” ＃FFFFFF”， “sidebarTextHoverBg”： “＃525252”， “sidebarUnreadText”： “＃CCCCCC”}
+                      </pre></div>
+                    </div>
+                  </div>
+                  <div class="section">
+                    <h4>日光黑暗主题</h4>
+                    <img alt="themeSolarizedDark" src="../images/themeSolarizedDark.PNG">
+                    <div class="highlight-none">
+                      <div class="highlight"><pre><span></span>{ “awayIndi&#8203;&#8203;cator”： “＃E0B333”， “buttonBg”： “＃859900”， “buttonColor”： “＃fdf6e3”， “centerChannelBg”： “＃073642”， “centerChannelColor”： “＃93a1a1”， “codeTheme”： “solarized暗”， “LINKCOLOR”： “＃268bd2”， “mentionBj”： “＃dc322f”， “mentionColor”： “＃FFFFFF”， “mentionHighlightBg”： “＃d33682”， “mentionHighlightLink”： “＃268bd2” “newMessageSeparator”： “＃cb4b16”， “onlineIndicator”： “＃2AA198”， “sidebarBg”： “＃073642”， “sidebarHeaderBg”： “＃002B36”， “sidebarHeaderTextColor”： “＃FDF6E3”， “sidebarText”： “＃FDF6E3”， “sidebarTextActiveBorder”： “＃d33682”“sidebarTextActiveColor”： “＃FDF6E3”， “sidebarTextHoverBg”： “＃CB4B16”， “sidebarUnreadText”： “＃FDF6E3”， “errorTextColor”： “＃dc322f”}
+                      </pre></div>
+                    </div>
+                  </div>
+                  <div class="section">
+                    <h4>Gruvbox黑色主题</h4>
+                    <img alt="themeGruvboxDark" src="../images/themeGruvboxDark.PNG">
+                    <div class="highlight-none">
+                      <div class="highlight"><pre><span></span>{ “awayIndi&#8203;&#8203;cator”： “＃fabd2f”， “buttonBg”： “＃689d6a”， “buttonColor”： “＃ebdbb2”， “centerChannelBg”： “＃3c3836”， “centerChannelColor”： “＃ebdbb2”， “codeTheme”： “monokai”， “errorTextColor”： “＃fb4934”， “LINKCOLOR”： “＃83a598”， “mentionBj”： “＃b16286”， “mentionColor”： “＃fbf1c7”， “mentionHighlightBg”： “＃d65d0e”，” mentionHighlightLink “：” ＃fbf1c7" ， “newMessageSeparator”： “＃d65d0e”， “onlineIndicator”： “＃b8bb26”， “sidebarBg”： “＃282828”， “sidebarHeaderBg”： “＃1d2021”， “sidebarHeaderTextColor”：“＃ ebdbb2" ， “sidebarText”： “＃ebdbb2”，”sidebarTextActiveBorder “：” ＃d65d0e”， “sidebarTextActiveColor”： “＃fbf1c7”， “sidebarTextHoverBg”： “＃d65d0e”， “sidebarUnreadText”： “＃fe8019”}
+                      </pre></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docTheme',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

@@ -1,0 +1,250 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html">
+
+<dom-module id="sameview-valueControl">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div class="valuebg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="valueImg" style="background-image:url(../images/Vcontrolbg_01.png);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="valueText">
+            <h2>企业的地盘企业自己来主宰</h2>
+            <h5>确保关键商业信息不被泄露，确保业务运营环节安全可控；</h5>
+            <h5>完整、安全、高可用数据是未来企业商业文明的制高点。 </h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="vMatter">
+        <div class="MatterT">
+          <div class="container">
+          <div class="vMatterT clearfix">
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>自主可控的数据信息</h2>
+                <p>确保企业的重要数据信息保存在企业内部的完整性、安全性，不被泄露，不被劫持会话等风险隐患，为企业提供符合自身政策法规的快捷、简单和安全的沟通协作平台解决方案。</p>
+              </div>
+            </div>
+            <div class="matterImg col-md-6 animated fadeInRight">
+              <img src="../images/Vcontrol_01.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="MatterB">
+        <div class="container">
+          <div class="vMatterB clearfix">
+            <div class="matterImg col-md-6 animated fadeInLeft">
+              <img src="../images/Vcontrol_02.png" alt="">
+            </div>
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>降低风险</h2>
+                <p>避免免费的第三方提供商的丢失和违规的风险，三人即时通根据企业的数据安全保密与IT政策，将所有数据信息保存在企业内部，全面审核与备份存档。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+      <div class="matterbg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="valueImg" style="background-image:url(../images/Vcontrolbg_02.png);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="valueText2">
+            <h2>降低成本</h2>
+            <h5>三人即时通提供企业内部沟通通讯平台上的合规和标准管理，以及提高IT硬件资源的整合与高利用率，提高员工沟通协作效率，驱动业务增益，降低企业运营成本。</h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="vMatter">
+        <div class="MatterT">
+          <div class="container">
+          <div class="vMatterT clearfix">
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>符合合规性</h2>
+                <p>三人即时通支持将所有通信的记录完整记录到企业内部的合规系统中，每一条消息记录与文件都存储到企业内部数据中心，并记录用户日志信息，以及定制API来满足内部策略的衔接。</p>
+              </div>
+            </div>
+            <div class="matterImg col-md-6 animated fadeInRight">
+              <img src="../images/Vcontrol_03.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="MatterB">
+        <div class="container">
+          <div class="vMatterB clearfix">
+            <div class="matterImg col-md-6 animated fadeInLeft">
+              <img src="../images/Vcontrol_04.png" alt="">
+            </div>
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>数据加密</h2>
+                <p>消息和文件自动加密，无需用户操作处理，三人即时通采用现代最安全的AES－256与2048位RSA加密技术，以确保企业的沟通聊天消息与文件数据的传输、存储安全。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="matterbg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="valueImg" style="background-image:url(../images/Vcontrolbg_03.png);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="valueText2">
+            <h2>集中管理</h2>
+            <h5>从统一的系统控制台管理并保护系统，可以集中管理用户、委派权限、监测使用情况，审核和撤销设备等。</h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="vMatter">
+        <div class="MatterT">
+          <div class="container">
+          <div class="vMatterT clearfix">
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>防止数据泄漏</h2>
+                <p>跟踪记录通讯平台中的消息与文件，监控账户活动情况，撤销丢失或者被盗设备的访问，为使用用户提供一种快速、简便、习惯的方式来共享消息、文件和协同工作，以便用户不使用个人通讯工具与免费聊天平台。</p>
+              </div>
+            </div>
+            <div class="matterImg col-md-6 animated fadeInRight">
+              <img src="../images/Vcontrol_05.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="MatterB">
+        <div class="container">
+          <div class="vMatterB clearfix">
+            <div class="matterImg col-md-6 animated fadeInLeft">
+              <img src="../images/Vcontrol_06.png" alt="">
+            </div>
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>企业用户服务平台</h2>
+                <p>企业可以采用三人即时通平台为自己的业务面向的客户群体开放成庞大的交流讨论平台，打造企业自己的私有云沟通大平台，进而实现企业人联、物联时代。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+      <div class="matterbg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="valueImg" style="background-image:url(../images/Vcontrolbg_04.jpg);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="valueText2">
+            <h2>可靠运行</h2>
+            <h5>三人即时通支持高可用性配置、运维，系统运行非常稳定，甚至可以在用户的系统进行服务期间而不停止服务进行维护、调整、配置。</h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="vMatter">
+        <div class="MatterT">
+          <div class="container">
+          <div class="vMatterT clearfix">
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>标准化恢复</h2>
+                <p>三人即时通平台的数据中心支持企业一键备份，并支持容灾恢复，企业使用更省心，更放心。</p>
+              </div>
+            </div>
+            <div class="matterImg col-md-6 animated fadeInRight">
+              <img src="../images/Vcontrol_07.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-valueControl',
+    properties: {
+      cIndex: {
+        type:Number,
+        // value:1
+      },
+
+      selected2:{
+          type: Number,
+          value: 0,
+          // observer: '_selected2Changed'
+        }
+    },
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+         $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+      //  var mScaleRate = document.body.clientWidth/750;
+      //  this.$.mobileSwipe.style.height = (456*mScaleRate) + "px";
+     },
+
+    _onSelectedChanged: function(e) {
+        var target = e.target;
+        target.isGesture ? console.log("Swiped by Gesture!") : console.log("Swiped by Selection!");
+    },
+
+    // _categoryChanged: function(category, oldCategory) {
+    //     var href;
+    //     var path = "";
+    //     this.selected2 = 0;
+    //     if(category !== "home"){
+    //       this.$.videom.pause();
+    //     }
+    // },
+
+  });
+
+</script>
+
+</dom-module>

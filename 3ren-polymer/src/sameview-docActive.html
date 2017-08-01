@@ -1,0 +1,157 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docActive">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>部署 »</font></p>
+            <p>移动应用指南</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section">
+                <h1>Active Directory / LDAP设置</h1>
+                <p><em>提供企业版E10＆E20</em></p>
+                <div class="section">
+                  <h2>概述</h2>
+                  <p>Active Directory / LDAP集成提供以下好处：</p>
+                  <ul class="simple">
+                    <li><strong>单点登录。</strong>用户可以使用AD / LDAP凭据登录三人即时通。</li>
+                    <li><strong>集中身份管理。</strong>最重要的帐户可以显示来自AD / LDAP的用户信息，例如姓名，电子邮件和用户名。</li>
+                    <li><strong>自动帐户配置 </strong>在三人即时通服务器上，用户首次用AD / LDAP凭据登录时，将自动创建新的三人即时通用户帐户。</li>
+                  </ul>
+                </div>
+                <div class="section">
+                  <h2>预安装说明</h2>
+                  <ul class="simple">
+                    <li>如果您使用带有<strong>嵌套安全组的</strong> Active Directory，则需要编写一个PowerShell脚本或类似的脚本，将其展开并将树聚合到单个安全组中以映射到三人即时通。</li>
+                  </ul>
+                </div>
+                <div class="section">
+                  <h2>入门</h2>
+                  <p>设置AD / LDAP有两种方法：</p>
+                  <ol class="simple">
+                    <li><strong>使用系统控制台用户界面配置AD / LDAP</strong><ul>
+                      <li>启动三人即时通服务器并使用电子邮件和密码创建一个新帐户，该帐户被分配为第一个用户创建的系统管理员角色，然后配置AD / LDAP，然后将系统管理员帐户转换为使用AD / LDAP登录方法。</li>
+                    </ul>
+                  </li>
+                  <li><strong>通过编辑配置AD / LDAP <code class="docutils literal"><span class="pre">config.json</span></code></strong><ul>
+                    <li>在启动三人即时通服务器之前，编辑<code class="docutils literal"><span class="pre">config.json</span></code>以根据AD / LDAP设置文档启用AD / LDAP 。当您启动三人即时通服务器时，第一个使用有效的AD / LDAP凭据登录的用户将被分配系统管理员角色。</li>
+                  </ul>
+                </li>
+              </ol>
+              <div class="section">
+                <h3>使用系统控制台用户界面配置AD / LDAP</h3>
+                <p>安装三人即时通后：</p>
+                <ol class="simple">
+                  <li><strong>使用电子邮件验证创建系统管理员帐户</strong>。在新服务器上创建一个使用电子邮件和密码的帐户，这是自动分配<strong>系统管理员</strong>角色，因为它是第一个创建的帐户。您也可以将角色分配给另一个帐户。</li>
+                  <li><strong>配置AD / LDAP</strong>。从主屏幕中选择<strong>系统控制台</strong>，转到<strong>AD / LDAP，</strong>并根据配置设置文档填写AD / LDAP设置</li>
+                  <li><strong>确认启用AD / LDAP登录</strong>。启用AD / LDAP后，确认用户可以使用AD / LDAP凭据登录。</li>
+                  <li><strong>将系统管理员帐户从电子邮件切换到AD / LDAP身份验证</strong>。转到<strong>帐户设置</strong> &gt; <strong>常规</strong> &gt; <strong>登录方法</strong> &gt; <strong>切换到AD / LDAP</strong>并使用AD / LDAP凭据登录以完成交换机。</li>
+                  <li><strong>（可选）限制对AD / LDAP的认证</strong>。进入<strong>系统控制台</strong> &gt; <strong>验证</strong> &gt; <strong>电子邮件</strong>并设置<strong>允许注册了电子邮件</strong>到<code class="docutils literal"><span class="pre">false</span></code>和<strong>允许拍在与电子邮件</strong>至<code class="docutils literal"><span class="pre">false</span></code>。这应该使Active Directory / LDAP成为唯一的单一登录选项。</li>
+                  <li>（可选）如果在系统控制台中配置了“名字属性”和“姓氏属性”，请转到“ <strong>系统控制台”&gt;“常规”&gt;“用户和团队”</strong>，并将“ <strong>队列名称显示”</strong>设置为<em>显示姓氏</em>。这是建议更好的用户体验。</li>
+                </ol>
+                <p>如果您以错误方式将系统锁定到系统中，则可以使用命令行工具将现有帐户设置为系统管理员。</p>
+                <p>笔记：</p>
+                <ul class="simple">
+                  <li>三人即时通 3.0在登录时检查AD / LDAP凭据，并发出具有可配置持续时间的会话令牌，默认为30天。如果需要较短的时间间隔，可以在“ <strong>系统控制台”</strong> &gt;“ <strong>安全性”</strong> &gt;“ <strong>会话”中</strong>更改SSO的此会话长度。</li>
+                  <li>当AD / LDAP同步发生时，在AD / LDAP服务器中更新的任何用户属性将反映在三人即时通中。可以在<strong>系统控制台</strong> &gt; <strong>认证</strong> &gt; <strong>AD / LDAP</strong> &gt; <strong>同步化间隔中设置同步时间间隔</strong>。</li>
+                </ul>
+              </div>
+              <div class="section">
+                <h3>配置具有多个域的AD / LDAP部署</h3>
+                <p>使用多个域的组织可以使用“Forest”配置与三人即时通集成，以组合多个域。请参阅森林作为相互信任的域控制器的集合以获取更多信息。</p>
+              </div>
+            </div>
+            <div class="section">
+              <h2>故障排除</h2>
+              <p>以下是有关常见错误消息和问题的故障排除建议。</p>
+              <div class="section">
+                <h3>用户未在AD / LDAP服务器上注册</h3>
+                <p>这意味着发回到Active Directory / LDAP服务器的查询没有返回任何结果。</p>
+                <ul class="simple">
+                  <li>检查您是否正确输入Active Directory / LDAP用户凭据（例如，未将用户名与电子邮件混合）。</li>
+                  <li>检查您尝试使用的用户帐户是否存在于Active Directory / LDAP服务中。</li>
+                  <li>检查您的Active Directory / LDAP属性是否已被正确配置。</li>
+                </ul>
+              </div>
+              <div class="section">
+                <h3>“我更新了AD / LDAP中的用户帐户，并且无法再登录到三人即时通”</h3>
+                <p>如果用户无法使用其AD / LDAP凭据登录到三人即时通，例如，他们会收到一条错误消息，或者在尝试登录时创建一个新的三人即时通帐户 - 这意味着其帐户的ID属性已更改。<code class="docutils literal"><span class="pre">An</span> <span class="pre">account</span> <span class="pre">with</span> <span class="pre">that</span> <span class="pre">email</span> <span class="pre">already</span> <span class="pre">exists</span></code></p>
+                <p>可以通过将用于ID属性的字段的值更改为旧值来修复问题。</p>
+                <p>注意：目前的值区分大小写。如果ID属性设置为用户名和用户名的变化<code class="docutils literal"><span class="pre">John.Smith</span></code>来<code class="docutils literal"><span class="pre">john.smith</span></code>，用户必须在登录的问题。</p>
+              </div>
+              <div class="section">
+                <h3>系统日志错误：LDAP结果代码4“超出大小限制”</h3>
+                <p>这表示您的AD / LDAP服务器配置的页面大小设置最大，来自三人即时通的查询返回超过该限制的结果集。</p>
+                <p>要解决此问题，您可以设置三人即时通的AD / LDAP配置的最大页面大小。这将返回一系列结果集，低于AD / LDAP中设置的最大页面大小，而不是在单个查询中返回所有结果。</p>
+              </div>
+            </div>
+          </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docActive',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

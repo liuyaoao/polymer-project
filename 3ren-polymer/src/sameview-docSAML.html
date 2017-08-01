@@ -1,0 +1,95 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docSAML">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>部署 »</font></p>
+            <p>SAML单点登录（E20)</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section">
+                <h1>SAML单点登录（E20)</h1>
+                <p>SAML单点登录集成具有以下优点：</p>
+                <ul class="simple">
+                  <li><strong>单点登录。</strong>用户可以使用SAML凭据登录三人即时通。</li>
+                  <li><strong>集中身份管理。</strong>最重要的帐户可以显示来自SAML的用户信息，例如姓名，电子邮件和用户名。</li>
+                  <li><strong>自动帐户配置 </strong>在三人即时通服务器上第一次用户登录SAML凭据时，会自动创建新的三人即时通用户帐户。</li>
+                </ul>
+                <p>三人即时通官方支持Okta，OneLogin和Microsoft ADFS作为身份提供商（IDPs），请参阅以下链接，了解有关如何使用这些提供程序配置SAML的更多详细信息。</font><font>如果您愿意，还可以尝试为自定义IDP配置SAML。</p>
+                  <div class="toctree-wrapper compound">
+                    <ul>
+                      <li class="toctree-l1"><a class="reference internal" href="/docokta" name="docokta">Okta SAML配置</a></li>
+                      <li class="toctree-l1"><a class="reference internal" href="/doconelogin" name="doconelogin">OneLogin SAML配置</a></li>
+                      <li class="toctree-l1"><a class="reference internal" href="/docadfs" name="docadfs">Microsoft ADFS SAML配置</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docSAML',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

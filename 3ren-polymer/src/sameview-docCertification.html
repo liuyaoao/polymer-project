@@ -1,0 +1,98 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docCertification">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>部署 »</font></p>
+            <p>多因素认证（E10）</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section">
+                <h1>多因素认证（E10）</h1>
+                <p>对于需要多因素身份验证（“MFA”）作为其IT安全策略一部分的组织而言，三人即时通 Enterprise Edition提供基于智能手机的MFA检查，并选择不使用现有的MFA基础设施保护三人即时通防火墙。以电子邮件密码或Active Directory / LDAP身份验证，登录到三人即时通服务器。</p>
+                <p>支持的智能手机包括能够安装Google Authenticator的 iOS，Android，Blackberry和Windows Phone设备。除了需要互联网访问下载和安装Google Authenticator之外，三人即时通 MFA的手机不需要互联网访问。</p>
+                <ul class="simple">
+                  <li><strong>注意：</strong>开源的三人即时通 Team Edition旨在提供“防火墙后面的现代通信”，并被安全专业人员广泛使用，包括美国FBI，CIA和NSA的前成员以及美国白宫前任首席信息官。</a>三人即时通 Enterprise Edition中的MFA功能被认为是可选的便捷功能，代替在安全的专用网络上运行。</li>
+                </ul>
+                <div class="section">
+                  <h2>启用MFA</h2>
+                  <p>系统控制台中</a>的系统管理员可以在“ <strong>身份验证</strong> &gt; <strong>MFA</strong> &gt; <strong>启用多重身份验证”</strong>下启用此选项<strong></strong></p>
+                  <p>最终用户可以在“ 帐户设置”菜单的“ <strong>安全</strong> &gt; <strong>多因素身份验证</strong>” 下设置此功能。</p>
+                </div>
+                <div class="section">
+                  <h2>执行MFA</h2>
+                  <p>系统控制台中</a>的系统管理员可以在“ <strong>身份验证</strong> &gt; <strong>MFA</strong> &gt; <strong>强制多因素身份验证”</strong>下启用此选项<strong></strong></p>
+                  <p>当MFA强制设置为true时，没有MFA设置的所有具有电子邮件或LDAP身份验证的用户将被发送到MFA设置页面。在MFA设置完成之前，他们将无法访问该站点。任何新用户将需要在注册过程中设置MFA。</p>
+                  <p>执法时，用户将无法从其帐户中删除MFA。</p>
+                  <p>由于启用MFA执法功能可防止用户访问该站点，直到安装完成，因此建议您在非高峰时段（当人们不太可能使用系统）时执行强制执行。</p>
+                </div>
+              </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docCertification',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

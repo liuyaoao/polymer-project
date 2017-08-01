@@ -1,0 +1,109 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docExpand">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>部署 »</font></p>
+            <p>扩大企业规模</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section">
+                <h1>扩大企业规模</h1>
+                <p>三人即时通旨在从单个服务器上托管的小型团队扩展到基于群集，高可用性部署配置的大型企业。</p>
+                <ul class="simple">
+                  <li>服务器要求根据用途而有所不同，强烈建议在企业范围部署之前运行飞行员，以便根据您的具体组织需求来估计全面的使用情况。</li>
+                </ul>
+                <div class="section">
+                  <h2>单机部署</h2>
+                  <p>通常可以在单个服务器上运行少于500个用户的组织。</p>
+                  <ul class="simple">
+                    <li>有关单机设置的分步配置说明，请参阅安装指南。</a></li>
+                    <li>请参阅硬件尺寸的硬件和软件要求</li>
+                  </ul>
+                </div>
+                <div class="section">
+                  <h2>多机部署</h2>
+                  <p>对于具有适度使用的500到20,000个注册用户之间的部署，可以在标准的三台机器上运行使用代理服务器，应用程序服务器和数据库服务器进行大量部署。在这种规模下，通常可以通过在标准配置中使用强大的硬件来满足较大组织的需求。</p>
+                  <ul class="simple">
+                    <li>有关多机设置的分步配置说明，请参阅安装指南。</li>
+                    <li>请参阅硬件尺寸的硬件和软件要求</a></li>
+                  </ul>
+                </div>
+                <div class="section">
+                  <h2>基于群集的部署</h2>
+                  <p><em>可用于企业版E20</em></p>
+                  <p>通过在基于群集的高可用性配置中添加其他服务器，可以支持10,000到20,000个具有适度使用情况的注册用户的部署。此配置使用负载平衡器在多个三人即时通应用程序服务器之间分发来自用户的请求，从而允许系统超出任何单个服务器的限制。</p>
+                  <ul class="simple">
+                    <li>有关水平缩放设置的高可用性部署指南</a></li>
+                  </ul>
+                </div>
+              </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docExpand',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

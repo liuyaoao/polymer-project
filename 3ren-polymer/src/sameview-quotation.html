@@ -1,0 +1,317 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+
+<dom-module id="sameview-quotation">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div class="quotebg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="quoteImg" style="background-image:url(../images/quotationbg.jpg);"></div>
+        </template>
+      </div>
+      <div class="quoteMatter">
+        <div class="container">
+          <div class="module col-md-4">
+            <div class="sort">
+              <div class="module1">
+                <h2>团队版</h2>
+                <div class="">
+                  <h4 style="font-size: 18px;padding-top:6px">免费</h4>
+                  <a href="/download" name="/document" class="teamA">免费下载</a>
+                  <p style="border-bottom: 0px;padding:0px">400-705-0567</p>
+                </div>
+              </div>
+
+                <div class="module2">
+                  <h3>自主、可控团队沟通</h3>
+                  <ul>
+                    <li>自主托管的一对一和群组信息，文件共享和搜索</li>
+                    <li>适用于IOS，Android，Windows，Mac，Linux的本地应用程序</li>
+                    <li>搜索历史和集成</li>
+                    <li>Team Edition 每月改进</li>
+                  </ul>
+                </div>
+
+                <!-- <div class="module3">
+                  <h3> 多语言翻译</h3>
+                  <p style="height:55px;line-height:18px;padding-top:10px">英语，德语，法语， 荷兰语，葡萄牙语，西班牙语，俄语，中文，韩语和日语翻译</p>
+                </div> -->
+
+                <div class="module4">
+                  <h3>企业要点</h3>
+                  <ul>
+                    <li>无</li>
+                    <li>无</li>
+                    <li>无</li>
+                    <li>无</li>
+                    <li>无</li>
+                    <li>无</li>
+                    <li>无</li>
+                  </ul>
+                </div>
+
+                <div class="module5">
+                  <h3>高级支持</h3>
+                  <ul>
+                    <li>无</li>
+                    <li style="height:55px;line-height:55px;padding-top:0px;padding-bottom:0px">无</li>
+                  </ul>
+                </div>
+
+                <div class="module6">
+                  <h3>高级认证</h3>
+                  <ul>
+                    <li style="height:55px;line-height:55px;padding-top:0px;padding-bottom:0px">无</li>
+                    <li>无</li>
+                    <li>无</li>
+                  </ul>
+                </div>
+
+                <div class="module7">
+                  <h3>高级数据中心支持</h3>
+                  <ul>
+                    <li>无</li>
+                    <li>无</li>
+                    <li>无</li>
+                  </ul>
+                </div>
+
+                <div class="module8">
+                  <h3>高级企业分析</h3>
+                  <ul>
+                    <li>无</li>
+                  </ul>
+                </div>
+
+            </div>
+          </div>
+
+          <div class="module col-md-4">
+            <div class="sort">
+              <div class="module1">
+                <h2 style="background-color:#032E84">企业版E1.0</h2>
+                <div class="">
+                  <h4>12<span>元 / 用户 / 月</span></h4>
+                  <!-- <a href="#" class="firmA1">联系销售</a> -->
+                  <h3 href="#" class="firmA1">联系销售</h3>
+                  <p style="border-bottom: 0px;padding:0px">400-705-0567</p>
+                </div>
+              </div>
+
+                <div class="module2">
+                  <h3>自主、可控团队沟通</h3>
+                  <ul>
+                    <li>自主托管的一对一和群组信息，文件共享和搜索</li>
+                    <li>适用于IOS，Android，Windows，Mac，Linux的本地应用程序</li>
+                    <li>搜索历史和集成</li>
+                    <li>Team Edition 每月改进</li>
+                  </ul>
+                </div>
+
+                <!-- <div class="module3">
+                  <h3> 多语言翻译</h3>
+                  <p style="height:55px;line-height:18px;padding-top:10px">英语，德语，法语， 荷兰语，葡萄牙语，西班牙语，俄语，中文，韩语和日语翻译</p>
+                </div> -->
+
+                <div class="module4">
+                  <h3>企业要点</h3>
+                  <ul>
+                    <li>Active Directory / LDAP单点登录</li>
+                    <li>通过HPNS加密推送通知</li>
+                    <li>多因素认证</li>
+                    <li>自定义品牌的工具</li>
+                    <li>高级访问控制策略</li>
+                    <li>下一个工作日支持</li>
+                    <li>E1.0每月改进</li>
+                  </ul>
+                </div>
+
+                <div class="module5">
+                  <h3>高级支持</h3>
+                  <ul>
+                    <li>无</li>
+                    <li style="height:55px;line-height:55px;padding-top:0px;padding-bottom:0px">无</li>
+                  </ul>
+                </div>
+
+                <div class="module6">
+                  <h3>高级认证</h3>
+                  <ul>
+                    <li style="height:55px;line-height:55px;padding-top:0px;padding-bottom:0px">无</li>
+                    <li>无</li>
+                    <li>无</li>
+                  </ul>
+                </div>
+
+                <div class="module7">
+                  <h3>高级数据中心支持</h3>
+                  <ul>
+                    <li>无</li>
+                    <li>无</li>
+                    <li>无</li>
+                  </ul>
+                </div>
+
+                <div class="module8">
+                  <h3>高级企业分析</h3>
+                  <ul>
+                    <li>无</li>
+                  </ul>
+                </div>
+
+            </div>
+          </div>
+
+          <div class="module col-md-4">
+            <div class="sort">
+              <div class="module1">
+                <h2 style="background-color:#2F0659">企业版E2.0</h2>
+                <div class="">
+                  <h4>42<span>元 / 用户 / 月</span></h4>
+                  <h3 href="#" class="firmA2">联系销售</h3>
+                  <p style="border-bottom: 0px;padding:0px">400-705-0567</p>
+                </div>
+              </div>
+
+                <div class="module2">
+                  <h3>自主、可控团队沟通</h3>
+                  <ul>
+                    <li>自主托管的一对一和群组信息，文件共享和搜索</li>
+                    <li>适用于IOS，Android，Windows，Mac，Linux的本地应用程序</li>
+                    <li>搜索历史和集成</li>
+                    <li>Team Edition 每月改进</li>
+                  </ul>
+                </div>
+
+                <!-- <div class="module3">
+                  <h3> 多语言翻译</h3>
+                  <p style="height:55px;line-height:18px;padding-top:10px">英语，德语，法语， 荷兰语，葡萄牙语，西班牙语，俄语，中文，韩语和日语翻译</p>
+                </div> -->
+
+                <div class="module4">
+                  <h3>企业要点</h3>
+                  <ul>
+                    <li>Active Directory / LDAP单点登录</li>
+                    <li>通过HPNS加密推送通知</li>
+                    <li>多因素认证</li>
+                    <li>自定义品牌的工具</li>
+                    <li>高级访问控制策略</li>
+                    <li>下一个工作日支持</li>
+                    <li>E2.0每月改进</li>
+                  </ul>
+                </div>
+
+                <div class="module5">
+                  <h3>高级支持</h3>
+                  <ul>
+                    <li>遵守输出和监督保护</li>
+                    <li style="height:55px;line-height:18px;padding-top:10px">符合Premier Support附加组件（额外的 12 元/用户/月，最少1000个用户）</li>
+                  </ul>
+                </div>
+
+                <div class="module6">
+                  <h3>高级认证</h3>
+                  <ul>
+                    <li style="height:55px;line-height:18px;padding-top:10px">Active Directory联合身份验证服务通过SAML 2.0集成进行单点登录</li>
+                    <li>Okta通过SAML 2.0集成单点登录</li>
+                    <li>OneLogin通过SAML 2.0集成进行单点登录</li>
+                  </ul>
+                </div>
+
+                <div class="module7">
+                  <h3>高级数据中心支持</h3>
+                  <ul>
+                    <li>支持多节点数据库部署</li>
+                    <li>支持高可用性的应用服务器</li>
+                    <li>符合私人SaaS产品</li>
+                  </ul>
+                </div>
+
+                <div class="module8">
+                  <h3>高级企业分析</h3>
+                  <ul>
+                    <li>支持性能监控</li>
+                  </ul>
+                </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-quotation',
+    properties: {
+      cIndex: {
+        type:Number,
+        // value:1
+      },
+
+      selected2:{
+          type: Number,
+          value: 0,
+          // observer: '_selected2Changed'
+        }
+    },
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+         $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+      //  var mScaleRate = document.body.clientWidth/750;
+      //  this.$.mobileSwipe.style.height = (456*mScaleRate) + "px";
+     },
+
+    _onSelectedChanged: function(e) {
+        var target = e.target;
+        target.isGesture ? console.log("Swiped by Gesture!") : console.log("Swiped by Selection!");
+    },
+
+    // _categoryChanged: function(category, oldCategory) {
+    //     var href;
+    //     var path = "";
+    //     this.selected2 = 0;
+    //     if(category !== "home"){
+    //       this.$.videom.pause();
+    //     }
+    // },
+
+  });
+
+</script>
+
+</dom-module>

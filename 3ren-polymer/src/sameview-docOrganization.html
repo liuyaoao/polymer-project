@@ -1,0 +1,204 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docOrganization">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p>入门<font> »</font></p>
+            <p>组织最重要</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section">
+                <h1>组织最重要</h1>
+                <p>随着物质传播到数十个成千上万的用户组织渠道和团队的重要性增加。</p>
+                <p>本文档分享了各种三人即时通部署中的一些最佳做法。</p>
+
+                <div class="section">
+                  <h2>频道名称的重要性</h2>
+                  <p>渠道在三人即时通组织沟通。</p>
+                  <p>当命名或重命名渠道时考虑：</p>
+                  <ul class="simple">
+                    <li>频道名称显示在用户选择要加入的会话的菜单中。</li>
+                    <li>频道名称是唯一的，限制为22个字符，以确保桌面设备和移动设备的可读性。</li>
+                    <li>当用户选择频道时，还可添加128个字符以添加“通道目的”。</li>
+                    <li>另外还有1024个字符用于在“通道头”中详细描述通道。</li>
+                  </ul>
+                <p>命名频道时，请考虑以下几点：</p>
+                <div class="section">
+                  <h3>范围名称</h3>
+                  <p>从广泛界定的渠道开始，自然而然地将讨论进一步分为更窄的主题。</p>
+                  <p>例如，您可以从与市场营销相关的所有内容开始“营销”渠道。随着对话的进行，您可能会自然地将该频道划分为：“营销：网站”，“营销：社交媒体”，“营销：一般”。</p>
+                  <div class="admonition tip">
+                    <p class="first admonition-title">小费</p>
+                    <p class="last">使用冒号分隔通道名称的部分，而不是“ - ”或“&gt;”，这需要更多的空间来显示。</p>
+                  </div>
+                  <p>随着组织的发展，学科也可能会跨越业务部门，产品和地理位置，渠道名称如“美国：营销”和“英国：营销”</p>
+                  <div class="admonition tip">
+                    <p class="first admonition-title">小费</p>
+                    <p class="last">如果您需要缩短国名，请使用标准的<span>2个字母的国家/地区代码</span></p>
+                  </div>
+                  <p>随着进一步的发展，您可以将层次结构与格式相结合。例如：和<span class="pre">[SUB-TEAM]:</span> <span class="pre">[TOPIC]:</span> <span class="pre">[SUB-TOPIC]</span><span class="pre">US:</span> <span class="pre">Mrkt:</span> <span class="pre">Website</span><span class="pre">UK:</span> <span class="pre">Mrkt:</span> <span class="pre">Social</span> <span class="pre">Media</span></p>
+                  <div class="admonition tip">
+                    <p class="first admonition-title">小费</p>
+                    <p class="last">通过删除元音，结尾和冗余的字母音来缩短词语，特别是类别。示例：将“营销”转为“Mrkt”，将“项目”转为“Prjt”。</p>
+                  </div>
+                  <p>良好的命名可以使团队达到数千个频道，而不会引起明显的混乱。最终每个组织都有一个极限，并且可能需要在服务器上创建一个额外的团队以容纳大量的频道。</p>
+                </div>
+                <div class="section">
+                  <h3>使用键盘导航到频道</h3>
+                  <p>三人即时通中的频道名称限制为22个字符的另一个原因是键盘快捷键通常用于快速跳转到频道。</p>
+                  <p>用户可以使用CTRL + K打开一个对话框，可以快速键入通道的前几个字母，从而触发自动完成。按ENTER键直接跳转到通道。</p>
+                  <p>保持名称清晰和简短，可以让用户快速浏览大量的频道。</p>
+                  <div class="admonition tip">
+                    <p class="first admonition-title">小费</p>
+                    <p class="last">使用ALT + SHIFT + UP和ALT + SHIFT + DOWN可以使用未读消息上下移动到下一个通道。</p>
+                  </div>
+                </div>
+              </div>
+              <div class="section">
+                <h2>如何组织渠道</h2>
+                <p>有关如何设置频道名称的指导，以下是不同类型的频道要考虑：</p>
+                <div class="section">
+                  <h3>主题频道</h3>
+                  <p>主题是组织讨论的广泛类别。主题类似于用户如何创建用于组织电子邮件或文档的文件夹：</p>
+                  <div class="highlight"><pre>示例 ：招聘，访谈，法律 评论，文档</pre></div>
+                <p>用户可以加入和离开基于主题的渠道，以及添加同事进行基于主题的讨论。</p>
+                <p>随着团队规模越来越大，渠道数量的增加，您可能会开始在层次结构中命名主题，使其更容易找到：</p>
+                <div class="highlight"><pre>示例 ： 法律 ： 商标 ， 法律 ：合同，法律 ：许可</pre></div>
+              </div>
+              <div class="section">
+                <h3>会议频道</h3>
+                <p>频道通常用于组织定期会议。会员可以添加主题作为消息，这将在常规会议时间讨论：</p>
+                <div class="highlight"><pre>示例 ： 星期一 销售 更新， 所有 手 会议</pre></div>
+                <p>有一些内置的功能，使三人即时通会议更容易管理：</p>
+                <ol class="arabic simple">
+                  <li>标题文本中编号的议程项目</li>
+                </ol>
+                <p>您可以将邮件编号和格式化为议程项目，供下次会议讨论。</p>
+                <p>尝试在指定为会议的频道中粘贴以下内容作为示例：</p>
+                <div class="highlight" style="text-align:left;"><pre><span class="c1">#### 1）议程项目示例</span> <br>解说 有关 议程 项目 来 进行 讨论 。</pre></div>
+                  <ol class="arabic simple" start="2">
+                    <li>线程消息传递</li>
+                  </ol>
+                  <p>在议程项目消息中，您可以选择在会议之前或之后对议程项目发表评论，以进行扩展讨论。<span class="pre">[...]</span> <span class="pre">&gt;</span> <span class="pre">Reply</span></p>
+                  <ol class="arabic simple" start="3">
+                    <li>标题链接</li>
+                  </ol>
+                  <p>如果您远程会议，请在频道头中添加永久链接到您的视频或音频会议解决方案，如缩放，Google环聊或BlueJeans 。</p>
+                  <p>当遇到问题时，您的团队可以点击会议链接进行连接。</p>
+                </div>
+                <div class="section" id="sub-teams">
+                  <h3>子团队</h3>
+                  <p>子小组可以包括来自同一学科的人员，项目团队，同一经理人员或其他团体聚集在一起的共同目的：</p>
+                  <div class="highlight-default">
+                    <div class="highlight"><pre><span></span>示例：开发商，营销人员，场外 组织 委员会，SusanK 的指导</pre></div>
+                </div>
+                <p>随着子团队成长为一个渠道的可管理大小，他们可以细分：</p>
+                <div class="highlight-default">
+                  <div class="highlight"><pre><span></span>示例：美国：开发商，英国：开发商，SusanK 的指导，SusanK 的 扩展 指导</pre></div>
+                </div>
+              </div>
+              <div class="section" id="projects">
+                <h3>项目</h3>
+                <p>项目渠道讨论如何群体聚集以达成具体成果：</p>
+                <div class="highlight-default">
+                  <div class="highlight"><pre><span></span>示例：标志 设计，本地化，产品 发布</pre></div>
+                </div>
+                <p>项目通常是私人渠道，而不是公共渠道，通常用于组织围绕更大渠道建立的项目的小团队。项目频道用于进行详细的工作，在许多情况下，更新被传送回更大的频道。</p>
+              </div>
+              <div class="section" id="location-channels">
+                <h3>位置频道</h3>
+                <p>如果您的团队在不同的建筑物，城市或地区，您可以创建渠道来帮助人们协调会议和聚会：</p>
+                <div class="highlight-default">
+                  <div class="highlight"><pre><span></span>例如：<span class="mi">10 </span> 号楼 ， Palo Alto ，多伦多，特拉华州</pre></div>
+                </div>
+                <p>这有助于分享与这些地点相关的公告和讨论。</p>
+              </div>
+              <div class="section" id="data-channels">
+                <h3>数据通道</h3>
+                <p>有时您想要设置集成，以自动将数据导入某些渠道。诸如Twitter更新，新的或更新的支持门票或错误报告之类的信息，或者在新闻中提及您公司名称的信息都可以在您的团队选择监视的频道中提供。有些人可能像每日报纸一样使用这些频道，阅读最后一天发生的一切。</p>
+                <p>其他人可能会配置他们的通知，只有当他们的用户名或某些关键词被提及时才能注意。有各种各样的选择：</p>
+                <div class="highlight-default">
+                  <div class="highlight"><pre><span></span>例如：错误，支持 票，微博，新闻 提及</pre></div>
+                </div>
+              </div>
+            </div>
+            <div class="section" id="channel-naming-examples">
+              <h2>频道命名示例</h2>
+              <p>以下是一个营销人员的渠道在一个小团队中可能看起来的例子：</p>
+              <div class="highlight-default">
+                <div class="highlight"><pre>渠道<br>*  招聘 <br>*  面试 <br>*  销售 <br>*  销售 <br>*  所有 手 会议 <br>*  镇 广场 <br>*  关<br>- 主题 <br><br>私人 渠道 <br>*  网站 <br>*  Twitter  营销 <br>*  标志 设计 <br><br>直接 信息 <br>*  [ 销售 人员] <br>*  [ 营销人员] <br>*  [ 招聘人员] <br>*  [ 经理] </pre></div>
+            </div>
+            <p>以下是一个营销人员频道的例子，如果她在加利福尼亚州的帕洛阿尔托工作，在一家大型企业办公室工作，称为“浮桥”：</p>
+            <div class="highlight-default">
+              <div class="highlight"><pre>渠道 <br>*  地理： PA ： 招聘 <br>*  地理： PA ： 访谈 <br>*  美国： MRKT ： 一般 <br>*  美国： 销售： 西部 海岸 <br>*  美国： 所有 手 <br>*  镇 广场 <br>*  关<br>- 主题<br><br>私人 通道 <br>*  浮桥： Mkrt ： 网站 <br>*  浮桥： Mkrt ： Twitter <br>*  浮桥： Mkrt ： 标志 设计 <br><br>直接 留言 <br>*  [ 西部 海岸 销售 人员] <br>*  [ 营销 同行] <br>*  [ 招聘 的 PA  办公室] <br>*  [ 管理] </pre></div>
+            </div>
+          </div>
+        </div>
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docOrganization',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

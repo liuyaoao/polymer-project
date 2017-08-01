@@ -1,0 +1,191 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html">
+
+<dom-module id="sameview-valueMove">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div class="valuebg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="valueImg" style="background-image:url(../images/Vmovebg_01.jpg);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="valueText">
+            <h2>每一个企业都需要自己的移动通讯平台</h2>
+            <h5>三人即时通平台让沟通、共享协作随时随地都可以进行。</h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="vMatter">
+        <div class="MatterT">
+          <div class="container">
+            <div class="vMatterT clearfix">
+              <div class="matterText col-md-6">
+                <div class="">
+                  <h2>沟通便捷，提高工作效率</h2>
+                  <p>随时随地都可以在各种移动设备上来安全地登陆，支持聊天沟通、群聊、文件共享、语音和视频通讯，消息记录保存在企业本地服务器，支持私有云同步消息与记录。</p>
+                </div>
+              </div>
+              <div class="matterImg col-md-6 animated fadeInRight">
+                <img src="../images/Vmove_01.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="MatterB">
+          <div class="container">
+          <div class="vMatterB clearfix">
+            <div class="matterImg col-md-6 animated fadeInLeft">
+              <img src="../images/Vmove_02.png" alt="">
+            </div>
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>移动办公、处理事务更快捷</h2>
+                <p>三人即时通使用基于主题的消息传递，设置主题与群聊中提及的您的姓名与关键字，就可以给您发送处理警报，可以立即处理问题进行沟通，不像传统电子邮件来传递消息与办公协作，去登陆浏览非常繁复。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+      </div>
+      <div class="matterbg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="valueImg" style="background-image:url(../images/Vmovebg_02.jpg);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="valueText2">
+            <h2>共享和搜索</h2>
+            <h5>支持移动应用（iPhone、Android、iPad）、本地桌面应用（Windows、Mac、Linux）上的消息、文件、图像、视频和语音录音的共享、搜索。</h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="vMatter">
+        <div class="MatterT">
+          <div class="container">
+            <div class="vMatterT clearfix">
+              <div class="matterText col-md-6">
+                <div class="">
+                  <h2>私有安全性</h2>
+                  <p>所有信息数据存储在企业本地，支持数据与重要机密信息的安全访问控制与加密处理。</p>
+                </div>
+              </div>
+              <div class="matterImg col-md-6 animated fadeInRight">
+                <img src="../images/Vmove_03.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="MatterB">
+          <div class="container">
+          <div class="vMatterB clearfix">
+            <div class="matterImg col-md-6 animated fadeInLeft">
+              <img src="../images/Vmove_04.png" alt="">
+            </div>
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>简单安全访问登陆</h2>
+                <p>支持AD、LDAP和其他身份验证的多方式单点访问登陆，并支持自动检测设备与账户的连接性，自动撤消会话、断开设备连接或阻止未受权的访问请求等。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+
+
+
+
+
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-valueMove',
+    properties: {
+      cIndex: {
+        type:Number,
+      },
+
+      selected:{
+          type: Number,
+          value: 0
+        },
+
+        entryAnimation:String,
+        exitAnimation:String,
+        winheight:Number,
+        winwidth:Number,
+
+      selected1:{
+          type: Number,
+          value: 0
+        },
+        selected2:{
+          type: Number,
+          value: 0
+        },
+        
+        time: String,
+
+        smallScreen: Boolean
+    },
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+         $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+      //  var mScaleRate = document.body.clientWidth/750;
+      //  this.$.mobileSwipe.style.height = (456*mScaleRate) + "px";
+     },
+
+    _onSelectedChanged: function(e) {
+        var target = e.target;
+        target.isGesture ? console.log("Swiped by Gesture!") : console.log("Swiped by Selection!");
+    },
+
+    // _categoryChanged: function(category, oldCategory) {
+    //     var href;
+    //     var path = "";
+    //     this.selected2 = 0;
+    //     if(category !== "home"){
+    //       this.$.videom.pause();
+    //     }
+    // },
+
+  });
+
+</script>
+
+</dom-module>

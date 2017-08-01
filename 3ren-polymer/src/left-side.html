@@ -1,0 +1,113 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="left-side">
+  <link rel="import" type="css" href="../css/page.css">
+
+  <template>
+    <div class="left-side" id="leftSide">
+        <iron-selector role="leftNavigation" class="menu-list2" selected="[[category.name]]" attr-for-selected="name">
+          <a name="document" href="/document" on-click="_scrollToTop"><paper-ripple></paper-ripple>产品概述</a>
+          <h3>用户手册</h3>
+          <div class="dropdown">
+                <div on-tap="_openSub">入门<span></span></div>
+                <ul class="plan-name">
+                    <li><a href="/docEnter" name="docEnter" on-tap="_scrollToTop"><paper-ripple></paper-ripple>登录中</a></li>
+                    <li><a href="/docMessage" name="docMessage" on-tap="_scrollToTop"><paper-ripple></paper-ripple>消息传播基础</a></li>
+                    <li><a href="/docNotice" name="docNotice" on-tap="_scrollToTop"><paper-ripple></paper-ripple>配置通知</a></li>
+                    <li><a href="/docDialogue" name="docDialogue" on-tap="_scrollToTop"><paper-ripple></paper-ripple>组织对话</a></li>
+                    <li><a href="/docSeek" name="docSeek" on-tap="_scrollToTop"><paper-ripple></paper-ripple>搜索</a></li>
+                    <li><a href="/docTeam" name="docTeam" on-tap="_scrollToTop"><paper-ripple></paper-ripple>创建团队</a></li>
+                    <li><a href="/docMember" name="docMember" on-tap="_scrollToTop"><paper-ripple></paper-ripple>管理会员</a></li>
+                    <li><a href="/docOrganization" name="docOrganization" on-tap="_scrollToTop"><paper-ripple></paper-ripple>组织最重要</a></li>
+                    <li><a href="/docApplication" name="docApplication" on-tap="_scrollToTop"><paper-ripple></paper-ripple>使用三人即时通桌面应用程序</a></li>
+                </ul>
+          </div>
+          <div class="dropdown">
+              <div on-tap="_openSub">消息<span></span></div>
+              <ul class="plan-name">
+                  <li><a href="/docMessages" name="docMessages" on-tap="_scrollToTop"><paper-ripple></paper-ripple>消息</a></li>
+                  <li><a href="/docTeammates" name="docTeammates" on-tap="_scrollToTop"><paper-ripple></paper-ripple>提到队友</a></li>
+                  <li><a href="/docFormatting" name="docFormatting" on-tap="_scrollToTop"><paper-ripple></paper-ripple>格式化文本</a></li>
+                  <li><a href="/docShare" name="docShare" on-tap="_scrollToTop"><paper-ripple></paper-ripple>共享文件</a></li>
+                  <li><a href="/docPerform" name="docPerform" on-tap="_scrollToTop"><paper-ripple></paper-ripple>执行命令</a></li>
+                  <li><a href="/docMail" name="docMail" on-tap="_scrollToTop"><paper-ripple></paper-ripple>标记邮件</a></li>
+                  <li><a href="/docShortcuts" name="docShortcuts" on-tap="_scrollToTop"><paper-ripple></paper-ripple>键盘快捷键</a></li>
+                  <li><a href="/docFixed" name="docFixed" on-tap="_scrollToTop"><paper-ripple></paper-ripple>固定消息</a></li>
+              </ul>
+        </div>
+        <div class="dropdown">
+            <div on-tap="_openSub">设置<span></span></div>
+            <ul class="plan-name">
+                <li><a href="/docAccount" name="docAccount" on-tap="_hideDropdown"><paper-ripple></paper-ripple>帐号设定</a></li>
+                <li><a href="/docTheme" name="docTheme" on-tap="_hideDropdown"><paper-ripple></paper-ripple>主题颜色</a></li>
+                <li><a href="/docChannel" name="docChannel" on-tap="_hideDropdown"><paper-ripple></paper-ripple>频道设置</a></li>
+                <li><a href="/docTeamSet" name="docTeamSet" on-tap="_hideDropdown"><paper-ripple></paper-ripple>团队设置</a></li>
+                <li><a href="/docExpression" name="docExpression" on-tap="_hideDropdown"><paper-ripple></paper-ripple>自定义表情符号</a></li>
+                <li><a href="/docIntegration" name="docIntegration" on-tap="_hideDropdown"><paper-ripple></paper-ripple>集成</a></li>
+            </ul>
+      </div>
+      <h3>管理员指南</h3>
+      <div class="dropdown">
+          <div on-tap="_openSub">部署<span></span></div>
+          <ul class="plan-name">
+              <li><a href="/docAdministratorTask" name="docAdministratorTask" on-tap="_scrollToTop"><paper-ripple></paper-ripple>管理员任务</a></li>
+              <li><a href="/docLoading" name="docLoading" on-tap="_scrollToTop"><paper-ripple></paper-ripple>批量装载数据</a></li>
+              <li><a href="/docMobileApp" name="docMobileApp" on-tap="_scrollToTop"><paper-ripple></paper-ripple>移动应用指南</a></li>
+              <li><a href="/docActive" name="docActive" on-tap="_scrollToTop"><paper-ripple></paper-ripple>Active Directory / LDAP设置</a></li>
+              <li><a href="/docCertification" name="docCertification" on-tap="_scrollToTop"><paper-ripple></paper-ripple>多因素认证（E10）</a></li>
+              <li><a href="/docSAML" name="docSAML" on-tap="_scrollToTop"><paper-ripple></paper-ripple>SAML单点登录（E20）</a></li>
+              <li><a href="/docExpand" name="docExpand" on-tap="_scrollToTop"><paper-ripple></paper-ripple>扩大企业规模</a></li>
+              <li><a href="/" name="" on-tap="_scrollToTop"><paper-ripple></paper-ripple>高可用性集群（E20）</a></li>
+              <li><a href="/" name="" on-tap="_scrollToTop"><paper-ripple></paper-ripple>GitLab单点登录</a></li>
+              <li><a href="/" name="" on-tap="_scrollToTop"><paper-ripple></paper-ripple>Google单点登录（E20）</a></li>
+              <li><a href="/" name="" on-tap="_scrollToTop"><paper-ripple></paper-ripple>Office 365单点登录（E20）</a></li>
+              <li><a href="/" name="" on-tap="_scrollToTop"><paper-ripple></paper-ripple>绩效监测（E20）</a></li>
+              <li><a href="/" name="" on-tap="_scrollToTop"><paper-ripple></paper-ripple>客户端数据存储常见问题</a></li>
+          </ul>
+    </div>
+    <div class="dropdown">
+        <div on-tap="_openSub">管理<span></span></div>
+        <ul class="plan-name">
+            <li><a href="/" name="" on-tap="_hideDropdown"><paper-ripple></paper-ripple>命令行工具</a></li>
+        </ul>
+
+      </iron-selector>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'left-side',
+      properties: {
+        category: Object,
+        categories: {
+          type: Array,
+          // observer: '_categoryChanged'
+        },
+        language: {
+          type: String,
+          observer: '_languageChanged'
+        },
+        chinese:Boolean
+      },
+      _slice: function(list, begin, end) {
+        return list.slice(begin, end);
+      },
+
+      _scrollToTop: function(){
+        var sHeight = this.$.leftSide.offsetTop - 60;
+        window.scrollTo(0,sHeight);
+      },
+      _openSub:function(e){
+          console.log(e);
+          var cParent = e.currentTarget;
+          if($(cParent).next().css("display") === "none"){
+            $(cParent).next().css("display","block");
+            $(cParent).find("span").css({"background-image":"url(../images/minus.svg)"});
+          }else{
+            $(cParent).next().css("display","none");
+            $(cParent).find("span").css({"background-image":"url(../images/add.svg)"});
+          }
+      }
+    });
+  </script>
+</dom-module>

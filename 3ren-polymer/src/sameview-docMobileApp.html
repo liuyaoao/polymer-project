@@ -1,0 +1,389 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docMobileApp">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>部署 »</font></p>
+            <p>移动应用指南</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section">
+                <h1>移动应用指南</h1>
+                <p>本指南总结了使用推送通知的三人即时通移动应用程序的部署和安全选项。</p>
+
+                <div class="section">
+                  <h2>通过iTunes和Google Play快速安装移动应用程序</h2>
+                  <p>在将三人即时通服务器部署在测试环境之后，可以快速评估移动应用程序：</p>
+                  <ol class="arabic simple">
+                    <li>设置带有加密传输的外部代理，以及可选的移动VPN客户端，将移动应用程序安全地连接到内部的三人即时通实例。</li>
+                    <li>启用移动推送通知：</li>
+                  </ol>
+                    <div><ul class="simple" style="padding-left:60px;">
+                      <li>转到<strong>系统控制台&gt;通知&gt;手机推送&gt;发送推送通知，</strong>然后选择<strong>在iTunes和Google Play上使用TPNS使用iOS和Android应用</strong>。</li>
+                      <li><em>可选：</em>要在移动推送通知中显示完整的邮件代码段，请将“ <strong>系统控制台”&gt;“通知”&gt;“移动推送”&gt;“推送通知内容”设置</strong>为<strong>发送完整的邮件代码段</strong>。大多数部署都可以实现这一点，除非它们在特定的策略下不允许推送通知中的机密信息。</li>
+                    </ul>
+                  </div>
+                  <ol class="arabic simple" start="3">
+                    <li>将移动应用程序下载到您的移动设备：</li>
+                  </ol>
+                  <div>
+                    <ul class="simple" style="padding-left:60px;">
+                      <li>最重要的iOS应用程序在iTunes或</li>
+                      <li>Google Play上最重要的Android应用程式。</li>
+                    </ul>
+                  </div>
+                  <ol class="arabic simple" start="4">
+                    <li>打开移动应用程序并输入代理地址并进行连接。</li>
+                  </ol>
+                  <p>移动应用程序测试后，可以根据您的内部合规性和安全策略进一步确保安全。</p>
+                </div>
+                <div class="section">
+                  <h2>生产部署选项</h2>
+                  <p>使用推送通知部署三人即时通移动应用程序有两个选项可用于您在私有云中部署的三人即时通服务器：</p>
+                  <ul>
+                    <li><p class="first"><strong>通过三人即时通，Inc.公开托管的移动应用程序进行</strong>部署 - 为了快速轻松部署，最终用户可以从iTunes和Google Play下载三人即时通移动应用程序，并连接到适当的代理，以达到内部的三人即时通部署，并且您的三人即时通服务器将推送通知托管代理服务器，通过Apple和Google提供的移动推送通知服务来中继他们。</p>
+                      <p>企业客户可以选择使用移动VPN客户端保护这些应用程序，单点登录，多因素身份验证，代理连接限制和加密传输。</p>
+                    </li>
+                    <li><p class="first"><strong>在私人网络中部署私有托管的移动应用程序</strong> - 要自定义移动应用程序的功能或外观，将其保护在专用网络中，或符合其他安全和合规性策略，组织可以选择编译自己的三人即时通移动应用程序，从他们的开源存储库推送通知服务。</p>
+                    </li>
+                  </ul>
+                  <p>以下部分详细介绍了这两个选项的设置：</p>
+                  <div class="section">
+                    <h3>由三人即时通，Inc.与公开托管的移动应用程序进行部署</h3>
+                    <p>使用由三人即时通，Inc.汇编并由iTunes和Google Play托管的公开托管移动应用程序部署在生产中：</p>
+                    <ol class="arabic simple">
+                      <li>通过iTunes和Google Play在测试环境中完成移动应用的快速安装。</li>
+                      <li>查看“安全移动”部署文档，并应用适合您的组织在生产环境中的安全性和合规性要求的选项。</li>
+                    </ol>
+                  </div>
+                  <div class="section">
+                    <h3>在私人网络中部署私人托管的移动应用程序</h3>
+                    <p>在企业应用商店中，您的组织编译的私人托管移动应用程序部署在生产中：</p>
+                    <ol class="arabic simple">
+                      <li>通过自己的开源存储库编译自己的iOS，Android移动应用和三人即时通 Push Notification Service（MPNS）：</li>
+                    </ol>
+                    <div><ul class="simple" style="padding-left:60px;">
+                      <li>三人即时通推送通知服务的开源存储库</li>
+                      <li>三人即时通 iOS和Android应用程序的开源存储库</li>
+                      <li>三人即时通 Classic iOS应用程序的开源存储库</li>
+                      <li>三人即时通 Classic Android应用程序的开源存储库</li>
+                    </ul>
+                  </div>
+                  <ol class="arabic simple" start="2">
+                    <li>将您的三人即时通服务器与私人托管的MPNS服务连接起来</li>
+                  </ol>
+                  <div>
+                    <ul class="simple" style="padding-left:60px;">
+                      <li>转到<strong>系统控制台</strong> &gt; <strong>通知</strong> &gt; <strong>手机推送</strong> &gt; <strong>发送推送通知</strong> &gt; <strong>手动输入推送通知服务位置，</strong>并在<strong>推送通知服务器</strong>字段中输入您的三人即时通推送通知服务的位置。</li>
+                    </ul>
+                </div>
+                <ol class="arabic simple" start="3">
+                  <li>请查看“移动安全保护”部署文档，并应用适合您的组织的安全性和合规性要求的选项。</li>
+                </ol>
+              </div>
+            </div>
+            <div class="section">
+              <h2>保护移动部署</h2>
+              <p>安全移动应用程序部署的以下选项可用：</p>
+              <div class="section">
+                <h3>保护网络连接到移动应用</h3>
+                <ul class="simple">
+                  <li>使用HTTPS和WSS网络连接加密传输。</li>
+                  <li>在移动设备上使用移动VPN客户端建立与私有网络内的三人即时通服务器的安全连接。</li>
+                </ul>
+              </div>
+              <div class="section">
+                <h3>在移动应用中配置身份验证选项</h3>
+                <ul class="simple">
+                  <li>如果不使用具有多因素身份验证的VPN客户端，强烈建议在三人即时通本身或通过需要MFA的单点登录选项对三人即时通进行身份验证时需要MFA。</li>
+                </ul>
+              </div>
+              <div class="section">
+                <h3>确保移动应用程序的可用性</h3>
+                <ul class="simple">
+                  <li>为了将移动应用程序的访问权限限制在私有托管的企业应用商店中，您可以编译自己的移动应用程序，并从其开放源代码库中推送通知服务。</li>
+                </ul>
+              </div>
+              <div class="section">
+                <h3>保护推送通知</h3>
+                <p>为了描述保护移动推送通知的选项，我们首先介绍推送推送通知的方式，然后介绍该过程的上下文中的安全选项。</p>
+                <div class="section">
+                  <h4>推送通知如何传递</h4>
+                  <p>为了确保推送通知来自受信任的来源，托管在iTunes和Google Play中的移动应用程序只能使用与编译到移动应用程序中的秘密相对应的密钥或签名从服务发送的推送通知。</p>
+                  <p>因此，使用以下过程：</p>
+                  <ol class="arabic simple">
+                    <li>在您的私有网络中运行的三人即时通服务器中检测到触发推送通知的操作。</li>
+                    <li>您的三人即时通服务器会向三人即时通推送通知服务（MPNS）发送推送通知消息，该服务可以在您的私人网络中自行托管，也可由三人即时通 Inc.公开托管。</li>
+                    <li>MPNS通过TLS连接向Apple Push Notification Service（APNS）或Google Cloud Messaging（GCM）服务发送推送通知消息，具体取决于您是发送到iOS还是Android设备。</li>
+                  </ol>
+
+                  <div>
+                    <ul class="simple" style="padding-left:60px;">
+                      <li>如果发送给苹果，该消息具有与在iOS应用程序中编译的秘密相对应的签名。</li>
+                      <li>如果发送给Google，该邮件将使用与Android应用程序中编译的秘密相对应的密钥。</li>
+                    </ul>
+                    <p>无论您是使用iOS还是Android，所使用的MPNS都需要访问适用于移动应用程序的秘密。</p>
+                    <ul class="simple" style="padding-left:60px;">
+                      <li>如果您在iTunes或Google Play中使用公开托管的移动应用程序，则需要使用三人即时通，Inc.的公开托管的MPNS，该MPNS使用相应的秘密。</li>
+                      <li>如果您通过编译自己的应用程序在Enterprise App Store中使用私有托管的移动应用程序，则还需要编译并使用自己的MPNS和相应的秘密。</li>
+                    </ul>
+                  </div>
+                  <ol class="arabic simple" start="4">
+                    <li>APNS或GCM都通过TLS从MPNS接收推送通知消息，然后将消息中继到用户的iOS或Android移动应用程序进行显示。</li>
+                  </ol>
+                </div>
+                <div class="section">
+                  <h4>保护您的最新推送通知服务</h4>
+                  <p>以下选项可用于保护您的推送通知服务：</p>
+                  <ul>
+                    <li><p class="first">可以将系统配置为防止在推送通知中包含消息内容，并仅发送通知事件发生的通用消息。默认服务器设置的消息内容已关闭。</p>
+                    </li>
+                    <li><p class="first">推送通知也可以根据安全要求完全禁用。默认服务器设置已禁用推送通知。</p>
+                    </li>
+                    <li><p class="first">使用私有托管的MPNS时，请在MNPS和APNS，MPNS和GCM，MPNS和您的三人即时通服务器之间使用加密的TLS连接。</p>
+                    </li>
+                    <li><p class="first">在iTunes和Google Play中使用三人即时通移动应用程序时，请向三人即时通 Enterprise Edition E10或更高版本购买年度子条目，该版本提供托管推送通知服务（HPNS），提供：</p>
+                      <ul class="simple" id="simpleUl">
+                        <li>访问公开托管的MPNS服务，提供明确的隐私政策，其中未检查或存储未加密邮件的内容。</li>
+                        <li>托管的HPNS和APNS，HPNS和GCM，HPNS和您的三人即时通服务器之间的加密TLS连接。</li>
+                        <li>生产水平的正常运行时间期望。</li>
+                      </ul>
+                      <p>从三人即时通，Inc.购买三人即时通 E10或更高版本的订阅后，按照企业版说明中的设置HPNS推送通知设置和测试系统。</p>
+                      <p>注意：三人即时通，Inc.还提供免费的基本托管服务，用于测试设置，测试推送通知服务（TPNS），通过iTunes和Google Play说明进行移动应用的快速安装。它不提供生产级别的正常运行时间期望，也不提供加密传输。</p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="section">
+                  <h4>在企业版中设置HPNS推送通知</h4>
+                  <p>要设置HPNS，请按照以下步骤操作：</p>
+                  <ol class="arabic">
+                    <li><p class="first">安装HPNS</p>
+                      <div>
+                        <ol class="arabic simple" style="padding-left:60px;">
+                          <li>按照您收到的三人即时通 Enterprise Edition购买说明来安装或升级到企业版</a></li>
+                          <li>在<strong>系统控制台</strong> &gt; <strong>通知</strong> &gt; <strong>移动推送</strong> &gt; <strong>发送推送通知</strong>   选择<strong>使用加密的，生产质量的HPNS连接到iOS和Android应用程序</strong>（此选项仅显示在企业版，而不是Team Edition）</li>
+                          <li>选中“我理解并接受”最重要的托管推送通知服务条款和隐私政策“框后，请阅读所引用的文档，然后单击<strong>保存</strong>。</li>
+                          <li>从iTunes下载三人即时通 iOS应用程序或Google Play的三人即时通 Android应用程序，并使用您的三人即时通服务器上的帐户登录该应用程序，我们称之为“帐户A”。</li>
+                          <li>当询问您是否要接收通知时，<strong>确认您想接收通知</strong></li>
+                        </ol>
+                      </div>
+                    </li>
+                    <li><p class="first">触发推送通知</p>
+                      <div>
+                        <ol class="arabic simple" style="padding-left:60px;">
+                          <li>从“帐户A”使用的移动应用程序，单击右上角的三点菜单，然后转到<strong>帐户设置</strong> &gt; <strong>通知</strong> &gt; <strong>移动推送通知</strong>。单击<strong>编辑</strong>并选择<strong>提及并直接发送消息</strong>，然后选择<strong>保存</strong>设置。</li>
+                          <li>有“帐户A”关闭移动应用程序，但不要注销。移动应用程序需要在测试工作的背景中。</li>
+                          <li>使用“帐户B”，在与“帐户A”相同的三人即时通团队中，单击团队网站左侧的“直接消息”部分下的“ <strong>更多”</strong>菜单，将“帐户A”添加到“直接消息”列表中。</li>
+                          <li>有“帐户B”直接发送“你好”到“帐户A”。</li>
+                          <li>这应该触发向“帐户A”的移动设备的推送通知。</li>
+                        </ol>
+                      </div>
+                    </li>
+                    <li><p class="first">如果您没有收到推送通知，请使用以下步骤进行故障排除：</p>
+                      <div><ol class="arabic" style="padding-left:60px;">
+                        <li><p class="first">在“ <strong>系统控制台”</strong> &gt;“ <strong>常规”</strong> &gt;“ <strong>日志记录”</strong> &gt;“ <strong>文件日志级别”下</strong>选择“ <strong>调试”</strong>，以便在服务器日志中观察推送通知。重要信息：设置推送通知后，请确保将其重新设置为ERROR级别日志记录以节省磁盘空间。</p>
+                        </li>
+                        <li><p class="first">删除您的移动应用程序，再次安装并使用“帐户A”登录，并<strong>确认您希望</strong>在移动应用提示时<strong>接收推送通知</strong>。</p>
+                        </li>
+                        <li><p class="first">重复上面的“触发推送通知”过程，如果仍然没有收到推送通知，请转到<strong>系统控制台</strong> &gt; <strong>日志</strong>单击<strong>重新加载</strong>并滚动到底部，并查找类似于以下内容的消息：<code class="docutils literal"><span class="pre">`[2016/04/21</span> <span class="pre">03:16:44</span> <span class="pre">UTC]</span> <span class="pre">[DEBG]</span> <span class="pre">Sending</span> <span class="pre">push</span> <span class="pre">notification</span> <span class="pre">to</span> <span class="pre">63c06ca8e3949ca7e5996c31fcf07ecb36c658a3e7c2c227a4af949cc4777a87</span> <span class="pre">wi</span> <span class="pre">msg</span> <span class="pre">of</span> <span class="pre">'@accountb:</span> <span class="pre">Hello'`</span></code></p>
+                          <div><ul class="simple" style="padding-left:60px;">
+                            <li>如果出现日志消息，则表示已将消息发送到HPNS服务器，并且未被移动应用程序接收。请联系support @ 3ren . com与主题“HPNS问题在步骤8”获得商业支持团队的帮助。</li>
+                            <li>如果日志消息未出现，则表示没有将移动推送通知发送到“帐户A”。请重复步骤2，并仔细检查每一步。</li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+                </li>
+                <li><p class="first">解决问题后，请转到<strong>系统控制台</strong> &gt; <strong>常规</strong> &gt; <strong>日志记录</strong> &gt; <strong>文件日志级别，</strong>然后选择<strong>错误</strong>以将记录详细信息级别切换到仅错误而不是DEBUG，以节省磁盘空间。</p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <h2>确认移动应用程序的性能</h2>
+          <p>三人即时通移动应用程序的响应时间应该符合标准基准，提供的设备型号，连接速度和服务器配置与基准设置相当。</p>
+          <div class="section">
+            <h3>移动性能基准</h3>
+            <p>在4G / LTE或WiFi上正确配置的移动应用应该执行如下：</p>
+            <p>iPhone 6s Plus 4G / LTE连接（50 ms ping时间，50 Mb / s下载，8 Mb / s上传）：</p>
+            <ul class="simple">
+              <li><strong>加载新频道：</strong>少于4秒</li>
+              <li><strong>返回到以前观看的频道：</strong>不到1秒</li>
+              <li><strong>当它在后台运行时切换到应用程序：</strong>不到1秒</li>
+              <li><strong>在手机睡着后切换到应用程序并加载频道：</strong>小于5秒</li>
+              <li><strong>新的开始的应用程序，直到第一页加载：</strong>少于10秒</li>
+            </ul>
+            <p>iPhone 5s在5G连接（20 ms ping时间，77 Mb / s下载，12 Mb / s上传）：</p>
+            <ul class="simple">
+              <li><strong>加载新频道：</strong>少于3秒</li>
+              <li><strong>返回到以前观看的频道：</strong>不到1秒</li>
+              <li><strong>当它在后台运行时切换到应用程序：</strong>不到1秒</li>
+              <li><strong>在手机睡着后切换到应用程序并加载频道：</strong>小于3秒</li>
+              <li><strong>新的开始的应用程序，直到第一页加载：</strong>小于5秒</li>
+            </ul>
+            <p>三星Galaxy S6在4G / LTE连接（23 ms ping时间，36 Mb / s下载，17 Mb / s上传）：</p>
+            <ul class="simple">
+              <li><strong>加载新频道：</strong>少于4秒</li>
+              <li><strong>返回到以前观看的频道：</strong>不到1秒</li>
+              <li><strong>当它在后台运行时切换到应用程序：</strong>不到1秒</li>
+              <li><strong>在手机睡着后切换到应用程序并加载频道：</strong>小于5秒</li>
+              <li><strong>新的开始的应用程序，直到第一页加载：</strong>小于5秒</li>
+            </ul>
+            <p>三星Galaxy S6上wifi连接（23 ms ping时间，138 Mb / s下载，12 Mb / s上传）：</p>
+            <ul class="simple">
+              <li><strong>加载新频道：</strong>少于3秒</li>
+              <li><strong>返回到以前观看的频道：</strong>不到1秒</li>
+              <li><strong>当它在后台运行时切换到应用程序：</strong>不到1秒</li>
+              <li><strong>在手机睡着后切换到应用程序并加载频道：</strong>小于5秒</li>
+              <li><strong>新的开始的应用程序，直到第一页加载：</strong>小于4秒</li>
+            </ul>
+            <p>注意：尽管三人即时通移动应用程序可能在3G（或更低））连接上使用，但不建议使用此配置。</p>
+          </div>
+          <div class="section">
+            <h3>消除移动应用程序性能的瓶颈</h3>
+            <p>如果您的移动应用程序无法执行这些示例基准测试，则可以使用以下过程来识别瓶颈：</p>
+            <ol class="arabic">
+              <li><p class="first">确认您的移动设备满足最低硬件和操作系统要求</p>
+                <ul class="simple">
+                  <li>请确认您正在测试的设备符合三人即时通 Mobile Apps的最低操作系统和硬件要求。</li>
+                </ul>
+              </li>
+              <li><p class="first">确认您的移动设备连接是在4G / LTE或Wifi，并符合ping时间要求</p>
+                <ul class="simple">
+                  <li>从您的移动浏览器转到https://speedtest.net/mobile，下载SpeedTest应用程序并开始测试</li>
+                  <li>检查您的<strong>ping时间</strong>（信号延迟的度量），看看它是否类似于上述部分的基准。如果它们明显更高，请转到更好的接收区域或联系您的无线提供商来纠正任何技术问题。</li>
+                </ul>
+              </li>
+              <li><p class="first">确认您的手机应用程式正常运作</p>
+                <ul class="simple">
+                  <li>测试您的iOS或Android应用程序的响应与上述基准相比</li>
+                  <li>测试在手机的移动浏览器上打开您的三人即时通团队网站的响应</li>
+                  <li>如果在iOS或Android应用程序中使用您的团队网站比在浏览器中使用该网站要慢一些，请删除您的移动应用，然后重新安装以清除此问题。</li>
+                </ul>
+              </li>
+              <li><p class="first">检查您的服务器性能</p>
+                  <div>
+                    <ul style="padding-left:60px;">
+                    <li><p class="first">如果1）和2）正常工作，并且仍然遇到性能问题，请确保您的服务器的大小正确。</p>
+                        <div>
+                          <ul class="simple" style="padding-left:60px;">
+                            <li>请查看建议的最低硬件指南，并确认您正在使用正确大小的硬件。如果您遇到性能问题，请勿将硬件缩小到建议的最低级别以下。</li>
+                            <li>如果您正在使用共享服务器，如果共享代理服务器处于来自其他应用程序的负载下，则可能会遇到延迟。您可以切换到专用代理，也可以使用NGINX通过遵循标准安装指南来设置自己的代理服务器。</li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ol>
+              <p>这些程序总结了移动应用程序性能系统中的所有潜在瓶颈：连接速度，移动应用程序性能和服务器性能。</p>
+              <ul class="simple">
+                <li>如果你是一个企业版的用户，并继续有问题请发送电子邮件支持<span>@</span> 3ren <span>。</span>com</a>测量您所遇到的基准。</li>
+                <li>如果您不是订阅者，请在“三人即时通故障排除”论坛中打开一个线程，其中列出了您所看到的效果的总结，移动设备型号的详细信息，连接速度和服务器大小。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="section">
+            <h2>疑难解答移动应用</h2>
+            <p>以下是常见故障排除请求的解决方案</p>
+            <div class="section">
+              <h3>HPNS出站请求需要内部代理配置</h3>
+              <ol class="arabic simple">
+                <li>确保代理服务器配置正确，以支持SSL。通过检查URL <cite>https://www.digicert.com/help/</cite>确认它的工作。</li>
+                <li>设置代理将请求转发到<cite>https://push.3ren.com</cite>。</li>
+                <li>在三人即时通设置<strong>系统控制台</strong> &gt; <strong>通知设置</strong> &gt; <strong>移动推送</strong> &gt; <strong>启用推送通知</strong>到“手动输入推送通知服务位置”，并在“ <strong>推送通知服务器”</strong>字段中输入代理的URL 。</li>
+              </ol>
+              <p>根据您的代理配置方式，您可能需要添加端口号并创建一个URL，如<cite>https://push.internalproxy.com:8000</cite>映射到<cite>https://push.3ren.com</cite></p>
+            </div>
+            <div class="section">
+              <h3>错误消息：“我们不会连接到三人即时通服务器或服务器正在运行不兼容的版本”</h3>
+              <p>无论是在iOS或Android上，这个错误消息通常都是由于服务器URL中的打字错误或SSL配置问题导致的。要排除故障：</p>
+              <p>通过连接到测试服务器，检查您的移动应用程序是否正常工作：</p>
+              <ol class="arabic simple">
+                <li>在<a class="reference external" href="http://demo.3ren.com">http://demo.3ren.com</a>创建一个帐户</li>
+                <li>擦除您的移动应用程序并重新安装</li>
+                <li>在您的手机应用程序中，输入服务器URL <a class="reference external" href="http://demo.3ren.com">http://demo.3ren.com，</a>并通过输入您的凭据确认连接正在登录</li>
+              </ol>
+              <p>如果登录不起作用，请向<a class="reference external" href="http://github.com/3ren/platform/issues">http://github.com/3ren/platform/issues</a>报告问题</p>
+              <p>如果登录工作：</p>
+              <ol class="arabic simple">
+                <li>通过在证书检查器中输入SSL URL来检查SSL https : //cryptoreport.websecurity.symantec.com/checker/</li>
+                <li>更正您的证书的任何问题</li>
+                <li>尝试使用移动应用连接到服务器的HTTPS URL</li>
+                <li>如果您仍然遇到问题，请在故障排除论坛中打开一个新主题，</a>并重现您的问题。如果您是企业版订阅者，您也可以通过电子邮件订阅@ @mostmost . com支持。</li>
+              </ol>
+              <p>注意：移动应用不会自动支持自签名证书，也不支持客户端证书。要使用证书颁发机构签发的免费证书，请访问https://letsencrypt.org/</p>
+            </div>
+          </div>
+        </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docMobileApp',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

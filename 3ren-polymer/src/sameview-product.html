@@ -1,0 +1,849 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+
+<dom-module id="sameview-product">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div class="productbg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="productImg" style="background-image:url(../images/productbg.jpg);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="productText">
+            <h2>简单好用专属定制的企业即时通讯、群聊、协作平台</h2>
+            <h5>三人即时通提高工作效率<span>90%</span>，安全性提升<b>90%</b>，驱动业务效益<b>10</b>倍，<span>100%</span>最适合企业内应用。</h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="porductKind">
+        <div class="gallery">
+          <div class="product1">
+            <div class="container">
+            <div class="teamProduct">
+              <div class="team">
+                <div class="teamTitle">
+                  <h2>三人即时通</h2>
+                  <h2><span>团队版</span>主要功能</h2>
+                </div>
+                <div class="teamContent">
+                  <p><b>• </b><span> 消息功能：</span> 支持Web网页、移动和PC端即时通讯、消息搜索、文件共享管理、分权限管理、一站式协同办公等功能。</p>
+                  <p><b>• </b><span> 私有云：</span> 可部署在企业防火墙保护的局域网，建设企业私有云通讯平台。</p>
+                  <p><b>• </b><span> 多功能选择：</span> 集成所有Slack的热门功能，以及兼容集成包括Webhooks等工具与服务，用户自定义主题、通讯录的导入等。</p>
+                </div>
+                <a name="" href="/" class="btn">免费下载</a>
+              </div>
+              <ul class="pic-grid clearfix" id="picGrid">
+
+                <li class="col-md-3">
+                  <a href="#">
+                    <paper-ripple></paper-ripple>
+                    <img id="img1" on-click="load_popup" src="../images/team_1.jpg" alt="">
+                  </a>
+                  <div class="text">一对一聊天和群聊</div>
+                </li>
+                <li class="col-md-3">
+                  <a href="#">
+                    <paper-ripple></paper-ripple>
+                    <img id="img2" on-click="load_popup" src="../images/team_2.jpg" alt="">
+                  </a>
+                  <div class="text">文件共享</div>
+                </li>
+                <li class="col-md-3">
+                  <a href="#">
+                    <paper-ripple></paper-ripple>
+                    <img id="img3" on-click="load_popup" src="../images/team_3.jpg" alt="">
+                  </a>
+                  <div class="text">自定义EMOJIS</div>
+                </li>
+                <li class="col-md-3">
+                  <a href="#">
+                    <paper-ripple></paper-ripple>
+                    <img id="img4" on-click="load_popup" src="../images/team_4.jpg" alt="">
+                  </a>
+                  <div class="text">集成WEBHOOKS、GITHUB等工具服务</div>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+          </div>
+          <div class="product2">
+            <div class="container">
+            <div class="firmProduct">
+              <div class="firm">
+                <div class="firmTitle">
+                  <h2>三人即时通</h2>
+                  <h2><span>企业版</span>主要功能</h2>
+                </div>
+                <div class="firmContent">
+                  <p><b>• </b><span> 数据中心：</span> 支持MySQL或PostgreSQL数据库，并可以进行数据库集群或者平滑递增资源，以及后继按需求扩展业务应用的工具与服务等。</p>
+                  <p><b>• </b><span> 高级安全性：</span> 加密推送通知、IT策略安全高级访问控制。</p>
+                  <p><b>• </b><span> 企业规模：</span> 支持企业大规模数千万级的用户应用，并具有消息高级同步和自动化的用户和角色管理，平台系统100%高稳定、高可用、高可靠。</p>
+                </div>
+              </div>
+              <ul class="pic-grid clearfix" id="picGrid">
+
+                <li class="col-md-3">
+                  <a href="#">
+                    <paper-ripple></paper-ripple>
+                    <img id="imag1" on-click="load_popup2" src="../images/firm_1.jpg" alt="">
+                  </a>
+                  <div class="text">AD/LDAP单点登陆</div>
+                </li>
+                <li class="col-md-3">
+                  <a href="#">
+                    <paper-ripple></paper-ripple>
+                    <img id="imag2" on-click="load_popup2" src="../images/firm_2.jpg" alt="">
+                  </a>
+                  <div class="text">高级权限</div>
+                </li>
+                <li class="col-md-3">
+                  <a href="#">
+                    <paper-ripple></paper-ripple>
+                    <img id="imag3" on-click="load_popup2" src="../images/firm_3.jpg" alt="">
+                  </a>
+                  <div class="text">基于SAML的单点登陆</div>
+                </li>
+                <li class="col-md-3">
+                  <a href="#">
+                    <paper-ripple></paper-ripple>
+                    <img id="imag4" on-click="load_popup2" src="../images/firm_4.jpg" alt="">
+                  </a>
+                  <div class="text">绩效监测</div>
+                </li>
+
+              </ul>
+            </div>
+            </div>
+          </div>
+              <div class="container">
+                    <div class="modal" id="modal">
+                        <a href="javascript:void(0);" class="close" on-click="_close">
+                          <div style="position:relative;"><paper-ripple></paper-ripple><img src="../images/close.png" alt=""></div>
+                          </a>
+                        <div class="middle"></div>
+                        <div class="con"  on-click="_close" >
+                            <img id="modalImg" src="" alt="">
+                        </div>
+                        <!-- <div class="buttons">
+                          <a href="javascript:void(0)" class="prev" id="prev" on-click="_prevImg"><paper-ripple></paper-ripple><img src="../images/prev.png" alt=""></a>
+                          <a href="javascript:void(0)" class="next" id="next" on-click="_nextImg"><paper-ripple></paper-ripple><img src="../images/next.png" alt=""></a>
+                        </div> -->
+                        <a href="javascript:void(0)" class="prev" id="prev" on-click="_prevImg"><paper-ripple></paper-ripple><img src="../images/prev.png" alt=""></a>
+                        <a href="javascript:void(0)" class="next" id="next" on-click="_nextImg"><paper-ripple></paper-ripple><img src="../images/next.png" alt=""></a>
+                    </div>
+                </div>
+
+
+
+
+                <div class="container">
+                      <div class="modal" id="modal2">
+                          <a href="javascript:void(0);" class="close" on-click="_close2">
+                            <div style="position:relative;"><paper-ripple></paper-ripple><img src="../images/close.png" alt=""></div>
+                            </a>
+                          <div class="middle"></div>
+                          <div class="con"  on-click="_close2">
+                              <img id="modalImg2" src="" alt="">
+                          </div>
+                          <!-- <div class="buttons">
+                            <a href="javascript:void(0)" class="prev" id="prev" on-click="_prevImg"><paper-ripple></paper-ripple><img src="../images/prev.png" alt=""></a>
+                            <a href="javascript:void(0)" class="next" id="next" on-click="_nextImg"><paper-ripple></paper-ripple><img src="../images/next.png" alt=""></a>
+                          </div> -->
+                          <a href="javascript:void(0)" class="prev" id="prev" on-click="_prevImg2"><paper-ripple></paper-ripple><img src="../images/prev.png" alt=""></a>
+                          <a href="javascript:void(0)" class="next" id="next" on-click="_nextImg2"><paper-ripple></paper-ripple><img src="../images/next.png" alt=""></a>
+                      </div>
+                  </div>
+            </div>
+
+
+
+
+      </div>
+      <div class="productbg2">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="productImg" style="background-image:url(../images/productbg02.jpg);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="productText2">
+            <h2>几十种应用、工具、服务集成</h2>
+            <h5>三人即时通整合几十个应用程序来支持企业创建自己的“微型应用程序”或者兼容集成到企业自己的应用系统中，并支持源代码级的定制开发，包括三人即时通 RESTful API、驱动程序、Webhooks、Github、Jira、Nagios、Jenkins、命令行界面、开放接口等等。</h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="advantage">
+        <div class="container">
+          <!-- <h2>SAMEVIEW适合企业使用优势</h2> -->
+          <!-- <div class="advantageList">
+            <div class="CommonTable clearfix">
+              <div class="headline" style="border-top:1px solid #ccc;">
+                企业消息传播
+              </div>
+              <div class="headlineLeft">
+                <ul>
+                  <li class="first">产品</li>
+                  <li style="color:#90c31f;">SAMEVIEW</li>
+                  <li class="backdrop1">HIPCHAT</li>
+                  <li>SLACK</li>
+                  <li class="backdrop1">国内某Q与某信</li>
+                </ul>
+              </div>
+              <div class="table table-responsive">
+              <table border="0" cellspacing="1" width="100%" cellpadding="10">
+                <tbody>
+
+                <tr>
+                  <td class="first" nowrap="" align="left">Web网页、PC、平板电脑和手<br/>机进行消息传递和文件共享</td>
+                  <td class="first" nowrap="" align="left">AD/LDAP、ADFS、Okta、<br/>OneLogin和SAML支持</td>
+                  <td class="first" nowrap="" align="left">单个群组用户规<br/>模量定制</td>
+                  <td class="first" nowrap="" align="left">支持移动应用（iPhone、<br/>Android、iPad）</td>
+                  <td class="first" nowrap="" align="left">支持移动应用（iPhone、<br/>Android、iPad）</td>
+                </tr>
+                <tr>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td style="color:#666">AD/LDAP</td>
+                  <td style="color:#666">只有Okta</td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                </tr>
+                <tr>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                  <td></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                  <td></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                </tr>
+
+
+              </tbody>
+            </table>
+
+            </div>
+            </div>
+
+            <div class="CommonTable clearfix">
+              <div class="headline">
+                安全
+              </div>
+              <div class="headlineLeft">
+                <ul>
+                  <li class="first">产品</li>
+                  <li style="color:#90c31f;">SAMEVIEW</li>
+                  <li class="backdrop1">HIPCHAT</li>
+                  <li>SLACK</li>
+                  <li class="backdrop1">国内某Q与某信</li>
+                </ul>
+              </div>
+              <div class="table table-responsive">
+              <table border="0" cellspacing="1" width="100%" cellpadding="10">
+                <tbody>
+
+                <tr>
+                  <td class="first" nowrap="" align="left">支持部署在企业安全防<br>火墙后面</td>
+                  <td class="first" nowrap="" align="left">支持256位SSL加密</td>
+                  <td class="first" nowrap="" align="left">多重身份验证，增强<br>安全性</td>
+                  <td class="first" nowrap="" align="left">数据库服务器磁盘由<br>客户加密</td>
+                  <td class="first" nowrap="" align="left">移动应用可以部署到本地<br>企业的应用系统</td>
+                  <td class="first" nowrap="" align="left">支持无公共互联网升级<br>更新</td>
+                </tr>
+                <tr>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+
+
+              </tbody>
+            </table>
+
+            </div>
+            </div>
+
+            <div class="CommonTable clearfix">
+              <div class="headline">
+                合规
+              </div>
+              <div class="headlineLeft">
+                <ul>
+                  <li class="first"  style="height:78px;line-height:78px;">产品</li>
+                  <li style="color:#90c31f;">SAMEVIEW</li>
+                  <li class="backdrop1">HIPCHAT</li>
+                  <li>SLACK</li>
+                  <li class="backdrop1">国内某Q与某信</li>
+                </ul>
+              </div>
+              <div class="table table-responsive">
+              <table border="0" cellspacing="1" width="100%" cellpadding="10">
+                <tbody>
+
+                <tr>
+                  <td class="first" nowrap="" align="left" style="height:78px;">邮件和频道的永久连<br>续存档，包括编辑和<br>删除等</td>
+                  <td class="first" nowrap="" align="left" style="height:78px;">用户活动、登录名和<br>IP地址的完整记录</td>
+                  <td class="first" nowrap="" align="left" style="height:78px;">支持客户的数据中<br>心和合规政策兼容<br>的数据库</td>
+                  <td class="first" nowrap="" align="left" style="height:78px;">支持兼容客户的数据<br>库和备份的静态/实<br>时虚拟分区及加密</td>
+                  <td class="first" nowrap="" align="left" style="height:78px;">数据主权与商业版权</td>
+                  <td class="first" nowrap="" align="left" style="height:78px;">对机密数据的访问<br>限制</td>
+                  <td class="first" nowrap="" align="left" style="height:78px;">容灾恢复解决方案<br>与能力</td>
+                </tr>
+                <tr>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                </tr>
+                <tr>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                </tr>
+
+
+              </tbody>
+            </table>
+
+            </div>
+            </div>
+
+            <div class="CommonTable clearfix">
+              <div class="headline">
+                定制和整合
+              </div>
+              <div class="headlineLeft">
+                <ul>
+                  <li class="first" style="height:78px;line-height:78px;">产品</li>
+                  <li style="color:#90c31f;">SAMEVIEW</li>
+                  <li class="backdrop1">HIPCHAT</li>
+                  <li>SLACK</li>
+                  <li class="backdrop1">国内某Q与某信</li>
+                </ul>
+              </div>
+              <div class="table table-responsive">
+              <table border="0" cellspacing="1" width="100%" cellpadding="10">
+                <tbody>
+
+                <tr>
+                  <td class="first" nowrap="" align="left" style="height:78px;">与众多系统集成，包括Jira，Jenkins /<br> Hudson，Redmine，Trac，GitLab，<br>GitHub等</td>
+                  <td class="first" nowrap="" align="left" style="height:78px;">具有20种不同颜色设置选项的自<br>定义主题，以及预定义的颜色主题</td>
+                  <td class="first" nowrap="" align="left" style="height:78px;">兼容Slack的webhook集成</td>
+                  <td class="first" nowrap="" align="left" style="height:78px;">兼容Slack的斜杠命令集成</td>
+                </tr>
+                <tr>
+                  <td align="left" style="color:#90c31f">高可定制</td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td align="left" style="color:#666">封闭的来源有限的定制</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td align="left" style="color:#666">封闭的来源有限的定制</td>
+                  <td></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td align="left" style="color:#666">封闭的来源</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+
+
+              </tbody>
+            </table>
+
+            </div>
+            </div>
+
+            <div class="CommonTable clearfix">
+              <div class="headline">
+                开发者支持
+              </div>
+              <div class="headlineLeft">
+                <ul>
+                  <li class="first">产品</li>
+                  <li style="color:#90c31f;">SAMEVIEW</li>
+                  <li class="backdrop1">HIPCHAT</li>
+                  <li>SLACK</li>
+                  <li class="backdrop1">国内某Q与某信</li>
+                </ul>
+              </div>
+              <div class="table table-responsive">
+              <table border="0" cellspacing="1" width="100%" cellpadding="10">
+                <tbody>
+
+                <tr>
+                  <td class="first" nowrap="" style="padding-left:40px;padding-right:40px">基本API</td>
+                  <td class="first" nowrap="" style="padding-right:30px">完全访问所有服务器API</td>
+                  <td class="first" nowrap="" align="left">提供特定语言的API驱动程序，用于构<br>建自定义集成</td>
+                  <td class="first" nowrap="" align="left">能够在台式机和手机上自行编译和定制<br>原生应用程序</td>
+                </tr>
+                <tr>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+
+
+              </tbody>
+            </table>
+
+            </div>
+            </div>
+
+            <div class="CommonTable clearfix">
+              <div class="headline">
+                部署
+              </div>
+              <div class="headlineLeft">
+                <ul>
+                  <li class="first">产品</li>
+                  <li style="color:#90c31f;">SAMEVIEW</li>
+                  <li class="backdrop1">HIPCHAT</li>
+                  <li>SLACK</li>
+                  <li class="backdrop1">国内某Q与某信</li>
+                </ul>
+              </div>
+              <div class="table table-responsive">
+              <table border="0" cellspacing="1" width="100%" cellpadding="10">
+                <tbody>
+
+                <tr>
+                  <td class="first" nowrap="" align="left">云主机供应商（亚马逊、阿里云等）</td>
+                  <td class="first" nowrap="" align="left">本地服务器及虚拟设备部署</td>
+                  <td class="first" nowrap="" align="left">支持在Ubuntu、Debian、RHEL、<br>Oracle Linux和SLES上将内部部署</td>
+                  <td class="first" nowrap="" align="left">使用符合内部IT策略的自己的数<br>据库</td>
+                </tr>
+                <tr>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td align="left" style="color:#90c31f">是的，MySQL和Postgres</td>
+                </tr>
+                <tr class="backdrop1">
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+
+
+              </tbody>
+            </table>
+
+            </div>
+            </div>
+
+            <div class="CommonTable clearfix">
+              <div class="headline">
+                本地化支持
+              </div>
+              <div class="headlineLeft">
+                <ul>
+                  <li class="first">产品</li>
+                  <li style="color:#90c31f;">SAMEVIEW</li>
+                  <li class="backdrop1">HIPCHAT</li>
+                  <li>SLACK</li>
+                  <li class="backdrop1">国内某Q与某信</li>
+                </ul>
+              </div>
+              <div class="table table-responsive">
+              <table border="0" cellspacing="1" width="100%" cellpadding="10">
+                <tbody>
+
+                <tr>
+                  <td class="first" nowrap=""style="padding-left:0px;padding-right:60px">多语言支持</td>
+                  <td class="first" nowrap="" align="left">本地化支持能够让客户自行定制和定制用户界面文本</td>
+                </tr>
+                <tr>
+                  <td nowrap="" align="left" style="color:#90c31f">是的，  英文，德文，法文，西班牙文，葡萄牙文，荷兰文，俄文，中文，韩文，日文</td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td align="left" style="color:#666">中文</td>
+                  <td></td>
+                </tr>
+
+
+              </tbody>
+            </table>
+
+            </div>
+            </div>
+
+            <div class="CommonTable clearfix">
+              <div class="headline">
+                客户支持
+              </div>
+              <div class="headlineLeft">
+                <ul>
+                  <li class="first">产品</li>
+                  <li style="color:#90c31f;">SAMEVIEW</li>
+                  <li class="backdrop1" style="height:56px;line-height:56px">HIPCHAT</li>
+                  <li>SLACK</li>
+                  <li class="backdrop1">国内某Q与某信</li>
+                </ul>
+              </div>
+              <div class="table table-responsive">
+              <table border="0" cellspacing="1" width="100%" cellpadding="10">
+                <tbody>
+
+                <tr>
+                  <td class="first" nowrap="">Premiere支持</td>
+                  <td class="first" nowrap="">问题追踪器</td>
+                  <td class="first" nowrap="">发布时间表</td>
+                  <td class="first" nowrap="">帮助和产品文档</td>
+                  <td class="first" nowrap="">在线客服服务</td>
+                </tr>
+                <tr>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td align="left" style="color:#90c31f">已有</td>
+                  <td style="color:#90c31f" nowrap="">一般3-4周发布新功能和更新</td>
+                  <td><img src="../images/dian-lv.svg" alt=""></td>
+                  <td align="left" style="color:#90c31f">源代码级服务</td>
+                </tr>
+                <tr class="backdrop1">
+                  <td style="height:56px"></td>
+                  <td align="left" style="height:56px;color:#666">不公开</td>
+                  <td style="height:56px;color:#666;padding-left:30px"nowrap=""><div style="display:inline-block" align="left">未知 - 发行之间的时间从两周<br>到几个月不等</div></td>
+                  <td style="height:56px"><img src="../images/dian-hui.svg" alt=""></td>
+                  <td style="height:56px"></td>
+                </tr>
+                <tr>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td align="left" style="color:#666">不公开</td>
+                  <td></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                </tr>
+                <tr class="backdrop1">
+                  <td></td>
+                  <td align="left" style="color:#666">不公开</td>
+                  <td></td>
+                  <td><img src="../images/dian-hui.svg" alt=""></td>
+                  <td></td>
+                </tr>
+
+
+              </tbody>
+            </table>
+
+            </div>
+            </div>
+
+
+
+
+          </div> -->
+          <h2>产品优势</h2>
+          <ul class="clearfix">
+            <li class="col-md-3" >
+              <div class="hot">
+                <img src="../images/hot.png" alt="" class="hotImg">
+                <img src="../images/advantage_01.svg" alt="">
+                <h5>私网部署</h5>
+                <p>部署到企业内网，是一款属于企业内部完全控制的私有化通讯平台。</p>
+              </div>
+
+            </li>
+            <li class="col-md-3">
+              <div class="">
+                <img src="../images/advantage_02.svg" alt="">
+                <h5>安全</h5>
+                <p>在防火墙后面部署现代通信，将您的重要信息保持在IT控制之下。拥有您的数据，永远不会被锁定。</p>
+              </div>
+
+            </li>
+            <li class="col-md-3">
+              <div class="">
+                <img src="../images/advantage_03.svg" alt="">
+                <h5>可定制</h5>
+                <p>推出灵活，兼容的企业级解决方案。根据您的需求为您量身打造属于您的私有可控聊天平台。</p>
+              </div>
+
+            </li>
+            <li class="col-md-3">
+              <div class="">
+                <img src="../images/advantage_04.svg" alt="">
+                <h5>可扩展</h5>
+                <p>从单一用户的解决方案中为成千上万的用户提供横向扩展，高可用性和高级性能监控。</p>
+              </li>
+              </div>
+          </ul>
+        </div>
+      </div>
+
+
+
+
+
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-product',
+    properties: {
+      cIndex: {
+        type:Number,
+        // value:1
+      },
+
+      selected2:{
+          type: Number,
+          value: 0,
+          // observer: '_selected2Changed'
+        },
+
+        category:{
+            type:Object,
+            observer: '_categoryChanged'
+          },
+          cIndex: Number,
+          imgLength: Number
+    },
+    _slice: function(list, begin, end) {
+        if(begin == 0 && end == 0){
+          return list.slice(begin);
+        }else{
+          return list.slice(begin, end);
+        }
+      },
+      _categoryChanged:function(category,oldCategory){
+        if(!category) return;
+      },
+      load_popup:function(e){
+        this.cIndex = parseInt(e.target.getAttribute('id').replace("img",""));
+        var cSrc = e.currentTarget.currentSrc;
+        var cText = e.currentTarget.alt;
+        this.$.modal.style.display="block";
+        this.imgLength = this.$.picGrid.getElementsByTagName('img').length;
+        this.$.modalImg.src= cSrc;
+
+      },
+
+      load_popup2:function(e){
+        this.cIndex2 = parseInt(e.target.getAttribute('id').replace("imag",""));
+        var cSrc = e.currentTarget.currentSrc;
+        var cText = e.currentTarget.alt;
+        this.$.modal2.style.display="block";
+        this.imgLength = this.$.picGrid.getElementsByTagName('img').length;
+        this.$.modalImg2.src= cSrc;
+
+      },
+
+      _prevImg2:function(){
+        this.cIndex2 = this.cIndex2 - 1;
+        if(this.cIndex2 == 0 ){
+            this.cIndex2 = this.imgLength;
+        }
+        var current_image = this.$$("#imag"+this.cIndex2);
+          var image_url = current_image.currentSrc;
+          this.$.modalImg2.src= image_url;
+
+      },
+      _nextImg2:function(){
+        this.cIndex2 = this.cIndex2 + 1;
+        if(this.cIndex2 > this.imgLength ){
+            this.cIndex2 = 1;
+        }
+        // var current_image = this.$.picGrid.querySelectorAll("[id='img"+this.cIndex+"']");
+        var current_image = this.$$("#imag"+this.cIndex2);
+        var image_url = current_image.currentSrc;
+        this.$.modalImg2.src= image_url;
+      },
+      _close2:function(){
+        this.$.modal2.style.display = "none";
+      },
+
+      _prevImg:function(){
+        this.cIndex = this.cIndex - 1;
+        if(this.cIndex == 0 ){
+            this.cIndex = this.imgLength;
+        }
+        var current_image = this.$$("#img"+this.cIndex);
+          var image_url = current_image.currentSrc;
+          this.$.modalImg.src= image_url;
+
+      },
+      _nextImg:function(){
+        this.cIndex = this.cIndex + 1;
+        if(this.cIndex > this.imgLength ){
+            this.cIndex = 1;
+        }
+        // var current_image = this.$.picGrid.querySelectorAll("[id='img"+this.cIndex+"']");
+        var current_image = this.$$("#img"+this.cIndex);
+        var image_url = current_image.currentSrc;
+        this.$.modalImg.src= image_url;
+      },
+      _close:function(){
+        this.$.modal.style.display = "none";
+      },
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+      //  var mScaleRate = document.body.clientWidth/750;
+      //  this.$.mobileSwipe.style.height = (456*mScaleRate) + "px";
+     },
+
+    _onSelectedChanged: function(e) {
+        var target = e.target;
+        target.isGesture ? console.log("Swiped by Gesture!") : console.log("Swiped by Selection!");
+    },
+
+    // _categoryChanged: function(category, oldCategory) {
+    //     var href;
+    //     var path = "";
+    //     this.selected2 = 0;
+    //     if(category !== "home"){
+    //       this.$.videom.pause();
+    //     }
+    // },
+
+  });
+
+</script>
+
+</dom-module>

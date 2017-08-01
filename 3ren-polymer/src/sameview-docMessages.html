@@ -1,0 +1,114 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docMessages">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>消息 »</font></p>
+            <p>消息</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section">
+                <h1>消息</h1>
+                <p>发送邮件和回复邮件是让您的团队保持对话活动的重要方法。您可以在发送邮件后编辑和删除邮件。您还可以分享三人即时通中任何消息的链接。</p>
+                <div class="section">
+                  <h2>发送消息</h2>
+                  <p>通过输入文本输入框来写入消息，然后按ENTER键发送。使用SHIFT + ENTER创建新行而不发送消息。要按CTRL + ENTER发送消息，请转到<strong>主菜单&gt;帐户设置&gt;高级&gt;按Ctrl + Enter&gt;编辑发送消息</strong>。</p>
+                </div>
+                <div class="section">
+                  <h2>回复邮件</h2>
+                  <p>点击任何消息旁边的回复链接（箭头图标）。这使得会话组织成线程。中间窗格中的回复稍微缩进，表示它们是父消息的子消息。</p>
+                  <p>单击回复链接将打开右侧的侧边栏。要将右侧边栏扩展到其全宽，请单击侧边栏顶部两个箭头的展开/缩小图标。要将右侧边栏缩小到其原始宽度，请单击相同的展开/缩小图标。</p>
+                </div>
+                <div class="section">
+                  <h2>编辑留言</h2>
+                  <p>单击您发送的消息旁边的<strong>[...]</strong>链接，然后单击<strong>编辑</strong>。</p>
+                  <p>您的系统管理员可以禁用<strong>编辑</strong>功能或在消息变得不可编辑之前设置时间限制。</p>
+                  <div class="admonition note">
+                    <p class="first">注意</p>
+                    <p class="last lastT">消息编辑不会触发新的@mention通知，桌面通知或通知声音。</p>
+                  </div>
+                </div>
+                <div class="section">
+                  <h2>删除邮件</h2>
+                  <p>单击您发送的消息旁边的<strong>[...]</strong>链接，然后单击<strong>删除</strong>。</p>
+                  <p>您的系统管理员可以禁用<strong>删除</strong>功能。</p>
+                </div>
+                <div class="section">
+                  <h2>链接到消息</h2>
+                  <p>点击邮件旁边的<strong>[...]</strong>链接，然后点击<strong>固定链接&gt;复制链接</strong>。</p>
+                  <p>如果链接到公共频道中的消息，则团队的任何成员都可以看到消息。如果链接是在私人组中的消息，则只有该组中的成员可以看到该消息。</p>
+                  <div class="admonition tip">
+                    <p class="first admonition-title">小费</p>
+                    <p class="last">在任何消息的用户名旁边显示的时间戳也是一个永久链接。</p>
+                  </div>
+                </div>
+              </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docMessages',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

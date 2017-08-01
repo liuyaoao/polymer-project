@@ -1,0 +1,176 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docMember">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p>入门<font> »</font></p>
+            <p>管理会员</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section">
+                <h1>管理会员</h1>
+                <div class="section">
+                  <h2>邀请团队成员</h2>
+                  <p>如果您的系统管理员启用，您可以通过以下三种方式将人员添加到您的团队中：您可以发送直接邀请; 您可以分享公共团队邀请链接; 或者如果他们已经在服务器上有一个帐户，你可以自己添加到团队。</p>
+                  <div class="section">
+                    <h3>直接邀请</h3>
+                    <p>直接邀请是从您团队的服务器直接发送到被邀请人的电子邮件地址的邀请电子邮件。邀请中的链接将他们引导到帐户创建页面。</p>
+                    <p><strong>发送直接邀请</strong>：</p>
+                    <ol class="arabic simple">
+                      <li>点击导航面板顶部的用户名。</li>
+                      <li>单击<strong>发送电子邮件邀请，</strong>并输入该人的电子邮件地址以及姓名。</li>
+                      <li>要邀请多个人，请点击<strong>添加另一个</strong>。</li>
+                      <li>点击<strong>发送邀请</strong>。</li>
+                    </ol>
+                  </div>
+                  <div class="section">
+                    <h3>团队邀请链接</h3>
+                    <p>团队邀请链接是一个唯一的URL，用于将人员引导到团队的帐户创建页面。团队邀请链接可以由任何人使用，除非由团队管理员或系统管理员通过<strong>团队设置&gt;常规&gt;邀请代码</strong>重新生成，否则不会更改。例如，团队邀请链接可以包含在公司电子邮件中，以邀请所有员工加入一个三人即时通团队。</p>
+                    <p><strong>要获得一个团队邀请链接</strong>：</p>
+                    <ol class="arabic simple">
+                      <li>点击导航面板顶部的用户名。</li>
+                      <li>点击<strong>获取团队邀请链接</strong>。</li>
+                      <li>在打开的窗口中，复制链接并将其与要邀请的团队共享。</li>
+                    </ol>
+                  </div>
+                  <div class="section">
+                    <h3>给你的团队添加一个人</h3>
+                    <p>如果您要添加到您的团队的人员已经在服务器上有一个帐户，您可以将它们添加到您的团队，而不发送邀请。</p>
+                    <p><strong>将某人添加到您的团队中</strong>：</p>
+                    <ol class="arabic simple">
+                      <li>点击导航面板顶部的用户名。</li>
+                      <li>单击<strong>添加成员到团队</strong>。将打开“ <em>添加新成员”</em>窗口。</li>
+                      <li>单击要添加到您的团队的人员或用户的用户名。您可以在搜索框中键入以过滤列表。如果您要添加的人员不在列表中，那么他们已经在您的团队中，或者您的服务器上没有帐户。</li>
+                    </ol>
+                  </div>
+                </div>
+                <div class="section">
+                <h2>用户角色</h2>
+                <p>在三人即时通中有四种不同权限级别的用户角色：系统管理员，团队管理员，会员和非活动帐户。要查看团队中的用户列表及其角色，团队管理员可以访问三点<strong>主菜单，</strong>然后选择<strong>管理成员</strong>。</p>
+                <div class="section">
+                  <h3>会员</h3>
+                  <p>这是用户在加入团队时给予的默认角色。会员对三人即时通团队有基本权限。</p>
+                </div>
+                <div class="section">
+                  <h3>频道管理员</h3>
+                  <p><em>适用于企业版E10及更高版本</em></p>
+                  <p>创建频道的人员将为该频道分配频道管理员角色。具有频道管理角色的人员具有以下权限：</p>
+                  <ul class="simple">
+                    <li>能够将频道管理员角色分配给频道的其他成员。</li>
+                    <li>能够从Channel Admin角色的其他持有者中删除Channel Admin角色。</li>
+                    <li>能够从频道中删除成员。</li>
+                  </ul>
+                  <p>根据您的系统配置，通道管理员可以被系统管理员授予特殊权限，以重命名和删除通道。</p>
+                </div>
+                <div class="section">
+                  <h3>团队管理员</h3>
+                  <p>当一个团队首次创建时，设置该组的人员就成为团队管理员。这是一个团队的具体角色，这意味着某人可以是一个团队的团队管理员，但只能是另一个团队的会员。团队管理员具有以下权限：</p>
+                  <ul class="simple">
+                    <li>从团队网站主菜单访问“团队设置”菜单</li>
+                    <li>能够更改团队名称并从Slack导出文件导入数据</li>
+                    <li>访问“管理会员”菜单，可以控制团队成员是“会员”还是“团队管理员”</li>
+                  </ul>
+                </div>
+                <div class="section">
+                  <h3>系统管理员</h3>
+                  <p>添加到新安装的三人即时通系统的第一个用户被分配了系统管理员角色。</p>
+                  <p>系统管理员通常是IT人员的成员，拥有Team Admin的所有权限以及以下附加权限：</p>
+                  <ul class="simple">
+                    <li>从任何团队网站的主菜单访问系统控制台</li>
+                    <li>能够更改系统控制台中可用的三人即时通服务器上的任何设置</li>
+                    <li>能够将系统管理角色的其他用户升级和降级</li>
+                    <li>能够停用用户帐户并重新激活它们</li>
+                    <li>访问私人频道，但只有在给予私人频道的链接</li>
+                  </ul>
+                </div>
+                <div class="section">
+                  <h3>停用用户</h3>
+                  <p>系统管理员可以通过转到“ <strong>系统控制台”&gt;“用户”</strong>以停止服务器上所有用户的列表来停用用户帐户。可以搜索和过滤列表，使用户更容易找到。单击用户的角色，然后在打开的菜单中单击<strong>停用</strong>。</p>
+                  <p>当选择“停用”时，用户将退出系统，如果他们尝试重新登录，则会收到错误消息。用户不再显示在通道成员列表中，并从“管理成员”中删除名单。它们也从直接消息“更多”菜单中删除，但直接消息通道在侧边栏中保持打开，直到关闭。在系统控制台的用户列表中，用户显示为“不活动”。</p>
+                  <p>因为三人即时通被设计为一个系统的记录，所以没有选择从三人即时通系统中删除用户，因为这样的操作可能会危及消息归档的完整性。</p>
+                  <p>也可以从系统控制台重新激活已停用的帐户。重新激活后，用户重新加入他们以前属于的频道。</p>
+                </div>
+              </div>
+              <div class="section">
+                <h2>从团队中删除用户或离开团队</h2>
+                <div class="section">
+                  <h3>从团队中删除</h3>
+                  <p>任何团队管理员都可以通过转到三点“ <strong>主菜单”&gt;“管理成员”</strong>，并<strong>从</strong>用户条目旁边的下拉菜单中选择“ <strong>从团队</strong>中<strong>删除”来从团队</strong>中<strong>删除</strong>用户。</p>
+                  <p>当用户从团队中删除时，团队将不再显示在团队侧栏中。如果他们目前的团队开放，他们将被重定向到他们团队侧栏上出现的第一个团队。如果他们不属于任何其他团队，用户将被发送到团队选择页面。</p>
+                  <p>从团队中删除用户不会停用该帐户。用户仍然可以登录网站，并加入其他团队。如果他们收到另一个邀请，或者团队设置为“允许任何在该服务器上的帐户的用户加入该团队”，他们也可以重新加入他们被删除的团队。如果用户重新加入团队，则他们将不再属于之前作为其中一部分的渠道，如果他们以前拥有该权限，他们将失去所有管理员权限。</p>
+                  <p>系统管理员还可以通过访问“ <strong>系统控制台”&gt;“用户</strong> ”并选择用户条目旁边的下拉菜单并单击“ <strong>管理团队”</strong>来从团队中删除用户。</p>
+                </div>
+                <div class="section">
+                  <h3>离开队伍</h3>
+                  <p>用户还可以选择从团队中删除自己，方法是转到三点<strong>主菜单&gt;离开团队</strong>。这将从团队中删除用户，并从团队中的所有公共渠道和私人渠道中移除。</p>
+                  <p>如果设置为“允许任何具有此服务器上的帐户的用户加入该团队”团队，或者如果他们收到新的邀请，他们将只能重新加入团队。如果他们重新加入，他们将不再是旧渠道的一部分。</p>
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docMember',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>
