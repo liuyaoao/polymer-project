@@ -1,0 +1,85 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+
+<dom-module id="sameview-contact">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <template>
+    <style include="polymer-bootstrap">
+
+    </style>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div class="contact">
+        <div class="contactbg">
+        </div>
+        <div class="container">
+          <div class="contactmain">
+            <div class="contactm">
+              Contact us
+            </div>
+          <div class="synopsis col-md-12">
+            <div class="asRegards">
+              Sameview（https://www.sameview.cn）is a customized enterprise instant messaging, group chat, collaboration platform, to achieve autonomy, control, anytime, anywhere communication and collaboration, help the team, business efficiency.
+            </div>
+          </div>
+          <!-- <div class="synopsis col-md-6">
+            <div class="address">
+              北京宣武门外大街6号庄胜广场北楼东翼3层
+            </div>
+            <div class="contactMy">
+              <ul>
+                <li>Tel: 400 - 705 - 0567</li>
+                <li>Tel: 010 - 5165 5987 - 800</li>
+                <li>Tel: 135 2083 0552</li>
+                <li>Email:contact@sameview.cn</li>
+              </ul>
+            </div>
+          </div> -->
+          <div class="synopsis col-md-6">
+            <div class="address1">
+              Address:  3rd Floor, East Wing, North Building, ZhuangSheng Plaza, No.6, Xuanwumeng Outer Street, Beijing
+            </div>
+            <div class="contactMy">
+              <ul>
+                <li>Tel: 400 - 705 - 0567</li>
+                <li>Tel: 010 - 5165 5987 - 800</li>
+                <li>Tel: 135 2083 0552</li>
+                <li>Email:contact@sameview.cn</li>
+              </ul>
+            </div>
+          </div>
+          </div>
+          <div class="map col-md-12">
+
+          </div>
+
+        </div>
+      </div>
+
+</template>
+<script>
+  Polymer({
+    is: 'sameview-contact',
+    ready: function(){
+      var win = $(window);
+      $(window).resize(function(){
+        this.winwidth = win.width();//屏幕的宽  .width()
+        this.winheight = win.height()-1;//屏幕的高
+      });
+      this.winheight = win.height()-1;//屏幕的高
+      this.winwidth = win.width();//屏幕的宽  .width()
+      var bgHeight = this.winheight-50;
+      // $(this.$.bg).height(bgHeight);
+    },
+
+  });
+
+
+</script>
+
+</dom-module>

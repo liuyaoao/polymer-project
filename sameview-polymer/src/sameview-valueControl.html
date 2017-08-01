@@ -1,0 +1,250 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html">
+
+<dom-module id="sameview-valueControl">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div class="valuebg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="valueImg" style="background-image:url(../images/Vcontrolbg_01.png);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="valueText">
+            <h2>Enterprise's own enterprises to dominate the site</h2>
+            <h5>To ensure that key business information is not leaked to ensure that business operations are safe and manageable;</h5>
+            <h5>Complete, safe, highly available data is the commanding heights of future business civilizations. </h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="vMatter">
+        <div class="MatterT">
+          <div class="container">
+          <div class="vMatterT clearfix">
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>Autonomous controllable data</h2>
+                <p>To ensure that the enterprise's important data information stored in the enterprise's internal integrity, security, not to be leaked, not hijacked conversations and other risks, to provide enterprises with their own policies and regulations of fast, simple and secure communication platform solutions.</p>
+              </div>
+            </div>
+            <div class="matterImg col-md-6 animated fadeInRight">
+              <img src="../images/Vcontrol_01.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="MatterB">
+        <div class="container">
+          <div class="vMatterB clearfix">
+            <div class="matterImg col-md-6 animated fadeInLeft">
+              <img src="../images/Vcontrol_02.png" alt="">
+            </div>
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>Reduce risk</h2>
+                <p>To avoid the loss of free third-party providers and the risk of violation, sameview according to the enterprise data security and IT policy, all the data stored in the enterprise, a comprehensive audit and backup archive.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+      <div class="matterbg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="valueImg" style="background-image:url(../images/Vcontrolbg_02.png);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="valueText2">
+            <h2>Cut costs</h2>
+            <h5>Sameview provides compliance and standard management on the internal communication platform, as well as improving the integration and high utilization of IT hardware resources, improving employee communication and collaboration efficiency, driving business gain and reducing operating costs.</h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="vMatter">
+        <div class="MatterT">
+          <div class="container">
+          <div class="vMatterT clearfix">
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>Compliance with compliance</h2>
+                <p>Sameview supports all records of all communications recorded in the enterprise internal compliance system, each message records and files are stored in the internal data center, and record the user log information, and custom API to meet the internal strategy of convergence.</p>
+              </div>
+            </div>
+            <div class="matterImg col-md-6 animated fadeInRight">
+              <img src="../images/Vcontrol_03.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="MatterB">
+        <div class="container">
+          <div class="vMatterB clearfix">
+            <div class="matterImg col-md-6 animated fadeInLeft">
+              <img src="../images/Vcontrol_04.png" alt="">
+            </div>
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>Data encryption</h2>
+                <p>Messages and files are automatically encrypted, no user operation is handled. Sameview uses the most secure AES-256 and 2048-bit RSA encryption technology to ensure that the company communicates with chat data and file data.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="matterbg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="valueImg" style="background-image:url(../images/Vcontrolbg_03.png);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="valueText2">
+            <h2>Centralized management</h2>
+            <h5>Manage and protect systems from a unified system console, centrally manage users, delegate permissions, monitor usage, review and revoke devices.</h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="vMatter">
+        <div class="MatterT">
+          <div class="container">
+          <div class="vMatterT clearfix">
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>Prevent data leakage</h2>
+                <p>Track messages and files in the communications platform, monitor account activity, revoke lost or stolen devices, and provide users with a quick, easy, and customary way to share messages, files, and work together so that users do not use Personal communication tools and free chat platform.</p>
+              </div>
+            </div>
+            <div class="matterImg col-md-6 animated fadeInRight">
+              <img src="../images/Vcontrol_05.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="MatterB">
+        <div class="container">
+          <div class="vMatterB clearfix">
+            <div class="matterImg col-md-6 animated fadeInLeft">
+              <img src="../images/Vcontrol_06.png" alt="">
+            </div>
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>Enterprise user service platform</h2>
+                <p>Enterprises can use the sameview platform for their business-oriented customer groups open into a huge exchange of discussion platform to build their own private cloud communication platform, and then to achieve business people, the times of the times.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+      <div class="matterbg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="valueImg" style="background-image:url(../images/Vcontrolbg_04.jpg);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="valueText2">
+            <h2>Reliable operation</h2>
+            <h5>Sameview support high availability configuration, operation and maintenance, the system is running very stable, and even in the user's system during the service without stopping the service for maintenance, adjustment, configuration.</h5>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="vMatter">
+        <div class="MatterT">
+          <div class="container">
+          <div class="vMatterT clearfix">
+            <div class="matterText col-md-6">
+              <div class="">
+                <h2>Standardized recovery</h2>
+                <p>Sameview platform data center to support enterprise a key backup, and support disaster recovery, business use more peace of mind, more at ease.</p>
+              </div>
+            </div>
+            <div class="matterImg col-md-6 animated fadeInRight">
+              <img src="../images/Vcontrol_07.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-valueControl',
+    properties: {
+      cIndex: {
+        type:Number,
+        // value:1
+      },
+
+      selected2:{
+          type: Number,
+          value: 0,
+          // observer: '_selected2Changed'
+        }
+    },
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+         $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+      //  var mScaleRate = document.body.clientWidth/750;
+      //  this.$.mobileSwipe.style.height = (456*mScaleRate) + "px";
+     },
+
+    _onSelectedChanged: function(e) {
+        var target = e.target;
+        target.isGesture ? console.log("Swiped by Gesture!") : console.log("Swiped by Selection!");
+    },
+
+    // _categoryChanged: function(category, oldCategory) {
+    //     var href;
+    //     var path = "";
+    //     this.selected2 = 0;
+    //     if(category !== "home"){
+    //       this.$.videom.pause();
+    //     }
+    // },
+
+  });
+
+</script>
+
+</dom-module>

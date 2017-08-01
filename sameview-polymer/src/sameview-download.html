@@ -1,0 +1,77 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+
+<dom-module id="sameview-download">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div class="downloadbg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="downloadImg" style="background-image:url(../images/downloadbg_01.jpg);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="downloadText">
+            <h2>Exclusive custom enterprise instant messaging, group chat, collaboration platform</h2>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="downloadContent">
+        <div class="container">
+        <div class="clearfix">
+          <div class="col-md-6">
+            <img src="../images/download_01.jpg" alt="">
+          </div>
+          <div class="downloadMatter col-md-6">
+            <p>Sameview product functions are (one-on-one chat and group chat, file sharing, custom EMOJIS, integrated WEBHOOKS, GITHUB and other tools services, advanced permissions, AD / LDAP single sign-on, SAML-based single sign-on, performance monitoring, etc.) The default use of MYSQL database, to achieve all automated deployment, please refer to:<a href="" class="fast">Get started quickly</a>。</p>
+            <!-- <span style="display:inline;color:#122A88;margin:0;"></span> -->
+            <span>Web installation edition： Windows/Linux 64 <b style="display:inline-block;width:12px;"></b>JDK1.8 and above recommended JDK1.8 software environment</span>
+            <a class="dow" target="_blank" href="../data/download/sameview.zip">Web edition download</a>
+          </div>
+        </div>
+      </div>
+     </div>
+
+  </div>
+</template>
+<script>
+Polymer({
+  is: 'sameview-download',
+
+   ready: function(){
+     var win = $(window);
+     $(window).resize(function(){
+       this.winwidth = win.width();//屏幕的宽  .width()
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+     });
+     this.winheight = win.innerHeight()-1;//屏幕的高
+     this.winwidth = win.width();//屏幕的宽  .width()
+     var bgHeight = this.winheight;
+    //  $(this.$.bg).height(bgHeight);
+
+   },
+
+});
+
+
+</script>
+
+</dom-module>

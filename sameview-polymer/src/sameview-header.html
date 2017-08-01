@@ -1,0 +1,146 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html"> -->
+<!-- <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html"> -->
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<!-- <link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html"> -->
+<!-- <link rel="import" href="../bower_components/iron-icons/iron-icons.html"> -->
+<!-- <link rel="import" href="../bower_components/iron-icon/iron-icon.html"> -->
+<!-- <link rel="import" href="../bower_components/iron-image/iron-image.html"> -->
+<!-- <link rel="import" href="../bower_components/paper-menu/paper-menu.html"> -->
+<!-- <link rel="import" href="../bower_components/paper-item/paper-item.html"> -->
+<!-- <link rel="import" href="../bower_components/paper-button/paper-button.html"> -->
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<!-- <link rel="import" href="../bower_components/paper-styles/demo-pages.html"> -->
+<link rel="import" href="./jquery2-import.html">
+
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+
+<dom-module id="sameview-header">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+
+  <template>
+      <style include="polymer-bootstrap">
+      a:focus{
+      text-decoration: none;
+      }
+      </style>
+    <!--
+      Header at the scroll top of the page.
+    -->
+    <header>
+      <div class="container">
+          <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+          <div class="logo pull-left col-md-3">
+           <a href="/"><img src="../images/logo_01.svg" /></a>
+          </div>
+          <template is="dom-if" if="[[!smallScreen]]">
+            <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+                <a name="home" href="/home"><paper-ripple></paper-ripple>Home<div class="line"></div></a>
+                <a name="product" href="/product"><paper-ripple></paper-ripple>Product<div class="line"></div></a>
+                <div class="dropdown" id="menuDropdown">
+                    <h5 id="value">Value</h5>
+                    <ul>
+                      <li class="triangle"></li>
+                      <li>
+                          <a href="/valueMove" name="valueMove" on-tap="_hideDropdown"><paper-ripple></paper-ripple>Mobile Applications</a>
+                          <a href="/valueControl" name="valueControl" on-tap="_hideDropdown"><paper-ripple></paper-ripple>Autonomous control</a>
+                          <!-- <a href="/" name="" on-tap="_hideDropdown"><paper-ripple></paper-ripple>移动应用</a>
+                          <a href="/" name="" on-tap="_hideDropdown"><paper-ripple></paper-ripple>移动应用</a> -->
+                      </li>
+                    </ul>
+                </div>
+                <a name="quotation" href="/quotation"><paper-ripple></paper-ripple>Quotes<div class="line"></div></a>
+                <a name="contact" href="/contact"><paper-ripple></paper-ripple>Contact us<div class="line"></div></a>
+                <a name="" href="/download" class="download"><paper-ripple></paper-ripple>Free download</a>
+                <a name="" href="http://demo.sameview.com" target="_blank" class="showDemo"><paper-ripple></paper-ripple>DEMO</a>
+            </iron-selector>              　　
+          </template>
+    </div>
+    </header>
+
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'sameview-header',
+
+      properties: {
+
+        appTitle: String,
+
+        page: {
+          type: String,
+          observer: '_pageChanged'
+        },
+
+        categories: Array,
+        categoryName: {
+          type:String,
+          observer:'_changed'
+        },
+
+        category: Object,
+
+        smallScreen: Boolean,
+
+        drawerOpened: {
+          type: Boolean,
+          notify: true
+        },
+        beforeName: {
+          type: String,
+          value: "",
+          observer: "_beforeNameChanged"
+        }
+
+      },
+      _changed:function(name){
+        this.beforeName = name;
+      },
+      _beforeNameChanged:function(a,b){
+        if(a !== b && a){
+          //清除前一个iron-selected
+          if(b === "valueMove" || b === "valueControl" ){
+            if(this.$$("#value")){
+             this.$$("#value").className="";
+             }
+         }
+
+          //添加一个iron-selected
+          if(a === "valueMove" || a === "valueControl"){
+            if(this.$$("#value")){
+              this.$$("#value").className="iron-selected";
+            }else{
+              var _this = this;
+              setTimeout(function(){
+                if(_this.$$("#value")){
+                  _this.$$("#value").className="iron-selected";
+                }
+              },10);
+            }
+          }
+
+        }
+      },
+      _toggleDrawer: function() {
+        this.drawerOpened = !this.drawerOpened;
+      },
+
+      _pageChanged: function(page, oldPage) {
+         var path = page;
+        window.scrollTo(0,0);
+        this.categoryName = page;
+      },
+
+      _hideDropdown: function(){
+        // $(this.$.menuDropdown).hide();
+      }
+    });
+
+  </script>
+
+</dom-module>

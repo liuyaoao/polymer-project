@@ -1,0 +1,238 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+
+<dom-module id="sameview-home">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div class="bg" id="bg">
+        <template is="dom-if" if="[[_smallScreen]]">
+          <div class="bg-img" style="background-image:url(../images/bg02.jpg);"></div>
+        </template>
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="bg-img" style="background-image:url(../images/bg01.jpg);"></div>
+        </template>
+        <div class="text-container">
+          <div class="container">
+          <div class="vertical-middle"></div>
+          <div class="text" id="bgText">
+            <h2 class="name">
+              Sameview internal
+              <span>communication,</span>
+              <span>group chat,</span>
+              <span>collaboration,</span>
+              <span>shared</span> instant messaging platform
+            </h2>
+            <ul class="brief">
+              <li>Private cloud IM, enterprise autonomy, controllable, safe and reliable;</li>
+              <li>Can be customized, with dozens of business applications docking or integration;</li>
+              <li>Security communication and cooperation, more suitable for enterprise use and application value. </li>
+            </ul>
+            <a name="" href="/download" class="btn">Free download</a>
+            <a name="" href="http://demo.sameview.com" target="_blank" class="btn btn-demo">Demo</a>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="matterTop">
+        <div class="container">
+          <ul class="clearfix">
+            <li class="col-md-4">
+              <div class="clearfix svgIMg">
+              <span class="iconwrap">
+                <span class="long-shadow"></span>
+                <span class="svg-icon flat-shadow" id="shadow-lock">
+                  <svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
+                    <path class="circle" d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875S76.441,97.875,50,97.875C17.857,97.875,2.125,76.441,2.125,50S23.559,2.125,50,2.125z">
+                    </path>
+                    <g class="icon"><path class="base" d="M29.929,39.176h38.933c2.688,0,4.866,2.181,4.866,4.868v24.332c0,2.688-2.179,4.869-4.866,4.869H29.929c-2.687,0-4.867-2.179-4.867-4.869V44.043C25.062,41.356,27.242,39.176,29.929,39.176z">
+                    </path>
+                    <path class="baselight" d="M27.495,39.176h19.466c1.343,0,2.434,0,2.434,0v34.066c0,0-1.09,0-2.434,0H27.495c-1.344,0-2.433-2.179-2.433-4.867V44.042C25.062,41.356,26.152,39.176,27.495,39.176z"></path>
+                    <path class="keyhole" d="M55.073,53.776c0-3.136-2.542-5.679-5.678-5.679s-5.678,2.543-5.678,5.679c0,2.263,1.328,4.212,3.244,5.124v5.418h4.867V58.9C53.745,57.988,55.073,56.039,55.073,53.776z"></path>
+                    <path class="bar" d="M49.395,27.821c-6.271,0-11.355,5.083-11.355,11.354h-6.489c0-9.854,7.989-17.843,17.844-17.843c9.854,0,17.844,7.989,17.844,17.843h-6.49C60.749,32.904,55.667,27.821,49.395,27.821z"></path>
+                  </g>
+                </svg>
+              </span>
+            </span>
+            </div>
+            <div class="clear"></div>
+              <h3>Private security</h3>
+              <p>Sameview as an enterprise IM (instant messaging) platform, can be deployed in the enterprise security network to ensure that the enterprise information, resources, important business information leakage risk control can be managed to protect the communication is not being monitored, the information is not retrieved , The data integrity tracking record is not deleted and so on.</p>
+            </li>
+            <li class="col-md-4">
+              <div class="clearfix svgIMg">
+              <span class="iconwrap">
+                <span class="long-shadow"></span>
+                <span class="svg-icon flat-shadow" id="shadow-brush">
+                  <svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
+                    <path class="circle" d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875S76.441,97.875,50,97.875C17.857,97.875,2.125,76.441,2.125,50S23.559,2.125,50,2.125z"></path>
+                    <g class="icon">
+                      <path class="brush_base" d="M74.264,24.224c0.863-0.864,2.264-0.864,3.128,0l1.042,1.042c0.863,0.864,0.863,2.265,0,3.129L56.055,57.027L45.628,46.602L74.264,24.224z"></path>
+                      <path class="brush_highlight" d="M74.264,24.224c0.863-0.864,2.264-0.864,3.128,0l1.042,1.042c-1.225,1.133-26.979,27.164-26.979,27.164L45.628,46.6L74.264,24.224z"></path>
+                      <path class="brush_silver" d="M45.662,46.434l10.427,10.425c0.863,0.864,0.863,2.265,0,3.129l-3.128,3.128c-0.863,0.863-2.265,0.863-3.129,0L39.406,52.69c-0.863-0.864-0.863-2.265,0-3.129l3.128-3.127C43.399,45.571,44.799,45.571,45.662,46.434z"></path>
+                      <path class="brush_tip" d="M39.677,53.031l10.229,10.228c-8.683,20.973-28.987,10.601-28.987,10.601s10.482,0.427,10.021-9.586C30.561,56.009,37.24,53.623,39.677,53.031z"></path>
+                    </g>
+                  </svg>
+                </span>
+              </span>
+              </div>
+              <div class="clear"></div>
+              <h3>Flexible customization</h3>
+              <p>Sameview for enterprise-specific flexible customization, suitable for enterprise communications collaboration platform solutions, source code-level custom development support compatible or integrated business of dozens of business applications, and tools and services to drive business benefits more than 10 times.</p>
+            </li>
+            <li class="col-md-4">
+              <div class="clearfix svgIMg">
+              <span class="iconwrap">
+                <span class="long-shadow"></span>
+                <span class="svg-icon flat-shadow" id="shadow-thumbsup">
+                  <svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
+                    <path class="circle" d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z"></path>
+                    <g class="icon">
+                      <path class="base" d="M78.856,47.19c0-2.562-1.698-3.417-3.396-3.417c-3.685,0-11.882,0-11.882,0s0.849-5.809,0.849-8.538c0-3.642,0-6.831-3.395-8.538c-3.396-1.708-4.242,0.854-4.242,2.562c0,0.856,0,5.977,0,5.977s-0.414,8.538-5.942,8.538h-4.243V71.95h23.958c0,0,4.051-0.854,4.051-3.416c0-2.561-2.547-3.415-2.547-3.415s4.243-0.687,4.243-3.416c0-2.732-1.697-3.417-1.697-3.417s3.396-1.707,3.396-4.27s-2.548-3.416-2.548-3.416S78.856,49.75,78.856,47.19z"></path>
+                      <path class="sleeve" d="M41.512,42.919h-5.925c-7.977,0-14.443,6.498-14.443,14.515c0,8.017,6.467,14.515,14.443,14.515h5.925V42.919z"></path>
+                      <path class="cuff" d="M38.965,73.865h10.185V41.419H38.965V73.865z"></path>
+                      <path class="dot" d="M41.512,66.891c0,1.415,1.14,2.562,2.546,2.562c1.407,0,2.547-1.146,2.547-2.562c0-1.414-1.141-2.561-2.547-2.561C42.652,64.33,41.512,65.477,41.512,66.891z"></path>
+                    </g>
+                  </svg>
+                </span>
+              </span>
+              </div>
+              <div class="clear"></div>
+              <h3>High experience</h3>
+              <p>Sameview platform to support the enterprise unlimited users on-demand smoothing, real-time platform performance monitoring, IT resources, high interest rates, high availability,no free tools to bring ads, bad information, unsafe links and external harassment, etc., to create a high experience of business atmosphere.</p>
+            </li>
+          </ul>
+        </div>
+     </div>
+     <div class="matterBottom">
+       <div class="container">
+       <!-- <h2>他们都在使用</h2>
+       <div class="clearfix client3">
+         <div class="col-md-3">
+           <img src="../images/client_04.png" alt="">
+         </div>
+         <div class="col-md-3">
+           <img src="../images/client_05.png" alt="">
+         </div>
+         <div class="col-md-3">
+           <img src="../images/client_06.png" alt="">
+         </div>
+         <div class="col-md-3">
+           <img src="../images/client_07.png" alt="">
+         </div>
+       </div>
+       <div class="client">
+         <ul>
+           <li class="client2 col-md-4">
+             <img src="../images/client_01.png" alt="">
+             <h6>中国石油</h6>
+             <p>“它既整合了我们的业务系统，又使团队 更高效、便捷沟通协作......”</p>
+           </li>
+           <li class="client2 col-md-4">
+             <img src="../images/client_02.png" alt="">
+             <h6>中国移动</h6>
+             <p>“所有的员工都使用它愉快地沟通、群聊......”</p>
+           </li>
+           <li class="client2 col-md-4">
+             <img src="../images/client_03.png" alt="">
+             <h6>中信集团</h6>
+             <p>“它有Slack所有流行的功能，甚至更多一些......”</p>
+           </li>
+         </ul>
+
+       </div> -->
+       <h2>Our products</h2>
+          <div class="clearfix client3">
+            <a class="col-md-6 bottomgao" name="product" href="/product">
+              <div class="clientImg">
+                <div class="bgtop"></div>
+                <img src="../images/home_01.png" alt="">
+              </div>
+              <h3>Sameview team edition</h3>
+              <p>Main functions: one-on-one chat and group chat, file sharing, custom EMOJIS, integrated WEBHOOKS, GITHUB and other tools</p>
+            </a>
+            <a class="col-md-6" name="product" href="/product">
+              <div class="clientImg">
+                <div class="bgtop"></div>
+                <img src="../images/home_02.jpg" alt="">
+              </div>
+
+              <h3>Sameview enterprise edition</h3>
+              <p>Main functions: AD / LDAP single sign-on, advanced permissions, SAML-based single sign-on, performance monitoring, etc.</p>
+            </a>
+          </div>
+       </div>
+     </div>
+
+
+
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-home',
+    // properties: {
+    //   cIndex: {
+    //     type:Number,
+    //     value:1
+    //   },
+    //
+    //   selected2:{
+    //       type: Number,
+    //       value: 0,
+    //       // observer: '_selected2Changed'
+    //     }
+    // },
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+      //  var mScaleRate = document.body.clientWidth/750;
+      //  this.$.mobileSwipe.style.height = (456*mScaleRate) + "px";
+     },
+
+    // _onSelectedChanged: function(e) {
+    //     var target = e.target;
+    //     target.isGesture ? console.log("Swiped by Gesture!") : console.log("Swiped by Selection!");
+    // },
+
+    // _categoryChanged: function(category, oldCategory) {
+    //     var href;
+    //     var path = "";
+    //     this.selected2 = 0;
+    //     if(category !== "home"){
+    //       this.$.videom.pause();
+    //     }
+    // },
+
+
+  });
+
+</script>
+
+</dom-module>

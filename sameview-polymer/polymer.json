@@ -1,0 +1,21 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/news-app.html",
+  "fragments": [
+    "src/news-list.html",
+    "src/news-article.html",
+    "src/news-path-warning.html",
+    "src/lazy-resources.html"
+  ],
+  "sourceGlobs": [
+   "src/**/*",
+   "images/**/*",
+   "js/**/*",
+   "app.yaml",
+   "bower.json"
+  ],
+  "includeDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
+}
