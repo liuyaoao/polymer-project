@@ -639,8 +639,7 @@ header .container .logo a img{
   width: 100%;
   text-align: center;
   color: #666;
-  height: 50px;
-  line-height: 50px;
+  margin-top: 15px;
   font-size: 14px;
 }
 
@@ -1248,14 +1247,14 @@ width: 100%;
   background-color: #74A801;
 }
 .sort .module1 div .firmA1{
-  display: block;
   margin: 0 auto;
+  display:inline-block;
   font-size: 14px;
   font-weight: bold;
   color: #fff;
-  width: 90px;
-  height: 30px;
-  line-height: 30px;
+  height: 31px;
+  line-height: 31px;
+  padding: 0 16px;
   background-color: #032E84;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -1265,14 +1264,14 @@ width: 100%;
 }
 
 .sort .module1 div .firmA2{
-  display: block;
+  display:inline-block;
   margin: 0 auto;
   font-size: 14px;
   font-weight: bold;
   color: #fff;
-  width: 90px;
-  height: 30px;
-  line-height: 30px;
+  height: 31px;
+  line-height: 31px;
+  padding: 0 16px;
   background-color: #2F0659;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -1294,7 +1293,7 @@ width: 100%;
   padding: 0 15px;
   background-color: #ededed;
   margin: 0;
-  word-break:break-all;
+  /*word-break:break-all;*/
 }
 .sort ul{
   margin: 0;
@@ -1370,7 +1369,7 @@ width: 100%;
    /*position: absolute;
    left:15px;
    top:50%;*/
-   margin-top: 123px;
+   margin-top: 3rem;
  }
  .bg .text .name{
    font-size: 26px;
@@ -1583,21 +1582,21 @@ width: 100%;
 }
 .productbg .productText{
   display: block;
-  margin-top: 83px;
+  margin-top: 2.6rem;
 }
 .productbg2 .container{
   height: 274px;
   display: block;
 }
 .productbg2 .productText2{
-  margin-top: 37px;
+  margin-top: 1rem;
 }
 .valuebg .container{
   height: 320px;
   display: block;
 }
 .valuebg .valueText{
-  margin-top: 97px;
+  margin-top: 3rem;
 }
 .matterbg .container{
   height: 273px;
