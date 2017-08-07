@@ -129,6 +129,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-pages id="ironPages" role="main" selected="[[pageName]]" attr-for-selected="name" fallback-selection="path-warning">
       <sameview-home
         name="home"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -139,6 +140,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-home>
       <sameview-product
         name="product"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -149,6 +151,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-product>
       <sameview-contact
         name="contact"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -159,6 +162,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-contact>
       <sameview-valueMove
         name="valueMove"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -169,6 +173,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-valueMove>
       <sameview-valueControl
         name="valueControl"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -177,8 +182,53 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         small-screen="[[_smallScreen]]"
         failure="[[failure]]">
       </sameview-valueControl>
+      <sameview-introduction
+        name="introduction"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-introduction>
+      <sameview-introduction0
+        name="introduction0"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-introduction0>
+      <sameview-introduction1
+        name="introduction1"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-introduction1>
+      <sameview-javaVariable
+        name="javaVariable"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-javaVariable>
       <sameview-quotation
         name="quotation"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -189,6 +239,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-quotation>
       <sameview-download
         name="download"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -199,6 +250,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-download>
       <sameview-document
         name="document"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -209,6 +261,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-document>
       <sameview-docEnter
         name="docEnter"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -219,6 +272,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docEnter>
       <sameview-docMessage
         name="docMessage"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -229,6 +283,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docMessage>
       <sameview-docDialogue
         name="docDialogue"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -239,6 +294,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docDialogue>
       <sameview-docNotice
         name="docNotice"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -249,6 +305,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docNotice>
       <sameview-docSeek
         name="docSeek"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -259,6 +316,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docSeek>
       <sameview-docTeam
         name="docTeam"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -269,6 +327,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docTeam>
       <sameview-docMember
         name="docMember"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -279,6 +338,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docMember>
       <sameview-docOrganization
         name="docOrganization"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -289,6 +349,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docOrganization>
       <sameview-docApplication
         name="docApplication"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -299,6 +360,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docApplication>
       <sameview-docMessages
         name="docMessages"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -309,6 +371,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docMessages>
       <sameview-docTeammates
         name="docTeammates"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -319,6 +382,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docTeammates>
       <sameview-docFormatting
         name="docFormatting"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -329,6 +393,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docFormatting>
       <sameview-docShare
         name="docShare"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -339,6 +404,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docShare>
       <sameview-docPerform
         name="docPerform"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -349,6 +415,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docPerform>
       <sameview-docMail
         name="docMail"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -359,6 +426,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docMail>
       <sameview-docShortcuts
         name="docShortcuts"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -369,6 +437,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docShortcuts>
       <sameview-docFixed
         name="docFixed"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -379,6 +448,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docFixed>
       <sameview-docAccount
         name="docAccount"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -389,6 +459,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docAccount>
       <sameview-docTheme
         name="docTheme"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -399,6 +470,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docTheme>
       <sameview-docChannel
         name="docChannel"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -409,6 +481,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docChannel>
       <sameview-docTeamSet
         name="docTeamSet"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -419,6 +492,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docTeamSet>
       <sameview-docExpression
         name="docExpression"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -429,6 +503,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docExpression>
       <sameview-docIntegration
         name="docIntegration"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -439,6 +514,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docIntegration>
       <sameview-docAdministratorTask
         name="docAdministratorTask"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -449,6 +525,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docAdministratorTask>
       <sameview-docLoading
         name="docLoading"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -459,6 +536,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docLoading>
       <sameview-docMobileApp
         name="docMobileApp"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -469,6 +547,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docMobileApp>
       <sameview-docActive
         name="docActive"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -479,6 +558,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docActive>
       <sameview-docCertification
         name="docCertification"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -489,6 +569,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docCertification>
       <sameview-docSAML
         name="docSAML"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -499,6 +580,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </sameview-docSAML>
       <sameview-docExpand
         name="docExpand"
+        page="{{page}}"
         route="[[subroute]]"
         category-name="{{categoryName}}"
         category="[[category]]"
@@ -507,6 +589,183 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         small-screen="[[_smallScreen]]"
         failure="[[failure]]">
       </sameview-docExpand>
+      <sameview-docClientData
+        name="docClientData"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docClientData>
+      <sameview-docOffice
+        name="docOffice"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docOffice>
+      <sameview-docGoogle
+        name="docGoogle"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docGoogle>
+      <sameview-docGitLab
+        name="docGitLab"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docGitLab>
+      <sameview-docAvailability
+        name="docAvailability"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docAvailability>
+      <sameview-docMonitor
+        name="docMonitor"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docMonitor>
+      <sameview-docCommand
+        name="docCommand"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docCommand>
+      <sameview-docStatistics
+        name="docStatistics"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docStatistics>
+      <sameview-docAnnouncement
+        name="docAnnouncement"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docAnnouncement>
+      <sameview-docCompliance
+        name="docCompliance"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docCompliance>
+      <sameview-docBranding
+        name="docBranding"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docBranding>
+      <sameview-docBackup
+        name="docBackup"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docBackup>
+      <sameview-docUpgrade
+        name="docUpgrade"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docUpgrade>
+      <sameview-docMigrating
+        name="docMigrating"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docMigrating>
+      <sameview-docApi
+        name="docApi"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </sameview-docApi>
+      <left-side
+        name="side"
+        page="[[page]]"
+        page="{{page}}"
+        route="[[subroute]]"
+        category-name="{{categoryName}}"
+        category="[[category]]"
+        loading="[[loading]]"
+        offline="[[offline]]"
+        small-screen="[[_smallScreen]]"
+        failure="[[failure]]">
+      </left-side>
 
       <news-path-warning name="path-warning"></news-path-warning>
 
@@ -610,7 +869,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         var beforeScrollTop = document.body.scrollTop;
           var ironHeight = document.documentElement.clientHeight;
-          if(this.page === "contact" || this.page === "download"){
+          if(this.page === "contact" || this.page === "download" || this.page === "introduction"){
               ironHeight = (ironHeight-275) +"px";
               this.$.ironPages.style.minHeight= ironHeight;
           }else {
@@ -634,7 +893,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         || this.page === "docMessages" || this.page === "docTeammates" || this.page === "docFormatting" || this.page === "docShare" || this.page === "docPerform"
         || this.page === "docMail"  || this.page === "docShortcuts" || this.page === "docFixed" || this.page === "docAccount" || this.page === "docTheme" || this.page === "docChannel"
         || this.page === "docTeamSet" || this.page === "docExpression" || this.page === "docIntegration" || this.page === "docAdministratorTask" || this.page === "docLoading"
-        || this.page === "docMobileApp"  || this.page === "docActive" || this.page === "docCertification" || this.page === "docSAML" || this.page === "docExpand") {
+        || this.page === "docMobileApp"  || this.page === "docActive" || this.page === "docCertification" || this.page === "docSAML" || this.page === "docExpand" || this.page === "docClientData"
+        || this.page === "docOffice"  || this.page === "docGoogle" || this.page === "docGitLab" || this.page === "docAvailability" || this.page === "docMonitor" || this.page === "docCommand"
+        || this.page === "docStatistics"  || this.page === "docAnnouncement" || this.page === "docCompliance" || this.page === "docBranding" || this.page === "docBackup" || this.page === "docUpgrade"
+        || this.page === "docMigrating"  || this.page === "docApi") {
             $(this.$.foot).css("display","none");
             $(this.$.nav).css("display","none");
           }else {
@@ -681,6 +943,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return;
         }
         this.page = page;
+        console.log("app页面的 _routePageChanged:",page,this.route.path);
         this.pagepath =  this.route.path;
         var remainingPieces = this.pagepath.split('/');
         // this.pageName = remainingPieces[2];//这种是对应 this.set('route.path', 'sameviewloading/home');
@@ -696,6 +959,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _pageChanged: function(page, oldPage) {
         var href;
         var path = this.route;
+        console.log("app页面的 _pageChanged:",page,this.route);
         if(page !== "images"){
           switch(page) {
              case 'home':
@@ -712,6 +976,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                break;
              case 'valueControl':
                href = 'sameview-valueControl.html';
+               break;
+             case 'introduction':
+               href = 'sameview-introduction.html';
+               break;
+             case 'introduction0':
+               href = 'sameview-introduction0.html';
+               break;
+             case 'introduction1':
+               href = 'sameview-introduction1.html';
+               break;
+             case 'javaVariable':
+               href = 'sameview-javaVariable.html';
                break;
              case 'quotation':
                href = 'sameview-quotation.html';
@@ -812,6 +1088,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              case 'docExpand':
                href = 'sameview-docExpand.html';
                break;
+             case 'docClientData':
+               href = 'sameview-docClientData.html';
+               break;
+             case 'docOffice':
+               href = 'sameview-docOffice.html';
+               break;
+             case 'docGoogle':
+               href = 'sameview-docGoogle.html';
+               break;
+             case 'docGitLab':
+               href = 'sameview-docGitLab.html';
+               break;
+             case 'docAvailability':
+               href = 'sameview-docAvailability.html';
+               break;
+             case 'docMonitor':
+               href = 'sameview-docMonitor.html';
+               break;
+             case 'docCommand':
+               href = 'sameview-docCommand.html';
+               break;
+             case 'docStatistics':
+               href = 'sameview-docStatistics.html';
+               break;
+             case 'docAnnouncement':
+               href = 'sameview-docAnnouncement.html';
+               break;
+             case 'docCompliance':
+               href = 'sameview-docCompliance.html';
+               break;
+             case 'docBranding':
+               href = 'sameview-docBranding.html';
+               break;
+             case 'docBackup':
+               href = 'sameview-docBackup.html';
+               break;
+             case 'docUpgrade':
+               href = 'sameview-docUpgrade.html';
+               break;
+             case 'docMigrating':
+               href = 'sameview-docMigrating.html';
+               break;
+             case 'docApi':
+               href = 'sameview-docApi.html';
+               break;
              default:
                href = 'sameview-home.html';
                break;
@@ -824,7 +1145,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               true);
         }
         //contact页面设置高度
-        if(page === "contact" || page === "download"){
+        if(page === "contact" || page === "download" || page === "introduction"){
             var ironHeight = document.documentElement.clientHeight;
             var footerHeight = $(this.$.footer).height();
             ironHeight = (ironHeight-275) +"px";
@@ -834,7 +1155,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          || page === "docTeam" || page === "docMember" || page === "docOrganization" || page === "docApplication" || page === "docMessages" || page === "docTeammates" || page === "docFormatting"
          || page === "docShare" || page === "docPerform" || page === "docMail" || page === "docShortcuts" || page === "docFixed" || page === "docAccount" || page === "docTheme" || page === "docChannel"
          || page === "docTeamSet" || page === "docExpression" || page === "docIntegration" || page === "docAdministratorTask" || page === "docLoading" || page === "docMobileApp" || page === "docActive"
-         || page === "docCertification" || page === "docSAML" || page === "docExpand") {
+         || page === "docCertification" || page === "docSAML" || page === "docExpand" || page === "docClientData" || page === "docOffice" || page === "docGoogle" || page === "docGitLab" || page === "docAvailability"
+         || page === "docMonitor" || page === "docCommand" || page === "docStatistics" || page === "docAnnouncement" || page === "docCompliance" || page === "docBranding" || page === "docBackup"
+         || page === "docUpgrade" || page === "docMigrating" || page === "docApi") {
           $(this.$.foot).css("display","none");
           $(this.$.nav).css("display","none");
         }

@@ -1,4 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
 <!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
@@ -13,11 +15,14 @@
     a:focus,a:hover{
       text-decoration: none;
     }
+    .document{
+      display: none;
+    }
     </style>
       <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
     <app-route
         route="[[route]]"
-        pattern="/:category"
+        pattern="/:subDocPage"
         data="{{_routeData}}">
     </app-route>
     <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
@@ -33,12 +38,32 @@
         </template>
       </header>
       <div class="docMatter" style="margin-top:50px;">
-        <left-side language="[[language]]" category="[[category]]" categories="[[categories]]"></left-side>
+        <left-side page="{{page}}"></left-side>
         <div class="docContent">
           <div class="crumbs">
             <p>文件<font> »</font></p>
             <p>产品概述</p>
           </div>
+          <iron-pages id="docIronPages" role="main" selected="[[subDocPage]]" attr-for-selected="name" fallback-selection="path-warning">
+            <sameview-docEnter
+              name="docEnter"
+              page="{{subDocPage}}"
+              category="[[category]]"
+              loading="[[loading]]"
+              offline="[[offline]]"
+              small-screen="[[_smallScreen]]"
+              failure="[[failure]]">
+            </sameview-docEnter>
+            <sameview-docMessage
+              name="docMessage"
+              page="{{subDocPage}}"
+              category="[[category]]"
+              loading="[[loading]]"
+              offline="[[offline]]"
+              small-screen="[[_smallScreen]]"
+              failure="[[failure]]">
+            </sameview-docMessage>
+          </iron-pages>
           <div role="main" class="document">
            <div itemprop="articleBody">
 
@@ -113,18 +138,16 @@
 <script>
   Polymer({
     is: 'sameview-document',
-    // properties: {
-    //   cIndex: {
-    //     type:Number,
-    //     value:1
-    //   },
-    //
-    //   selected2:{
-    //       type: Number,
-    //       value: 0,
-    //       // observer: '_selected2Changed'
-    //     }
-    // },
+
+    properties: {
+      subDocPage: {
+          type: String,
+          observer: '_pageChanged'
+        },
+    },
+    observers: [
+      '_routePageChanged(_routeData.subDocPage)',
+    ],
      ready: function(){
        var win = $(window);
        $(window).resize(function(){
@@ -141,6 +164,36 @@
       //  var mScaleRate = document.body.clientWidth/750;
       //  this.$.mobileSwipe.style.height = (456*mScaleRate) + "px";
      },
+     _pageChanged: function(subDocPage, oldPage) {
+       var href;
+       var path = this.route;
+       console.log("document---:",subDocPage);
+       switch(subDocPage) {
+          case 'docEnter':
+            href = 'document/sameview-docEnter.html';
+            break;
+          case 'docMessage':
+            href = 'document/sameview-docMessage.html';
+            break;
+        }
+        this.importHref(
+            this.resolveUrl(href),
+            this._pageLoaded.bind(this, Boolean(oldPage)),
+            null,
+            true);
+     },
+     _routePageChanged:function(subDocPage){
+       console.log("document--subDocPage--:",subDocPage);
+       if (!subDocPage) {
+         // set default route if route path is empty
+         this.subDocPage = 'docEnter';
+         return;
+       }
+       this.subDocPage = subDocPage;
+     },
+     _pageLoaded: function(shouldResetLayout) {
+     },
+
 
   });
 

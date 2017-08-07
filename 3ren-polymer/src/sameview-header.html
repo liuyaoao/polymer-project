@@ -50,6 +50,7 @@
                       </li>
                     </ul>
                 </div>
+                <a name="introduction" href="/introduction" id="introduction"><paper-ripple></paper-ripple>快速上手<div class="line"></div></a>
                 <a name="quotation" href="/quotation"><paper-ripple></paper-ripple>报价<div class="line"></div></a>
                 <a name="contact" href="/contact"><paper-ripple></paper-ripple>联系我们<div class="line"></div></a>
                 <a name="download" href="/download" class="demo"><paper-ripple></paper-ripple>免费下载</a>
@@ -98,6 +99,7 @@
         }
 
       },
+
       _changed:function(name){
         this.beforeName = name;
       },
@@ -107,7 +109,11 @@
           if(b === "valueMove" || b === "valueControl" ){
             if(this.$$("#value")){
              this.$$("#value").className="";
-             }
+           }
+         }else if(b === "introduction0" || b === "introduction1" || b === "javaVariable" ){
+             if(this.$$("#introduction")){
+              this.$$("#introduction").className="";
+              }
          }
 
           //添加一个iron-selected
@@ -119,6 +125,20 @@
               setTimeout(function(){
                 if(_this.$$("#value")){
                   _this.$$("#value").className="iron-selected";
+                }
+              },10);
+            }
+          }else if(a === "introduction0" || a === "introduction1" || a === "javaVariable" ){
+            if(this.$$("#introduction")){
+              var _this = this;
+              setTimeout(function(){
+                  _this.$$("#introduction").className="iron-selected";
+              },10);
+            }else{
+              var _this = this;
+              setTimeout(function(){
+                if(_this.$$("#introduction")){
+                  _this.$$("#introduction").className="iron-selected";
                 }
               },10);
             }
