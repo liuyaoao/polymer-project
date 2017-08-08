@@ -1,0 +1,134 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+
+<dom-module id="sameview-introduction">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+    <div class="int_content">
+      <div class="quotebg">
+        <template is="dom-if" if="![[_smallScreen]]">
+          <div class="quoteImg" style="background-image:url(../images/introduction.jpg);"></div>
+        </template>
+      </div>
+    <div class="container">
+    <!-- <div class="breadcrumbs">
+        <h1>快速上手 - Step 1: 下载、安装和部署</h1>
+    </div> -->
+    <div class="intContent">
+      <div class="col-md-3">
+        <nav class="sidebar">
+          <a href="/introduction" class="selected" style="font-weight:bold;color:#122A88;"><span style="border: 5px solid #122A88;"></span>Step1：安装前准备</a>
+          <a href="/introduction0"><span></span>Step2：Windows、Linux安装</a>
+          <a href="/introduction1"><span></span>Step 3: 系统登录</a>
+        </nav>
+      </div>
+
+      <div class="col-md-9">
+
+        <div class="container col-md-12">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">安装前准备（WINDOWS, LINUX）</div>
+        <div class="panel-body">
+            <p>1. 准备JDK环境：需确保系统安装了<code>64位JDK1.8及以上版本(推荐JDK 1.8)</code>，执行 <code>java -version</code>确认JDK版本。</p>
+            <br>
+            <a href="/javaVariable">注意：安装JDK后，记得配置环境变量，具体请参考：JAVA变量配置说明。</a>
+            <br>
+            <br>
+            <p>2. JDK下载：</p>
+            <table align="center" border="1" cellpadding="0" cellspacing="0" style="width: 570px;">
+					     <tbody>
+						       <tr>
+							        <td align="center" height="40">
+								        <span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;"><strong>版本</strong></span></td>
+							        <td align="center" height="40">
+								        <span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;"><strong>操作系统</strong></span></td>
+							        <td align="center" height="40">
+								        <span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;"><strong>版本</strong></span></td>
+                        <td align="center" height="40">
+  								        <span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;"><strong>文件大小</strong></span></td>
+							        <td align="center" height="40">
+								        <span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;"><strong>下载</strong></span></td>
+						      </tr>
+            <tr>
+              <td align="center" height="46" rowspan="7">
+                 <span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;"><strong>JDK</strong></span></td>
+							<td align="center" height="46">
+								<span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;">Windows x64</span></td>
+							<td align="center" height="46">
+								<span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;">ALL</span></td>
+              <td align="center" height="46">
+  							<span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;">180.4M</span></td>
+							<td align="center" height="46">
+								<span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;">
+								<strong><a href="http://pan.baidu.com/s/1c1XSb2g" target="_blank">百度云下载</a></strong></span></td>
+						</tr>
+						<tr>
+							<td align="center" height="46">
+								<span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;">Linux x64</span></td>
+							<td align="center" height="46">
+								<span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;">ALL</span></td>
+              <td align="center" height="46">
+  							<span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;">165.2M</span></td>
+							<td align="center" height="46">
+								<span style="font-family: arial, helvetica, sans-serif; line-height: 19.5px;">
+								<strong><a href="http://pan.baidu.com/s/1ntL8ZPJ#list/path=%2F" target="_blank">百度云下载</a></strong></span></td>
+						</tr>
+					</tbody>
+				</table>
+            <p style="margin-top:20px;">3.点击“Web版本下载”按钮，下载<a href="/download">3ren.zip</a></p>
+        </div>
+    </div>
+
+
+
+
+
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-introduction',
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+     },
+
+
+  });
+
+</script>
+
+</dom-module>

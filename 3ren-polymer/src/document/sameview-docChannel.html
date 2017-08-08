@@ -1,0 +1,88 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="sameview-docChannel">
+  <link rel="import" type="css" href="../../css/animate.min.css">
+  <link rel="import" type="css" href="../../css/page.css">
+  <link rel="import" type="css" href="../../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+      a:focus,a:hover{
+        text-decoration: none;
+      }
+    </style>
+    <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div role="main" class="document" style="margin-top:30px;">
+        <div itemprop="articleBody">
+
+          <div class="section">
+            <h1>频道设置</h1>
+            <p>通知首选项，频道标题，频道目的和频道名称均可为每个频道进行自定义。要访问这些设置，请单击页面顶部的频道名称以打开频道菜单。</p>
+            <div class="section">
+              <h2>频道通知首选项</h2>
+              <p>您可以为您所属的每个频道修改通知偏好设置。</p>
+              <div class="section">
+                <h3>发送桌面通知</h3>
+                <p>默认情况下，<em>帐户设置中</em>分配的桌面通知首选项用于所有通道。要自定义每个频道的桌面通知首选项，请单击页面顶部的频道名称以访问频道菜单，然后单击<strong>通知首选项&gt;发送桌面通知</strong>。</p>
+              </div>
+              <div class="section">
+                <h3>发送移动推送通知</h3>
+                <p>默认情况下，在“ <em>帐户设置”中</em>分配的移动推送通知首选项用于所有通道。要自定义每个频道的移动推送通知，请单击页面顶部的频道名称以访问频道菜单，然后单击<strong>通知首选项&gt;发送移动推送通知</strong>。</p>
+              </div>
+              <div class="section">
+                <h3>标记频道未读</h3>
+                <p>默认情况下，通道中的所有新消息的通道名称都加粗。要在提及频道名称时加粗，请打开频道菜单，然后单击<strong>通知首选项&gt;标记频道未读&gt;仅供参考</strong>。</p>
+              </div>
+            </div>
+            <div class="section">
+              <h2>频道头</h2>
+              <p>在频道菜单中，选择<strong>编辑频道标题，</strong>以更改屏幕顶部频道名称旁边显示的文字。它可以用于总结频道主题或提供经常访问的文档的链接。任何通道成员都可以编辑此设置，除非系统管理员已限制权限。</p>
+              <div class="section">
+                <h3>添加到频道头的链接</h3>
+                <p>经常使用的文档，视频通话或其他站点的链接可以使用markdown添加到频道头。</p>
+                <p>Example: [Google Hangout](https://plus.google.com/hangouts/_/store.com/shipping)</p>
+              </div>
+            </div>
+            <div class="section">
+              <h2>渠道目的</h2>
+              <p>在频道菜单中，选择<strong>编辑频道目的</strong>来更改</font><strong><font>频道</font></strong></font><em>更多</em>菜单</font><font>中显示的文字
+               </font><font>。</font><font>渠道目的通常是一个简短的描述，可帮助其他人决定是否加入频道。</font><font>任何通道成员都可以编辑此设置，除非系统管理员已限制权限。</p>
+              </div>
+              <div class="section">
+              <h2>频道名称</h2>
+              <p>在频道菜单中，选择<strong>重命名频道</strong>来更改频道名称或句柄。</font><font>更改频道句柄会更改频道网址。</font><font>任何通道成员都可以编辑此设置，除非系统管理员已限制权限。</p>
+              </div>
+            </div>
+
+
+       </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docChannel',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

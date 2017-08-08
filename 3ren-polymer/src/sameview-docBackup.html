@@ -1,0 +1,171 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docBackup">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document"><font>文件</a> »</font></p>
+            <p><font>管理 »</font></p>
+            <p>备份和故障恢复</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section">
+<h1>备份和故障恢复</h1>
+<p>保护您的三人即时通服务器免受不同类型故障的选择范围从简单备份到复杂的故障恢复部署和自动化。</p>
+<div class="section">
+<h2>备用</h2>
+<p>您的三人即时通服务器的状态包含在多个数据存储中，需要单独备份和恢复，从而完全恢复系统的故障。</p>
+<p>备份您的三人即时通服务器：</p>
+<ol class="arabic">
+<li><p class="first">根据您的数据库版本，使用标准的MySQL或PostgreSQL程序备份您的三人即时通数据库。</p>
+<blockquote>
+<div><ul class="simple">
+<li>MySQL备份文档在线可用。使用页面上的选择器来选择您的MySQL版本。</li>
+<li>PostgreSQL备份文档在线可用。使用页面顶部的导航选择您的PostgreSQL版本。</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">备份您存储的服务器设置<code class="docutils literal"><span class="pre">config/config.json</span></code>。</p>
+<blockquote>
+<div><ul class="simple">
+<li>如果您对三人即时通使用SAML配置，您的SAML证书文件将被保存在<code class="docutils literal"><span class="pre">config</span></code>目录中。因此，建议备份整个目录。</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">用户存储的备份文件具有以下选项之一：</p>
+<blockquote>
+<div><ul class="simple">
+<li>如果使用本地存储使用默认<code class="docutils literal"><span class="pre">./data</span></code>目录备份此目录。</li>
+<li>如果您使用本<code class="docutils literal"><span class="pre">Directory</span></code>设置中指定的非默认目录使用本地存储<code class="docutils literal"><span class="pre">config.json</span></code>，请备份该位置的文件。</li>
+<li>如果您在S3中存储文件，您通常可以将文件保存在其中，而无需备份。</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<p>要从备份恢复三人即时通实例，请将数据库，<code class="docutils literal"><span class="pre">config.json</span></code>文件和可选的本地存储的用户文件还原到备份的位置。</p>
+</div>
+<div class="section">
+<h2>故障恢复</h2>
+<p>适当的故障恢复计划权衡了设置故障恢复基础设施和自动化的成本和复杂性来减轻特定风险的好处。</p>
+<p>有两种常见的方法：</p>
+<div class="section">
+<h3>自动备份</h3>
+<p>自动备份三人即时通服务器会在特定时间点提供服务器状态的副本，如果将来的故障导致数据丢失，可以恢复该副本。选项包括：</p>
+<ul class="simple">
+<li>自动化定期备份三人即时通服务器，其中可能包括上述所有组件或子集，具体取决于您选择保护的内容。</li>
+<li>自动化从备份还原服务器，或部署新服务器，以减少恢复时间。</li>
+<li>自动化验证备份已成功生成，以防止备份自动化故障。</li>
+<li>将备份存储在场外，以防止现场系统的物理丢失。</li>
+</ul>
+<p>使用备份从故障恢复通常是手动过程，并将导致停机时间。另一种方法是使用高可用性部署自动恢复。</p>
+</div>
+<div class="section">
+<h3>高可用性部署</h3>
+<p>在高可用性模式下部署最为可靠的方式允许通过在冗余服务器上运行，从组件故障（例如运行磁盘空间不足或出现硬件问题的特定服务器）进行快速，自动恢复。选项包括：</p>
+<ul class="simple">
+<li>部署冗余的三人即时通服务器，以防止三人即时通服务器中的故障。</li>
+<li>部署冗余数据库，以防止数据库中的故障。</li>
+<li>部署冗余Web代理，以防止Web代理中的故障。</li>
+<li>在单独的物理数据中心部署冗余基础架构，以防止主数据中心的故障。</li>
+</ul>
+<p>如果单个服务器出现故障，正确部署的高可用性设置将自动切换到冗余系统。高可用性不能防止数据损坏等故障，因为错误会传播到冗余系统。</p>
+<p>“完整的”故障恢复解决方案将通过提供非现场备份和非现场冗余基础架构，使用高可用性，使用自动化的数据损坏故障以及主数据中心的故障来防止实时硬件故障。由于完整的故障恢复解决方案的复杂性很高，客户通常会考虑相对于预期风险和目标恢复时间的成本和复杂性进行权衡。</p>
+</div>
+<div class="section">
+<h3>从单点登录中断故障切换</h3>
+<p>当使用三人即时通 Enterprise Edition进行单点登录时，SSO提供商的中断可能会导致您的三人即时通实例出现部分中断。</p>
+<p><strong>在SSO中断期间会发生什么？</strong></p>
+<p><em>大多数人仍然可以登录</em> - 默认情况下，当用户登录到三人即时通时，他们会收到持续30天的会话令牌（可以在系统控制台中配置持续时间）。在SSO中断期间，具有有效会话令牌的用户可以继续使用三人即时通不间断。</p>
+<p><em>有些人无法登录</em> - 在SSO中断期间，用户无法登录的情况有两种：</p>
+<ol class="loweralpha simple">
+<li>会话令牌在中断期间到期的用户</li>
+<li>尝试登录新设备的用户</li>
+</ol>
+<p>在每种情况下，用户无法访问SSO提供商，无法登录。在这种情况下，有几个潜在的缓解措施：</p>
+<ol class="arabic simple">
+<li>配置您的SSO提供商以获得高可用性</li>
+</ol>
+<p>如果您使用自主托管的单点登录提供程序，则可以使用多种选项来实现高可用性配置，从而保护系统免受计划外中断。</p>
+<p>对于基于SaaS的身份验证提供商，您仍然依赖于服务正常运行时间，您可以在从其中拉取数据的源系统中设置冗余。例如，使用基于OneLogin SaaS的身份验证服务，您可以设置高可用性LDAP连接，以进一步降低中断的可能性。</p>
+<ol class="arabic simple" start="2">
+<li>设置自己的IDP以提供自动或手动的SSO故障切换选项</li>
+</ol>
+<p>创建用于连接到活动和备用身份验证选项的SAML身份验证的自定义身份提供程序，可在手动或自动切换时发生中断。</p>
+<p>在此配置中，应仔细检查安全性，以防止备用SSO选项削弱您的身份验证协议。</p>
+<ol class="arabic simple" start="3">
+<li>为SSO中断设置手动故障转移计划</li>
+</ol>
+<p>当用户在中断期间无法访问组织的SSO提供商时，会显示一条错误消息，通知用户与您的支持链接（在系统控制台设置中定义）。</p>
+<p>一旦IT人员联系到SSO中断问题，他们可以使用系统控制台临时将用户的帐户从SSO更改为电子邮件密码，最终用户可以使用密码来声明该帐户，直到SSO中断结束，并且帐户可以转换回SSO。</p>
+<p>如果由于SSO中断，管理员无法登录系统控制台，则可以使用命令行工具将其身份验证方法切换为电子邮件密码以获取访问权限。</p>
+<p>在中断之后，从电子邮件密码切换到SSO以保持一致性和安全性是非常重要的。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docBackup',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

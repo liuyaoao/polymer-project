@@ -1,0 +1,287 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docCompliance">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document"><font>文件</a> »</font></p>
+            <p><font>管理 »</font></p>
+            <p>合规报告和监督</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+<div class="section">
+<h1>合规报告和监督</h1>
+<p>可用于企业版E20</p>
+<p>此功能可以实现从系统控制台生成合规性导出，所有查询和下载操作均记录在审计历史记录中，以实现监督并防止未经授权的查询。</p>
+<p>合规导出可以过滤到日期范围，用户帐户和关键字列表。来自查询的请求可以<code class="docutils literal"><span class="pre">.csv</span></code>格式从用户界面下载，并以<code class="docutils literal"><span class="pre">.json</span></code>文档格式记录查询，并将其放置在系统管理员设置的目录中。</p>
+<p>还可以生成每日合规性报告，支持与全球继电器等合规解决方案集成。</p>
+<p>注意：默认情况下，所有三人即时通版本保留所有邮件，包括编辑和删除以及上传的所有文件。</p>
+<div class="section">
+<h2>启用合规报告</h2>
+<p>购买并安装企业版E20的许可证密钥后：</p>
+<ol class="arabic simple">
+<li>转到<strong>系统控制台</strong> &gt; <strong>常规</strong> &gt; <strong>合规性</strong> &gt; <strong>启用合规性</strong>并将值设置为<code class="docutils literal"><span class="pre">true</span></code>。</li>
+<li>（可选）合规性目录位置指定要在其中填写合规性报告的目录。默认为<code class="docutils literal"><span class="pre">./data/</span></code>空白。</li>
+<li>单击<strong>保存</strong>。</li>
+</ol>
+<p>这将使<strong>系统控制台</strong> &gt; <strong>合规性和审核</strong>选项卡中运行符合性报告，并启用生成每日合规性报告的选项。</p>
+</div>
+<div class="section">
+<h2>打开每日合规性报告</h2>
+<p>启用合规报告后：</p>
+<ol class="arabic simple">
+<li>转到<strong>系统控制台</strong> &gt; <strong>常规</strong> &gt; <strong>合规性</strong> &gt; <strong>启用每日报告</strong>，并将值设置为<code class="docutils literal"><span class="pre">true</span></code>。</li>
+<li>单击<strong>保存</strong>。</li>
+</ol>
+<p>您的系统现在将将24小时内发布的所有新消息作为.csv文件导出到<strong>合规性目录位置中</strong>指定的<strong>位置</strong>。此功能可以与移动的集中式合规报告系统结合使用</p>
+</div>
+<div class="section">
+<h2>运行合规性报告</h2>
+<p>合规报告是在三人即时通中匹配报告标准的所有邮件的导出。运行报表：</p>
+<ol class="arabic">
+<li><p class="first">转到<strong>系统控制台</strong> &gt; <strong>遵从性和审计</strong></p>
+</li>
+<li><p class="first">填写以下标准：</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>工作名称：</strong>命名您要运行的合规性报告，例如“HR Audit 455”。</li>
+<li><strong>从：</strong> YYYY-MM-DD格式的搜索开始日期，例如“2016-03-11”。</li>
+<li><strong>To：</strong>结束YYYY-MM-DD格式的搜索日期，例如"✓-11“。</li>
+<li><strong>电子邮件：</strong>发布要搜索的邮件的用户的电子邮件地址的逗号分隔列表。例如。<code class="docutils literal"><span class="pre">bill@example.com,</span> <span class="pre">bob@example.com</span></code></li>
+<li><strong>关键字：</strong>指示要包含在邮件中的单词，以便将其包含在合规性报告结果中。</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">点击“运行合规性报告”</p>
+</li>
+</ol>
+<p>该报告将在上述字段的下方排队。每个合规报告运行的属性说明如下：</p>
+<ul class="simple">
+<li><strong>时间戳：</strong>请求报告的时间。</li>
+<li><strong>状态：</strong> <cite>running</cite>表示正在运行报表。<cite>完成</cite>表示报告已完成并准备下载。</li>
+<li><strong>记录：</strong>显示搜索结果的数量。</li>
+<li><strong>类型：</strong> <cite>adhoc</cite>表示通过完成查询字段请求的报告，<cite>每天</cite>表示报告是每日导出（见上文部分的描述）。</li>
+<li><strong>说明：</strong>请求中指明的工作名称。</li>
+<li><strong>要求：</strong>请求报告的人的电子邮件。</li>
+<li><strong>参数：</strong>符合性报告请求的参数。</li>
+</ul>
+<p>每个合规报告都包含一个“下载”链接，下载一个名为的压缩文件<code class="docutils literal"><span class="pre">adhoc-[UNIQUE_ID].zip</span></code>。文件内部<code class="docutils literal"><span class="pre">meta.json</span></code>包括执行的搜索参数，<code class="docutils literal"><span class="pre">posts.csv</span></code>其中包括请求发现的消息的不同。</p>
+<div class="section">
+<h3>合规性查询定义存储在<code class="docutils literal"><span class="pre">meta.json</span></code>文件中</h3>
+<p><code class="docutils literal"><span class="pre">meta.json</span></code> 包含有关合规性查询的以下信息：</p>
+<div class="wy-table-responsive"><table border="1" class="docutils">
+<colgroup>
+<col width="18%">
+<col width="53%">
+<col width="29%">
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">领域</th>
+<th class="head">描述</th>
+<th class="head">例</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ID</td>
+<td>合规查询的唯一标识符</td>
+<td>ja8z8egap7nq9kqetz3rt98khe</td>
+</tr>
+<tr class="row-odd"><td>create_at</td>
+<td>执行合规查询的时间戳</td>
+<td>1463637842478</td>
+</tr>
+<tr class="row-even"><td>用户名</td>
+<td>个人创建查询的最新用户ID</td>
+<td>3bq1shta93yztg3i6aiu1tzi5h</td>
+</tr>
+<tr class="row-odd"><td>状态</td>
+<td>查询状态：“已完成”或“失败”</td>
+<td>完</td>
+</tr>
+<tr class="row-even"><td>计数</td>
+<td>发现匹配关键字的邮件计数</td>
+<td>36</td>
+</tr>
+<tr class="row-odd"><td>降序</td>
+<td>用户输入符合性查询的说明</td>
+<td>合规报告示例</td>
+</tr>
+<tr class="row-even"><td>类型</td>
+<td>合规查询类型：“adhoc”或“每日”</td>
+<td>“特别指定”</td>
+</tr>
+<tr class="row-odd"><td>start_at</td>
+<td>查询开始运行的时间戳</td>
+<td>1451606400000</td>
+</tr>
+<tr class="row-even"><td>end_at</td>
+<td>查询结束的时间戳</td>
+<td>1463529600000</td>
+</tr>
+<tr class="row-odd"><td>关键字</td>
+<td>逗号分隔，不区分大小写的关键字在查询中匹配</td>
+<td>“喝”</td>
+</tr>
+<tr class="row-even"><td>电子邮件</td>
+<td>逗号分隔的用户的电子邮件进行搜索。空白返回所有</td>
+<td><code class="docutils literal"><span class="pre">frank.yu@ha.ca,</span> <span class="pre">mary.li@hi.co</span></code></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<h3>合规性查询结果存储在<code class="docutils literal"><span class="pre">posts.csv</span></code>文件中</h3>
+<p><code class="docutils literal"><span class="pre">posts.csv</span></code> 包含有关合规性查询结果的以下信息，每行一个搜索结果：</p>
+<div class="wy-table-responsive"><table border="1" class="docutils">
+<colgroup>
+<col width="18%">
+<col width="55%">
+<col width="27%">
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">领域</th>
+<th class="head">描述</th>
+<th class="head">例</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>队名</td>
+<td>团队的网址名称</td>
+<td>contosi</td>
+</tr>
+<tr class="row-odd"><td>TeamDisplayName</td>
+<td>显示团队名称</td>
+<td>康托西公司</td>
+</tr>
+<tr class="row-even"><td>ChannelDisplayName</td>
+<td>显示找到关键字的频道名称</td>
+<td>社区心跳</td>
+</tr>
+<tr class="row-odd"><td>CHANNELNAME</td>
+<td>渠道的网址名称</td>
+<td>社区心跳</td>
+</tr>
+<tr class="row-even"><td>UserUsername</td>
+<td>用户张贴包含关键字的消息的用户名</td>
+<td>frank.yu</td>
+</tr>
+<tr class="row-odd"><td>USEREMAIL</td>
+<td>用户张贴包含关键词的邮件的电子邮件</td>
+<td><code class="docutils literal"><span class="pre">frank.yu@contosi.com</span></code></td>
+</tr>
+<tr class="row-even"><td>UserNickname</td>
+<td>用户的昵称发布包含关键字的消息</td>
+<td>风扇杜</td>
+</tr>
+<tr class="row-odd"><td>帖子ID</td>
+<td>包含关键字的消息帖子的唯一ID</td>
+<td>xt9anyx6x3fx9y84aehgakdpze</td>
+</tr>
+<tr class="row-even"><td>PostCreateAt</td>
+<td>创建帖子的时间戳</td>
+<td>2016-03-02T16：01：59Z</td>
+</tr>
+<tr class="row-odd"><td>PostDeletedAt</td>
+<td>删除帖子的时间戳（如果适用）</td>
+<td>2016-03-02T16：01：59Z</td>
+</tr>
+<tr class="row-even"><td>PostUpdatedAt</td>
+<td>上次编辑帖子的时间戳（如果适用）</td>
+<td>2016-03-02T16：01：59Z</td>
+</tr>
+<tr class="row-odd"><td>PostParentId</td>
+<td>如果帖子是评论，父帖子的唯一ID</td>
+<td>xt9anyx6x3fx9y84aehgakdpze</td>
+</tr>
+<tr class="row-even"><td>PostOriginalId</td>
+<td>删除或编辑的帖子的唯一ID</td>
+<td>xt9anyx6x3fx9y84aehgakdpze</td>
+</tr>
+<tr class="row-odd"><td>PostMessage的</td>
+<td>包含关键字的消息</td>
+<td>从消防水带喝酒</td>
+</tr>
+<tr class="row-even"><td>PostFilenames</td>
+<td>附加到帖子的逗号分隔的文件名列表</td>
+<td>[“/f../ho.png","/f../hi.png”]</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="section">
+<h2>全球中继支持</h2>
+<p>通过将三人即时通 <code class="docutils literal"><span class="pre">.CSV</span></code>导出转换为全局中继<code class="docutils literal"><span class="pre">EML</span></code>文件，最新的日常合规报告与全球中继合规解决方案兼容。</p>
+<ul class="simple">
+<li>这种转换可以由内部开发人员完成，内部开发人员以前根据您组织的具体需求编写脚本将其他通信系统转换为全局中继格式。</li>
+<li>您还可以联系您的全球中继客户经理，了解有关服务项目以建立此转换。</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docCompliance',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

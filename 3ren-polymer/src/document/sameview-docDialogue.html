@@ -1,0 +1,118 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="sameview-docDialogue">
+  <link rel="import" type="css" href="../../css/animate.min.css">
+  <link rel="import" type="css" href="../../css/page.css">
+  <link rel="import" type="css" href="../../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+      a:focus,a:hover{
+        text-decoration: none;
+      }
+    </style>
+    <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div role="main" class="document" style="margin-top:30px;">
+        <div itemprop="articleBody">
+
+          <div class="section">
+            <h1><font class="">组织对话</h1>
+            <hr class="docutils">
+            <div class="section">
+              <h2>频道类型</h2>
+              <p>渠道用于组织不同主题的对话。有三种类型的频道：公共频道，私人频道和直播讯息。</p>
+              <div class="section">
+                <h3>公共频道</h3>
+                <p>公共频道对团队中的每个人都开放。新团队成员在注册时自动添加到两个公共频道：城市广场和离线主题。</p>
+              </div>
+              <div class="section">
+                <h3>私人频道</h3>
+                <p>私人频道适用于敏感主题，只有选择团队成员才能看到。私人频道的任何成员都可以添加其他成员。频道成员可以随时选择离开，但只有频道所有者或团队管理员才能删除其他成员。</p>
+              </div>
+              <div class="section">
+                <h3>直接消息和组消息</h3>
+                <p>直接消息是两个人之间的对话。群组消息是有三个或更多人对话的直接消息。两者都只有相关人员可见。</p>
+                <p>当您想要与另一个人进行私人对话时，请使用直接消息。当您想要与最多七位与会者快速设置对话时，请使用群组讯息。如果你想要的更多，你必须创建一个私人频道。</p>
+                <p>如果您的系统管理员已经允许，您可以与其他团队的人员建立直接消息或组消息，而不仅仅是您自己的。</p>
+                <p>Direct Message列表中的名称旁还有一个在线状态指示器。它显示：在线（活动浏览器），离开（5分钟没有浏览器活动）和离线（浏览器关闭）。</p>
+              </div>
+            </div>
+            <div class="section">
+              <h2>管理渠道</h2>
+              <p>频道可以创建，加入，重命名，删除和删除。</p>
+              <div class="section">
+                <h3>创建频道</h3>
+                <p>通过选择左侧的“ <em>通道”</em>或“ <em>专用通道”</em>标题旁边的<strong>+</strong>符号来创建新的公用频道或专用频道。要启动直接消息线程，请单击“ <em>直接消息”</em>列表底部的“ <strong>更多</strong> ” 以查看可以消息的团队成员列表。<em></em><em></em><strong></strong><em></em></p>
+                <p>任何人都可以创建公共频道或私人频道，除非系统管理员已限制权限。</p>
+              </div>
+              <div class="section">
+                <h3>加入频道</h3>
+                <p>点击“ <em>渠道”</em>列表底部的“ <strong>更多</strong> ” 可查看您可以加入的公共频道列表。要加入私人频道，您需要由该频道的成员添加。<em></em></p>
+              </div>
+              <div class="section">
+                <h3>将会员添加到频道</h3>
+                <p>单击中心窗格顶部的通道名称以访问下拉菜单，然后单击<strong>添加成员</strong>。频道的任何成员可以通过单击用户名旁边的<strong>添加</strong>来添加新成员。已添加到频道的用户将不会显示在此模式中。</p>
+              </div>
+              <div class="section">
+                <h3>从频道中删除成员</h3>
+                <p>单击中心窗格顶部的通道名称以访问下拉菜单，然后单击<strong>管理成员</strong>。频道的任何成员都可以通过单击用户名旁边的<strong>删除</strong>来删除其他成员。</p>
+              </div>
+              <div class="section">
+                <h3>重命名频道</h3>
+                <p>单击中心窗格顶部的通道名称以访问下拉菜单，然后单击<strong>重命名通道</strong>。任何人都可以重命名他们所属的频道，除非系统管理员已<span>限制权限</span>。</p>
+                <p>您也可以在重命名频道时更改频道网址（也称为频道句柄）。更改频道网址可能会破坏现有链接。</p>
+              </div>
+              <div class="section">
+                <h3>离开一个频道</h3>
+                <p>单击中心窗格顶部的通道名称以访问下拉菜单，然后单击<strong>离开通道</strong>。离开私人频道的任何团队成员如果希望重新加入，必须由频道成员重新添加。团队成员不会收到他们不是会员的频道的提醒通知。</p>
+              </div>
+              <div class="section">
+                <h3>删除频道</h3>
+                <p>单击中心窗格顶部的通道名称以访问下拉菜单，然后单击<strong>删除通道</strong>。任何人都可以删除他们所属的公共频道或私人频道，除非系统管理员已<span>限制权限</span>。</p>
+                <p>当一个频道被删除时，它将从用户界面中删除，但存档的副本存在于服务器上，以备稍后由于审计原因而需要。因此，新创建的频道的URL不能与删除的频道具有相同的URL名称。</p>
+              </div>
+              <div class="section">
+                <h3>收藏频道</h3>
+                <p>最喜欢的频道是通过选择哪些频道，私人频道和直播消息对您最重要的组织您的侧边栏的好方法。</p>
+                <p>要将频道标记为收藏夹，只需打开频道，然后：</p>
+                <p><strong>在桌面设备上：</strong>在页面顶部，点击频道名称旁边的星标</p>
+                <img alt="../../images/document/favorite_channels_desktop.png" src="../../images/document/favorite_channels_desktop.png">
+                <p><strong>在手机上：</strong>按通道名称打开下拉列表，然后选择“添加到收藏夹”</p>
+                <p>这将会将频道添加到侧边栏顶部的“收藏夹”部分，因此可以轻松访问。要从“收藏夹”部分删除频道，请在桌面上再次单击该星标，或在移动设备上选择“从收藏夹中移除”。</p>
+                <img alt="../../images/document/favorite_channels_sidebar.png" src="../../images/document/favorite_channels_sidebar.png">
+
+                  </div>
+                </div>
+              </div>
+
+       </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docDialogue',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

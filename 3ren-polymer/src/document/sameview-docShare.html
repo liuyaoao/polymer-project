@@ -1,0 +1,98 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="sameview-docShare">
+  <link rel="import" type="css" href="../../css/animate.min.css">
+  <link rel="import" type="css" href="../../css/page.css">
+  <link rel="import" type="css" href="../../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div role="main" class="document" style="margin-top:30px;">
+        <div itemprop="articleBody">
+
+          <div class="section" id="sharing-files">
+            <h1>共享文件</h1>
+            <p>使用附件，您可以分享其他信息，帮助您的团队直观地了解您的想法。分享视频，录音，截图和照片将使您的消息更加有效和清晰。</p>
+            <div class="section" id="how-to-attach-files">
+              <h2>如何附加文件</h2>
+              <p>您可以通过以下方式附加文件：</p>
+              <ul class="simple">
+                <li>使用附件图标 - 单击消息输入框内的回形针图标</li>
+                <li>拖放</li>
+                <li>从剪贴板粘贴 -  Chrome和Edge浏览器支持此功能</li>
+              </ul>
+            </div>
+            <div class="section" id="file-previewer">
+              <h2>文件预览器</h2>
+              <p>三人即时通有一个内置的文件预览器，您可以使用它：</p>
+              <ul class="simple">
+                <li>下载文件</li>
+                <li>分享公共链接</li>
+                <li>查看媒体</li>
+              </ul>
+              <p>单击附件文件的缩略图将其在文件预览器中打开。</p>
+              <div class="section" id="downloading-files">
+                <h3>下载文件</h3>
+                <p>您可以通过单击文件缩略图旁边的下载图标来下载附件。</p>
+              </div>
+              <div class="section" id="sharing-public-links">
+                <h3>共享公共链接</h3>
+                <p>公共网址允许您与三人即时通系统之外的任何人分享附件。要共享附件，请单击附件的缩略图，然后单击<strong>获取公共链接</strong>。</p>
+                <p>如果文件预览器中没有可见<strong>Get Public Link</strong>，并且您希望启用该功能，则可以请求系统管理员在系统控制台的“ <strong>安全性”&gt;“公共链接”</strong>下启用该功能。</p>
+              </div>
+              <div class="section" id="viewing-media">
+                <h3>查看媒体：</h3>
+                <p>大多数浏览器支持以下媒体格式：</p>
+                <ul class="simple">
+                  <li>图像：BMP，GIF，JPG，JPEG，PNG，SVG</li>
+                  <li>视频：MP4</li>
+                  <li>音频：MP3，M4A</li>
+                  <li>文件：PDF，TXT</li>
+                </ul>
+                <p>其他文档预览（Word，Excel，PPT）尚不支持。</p>
+              </div>
+            </div>
+            <div class="section" id="attachment-limits-and-sizes">
+              <h2>附件限制和尺寸</h2>
+              <p>请注意，三人即时通每个帖子最多支持五（5）个附件文件。</p>
+              <p>默认的最大文件大小为50 MB，但可由系统管理员更改。</p>
+            </div>
+          </div>
+
+
+       </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docShare',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

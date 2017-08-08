@@ -1,0 +1,1033 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docCommand">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document"><font>文件</a> »</font></p>
+            <p><font>管理 »</font></p>
+            <p>命令行工具</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section" id="command-line-tools">
+<h1>命令行工具</h1>
+<p>从安装三人即时通平台的目录中，可以使用<code class="docutils literal"><span class="pre">platform</span></code>命令来配置系统，包括：</p>
+<p><strong>总务</strong></p>
+<ul class="simple">
+<li>创建团队</li>
+<li>创建用户</li>
+<li>为用户分配角色</li>
+<li>重置用户密码</li>
+<li>邀请用户到团队</li>
+</ul>
+<p><strong>高级管理</strong></p>
+<ul class="simple">
+<li>永久删除用户（谨慎使用 - 使用前建议使用数据库备份）</li>
+<li>永久删除团队（谨慎使用 - 使用前建议使用数据库备份）</li>
+</ul>
+<p><strong>高级自动化</strong></p>
+<p><em>可在Enterprise Edition E10及更高版本中使用</em></p>
+<ul class="simple">
+<li>创建频道</li>
+<li>邀请用户进入频道</li>
+<li>从渠道中删除用户</li>
+<li>列出团队的所有渠道</li>
+<li>恢复以前删除的频道</li>
+<li>迁移登录选项</li>
+<li>为用户重置多因素身份验证</li>
+</ul>
+
+<div class="section">
+<h2>使用CLI</h2>
+<p>要运行CLI命令，您必须位于包含三人即时通可执行文件的目录中。在默认安装的三人即时通，目录是<code class="docutils literal"><span class="pre">/opt/3ren/bin</span></code>。可执行文件的名称是<code class="docutils literal"><span class="pre">platform</span></code>。</p>
+<p><strong>例如，要在三人即时通的默认安装上获取三人即时通版本：</strong></p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> / opt / thingmost / bin
+sudo ./platform版本
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section">
+<h2>在GitLab Omnibus上使用CLI</h2>
+<p>在GitLab Omnibus上，运行CLI命令时，您必须位于以下目录中：<code class="docutils literal"><span class="pre">/opt/gitlab/embedded/service/3ren</span></code>。此外，您必须以用户<em>身份</em>运行命令，并指定配置文件的位置。可执行文件是<code class="docutils literal"><span class="pre">/opt/gitlab/embedded/bin/3ren</span></code>。</p>
+<p><strong>例如，要在GitLab Omnibus上获得三人即时通版本：</strong></p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> / opt / gitlab / embedded / service / 3ren
+sudo -u 3ren / opt / gitlab / embedded / bin / 3ren --config <span class="o">=</span> /var/opt/gitlab/3ren/config.json version
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">注意</p>
+<p class="last">文档中的示例命令用于三人即时通的默认安装。您必须修改命令，以便它们在GitLab Omnibus上工作。</p>
+</div>
+</div>
+<div class="section">
+<h2>最近3.6及更晚</h2>
+<p>三人即时通 3.6及更高版本支持新的CLI工具。要查看旧CLI工具中的可用命令，请参阅三人即时通 3.5及更早版本。</p>
+<p>笔记：</p>
+<ul class="simple">
+<li>CLI命令中的参数是特定于订单的。</li>
+<li>如果特殊字符（<code class="docutils literal"><span class="pre">!</span></code>，<code class="docutils literal"><span class="pre">|</span></code>，<code class="docutils literal"><span class="pre">(</span></code>，<code class="docutils literal"><span class="pre">)</span></code>，<code class="docutils literal"><span class="pre">\</span></code>，<code class="docutils literal"><span class="pre">'</span></code>，和<code class="docutils literal"><span class="pre">"</span></code>）时，整个参数必须用单引号（如包围，或者需要逃出（如单个字符）。<code class="docutils literal"><span class="pre">-password</span> <span class="pre">'mypassword!'</span></code><code class="docutils literal"><span class="pre">-password</span> <span class="pre">mypassword\!</span></code></li>
+<li>团队名称和频道名称指的是句柄，而不是显示名称。所以在url <code class="docutils literal"><span class="pre">https://pre-release.3ren.com/core/channels/town-square</span></code>团队的名字将是<code class="docutils literal"><span class="pre">core</span></code>和频道名称将是<code class="docutils literal"><span class="pre">town-square</span></code></li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">小费</p>
+<p class="last">如果通过启用SMTP的CLI工具自动创建用户，则将向所创建的所有新用户发送电子邮件。如果您运行这样的加载脚本，最好禁用SMTP或使用测试帐户，以便不会无意地将新的帐户创建电子邮件发送给您的组织中不期望的用户。</p>
+</div>
+<div class="section">
+<h3>平台</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>用于配置和管理您的三人即时通实例和用户的命令。</dd>
+<dt>选项</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>-c，--config {string}要使用的配置文件。（默认为“config.json”）
+</pre></div>
+</div>
+</dd>
+<dt>儿童命令</dt>
+<dd><ul class="first last simple">
+<li>平台渠道 - 渠道管理</li>
+<li>平台帮助 - 为CLI生成完整的文档</li>
+<li>平台导入 - 导入数据</li>
+<li>platform ldap - 与LDAP相关的实用程序</li>
+<li>平台许可证 - 许可命令</li>
+<li>平台复位 - 将数据库重置为初始状态</li>
+<li>平台角色 - 用户角色管理</li>
+<li>平台服务器 - 运行三人即时通服务器</li>
+<li>平台团队 - 团队管理</li>
+<li>平台用户 - 用户管理</li>
+<li>平台版本 - 显示版本信息</li>
+<li>平台配置 - 使用配置文件</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h3>平台通道</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>频道管理命令。</dd>
+<dt>儿童命令</dt>
+<dd><ul class="first last simple">
+<li>平台频道添加 - 将用户添加到频道</li>
+<li>平台频道存档 - 存档频道</li>
+<li>平台频道创建 - 创建频道</li>
+<li>平台频道删除 - 删除频道</li>
+<li>平台频道列表 - 列出指定团队的所有频道</li>
+<li>平台频道删除 - 从频道中删除用户</li>
+<li>平台通道还原 - 从存档恢复通道</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section">
+<h4>平台通道添加</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>将用户添加到频道。如果添加多个用户，请使用空格分隔的列表。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台频道添加{channel} {users}
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform channel add 8soyabwthjnf9qibfztje5a36h user@example.com username
+sudo ./platform channel add myteam：mychannel user@example.com username
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台频道档案</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>存档频道 存档通道无法访问用户，但仍保留在数据库中。要从存档恢复通道，请参阅平台通道还原。渠道可以由{team}：{channel}使用团队和频道名称或使用频道ID指定。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台频道档案{channels}
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform channel archive 8soyabwthjnf9qibfztje5a36h
+sudo ./platform channel archive myteam：mychannel
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台渠道创建</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>创建频道。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台渠道创建
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform channel create --team myteam --name mynewchannel --display_name“我的新频道”
+sudo ./platform channel create --team myteam --name mynewprivatechannel --display_name“我的新私人频道” - 私人
+</pre></div>
+</div>
+</dd>
+<dt>选项</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>--display_name字符串通道显示名称 -
+头字符串通道头 - 名
+字符串通道名
+--private创建专用通道。
+- 指令字符串通道目的
+- 字符串组名或ID
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台通道删除</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>永久删除频道以及所有相关信息，包括数据库中的帖子。渠道可以由{team}：{channel}使用团队和频道名称或使用频道ID指定。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台频道删除{channels}
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform channel delete 8soyabwthjnf9qibfztje5a36h
+sudo ./platform channel delete myteam：mychannel
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台频道列表</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>列出指定团队的所有频道。已附加存档通道<code class="docutils literal"><span class="pre">(archived)</span></code>。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台频道列表{teams}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform频道列表myteam
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台通道删除</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>从通道中删除用户。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台频道删除{channel} {users}
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform channel remove 8soyabwthjnf9qibfztje5a36h user@example.com username
+sudo ./platform channel remove myteam：mychannel user@example.com username
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台通道恢复</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>从档案恢复频道。渠道可以由{team}：{channel}使用团队和频道名称或使用频道ID指定。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台频道恢复{channels}
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform channel restore 8soyabwthjnf9qibfztje5a36h
+sudo ./platform channel restore myteam：mychannel
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+<div class="section">
+<h3>平台帮助</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>以Markdown格式为三人即时通命令行工具生成完整的文档。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台帮助{outputdir}
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h3>平台导入</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>将数据导入三人即时通。</dd>
+<dt>儿子命令</dt>
+<dd><ul class="first last simple">
+<li>平台进口松弛 - 从Slack进口团队。</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section">
+<h4>平台进口松弛</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>从Slack导出zip文件导入一个团队。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台进口slack {team} {file}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform import slack myteam slack_export.zip
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+<div class="section">
+<h3>平台ldap</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>用于配置和同步LDAP的命令。</dd>
+<dt>儿子命令</dt>
+<dd><ul class="first last simple">
+<li>平台ldap同步 - 现在同步</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section">
+<h4>平台ldap同步</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>现在同步所有LDAP用户。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台ldap同步
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform ldap sync
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+<div class="section">
+<h3>平台许可证</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>管理许可证的命令。</dd>
+<dt>儿子命令</dt>
+<dd><ul class="first last simple">
+<li>平台许可证上传 - 上传许可证。</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section">
+<h4>平台许可证上传</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>上传许可证 此命令替换当前许可证已被上传。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台许可证上传{license}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform许可证上传/path/to/license/mylicensefile.3ren-license
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+<div class="section">
+<h3>平台复位</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>彻底清除数据库，导致所有数据丢失。这将三人即时通重置为初始状态。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台复位
+</pre></div>
+</div>
+</dd>
+<dt>选项</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>--confirm确认您确实要删除所有内容，并执行了一个DB备份。
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h3>平台角色</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>管理用户角色的命令。</dd>
+<dt>儿童命令</dt>
+<dd><ul class="first last simple">
+<li>平台角色成员 - 从用户中删除系统管理员权限</li>
+<li>平台角色system_admin - 使用户进入系统管理员</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section">
+<h4>平台角色成员</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>从用户中删除系统管理员权限。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台角色成员{users}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform roles member user1
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台角色system_admin</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>将用户升级到系统管理员。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台角色system_admin {users}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform roles system_admin user1
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+<div class="section">
+<h3>平台服务器</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>运行三人即时通服务器。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台服务器
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h3>平台团队</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>管理团队的命令</dd>
+<dt>儿童命令</dt>
+<dd><ul class="first last simple">
+<li>平台团队添加 - 将用户添加到团队</li>
+<li>平台团队创建 - 创建一个团队</li>
+<li>平台小组删除 - 删除一个团队</li>
+<li>平台小组删除 - 从团队中删除用户</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<div class="admonition note" id="team-value-note">
+<p class="first admonition-title">注意</p>
+<p><strong>{team-name}值</strong></p>
+<p>对于<em>add</em>，<em>delete</em>和<em>remove</em>命令，您可以从用于访问三人即时通实例的URL中确定<em>{team-name}</em>值。例如，在以下URL中，<em>{team-name}</em>值为<em>myteam</em>：</p>
+<p class="last"><code class="docutils literal"><span class="pre">https://example.com/myteam/channels/mychannel</span></code></p>
+</div>
+<div class="section" id="platform-team-add">
+<h4>平台团队添加</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>将用户添加到一个团队。运行此命令之前，请参阅有关{team-name}的注释。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台小组加入{team-name} {users}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform团队添加myteam user@example.com用户名
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="platform-team-create">
+<h4>平台团队创造</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>创建一个团队</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台团队创造
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform team create --name mynewteam --display_name“我的新团队”
+sudo ./platform teams创建--name private --display_name“我的新私人团队” - 私人
+</pre></div>
+</div>
+</dd>
+<dt>选项</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>--display_name string团队显示名称 -
+邮件字符串管理员电子邮件（拥有此电子邮件的人员自动为团队管理员）--
+name
+string团队名称 - 私人创建私人团队。
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="platform-team-delete">
+<h4>平台小组删除</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>永久删除团队以及所有相关信息，包括数据库中的帖子。运行此命令之前，请参阅有关{team-name}的注释。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台小组删除{team-name}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform team删除myteam
+</pre></div>
+</div>
+</dd>
+<dt>选项</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>--confirm确认您确实要删除该组，并执行了一个DB备份。
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台小组删除</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>从团队中删除用户 运行此命令之前，请参阅有关{team-name}的注释。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台小组删除{team-name} {users}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform team remove myteam user@example.com username
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+<div class="section">
+<h3>平台用户</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>命令管理用户。</dd>
+<dt>儿童命令</dt>
+<dd><ul class="first last simple">
+<li>平台用户激活 - 激活用户</li>
+<li>平台用户创建 - 创建用户</li>
+<li>平台用户停用 - 停用用户</li>
+<li>平台用户删除 - 删除用户和所有帖子</li>
+<li>平台用户deleteall - 删除所有用户和所有帖子</li>
+<li>平台用户邀请 - 向用户发送电子邮件邀请给团队</li>
+<li>平台用户migrate_auth - 将所有用户帐户大量迁移到新的身份验证类型</li>
+<li>平台用户密码 - 设置用户密码</li>
+<li>平台用户resetmfa - 关闭用户的MFA</li>
+<li>平台用户搜索 - 根据用户名，电子邮件或用户ID搜索用户</li>
+<li>平台用户验证 - 验证新用户的电子邮件地址</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section">
+<h4>平台用户激活</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>激活已被停用的用户。如果激活多个用户，请使用空格分隔的列表。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户激活{emails，usernames，userIds}
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform user activate user@example.com
+sudo ./platform user activate username1 username2
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台用户创建</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>创建一个用户</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户创建
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform用户创建--email user@example.com --username userexample --password Password1
+sudo ./platform user create --firstname Joe --system_admin --email joe@example.com --username joe  - 密码密码1
+</pre></div>
+</div>
+</dd>
+<dt>选项</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>- 邮件字符串电子邮件
+--firstname string First Name
+--lastname string Last Name
+--locale string Locale（ex：en，fr）--
+nickname string昵称 -
+密码字符串密码
+--system_admin使用户成为系统管理员
+-用户名字串用户名
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台用户停用</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>停用用户 已停用的用户将立即注销所有会话，无法重新登录。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户停用{电子邮件，用户名，用户名}
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform user deactivate user@example.com
+sudo ./platform用户停用用户名
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台用户删除</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>永久删除用户和所有相关信息，包括帖子。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户删除{users}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform user delete user@example.com
+</pre></div>
+</div>
+</dd>
+<dt>选项</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>--confirm确认您确实要删除该用户并执行了一个DB备份。
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台用户deleteall</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>永久删除所有用户和所有相关信息，包括帖子。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户deleteall
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform user deleteall
+</pre></div>
+</div>
+</dd>
+<dt>选项</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>--confirm确认您确实要删除该用户并执行了一个DB备份。
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台用户邀请</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>向用户发送电子邮件邀请给团队。您可以通过列出团队名称或团队ID来邀请用户加入多个团队。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户邀请{email} {teams}
+</pre></div>
+</div>
+</dd>
+<dt>例子</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform用户邀请user@example.com myteam
+sudo ./platform用户邀请user@example.com myteam1 myteam2
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台用户migrate_auth</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd><p class="first">将所有用户帐户从一个认证提供者迁移到另一个。例如，您可以将认证提供商从电子邮件升级到LDAP。输出将显示任何未成功迁移的帐户。</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">from_auth</span></code>：用于迁移用户帐户的身份验证服务。支持的选项：<code class="docutils literal"><span class="pre">email</span></code>，<code class="docutils literal"><span class="pre">gitlab</span></code>，<code class="docutils literal"><span class="pre">saml</span></code>。</li>
+<li><code class="docutils literal"><span class="pre">to_auth</span></code>：迁移用户帐户的身份验证服务。支持的选项：<code class="docutils literal"><span class="pre">ldap</span></code>。</li>
+<li><code class="docutils literal"><span class="pre">match_field</span></code>：在两种认证服务中保证相同的字段。例如，如果用户电子邮件一致设置为电子邮件。支持的选项：<code class="docutils literal"><span class="pre">email</span></code>，<code class="docutils literal"><span class="pre">username</span></code>。</li>
+</ul>
+</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户migrate_auth {from_auth} {to_auth} {match_field}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform user migrate_auth email ladp email
+</pre></div>
+</div>
+</dd>
+<dt>选项</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>--force忽略LDAP服务器上的重复条目。
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台用户密码</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>设置用户密码。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户密码{user} {password}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform用户密码user@example.com密码1
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台用户resetmfa</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>关闭用户的多因素身份验证。如果启用了MFA强制，则用户在登录时将被迫重新启用具有新设备的MFA。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户resetmfa {users}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform user resetmfa user@example.com
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台用户搜索</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>根据用户名，电子邮件或用户ID搜索用户。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户搜索{users}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform user search user1@example.com user2@example.com
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h4>平台用户验证</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>验证新用户的电子邮件地址。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台用户验证{users}
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform用户验证user1
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+<div class="section">
+<h3>平台版本</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>显示三人即时通版本信息。</dd>
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台版本
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section">
+<h3>平台配置</h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd>用于管理配置文件的命令。</dd>
+<dt>儿子命令</dt>
+<dd><ul class="first last simple">
+<li>platform config validate - 验证配置文件。</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<div class="section">
+<h4>平台配置验证</h4>
+<blockquote>
+<div><dl class="docutils">
+<dt>描述</dt>
+<dd><p class="first">确保配置文件具有以下属性：</p>
+<ul class="simple">
+<li>是有效的JSON。</li>
+<li>具有正确类型的属性，如<em>bool</em>，<em>int</em>和<em>str</em>。</li>
+<li>所有条目均有效。例如，检查条目是否低于最大长度。</li>
+</ul>
+<dl class="last docutils">
+<dt>格式</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>平台配置验证
+</pre></div>
+</div>
+</dd>
+<dt>例</dt>
+<dd><div class="first last highlight-none"><div class="highlight"><pre><span></span>sudo ./platform config validate
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section">
+<h2>最近3.5和更早</h2>
+<p>键入打开CLI工具的文档。要在GitLab omnibus中返回帮助文档，请键入<code class="docutils literal"><span class="pre">sudo</span> <span class="pre">./platform</span> <span class="pre">-help</span></code></p>
+<blockquote>
+<div><div class="highlight-none"><div class="highlight"><pre><span></span>sudo -u 3ren / opt / gitlab / embedded / bin / 3ren --config = / var / opt / gitlab / 3ren / config.json -help
+</pre></div>
+</div>
+</div></blockquote>
+<p>笔记：</p>
+<ul class="simple">
+<li>CLI命令中的参数是特定于订单的。</li>
+<li>如果特殊字符（<code class="docutils literal"><span class="pre">!</span></code>，<code class="docutils literal"><span class="pre">|</span></code>，<code class="docutils literal"><span class="pre">(</span></code>，<code class="docutils literal"><span class="pre">)</span></code>，<code class="docutils literal"><span class="pre">\</span></code>，<code class="docutils literal"><span class="pre">`</span></code>，和<code class="docutils literal"><span class="pre">"</span></code>）时，整个参数必须用单引号（如包围，或者需要逃出（如单个字符）。<code class="docutils literal"><span class="pre">-password</span> <span class="pre">'mypassword!'</span></code><code class="docutils literal"><span class="pre">-password</span> <span class="pre">mypassword\!</span></code></li>
+<li>团队名称和频道名称指的是句柄，而不是显示名称。所以在url <code class="docutils literal"><span class="pre">https://pre-release.3ren.com/core/channels/town-square</span></code>团队的名字将是<code class="docutils literal"><span class="pre">core</span></code>和频道名称将是<code class="docutils literal"><span class="pre">town-square</span></code></li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">小费</p>
+<p class="last">如果通过CLI工具自动创建用户，SMTP启用的电子邮件将被发送到所有创建的新用户。如果您运行这样的加载脚本，最好禁用SMTP或使用测试帐户，以便不会无意地将新的帐户创建电子邮件设置为组织中不期望的用户。</p>
+</div>
+<p>CLI文档：</p>
+<div class="highlight-default"><div class="highlight" id="highlight"><pre><span></span><span class="hei"></span> <span class="hei">命令</span><span class="p">：</span><span class="o">- </span><span class="hei">create_team </span><span class="hei">创建</span><span class="hei">一个</span><span class="hei">团队</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="ow">和</span><span class="o">- </span><span class="hei">电子邮件</span><span class="hei">标记</span><span class="hei">来</span><span class="hei">创建</span><span class="hei">一个</span><span class="hei">团队</span><span class="o">。</span><span class="hei">例如</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">create_team </span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="o">= </span><span class="s1">“名字” </span><span class="o">- </span><span class="hei">电子邮件</span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">create_user </span><span class="hei">创建</span><span class="hei">一个</span><span class="hei">用户</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">电子邮件</span><span class="ow">和</span><span class="o">- </span><span class="hei">密码</span><span class="hei">标志</span><span class="p">，</span><span class="ow">以及</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="ow">和</span><span class="o">- </span><span class="hei">的用户名</span><span class="hei">是</span><span class="hei">可选的</span><span class="hei">，以</span><span class="hei">创建</span><span class="hei">一个</span><span class="hei">用户</span><span class="o">。</span><span class="hei">示例</span><span class="p">：</span><span class="hei">platform </span><span class="o">- </span><span class="hei">create_user </span><span class="o">- </span><span class="hei">team_name </span><span class="o">= </span><span class="s1">“name” </span><span class="o">- </span><span class="hei">email </span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">password </span><span class="o">= </span><span class="s1">“mypassword” </span><span class="o">- </span><span class="hei">username </span><span class="o">= </span><span class="s1">“user” </span><span class="o">- </span><span class="hei">invite_user </span><span class="hei">邀请</span><span class="hei">一个</span><span class="hei">用户</span><span class="hei">到</span><span class="hei">一个</span><span class="hei">团队</span><span class="hei">的</span><span class="hei">电子邮件</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="ow">和</span><span class="o">- </span><span class="hei">电子邮件</span><span class="hei">标志</span><span class="o">。</span><span class="hei">例如</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">invite_user </span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="o">= </span><span class="s1">“名字” </span><span class="o">- </span><span class="hei">电子邮件</span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">join_team </span><span class="hei">加入</span><span class="hei">一个</span><span class="hei">用户</span><span class="hei">到</span><span class="hei">该</span><span class="hei">团队</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">电子邮件</span><span class="ow">和</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="hei">标志</span><span class="o">。</span><span class="hei">您</span><span class="hei">可能</span><span class="hei">需要</span><span class="hei">对</span><span class="hei">退出</span><span class="hei">的</span><span class="hei">你的</span><span class="hei">当前</span><span class="hei">会话</span><span class="k">为</span><span class="hei">在</span><span class="hei">新的</span><span class="hei">团队</span><span class="hei">来</span><span class="hei">进行</span><span class="hei">应用</span><span class="o">。</span><span class="hei">例如</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">join_team </span><span class="o">- </span><span class="hei">电子邮件</span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="o">= </span><span class="s1">“名字” </span><span class="o">- </span><span class="hei">assign_role </span><span class="hei">分配</span><span class="hei">角色</span><span class="hei">给</span><span class="hei">一个</span><span class="hei">用户</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">角色</span><span class="ow">和</span><span class="o">- </span><span class="hei">电子邮件</span><span class="hei">标志</span><span class="o">。</span><span class="hei">您</span><span class="hei">可能</span><span class="hei">需要</span><span class="hei">以</span><span class="hei">记录</span><span class="hei">出</span><span class="hei">的</span><span class="hei">你的</span><span class="hei">当前</span><span class="hei">会话</span><span class="k">的</span><span class="hei">的</span><span class="hei">新</span><span class="hei">角色</span><span class="hei">来</span><span class="hei">进行</span><span class="hei">应用</span><span class="o">。</span><span class="hei">示例</span><span class="p">：</span><span class="hei">platform </span><span class="o">- </span><span class="hei">assign_role </span><span class="o">- </span><span class="hei">email </span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">role </span><span class="o">= </span><span class="s1">“system_admin” </span><span class="o">- </span><span class="hei">create_channel </span><span class="hei">创建</span><span class="hei">一个</span><span class="hei">新的</span><span class="hei">通道</span><span class="ow">中</span><span class="hei">的</span><span class="hei">指定</span><span class="hei">团队</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">电子邮件</span><span class="p">，</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="p">，</span><span class="o">- </span><span class="hei">CHANNEL_NAME </span><span class="p">，</span><span class="o">- </span><span class="hei">CHANNEL_TYPE </span><span class="hei">标志</span><span class="o">。</span><span class="hei">可选的</span><span class="hei">，你</span><span class="hei">可以</span><span class="nb">设置</span><span class="hei">的</span><span class="o">- </span><span class="hei">channel_header </span><span class="ow">和</span><span class="o">- </span><span class="hei">channel_purpose </span><span class="o">。</span><span class="hei">示例</span><span class="p">：</span><span class="hei">platform </span><span class="o">- </span><span class="hei">create_channel </span><span class="o">- </span><span class="hei">email </span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="o">= </span><span class="s1">“姓名” </span><span class="o">- </span><span class="hei">CHANNEL_NAME </span><span class="o">= </span><span class="s1">“CHANNEL_NAME” </span><span class="o">- </span><span class="hei">CHANNEL_TYPE </span><span class="o">= </span><span class="s1">“O” </span><span class="o">- </span><span class="hei">join_channel </span><span class="hei">加入</span><span class="hei">一个</span><span class="hei">用户</span><span class="hei">到</span><span class="hei">该</span><span class="hei">信道</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">电子邮件</span><span class="p">，</span><span class="o">- </span><span class="hei">CHANNEL_NAME </span><span class="ow">和</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="hei">标志</span><span class="o">。</span><span class="hei">您</span><span class="hei">可能</span><span class="hei">需要</span><span class="hei">对</span><span class="hei">退出</span><span class="hei">的</span><span class="hei">你的</span><span class="hei">当前</span><span class="hei">会话</span><span class="k">为</span><span class="hei">在</span><span class="hei">新的</span><span class="hei">渠道</span><span class="hei">来</span><span class="hei">进行</span><span class="hei">应用</span><span class="o">。</span><span class="hei">需要</span><span class="hei">一个</span><span class="hei">企业</span><span class="hei">许可证</span><span class="o">。</span><span class="hei">示例</span><span class="p">：</span><span class="hei">platform </span><span class="o">- </span><span class="hei">join_channel </span><span class="o">- </span><span class="hei">email </span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">team_name </span><span class="o">= </span><span class="s1">“name” </span><span class="o">- </span><span class="hei">channel_name </span><span class="o">= </span><span class="s1">“channel_name” </span><span class="o">- </span><span class="hei">leave_channel </span><span class="hei">删除</span><span class="hei">一个</span><span class="hei">用户</span><span class="kn">从</span><span class="nn">该</span><span class="hei">信道</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">电子邮件</span><span class="p">，</span><span class="o">- </span><span class="hei">CHANNEL_NAME </span><span class="ow">和</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="hei">标志</span><span class="o">。</span><span class="hei">您</span><span class="hei">可能</span><span class="hei">需要</span><span class="hei">对</span><span class="hei">退出</span><span class="hei">的</span><span class="hei">你的</span><span class="hei">当前</span><span class="hei">会话</span><span class="k">的</span><span class="hei">的</span><span class="hei">渠道</span><span class="hei">来</span><span class="hei">进行</span><span class="hei">去除</span><span class="o">。</span><span class="hei">需要</span><span class="hei">一个</span><span class="hei">企业</span><span class="hei">许可证</span><span class="o">。</span><span class="hei">示例</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">leave_channel </span><span class="o">- </span><span class="hei">电子邮件</span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="o">= </span><span class="s1">“名字” </span><span class="o">- </span><span class="hei">CHANNEL_NAME </span><span class="o">= </span><span class="s1">“CHANNEL_NAME” </span><span class="o">- </span><span class="hei">list_channels </span><span class="hei">列出</span><span class="nb">所有</span><span class="hei">渠道</span><span class="k">对于</span><span class="hei">一个</span><span class="hei">给定的</span><span class="hei">球队</span><span class="o">。</span><span class="hei">这</span><span class="hei">将</span><span class="hei">追加</span><span class="s1">“（存档）” </span><span class="hei">到</span><span class="hei">的</span><span class="hei">频道</span><span class="hei">名称</span><span class="k">，如果</span><span class="hei">归档</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="hei">标志</span><span class="o">。</span><span class="hei">需要</span><span class="hei">一个</span><span class="hei">企业</span><span class="hei">许可证</span><span class="o">。</span><span class="hei">实施例</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">list_channels </span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="o">= </span><span class="s1">“姓名” </span><span class="o">- </span><span class="hei">restore_channel </span><span class="hei">恢复</span><span class="hei">一</span><span class="hei">先前</span><span class="hei">删除的</span><span class="hei">频道</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">CHANNEL_NAME </span><span class="hei">标志</span><span class="ow">和</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="hei">标志</span><span class="o">。</span><span class="hei">需要</span><span class="hei">一个</span><span class="hei">企业</span><span class="hei">许可证</span><span class="o">。</span><span class="hei">示例</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">restore_channel </span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="o">= </span><span class="s1">“名字” </span><span class="o">- </span><span class="hei">CHANNEL_NAME </span><span class="o">= </span><span class="s1">“CHANNEL_NAME” </span><span class="o">- </span><span class="hei">reset_password </span><span class="hei">重置</span><span class="hei">了</span><span class="hei">密码</span><span class="k">的</span><span class="hei">一个</span><span class="hei">用户</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">电子邮件</span><span class="ow">和</span><span class="o">- </span><span class="hei">密码</span><span class="hei">标志</span><span class="o">。</span><span class="hei">示例</span><span class="p">：</span><span class="hei">platform </span><span class="o">- </span><span class="hei">reset_password </span><span class="o">- </span><span class="hei">email </span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">password </span><span class="o">= </span><span class="s1">“newpassword” </span><span class="o">- </span><span class="hei">reset_mfa </span><span class="hei">打开</span><span class="hei">关闭</span><span class="hei">多</span><span class="o">- </span><span class="hei">因素</span><span class="hei">身份验证</span><span class="k">为</span><span class="hei">一个</span><span class="hei">用户</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">电子邮件</span><span class="ow">或</span><span class="o">- </span><span class="hei">用户名</span><span class="hei">标志</span><span class="o">。</span><span class="hei">例如</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">reset_mfa </span><span class="o">- </span><span class="hei">用户名</span><span class="o">= </span><span class="s1">“SomeUser的” </span><span class="o">- </span><span class="hei">reset_database </span><span class="hei">完全</span><span class="hei">删除</span><span class="hei">的</span><span class="hei">数据库</span><span class="hei">造成</span><span class="hei">的</span><span class="hei">损失</span><span class="hei">的</span><span class="nb">所有</span><span class="hei">数据</span><span class="o">。</span><span class="hei">这</span><span class="hei">将</span><span class="hei">重置</span><span class="hei">三人即时通 </span><span class="hei">到</span><span class="hei">它</span><span class="s1">的初始状态。</span><span class="s1">（注意：这不会</span><span class="hei">删除</span><span class="hei">你的</span><span class="hei">配置</span><span class="o">。</span><span class="p">）</span><span class="hei">例</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">reset_database </span><span class="o">- </span><span class="hei">permanent_delete_user </span><span class="hei">永久</span><span class="hei">删除</span><span class="hei">一个</span><span class="hei">用户</span><span class="ow">和</span><span class="nb">所有</span><span class="hei">相关的</span><span class="hei">信息，</span><span class="hei">包括</span><span class="hei">职位</span><span class="kn">从</span><span class="nn">该</span><span class="hei">数据库中</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">电子邮件</span><span class="hei">标志</span><span class="o">。</span><span class="hei">您</span><span class="hei">可能</span><span class="hei">需要</span><span class="hei">以</span><span class="hei">重新启动</span><span class="hei">该</span><span class="hei">服务器</span><span class="hei">以</span><span class="hei">无效</span><span class="hei">的</span><span class="hei">缓存</span><span class="hei">实例</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">permanent_delete_user </span><span class="o">- </span><span class="hei">电子邮件</span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">permanent_delete_all_users </span><span class="hei">永久</span><span class="hei">删除</span><span class="nb">所有</span><span class="hei">用户</span><span class="ow">和</span><span class="nb">所有</span><span class="hei">相关</span><span class="hei">信息，</span><span class="hei">包括</span><span class="hei">职位</span><span class="kn">从</span><span class="nn">该</span><span class="hei">数据库中</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="p">，</span><span class="ow">和</span><span class="o">- </span><span class="hei">电子邮件</span><span class="hei">标志</span><span class="o">。</span><span class="hei">您</span><span class="hei">可能</span><span class="hei">需要</span><span class="hei">以</span><span class="hei">重新启动</span><span class="hei">该</span><span class="hei">服务器</span><span class="hei">以</span><span class="hei">无效</span><span class="hei">的</span><span class="hei">缓存</span><span class="hei">实例</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">permanent_delete_all_users </span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="o">= </span><span class="s1">“名字” </span><span class="o">- </span><span class="hei">电子邮件</span><span class="o">= </span><span class="s1">“user@example.com” </span><span class="o">- </span><span class="hei">permanent_delete_team </span><span class="hei">永久</span><span class="hei">删除</span><span class="hei">一个</span><span class="hei">团队</span><span class="hei">一起</span><span class="k">与</span><span class="nb">所有</span><span class="hei">相关</span><span class="hei">信息，</span><span class="hei">包括</span><span class="hei">职位</span><span class="kn">从</span><span class="nn">该</span><span class="hei">数据库中</span><span class="o">。</span><span class="hei">它</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">TEAM_NAME </span><span class="hei">标志</span><span class="o">。</span><span class="hei">您</span><span class="hei">可能</span><span class="hei">需要</span><span class="hei">以</span><span class="hei">重新启动</span><span class="hei">该</span><span class="hei">服务器</span><span class="hei">以</span><span class="hei">无效</span><span class="hei">的</span><span class="hei">高速缓存</span><span class="o">。</span><span class="hei">示例</span><span class="p">：</span><span class="hei">platform </span><span class="o">- </span><span class="hei">permanent_delete_team </span><span class="o">- </span><span class="hei">team_name </span><span class="o">= </span><span class="s1">“name” </span><span class="o">- </span><span class="hei">upload_license </span><span class="hei">上载</span><span class="hei">一个</span><span class="hei">许可证</span><span class="hei">到</span><span class="hei">该</span><span class="hei">服务器</span><span class="o">。</span><span class="hei">需要</span><span class="hei">的</span><span class="o">- </span><span class="hei">许可</span><span class="hei">标志</span><span class="o">。</span><span class="hei">例如</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">upload_license </span><span class="o">- </span><span class="hei">许可证</span><span class="o">= </span><span class="s1">“/path/to/license/example.3ren-license” </span><span class="o">- </span><span class="hei">migrate_accounts </span><span class="hei">迁移</span><span class="hei">帐户</span><span class="kn">从</span><span class="nn">一个</span><span class="hei">身份验证</span><span class="hei">提供者</span><span class="hei">到</span><span class="hei">另一个</span><span class="o">。</span><span class="hei">需要</span><span class="o">- </span><span class="hei">from_auth </span><span class="o">- </span><span class="hei">to_auth </span><span class="ow">和</span><span class="o">- </span><span class="hei">match_field </span><span class="hei">标志</span><span class="o">。</span><span class="hei">支持的</span><span class="hei">选项</span><span class="k">为</span><span class="o">- </span><span class="hei">from_auth </span><span class="p">：</span><span class="hei">电子邮件</span><span class="p">，</span><span class="hei">gitlab </span><span class="p">，</span><span class="hei">SAML </span><span class="o">。</span><span class="hei">支持的</span><span class="hei">选项</span><span class="k">为</span><span class="o">- </span><span class="hei">to_auth </span><span class="p">：</span><span class="hei">LDAP </span><span class="o">。</span><span class="hei">支持的</span><span class="hei">选项</span><span class="k">为</span><span class="o">- </span><span class="hei">match_field </span><span class="p">：</span><span class="hei">电子邮件</span><span class="p">，</span><span class="hei">用户名</span><span class="o">。</span><span class="hei">输出</span><span class="hei">将</span><span class="hei">显示</span><span class="nb">所有</span><span class="hei">帐户</span><span class="hei">是</span><span class="hei">被</span><span class="ow">不</span><span class="hei">迁移</span><span class="hei">成功</span><span class="o">。</span><span class="hei">例如</span><span class="p">：</span><span class="hei">平台</span><span class="o">- </span><span class="hei">migrate_accounts </span><span class="o">- </span><span class="hei">from_auth </span><span class="hei">电子邮件</span><span class="o">- </span><span class="hei">to_auth </span><span class="hei">LDAP </span><span class="o">- </span><span class="hei">match_field </span><span class="hei">用户名</span><span class="o">- </span><span class="hei">upgrade_db_30 </span><span class="hei">升级</span><span class="hei">的</span><span class="hei">数据库</span><span class="kn">从</span><span class="nn">一个</span><span class="hei">版本</span><span class="mf">2. </span><span class="hei">X </span><span class="hei">架构</span><span class="hei">到</span><span class="hei">版本</span><span class="mi">3 </span><span class="hei">见</span><span class="hei">HTTP </span><span class="p">：</span><span class="o">// </span><span class="hei">WWW </span><span class="o">。</span><span class="hei">3ren </span><span class="o">。</span><span class="hei"></span> <span class="hei"></span> <span class="hei"></span> <span class="hei"></span> <span class="hei"></span> <span class="hei"></span>
+
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+      <span class="hei"></span><span class="p"></span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docCommand',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

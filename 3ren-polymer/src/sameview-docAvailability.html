@@ -1,0 +1,397 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docAvailability">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>部署 »</font></p>
+            <p>GitLab单点登录</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section">
+<h1>高可用性集群（E20）</h1>
+<p><em>可用于企业版E20。</em></p>
+<p>高可用性集群使三人即时通系统能够通过使用冗余基础架构来维护中断和硬件故障期间的服务。</p>
+<p>三人即时通的高可用性包括运行冗余的三人即时通应用服务器，冗余数据库服务器和冗余负载平衡器。这些组件中的任一个的故障不会中断系统的操作。</p>
+<div class="admonition note">
+<p class="first admonition-title">注意</p>
+<p class="last">本文档适用于三人即时通 Server 4.0及更高版本。有关以前的版本，请参阅高可用性集群（v3.10及更早版本）。</p>
+</div>
+<div class="section">
+<h2>持续运行要求</h2>
+<p>要始终启用连续操作，包括在服务器更新和服务器升级期间，必须确保冗余组件的大小正确，并按照正确的顺序更新系统的每个组件。</p>
+<dl class="docutils">
+<dt>预期规模的冗余</dt>
+<dd>一个组件出现故障时，剩余的应用服务器，数据库服务器和负载平衡器的大小和配置必须能够承载系统的全部负荷。如果不满足此要求，则一个组件的中断可能导致剩余组件过载，导致完全的系统中断。</dd>
+<dt>连续操作更新顺序</dt>
+<dd><p class="first">您可以应用大多数配置更改和点发布安全更新，而不会中断服务，前提是以正确的顺序更新系统组件。有关如何执行此操作的说明，请参阅“升级指南”。</p>
+<p class="last"><strong>异常：</strong>需要重新启动服务器的配置设置的更改以及涉及数据库架构更改的服务器版本升级需要较短的停机时间。服务器重新启动的停机时间约为5秒钟，而对于数据库模式更新，停机时间最多可达30秒。</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="deployment-guide">
+<h2>部署指南</h2>
+<p>部署指南在您的三人即时通服务器上设置和维护高可用性。</p>
+<div class="section" id="initial-setup-guide-for-high-availability">
+<h3>高可用性初始设置指南</h3>
+<p>为确保您的实例和配置与高可用性兼容，请查看“ 配置和兼容性”  部分。</p>
+<div class="admonition note">
+<p class="first admonition-title">注意</p>
+<p class="last">在配置高可用性之前，备份您的三人即时通数据库和文件存储位置。有关备份的更多信息，请参阅备份和灾难恢复。</p>
+</div>
+<ol class="arabic simple">
+<li>将三人即时通服务器升级到4.0或更高版本。请参阅升级三人即时通服务器。</li>
+<li>通过遵循我们的<strong>安装指南</strong>之一，设置4.0版或更高版本的新的三人即时通服务器。该服务器必须使用相同的配置文件副本，<code class="docutils literal"><span class="pre">config.json</span></code>。通过其独立的IP地址击中每个独立的服务器来验证服务器的功能。</li>
+<li>修改<code class="docutils literal">config.json</code>两台服务器上的文件以按照High Availability中的描述添加<em>ClusterSettings</em>。</li>
+<li>验证两个服务器上的配置文件是否相同，然后重新启动集群中的每台计算机。</li>
+<li>修改您的NGINX设置，以便代理两个服务器。有关详细信息，请参阅代理服务器配置。</li>
+<li>打开<strong>系统控制台&gt;高级&gt;高可用性，</strong>以验证群集中的每台计算机是否正常通过绿色状态指示器进行通信。如果没有，请调查日志文件以获取任何额外的信息。</li>
+</ol>
+</div>
+<div class="section" id="adding-a-server-to-the-cluster">
+<h3>将服务器添加到群集</h3>
+<ol class="arabic simple">
+<li>备份您的三人即时通数据库和文件存储位置。有关备份的更多信息，请参阅备份和灾难恢复。</li>
+<li>设置一个新的三人即时通服务器。该服务器必须使用相同的配置文件副本，<code class="docutils literal"><span class="pre">config.json</span></code>。验证服务器是否正在通过击中私有IP地址。</li>
+<li>修改您的NGINX设置以添加新的服务器。有关此信息，请参阅代理服务器配置。</li>
+<li>打开<strong>系统控制台&gt;高级&gt;高可用性，</strong>以验证群集中的所有计算机是否正常通过绿色状态指示器进行通信。如果没有，请调查日志文件以获取任何额外的信息。</li>
+</ol>
+</div>
+<div class="section" id="removing-a-server-from-the-cluster">
+<h3>从群集中删除服务器</h3>
+<ol class="arabic simple">
+<li>备份您的三人即时通数据库和文件存储位置。有关备份的更多信息，请参阅备份和灾难恢复。</li>
+<li>修改您的NGINX设置以删除服务器。有关此信息，请参阅代理服务器配置。</li>
+<li>打开<strong>系统控制台&gt;高级&gt;高可用性，</strong>以验证群集中剩余的所有计算机是否正常使用绿色状态指示器进行通信。如果没有，请调查日志文件以获取任何额外的信息。</li>
+</ol>
+</div>
+</div>
+<div class="section" id="configuration-and-compatibility">
+<h2>配置和兼容性</h2>
+<p>有关为高可用性配置系统的详细信息。</p>
+<div class="section" id="mattermost-server-configuration">
+<h3>最重要的服务器配置</h3>
+<div class="section" id="configuration-settings">
+<h4>配置设置</h4>
+<ol class="arabic simple">
+<li>高可用性在该<code class="docutils literal"><span class="pre">ClusterSettings</span></code>部分中配置，<code class="docutils literal"><span class="pre">config.json</span></code>设置可在系统控制台中查看。当启用高可用性时，系统控制台设置为只读模式，以确保<code class="docutils literal"><span class="pre">config.json</span></code>三人即时通服务器上的所有文件始终相同。但是，为了测试和验证高可用性设置，您可以将<em>ReadOnlyConfig</em>设置为<code class="docutils literal"><span class="pre">false</span></code>，允许将系统控制台中进行的更改保存回配置文件。</li>
+</ol>
+<div style="padding-left:30px;"><div class="highlight-none"><div class="highlight"><pre><span></span>“ClusterSettings”：{
+        “启用”：false，
+        “ClusterName”：“生产”，
+        “OverrideHostname”：“”，
+        “UseIpAddress”：true，
+        “UseExperimentalGossip”：false，
+        “ReadOnlyConfig”：true，
+        “GossipPort”：8074，
+        “StreamingPort”：8075
+}
+</pre></div>
+</div>
+<p>有关这些设置的更多详细信息，请参阅高可用性。</p>
+</div>
+<ol class="arabic simple" start="2">
+<li>将流程限制更改为8192，将最大打开文件数更改为65536。</li>
+</ol>
+<div style="padding-left:30px;"><p><code class="docutils literal"><span class="pre">/etc/security/limits.conf</span></code>通过添加以下行来修改托管三人即时通服务器的每台机器：</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>soft nofile 65536
+hard nofile 65536
+软nproc 8192
+硬nproc 8192
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="3">
+<li>增加websocket连接的数量</li>
+</ol>
+<div style="padding-left:30px;"><p><code class="docutils literal"><span class="pre">/etc/sysctl.conf</span></code>通过添加以下行来修改托管三人即时通服务器的每台机器：</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>net.ipv4.ip_local_port_range =“1024 65000”
+net.ipv4.tcp_fin_timeout = 30
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section">
+<h4>时间同步</h4>
+<p>群集中的每个服务器都必须<code class="docutils literal"><span class="pre">ntpd</span></code>运行网络时间协议守护程序，以便以正确的顺序发布消息。</p>
+</div>
+<div class="section" id="state">
+<h4>州</h4>
+<p>三人即时通服务器被设计为具有非常小的状态以允许水平缩放。以下列出了以三人即时通缩放状态的项目：</p>
+<ul class="simple">
+<li>在内存会话缓存中，用于快速验证和通道访问，</li>
+<li>在内存在线/离线缓存中进行快速响应，</li>
+<li>系统配置文件加载并存储在内存中，</li>
+<li>用于发送消息的客户端的WebSocket连接。</li>
+</ul>
+<p>当三人即时通服务器配置为高可用性时，服务器在不同的侦听地址上使用节点间通信协议来保持状态同步。当一个状态改变时，它被写回到数据库，并且发送一个节点间消息来通知其他服务器状态改变。项目的真实状态始终可以从数据库中读取。三人即时通还使用节点间通信将WebSocket消息转发到集群中的其他服务器，以便实时消息，例如“[User X]正在键入”。</p>
+</div>
+<div class="section" id="proxy-server-configuration">
+<h4>代理服务器配置</h4>
+<p>代理服务器将三人即时通服务器集群公开到外部世界。三人即时通服务器设计用于代理服务器，如NGINX，硬件负载平衡器或Amazon Elastic Load Balancer等云服务器。</p>
+<p>如果要使用健康状况检查来监视服务器，可以使用<code class="docutils literal"><span class="pre">http://10.10.10.2/api/v3/general/ping</span></code>并检查响应，表明成功。使用此健康检查路由标记服务器<em>在服务</em>或<em>停用服务</em>。<code class="docutils literal"><span class="pre">Status</span> <span class="pre">200</span></code><em></em><em></em></p>
+<p>下面提供了NGINX的示例配置。它假定你有两个三人即时通服务器上的私有IP地址，运行<code class="docutils literal"><span class="pre">10.10.10.2</span></code>和<code class="docutils literal"><span class="pre">10.10.10.4</span></code>。</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>上游后端{
+        服务器10.10.10.2:8065;
+        服务器10.10.10.4:8065;
+  }
+
+  服务器{
+      server_name thingmost.example.com;
+
+      位置 / {
+            client_max_body_size 50M;
+            proxy_set_header升级$ http_upgrade;
+            proxy_set_header连接“升级”;
+            proxy_set_header主机$ http_host;
+            proxy_set_header X-Real-IP $ remote_addr;
+            proxy_set_header X-Forwarded-For $ proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $ scheme;
+            proxy_set_header X-Frame选项SAMEORIGIN;
+            proxy_pass http：//后端;
+      }
+}
+</pre></div>
+</div>
+<p>您可以使用多个代理服务器来限制单个故障点，但这超出了本文档的范围。</p>
+</div>
+<div class="section">
+<h4>文件存储配置</h4>
+<div class="admonition note">
+<p class="first admonition-title">注意</p>
+<ol class="last arabic simple" style="padding-left:30px;">
+<li>假设文件存储在所有使用NAS或Amazon S3等服务的机器之间共享。</li>
+<li>如果被使用，则目录将被预期为映射为本地目录的NAS位置，否则高可用性将无法正常工作，并可能会损坏您的文件存储。<code class="docutils literal"><span class="pre">"DriverName":</span> <span class="pre">"local"</span></code><code class="docutils literal"><span class="pre">"FileSettings":</span></code> <code class="docutils literal"><span class="pre">"Directory":</span> <span class="pre">"./data/"</span></code></li>
+<li>如果您使用Amazon S3或Minio进行文件存储，则不需要其他配置。</li>
+</ol>
+</div>
+<p>如果您在Enterprise Edition E20中使用Compliance Reports功能，则需要配置   在所有计算机之间共享，否则报告只能从本地三人即时通服务器上的系统控制台中使用。<code class="docutils literal"><span class="pre">"ComplianceSettings":</span></code> <code class="docutils literal"><span class="pre">"Directory":</span> <span class="pre">"./data/",</span></code></p>
+<p>从本地存储迁移到NAS或S3超出了本文档的范围。</p>
+</div>
+<div class="section">
+<h4>数据库配置</h4>
+<p>使用读取的副本功能来缩放数据库。三人即时通服务器可以设置为使用一个“主”数据库和多个读副本数据库。三人即时通在所有数据库中分发读取请求，并向主数据库发送写入请求，然后发送这些更改以更新读取的副本。</p>
+<p>在大型部署中，请考虑使用搜索副本功能将搜索查询隔离到一个或多个数据库服务器上。搜索副本与读取副本类似，但仅用于处理搜索查询。</p>
+<div class="section" id="sizing-databases">
+<h5>调整数据库</h5>
+<p>有关调整数据库服务器大小的信息，请参阅三人即时通 Load Test Framework。</p>
+<p>在主/从环境中，确保在主机故障并需要故障转移的情况下，从机的大小占用100％的负载。</p>
+</div>
+<div class="section" id="deploying-a-multi-database-configuration">
+<h5>部署多数据库配置</h5>
+<p>配置多数据库三人即时通服务器：</p>
+<ol class="arabic simple">
+<li>使用连接字符串将<code class="docutils literal"><span class="pre">DataSource</span></code>设置更新<code class="docutils literal"><span class="pre">config.json</span></code>为主数据库服务器。连接字符串是基于设置的数据库类型<code class="docutils literal"><span class="pre">DriverName</span></code>，或者<code class="docutils literal"><span class="pre">postgres</span></code>或<code class="docutils literal"><span class="pre">mysql</span></code>。</li>
+<li>使用一系列连接字符串将<code class="docutils literal"><span class="pre">DataSourceReplicas</span></code>设置更新为<code class="docutils literal"><span class="pre">config.json</span></code>数据库，读取副本服务器的格式。每个连接也应与设置兼容。<code class="docutils literal"><span class="pre">["readreplica1",</span> <span class="pre">"readreplica2"]</span></code><code class="docutils literal"><span class="pre">DriverName</span></code></li>
+</ol>
+<p>可以通过停止和启动服务器，或通过加载配置设置来应用新设置，如下一节所述。</p>
+<p>一旦加载，数据库写请求将被发送到主数据库，读请求在列表中的其他数据库之间分发。</p>
+</div>
+<div class="section" id="loading-a-multi-database-configuration-onto-an-active-server">
+<h5>将多数据库配置加载到活动服务器上</h5>
+<p>在定义了多数据库配置后<code class="docutils literal"><span class="pre">config.json</span></code>，可以使用以下过程来应用设置，而无需关闭三人即时通服务器：</p>
+<ol class="arabic simple">
+<li>转到<strong>系统控制台&gt;配置</strong>，然后单击<strong>从磁盘</strong>重新加载配置以重新加载三人即时通服务器的配置设置<code class="docutils literal"><span class="pre">config.json</span></code>。</li>
+<li>转到<strong>系统控制台&gt;数据库</strong>，然后单击“ <strong>回收数据库连接”</strong>以取消现有数据库连接并在多数据库配置中设置新的连接。</li>
+</ol>
+<p>连接设置正在更改时，写入主数据库的时间可能会很短。该进程等待所有现有连接完成，并开始使用新连接提供新请求。在交换机发生时尝试发送消息的最终用户将具有类似于丢失与三人即时通服务器的连接的体验。</p>
+</div>
+<div class="section" id="manual-failover-for-master-database">
+<h5>主数据库的手动故障切换</h5>
+<p>如果需要从当前主数据库切换，例如，如果磁盘空间不足或需要维护更新，或出于其他原因，则可以将三人即时通服务器切换为使用其一个读副本作为主数据库通过更新<code class="docutils literal"><span class="pre">DataSource</span></code>在<code class="docutils literal"><span class="pre">config.json</span></code>。</p>
+<p>要在不关闭三人即时通服务器的情况下应用设置：</p>
+<ol class="arabic simple">
+<li>转到<strong>系统控制台&gt;配置</strong>，然后单击<strong>从磁盘</strong>重新加载配置以重新加载三人即时通服务器的配置设置<code class="docutils literal"><span class="pre">config.json</span></code>。</li>
+<li>转到<strong>系统控制台&gt;数据库</strong>，然后单击“ <strong>回收数据库连接”</strong>以取消现有数据库连接并在多数据库配置中设置新的连接。</li>
+</ol>
+<p>连接设置正在更改时，写入主数据库的时间可能会很短。该进程等待所有现有连接完成，并开始使用新连接提供新请求。在交换机发生时尝试发送消息的最终用户可能具有类似于丢失与三人即时通服务器的连接的体验。</p>
+</div>
+<div class="section" id="transparent-failover">
+<h5>透明故障转移</h5>
+<p>数据库可以配置为高可用性和透明故障切换使用现有的数据库技术。我们推荐MySQL群集，Postgres群集或Amazon Aurora。数据库透明的故障切换超出了本文档的范围。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="upgrade-guide">
+<h2>升级指南</h2>
+<p>更新是对三人即时通服务器的一个增量更改，可以修复错误或性能问题。升级为服务器增加了新的或改进的功能。</p>
+<div class="section" id="updating-configuration-changes-while-operating-continuously">
+<h3>在连续运行时更新配置更改</h3>
+<p>大多数配置更新不需要服务中断。有关需要服务中断的配置更新列表，请参阅服务器升级。</p>
+<p>您可以在低负载期间应用更新，但如果HA集群的大小正确，则可以随时进行更新。系统停机时间很短，取决于集群中三人即时通服务器的数量。请注意，您不是重新启动计算机，只是三人即时通服务器应用程序。一个重要的服务器重新启动通常需要大约5秒钟。</p>
+<ol class="arabic simple">
+<li>备份您现有的<code class="docutils literal"><span class="pre">config.json</span></code>文件。</li>
+<li>对于其中一个三人即时通服务器，使配置更改<code class="docutils literal"><span class="pre">config.json</span></code>并保存文件。不要重新加载文件。</li>
+<li>将<code class="docutils literal"><span class="pre">config.json</span></code>文件复制到其他服务器。</li>
+<li>除了一个服务器外，关闭三人即时通。</li>
+<li>重新加载仍在运行的服务器上的配置文件。转到<strong>系统控制台&gt;配置</strong>，然后单击<strong>从磁盘重新加载配置</strong></li>
+<li>启动其他服务器。</li>
+</ol>
+</div>
+<div class="section" id="updating-server-version-while-operating-continuously">
+<h3>在连续运行时更新服务器版本</h3>
+<p>对于三人即时通服务器的安全补丁点版本，不需要服务中断。</p>
+<p>您可以在预期负载足够小的时期内应用更新，以便一个服务器可以在更新期间承载系统的全部负载。</p>
+<p>请注意，您不是重新启动计算机，只是三人即时通服务器应用程序。一个重要的服务器重新启动通常需要大约5秒钟。</p>
+<ol class="arabic simple">
+<li>在升级三人即时通服务器的<em>升级企业版</em>部分中查看升级过程。</li>
+<li>备份您现有的<code class="docutils literal"><span class="pre">config.json</span></code>文件。</li>
+<li>设置代理将所有新请求移动到单个服务器。如果您正在使用NGINX，并配置了上游后端部分，<code class="docutils literal"><span class="pre">/etc/nginx/sites-available/mattermost</span></code>然后将除了要先更新的一个服务器注销掉，然后重新加载NGINX。</li>
+<li>关闭每个服务器上的三人即时通，除了您先更新的服务器。</li>
+<li>更新关闭的每个三人即时通实例。</li>
+<li>在每个服务器上，<code class="docutils literal"><span class="pre">config.json</span></code>使用备份副本替换新文件。</li>
+<li>启动三人即时通服务器。</li>
+<li>对已运行的服务器重复更新过程。</li>
+</ol>
+</div>
+<div class="section" id="server-upgrades-requiring-service-interruption">
+<h3>服务器升级需要服务中断</h3>
+<p>当升级包括对数据库模式的更改或更改<code class="docutils literal"><span class="pre">config.json</span></code>要求服务器重新启动（例如进行以下更改时）时，需要服务中断：</p>
+<div><ul class="simple"style="padding-left:30px;">
+<li>默认服务器语言</li>
+<li>速率限制</li>
+<li>网络服务器模式</li>
+<li>数据库</li>
+<li>高可用性</li>
+</ul>
+</div>
+<p>如果升级包括对数据库模式的更改，则数据库将由启动的第一台服务器进行升级。</p>
+<p>在低负载期间应用升级。系统停机时间很短，取决于集群中三人即时通服务器的数量。请注意，您不是重新启动计算机，只是三人即时通服务器应用程序。</p>
+<ol class="arabic simple">
+<li>在升级三人即时通服务器</span>的<em>升级企业版</em>部分中查看升级过程。</li>
+<li>备份您现有的<code class="docutils literal"><span class="pre">config.json</span></code>文件。</li>
+<li>停止NGINX。</li>
+<li>升级每个三人即时通实例。</li>
+<li>在每个服务器上，<code class="docutils literal"><span class="pre">config.json</span></code>使用备份副本替换新文件。</li>
+<li>启动三人即时通服务器之一。</li>
+<li>当服务器运行时，启动其他服务器。</li>
+<li>重新启动NGINX。</li>
+</ol>
+</div>
+<div class="section" id="upgrading-to-version-4-0-and-later">
+<h3>升级到4.0版和更高版本</h3>
+<p>从三人即时通 Server 4.0版开始，当服务器启动时，它可以自动发现同一个群集中的其他服务器。您可以添加和删除服务器，而无需更改配置文件<code class="docutils literal"><span class="pre">config.json</span></code>。要支持此功能，新项目已添加到<em>ClusterSettings</em>部分<code class="docutils literal"><span class="pre">config.json</span></code>。从3.10或更早版本升级到4.0或更高版本时，必须手动将新项目添加到现有的<code class="docutils literal"><span class="pre">config.json</span></code>。</p>
+<ol class="arabic simple">
+<li>查看“升级三人即时通服务器 ”中的升级过程。</li>
+<li>备份您现有的<code class="docutils literal"><span class="pre">config.json</span></code>文件。</li>
+<li>修改现有的<code class="docutils literal"><span class="pre">config.json</span></code>以更新<em>ClusterSettings</em>部分。在大多数情况下，以下设置应该起作用：</li>
+</ol>
+
+<div style="padding-left:30px;"><div class="highlight-none"><div class="highlight"><pre><span></span>“ClusterSettings”：{
+    “启用”：true，
+    “ClusterName”：“生产”，
+    “OverrideHostname”：“”，
+    “UseIpAddress”：true，
+    “UseExperimentalGossip”：false，
+    “ReadOnlyConfig”：true，
+    “GossipPort”：8074，
+    “StreamingPort”：8075
+}，
+</pre></div>
+</div>
+<p>有关这些设置的更多信息，请参阅高可用性。</p>
+</div>
+<ol class="arabic simple" start="4">
+<li>停止NGINX。</li>
+<li>升级每个三人即时通实例。</li>
+<li>在每个服务器上，用<code class="docutils literal"><span class="pre">config.json</span></code>修改后的版本替换新文件。</li>
+<li>启动三人即时通服务器之一。</li>
+<li>当服务器运行时，启动其他服务器。</li>
+<li>重新启动NGINX。</li>
+</ol>
+</div>
+</div>
+<div class="section" id="frequently-asked-questions-faq">
+<h2>常见问题（FAQ）</h2>
+<div class="section" id="does-mattermost-support-multi-region-high-availability-deployment">
+<h3>是否支持多区域高可用性部署？</h3>
+<p>是。虽然没有正式测试，但您可以在AWS区域之间设置一个集群，例如，它应该没有问题。</p>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>故障排除</h2>
+<div class="section" id="red-server-status">
+<h3>红色服务器状态</h3>
+<p>当启用高可用性时，系统控制台将服务器状态显示为红色或绿色，指示服务器是否与群集正确通信。服务器使用节点间通信对群集中的其他机器进行ping通，一旦ping建立，服务器交换信息，如服务器版本和配置文件。</p>
+<p>红色的服务器状态可能出现以下原因：</p>
+<ul class="simple">
+<li><strong>配置文件不匹配</strong>：三人即时通仍将尝试节点间通信，但系统控制台将显示服务器的红色状态，因为高可用性功能会使相同的配置文件正常运行。</li>
+<li><strong>服务器版本不匹配</strong>：三人即时通仍将尝试节点间通信，但系统控制台将显示服务器的红色状态，因为高可用性功能假定在群集中的每个服务器上都安装了相同版本的三人即时通。建议在所有服务器上使用最新版本的三人即时通。按照要升级的任何服务器升级三人即时通服务器的升级步骤。</li>
+<li><strong>服务器关闭</strong>：如果节点间通信无法发送消息，则会在15秒内再次尝试。如果第二次尝试失败，则假定服务器已关闭。一个错误消息写入日志，系统控制台显示该服务器的红色状态。节点间通信以15秒的间隔继续ping服务器。当服务器重新启动时，会发送任何新消息。</li>
+</ul>
+</div>
+<div class="section" id="websocket-disconnect">
+<h3>WebSocket断开连接</h3>
+<p>当客户端WebSocket接收到断开连接时，它将自动尝试每三秒钟重新建立一个连接，并进行退避。建立连接后，客户端将尝试接收在断开连接时发送的任何消息。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docAvailability',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

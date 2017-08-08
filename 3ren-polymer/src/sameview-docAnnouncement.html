@@ -1,0 +1,94 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docAnnouncement">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document"><font>文件</a> »</font></p>
+            <p><font>管理 »</font></p>
+            <p>公告标语</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section">
+<h1>公告标语</h1>
+<p>可在Enterprise Edition E10及更高版本中使用。</p>
+<p>在三人即时通 Enterprise Edition中，提供了一个公告栏，允许系统管理员显示系统上所有用户可见的通知。</p>
+<img alt="" src="../images/announcement-banner-1106x272.png" style="width: 1106px; height: 272px;">
+<p>默认情况下，用户可以关闭横幅，直到他们再次登录或直到您更新横幅。您可以通过更改横幅的文字或在禁用横幅后重新启用横幅来更新横幅。您还可以控制文本颜色和背景颜色。系统控制台中的设置允许您阻止用户关闭横幅。</p>
+<p><strong>启用横幅</strong>：</p>
+<ol class="arabic simple">
+<li>在系统控制台的“一般”部分中，单击“ <strong>策略”</strong>。</li>
+<li>在<em>启用公告横幅 </em>部分中，单击<strong>true</strong>。</li>
+<li>在<em>横幅文本 </em>字段中，输入要制作的公告的文本。</li>
+<li>设置背景和文字颜色。</li>
+<li>要防止用户关闭横幅，请在“<em>允许横幅 </em>解除” 部分中单击“ <strong>假”</strong>。</li>
+<li>单击<strong>保存</strong>。</li>
+</ol>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docAnnouncement',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

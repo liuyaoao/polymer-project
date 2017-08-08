@@ -1,0 +1,124 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docApi">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document"><font>文件</a> »</font></p>
+            <p><font>集成指南 »</font></p>
+            <p>最重要的API</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section">
+<h1>最重要的API</h1>
+<p>通过Mattermost，您可以完全访问服务器的Web Service API，以及语言特定的驱动程序（与Web，桌面和移动体验相同）。</p>
+<p>在Mattermost有一个充满活力的社区开发开源应用程序，您可以根据自己的代码开始工作，或者使用Mattermost团队提供的预制示例。</p>
+<div class="section">
+<span></span><h2>Mattermost Web Service API</h2>
+<p>要了解有关Mattermost Web Service API的更多信息，请参阅下列参考文献：</p>
+<ul class="simple">
+<li>API参考最新的Mattermost版本</li>
+<li>主分支的API参考</li>
+</ul>
+<p>我们在我们的存储库接收错误报告和对API参考的贡献。</p>
+</div>
+<div class="section">
+<span></span><h2>最重要的驱动因素</h2>
+<p>最重要的驱动程序可以使用不同的编程语言和框架访问Mattermost Web服务API。</p>
+<div class="section">
+<h3>ReactJS Javascript驱动</h3>
+<p>web-client.jsx - 该Javascript驱动程序与Mattermost的ReactJS组件连接。Web客户端通过连接到RESTful JSON Web服务来完成绝大多数工作。在Web服务器上进行错误检查和设置的处理量很少。</p>
+<ul class="simple">
+<li>Javascript驱动程序镜像到可以包含在自定义项目中的外部存储库中。</li>
+</ul>
+</div>
+<div class="section">
+<h3>Golang 驱动程序</h3>
+<p>client.go - 这是一个RESTful驱动程序，与Mattermost的基于Golang的Webservice连接，由单元测试使用。</p>
+<ul class="simple">
+<li>有关Golang驱动程序的文档，请参阅GoDocs。</li>
+</ul>
+</div>
+</div>
+<div class="section">
+<h2>构建API集成</h2>
+<p>如果您正在与Mattermost建立深度整合，例如移动本机客户端，并且有一个可用于支持您使用的编程语言的驱动程序，则最好使用可用的驱动程序来访问Mattermost Web Service API。</p>
+<p>如果没有驱动程序可用于您选择的编程语言，您可以查看Golang驱动程序源代码，以了解它如何运行Web Service API。您还可以通过查看使用Web Service API的开放源码项目（如matterircd）来了解更多信息。</p>
+<p>有各种安装指南，用于设置您自己的Mattermost服务器，开发和测试您的集成。</p>
+</div>
+<div class="section">
+<span></span><h2>最重要的Golang Bot样品（驱动程序示例）</h2>
+<p>Mattermost提供了一个Golang Bot示例，以演示Mattermost如何与Golang驱动程序和API协同工作。</p>
+</div>
+<div class="section">
+<h2>社区应用和集成</h2>
+<p>Mattermost社区共享了数十种开源集成，显示了如何以不同的方式使用webhooks，驱动程序和API。请参阅社区应用程序目录了解更多信息。</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docApi',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

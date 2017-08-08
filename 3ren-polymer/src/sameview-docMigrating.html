@@ -1,0 +1,230 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docMigrating">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document"><font>文件</a> »</font></p>
+            <p><font>管理 »</font></p>
+            <p>迁移指南</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section">
+<h1>迁移指南</h1>
+<div class="section">
+<h2>迁移最重要的服务器</h2>
+<p>以下说明通过备份和还原三人即时通数据库和<code class="docutils literal"><span class="pre">config.json</span></code>文件，将三人即时通从一个服务器迁移到另一个服务器。对于这些指令<strong>源</strong>指三人即时通服务器<em>从</em>您的系统将被迁移，<strong>目的地</strong>是指三人即时通服务器<em>到</em>你的系统将被迁移。</p>
+<ol class="arabic simple">
+<li><dl class="first docutils">
+<dt>备份您的SOURCE 三人即时通服务器</dt>
+<dd><ol class="first last arabic">
+<li>请参阅备份指南</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>将您的SOURCE 三人即时通服务器升级到最新的主要版本</dt>
+<dd><ol class="first last arabic">
+<li>请参阅</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>安装三人即时通服务器的最新主要版本作为您的DESTINATION</dt>
+<dd><ol class="first last arabic">
+<li>有关安装指南，请参阅docs.3ren.com。确保您的新实例已正确配置和测试。数据库类型（MySQL或PostgreSQL）和SOURCE和DESTINATION部署的版本需要匹配。</li>
+<li>使用<cite>sudo stop</cite>停止DESTINATION服务器，然后备份数据库和<cite>config.json</cite>文件。</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>将数据库从SOURCE迁移到DESTINATION</dt>
+<dd><ol class="first last arabic">
+<li>从SOURCE 三人即时通服务器备份数据库，并将其还原，以代替DESTINATION服务器连接到的数据库</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">config.json</span></code>从SOURCE 迁移到DESTINATION</dt>
+<dd><ol class="first last arabic">
+<li>将<code class="docutils literal"><span class="pre">config.json</span></code>文件从SOURCE部署复制到DESTINATION</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>如果您使用本地存储（<code class="docutils literal"><span class="pre">FileSettings.DriverName</span></code>设置为<code class="docutils literal"><span class="pre">local</span></code>），请<code class="docutils literal"><span class="pre">./data</span></code>从SOURCE 迁移到DESTINATION</dt>
+<dd><ol class="first last arabic">
+<li>将<code class="docutils literal"><span class="pre">./data</span></code>目录从SOURCE部署复制到DESTINATION</li>
+<li>如果您使用的目录不是<code class="docutils literal"><span class="pre">./data</span></code>，请复制该目录</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>启动DESTINATION部署</dt>
+<dd><ol class="first last arabic">
+<li>跑 <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">start</span> <span class="pre">3ren</span></code></li>
+<li>打开<strong>系统控制台</strong>并保存更改将<code class="docutils literal"><span class="pre">config.json</span></code>使用所添加的任何新设置的默认值将模式升级到最新版本</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>测试系统正在通过转到现有团队的URL。</dt>
+<dd><ol class="first last arabic">
+<li>您可能需要刷新您的三人即时通浏览器页面才能获得升级中的最新更新</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+<p>迁移完成并验证后，您可以选择使用升级指南将三人即时通的Team Edition升级到企业版。</p>
+</div>
+<div class="section">
+<h2>从松弛迁移</h2>
+<div class="admonition note">
+<p class="first first">注意</p>
+<p class="lastT">作为专有的SaaS服务，Slack可以快速更改其导出格式，恕不另行通知。如果您遇到以下文档中未提及的问题，请通过提交问题提醒产品小组。</p>
+</div>
+<p>三人即时通的Slack Import功能处于“Beta”，重点是支持少于100个注册用户的团队的迁移。</p>
+<p>可以通过三人即时通 Web App或使用CLI访问此功能。</p>
+<div class="admonition warning" id="warning">
+<p class="first firstss">警告</p>
+<p style="padding:10px 10px 0 10px;"><strong>强烈建议您在将Slack导入应用于要进行生产的实例之前测试。</strong></p>
+<p style="padding:0 10px;">如果您使用Docker，您可以在一行中启动测试实例：</p>
+<div class="code bash highlight-default"style="padding:0 10px;"><div class="highlight"><pre><span></span><span class="n">搬运工</span> <span class="n">运行</span> <span class="o">- </span><span class="n">名</span> <span class="n">3ren </span><span class="o">- </span><span class="n">开发</span> <span class="o">- </span><span class="n">ð </span> <span class="o">- </span><span class="n">发布</span> <span class="mi">8065 </span><span class="p">：</span><span class="mi">80 </span> <span class="n">3ren </span><span class="o">/ </span><span class="n">平台</span>
+</pre></div>
+</div>
+<p style="padding:0 10px 15px 10px;">如果您不使用Docker，则会在不到5分钟的时间内分步安装三人即时通的预览模式。</p>
+</div>
+<div class="section">
+<h3>支持的功能</h3>
+<p>从Slack导入时支持以下主要功能：</p>
+<ul class="simple">
+<li>设置了电子邮件地址的用户帐户</li>
+<li>公开频道和发布在其中的短信格式</li>
+<li>频道话题和目的</li>
+<li>导入的用户自动添加到他们的频道</li>
+</ul>
+<p>带有文件附件的邮件默认导入为包含Slack服务器链接的邮件。导入文件附件本身可以导入到三人即时通使用Slack Advanced Exporter工具将其添加到您的存档。</p>
+<p>博特和集成消息是默认进口的，但如果你想进口时，它们与相应的用户名显示，应确保启用集成到覆盖的用户名在设置<strong>系统控制台&gt;集成&gt;定制集成</strong> <em>之前</em>做进口。</p>
+<p>当从Slack导入主题更改消息，目的更改消息和频道名称更改消息时，它们将作为系统用户的帖子显示在三人即时通中。</p>
+<div class="admonition note">
+<p class="first first">注意</p>
+<p class="lastT">与您的三人即时通服务器上现有帐户具有相同电子邮件地址的Slack用户帐户将被合并到导入的那些帐户中。</p>
+</div>
+</div>
+<div class="section" id="limitations">
+<h3>限制</h3>
+<p>从Slack导入时，存在以下限制：</p>
+<ul class="simple">
+<li>导入不是幂等的，这意味着如果您多次导入相同的数据，则会创建重复的帖子。</li>
+<li>2015年9月28日宣布的Slack's Posts 2.0功能使用的Markdown子集尚不支持。</li>
+<li>无法导入直接邮件和专用通道。生成导出存档时，Slack不包括这些消息。</li>
+<li>如果导入的Slack通道的句柄与删除的三人即时通通道相同，则会为导入的Slack通道生成随机句柄。</li>
+</ul>
+</div>
+<div class="section" id="migrating-from-slack-using-the-3ren-web-app">
+<h3>使用三人即时通 Web App从Slack迁移</h3>
+<div class="admonition note">
+<p class="first first">注意</p>
+<p class="lastT">对于较大的进口，特别是那些使用<cite>slack-advanced-exporter工具</cite>将Slack post附件添加到存档的那些，建议使用CLI导入Slack数据。</p>
+</div>
+<ol class="arabic simple">
+<li>从<strong>Slack&gt;团队设置&gt;导入/导出数据&gt;导出&gt;开始导出</strong>生成一个Slack“导出”文件。</li>
+<li>在三人即时通中，进入<strong>团队设置&gt;导入&gt;从Slack导入</strong>。访问此菜单选项需要团队管理员或系统管理员角色。</li>
+<li>单击<strong>选择文件</strong>以上传Slack导出文件，然后单击<strong>导入</strong>。</li>
+</ol>
+</div>
+<div class="section" id="migrating-from-slack-using-the-3ren-cli">
+<h3>使用三人即时通 CLI从Slack迁移</h3>
+<ol class="arabic">
+<li><p class="first">从<strong>Slack&gt;团队设置&gt;导入/导出数据&gt;导出&gt;开始导出</strong>生成一个Slack“导出”文件。</p>
+</li>
+<li><p class="first">运行以下三人即时通 CLI命令，其中包含您已经创建的团队的名称：</p>
+<p><code class="docutils literal"><span class="pre">$</span> <span class="pre">platform</span> <span class="pre">import</span> <span class="pre">slack</span> <span class="pre">team_name</span> <span class="pre">/path/to/your-slack-export.zip</span></code></p>
+</li>
+</ol>
+</div>
+<div class="section" id="using-the-imported-team">
+<h3>使用导入的团队</h3>
+<ul class="simple">
+<li>在导入过程中，Slack的电子邮件和用户名用于创建新的三人即时通帐户。</li>
+<li>Slack用户可以通过使用三人即时通的密码重置屏幕和Slack的电子邮件地址为其三人即时通帐户设置新密码来激活其新的三人即时通帐户。</li>
+<li>一旦登录，三人即时通用户将可以访问从Slack导入的公共频道中的以前的Slack消息。</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docMigrating',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

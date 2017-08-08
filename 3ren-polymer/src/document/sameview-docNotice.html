@@ -1,0 +1,122 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="sameview-docNotice">
+  <link rel="import" type="css" href="../../css/animate.min.css">
+  <link rel="import" type="css" href="../../css/page.css">
+  <link rel="import" type="css" href="../../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+      a:focus,a:hover{
+        text-decoration: none;
+      }
+    </style>
+    <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div role="main" class="document" style="margin-top:30px;">
+        <div itemprop="articleBody">
+
+          <div class="section">
+            <h1>配置通知</h1>
+            <p>三人即时通中的通知提醒您未阅读消息和提及。</p>
+            <div class="section">
+              <h2>未读和提及</h2>
+              <div class="section" id="unread-messages-indicator">
+                <h3>未读消息指示器</h3>
+                <p>当通道中有未读消息时，左侧栏中的频道名称显示为<strong>粗体</strong>。点击频道将删除粗体显示，并将您带入通道中最早的未读消息。</p>
+                <p>您可以选择不在频道中显示未读指示器，方法是单击
+                  <strong>频道菜单</strong> &gt; <strong>通知首选项</strong> &gt; <strong>标记频道未读，</strong>然后选择<strong>仅提及</strong>。这只会在您的名字或您正在收听的关键字触发提醒时通知您。</p>
+                </div>
+                <div class="section">
+                  <h3>提示指标</h3>
+                  <p>提示由频道中的所选关键字触发。未读的提及由粗体文本和左侧边栏中的通道名称旁边的提及计数器指示。</p>
+                  <p>单击通道名称将删除粗体和提及计数。您可以点击屏幕顶部的搜索框旁边的<strong>@</strong>来查看最近的提及。</p>
+                  <p>了解更多关于提及队友。</p>
+                </div>
+              </div>
+              <div class="section">
+                <h2>电子邮件通知</h2>
+                <p>如果您已经关闭三人即时通或在短时间内没有任何浏览器活动，电子邮件将被发送给您收到的任何提及。</p>
+                <ul class="simple">
+                  <li>在“ <strong>帐户设置”</strong> &gt;“
+                    <strong>通知”</strong> &gt;“ <strong>电子邮件通知</strong> ”中打开或关闭<strong>电子邮件通知</strong>。</li>
+                    <li>在“ <strong>帐户设置”</strong> &gt;“ <strong>常规”</strong> &gt;“ <strong>电子邮件</strong><strong>”中</strong>配置发送通知的电子邮件地址。</li>
+                  </ul>
+                </div>
+                <div class="section">
+                  <h2>桌面通知</h2>
+                  <p>这些是浏览器通知，显示在主监视器的角落，用于您未正在观看的频道中的活动。默认情况下，这些通知将在三人即时通打开时发送给所有未读消息。Edge，Firefox，Safari，Chrome和三人即时通 Desktop Apps都提供桌面通知。</p>
+                  <ul class="simple">
+                    <li>配置从<strong>帐户设置</strong> &gt; <strong>通知</strong> &gt; <strong>桌面通知</strong> &gt; <strong>发送桌面通知时发送桌面通知</strong>。</li>
+                    <li>从<strong>通道菜单</strong> &gt; <strong>通知首选项</strong> &gt; <strong>发送桌面通知中</strong>配置通道特定桌面通知。默认情况下，所有频道均使用“ <em>帐户设置”中</em>配置的全局<em>设置</em>。</li>
+                  </ul>
+                  <div class="section">
+                    <h3>通知声</h3>
+                    <p>对于将触发桌面通知的所有活动都会播放通知声音。通知声音可用于IE11，Edge，Safari，Chrome和三人即时通 Desktop Apps。
+                      <ul class="simple">
+                        <li>在“ <strong>帐户设置”</strong> &gt;“
+                          <strong>通知”</strong> &gt;“ <strong>桌面通知声音</strong> ”中打开或关闭<strong>通知声音</strong>。</li>
+                          <li>在<strong>帐户设置</strong> &gt; <strong>通知</strong> &gt; <strong>桌面通知中</strong>配置桌面通知触发器，声音和持续时间。</li>
+                          <li>从<strong>通道菜单</strong> &gt; <strong>通知首选项</strong> &gt; <strong>发送桌面通知中</strong>配置通道特定桌面通知。默认情况下，所有频道均使用“ <em>帐户设置”中</em>配置的全局<em>设置</em>。</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="section">
+                      <h2>移动推送通知</h2>
+                      <p>如果安装了三人即时通 Android或iOS应用程序，可以将推送通知发送到您的移动设备。默认情况下，这些通知是在任何频道或直接的消息通道中发送的，没有在桌面上查看。</p>
+                      <ul class="simple">
+                        <li>从“ <strong>帐户设置”</strong>
+                          &gt;“ <strong>通知”</strong> &gt;“ <strong>移动推送通知”</strong> &gt;“ <strong>发送移动推送通知”发送推送通知时进行配置</strong>。</li>
+                          <li>根据您的状态从“ <strong>帐户设置”</strong> &gt;“ <strong>通知”</strong> &gt;“ <strong>移动推送通知”</strong> &gt;“ <strong>触发推送通知”进行配置</strong>。</li>
+                        </ul>
+                      </div>
+                      <div class="section">
+                        <h2>团队侧栏通知</a></h2>
+                        <p>如果您属于多个团队，则团队侧边栏会显示在您的频道列表的左侧。它将通知您各队未读的消息和提及。</p>
+                        <ul class="simple">
+                          <li>未读邮件由小组图标左边的小点表示。</li>
+                          <li>未读的提示将显示在小组图标右上角的提示计数器。</li>
+                        </ul>
+                        <img alt="../../_images/team-sidebar-notifications.png" src="../../_images/team-sidebar-notifications.png">
+                      </div>
+                      <div class="section">
+                        <h2>浏览器选项卡通知</h2>
+                        <p><font class="">如果三人即时通在浏览器标签中打开，则图标会更新，以通知您未读的消息和提及。Firefox和Chrome上提供浏览器标签通知。</p>
+                          <ul class="simple">
+                            <li>未读消息由三人即时通图标旁边的星号（*）表示。</li>
+                            <li>未读的提及计算在括号中，并包含所有团队的提及和直接消息。</li>
+                          </ul>
+                        </div>
+                      </div>
+
+       </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docNotice',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

@@ -1,0 +1,137 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docClientData">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>部署 »</font></p>
+            <p>客户端数据存储常见问题</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+              <div class="section">
+                <h1>客户端数据存储常见问题</h1>
+                <div class="section">
+                  <h2>移动网络体验</h2>
+                  <dl class="docutils">
+                    <dt><strong>存储什么数据？</strong></dt>
+                    <dd>类似于台式网络浏览器，可以将数据存储在位于设备操作系统的存储系统上的移动web浏览器缓存中，该存储系统受到物理设备及其操作系统中的安全措施的保护。</dd>
+                    <dt><strong>2.如何保护数据？</strong></dt>
+                    <dd>移动网络体验的安全性与桌面网络体验的安全性相似。</dd>
+                    <dt><strong>3.什么时候删除数据？</strong></dt>
+                    <dd>如果您注销或您的帐户被停用，则根据您的操作系统，浏览器缓存中的数据可能会驻留，直到缓存过期或操作系统上的临时文件系统存储被清除。</dd>
+                  </dl>
+                </div>
+                <div class="section">
+                  <h2>下一代Native Mobile Apps</h2>
+                  <p><strong>1.移动设备上的新移动应用程序在本地存储什么数据？</strong></p>
+
+                    <div style="padding-left:25px;"><p>在设备上可以找到的数据完全取决于用户是否登录到三人即时通服务器，并且与设备的连接状态或应用的状态无关。登录时，用户通常可以看到的任何内容都可以在设备上存储，其中包括以下内容：</p>
+                      <ul class="simple">
+                        <li>消息</li>
+                        <li>附加到邮件的文件和图像</li>
+                        <li>当前开放频道中的人物的化身，用户名和电子邮件地址</li>
+                      </ul>
+                      <p>此外，应用程序用于跟踪其操作的元数据也被缓存。元数据包括用户ID，频道ID，团队ID和消息ID。</p>
+                    </div>
+                    <dl class="docutils">
+                      <dt><strong>2.推送通知怎么办？</strong></dt>
+                      <dd>推送通知存储由设备上的操作系统管理。可以将三人即时通配置为发送不包含消息文本的有限数量的信息，并且还可以将其配置为根本不发送推送通知。</dd>
+                      <dt><strong>3.数据存储在哪里，数据如何被保护？</strong></dt>
+                      <dd>数据存储在应用程序的本地存储中。它受到设备通常提供给安装在其上的应用程序的安全措施的保护。</dd>
+                      <dt><strong>数据存储多长时间？</strong></dt>
+                      <dd>数据存储直到用户注销，或直到在正常的缓存管理中被清除。停用用户帐户会强制退出并随后从设备清除数据。</dd>
+                      <dt><strong>消息是否预加载？</strong></dt>
+                      <dd>否消息根据需要发送到设备。它们不预先加载，预计用户会滚动或切换频道。</dd>
+                      <dt><strong>6.在用户看到它们之后，在服务器上删除的邮件会发生什么？</strong></dt>
+                      <dd>消息将从客户端删除。</dd>
+                      <dt><strong>在以下情况下，帐户被停用后，在移动设备上存储哪些数据：</strong></dt>
+                      <dd><ol class="first arabic simple">
+                        <li><em>移动设备与应用程序运行相关联。</em></li>
+                      </ol>
+                        <div style="padding-left:60px;">在问题1和2中列出的所有数据，但在服务器上停用帐户后60秒内，所有应用程序数据都将从缓存中删除。</div>
+                        <ol class="arabic simple" start="2">
+                          <li><em>移动设备与应用程序运行断开连接。</em></li>
+                        </ol>
+                          <div style="padding-left:60px;">问题1和2中列出的所有数据，但在设备重新连接后60秒内，所有应用数据将从缓存中删除。</div>
+                          <ol class="arabic simple" start="3">
+                            <li><em>移动设备已连接应用程序未运行。</em></li>
+                          </ol>
+                            <div style="padding-left:60px;">问题1和2中列出的所有数据，但在应用程序启动后60秒内，所有应用程序数据都将从缓存中删除。</div>
+                            <ol class="arabic simple" start="4">
+                              <li><em>移动设备已断开连接，应用程序未运行。</em></li>
+                            </ol>
+                              <div style="padding-left:25px;">问题1和2中列出的所有数据，但在设备重新连接后60秒内启动应用程序，所有应用程序数据将从缓存中删除。</div>
+                            </dd>
+                            <dt><strong>8.在停用用户帐户并从缓存中删除所有数据后，设备上可能有哪些数据？</strong></dt>
+                            <dd>如果在服务器上启用文件附件，用户可以下载附加到邮件的文件并将其存储在本地文件系统上。下载完毕后，这些文件不在应用程序的控制之下，可以无限期地保留在设备上。</dd>
+                          </dl>
+                        </div>
+                      </div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docClientData',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

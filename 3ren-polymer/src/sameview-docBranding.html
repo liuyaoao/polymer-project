@@ -1,0 +1,115 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docBranding">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document"><font>文件</a> »</font></p>
+            <p><font>管理 »</font></p>
+            <p>自定义品牌工具</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section">
+<h1>自定义品牌工具</h1>
+<p>可在Enterprise Edition E10及更高版本中使用</a>。</p>
+<p>使用自定义品牌工具来呈现针对您组织的品牌定制的三人即时通体验。</p>
+<div class="figure">
+<img alt="" src="../images/custom-branding-tools.PNG">
+</div>
+<div class="section">
+<h2>启用自定义品牌</h2>
+<p>购买并安装Enterprise Edition E10或E20的许可证密钥后：</p>
+<ol class="arabic simple">
+<li>转到<strong>系统控制台</strong> &gt; <strong>自定义</strong> &gt; <strong>自定义品牌</strong>，并将值设置为<code class="docutils literal"><span class="pre">true</span></code>。</li>
+<li>选择<strong>网站名称</strong>，上传<strong>自定义品牌图片</strong>并撰写<strong>自定义品牌文字</strong>。</li>
+<li>单击<strong>保存</strong>。</li>
+</ol>
+<p>下次登录时，用户应该在三人即时通服务器的登录页面上看到新的自定义品牌。</p>
+<p>有关<strong>客户品牌工具中</strong>可用的设置的更多信息：</p>
+<div class="section">
+<h3>网站名称</h3>
+<p>选择要在UI中显示的三人即时通站点的名称。站点名称显示在站点登录页面的页眉和页脚，团队选择页面，团队创建页面，帐户创建页面和电子邮件邀请中。请注意，网站名称适用于整个网站，而不仅仅是网站上的特定团队。网站名称限制在30个字符以内。</p>
+</div>
+<div class="section">
+<h3>自定义品牌形象</h3>
+<p>上传显示在站点登录页面左侧的站点的公司徽标或自定义图像代表。支持的图像格式有JPG，PNG，TIFF和BMP。推荐的图像尺寸为宽度和高度为200-500像素，而对于在桌面上登录的每个用户都加载，图像尺寸小于2 MB。</p>
+</div>
+<div class="section">
+<h3>自定义品牌文字</h3>
+<p>编写自定义文本以显示您的公司标语或欢迎提示。自定义文本将在桌面上的站点登录页面左侧的自定义品牌图片下方显示。您可以使用与三人即时通消息中使用的相同的Markdown格式化语法将此文本格式化为最多1024个字符。</p>
+</div>
+<div class="section">
+<h3>网站说明</h3>
+<p>使用此字段来描述您的网站的目的。站点描述将在登录页面的站点名称下方显示。此文本默认为。此文本最多可以包含1024个字符，并且不使用Markdown进行格式化。
+<code class="docutils literal"><span class="pre">All</span> <span class="pre">team</span> <span class="pre">communication</span> <span class="pre">in</span> <span class="pre">one</span> <span class="pre">place,
+</span> <span class="pre">searchable</span> <span class="pre">and</span> <span class="pre">accessible</span> <span class="pre">anywhere</span></code></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docBranding',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

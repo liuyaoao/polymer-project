@@ -1,0 +1,105 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+
+<dom-module id="sameview-docSummary">
+  <link rel="import" type="css" href="../../css/animate.min.css">
+  <link rel="import" type="css" href="../../css/page.css">
+  <link rel="import" type="css" href="../../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+      a:focus,a:hover{
+        text-decoration: none;
+      }
+    </style>
+    <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div role="main" class="document" style="margin-top:30px;">
+        <div itemprop="articleBody">
+
+          <div class="section">
+            <h1>产品概述</h1>
+            <p><strong>最重要的</strong>授权组织通过现代企业级沟通来实现其最高优先事项。通过网络，移动和PC可以享受工作场所信息的所有生产力优势，在IT控制下的单一租户，私有云解决方案中进行无限次归档，搜索和集成。</p>
+            <p>数以千计的组织以12种语言使用世界各地的三人即时通来获得无与伦比的好处：</p>
+            <ul class="simple">
+              <li><strong>安全性</strong> - 保护您的防火墙后的重要通信，包括访问移动和桌面应用程序。数据保留在您控制的服务器上，使用您控制的密钥进行加密。</li>
+              <li><strong>可配置性</strong> - 根据您的需求，偏好和现有系统调整部署。开源的三人即时通平台支持高级白标和自定义功能，可完全访问RESTful服务器API，驱动程序，Webhook以及数百个第三方扩展。</li>
+              <li><strong>可扩展性</strong> - 在同一平台上从数十个用户增长到数万个。基于高性能，单租户基础架构，三人即时通 E20提供基于群集的高可用性部署，具有水平扩展和高级性能监控。</li>
+            </ul>
+            <div class="section">
+              <h2>关于三人即时通开源项目</h2>
+              <p>它的核心是三人即时通是一个开源的私有云替代专有的SaaS消息传递给团队。该软件与来自世界各地的500多名贡献者合作开发，与SaaS解决方案的生产力相提并论。我们实现这一点，同时为组织提供卓越的控制，数据主权，可配置性，免受锁定，并通过将重要通信保留在防火墙后面来增强安全性。</p>
+              <p>核心提交者，包括社区贡献者和有偿工作人员在三人即时通，Inc.确定项目路线图。对于具有超出开源项目范围的需求的企业，三人即时通有限公司提供商业“企业版”扩展。与我们的核心提交者社区的合作以及企业版的收入，确保所有版本的持续改进。</p>
+            </div>
+            <div class="section">
+              <h2>最重要的版本</h2>
+              <p>三人即时通提供三个版本：</p>
+              <ul class="simple">
+                <li><strong>三人即时通 Team Edition</strong> - 您的团队的开源“虚拟办公室”，在MIT许可证下，您可以在日常工作中完成任务。包括开源的原生移动和桌面应用程序，连续归档，无限搜索，线程消息传递，自定义表情符号以及完整访问webhooks，API，驱动程序和第三方集成。</li>
+                <li><strong>最重要的企业版E10</strong> - 为您的团队，组织和部门工作的多个项目的商业“虚拟校园”，扩展到数千用户。这是开源Team Edition的商业扩展，具有商业支持，通过AD / LDAP进行企业目录集成，高级访问控制，安全性和自定义品牌选项。</li>
+                <li><strong>最重要的企业版E20</strong> - 整个企业的“虚拟城市”，扩展到数万用户。此商业版本包括Team Edition和E10的所有功能，并增加了高级合规性，监控和可扩展性支持，以及额外的支持优势，包括使用我们最高级别的支持服务级别协议购买Premier支持的选项。</li>
+              </ul>
+              <p>每项发售的详情如下：</p>
+              <p><strong>三人即时通团队版</strong> - 一种免费使用，开放源代码，自主替代专有SaaS消息传递。Team Edition是您的开源“虚拟办公室”，提供竞争SaaS解决方案的所有核心生产力优势。它在MIT许可证下部署为MySQL或PostgreSQL的单一Linux二进制文件。功能包括：</p>
+              <ul class="simple">
+                <li>一对一和群组信息，文件共享和无限搜索历史</li>
+                <li>适用于iOS，Android，Windows，Mac，Linux的本机应用程序</li>
+                <li>线程消息，表情符号和自定义表情符号</li>
+                <li>高度可定制的第三方机器人，集成和命令行工具</li>
+                <li>通过webhook，API，驱动程序和第三方扩展进行广泛的集成支持</li>
+                <li>轻松扩展，从数十到数百个用户</li>
+                <li>每两个月发布一次新的改进</li>
+                <li>语言包括美国英语，中文（简体和繁体），荷兰语，法语，德语，日语，韩语，波兰语，巴西葡萄牙语，俄语，土耳其语和西班牙语</li>
+              </ul>
+              <p>要开始使用MIT许可下载开源的三人即时通 Team Edition服务器。</p>
+              <p><strong>三人即时通 Enterprise Edition E10</strong>是一个商业企业邮件解决方案，适用于从数百到数千个用户扩展的多个项目的团队，团队和部门。E10是您的“虚拟校园”，为大型组织提供安全，配置和访问控制选项，包括：</p>
+              <ul class="simple">
+                <li>Active Directory / LDAP单点登录</li>
+                <li>通过HPNS加密推送通知</li>
+                <li>多因素认证</li>
+                <li>自定义品牌的工具</li>
+                <li>高级访问控制策略</li>
+                <li>通过在线售票系统支持下一个工作日</li>
+                <li>扩展到处理数千个用户</li>
+              </ul>
+              <p><strong>三人即时通 Enterprise Edition E20</strong>是商业企业级消息系统，可扩展到数百到数万用户。E20是您的“虚拟城市”，具有基于群集的横向扩展，高可用性部署，性能监控系统和合规性报告以及高级企业目录集成。<strong>除了</strong> E10，它还提供以下高级功能：</p>
+              <ul class="simple">
+                <li>使用Okta，OneLogin和Active Directory联合身份验证服务进行高级SAML 2.0验证</li>
+                <li>消息历史的合规性出口与监督保护</li>
+                <li>具有多节点数据库部署的高可用性支持</li>
+                <li>通过基于群集的部署进行横向缩放</li>
+                <li>高级性能监控</li>
+                <li>Premier支持附件的资格</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docSummary',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

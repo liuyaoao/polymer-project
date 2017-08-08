@@ -1,0 +1,91 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="sameview-docTeam">
+  <link rel="import" type="css" href="../../css/animate.min.css">
+  <link rel="import" type="css" href="../../css/page.css">
+  <link rel="import" type="css" href="../../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+      a:focus,a:hover{
+        text-decoration: none;
+      }
+    </style>
+    <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div role="main" class="document" style="margin-top:30px;">
+        <div itemprop="articleBody">
+
+          <div class="section">
+            <h1>创建团队</h1>
+            <p>如果系统管理员将“ <strong>启用团队创建”</strong>从“系统控制台”设置为true，则可以创建新队伍。</p>
+            <div class="section">
+              <h2>创建团队的方法</h2>
+              <p>如果团队创建由系统管理员启用，则团队可以从团队侧栏或主菜单创建。创建团队的人员将自动获得该团队的团队管理角色。</p>
+              <div class="section">
+                <h3>团队侧栏</h3>
+                <p>如果您属于多个团队，则小组侧栏将会显示在左侧边栏的频道列表左侧。</p>
+                <img alt="" src="../../images/document/team-sidebar.png">
+                <p>点击团队侧栏底部的“+”图标，然后在团队选择页面上点击<strong>创建一个新团队</strong>，这将指导您完成其余的设置步骤。如果此选项在网页上不可见，则系统管理员已禁用团队创建。</p>
+                <p>如果您没有其他团队加入，单击“+”图标可以直接启用团队创建页面。</p>
+              </div>
+              <div class="section">
+                <h3>主菜单</h3>
+                <p>从您当前的三人即时通团队中，单击<strong>主菜单</strong> &gt; <strong>创建新团队</strong>。如果此选项在菜单中不可见，则系统管理员已禁用团队创建。</p>
+              </div>
+            </div>
+            <div class="section">
+              <h2>团队名称和网址选择</h2>
+              <p>选择团队名称和团队网址时，需要考虑几个细节和限制。</p>
+              <div class="section">
+                <h3>队名</h3>
+                <p>这是您的团队的显示名称，显示在菜单和标题中。</p>
+                <ul class="simple">
+                  <li>它可以包含任何字母，数字或符号。</li>
+                  <li>这是区分大小写的。</li>
+                  <li>长度必须为2〜15个字符。</li>
+                </ul>
+              </div>
+              <div class="section">
+                <h3>团队网址</h3>
+                <p>团队网址是在系统域上导航到您的团队的网址的一部分。</p>
+                <ul class="simple">
+                  <li>它可能只包含小写字母，数字和破折号。</li>
+                  <li>它必须以一封信开始，不能以破折号结束。</li>
+                  <li>长度必须为2〜15个字符。</li>
+                  <li>它不能与下面的限制的话开始：<span class="pre">signup</span>，
+                    <span class="pre">login</span>，<span class="pre">admin</span>，<span class="pre">channel</span>，<span class="pre">post</span>，<span class="pre">api</span>，<span class="pre">oauth</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+       </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docTeam',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

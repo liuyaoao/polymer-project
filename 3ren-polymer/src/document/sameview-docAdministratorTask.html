@@ -1,0 +1,99 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="sameview-docAdministratorTask">
+  <link rel="import" type="css" href="../../css/animate.min.css">
+  <link rel="import" type="css" href="../../css/page.css">
+  <link rel="import" type="css" href="../../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+      a:focus,a:hover{
+        text-decoration: none;
+      }
+    </style>
+    <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div role="main" class="document" style="margin-top:30px;">
+        <div itemprop="articleBody">
+
+          <div class="section">
+            <h1>管理员任务</h1>
+            <p>本文档提供常见管理员任务的说明。</p>
+            <div class="section">
+              <h2>不要操纵三人即时通数据库</h2>
+
+                <div>
+                  <ul class="simple">
+                    <li>特别是请勿手动从数据库中删除数据。三人即时通设计为连续存档，手动操作后不能支持。</li>
+                    <li>如果需要永久删除团队或用户，请使用命令行工具。</li>
+                  </ul>
+                </div>
+
+            </div>
+            <div class="section">
+              <h2>从基于电子邮件的身份验证迁移到AD / LDAP或SAML</h2>
+              <p>如果您有企业版，则可以从电子邮件身份验证迁移到Active Directory / LDAP或SAML单点登录。要设置Active Directory / LDAP，请参阅Active Directory / LDAP安装程序。要设置SAML单点登录，请参阅SAML单点登录（E20）。</p>
+              <p>启用新的身份验证方法后，现有用户在进入“ <strong>帐户设置&gt;安全&gt;登录”</strong>方法之前不能使用新的方法<strong>，</strong>并单击<strong>切换到使用AD / LDAP</strong>或<strong>切换到使用SAML单一登录</strong>。切换完毕后，他们无法再使用电子邮件和密码登录。</p>
+            </div>
+            <div class="section">
+              <h2>常见任务</h2>
+              <dl class="docutils">
+                <dt>从命令行创建系统管理员帐户</dt>
+                <dd>
+                  <ul class="first last simple">
+                    <li>如果系统管理员离开组织或不可用，则可以使用命令行界面将<em>system_admin</em>角色分配给现有用户。在<code class="docutils literal"><span class="pre">3ren/bin</span></code>目录中，键入，其中<em>{user-name}</em>是具有新角色的人员的用户名。有关使用命令行界面的更多信息，请参阅命令行工具。<code class="docutils literal"><span class="pre">sudo</span> <span class="pre">./platform</span> <span class="pre">roles</span>
+                       <span class="pre">system_admin</span> <span class="pre">{user-name}</span></code></li>
+                       <li>在<em>应用system_admin</em>角色之前，用户需要注销并重新登录。</li>
+                  </ul>
+                </dd>
+                <dt>停用用户</dt>
+                <dd>
+                  <ul class="first last simple">
+                    <li>系统管理员可以访问<strong>系统控制台&gt;用户</strong>以获取服务器上所有用户的列表。可以搜索和过滤列表，以便更容易找到用户。单击用户的角色，然后在打开的菜单中，单击<strong>停用</strong>。</li>
+                    <li>要保留审核历史记录，用户永远不会从系统中删除。强烈建议系统管理员不要尝试从数据库手动删除用户，因为这可能会危及系统的完整性和将来的升级能力。</li>
+                    <li>请注意，AD / LDAP用户帐户无法从三人即时通停用; 必须从Active Directory中取消激活。</li>
+                  </ul>
+                </dd>
+                <dt>在企业版中检查有效的许可证而不登录</dt>
+                <dd>
+                  <ul class="first last">
+                      <li><p class="first">打开日志文件<code class="docutils literal"><span class="pre">3ren.log</span></code>。它通常位于<code class="docutils literal"><span class="pre">3ren/logs/</span></code>目录中，但可能位于系统的其他位置。查找以文本开头的日志条目的最后一次出现。如果许可证密钥有效，则完整的行应类似于以下示例：<code class="docutils literal"><span class="pre">[INFO]</span> <span class="pre">License</span> <span class="pre">key</span></code></p>
+                        <div class="highlight-text"><div class="highlight"><pre><span></span>[2017/05/19 16:51:40 UTC] [INFO]许可证密钥有效解锁企业功能。</pre></div>
+                      </div>
+                    </li>
+                  </ul>
+                </dd>
+              </dl>
+            </div>
+          </div>
+
+       </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docAdministratorTask',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

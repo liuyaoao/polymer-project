@@ -1,0 +1,122 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="sameview-docSeek">
+  <link rel="import" type="css" href="../../css/animate.min.css">
+  <link rel="import" type="css" href="../../css/page.css">
+  <link rel="import" type="css" href="../../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+      a:focus,a:hover{
+        text-decoration: none;
+      }
+    </style>
+    <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div role="main" class="document" style="margin-top:30px;">
+        <div itemprop="articleBody">
+
+          <div class="section">
+            <h1>搜索</h1>
+            <p>使用搜索框查找与您输入的搜索字词匹配的邮件和回复。将搜索您当前队伍中所有成员的所有频道。</p>
+            <ul class="simple">
+              <li>多字搜索条件返回包含所有条款的结果。</li>
+              <li>当显示结果时，单击<strong>跳转</strong>以查看通道存档中的该帖子。</li>
+              <li>文件附件及其文件名不被搜索。如果文件附件显示在搜索结果中，那是因为它们附加到与搜索查询匹配的邮件。</li>
+              <li>您可以使用搜索修饰符，例如<span class="pre">from:dave</span>仅从某些人或某些渠道返回结果。</li>
+            </ul>
+            <p>像许多搜索引擎，常见的词语，如<span class="pre">the</span>，<span class="pre">which</span>和<span class="pre">are</span>（被称为“停用词”），以及两个字母，一个字母的搜索条件，搜索没有显示，因为它们通常返回太多的结果。有关MySQL和Postgres的数据库文档，请参阅完整列表。</p>
+            <div class="section">
+              <h2>搜索修饰符</h2>
+              <div class="section">
+                <h3>来自：和In：</h3>
+                <p>使用<span class="pre">from:</span>来找到特定用户的帖子，并<span class="pre">in:</span>找到特定渠道的帖子。</p>
+                <ul class="simple">
+                  <li>例如：仅搜索在Town Square中返回包含的消息。<span class="pre">三人即时通</span> <span class="pre">in:town-square</span><span class="pre">三人即时通</span></li>
+                </ul>
+              </div>
+              <div class="section">
+                <h3>引号</h3>
+                <p>使用引号返回搜索结果的确切条款。</p>
+                <ul class="simple">
+                  <li>例如：搜索返回包含确切短语的消息，但不返回包含和单独的消息。<span class="pre">"三人即时通</span> <span class="pre">website"</span><span class="pre">三人即时通</span> <span class="pre">website</span><span class="pre">三人即时通</span><span class="pre">website</span></li>
+                </ul>
+              </div>
+              <div class="section">
+                <h3>通配符</h3>
+                <p>使用<span class="pre">*</span>字符进行与字词匹配的通配符搜索。</p>
+                <ul class="simple">
+                  <li>例如：在搜索<span class="pre">rea*</span>带回含有消息
+                    <span class="pre">reach</span>，<span class="pre">reason</span>并且换句话说开始<span class="pre">rea</span>。</li>
+                </ul>
+              </div>
+            </div>
+            <div class="section">
+              <h2>主题标签</h2>
+              <p>Hashtags是可搜索的帖子标签。通过单击现有文章中的主题标签或在搜索栏中输入带有磅符号的主题标签，搜索包含主题标签的所有帖子。在任何帖子中使用英镑<span class="pre">#</span>或其他unicode字符后面的井号创建主题标签。</p>
+              <p>有效的标签：</p>
+              <ul class="simple">
+                <li>不要从数字开始。</li>
+                <li>至少3个字符长，不包括<span class="pre">#</span>。</li>
+                <li>由字母数字或其他unicode字符组成。</li>
+                <li>可能包含点，破折号或下划线。</li>
+              </ul>
+              <p>例如：<span class="pre">#bug</span>，<span class="pre">#marketing</span>，<span class="pre">#user_testing</span>，
+                <span class="pre">#per.iod</span>，<span class="pre">#check-in</span>，<span class="pre">#마케팅</span></p>
+                <p>Hashtags不链接到频道。例如，如果您有一个名为“Marketing”的频道，则单击<span class="pre">#marketing</span>主题标签不会将您重定向到该频道。例如，您可以链接到公共频道，<span class="pre">~</span>然后使用频道名称<span class="pre">~marketing</span>。</p>
+                <p>其他说明：</p>
+                <ul class="simple">
+                  <li>IP地址，例如<span class="pre">10.100.200.101</span>，不返回结果。</li>
+                </ul>
+              </div>
+              <div class="section">
+                <h2>技术说明</h2>
+                <ul class="simple">
+                  <li>使用中文，韩文和日文搜索的最佳体验是使用MySQL 5.7.6或更高版本进行特殊配置。</li>
+                  <li>您可以在某种程度上搜索没有此配置，添加
+                    <span class="pre">*</span>到搜索词的结尾。</li>
+                  </ul>
+                  <p>默认情况下，三人即时通使用MySQL和PostgreSQL中的全文搜索支持。这些数据库的搜索行为略有不同。检查<strong>主菜单</strong> &gt; <strong>关于三人即时通</strong>查看您正在使用的数据库。</p>
+                  <p>例如，不同的数据库具有不同的“停止词”，从搜索结果中滤除。有关MySQL和Postgres的数据库文档，请参阅完整列表。其他差异包括：</p>
+                  <p>PostgreSQL的：</p>
+                  <ul>
+                    <li>电子邮件地址不返回结果。</li>
+                    <li>Hashtags或最近提到的包含破折号的用户名不会返回搜索结果。</li>
+                    <li>包含破折号的条款返回错误的结果，因为搜索引擎中忽略了破折号。</li>
+                  </ul>
+                  <p>MySQL的：</p>
+                  <ul>
+                    <li>Hashtags或最近提到的包含点的用户名不会返回搜索结果。</li>
+                  </ul>
+                </div>
+              </div>
+       </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docSeek',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

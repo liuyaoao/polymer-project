@@ -1,0 +1,212 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docUpgrade">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document"><font>文件</a> »</font></p>
+            <p><font>管理 »</font></p>
+            <p>升级最新服务器</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section">
+<h1>升级最新服务器</h1>
+<p>在大多数情况下，您可以在几分钟内升级三人即时通服务器，但升级可能需要更长时间，具体取决于多个因素，包括安装的大小和复杂程度，以及是否在当前版本和最新版本之间进行任何数据库模式更改版。</p>
+<div class="section">
+<h2>哪些升级说明使用</h2>
+<dl class="docutils">
+<dt>如果您从3.9.0或更高版本升级</dt>
+<dd>本指南适用于您。跳到开始之前</span>。</dd>
+<dt>如果要从版本3.0.3或更高版本升级3.8.x或更低版本</dt>
+<dd>升级Team Edition或将Enterprise Edition升级到最新版本。</dd>
+<dt>如果您从2.2.0或更早版本升级</dt>
+<dd>您必须首先升级到Team Edition 3.0.3或如果您有企业版，请升级到企业版3.0.3。</dd>
+</dl>
+<p><strong>在你开始之前</strong></p>
+<p>从头到尾仔细阅读这些说明。确保您在开始升级之前了解每一步。如果您有任何问题或疑虑，可以在三人即时通论坛https://forum.3ren.org/或三人即时通 <em>Peer-to-peer Help</em>频道中查询：https：//pre-release.3ren.com/core / channels / peer-to-peer-help。</p>
+<p>开始升级之前，您应该收集以下信息：</p>
+<dl class="docutils">
+<dt>现有安装目录 - <em>{install-path}</em></dt>
+<dd>如果您不知道三人即时通 Server的安装位置，请使用该命令。输出应该类似于<em>/ opt / thingmost / bin / platform</em>。安装目录是字符串<em>/ 3ren</em>的最后一次出现之前的所有内容。在这个例子中，<em>{install-path}</em>是。<code class="docutils literal"><span class="pre">whereis</span> <span class="pre">platform</span></code><em></em><em></em><em></em><code class="docutils literal"><span class="pre">/opt</span></code></dd>
+<dt>您的本地存储目录的位置</dt>
+<dd>本地存储目录包含用户附加到其消息的所有文件。如果您不知道其位置，请打开系统控制台，然后转到<strong>文件&gt;存储</strong>并读取<strong>本地存储目录中</strong>的值。相对路径是相对于<code class="docutils literal"><span class="pre">3ren</span></code>目录。例如，如果本地存储目录是<code class="docutils literal"><span class="pre">./data/</span></code>绝对路径<code class="docutils literal"><span class="pre">{install-path}/3ren/data</span></code>。</dd>
+<dt>所有者和组的安装目录 - <em>{owner}</em>和<em>{group}</em></dt>
+<dd>使用命令获取所有者和组。<code class="docutils literal"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">{install-path}/3ren/bin/platform</span></code></dd>
+</dl>
+</div>
+<div class="section">
+<h2>重要告示</h2>
+<ol class="arabic simple">
+<li>如果要升级高可用性集群：从3.10或更早版本升级到4.0或更高版本时，必须手动将新项目添加到现有的<em>ClusterSettings</em>部分<code class="docutils literal"><span class="pre">config.json</span></code>。有关更多信息，请参见<em>升级到4.0及更高版本</em>的部分高可用性集群（E20） </span>。</li>
+<li>3.9.0中进行了安全相关更改，导致您的三人即时通服务器生成的电子邮件中的邀请链接，密码重置链接和电子邮件验证链接不再工作。团队邀请链接从“团队邀请链接”对话框复制的用户不受影响，仍然有效。</li>
+<li>进行了需要更改代理配置的更改。如果您使用NGINX：</li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li>以root身份打开NGINX配置文件。该文件通常<code class="docutils literal"><span class="pre">/etc/nginx/sites-available/3ren</span></code>在系统上可能会有所不同。</li>
+<li>找到以下行：
+ <cite>location / api / v3 / users / websocket {</cite></li>
+<li>换行。<code class="docutils literal"><span class="pre">location</span> <span class="pre">~</span> <span class="pre">/api/v[0-9]+/(users/)?websocket$</span> <span class="pre">{</span></code></li>
+</ol>
+<p>如果您使用除NGINX之外的代理，请对该代理的配置进行相应的更改。</p>
+</div></blockquote>
+<p><strong>升级三人即时通服务器</strong>：</p>
+<ol class="arabic simple">
+<li>在托管三人即时通 Server的服务器上的终端窗口中，切换到您的主目录。</li>
+</ol>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">cd</span> <span class="pre">~</span></code></div></blockquote>
+<ol class="arabic simple" start="2">
+<li>从以前的下载中删除可能仍然存在的任何文件和目录。</li>
+</ol>
+<blockquote>
+<div><div class="highlight-text"><div class="highlight"><pre><span></span>rm 3ren * .gz
+rm -r很重要
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>下载最新版本的三人即时通服务器。在以下命令中，替换<code class="docutils literal"><span class="pre">X.X.X</span></code>为要下载的版本：</li>
+</ol>
+<blockquote>
+<div><dl class="docutils">
+<dt>企业版</dt>
+<dd><code class="docutils literal"><span class="pre">wget</span> <span class="pre">https://releases.3ren.com/X.X.X/3ren-X.X.X-linux-amd64.tar.gz</span></code></dd>
+<dt>团队版</dt>
+<dd><code class="docutils literal"><span class="pre">wget</span> <span class="pre">https://releases.3ren.com/X.X.X/3ren-team-X.X.X-linux-amd64.tar.gz</span></code></dd>
+</dl>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>提取三人即时通服务器文件。</li>
+</ol>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">tar</span> <span class="pre">-xzf</span> <span class="pre">3ren*.gz</span></code></div></blockquote>
+<ol class="arabic" start="5">
+<li><p class="first">制作配置文件的副本。现有文件在升级过程中被覆盖，所以重要的是不要忘记这一步</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">cp</span> <span class="pre">{install-path}/3ren/config/config.json</span> <span class="pre">config.json</span></code></p>
+</div></blockquote>
+</li>
+<li><p class="first">停止三人即时通服务器。</p>
+</li>
+</ol>
+<blockquote>
+<div><p>在Ubuntu 14.04和RHEL 6.6上： <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">3ren</span> <span class="pre">stop</span></code></p>
+<p>在Ubuntu 16.04和RHEL 7.1上： <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">stop</span> <span class="pre">3ren</span></code></p>
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li>备份您的数据</li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>使用组织的标准程序备份您的数据库以备份MySQL或PostgreSQL。</li>
+<li>如果您使用本地文件存储，请备份存储文件的位置。</li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li>将您之前提取的文件复制到安装目录。</li>
+</ol>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">cp</span> <span class="pre">-r</span> <span class="pre">3ren</span> <span class="pre">{install-path}</span></code></div></blockquote>
+<ol class="arabic simple" start="9">
+<li>恢复您的配置文件。</li>
+</ol>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">cp</span> <span class="pre">config.json</span> <span class="pre">{install-path}/3ren/config</span></code></div></blockquote>
+<ol class="arabic simple" start="10">
+<li>更改新文件的所有权。</li>
+</ol>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">chown</span> <span class="pre">-R</span> <span class="pre">{owner}:{group}</span> <span class="pre">{install-path}/3ren</span></code></div></blockquote>
+<ol class="arabic simple" start="11">
+<li>启动三人即时通服务器。</li>
+</ol>
+<blockquote>
+<div><p>在Ubuntu 14.04和RHEL 6.6上： <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">3ren</span> <span class="pre">start</span></code></p>
+<p>在Ubuntu 16.04和RHEL 7.1上： <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">start</span> <span class="pre">3ren</span></code></p>
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li>如果您的三人即时通服务器上设置了TLS，则必须激活CAP_NET_BIND_SERVICE功能，以允许新的三人即时通二进制文件绑定到低端口。</li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">cd</span> <span class="pre">{install-path}</span></code></li>
+<li><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">setcap</span> <span class="pre">cap_net_bind_service=+ep</span> <span class="pre">./bin/platform</span></code></li>
+</ol>
+</div></blockquote>
+<p>服务器升级后，用户可能需要刷新其浏览器才能体验任何新功能。</p>
+</div>
+<div class="section">
+<h2>将Team Edition升级到企业版</h2>
+<p>要从Team Edition升级到Enterprise Edition，请按照上述常规升级说明进行操作，但请确保在步骤3中下载Enterprise Edition。</p>
+<p>企业版运行后，打开<em>系统控制台</em>并转到<strong>其他&gt;版本和许可证&gt;许可证密钥，</strong>并上传许可证密钥文件。</p>
+</div>
+
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docUpgrade',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

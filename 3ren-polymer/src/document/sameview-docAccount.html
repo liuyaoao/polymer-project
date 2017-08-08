@@ -1,0 +1,247 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+<dom-module id="sameview-docAccount">
+  <link rel="import" type="css" href="../../css/animate.min.css">
+  <link rel="import" type="css" href="../../css/page.css">
+  <link rel="import" type="css" href="../../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+      a:focus,a:hover{
+        text-decoration: none;
+      }
+    </style>
+    <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div role="main" class="document" style="margin-top:30px;">
+        <div itemprop="articleBody">
+
+          <div class="section">
+            <h1>帐号设定</h1>
+            <hr class="docutils">
+            <p>通过单击通道窗格顶部的三个点可从<strong>主菜单</strong>访问帐户设置。从这里可以配置您的配置文件设置，通知偏好设置，集成，主题设置和显示选项。</p>
+            <div class="section">
+              <h2>一般</h2>
+              <p>配置名称，用户名，昵称，电子邮件和个人资料图片的设置。</p>
+              <div class="section">
+                <h3>全名</h3>
+                <p>直接邮件成员列表中显示全名，团队管理模式。默认情况下，当有人键入您的名字时，您会收到提示通知。输入全名是可选的。</p>
+              </div>
+              <div class="section">
+                <h3>用户名</h3>
+                <p>用户名是所有帖子旁边显示的唯一标识符。选择一些容易识别和召回的队友。默认情况下，当有人键入您的用户名时，您将收到提示通知。为了保持邮件的完整性，更改用户名不会在已发布的邮件中更新@mentions。</p>
+              </div>
+              <div class="section">
+                <h3>昵称</h3>
+                <p>昵称显示在直邮消息成员列表和团队管理模式中。您将不会收到通知提到，当有人类型您的昵称，除非你把它添加到<em>触发提及的词语</em>在<strong>账户设置&gt;通知</strong>。</p>
+              </div>
+              <div class="section">
+                <h3>位置</h3>
+                <p>职位可以用来描述你的角色或职务。当您在中心频道或右侧边栏中点击用户名时，会显示在配置文件弹出窗口中。</p>
+              </div>
+              <div class="section">
+                <h3>电子邮件</h3>
+                <p>电子邮件用于登录，通知和密码重置。电子邮件需要验证如果更改 如果您使用单一登录服务登录，则电子邮件字段不可编辑，您将收到用于注册到SSO服务的电子邮件的电子邮件通知。</p>
+              </div>
+              <div class="section">
+                <h3>档案图片</h3>
+                <p>个人资料图片显示在所有信息旁边，并在名称旁边的频道窗格顶部。通过单击<strong>选择</strong>然后选择图片来更改您的个人资料图片。为获得最佳效果，请选择尺寸至少为128 x 128像素的图像。不支持GIF格式。</p>
+              </div>
+            </div>
+            <div class="section">
+              <h2>安全</h2>
+              <p>配置密码，查看访问历史记录以及查看或注销活动会话的设置。</p>
+              <div class="section">
+                <h3>密码</h3>
+                <p>如果您已经通过电子邮件登录，您可以更改密码。如果您使用单一登录服务登录，则密码字段不可编辑，您必须访问SSO服务的帐户设置才能更新密码。</p>
+              </div>
+              <div class="section">
+                <h3>多因素认证</h3>
+                <p>当此选项可用时，您可以要求使用基于手机的密码以及登录密码。</p>
+                <p>要启用，请从<a class="reference external" href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iTunes</a>或<a class="reference external" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Google Play</a>为您的手机下载Google Authenticator ，然后：</p>
+                <ol class="simple">
+                  <li>点击<strong>添加MFA到您的帐户</strong>按钮。</li>
+                  <li>使用Google Authenticator扫描出现的QR码。</li>
+                  <li>输入Google Authenticator生成的令牌，然后点击<strong>保存</strong>。</li>
+                </ol>
+                <p>将来，除了您在登录时的密码之外，还会要求您从Google Authenticator输入密码。</p>
+                <p>如果您无法扫描QR码，您可以：</p>
+                <ol class="simple">
+                  <li>点击<strong>添加MFA到您的帐户</strong>按钮，您应该看到QR码下面。<code class="docutils literal"><span class="pre">Secret</span> <span class="pre">Key</span></code></li>
+                  <li>打开Goog&#8203;&#8203;le Authenticator。</li>
+                  <li>单击<strong>+</strong>按钮，然后选择<strong>手动输入</strong>。</li>
+                  <li>输入帐号。</li>
+                  <li>在Google Authenticator中输入三人即时通的字段，然后保存。<code class="docutils literal"><span class="pre">Secret</span> <span class="pre">Key</span></code><code class="docutils literal"><span class="pre">Key</span></code></li>
+                  <li>在三人即时通中，键入由Google Authenticator生成的令牌，然后单击<strong>保存</strong>。</li>
+                </ol>
+              </div>
+              <div class="section">
+                <h3>登录方式</h3>
+                <p>此选项允许您将登录方法从电子邮件/密码切换到单一登录选项，然后重新启动。</p>
+                <p>例如，如果启用了AD / LDAP单点登录，用户可以单击“切换到使用AD / LDAP”按钮，并输入其AD / LDAP凭据以将登录切换到AD / LDAP。他们还需要输入他们的电子邮件帐户的密码来验证他们现有的凭据。更改后，用户将收到一封电子邮件以确认该操作。</p>
+              </div>
+              <div class="section">
+                <h3>查看访问历史记录</h3>
+                <p>访问历史记录将显示最近20次登录和注销尝试的时间顺序列表，渠道创建和删除，帐户设置更改或您的帐户进行的渠道设置修改。记录会话ID（每个三人即时通浏览器会话的唯一标识符）和操作的IP地址的详细信息，以便用于审核日志。</p>
+              </div>
+              <div class="section">
+                <h3>查看和注销活动会话</h3>
+                <p>当您使用电子邮件和密码登录设备上的新浏览器时，会创建会话。会话让您可以使用三人即时通最多30天，而无需再次登录。如果要撤销特定浏览器或设备的自动登录权限，请单击活动会话中的<strong>注销</strong>。单击<strong>更多信息</strong>以查看浏览器和操作系统的详细信息。</p>
+              </div>
+            </div>
+            <div class="section">
+              <h2>通知</h2>
+              <p>配置桌面通知，桌面通知声音，电子邮件通知和触发提示的单词的设置。</p>
+              <div class="section">
+                <h3>桌面通知</h3>
+                <p>当三人即时通有活动时，桌面通知将显示在主显示器的角落。</p>
+                <div class="section">
+                  <h4>发送桌面通知</h4>
+                  <p>选择什么活动触发桌面通知。此设置适用于全球范围，但可以通过频道名称下拉菜单为每个频道自定义此偏好设置。Firefox，Safari和Chrome上提供桌面通知。</p>
+                </div>
+                <div class="section">
+                  <h4>通知声</h4>
+                  <p>通知会触发桌面通知的任何活动。通知声音可用于IE11，Edge，Safari和Chrome。</p>
+                </div>
+                <div class="section">
+                  <h4>通知期限</h4>
+                  <p>设置桌面通知在屏幕上保持多长时间。如果设置为<strong>无限制</strong>，用户将不得不手动清除屏幕上显示的每个通知。Safari中的桌面通知只能在屏幕上停留最多5秒钟。</p>
+                </div>
+              </div>
+              <div class="section">
+                <h3>电子邮件通知</h3>
+                <p>电子邮件通知在您离线超过60秒之后发送提及和直接邮件，或远离三人即时通超过5分钟。更改<strong>帐户设置&gt;常规&gt;电子邮件</strong>中发送通知的<strong>电子邮件</strong>。</p>
+                <p>如果您的系统管理员已启用<strong>电子邮件批处理</strong>，则在此设置下您将有其他选项来选择发送电子邮件通知的频率。在这段时间内收到的所有通知都将合并并发送到一封电子邮件中。</p>
+              </div>
+              <div class="section">
+                <h3>发送移动推送通知</h3>
+                <p>如果您安装了Android或iOS应用，推送通知可以发送到您的移动设备。您可以选择将发送通知的活动类型。默认情况下，发送推送通知“提及和直接消息”。如果发送推送通知为“从不”，则根据您的状态触发推送通知的三人即时通设置将被隐藏。如果您的系统管理员尚未设置推送通知，则此设置将被禁用。</p>
+                <p>如果您正在桌面或网络上正在查看频道（公共，私人或直接讯息），则不会为该频道发送推送通知。如果在桌面或网络上查看通知，则屏幕上的锁定通知将在Android上清除，而在iOS上，三人即时通应用图标上的徽章将相应减少。</p>
+              </div>
+              <div class="section">
+                <h3>触发手机推送通知</h3>
+                <p>您还可以根据您的状态选择何时发送推送通知。如果您的状态为“在线，离线或离线”，默认情况下会发送推送通知。如果“发送移动推送通知”设置为“从不”，则此设置被隐藏。如果您的系统管理员尚未设置推送通知，则此设置将被禁用。</p>
+              </div>
+              <div class="section">
+                <h3>触发提示的词</h3>
+                <p>默认情况下，当有人发布包含不区分大小写的用户名或@username的邮件时，您会收到通知。有人使用@channel，@all和@here提及时也会收到通知。您可以通过在输入框中键入来自定义触发提示的单词。如果您希望通知某个主题的所有帖子（例如“营销”），这将非常有用。</p>
+              </div>
+              <div class="section">
+                <h3>回复通知</h3>
+                <p>除了<strong>“Trigger Mentions”之外</strong>，此设置允许您在有人回复您启动或参与的线程时收到提示通知。当您向团队其他成员发回消息时，您将被视为启动一个线程。当您使用已存在的线程中的回复按钮发布消息时，您被认为参与线程。</p>
+              </div>
+            </div>
+            <div class="section">
+              <h2>显示</h2>
+              <p>配置时钟和队友名称显示首选项的设置。</p>
+              <div class="section">
+                <h3>主题</h3>
+                <p>选择<strong>主题颜色</strong>从三人即时通团队设计的四个标准主题中进行选择。要对四种标准主题颜色进行自定义调整，请单击标准主题，然后选择<strong>自定义主题</strong>将标准主题加载到自定义主题颜色选择器中。</p>
+                <p>选择<strong>自定义主题</strong>以自定义您的主题颜色，并通过将主题向量复制并粘贴到输入框中与他人共享。在自定义主题颜色时观察实时预览，然后单击<strong>保存</strong>以确认更改。单击<strong>取消</strong>或退出设置模式并单击<strong>是，丢弃</strong>放弃您的更改。</p>
+                <p>在企业版中，如果您属于多个团队，您可以选择“将新主题应用于所有团队”复选框，以使团队中的主题显示出来。否则，更改将仅适用于当前团队。</p>
+                <p>选择<strong>从Slack导入主题颜色</strong>以导入Slack主题。在“松弛”中，转到<strong>“首选项”&gt;“侧栏主题”，</strong>然后打开自定义主题选项。从那里复制主题颜色矢量，然后将其粘贴到三人即时通中的<em>输入松弛主题</em>输入框中。在Slack中无法自定义的任何主题设置将默认为“三人即时通”标准主题设置。</p>
+              </div>
+              <div class="section">
+                <h3>显示字体</h3>
+                <p><em>于2017年7月16日移除</em></p>
+                <p>选择使用什么字体。</p>
+              </div>
+              <div class="section">
+                <h3>时钟显示  </h3>
+                <p>选择所有帖子的时间戳上显示的12小时或24小时时间偏好。</p>
+              </div>
+              <div class="section">
+                <h3>队友名称显示</h3>
+                <p><em>于2017年7月16日移除</em></p>
+                <p>配置名称在三人即时通中的显示方式：昵称，用户名或全名。</p>
+              </div>
+              <div class="section">
+                <h3>链接预览</h3>
+                <p>选择在三人即时通上发布的链接是否显示在它们之下的预览。当“开”时，预览将显示在下列YouTube视频和GIF，PNG，JPEG和BMP文件的链接。当“关”时，不会显示预览。这个设置也可以用斜杠命令控制<code class="docutils literal"><span class="pre">/expand</span></code>和<code class="docutils literal"><span class="pre">/collapse</span></code>。</p>
+              </div>
+              <div class="section">
+                  <h3>消息显示</h3>
+                  <p>选择中心通道中消息的格式。“紧凑”模式减少了帖子周围的间距，折叠链接预览和隐藏缩略图，因此只显示文件名。一些格式化类型（如块引号和标题）也减小了大小。</p>
+                </div>
+                <div class="section">
+                  <h3>频道显示模式</h3>
+                  <p>选择中心通道中的文本是固定宽度还是居中或全宽。</p>
+                </div>
+                <div class="section">
+                  <h3>语言</h3>
+                  <p>选择三人即时通在用户界面中显示的语言。选项包括：</p>
+                  <ul class="simple">
+                    <li>德语 - 德语</li>
+                    <li>英语</li>
+                    <li>西班牙语</li>
+                    <li>法语 - 法语</li>
+                    <li>意大利语 - 意大利语</li>
+                    <li>荷兰语 - 荷兰语</li>
+                    <li>波尔斯基 - 波兰语</li>
+                    <li>葡萄牙语（巴西） - 葡萄牙语</li>
+                    <li>Pусский - 俄语</li>
+                    <li>Türkçe - 土耳其语</li>
+                    <li>한국어 - 韩语</li>
+                    <li>中文（简体） - 简体中文</li>
+                    <li>中文（繁体） - 繁体中文</li>
+                    <li>日本语 - 日语</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="section">
+                <h2>高级</h2>
+                <p>设置配置消息发送时间。</p>
+                <div class="section">
+                  <h3>发送消息CTRL + ENTER</h3>
+                  <p>如果启用，请按ENTER键插入新行，然后CTRL + ENTER发布消息。如果禁用，SHIFT + ENTER插入一个新行，ENTER发布消息。</p>
+                </div>
+                <div class="section">
+                  <h3>启用后期格式</h3>
+                  <p>此设置控制是否呈现后格式。当“开”时，帖子将以降价格式，表情符号，自动链接的网址和换行符进行呈现。当“关”时，将显示原始文本。</p>
+                </div>
+                <div class="section">
+                  <h3>启用加入/离开消息（企业版</h3>
+                  <p>此设置控制是否可以看到有关加入或离开通道的用户的系统消息。当<strong>在</strong>这些消息将出现。当<strong>关闭</strong>，这些消息将被隐藏。如果任何用户被添加到或从频道中删除，即使此设置为“ <strong>关闭”，</strong>仍将显示系统消息。</p>
+                </div>
+                <div class="section">
+                  <h3>预览预发布功能</h3>
+                  <p>在官方发布之前，启动预览功能，尽早查看：</p>
+                  <ul class="simple">
+                    <li><strong>在消息输入框中显示标记预览选项</strong>打开此选项将在输入文本输入框时显示“预览”选项。按“预览”显示在发送消息之前消息中的Markdown格式设置如何。</li>
+                    <li><strong>对于消息中的第一个网络链接，如果可用，在消息下方显示网站内容的预览</strong>打开此操作将显示从选定网站的链接下方的预览片段。</li>
+                    <li><strong>启用能够进行一对一的WebRTC呼叫的功能</strong>打开此操作将允许用户在三人即时通内的Chrome，Firefox和三人即时通 Desktop Apps上进行一对一的视频通话。仅当在服务器上启用WebRTC时，此功能才可用。请参阅文档了解更多信息。</li>
+                    <li><strong>启用表情符号选择器进行反应和消息输入框</strong>打开此<strong>选项</strong>将<strong>启用消息输入框中</strong>的表情符选择器图标和现有消息。要在您正在撰写的邮件中添加一个或多个表情符号，请单击消息输入框中的表情符号选择器图标。要添加表情符号作为对现有消息的反应，请单击消息中的表情符号选择器图标。</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+       </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docAccount',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

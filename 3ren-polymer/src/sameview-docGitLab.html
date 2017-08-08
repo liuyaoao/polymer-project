@@ -1,0 +1,143 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docGitLab">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>部署 »</font></p>
+            <p>GitLab单点登录</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section">
+<h1>GitLab单点登录</h1>
+<p>配置三人即时通将GitLab用作单点登录（SSO）服务，用于创建团队，创建帐户和用户登录。</p>
+<div class="section">
+<h2>步骤1：将OAuth应用程序添加到您的GitLab帐户</h2>
+<ol class="arabic simple">
+<li>登录到您的GitLab帐户，然后转到<code class="docutils literal"><span class="pre">https://{gitlab-site-name}/profile/applications</span></code>。对于<em>{gitlab-site-name}</em>使用您的GitLab实例的名称。如果您使用GitLab本身作为您的OAuth提供商，请使用<em>gitlab.com</em>。</li>
+<li>添加新的应用程序：</li>
+</ol>
+
+<div>
+<ol class="loweralpha simple" style="padding-left:60px;list-style-type:lower-latin;">
+<li>在<strong>名称</strong>字段中，键入<em>三人即时通</em>。</li>
+<li>在<strong>重定向URI</strong>字段中，添加以下两行，使用您自己的<em>{thingmost-site-name}值</em>。
+
+<div><div class="highlight-text"><div class="highlight"><pre><span></span>https：//开头{3ren站点的名称} /登录/ gitlab /完整
+https：//开头{3ren站点的名称} /注册/ gitlab /完整
+</pre></div>
+</div>
+<p>如果您的GitLab实例未设置为使用SSL，那么您的URI必须开始<code class="docutils literal"><span class="pre">http://</span></code>而不是<code class="docutils literal"><span class="pre">https://</span></code>。</p>
+</div></li>
+
+<li>在“ <em>范围”</em>部分中，选择<strong>api</strong>。</li>
+</ol>
+</div>
+<ol class="arabic simple" start="3">
+<li>点击<strong>保存应用程序</strong>。</li>
+</ol>
+<p>保持GitLab窗口打开，因为您配置三人即时通时需要<em>应用程序标识</em>和<em>密码</em>。</p>
+</div>
+<div class="section">
+<h2>步骤2：配置GitLab SSO</h2>
+<ol class="arabic simple">
+<li>在您的三人即时通服务器上，将<em>应用程序ID</em>和<em>密钥</em>添加到文件中的<em>GitLab</em>设置部分<code class="docutils literal"><span class="pre">config.json</span></code>：</li>
+</ol>
+<div>
+<ol class="loweralpha simple" style="padding-left:60px;list-style-type:lower-latin;">
+<li><code class="docutils literal"><span class="pre">config.json</span></code>在文本编辑器中作为根目录打开。它通常在，<code class="docutils literal"><span class="pre">/opt/3ren/config</span></code>但可能在你的系统的其他地方。</li>
+<li>找到<em>GitLabSettings</em>部分并添加或更新以下信息：</li>
+</ol>
+
+<div style="padding-left:60px;"><div class="highlight-javascript" id="pre"><div class="highlight"><pre><span></span><span class="s2">“GitLabSettings” </span><span class="o">：</span> <span class="p">{ </span>
+    <span class="s2">“启用” </span><span class="o">：</span> <span class="kc">真实的</span><span class="p">，</span>
+    <span class="s2">“秘密” </span><span class="o">：</span> <span class="s2">“{mattermost-APP-秘密从-gitlab}” </span><span class="p">，</span>
+    <span class="s2">“ID” </span><span class="o">：</span> <span class="s2">“{mattermost-APP-应用程序ID从- gitlab}” ，</span><span class="s2">“</span><span class="p"> </span>
+    <span class="s2">适用范围” </span><span class="o">：</span> <span class="s2">“” </span><span class="p">，</span>
+    <span class="s2">“AuthEndpoint” </span><span class="o">：</span> <span class="s2">“https：//开头{gitlab站点的名称} / OAuth的/授权” </span><span class="p">，</span>
+    <span class="s2">“TokenEndpoint” </span><span class="o">：</span> <span class="s2">“https：//开头{gitlab站点的名称} /的OAuth /令牌” </span><span class="p">，</span>
+    <span class="s2">“UserApiEndpoint” </span><span class="o">：</span> <span class="s2">“https：// {gitlab-site-name} / api / v3 / user” </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>对于<em>{gitlab-site-name}</em>使用您的GitLab实例的名称。如果您的GitLab实例未设置为使用SSL，则必须以端点开始<code class="docutils literal"><span class="pre">http://</span></code>而不是<code class="docutils literal"><span class="pre">https://</span></code>。如果您使用GitLab本身作为您的OAuth提供商，请使用<em>gitlab.com</em>。</p>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li>[可选]要强制所有用户登录了一个只SSO，在<em>EmailSettings</em>第<code class="docutils literal"><span class="pre">config.json</span></code>一套<em>EnableSignUpWithEmail</em>来<code class="docutils literal"><span class="pre">false</span></code>。</li>
+<li>重新启动您的三人即时通服务器。</li>
+</ol>
+<div style="padding-left:30px;"><p>在Ubuntu 14.04和RHEL 6： <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">restart</span> <span class="pre">mattermost</span></code></p>
+<p>在Ubuntu 16.04和RHEL 7上： <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">restart</span> <span class="pre">mattermost</span></code></p>
+</div>
+<p>服务器重新启动后，用户必须先更改其登录方法，然后才能使用GitLab登录。</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docGitLab',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

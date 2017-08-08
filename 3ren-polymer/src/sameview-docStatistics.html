@@ -1,0 +1,152 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docStatistics">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document"><font>文件</a> »</font></p>
+            <p><font>管理 »</font></p>
+            <p>统计</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+<div class="section">
+<h1>统计</h1>
+<p>每个系统和团队都会跟踪用户，职位和渠道的统计。企业版可以访问高级系统统计信息。</p>
+<p>为了最大限度地提高大型企业部署的性能，停用了总帖子，总标签职位，文件总数，每天发布的帖子以及每天有帖子的活跃用户的统计信息。您可以通过更改config.json中的<code class="docutils literal"><span class="pre">MaxUsersForStatistics</span></code>值来重新启用它们。</p>
+<p>有关企业部署的高级度量标准，请参阅性能监控文档以了解更多信息。</p>
+<div class="section">
+<h2>网站统计</h2>
+<p>系统统计信息可在<strong>系统控制台&gt;站点统计</strong>信息下查看。这里显示的数据是系统上所有团队的累计总和。</p>
+<dl class="docutils">
+<dt>用户总数</dt>
+<dd>在系统上创建的活动帐户总数。排除已停用的帐户。</dd>
+<dt>总队伍</dt>
+<dd>在您的系统上创建的团队总数。</dd>
+<dt>总渠道</dt>
+<dd>在系统中的所有团队中创建的公共频道和私人频道的总数，包括已删除的频道。不包括直接的消息通道。</dd>
+<dt>帖子总数</dt>
+<dd>您系统中所有团队的帖子总数，包括已删除的职位和使用自动化的职位。</dd>
+<dt>每日活跃用户</dt>
+<dd>在过去24小时内浏览过三人即时通网站的用户总数。</dd>
+<dt>每月活跃用户</dt>
+<dd>在过去30天内浏览过三人即时通网站的用户总数。</dd>
+<dt>帖子总数（图）</dt>
+<dd>您系统中所有团队在某一天的职位总数，包括使用自动化进行的已删除职位和职位。</dd>
+<dt>有活动用户的帖子（图）</dt>
+<dd>在系统中的所有团队中的某一天发布了一个帖子的用户，包括从用户帐户发布的系统消息。</dd>
+</dl>
+<div class="section">
+<h3>高级系统统计（企业）</h3>
+<p>企业版包括其他系统统计信息。</p>
+<dl class="docutils">
+<dt>会话总数</dt>
+<dd>连接到系统的活动用户会话数。过期会话不计算在内。</dd>
+<dt>总命令</dt>
+<dd>当前在系统上设置的活动斜杠命令的数量。在“积分”菜单中创建并删除的斜杠命令不计算在内。</dd>
+<dt>传入的Webhooks</dt>
+<dd>当前在您的系统上设置的活动的传入Webhook的数量。在“集成”菜单中创建并随后删除的传入Webhook不会计入。</dd>
+<dt>外出Webhooks</dt>
+<dd>当前在系统上设置的正在发送的Webhook的数量。在“集成”菜单中创建并随后删除的传出的Webhook不会被计入。</dd>
+<dt>WebSocket Conns</dt>
+<dd>当前在您的服务器上的活动WebSocket连接的数量。</dd>
+<dt>Master DB Conns</dt>
+<dd>当前在主数据库上的活动连接数。</dd>
+<dt>副本DB Conns</dt>
+<dd>当前在一个或多个读取的副本数据库上的活动连接数。</dd>
+<dt>渠道类型</dt>
+<dd>该图表以可视化格式显示公共频道和私人频道的数量，包括可能已被删除的频道。</dd>
+<dt>帖子，文件和Hashtags</dt>
+<dd>此图表显示包含文件，主题标签或仅文本的帖子数。包含文件和主题标记的帖子都会被统计在两个类别中，并且包括已删除的帖子。</dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<h2>团队统计</h2>
+<p>团队统计信息可在<strong>系统控制台&gt;团队统计信息</strong>下查看。</p>
+<dl class="docutils">
+<dt>用户总数</dt>
+<dd>此团队的活跃帐户总数。排除已停用的帐户。</dd>
+<dt>公共频道</dt>
+<dd>在这个团队中创建的公共频道数量。排除已删除的频道。</dd>
+<dt>私人频道</dt>
+<dd>在这个团队中创建的私人频道数量。排除已删除的频道。</dd>
+<dt>帖子总数</dt>
+<dd>这个团队的职位总数，包括使用自动化进行的已删除员额和职位。不包括直接邮件渠道中的帖子，这些帖子不与团队有关。</dd>
+<dt>帖子总数（图）</dt>
+<dd>该团队某一天的职位总数，包括使用自动化的职位和员额。</dd>
+<dt>有活动用户的帖子（图）</dt>
+<dd>在该团队的某一天发布了一个帖子的用户，包括从用户帐户发布的系统消息。</dd>
+<dt>最近的活跃用户</dt>
+<dd>在三人即时通登录并且最近浏览器活动的20位最近的用户。</dd>
+<dt>新创建的用户</dt>
+<dd>最近加入团队的用户。</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docStatistics',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

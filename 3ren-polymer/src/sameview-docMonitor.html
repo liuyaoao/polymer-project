@@ -1,0 +1,264 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docMonitor">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>部署 »</font></p>
+            <p>绩效监测（E20）</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section">
+<h1>绩效监测（E20）</h1>
+<p><em>可用于企业版E20</em>。</p>
+<p>性能监视支持使得三人即时通服务器可以通过与Prometheus和Grafana集成来跟踪大型企业部署的系统运行状况。</p>
+<p>集成支持从多个三人即时通服务器收集数据，尤其是在高可用性模式下运行三人即时通时非常有用。</p>
+
+<div class="section">
+<h2>部署指南</h2>
+<p>将您的三人即时通服务器与Prometheus和Grafana集成的详细信息。</p>
+<div class="section">
+<h3>安装Prometheus</h3>
+<p>1  - 为Prometheus下载一个预编译的二进制文件。二进制文件提供给许多受欢迎的发行版，包括达尔文，Linux和Windows。</p>
+<p>有关安装说明，请参阅Prometheus安装指南</a>。</p>
+<p>2  - 在Prometheus配置文件中，建议使用以下设置<code class="docutils literal"><span class="pre">prometheus.yml</span></code>：</p>
+<div class="code yaml highlight-default"><div class="highlight"><pre><span></span><span class="c1"></span>
+<span class="hei">＃my </span><span class="c1">global config </span><span class="hei">global </span><span class="p">：</span>
+  <span class="hei">scrape_interval </span><span class="p">：</span>     <span class="mi">60 </span><span class="hei">s </span> <span class="c1">＃默认情况下，每15秒刮一次目标。</span>
+  <span class="hei">evaluation_interval </span><span class="p">：</span> <span class="mi">60 </span><span class="hei">s </span> <span class="c1">＃默认情况下，每15秒刮一次目标。</span>
+  <span class="c1">＃scrape_timeout设置为全局默认（10s）。</span>
+
+  <span class="c1">＃在与</span>
+  <span class="c1">＃个外部系统（联合，远程存储，Alertmanager）</span>
+  <span class="c1">通信时，将这些标签附加到任何时间序列或警报</span><span class="c1">。</span><span class="hei">external_labels </span><span class="p">：</span>
+      <span class="hei">monitor </span><span class="p">：</span> <span class="s1">'3ren-monitor'</span>
+
+<span class="c1">＃加载规则一次，并根据全局“evaluation_interval”定期评估它们。</span>
+<span class="hei">rule_files </span><span class="p">：</span>
+  <span class="c1">＃ - “first.rules” </span>
+  <span class="c1">＃ - “second.rules”</span>
+
+<span class="c1">＃一个Scrape配置，只包含一个端点：</span>
+<span class="c1">＃这里是Prometheus本身。</span>
+<span class="hei">scrape_configs </span><span class="p">：</span>
+  <span class="c1">＃将作业名称作为标签“job = &lt;job_name&gt;”添加到从该配置中刮取的任何时间间隔。</span>
+  <span class="o">- </span> <span class="hei">job_name </span><span class="p">：</span> <span class="s1">'prometheus'</span>
+
+    <span class="c1">＃每隔5秒覆盖全局默认值并从该作业中删除目标。</span>
+    <span class="c1">＃scrape_interval：5s</span>
+
+    <span class="c1">＃metrics_path默认为“/ metrics”＃scheme默认为</span>
+    <span class="c1">“http”。</span>
+
+    <span class="hei">static_configs </span><span class="p">：</span>
+      <span class="o">- </span> <span class="hei">targets </span><span class="p">：</span> <span class="p">[ </span><span class="s1">“&lt;hostname1&gt;：&lt;port&gt;” </span><span class="p">，</span> <span class="s1">“&lt;hostname2&gt;：&lt;port&gt;” </span><span class="p">]</span>
+</pre></div>
+</div>
+<p>3  - 在三人即时通系统控制台中启用性能监控，并指定监听地址。看到更多的细节我们在配置设置文档。</p>
+<img alt="" src="../images/perf_monitoring_system_console.png" style="width: 627.9px; height: 283.5px;">
+<p>4  - 要测试服务器正在运行，请转到<code class="docutils literal"><span class="pre">&lt;ip&gt;:&lt;port&gt;/metrics</span></code>。</p>
+<p>5  - 最后，运行完成配置Prometheus。<code class="docutils literal"><span class="pre">vi</span> <span class="pre">prometheus.yml</span></code></p>
+<p>要开始Prometheus服务，请阅读Prometheus提供的综合指南。</p>
+<p>6  - 服务开始后，您可以访问数据<code class="docutils literal"><span class="pre">&lt;localhost&gt;:&lt;port&gt;/graph</span></code>。</p>
+<p>虽然您可以使用Prometheus服务创建图表，但我们将专注于在Grafana中创建指标和分析仪表板。</p>
+<div class="admonition note">
+<p class="first admonition-title">注意</p>
+<p class="last">有关故障排除建议，请查看“Prometheus FAQ”页面。</p>
+</div>
+</div>
+<div class="section">
+<h3>安装Grafana</h3>
+<p>1  - 在Ubuntu或Debian上下载Grafana的预编译二进制文件。二进制文件也可用于其他发行版，包括Redhat，Windows和Mac。</p>
+<p>有关安装说明，请参阅Grafana安装指南</p>
+<p>2  -  Grafana软件包是作为服务安装的，所以很容易启动服务器。有关详细信息，请参阅安装指南。</p>
+<p>3  - 默认的HTTP端口是<code class="docutils literal"><span class="pre">3000</span></code>，默认的用户名和密码是<code class="docutils literal"><span class="pre">admin</span></code>。</p>
+<div class="admonition note">
+<p class="first admonition-title">注意</p>
+<p class="last">有关故障排除建议，请查看Grafana疑难解答页面。</p>
+</div>
+<p>有关用户指南和教程，请查看Grafana文档以了解更多信息。</p>
+</div>
+</div>
+<div class="section">
+<h2>入门</h2>
+<p>为了帮助您开始使用，您可以下载Grafana共享的三个示例信息中心：</p>
+
+<div><ul class="simple" style="margin-left:10px;">
+<li>最新性能KPI指标，其中包含监测性能和系统健康状况的关键指标。</li>
+<li>最重要的绩效监测，其中包含绩效监测的详细图表。</li>
+<li>最重要的性能监控（奖金指标），其中包含其他指标，如发送的电子邮件或上传的文件，这在某些部署中可能很重要。</li>
+</ul>
+</div>
+<p>请参阅本指南，了解如何从UI或HTTP API导入Grafana仪表板。</p>
+</div>
+<div class="section">
+<h2>统计</h2>
+<p>三人即时通提供了与Prometheus和Grafana集成的以下性能监控统计数据。</p>
+<div class="section">
+<h3>自定义最重要度量</h3>
+<p>以下是可用于监控系统性能的自定义三人即时通指标列表：</p>
+<p>缓存指标：</p>
+
+<div><ul class="simple" style="margin-left:10px;">
+<li><code class="docutils literal"><span class="pre">3ren_cache_etag_hit_total</span></code>：特定缓存的ETag缓存命中的总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_cache_etag_miss_total</span></code>：API调用的ETag高速缓存未命中总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_cache_mem_hit_total</span></code>：特定缓存的内存缓存命中总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_cache_mem_miss_total</span></code>：特定缓存的高速缓存未命中总数。</li>
+</ul>
+</div>
+<p>以上指标可用于计算ETag和内存缓存命中率。</p>
+<img alt="" src="../images/perf_monitoring_caching_metrics.png">
+<p>集群度量：</p>
+<div><ul class="simple" style="margin-left:10px;">
+<li><code class="docutils literal"><span class="pre">3ren_cluster_cluster_request_duration_seconds</span></code>：节点间集群请求的总持续时间（以秒为单位）。</li>
+<li><code class="docutils literal"><span class="pre">3ren_cluster_cluster_requests_total</span></code>：节点间请求的总数。</li>
+</ul>
+</div>
+<p>数据库指标：</p>
+<div><ul class="simple" style="margin-left:10px;">
+<li><code class="docutils literal"><span class="pre">3ren_db_master_connections_total</span></code>：与主数据库的总数量。</li>
+<li><code class="docutils literal"><span class="pre">3ren_db_read_replica_connections_total</span></code>：与所有读取的副本数据库的总数量。</li>
+<li><code class="docutils literal"><span class="pre">3ren_db_search_replica_connections_total</span></code>：与所有搜索副本数据库的总数量。</li>
+</ul>
+</div>
+<p>HTTP指标：</p>
+<div><ul class="simple" style="margin-left:10px;">
+<li><code class="docutils literal"><span class="pre">3ren_http_errors_total</span></code>：http API错误的总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_http_request_duration_seconds</span></code>：http API请求的总持续时间（以秒为单位）。</li>
+<li><code class="docutils literal"><span class="pre">3ren_http_requests_total</span></code>：http API请求的总数。</li>
+</ul>
+</div>
+<img alt="" src="../images/perf_monitoring_http_metrics.png">
+<p>登录和会话度量：</p>
+<div><ul class="simple" style="margin-left:10px;">
+<li><code class="docutils literal"><span class="pre">3ren_http_websockets_total</span></code> 与服务器的WebSocket连接总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_login_logins_fail_total</span></code>：登录失败的总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_login_logins_total</span></code>：成功登录的总数。</li>
+</ul>
+</div>
+<p>消息指标：</p>
+<div><ul class="simple" style="margin-left:10px;">
+<li><code class="docutils literal"><span class="pre">3ren_post_broadcasts_total</span></code>由于创建了一条帖子而发送的WebSocket广播总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_post_emails_sent_total</span></code>由于创建了一条帖子而发送的电子邮件总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_post_file_attachments_total</span></code>：创建了一条帖子创建的文件附件总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_post_pushes_sent_total</span></code>：由于创建了一条帖子而发送的移动推送通知的总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_post_total</span></code>：创建的帖子总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_post_webhooks_totals</span></code>：创建的Webhook帖子总数。</li>
+</ul>
+</div>
+<img alt="" src="../images/perf_monitoring_messaging_metrics.png">
+<p>过程指标：</p>
+<div><ul class="simple" style="margin-left:10px;">
+<li><code class="docutils literal"><span class="pre">3ren_process_cpu_seconds_total</span></code>：用户和系统CPU总时间在几秒钟内完成。</li>
+<li><code class="docutils literal"><span class="pre">3ren_process_max_fds</span></code>：打开文件描述符的最大数量。</li>
+<li><code class="docutils literal"><span class="pre">3ren_process_open_fds</span></code>：打开文件描述符的数量。</li>
+<li><code class="docutils literal"><span class="pre">3ren_process_resident_memory_bytes</span></code>：驻留内存大小（以字节为单位）</li>
+<li><code class="docutils literal"><span class="pre">3ren_process_start_time_seconds</span></code>：从unix纪录开始的时间，以秒为单位。</li>
+<li><code class="docutils literal"><span class="pre">3ren_process_virtual_memory_bytes</span></code>虚拟内存大小（以字节为单位）</li>
+</ul>
+</div>
+<p>WebSocket指标：</p>
+<div><ul class="simple" style="margin-left:10px;">
+<li><code class="docutils literal"><span class="pre">3ren_websocket_broadcasts_total</span></code>：按类型发送的WebSocket广播总数。</li>
+<li><code class="docutils literal"><span class="pre">3ren_websocket_event_total</span></code>：按类型发送的WebSocket事件总数。</li>
+</ul>
+</div>
+</div>
+<div class="section">
+<h3>标准GO指标</h3>
+<p>Prometheus集成还提供HTTP服务器运行时分析数据和系统监控的标准GO指标，例如：</p>
+<div><ul class="simple" style="margin-left:10px;">
+<li><code class="docutils literal"><span class="pre">go_memstats_alloc_bytes</span></code> 用于内存使用</li>
+<li><code class="docutils literal"><span class="pre">go_goroutines</span></code> 对于GO例程</li>
+<li><code class="docutils literal"><span class="pre">go_gc_duration_seconds</span></code> 用于垃圾收集时间</li>
+<li><code class="docutils literal"><span class="pre">go_memstats_heap_objects</span></code> 用于堆上的对象跟踪</li>
+</ul>
+</div>
+<p>要了解如何设置运行时分析，请参阅pprof包GO文档。您还可以访问该<code class="docutils literal"><span class="pre">ip:port/metrics</span></code>页面以获取有关说明的指标的完整列表。</p>
+<p>如果启用，您可以运行分析器</p>
+<div style="margin-left:15px;margin-bottom:20px;"><code class="docutils literal"><span class="pre">go</span> <span class="pre">tool</span> <span class="pre">pprof</span> <span class="pre">channel</span> <span class="pre">http://localhost:&lt;port&gt;/debug/pprof/profile</span></code></div>
+
+<p>您可以在其中替换<code class="docutils literal"><span class="pre">localhost</span></code>服务器名称。分析报告可在<code class="docutils literal"><span class="pre">&lt;ip&gt;:&lt;port&gt;</span></code>，其中包括：</p>
+
+<div><ul class="simple" style="margin-left:10px;">
+<li><code class="docutils literal"><span class="pre">/debug/pprof</span></code>/用于CPU分析</li>
+<li><code class="docutils literal"><span class="pre">/debug/pprof/cmdline</span></code>/用于命令行剖析</li>
+<li><code class="docutils literal"><span class="pre">/debug/pprof/symbol</span></code>/用于符号分析</li>
+<li><code class="docutils literal"><span class="pre">/debug/pprof/goroutine</span></code>/用于GO常规分析</li>
+<li><code class="docutils literal"><span class="pre">/debug/pprof/heap</span></code>/用于堆分析</li>
+<li><code class="docutils literal"><span class="pre">/debug/pprof/threadcreate</span></code>/用于线程分析</li>
+<li><code class="docutils literal"><span class="pre">/debug/pprof/block</span></code>/用于块分析</li>
+</ul>
+</div>
+<img alt="" src="../images/perf_monitoring_go_metrics.png">
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docMonitor',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>

@@ -259,28 +259,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         small-screen="[[_smallScreen]]"
         failure="[[failure]]">
       </sameview-document>
-      <sameview-docEnter
-        name="docEnter"
-        page="{{page}}"
-        route="[[subroute]]"
-        category-name="{{categoryName}}"
-        category="[[category]]"
-        loading="[[loading]]"
-        offline="[[offline]]"
-        small-screen="[[_smallScreen]]"
-        failure="[[failure]]">
-      </sameview-docEnter>
-      <sameview-docMessage
-        name="docMessage"
-        page="{{page}}"
-        route="[[subroute]]"
-        category-name="{{categoryName}}"
-        category="[[category]]"
-        loading="[[loading]]"
-        offline="[[offline]]"
-        small-screen="[[_smallScreen]]"
-        failure="[[failure]]">
-      </sameview-docMessage>
       <sameview-docDialogue
         name="docDialogue"
         page="{{page}}"
@@ -292,17 +270,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         small-screen="[[_smallScreen]]"
         failure="[[failure]]">
       </sameview-docDialogue>
-      <sameview-docNotice
-        name="docNotice"
-        page="{{page}}"
-        route="[[subroute]]"
-        category-name="{{categoryName}}"
-        category="[[category]]"
-        loading="[[loading]]"
-        offline="[[offline]]"
-        small-screen="[[_smallScreen]]"
-        failure="[[failure]]">
-      </sameview-docNotice>
       <sameview-docSeek
         name="docSeek"
         page="{{page}}"
@@ -358,28 +325,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         small-screen="[[_smallScreen]]"
         failure="[[failure]]">
       </sameview-docApplication>
-      <sameview-docMessages
-        name="docMessages"
-        page="{{page}}"
-        route="[[subroute]]"
-        category-name="{{categoryName}}"
-        category="[[category]]"
-        loading="[[loading]]"
-        offline="[[offline]]"
-        small-screen="[[_smallScreen]]"
-        failure="[[failure]]">
-      </sameview-docMessages>
-      <sameview-docTeammates
-        name="docTeammates"
-        page="{{page}}"
-        route="[[subroute]]"
-        category-name="{{categoryName}}"
-        category="[[category]]"
-        loading="[[loading]]"
-        offline="[[offline]]"
-        small-screen="[[_smallScreen]]"
-        failure="[[failure]]">
-      </sameview-docTeammates>
       <sameview-docFormatting
         name="docFormatting"
         page="{{page}}"
@@ -446,17 +391,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         small-screen="[[_smallScreen]]"
         failure="[[failure]]">
       </sameview-docFixed>
-      <sameview-docAccount
-        name="docAccount"
-        page="{{page}}"
-        route="[[subroute]]"
-        category-name="{{categoryName}}"
-        category="[[category]]"
-        loading="[[loading]]"
-        offline="[[offline]]"
-        small-screen="[[_smallScreen]]"
-        failure="[[failure]]">
-      </sameview-docAccount>
       <sameview-docTheme
         name="docTheme"
         page="{{page}}"
@@ -512,17 +446,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         small-screen="[[_smallScreen]]"
         failure="[[failure]]">
       </sameview-docIntegration>
-      <sameview-docAdministratorTask
-        name="docAdministratorTask"
-        page="{{page}}"
-        route="[[subroute]]"
-        category-name="{{categoryName}}"
-        category="[[category]]"
-        loading="[[loading]]"
-        offline="[[offline]]"
-        small-screen="[[_smallScreen]]"
-        failure="[[failure]]">
-      </sameview-docAdministratorTask>
       <sameview-docLoading
         name="docLoading"
         page="{{page}}"
@@ -754,21 +677,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         small-screen="[[_smallScreen]]"
         failure="[[failure]]">
       </sameview-docApi>
-      <left-side
-        name="side"
-        page="[[page]]"
-        page="{{page}}"
-        route="[[subroute]]"
-        category-name="{{categoryName}}"
-        category="[[category]]"
-        loading="[[loading]]"
-        offline="[[offline]]"
-        small-screen="[[_smallScreen]]"
-        failure="[[failure]]">
-      </left-side>
 
       <news-path-warning name="path-warning"></news-path-warning>
-
     </iron-pages>
 
     <footer id="foot">
@@ -876,27 +786,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             ironHeight = ironHeight +"px";
             this.$.ironPages.style.minHeight= ironHeight;
           }
-          // window.onscroll = function(){
-          //   if(document.body.scrollTop > 600){
-          //     _this.$.goTop.classList.add("block");
-          //   }else{
-          //     _this.$.goTop.classList.remove("block");
-          //     var afterScrollTop = document.body.scrollTop;
-          //     if(beforeScrollTop > afterScrollTop){
-          //       _this.$.goTop.classList.add("none");
-          //     }
-          //     beforeScrollTop = afterScrollTop;
-          //   }
-          // }
-          if (this.page === "document" || this.page === "docEnter" || this.page === "docMessage" || this.page === "docDialogue" || this.page === "docNotice"
-        || this.page === "docSeek" || this.page === "docTeam" || this.page === "docMember" || this.page === "docOrganization" || this.page === "docApplication"
-        || this.page === "docMessages" || this.page === "docTeammates" || this.page === "docFormatting" || this.page === "docShare" || this.page === "docPerform"
-        || this.page === "docMail"  || this.page === "docShortcuts" || this.page === "docFixed" || this.page === "docAccount" || this.page === "docTheme" || this.page === "docChannel"
-        || this.page === "docTeamSet" || this.page === "docExpression" || this.page === "docIntegration" || this.page === "docAdministratorTask" || this.page === "docLoading"
-        || this.page === "docMobileApp"  || this.page === "docActive" || this.page === "docCertification" || this.page === "docSAML" || this.page === "docExpand" || this.page === "docClientData"
-        || this.page === "docOffice"  || this.page === "docGoogle" || this.page === "docGitLab" || this.page === "docAvailability" || this.page === "docMonitor" || this.page === "docCommand"
-        || this.page === "docStatistics"  || this.page === "docAnnouncement" || this.page === "docCompliance" || this.page === "docBranding" || this.page === "docBackup" || this.page === "docUpgrade"
-        || this.page === "docMigrating"  || this.page === "docApi") {
+          if (this.page === "document") {
             $(this.$.foot).css("display","none");
             $(this.$.nav).css("display","none");
           }else {
@@ -904,62 +794,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             $(this.$.nav).css("display","block");
           }
         },
+        created: function() {
+          // Custom elements polyfill safe way to indicate an element has been upgraded.
+          this.removeAttribute('unresolved');
 
-      created: function() {
-        // Custom elements polyfill safe way to indicate an element has been upgraded.
-        this.removeAttribute('unresolved');
+          // Chrome on iOS recomputes "vh" unit when URL bar goes off screen. Since we use "vh" unit
+          // to size the cover image and the title, those items will resize in response to the URL
+          // bar being shown or hidden. FWIW, this is not an issue in Chrome 56 on Android or iOS
+          // Safari. To workaround this on Chrome on iOS, we will use a
+          // fixed viewport height in places where normally relying on "vh" unit and replace them with
+          // custom property "--viewport-height".
+          var ua = navigator.userAgent;
+          var cMatch = navigator.userAgent.match(/Android.*Chrome[\/\s](\d+\.\d+)/);
+          if (ua.match('CriOS') || (cMatch && cMatch[0] && cMatch[1] < 56)) {
+            document.body.classList.add('fixed-viewport-height');
+          }
+        },
 
-        // Chrome on iOS recomputes "vh" unit when URL bar goes off screen. Since we use "vh" unit
-        // to size the cover image and the title, those items will resize in response to the URL
-        // bar being shown or hidden. FWIW, this is not an issue in Chrome 56 on Android or iOS
-        // Safari. To workaround this on Chrome on iOS, we will use a
-        // fixed viewport height in places where normally relying on "vh" unit and replace them with
-        // custom property "--viewport-height".
-        var ua = navigator.userAgent;
-        var cMatch = navigator.userAgent.match(/Android.*Chrome[\/\s](\d+\.\d+)/);
-        if (ua.match('CriOS') || (cMatch && cMatch[0] && cMatch[1] < 56)) {
-          document.body.classList.add('fixed-viewport-height');
-        }
-      },
+        attached: function() {
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            this.listen(window, 'online', '_notifyNetworkStatus');
+            this.listen(window, 'offline', '_notifyNetworkStatus');
+          });
+        },
 
-      attached: function() {
-        Polymer.RenderStatus.afterNextRender(this, function() {
-          this.listen(window, 'online', '_notifyNetworkStatus');
-          this.listen(window, 'offline', '_notifyNetworkStatus');
-        });
-      },
+        detached: function() {
+          this.unlisten(window, 'online', '_notifyNetworkStatus');
+          this.unlisten(window, 'offline', '_notifyNetworkStatus');
+        },
 
-      detached: function() {
-        this.unlisten(window, 'online', '_notifyNetworkStatus');
-        this.unlisten(window, 'offline', '_notifyNetworkStatus');
-      },
-
-      _routePageChanged: function(page) {
-        if (!page) {
-          // set default route if route path is empty
-          // this.set('route.path', 'list/home');
-          // this.set('route.path', 'sameviewloading/home');
-          this.set('route.path', 'home');
-          return;
-        }
-        this.page = page;
-        console.log("app页面的 _routePageChanged:",page,this.route.path);
-        this.pagepath =  this.route.path;
-        var remainingPieces = this.pagepath.split('/');
-        // this.pageName = remainingPieces[2];//这种是对应 this.set('route.path', 'sameviewloading/home');
-        this.pageName = remainingPieces[1];//这种是对应 this.set('route.path', 'home');
-        // Scroll to the top of the page on every *route* change. Use `Polymer.AppLayout.scroll`
-        // with `behavior: 'silent'` to disable header scroll effects during the scroll.
-        // Polymer.AppLayout.scroll({ top: 0, behavior: 'silent' });
-        // Close the drawer - in case the *route* change came from a link in the drawer.
-        this.categoryName = this.pageName;
-        this.$.nav.closeDrawer();
-      },
+        _routePageChanged: function(page) {
+          if (!page) {
+            // set default route if route path is empty
+            this.set('route.path', 'home');
+            return;
+          }
+          this.page = page;
+          // console.log("app页面的 _routePageChanged:",page,this.route.path);
+          this.pagepath =  this.route.path;
+          var remainingPieces = this.pagepath.split('/');
+          // this.pageName = remainingPieces[2];//这种是对应 this.set('route.path', 'sameviewloading/home');
+          this.pageName = remainingPieces[1];//这种是对应 this.set('route.path', 'home');
+          // Scroll to the top of the page on every *route* change. Use `Polymer.AppLayout.scroll`
+          // with `behavior: 'silent'` to disable header scroll effects during the scroll.
+          // Polymer.AppLayout.scroll({ top: 0, behavior: 'silent' });
+          // Close the drawer - in case the *route* change came from a link in the drawer.
+          this.categoryName = this.pageName;
+          this.$.nav.closeDrawer();
+        },
 
       _pageChanged: function(page, oldPage) {
         var href;
         var path = this.route;
-        console.log("app页面的 _pageChanged:",page,this.route);
+        // console.log("app页面的 _pageChanged:",page,this.route);
         if(page !== "images"){
           switch(page) {
              case 'home':
@@ -998,17 +885,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              case 'document':
                href = 'sameview-document.html';
                break;
-             case 'docEnter':
-               href = 'sameview-docEnter.html';
-               break;
-             case 'docMessage':
-               href = 'sameview-docMessage.html';
-               break;
              case 'docDialogue':
                href = 'sameview-docDialogue.html';
-               break;
-             case 'docNotice':
-               href = 'sameview-docNotice.html';
                break;
              case 'docSeek':
                href = 'sameview-docSeek.html';
@@ -1024,12 +902,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                break;
              case 'docApplication':
                href = 'sameview-docApplication.html';
-               break;
-             case 'docMessages':
-               href = 'sameview-docMessages.html';
-               break;
-             case 'docTeammates':
-               href = 'sameview-docTeammates.html';
                break;
              case 'docFormatting':
                href = 'sameview-docFormatting.html';
@@ -1049,9 +921,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              case 'docFixed':
                href = 'sameview-docFixed.html';
                break;
-             case 'docAccount':
-               href = 'sameview-docAccount.html';
-               break;
              case 'docTheme':
                href = 'sameview-docTheme.html';
                break;
@@ -1066,9 +935,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                break;
              case 'docIntegration':
                href = 'sameview-docIntegration.html';
-               break;
-             case 'docAdministratorTask':
-               href = 'sameview-docAdministratorTask.html';
                break;
              case 'docLoading':
                href = 'sameview-docLoading.html';
@@ -1151,13 +1017,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             ironHeight = (ironHeight-275) +"px";
             this.$.ironPages.style.minHeight= ironHeight;
         }
-        if (page === "document" || page === "docEnter" || page === "docMessage" || page === "docDialogue" || page === "docNotice" || page === "docSeek"
-         || page === "docTeam" || page === "docMember" || page === "docOrganization" || page === "docApplication" || page === "docMessages" || page === "docTeammates" || page === "docFormatting"
-         || page === "docShare" || page === "docPerform" || page === "docMail" || page === "docShortcuts" || page === "docFixed" || page === "docAccount" || page === "docTheme" || page === "docChannel"
-         || page === "docTeamSet" || page === "docExpression" || page === "docIntegration" || page === "docAdministratorTask" || page === "docLoading" || page === "docMobileApp" || page === "docActive"
-         || page === "docCertification" || page === "docSAML" || page === "docExpand" || page === "docClientData" || page === "docOffice" || page === "docGoogle" || page === "docGitLab" || page === "docAvailability"
-         || page === "docMonitor" || page === "docCommand" || page === "docStatistics" || page === "docAnnouncement" || page === "docCompliance" || page === "docBranding" || page === "docBackup"
-         || page === "docUpgrade" || page === "docMigrating" || page === "docApi") {
+        if (page === "document") {
           $(this.$.foot).css("display","none");
           $(this.$.nav).css("display","none");
         }

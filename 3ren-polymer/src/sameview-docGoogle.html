@@ -1,0 +1,109 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer-bootstrap/polymer-bootstrap.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<!-- <link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html"> -->
+<link rel="import" href="left-side.html">
+
+<dom-module id="sameview-docGoogle">
+  <link rel="import" type="css" href="../css/animate.min.css">
+  <link rel="import" type="css" href="../css/page.css">
+  <link rel="import" type="css" href="../css/style.css">
+  <template>
+    <style include="polymer-bootstrap">
+    a:focus,a:hover{
+      text-decoration: none;
+    }
+    </style>
+      <iron-media-query query="max-width: 768px" query-matches="{{_smallScreen}}"></iron-media-query>
+    <app-route
+        route="[[route]]"
+        pattern="/:category"
+        data="{{_routeData}}">
+    </app-route>
+    <div class="" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <header class="docHeader">
+        <paper-icon-button on-click="_toggleDrawer" class="mobile-toggle-drawer-btn" icon="menu" aria-label="Main navigation" role="button" tabindex="0" aria-disabled="false"></paper-icon-button>
+        <div class="logo pull-left">
+          <a href="/"><img src="../images/logo_01.svg" /></a>
+        </div>
+        <template is="dom-if" if="[[!smallScreen]]">
+          <iron-selector role="navigation" class="menu-list pull-right" selected="[[category.name]]" attr-for-selected="name">
+            <a name="home" href="/home"><paper-ripple></paper-ripple>返回官网</div></a>
+          </iron-selector>    　　
+        </template>
+      </header>
+      <div class="docMatter" style="margin-top:50px;">
+        <left-side page="{{page}}"></left-side>
+        <div class="docContent">
+          <div class="crumbs">
+            <p><a name="document" href="/document">文件</a><font> »</font></p>
+            <p><font>部署 »</font></p>
+            <p>Google单点登录（E20）</p>
+          </div>
+          <div role="main" class="document">
+            <div itemprop="articleBody">
+
+  <div class="section">
+<h1>Google单点登录（E20）</h1>
+<hr class="docutils">
+<p>按照以下步骤配置三人即时通以使用Google作为单点登录（SSO）服务，用于创建团队，创建帐户并登录。</p>
+<p>1  - 登录到您的Google帐户。</p>
+<p>2  - 转到Google API管理器，单击左侧边栏中的<strong>凭据</strong>，单击<strong>创建项目，</strong>然后输入“3ren  -  your-company-name”作为<strong>项目名称</strong>，然后单击<strong>创建</strong>。</p>
+<p><img alt="" src="../images/google_1_credentials.png"></p>
+<p>3  - 单击<strong>OAuth同意屏幕</strong>标题，然后输入“三人即时通”作为<strong>用户显示</strong>的<strong>产品名称</strong>，然后单击“ <strong>保存”</strong>。</p>
+<p><img alt="" src="../images/google_2_oauth_consent_screen.png"></p>
+<p>4  - 在<strong>凭据</strong>标题下，单击<strong>创建凭证</strong>，从下拉列表中选择<strong>OAuth客户端ID</strong>。</p>
+<p><img alt="" src="../images/google_3_oauth_client_id.png"></p>
+<p>5  - 选择<strong>Web应用程序</strong>作为<strong>应用程序类型</strong>，并为OAuth连接选择描述性<strong>名称</strong>。</p>
+<p>在<strong>限制</strong> &gt; <strong>授权的重定向URIs下</strong>，输入<code class="docutils literal"><span class="pre">your-3ren-url/signup/google/complete</span></code>（示例<strong>：）</strong><code class="docutils literal"><span class="pre">http://localhost:8065/signup/google/complete</span></code>。单击<strong>创建</strong>。</p>
+<p><img alt="" src="../images/google_4_web_app.png"></p>
+<p>6  - 复制<strong>客户端ID</strong>和<strong>客户机密码</strong>，用于配置Google SSO for 3ren。</p>
+<p><img alt="" src="../images/google_5_client_id_secret.PNG"></p>
+<p>7  - 最后，转到Google+ API，然后在标题中单击<strong>启用</strong>。这可能需要几分钟时间才能通过Google的系统传播。</p>
+<p>8  - 在<strong>系统控制台&gt; OAuth 2.0&gt;选择OAuth 2.0服务提供商</strong>，选择<strong>Google Apps</strong>作为服务提供商，并在其各自的字段中从步骤6 输入<strong>客户端ID</strong>和<strong>客户端密钥</strong>。</p>
+<p>9  - 重新启动您的三人即时通服务器，以便更改生效。</p>
+<p>笔记：</p>
+<ul class="simple">
+<li>您也可以输入<strong>客户ID</strong>和<strong>客户端密钥</strong>从第6步，直接场<code class="docutils literal"><span class="pre">GoogleSettings</span></code>的部分<code class="docutils literal"><span class="pre">config/config.json</span></code>。</li>
+<li>推荐以下<code class="docutils literal"><span class="pre">GoogleSettings</span></code>部分的默认值<code class="docutils literal"><span class="pre">config/config.json</span></code>：<ul>
+<li><code class="docutils literal"><span class="pre">Scope</span></code>： <code class="docutils literal"><span class="pre">profile</span> <span class="pre">email</span></code></li>
+<li><code class="docutils literal"><span class="pre">AuthEndpoint</span></code>： <code class="docutils literal"><span class="pre">https://accounts.google.com/o/oauth2/v2/auth</span></code></li>
+<li><code class="docutils literal"><span class="pre">TokenEndpoint</span></code>： <code class="docutils literal"><span class="pre">https://www.googleapis.com/oauth2/v4/token</span></code></li>
+<li><code class="docutils literal"><span class="pre">UserApiEndpoint</span></code>： <code class="docutils literal"><span class="pre">https://www.googleapis.com/plus/v1/people/me</span></code></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</template>
+<script>
+  Polymer({
+    is: 'sameview-docGoogle',
+
+     ready: function(){
+       var win = $(window);
+       $(window).resize(function(){
+         this.winwidth = win.width();//屏幕的宽  .width()
+         this.winheight = win.innerHeight()-1;//屏幕的高
+         var bgHeight = this.winheight;
+        //  $(this.$.bg).height(bgHeight);
+       });
+       this.winheight = win.innerHeight()-1;//屏幕的高
+       this.winwidth = win.width();//屏幕的宽  .width()
+       var bgHeight = this.winheight;
+      //  $(this.$.bg).height(bgHeight);
+
+     },
+
+  });
+
+</script>
+
+</dom-module>
