@@ -5,7 +5,6 @@
     "src/my-view1.html",
     "src/my-view2.html",
     "src/my-view3.html",
-    "src/task-list.html",
     "src/my-view404.html"
   ],
   "sourceGlobs": [
