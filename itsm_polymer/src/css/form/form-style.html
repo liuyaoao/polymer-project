@@ -1,0 +1,163 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./bootstrap-styles.html">
+<!-- shared styles for all views -->
+<style is="custom-style">
+  form-design-page {
+    font-size: 14px;
+  }
+</style>
+
+<dom-module id="form-style">
+  <!-- <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css"/> -->
+  <template>
+    <style include="bootstrap-styles">
+      :host {
+        --control-position-bottom: {
+          position: absolute;
+          bottom: 0;
+        };
+        /*--paper-input-container-label: {
+          font-size: 12px;
+        };
+        --paper-input-container-input: {
+          font-size: 12px;
+        };*/
+      }
+      :host(.nopoint) * {
+        pointer-events: none;
+        cursor: default;
+        opacity: 1;
+      }
+      html, body{
+        font-size: 12px;
+      }
+      app-drawer .add-header {
+        background: #3b3b3b;
+        height: 40px;
+        font-size: 12px;
+        padding-right: 0px;
+        padding-left: 0px;
+      }
+      app-header, app-toolbar {
+        color: #fff;
+        text-align: left;
+      }
+      paper-button {
+        display: inline-block;
+        font-size: 14px;
+        text-align: center;
+      }
+      paper-button.pbtn {
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      paper-button.pbtn-default {
+        border: 1px solid #ddd;
+        color: #222;
+      }
+      paper-button.pbtn-default:hover {
+        border-color: #adadad;
+        background-color: #e6e6e6;
+      }
+      paper-button.pbtn-primary {
+        /*border: 1px solid #0288D1;*/
+        background-color: #01b1f8;
+        color: #fff;
+      }
+      paper-button.pbtn-primary:hover {
+	      background: #81cdf2;
+        color: #fff;
+	    }
+      .config-form {
+        /*margin: 10px;*/
+        /*padding-top: 10px;*/
+        text-align: left;
+        /*border: 1px solid #e0e0e0;
+        background: #f9f9f9;*/
+        min-height: 120px;
+      }
+      .config-form label {
+        font-weight: normal;
+      }
+      .form input {
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .form2 > .form-group {
+        margin-bottom: 0px;
+        font-size: 12px;
+      }
+      .form-content {
+        padding: 0 15px 10px 15px;
+        font-size: 12px;
+      }
+      iron-collapse.form-content {
+        padding-left: 20px;
+      }
+      .form-content .form-group {
+        margin-top: 0px;
+        margin-bottom: 0;
+      }
+      .form-content .form-label {
+        width: 50px;
+        line-height: 34px;
+        margin-bottom: 0;
+        font-size: 12px;
+      }
+      .form-content .form-link {
+        line-height: 34px;
+      }
+      .form2 .menu-check {
+        padding-top: 3px;
+      }
+      .form2 paper-menu-button {
+        padding: 0px;
+      }
+      /*paper-dropdown-menu.custom {
+        width: 100%;
+        --paper-input-container: {
+          border: 1px solid #ccc;
+          padding: 0px;
+          background-color: #fff;
+          height: 32px;
+        };
+        --paper-input-container-input: {
+          padding: 5px 12px 3px;
+        };
+        --paper-input-container-underline: {
+          display: none;
+          height: 0px;
+        };
+        --paper-input-container-underline-focus: {
+          display: none;
+        };
+        --paper-dropdown-menu-ripple: {
+          bottom: 0px;
+          margin-top: -8px;
+        };
+      }*/
+
+      /*paper-input.custom {
+        --paper-input-container: {
+          border: 1px solid #ccc;
+          padding: 0px;
+          background-color: #fff;
+          height: 32px;
+        };
+        --paper-input-container-input: {
+          padding: 5px 12px 3px;
+          height: 32px;
+        };
+        --paper-input-container-underline: {
+          display: none;
+          height: 0px;
+        };
+        --paper-input-container-underline-focus: {
+          display: none;
+        };
+      }*/
+
+    </style>
+  </template>
+</dom-module>

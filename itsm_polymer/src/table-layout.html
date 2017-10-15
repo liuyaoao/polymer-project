@@ -1,0 +1,442 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel='import' href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../../bower_components/jquery-ui/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+<script src="../dist/gridstack.js"></script>
+<script src="../dist/gridstack.jQueryUI.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AniJS/0.9.3/anijs.js"></script>
+
+<!-- custom components -->
+<link rel="import" href="./components/home/add-widget.html">
+<link rel="import" href="./components/home/edit-panel.html">
+<link rel="import" href="./components/home/center-operating.html">
+<link rel="import" href="./components/wait-dialog.html">
+<link rel="import" href="table-new-panel.html">
+<link rel="import" href="table-dialog.html">
+
+<!-- css -->
+<link rel="import" href="../bower_components/polymer-gridstack/polymer-gridstack-style.html">
+<link rel="import" href="./css/form/bootstrap-styles.html">
+<link rel="import" href="./css/page-styles.html">
+
+<dom-module id="table-layout">
+  <template>
+    <style include="polymer-gridstack-style bootstrap-styles page-styles">
+      :host {
+        display: block;
+        --app-grid-columns: 1 !important;
+        --app-grid-gutter: 0 !important;
+        --app-drawer-width: 400px;
+        --app-drawer-height: 100%;
+      }
+      .small-icon{
+        cursor: pointer;
+      }
+    </style>
+    <div class="container-fluid">
+      <div class="wrapper-panel">
+        <div class="panel-header" style$="{{titleStyle}}">
+          <dom-if if="[[hasImage]]">
+            <template>
+              <img src="[[imageName]]" alt="">
+            </template>
+          </dom-if>
+          <h5>[[alias]]</h5>
+          <iron-icon class="small-icon pull-right" icon="vaadin:edit" title="edit" on-click="_editPanelDrawer">
+          </iron-icon>
+          <dom-if if="[[hasShowDate]]">
+            <template>
+              <h5 class="pull-right">[[nowDate]]</h5>
+            </template>
+          </dom-if>
+        </div>
+
+        <div class="wrapper-content" style$="{{bgStyle}}">
+          <paper-button class="btn black" on-click="_addWidgetDrawer">
+          新建仪表板
+          </paper-button>
+
+          <paper-button class="btn black" on-click="_saveLayout">
+          保存
+          </paper-button>
+
+          <paper-button class="btn black" on-click="_centerOperating">
+          快速操作
+          </paper-button>
+          <div class="grid-stack" id="gridStack">
+          </div>
+        </div>
+
+        <!-- 仪表盘编辑 -->
+        <app-drawer id="editPanel" align="right" swipe-open class="map-add">
+          <div class="drawer-contents">
+            <edit-panel panel-info="[[panelAllInfo]]">
+            </edit-panel>
+          </div>
+        </app-drawer>
+
+        <!--固件编辑 -->
+        <app-drawer id="addWidget" align="right" swipe-open class="map-add">
+          <div class="drawer-contents">
+            <add-widget widget="{{widget}}">
+            </add-widget>
+          </div>
+        </app-drawer>
+
+        <!-- 快速操作 -->
+        <app-drawer id="centerOperating" align="right" swipe-open class="map-add">
+          <div class="drawer-contents">
+            <center-operating>
+            </center-operating>
+          </div>
+        </app-drawer>
+
+      </div>
+
+    </div>
+
+    <!--部件的弹窗-->
+    <table-dialog id="dialog" subobj="{{subobj}}"></table-dialog>
+
+    <!-- 等待的弹窗-->
+    <wait-dialog id="waitDialog"></wait-dialog>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class TableLayout extends Polymer.Element {
+      static get is() { return 'table-layout'; }
+      static get properties() {
+        return {
+          count: {
+            type: Number,
+            value: -3
+          },
+
+          widget: String,
+
+          subobj: String,
+
+          panelAllInfo: Object,
+
+          partList: Array,
+
+          categoryId: String,
+
+          categoryName: {
+            type: String,
+            observer: "_categoryNameChanged"
+          },
+
+          titleBarStyles: Object,
+
+          backgroundStyles: Object,
+
+          hasShowDate: Boolean,
+
+          hasImage: Boolean,
+
+          imageName: String,
+
+          nowDate: String,
+
+          alias: String,
+
+          titleStyle: String,
+
+          bgStyle:String,
+
+          widgetTitleStyles: Object,
+
+          widgetBgStyles: Object,
+
+          menuList: Array
+
+        };
+      }
+
+      ready(){
+        this.addEventListener('remove-widget', this._removeWidget.bind(this));
+        this.addEventListener('addWidget-close', this.handleCloseMenu.bind(this));
+        this.addEventListener('editPanel-close', this.handleClosePanelMenu.bind(this));
+        this.addEventListener('onclick-ok', this.addNewWidget.bind(this));
+        this.addEventListener('open-dialog', this._popup.bind(this));
+
+        super.ready();
+
+        //显示等待弹框
+        this.$.waitDialog._openDialog();
+      }
+
+      _categoryNameChanged(now){
+        //切换顶部导航时 重新获取数据
+        if(this.menuList){
+          for(var i=0;i<this.menuList.length;i++){
+            if(now === this.menuList[i].name){
+              this.categoryId = this.menuList[i].id;
+              this._getPanelData();
+              this._newGridstack();
+            }
+          }
+        }
+      }
+
+      _getPanelData(){
+        var _this = this;
+        var urla = Window.AppConfig.serverUrl+"/foundation/api/v1/dashboard/getDefById?id="+ _this.categoryId +"&token=BD53EDB579544BAEB2B07448C7890D5F";
+        console.log(urla);
+        $.ajax({
+          type: "GET",
+          url: Window.AppConfig.serverUrl+"/foundation/api/v1/dashboard/getDefById?id="+ _this.categoryId +"&token=BD53EDB579544BAEB2B07448C7890D5F",
+          async : true,
+          success: function(data){
+            var arr = JSON.parse(data);
+            _this.panelAllInfo = arr;
+            //仪表板部件列表
+            _this.partList =  arr.partList;
+
+            //样式---仪表板标题 背景
+            _this.titleBarStyles =  arr.titleBarDef;
+            _this.backgroundStyles =  arr.backgroundDef;
+
+            //初始化仪表板样式
+            _this._initWidgetStyles();
+
+            //初始化部件
+            _this._initWidget();
+          },
+          error: function(error){
+            console.log("errorMsg",error);
+          }
+        });
+      }
+
+      _initWidgetStyles(){
+        //隐藏等待弹框
+        var _this = this;
+        setTimeout(function(){
+          _this.$.waitDialog._closeDialog();
+        },1000);
+
+        //初始化部件样式
+
+        //初始化标题样式
+        var titleStyles = _this.titleBarStyles;
+
+        _this.alias = titleStyles.alias;
+
+        _this.hasImage = titleStyles.imageName === "" ? false: true;
+        _this.imageName = titleStyles.imageName;
+
+        _this.hasShowDate = titleStyles.showDate;
+        if(_this.hasShowDate){
+          _this._getNowDate();
+        }
+
+        var isUseParentColor = titleStyles.userParentColor;
+        _this.textForeColor = titleStyles.textForeColor;
+        var titleBg = titleStyles.backgroundDef.isLeftToRight ? "-webkit-linear-gradient(left, "+ titleStyles.backgroundDef.startColor +", "+ titleStyles.backgroundDef.endColor +")" : titleStyles.backgroundDef.startColor;
+        _this.titleStyle = "color:"+titleStyles.textForeColor+"; background:"+ titleBg+ ";";
+
+        //初始化背景样式
+        var bgStyles = _this.backgroundStyles;
+        var bg = bgStyles.isLeftToRight ? "-webkit-linear-gradient(left, "+ bgStyles.startColor +", "+ bgStyles.endColor +")" : bgStyles.startColor;
+        _this.bgStyle = "background:"+ bg+ ";";
+      }
+
+      _getNowDate(){
+        var date = new Date();
+        var y = date.getFullYear();
+        var m = date.getMonth()+1 <= 9 ? "0"+ (date.getMonth()+1) : date.getMonth()+1;
+        var d = date.getDate() <= 9 ? "0"+ date.getDate() : date.getDate();
+        var h = date.getHours() <= 9 ? "0"+ date.getHours() : date.getHours();
+        var mm = date.getMinutes() <= 9 ? "0"+ date.getMinutes() : date.getMinutes();
+        var s = date.getSeconds() <= 9 ? "0"+ date.getSeconds() : date.getSeconds();
+        this.nowDate = y + '-' + m + '-' + d + ' ' + h + ':' + mm + ':' + s;
+      }
+
+      _initWidget(){
+        var partList = this.partList;
+        var items = [];
+
+        for(var i=0;i<partList.length;i++){
+          var part = partList[i];
+          var alias = part.titleBarDef.alias;
+          var width = (part.endColumn - part.startColumn) + 1;
+          var height = (part.endRow - part.startRow) + 1;
+
+          //部件标题样式
+          var title = part.titleBarDef;
+          var bg = part.backgroundDef;
+          var hasImage = title.imageName === "" ? false: true;
+          var imageName = title.imageName;
+
+          var hasShowDate = title.showDate;
+          if(hasShowDate){
+            var date = new Date();
+            var y = date.getFullYear();
+            var m = date.getMonth()+1 <= 9 ? "0"+ (date.getMonth()+1) : date.getMonth()+1;
+            var d = date.getDate() <= 9 ? "0"+ date.getDate() : date.getDate();
+            var h = date.getHours() <= 9 ? "0"+ date.getHours() : date.getHours();
+            var mm = date.getMinutes() <= 9 ? "0"+ date.getMinutes() : date.getMinutes();
+            var s = date.getSeconds() <= 9 ? "0"+ date.getSeconds() : date.getSeconds();
+            var nowDate = y + '-' + m + '-' + d + ' ' + h + ':' + mm + ':' + s;
+          }
+
+          var isUseParentColor = title.userParentColor;
+          var titleIsLeftToRight = title.backgroundDef.isLeftToRight;
+          var titleStart = title.backgroundDef.startColor;
+          var titleEnd = title.backgroundDef.endColor;
+          var titleColor = title.textForeColor;
+          var bgIsLeftToRight = bg.isLeftToRight;
+          var bgStart = bg.startColor;
+          var bgEnd = bg.endColor;
+
+          items.push({x: part.startColumn, y: part.startRow, width: width, height: height, widget: part.partCategory,
+            bgIsLeftToRight: bgIsLeftToRight, bgStart: bgStart, bgEnd: bgEnd,
+            titleIsLeftToRight: titleIsLeftToRight, titleStart: titleStart, titleEnd: titleEnd, titleColor: titleColor,
+            hasImage: hasImage, imageName: imageName, hasShowDate: hasShowDate, alias: alias });
+
+        }
+        for(var i=0;i<items.length;i++){
+          this.addNewWidget(items[i]);
+        }
+      }
+
+       _removeWidget(e) {
+        var _item = e.detail;
+        this.grid.removeWidget(_item);
+      }
+
+      _newGridstack() {
+        var options = {
+            float: true,
+            width: 12,
+            draggable: {
+              handle: '.grid-stack-item-content',
+              scroll: false,
+              appendTo: 'parent'
+            }
+        };
+        $(this.$.gridStack).gridstack(options);
+        this.grid = $(this.$.gridStack).data('gridstack');
+        //清除部件
+        this.grid.removeAll();
+      }
+
+      addNewWidget(nodes){
+        var subobj = '';
+        var columnCount = this.columnCount;
+        var width = 3 >= columnCount? 100 : 3/columnCount;
+        var height = 3*150;
+        var items = [
+            {x: 3, y: 1, width: 1, height: 2},
+            {x: 4, y: 1, width: 1, height: 1},
+            {x: 2, y: 3, width: 3, height: 1},
+            {x: 2, y: 5, width: 1, height: 1},
+            {x: 0, y: 0, width: 3, height: 2}
+        ];
+        if(!nodes.widget){
+          var node = items.pop() || {
+                    x: 12 * Math.random(),
+                    y: 5 * Math.random(),
+                    width: 1 + 3 * Math.random(),
+                    height: 1 + 3 * Math.random()
+                  };
+        }else{
+          var node = nodes;
+          this.widget = node.widget;
+        }
+
+        switch (this.widget) {
+          case 'MultiViewGrid':
+            subobj = 'table-new';
+            break;
+          case 'ChartPie':
+            subobj = 'graph-cake';
+            break;
+          case 'ChartColumn':
+            subobj = 'graph-columnar';
+            break;
+          case 'ChartBar':
+            subobj = 'graph-pipeline';
+            break;
+          case 'ChartLine':
+            subobj = 'graph-thread';
+            break;
+          case 'Speedometer':
+            subobj = 'graph-indicator';
+            break;
+          case 'ChartPipeline':
+            subobj = 'graph-verticalcolum';
+            break;
+          case 'LinkList':
+            subobj = 'graph-link';
+            break;
+          default:
+            subobj = 'table-new';
+            break;
+        }
+        this.grid.addWidget($('<div class="grid-stack-item"><div class="grid-stack-item-content">'+
+        '<table-new-panel bleft-right='+ node.bgIsLeftToRight +' bg-start='+ node.bgStart +' bg-end='+ node.bgEnd +
+        ' tleft-right='+ node.titleIsLeftToRight + ' title-start='+ node.titleStart + ' title-end='+ node.titleEnd +' title-color='+ node.titleColor +
+        ' has-image='+ node.hasImage +' image-name="'+ node.imageName +'" has-show-date='+ node.hasShowDate +' subobj='+ subobj +' alias='+ node.alias +'></table-new-panel>'+
+        '</div></div>'),
+            node.x, node.y, node.width, node.height);
+        return false;
+      }
+
+      _addWidgetDrawer(){
+        this.$.addWidget.open();
+      }
+      _centerOperating(){
+        this.$.centerOperating.open();
+      }
+
+      handleCloseMenu () {
+        this.$.addWidget.close();
+      }
+
+      _editPanelDrawer(){
+        this.$.editPanel.open();
+      }
+
+      handleClosePanelMenu () {
+        this.$.editPanel.close();
+      }
+
+      _saveLayout(){
+        var items = $(this.$.gridStack).find('.grid-stack-item');
+        var arr = [];
+        if(items.length > 0){
+          for(var i=0; i<items.length; i++){
+            var data =  items[i].attributes;
+            arr.push({x: data[1].value, y: data[2].value, width: data[3].value, height: data[4].value});
+          }
+        }
+      }
+
+      _popup(e){
+        this.subobj = e.detail;
+        $(this.$.dialog).css('display','block');
+        this.$.dialog._openDialog();
+      }
+    }
+
+    customElements.define(TableLayout.is, TableLayout);
+  </script>
+</dom-module>

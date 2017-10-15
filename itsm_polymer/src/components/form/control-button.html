@@ -1,0 +1,232 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../css/form/form-style.html">
+<link rel="import" href="./control-mixin.html">
+
+<dom-module id="control-button">
+  <template>
+    <style include="form-style">
+      :host {
+        display: block;
+        text-align: left;
+        max-width: 100%;
+        @apply --control-position-bottom;
+
+      }
+      paper-button {
+        visibility: var(--label-visibility, visible);
+
+        margin: 0;
+        display: inherit;
+        border: var(--label-border-width, 1px) var(--label-border-style, solid) var(--label-border-color, #ddd)!important;
+        text-align: var(--label-text-align, left);
+        background-color: var(--label-background-color, none)!important;
+        color: var(--label-foreground-color, #222)!important;
+      }
+      paper-button:hover {
+        opacity: .8;
+        background-color: var(--label-background-color, none)!important;
+        border-color: var(--label-border-color, #ddd)!important;
+      }
+    </style>
+
+    <!-- <button class$="btn btn-[[className]]">[[label]]</button> -->
+    <paper-button class$="pbtn pbtn-[[className]]" on-click="_clickEvent">[[Label]]</paper-button>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ControlButton extends ControlMixin(Polymer.Element) {
+      static get is() { return 'control-button'; }
+      static get properties() {
+        return {
+          ID: {
+            type: String,
+          },
+
+          Category: {
+            type: String,
+            value: 'Button',
+          },
+
+          Label: {
+            type: String,
+            value: 'Button',
+            notify: true,
+          },
+
+          Position: {
+            type: Object,
+            value: {},
+          },
+
+          Size: {
+            type: Object,
+            value: {},
+          },
+
+          Alignment: {
+            type: Object,
+            value: {},
+            notify: true,
+            observer: '_alignmentChanged'
+          },
+
+          Visible: {
+            type: Object,
+            value: { Value: true},
+            notify: true,
+            observer: '_visibleChanged'
+          },
+
+          Foreground: {
+            type: Object,
+            value: {},
+            notify: true,
+            observer: '_foregroundChanged'
+          },
+
+          Background: {
+            type: Object,
+            value: {},
+            notify: true,
+            observer: '_backgroundChanged'
+          },
+
+          Border: {
+            type: Object,
+            value: { Style: 'solid', Width: '1', BorderColor: {}},
+            notify: true,
+            observer: '_borderChanged'
+          },
+
+          Anchor: {
+            type: String,
+            value: '',
+            notify: true,
+            observer: '_anchorChanged'
+          },
+
+          Font: {
+            type: Object,
+            value: {},
+            notify: true,
+            observer: '_fontChanged'
+          },
+
+          RuleList: {
+            type: Object,
+            value: {},
+            notify: true,
+          },
+
+          className: {
+            type: String,
+            value: 'default'
+          }
+        };
+      }
+
+      ready(){
+        this.addEventListener('click', this._activeControl.bind(this));
+        super.ready();
+      }
+
+      _alignmentChanged(alignment) {
+        if (alignment.Value) {
+          this.updateStyles({
+            '--label-text-align': alignment.Value,
+          });
+        }
+      }
+
+      _visibleChanged(visible) {
+        if (visible) {
+          this.updateStyles({
+            '--label-visibility': visible.Value ? 'visible' : 'hidden',
+          });
+        }
+      }
+
+      _foregroundChanged(foreground) {
+        if (foreground.Value) {
+          this.updateStyles({
+            '--label-foreground-color': foreground.Value,
+          });
+        }
+      }
+
+      _backgroundChanged(background) {
+        if (background.Color) {
+          this.updateStyles({
+            '--label-background-color': background.Color.Value,
+          });
+        }
+      }
+
+      _borderChanged(border) {
+        if (border.Style) {
+          this.updateStyles({
+            '--label-border-style': border.Style,
+            '--label-border-width': border.Width + 'px',
+            '--label-border-color': border.BorderColor.Value,
+          });
+        }
+      }
+
+      _anchorChanged(anchor) {
+        if (anchor) {
+        }
+      }
+
+      _fontChanged(font) {
+        if (font) {
+        }
+      }
+
+      _stylesChanged(styles) {
+        // console.log(styles);
+        if (styles.Border) {
+          this.updateStyles({
+            '--label-border-style': styles.Border.Style,
+            '--label-border-width': styles.Border.Width + 'px',
+            '--label-border-color': styles.Border.BorderColor.Value,
+            '--label-text-align': styles.Alignment.Value,
+            '--label-background-color': styles.Background.Color.Value,
+            '--label-foreground-color': styles.Foreground.Value,
+            '--label-visibility': styles.Visible.Value ? 'visible' : 'hidden',
+          });
+        }
+      }
+
+      _activeControl() {
+        if (this.isFormShown) {
+
+        } else {
+          this._setAvtiveControl();
+          this._openDrawer();
+        }
+      }
+
+      _setAvtiveControl() {
+        this.dispatchEvent(new CustomEvent('set-active-control', {
+          detail: { control: this},
+          bubbles: true, composed: true
+        }));
+      }
+
+      _openDrawer() {
+        this.dispatchEvent(new CustomEvent('open-drawer', { bubbles: true, composed: true }));
+      }
+
+      _clickEvent(e) {
+        // console.log(e.target);
+      }
+
+    }
+
+    customElements.define(ControlButton.is, ControlButton);
+  </script>
+</dom-module>

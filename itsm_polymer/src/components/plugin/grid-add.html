@@ -1,0 +1,217 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../../bower_components/vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../../bower_components/paper-radio-button/paper-radio-button.html">
+
+<!-- 添加网格 -->
+<dom-module id="grid-add">
+
+  <template>
+  <style>
+    :host {
+      --paper-radio-group-item-padding: 5px;
+    }
+
+    .suffix {
+      display: inline-block;
+    }
+
+    .editContent {
+      position: absolute;
+      left: 0;
+      top: 208px;
+      right: 0;
+      bottom: 120px;
+      overflow-y: scroll;
+      box-sizing: border-box;
+    }
+
+    .item {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+
+    .checkboxs {
+      margin-top: 15px;
+      margin-left: 6px;
+    }
+
+    paper-button.custom {
+     --paper-button-ink-color: var(--paper-pink-a200);
+     /* These could also be individually defined for each of the
+       specific css classes, but we'll just do it once as an example */
+     --paper-button-flat-keyboard-focus: {
+       background-color: var(--paper-pink-a200);
+       color: white !important;
+     };
+     --paper-button-raised-keyboard-focus: {
+       background-color: var(--paper-pink-a200) !important;
+       color: white !important;
+     };
+   }
+
+    paper-button.custom:hover {
+      background-color: var(--paper-indigo-100);
+      color: blue;
+    }
+
+    paper-button.green {
+      background-color: var(--paper-green-500);
+      color: white;
+      --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-pink-a200) !important;
+        color: white !important;
+      };
+    }
+
+    .footbtn {
+      margin-bottom: 50px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .footbtn paper-button {
+      background-color: #333833 !important;
+      color: #fff !important;
+      margin:0 0 15px 15px !important;
+    }
+
+    .lookbtn {
+      display: flex;
+      align-items: center;
+    }
+
+    .lookbtn paper-button {
+      height:30px;
+      margin-left: 20px;
+    }
+
+    .lookbtn paper-input {
+      width: 100%;
+    }
+
+
+    /* mobile */
+    @media (max-width: 767px) {
+    }
+  </style>
+
+
+  <div class="editContent">
+    <div class="item">
+      <h5>名称和说明</h5>
+      <h6>为新网格输入名称和说明</h6>
+      <paper-input id="layoutname" label="名称"></paper-input>
+      <paper-radio-group id="layouttype" selected="a" aria-labelledby="label1">
+        <paper-radio-button name="a">此 网格 是新的空白 网格</paper-radio-button>
+        <paper-radio-button name="b">此 网格 是以下 网格 的副本</paper-radio-button>
+        <vaadin-combo-box disabled id="selectlayout" label="请选择一个布局"></vaadin-combo-box>
+        <paper-radio-button name="c">此 窗体 是自定义的窗体</paper-radio-button>
+        <div id="panelset">
+          <div class="lookbtn">
+            <paper-input disabled label="扩展点"></paper-input>
+            <paper-button disabled>浏览...</paper-button>
+          </div>
+          <paper-input disabled label="插件名"></paper-input>
+          <paper-input disabled label="界面UI"></paper-input>
+        </div>
+      </paper-radio-group>
+      <div class="footbtn">
+        <paper-button on-click="_comfirmSubmit" raised>立即创建新网格</paper-button>
+        <paper-button raised on-click="_closeDrawer">取消</paper-button>
+      </div>
+    </div>
+  </div>
+  <slot></slot>
+
+</template>
+
+  <script>
+
+    class GridAdd extends Polymer.Element {
+
+      static get is() { return 'grid-add'; }
+
+      static get properties() { return {
+        items: Array,
+      }}
+
+      static get observers() { return [
+      ]}
+
+      ready() {
+        super.ready();
+        this._initConboBox_fieldType()
+        this._setCheck();
+      }
+
+      _closeDrawer() {
+        this.dispatchEvent(new CustomEvent('drawer-close', {detail: 'editDrawer4',bubbles: true, composed: true}));
+      }
+
+      _initConboBox_fieldType(){
+        // 选择布局
+        var combobox1 = this.root.querySelector('#selectlayout');
+        combobox1.items = [
+          {label: '网格1', value: 1},
+          {label: '网格2', value: 2},
+          {label: '网格3', value: 3},
+          {label: '网格4', value: 4},
+          {label: '网格5', value: 5}
+        ];
+      }
+
+      _setCheck(){
+        // 选择布局
+        var selectlayout = this.$.selectlayout;
+        var panelset = this.$.panelset;
+        $(this.$.layouttype).bind('click', function(){
+          if (this.selected == 'b') {
+            selectlayout.disabled = false;
+            $(panelset).find('paper-input, paper-button').attr('disabled', true);
+          } else if(this.selected == 'c'){
+            $(panelset).find('paper-input, paper-button').attr('disabled', false);
+            selectlayout.disabled = true;
+          } else {
+            selectlayout.disabled = true;
+            $(panelset).find('paper-input, paper-button').attr('disabled', true);
+          }
+        });
+      }
+
+      _comfirmSubmit(){
+        var node = this.$.layoutname.value;
+        if (node=='' || node == undefined) {
+          alert('网格名称不能为空！');
+        } else {
+          node += "(网格)";
+          this.dispatchEvent(new CustomEvent('add-tree-node', {detail: {name: node, otype:"g", iconSkin:"icon01", children: [
+            { name:"字段1", iconSkin:"icon01"},
+            { name:"字段2", iconSkin:"icon01"},
+            { name:"字段3", iconSkin:"icon01"},
+            { name:"字段4", iconSkin:"icon01"}
+          ]}, bubbles: true, composed: true}));
+        }
+      }
+
+    }
+
+    customElements.define(GridAdd.is, GridAdd);
+
+  </script>
+
+</dom-module>

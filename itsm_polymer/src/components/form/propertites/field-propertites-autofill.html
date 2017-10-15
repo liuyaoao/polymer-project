@@ -1,0 +1,57 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../css/form/form-style.html">
+
+<dom-module id="field-propertites-autofill">
+  <template>
+    <style include="form-style iron-flex ">
+      :host {
+        width: 100%;
+      }
+      paper-checkbox {
+        line-height: 34px;
+        font-size: 12px;
+      }
+
+      /* mobile */
+      @media (max-width: 767px) {
+      }
+
+    </style>
+
+    <form class="form form2">
+      <div class="form-group">
+        <paper-icon-button icon="expand-more" on-click="_shrink"></paper-icon-button>
+        <label>字段自动填写选项</label>
+      </div>
+      <iron-collapse opened class="form-content">
+        <paper-checkbox>自动填写字段</paper-checkbox>
+      </iron-collapse>
+    </form>
+  </template>
+  <script>
+    class FieldPropertitesAutofill extends Polymer.Element {
+      static get is() { return "field-propertites-autofill"; }
+      static get properties() { return {
+        valueList: {
+          type: Array,
+          value: []
+        }
+      }}
+
+      ready() {
+        super.ready();
+        this.valueList = [
+          {value: '标准'}, {value: '次要'}, {value: '主要'}, {value: '重大'}
+        ]
+      }
+
+      _shrink(e){
+        this.dispatchEvent(new CustomEvent('form-shrink', {
+          detail: { target: e.target},
+          bubbles: true, composed: true
+        }));
+      }
+    }
+    customElements.define(FieldPropertitesAutofill.is, FieldPropertitesAutofill);
+  </script>
+</dom-module>

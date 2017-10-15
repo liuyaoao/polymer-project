@@ -1,0 +1,148 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../plugin/field-edit.html">
+<link rel="import" href="../plugin/grid-add.html">
+
+<!-- 编辑字段 -->
+<dom-module id="grid-drawer-content">
+
+  <template>
+
+    <style>
+      :host {
+        width: 100%;
+
+      }
+
+      .container {
+        text-align: left;
+      }
+
+      .add-header {
+        background: #3b3b3b;
+        height: 40px;
+        font-size: 14px;
+        padding-right: 0px;
+        color: #fff;
+      }
+
+      paper-button.custom {
+        --paper-button-ink-color: var(--paper-pink-a200);
+        /* These could also be individually defined for each of the
+          specific css classes, but we'll just do it once as an example */
+        --paper-button-flat-keyboard-focus: {
+          background-color: var(--paper-pink-a200);
+          color: white !important;
+        };
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+      paper-button.custom:hover {
+        background-color: var(--paper-indigo-100);
+      }
+      paper-button.green {
+        background-color: var(--paper-green-500);
+        color: white;
+      }
+
+      .tabs {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        background: #009688;
+        color: white;
+      }
+
+      paper-tabs {
+        /*font-family: 'Roboto', 'Noto', sans-serif;*/
+        -webkit-font-smoothing: antialiased;
+        width: 100%;
+        text-transform: uppercase;
+        /*margin-bottom: 1px;*/
+      }
+
+      #delete {
+        font-size: 14px;
+        width: 133px;
+        color: rgb(202, 233, 230);
+      }
+
+      #delete:hover {
+        color: #fff;
+        font-weight: bold;
+      }
+
+    </style>
+    <div class="container">
+      <app-toolbar class="add-header">
+        <div class="flex">编辑业务对象树</div>
+        <paper-icon-button icon="chevron-right"></paper-icon-button>
+        <div class="flex">显示</div>
+      </app-toolbar>
+      <div class="tabs">
+        <paper-tabs selected="0">
+          <paper-tab id="add">添加网格</paper-tab>
+          <paper-tab id="edit">编辑网格</paper-tab>
+        </paper-tabs>
+        <paper-button id="delete">删除网格</paper-button>
+      </div>
+      <iron-papes>
+        <grid-add id="gridadd" selectedtarget={{selectedtarget}}></grid-add>
+        <field-edit id="gridedit" selectedtarget={{selectedtarget}}></field-edit>
+      </iron-pages>
+    </div>
+  </template>
+
+  <script>
+
+    class GridDrawerContent extends Polymer.Element {
+
+      static get is() { return 'grid-drawer-content'; }
+
+      static get properties() { return {
+        selectedtarget : {
+          type: String,
+          notify: true
+        },
+      }}
+
+      ready() {
+        super.ready();
+        this._addClickEvent();
+      }
+
+      _addClickEvent(){
+        var fieldadd = this.root.querySelector('#gridadd');
+        var fieldedit = this.root.querySelector('#gridedit');
+        fieldedit.style.display = 'none';
+        $(this.root.querySelector('#add')).bind('click', function(){
+          $(fieldedit).fadeOut();
+          $(fieldadd).fadeIn();
+        });
+        $(this.root.querySelector('#edit')).bind('click', function(){
+          $(fieldadd).fadeOut();
+          $(fieldedit).fadeIn();
+        });
+        var _this = this;
+        $(this.root.querySelector('#delete')).bind('click', function(){
+          if(confirm("确定删除该节点?")){
+            _this.dispatchEvent(new CustomEvent('remove-tree-node', {bubbles: true, composed: true}));
+            _this.$.gridadd._closeDrawer();
+          }
+        });
+      }
+
+      _deleteField(){
+
+      }
+
+    }
+
+    customElements.define(GridDrawerContent.is, GridDrawerContent);
+
+  </script>
+
+</dom-module>

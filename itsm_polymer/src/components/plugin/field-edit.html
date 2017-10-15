@@ -1,0 +1,380 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../../bower_components/vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="expansion-panel.html">
+
+<!-- 编辑字段 -->
+<dom-module id="field-edit">
+
+  <template>
+  <style>
+    :host {
+      --paper-radio-group-item-padding: 5px;
+    }
+
+    .suffix {
+      display: inline-block;
+    }
+
+    .editContent {
+      position: absolute;
+      left: 0;
+      top: 208px;
+      right: 0;
+      bottom: 120px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    .item {
+      /*margin-left: 16px;*/
+      /*margin-right: 16px;*/
+    }
+
+    .checkboxs {
+      margin-left: 12px;
+    }
+
+    paper-button.custom {
+     --paper-button-ink-color: var(--paper-pink-a200);
+     /* These could also be individually defined for each of the
+       specific css classes, but we'll just do it once as an example */
+     --paper-button-flat-keyboard-focus: {
+       background-color: var(--paper-pink-a200);
+       color: white !important;
+     };
+     --paper-button-raised-keyboard-focus: {
+       background-color: var(--paper-pink-a200) !important;
+       color: white !important;
+     };
+   }
+
+    paper-button.custom:hover {
+      background-color: var(--paper-indigo-100);
+      color: blue;
+    }
+
+    paper-button.green {
+      background-color: var(--paper-green-500);
+      color: white;
+      --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-pink-a200) !important;
+        color: white !important;
+      };
+    }
+
+    .footbtn {
+      margin-bottom: 50px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .footbtn paper-button {
+      background-color: #333833 !important;
+      color: #fff !important;
+      margin:0 0 15px 15px !important;
+    }
+
+
+
+    /* mobile */
+    @media (max-width: 767px) {
+    }
+  </style>
+
+
+  <div class="editContent" current-tree-node={{currentTreeNode}}>
+
+    <div class="item">
+      <expansion-panel header="字段基础" opened>
+        <h6>字段标识</h6>
+        <paper-input id="fieldname" label="字段名称" value="{{currentTreeNode.name}}" char-counter></paper-input>
+        <paper-input label="显示别名" value="{{currentTreeNode.alias}}"></paper-input>
+        <paper-textarea label="说明" always-float-label value="{{currentTreeNode.description}}"></paper-textarea>
+        <vaadin-combo-box id="fieldType" label="字段类型" class="style-scope combo-box-basic-demos" value="{{currentTreeNode.fieldCategory}}"></vaadin-combo-box>
+        <div class="checkboxs">
+          <paper-checkbox  class="styled" checked="{{currentTreeNode.ruleRequired.which}}">必要的</paper-checkbox><br>
+          <paper-checkbox  class="styled" checked="{{currentTreeNode.ruleReadOnly.which}}">只读的</paper-checkbox>
+        </div>
+        <vaadin-combo-box id="defaultvalue" label="默认值" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+        <h6>文本字段属性</h6>
+        <label id="label1">字段长度</label>
+        <paper-radio-group id="fieldset" selected="a" aria-labelledby="label1">
+            <paper-radio-button name="a">
+              <paper-input label="指定长度" value="100" type="number">
+                <div slot="prefix"></div>
+              </paper-input>
+            </paper-radio-button>
+          <paper-radio-button  name="b">备忘录长度(最大2GB) - 可能不可搜索</paper-radio-button>
+        </paper-radio-group>
+        <div class="checkboxs">
+          <paper-checkbox  class="styled">允许回车</paper-checkbox><br>
+          <paper-checkbox  class="styled">多格式文本</paper-checkbox><br>
+          <paper-checkbox id="sumaryr" disabled class="styled">摘要</paper-checkbox><br>
+          <paper-checkbox  class="styled">允许进行区分大小写的搜索</paper-checkbox><br>
+          <paper-checkbox  class="styled">使用Unicod</paper-checkbox>
+        </div>
+        <vaadin-combo-box id="fieldFormat" label="格式" value="无" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+      </expansion-panel>
+    </div>
+
+    <div class="item">
+      <expansion-panel header="高级">
+        <div class="checkboxss">
+          <paper-checkbox id="calculate_ctrl"  class="styled">计算字段中的值</paper-checkbox><br>
+        </div>
+        <vaadin-combo-box disabled id="calculate" always-float-label label="计算" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+        <label id="label2">重载字段时重新计算其值的时间:</label>
+        <paper-radio-group id="calculate_sub" selected="a" aria-labelledby="label2">
+          <paper-radio-button disabled  name="a">始终</paper-radio-button><br>
+          <paper-radio-button disabled  name="b">从不</paper-radio-button><br>
+          <paper-radio-button disabled  name="c">仅在值为空时</paper-radio-button>
+        </paper-radio-group>
+        <vaadin-combo-box label="保存值前" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+        <div class="checkboxss">
+          <paper-checkbox  class="styled">这是加密字段</paper-checkbox><br>
+          <paper-checkbox  class="styled">普通搜索的字段</paper-checkbox><br>
+          <paper-checkbox  checked class="styled">窗体上允许字段</paper-checkbox><br>
+          <paper-checkbox  class="styled">清空字段值</paper-checkbox><br>
+          <paper-checkbox  checked class="styled">网格上允许字段</paper-checkbox>
+        </div>
+        <div class="btns">
+          <paper-button raised class="custom green">XML</paper-button>
+          <paper-button raised class="custom green">许可</paper-button>
+        </div>
+        <h6>数据库</h6>
+        <div class="checkboxss">
+          <paper-checkbox  class="styled">索引字段</paper-checkbox><br>
+          <paper-checkbox  checked class="styled">存储字段</paper-checkbox><br>
+          <paper-checkbox  class="styled">支持全文搜索</paper-checkbox><br>
+          <paper-checkbox id="savenamectrl"  class="styled">不同存储名称</paper-checkbox><br>
+          <paper-input id="showalias" disabled label="ShowAlias"></paper-input>
+        </div>
+        <h6>DPE引擎</h6>
+        <paper-checkbox  class="styled">事件发送到业务流程引擎</paper-checkbox><br>
+      </expansion-panel>
+    </div>
+
+    <div class="item">
+      <expansion-panel header="验证">
+        <label id="label3">验证选项</label><br>
+        <paper-radio-group id="validatagroup" selected="a" aria-labelledby="label3">
+          <paper-radio-button  name="a">不验证</paper-radio-button><br>
+          <paper-radio-button  name="b">值范围</paper-radio-button><br>
+          <paper-radio-button  name="c">值列表</paper-radio-button><br>
+          <paper-radio-button  name="d">其他业务对象</paper-radio-button><br>
+          <paper-radio-button  name="e">操作时数日程表</paper-radio-button><br>
+          <paper-radio-button  name="f">正则表达式</paper-radio-button><br>
+          <paper-radio-button  name="g">指定的表达式</paper-radio-button>
+        </paper-radio-group>
+        <paper-input id="showempname" disabled label="显示员工名称"></paper-input>
+      </expansion-panel>
+    </div>
+    <div class="item">
+      <expansion-panel header="自动填写">
+        <h6>字段自动填写选项</h6>
+        <paper-checkbox id="autofillctrl"  class="styled">自动填写字段</paper-checkbox><br>
+        <div class="autofill">
+          <h6>自动填充&nbsp;&nbsp;属性</h6>
+          <h6>自动填写触发器</h6>
+          <vaadin-combo-box id="selectObj" always-float-label label="选择一个业务对象" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <vaadin-combo-box id="selectfield" always-float-label label="选择字段" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <h6>填充值</h6>
+          <vaadin-combo-box id="fillvalue" always-float-label label="填充值" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <div class="checkboxss">
+            <paper-checkbox  class="styled">仅在值为空时</paper-checkbox><br>
+            <paper-checkbox  class="styled">允许其他自动填充规则将字段用作触发器</paper-checkbox>
+          </div>
+        </div>
+      </expansion-panel>
+    </div>
+    <div class="item">
+      <expansion-panel header="注解">
+        <field-annotation></field-annotation>
+        <label id="label4">特殊注解</label><br>
+        <paper-radio-group id="annotation" selected="d" aria-labelledby="label4">
+          <paper-radio-button  name="a">它是说明性文字字段</paper-radio-button><br>
+          <paper-radio-button  name="b">它是电子邮件地址</paper-radio-button><br>
+          <paper-radio-button  name="c">它是电话号码</paper-radio-button><br>
+          <paper-radio-button  name="d">无</paper-radio-button>
+        </paper-radio-group>
+      </expansion-panel>
+    </div>
+    <div class="footbtn">
+      <paper-button raised on-click="_updateSubmit">确定</paper-button>
+      <paper-button raised on-click="_closeDrawer">取消</paper-button>
+    </div>
+  </div>
+  <slot></slot>
+
+</template>
+
+  <script>
+
+    class FieldEdit extends Polymer.Element {
+
+      static get is() { return 'field-edit'; }
+
+      static get properties() { return {
+        items: Array,
+        currentTreeNode: {
+          type: Object,
+          observer: '_targetChanged',
+          notify: true
+        },
+      }}
+
+      static get observers() { return [
+      ]}
+
+      ready() {
+        super.ready();
+        this._initConboBox_fieldType()
+        this._setCheck();
+      }
+
+      _closeDrawer() {
+        this.dispatchEvent(new CustomEvent('drawer-close', {detail: 'editDrawer1', bubbles: true, composed: true}));
+      }
+
+      _updateSubmit(){
+        this.dispatchEvent(new CustomEvent('update-tree-node', {detail: this.currentTreeNode, bubbles: true, composed: true}));
+      }
+
+      _initConboBox_fieldType(){
+        // 字段类型
+        var combobox1 = this.root.querySelector('#fieldType');
+        combobox1.items = [
+          {label: '文本', value: 0},
+          {label: '数值', value: 1},
+          {label: '逻辑', value: 2},
+          {label: '时间', value: 3}
+        ];
+        // combobox1.value = 0;
+
+        //默认值
+        var combobox2 = this.root.querySelector('#defaultvalue');
+        combobox2.items = [
+          {label: '默认1', value: 1},
+          {label: '默认2', value: 2},
+          {label: '默认3', value: 3},
+          {label: '默认3', value: 4}
+        ];
+        combobox2.value = 1;
+
+        //字段格式
+        var combobox3 = this.root.querySelector('#fieldFormat');
+        combobox3.items = [
+          {label: '无', value: 1},
+          {label: '内嵌格式', value: 2},
+          {label: '指定的格式', value: 3}
+        ];
+        combobox3.value = 1;
+
+        // 计算
+        var combobox4 = this.root.querySelector('#calculate');
+        combobox4.items = [
+          {label: '计算1', value: 1},
+          {label: '计算2', value: 2},
+          {label: '计算3', value: 3}
+        ];
+        combobox4.value = 1;
+
+        // 自动填写 选择一个业务对象
+        var combobox5 = this.root.querySelector('#selectObj');
+        combobox5.items = [
+          {label: '业务对象1', value: 1},
+          {label: '业务对象2', value: 2},
+          {label: '业务对象3', value: 3}
+        ];
+        combobox5.value = 1;
+
+        // 自动填写 选择字段
+        var combobox6 = this.root.querySelector('#selectfield');
+        combobox6.items = [
+          {label: '字段1', value: 1},
+          {label: '字段2', value: 2},
+          {label: '字段3', value: 3}
+        ];
+        combobox6.value = 1;
+
+        // 自动填写 填充值
+        var combobox7 = this.root.querySelector('#fillvalue');
+        combobox7.items = [
+          {label: '填充值1', value: 1},
+          {label: '填充值2', value: 2},
+          {label: '填充值3', value: 3}
+        ];
+        combobox7.value = 1;
+
+      }
+
+      _targetChanged(){
+        //console.log('changesss' + this.currentTreeNode);
+      }
+
+      _setCheck(){
+        var _this = this;
+        // 备忘录长度 控制 摘要
+        $(_this.root.querySelector('#fieldset')).bind('click', function(){
+          _this.root.querySelector("#sumaryr").disabled = this.selected == "b"? false : true;
+        });
+        // 验证中显示员工名称
+        $(_this.root.querySelector('#validatagroup')).bind('click', function(){
+          _this.root.querySelector("#showempname").disabled = this.selected == "g"? false : true;
+        });
+        // 计算字段中的值  控制 disabled
+        $(_this.root.querySelector('#calculate_ctrl')).bind('click', function(){
+          var checked = this.checked;
+          _this.root.querySelector("#calculate").disabled = !checked;
+          var sub = $(_this.root.querySelector("#calculate_sub")).children();
+          $(sub).each(function(index, element){
+            element.disabled = !checked;
+          });
+        });
+        // 不同存储名称控制
+        $(_this.root.querySelector('#savenamectrl')).bind('click', function(){
+          _this.root.querySelector("#showalias").disabled = !this.checked;
+        });
+        // 自动填写控制显示/隐藏
+        var autofill = _this.root.querySelector(".autofill");
+        autofill.style.display = 'none';
+        $(_this.root.querySelector('#autofillctrl')).bind('click', function(){
+          if(this.checked){
+            $(autofill).slideDown();
+          } else {
+            $(autofill).slideUp();
+          }
+        });
+
+        var filename = _this.root.querySelector('#fieldname');
+        $(_this.root.querySelector('#fieldname')).keyup(function(){
+          // console.log(_this.currentTreeNode.name + '--' + filename.value);
+          // console.log(_this.currentTreeNode.name);
+
+        });
+
+      }
+
+    }
+
+    customElements.define(FieldEdit.is, FieldEdit);
+
+  </script>
+
+</dom-module>

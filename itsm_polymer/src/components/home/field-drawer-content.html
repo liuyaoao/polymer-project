@@ -1,0 +1,157 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../plugin/field-edit.html">
+<link rel="import" href="../plugin/field-add.html">
+
+<!-- 编辑字段 -->
+<dom-module id="field-drawer-content">
+
+  <template>
+
+    <style>
+      :host {
+        width: 100%;
+
+      }
+
+      .container {
+        text-align: left;
+      }
+
+      .add-header {
+        background: #3b3b3b;
+        height: 40px;
+        font-size: 14px;
+        padding-right: 0px;
+        color: #fff;
+      }
+
+      paper-button.custom {
+        --paper-button-ink-color: var(--paper-pink-a200);
+        /* These could also be individually defined for each of the
+          specific css classes, but we'll just do it once as an example */
+        --paper-button-flat-keyboard-focus: {
+          background-color: var(--paper-pink-a200);
+          color: white !important;
+        };
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+      paper-button.custom:hover {
+        background-color: var(--paper-indigo-100);
+      }
+      paper-button.green {
+        background-color: var(--paper-green-500);
+        color: white;
+      }
+
+      .tabs {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        background: #009688;
+        color: white;
+      }
+
+      paper-tabs {
+        /*font-family: 'Roboto', 'Noto', sans-serif;*/
+        -webkit-font-smoothing: antialiased;
+        width: 100%;
+        text-transform: uppercase;
+        /*margin-bottom: 1px;*/
+      }
+
+      #delete {
+        font-size: 14px;
+        width: 133px;
+        color: rgb(202, 233, 230);
+      }
+
+      #delete:hover {
+        color: #fff;
+        font-weight: bold;
+      }
+
+    </style>
+    <div class="container">
+      <app-toolbar class="add-header">
+        <div class="flex">编辑业务对象树</div>
+        <paper-icon-button icon="chevron-right"></paper-icon-button>
+        <div class="flex">字段</div>
+      </app-toolbar>
+      <div class="tabs">
+        <!-- <paper-tabs selected="{{field}}">
+          <paper-tab>添加字段</paper-tab>
+          <paper-tab>编辑字段</paper-tab>
+          <paper-tab>删除字段</paper-tab>
+        </paper-tabs>
+        <iron-pages selected="{{field}}" attr-for-selected="name">
+          <field-add name="0" selectedtarget={{selectedtarget}}></field-add>
+          <field-edit name="1" selectedtarget={{selectedtarget}}></field-edit>
+        </iron-pages> -->
+        <paper-tabs selected="0">
+          <paper-tab id="add">添加字段</paper-tab>
+          <paper-tab id="edit">编辑字段</paper-tab>
+        </paper-tabs>
+        <paper-button id="delete">删除字段</paper-button>
+      </div>
+
+      <!-- <paper-button id="addfield" toggles raised class="custom green">添加字段</paper-button>
+      <paper-button id="editfield" toggles raised class="custom green">添加字段</paper-button>
+      <paper-button id="deletefield" toggles raised class="custom green">删除字段</paper-button> -->
+      <field-add id="fieldadd"></field-add>
+      <field-edit id="fieldedit" current-tree-node={{currentTreeNode}}></field-edit>
+    </div>
+  </template>
+
+  <script>
+
+    class FieldDrawerContent extends Polymer.Element {
+
+      static get is() { return 'field-drawer-content'; }
+
+      static get properties() { return {
+        currentTreeNode: {
+          type: Object,
+          notify: true
+        },
+      }}
+
+      ready() {
+        super.ready();
+        this._addClickEvent();
+      }
+
+      _addClickEvent(){
+        var fieldadd = this.root.querySelector('#fieldadd');
+        var fieldedit = this.root.querySelector('#fieldedit');
+        var deleteField = this.root.querySelector('#delete');
+        fieldedit.style.display = 'none';
+        $(this.root.querySelector('#add')).bind('click', function(){
+          $(fieldedit).fadeOut();
+          $(fieldadd).fadeIn();
+        });
+        $(this.root.querySelector('#edit')).bind('click', function(){
+          $(fieldadd).fadeOut();
+          $(fieldedit).fadeIn();
+        });
+        var _this = this;
+        $(deleteField).bind('click', function(){
+          if(confirm("确定删除该节点?")){
+            _this.dispatchEvent(new CustomEvent('remove-tree-node', {bubbles: true, composed: true}));
+            _this.$.fieldadd._closeDrawer();
+          }
+        });
+      }
+
+    }
+
+    customElements.define(FieldDrawerContent.is, FieldDrawerContent);
+
+  </script>
+
+</dom-module>

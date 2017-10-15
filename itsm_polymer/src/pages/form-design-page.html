@@ -1,0 +1,638 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel='import' href='../../bower_components/iron-icons/iron-icons.html'>
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../lazy-library.html">
+<link rel="import" href="../css/form/polymer-gridstack-style.html">
+<link rel="import" href="../components/form/lazy-controls.html">
+<script src="../lib/utils.js"></script>
+
+<link rel="import" href="../components/form/common/remove-widget-link.html">
+
+<dom-module id="form-design-page">
+  <template>
+    <!-- <link rel="stylesheet" href="./../bower_components/bootstrap/dist/css/bootstrap.min.css" /> -->
+    <link rel="stylesheet" href="../../dist/gridstack.css"/>
+    <link rel="stylesheet" href="../../dist/gridstack-extra.css"/>
+    <link rel="stylesheet" href="./../css/tree-css/zTreeStyle/zTreeStyle.css" />
+    <style include="polymer-gridstack-style iron-flex">
+      :host {
+        display: block;
+        --background-color:#ff817b;
+        --padding-all:15px 0px;
+        --app-drawer-scrim-background: none;
+        --app-drawer-width: 400px;
+        --app-drawer-content-container: {
+            border: 1px solid #ddd;
+            /*padding: 10px;*/
+        };
+        --paper-tab-background: {
+          background: -webkit-linear-gradient(bottom, #fff 0%, #fafafa 100%);
+          background: -moz-linear-gradient(bottom,  #fff 0%, #fafafa 100%);
+          background: -o-linear-gradient(bottom,  #fff 0%, #fafafa 100%);
+          background: -ms-linear-gradient(bottom,  #fff 0%, #fafafa 100%);
+          background: linear-gradient(to bottom,  #fff 0%, #fafafa 100%);
+        };
+      }
+
+      .container-grid {
+        margin-left: 210px;
+        margin-top: 10px;
+        /*padding: 10px;*/
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04),0 1px 4px rgba(0,0,0,0.12);
+        background-color: #fff;
+        border: 1px solid #ddd;
+        /*height: calc(100vh - 80px);
+        overflow-y: auto;*/
+      }
+      .form-layout {
+        position: relative;
+      }
+      .grid-stack-item-content {
+        /*background: white;*/
+        color: #2c3e50;
+        font-family: 'Indie Flower', cursive;
+        text-align: center;
+        font-size: 14px;
+      }
+      .grid-stack {
+        /*background: lightgoldenrodyellow;*/
+        /*min-height: 300px;*/
+        /*border: 1px solid #ddd;*/
+        /*margin-bottom: 15px;*/
+      }
+      .remove {
+        font-size: 12px;
+      }
+
+      .form-layout.collapsed .container-grid {
+        margin-left: 40px;
+      }
+
+      .grid-stack-item-content {
+          color: #2c3e50;
+          text-align: center;
+          border: 1px dashed #ddd;
+          /*padding-top: 5px;*/
+          /*background-color: #18bc9c;*/
+      }
+      .grid-stack-item-content.active {
+        border-color: #27aade;
+      }
+      .grid-stack > .grid-stack-item > .grid-stack-item-content {
+        left: 5px!important;
+        right: 5px!important;
+      }
+      .drawer-contents {
+        height: 100%;
+        overflow: auto;
+      }
+      .generate-grid .grid-stack-item-content {
+        border: none;
+      }
+      .tool-menu {
+        padding-bottom: 5px;
+        height: 26px;
+      }
+      .tool-menu .title {
+        font-size: 12px;
+      }
+      .toolbox {
+        display: inline-block;
+      }
+      .toolbox .tool-btn {
+        position: relative;
+        padding: 6px;
+        font-size: 12px;
+        color: #222;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .toolbox .tool-btn iron-icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      paper-tabs.header-tabs {
+        @apply(--paper-tab-background);
+
+        height: 40px;
+        border-bottom: 1px solid #ddd;
+        padding-left: 5px;
+
+        --paper-tabs-selection-bar-color: #01b1f8;
+        --paper-tab-ink: #cdcdcd;
+        --paper-tabs-selection-bar: {
+        }
+      }
+      paper-tabs.header-tabs paper-tab:hover {
+        background: #eee;
+      }
+      paper-tabs.header-tabs paper-tab.iron-selected:hover {
+        background: none;
+      }
+      .tab-content {
+        padding: 10px 15px;
+        height: calc(100vh - 120px);
+        overflow-y: auto;
+      }
+      paper-tabs.drawer-tabs {
+        height: 40px;
+        font-weight: normal;
+
+        --paper-tabs-selection-bar-color: #fff;
+        --paper-tab-ink: #cdcdcd;
+      }
+      /*paper-tabs.drawer-tabs paper-tab:focus {
+        --paper-tab-content: {
+          font-weight: normal;
+        }
+      }*/
+    </style>
+
+    <div class="device-xs visible-xs"></div>
+    <div class="device-sm visible-sm"></div>
+    <div class="device-md visible-md"></div>
+    <div class="device-lg visible-lg"></div>
+    <div class="device-xl visible-xl"></div>
+    <div class="container-fluid form-layout" id="formLayout">
+        <control-tree></control-tree>
+        <div class="container-grid">
+          <paper-tabs class="header-tabs" selected="{{viewType}}" scrollable hide-scroll-buttons>
+            <paper-tab>表单设计</paper-tab>
+            <paper-tab>设计预览</paper-tab>
+          </paper-tabs>
+          <iron-pages selected="{{viewType}}">
+            <section class="tab-content">
+              <!-- <div style="margin-bottom: 10px">
+                  <paper-button class="pbtn pbtn-default" on-click="_saveGrid">保存网格</paper-button>
+                  <paper-button class="pbtn pbtn-default" on-click="_generateGrid">生成网格</paper-button>
+              </div> -->
+              <!-- <div class="tool-menu">
+                <span class="title">控件菜单:</span>
+                <dom-if if="[[activeProperties.Category]]">
+                  <template>
+                    <div class="toolbox">
+                      <a class="tool-btn" title="属性" on-click="showConfigDrawer">
+                        <paper-ripple center class=""></paper-ripple><iron-icon icon="chevron-right"></iron-icon>属性
+                      </a>
+                      <a class="tool-btn" title="字段属性" on-click="_showFieldDrawer">
+                        <paper-ripple center class=""></paper-ripple><iron-icon icon="chevron-right"></iron-icon>字段属性
+                      </a>
+                    </div>
+                  </template>
+                </dom-if>
+              </div> -->
+              <div class="grid-stack" id="gridStack">
+              </div>
+            </section>
+            <section class="tab-content">
+              <div class="grid-stack generate-grid" id="generateGrid">
+              </div>
+            </section>
+          </iron-pages>
+
+        </div>
+
+
+        <app-drawer id="controlConfigDrawer" align="right" swipe-open class="map-add">
+          <div class="drawer-contents">
+            <app-toolbar class="add-header">
+              <div class="flex">
+                <!-- [[activeProperties.Category]] 控件属性 -->
+                <paper-tabs class="drawer-tabs" selected="{{controlDrawerType}}" autoselect scrollable hide-scroll-buttons>
+                  <paper-tab>[[activeProperties.Category]] 控件属性</paper-tab>
+                  <dom-if if="[[_computeDrawerFieldShown(activeProperties.Category)]]">
+                    <template><paper-tab>[[activeProperties.Category]] 控件字段属性</paper-tab></template>
+                  </dom-if>
+                </paper-tabs>
+              </div>
+              <paper-icon-button icon="chevron-right" on-tap="hideConfigDrawer"></paper-icon-button>
+            </app-toolbar>
+            <!-- <control-properties active-control="[[activeControl]]" active-properties="{{activeProperties}}"></control-properties> -->
+            <iron-pages selected="{{controlDrawerType}}">
+              <section>
+                <control-properties active-control="[[activeControl]]" active-properties="{{activeProperties}}"></control-properties>
+              </section>
+              <dom-if if="[[_computeDrawerFieldShown(activeProperties.Category)]]">
+                <template>
+                  <section>
+                    <control-field-properties active-control="[[activeControl]]" active-properties="{{activeProperties}}"></control-field-properties>
+                  </section>
+                </template>
+              </dom-if>
+
+            </iron-pages>
+          </div>
+        </app-drawer>
+
+        <!-- <app-drawer id="controlFieldDrawer" align="right" swipe-open class="map-add">
+          <div class="drawer-contents">
+            <app-toolbar class="add-header">
+              <div class="flex">编辑字段属性</div>
+              <paper-icon-button icon="chevron-right" on-tap="_hideFieldDrawer"></paper-icon-button>
+            </app-toolbar>
+            <control-field-properties active-control="[[activeControl]]" active-properties="{{activeProperties}}"></control-field-properties>
+          </div>
+        </app-drawer> -->
+    </div>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class FormDesignPage extends Polymer.mixinBehaviors([Polymer.IronResizableBehavior], Polymer.Element) {
+      static get is() { return 'form-design-page'; }
+      static get properties() {
+        return {
+          page: {
+            type: String,
+            observer: '_pageChanged'
+          },
+
+          activeControl: {
+            type: Object,
+          },
+
+          activeProperties: {
+            type: Object,
+            notify: true,
+          },
+
+          activeFieldProperties: {
+            type: Object,
+            notify: true,
+          },
+
+          isFormShown: {
+            type: Boolean,
+            value: false
+          },
+
+          viewType: {
+            type: Number,
+            value: 0,
+            observer: '_viewTypeChanged'
+          },
+
+          controlDrawerType: {
+            type: Number,
+            value: 0,
+          },
+        };
+      }
+
+      ready(){
+        this.addEventListener('iron-resize', this._resizeGrid.bind(this));
+        this.addEventListener('add-widget', this.addNewWidget.bind(this));
+        this.addEventListener('remove-widget', this._removeWidget.bind(this));
+        this.addEventListener('set-active-control', this._setAvtiveControl.bind(this));
+        this.addEventListener('open-drawer', this.showConfigDrawer.bind(this));
+        this.addEventListener('close-drawer', this.hideConfigDrawer.bind(this));
+        super.ready();
+
+      }
+
+      _pageChanged(page) {
+        if (page === 'form') {
+          var _controlTree = this.root.querySelector('control-tree');
+          if (_controlTree) {
+            _controlTree._initTree();
+          }
+          this._newGridstack();
+        }
+      }
+
+      _setAvtiveControl(e) {
+        var _control = e.detail.control, _isDelete = e.detail.isDelete;
+        var _controlTree = this.root.querySelector('control-tree');
+        if (_isDelete) {
+          _controlTree._cancelSelectControlNode(_control.Category);
+          this.activeControl = null;
+          this.activeProperties = {};
+          return;
+        }
+        this._clearActiveItem();
+        if (_control.parentNode && _control.parentNode.classList.contains('grid-stack-item-content')) {
+          _control.parentNode.classList.add('active');
+        }
+        this.activeControl = _control;
+        var _properties = this.activeControl.constructor.properties;
+        // console.log(_properties);
+        var activeProperties = {};
+        for (var key in _properties) {
+          activeProperties[key] = this.activeControl[key];
+        }
+        this.activeProperties = activeProperties;
+        this.activeFieldProperties = activeProperties.fieldPropertites;
+        console.log(this.activeFieldProperties);
+        _controlTree._selectControlNode(activeProperties.Category);
+      }
+
+      _clearActiveItem() {
+        var _activeItem = this.$.gridStack.querySelector('.grid-stack-item-content.active');
+        if (_activeItem && _activeItem.classList.contains('active')) {
+          _activeItem.classList.remove('active');
+        }
+      }
+
+      _saveConfig() {
+        var _activeControl = this.activeControl;
+        var _label = this.$.controlLabel.value;
+        if (_label) {
+          _activeControl.label = _label;
+        }
+      }
+
+      showConfigDrawer(e) {
+        // if (this.$.controlConfigDrawer.hasAttribute('opened')) {
+        //   this.closeMacDetailDrawer();
+        // }
+        this.$.controlConfigDrawer.open();
+      }
+
+      hideConfigDrawer() {
+        this.$.controlConfigDrawer.close();
+      }
+
+      _showFieldDrawer() {
+        this.$.controlFieldDrawer.open();
+      }
+
+      _hideFieldDrawer() {
+        this.$.controlFieldDrawer.close();
+      }
+
+      isBreakpoint(alias) {
+        var _lay = this.root.querySelector('.device-' + alias);
+        return $(_lay).is(':visible');
+      }
+
+      _resizeGrid() {
+        if (this.grid) {
+          if (this.isBreakpoint('xs')) {
+              $(this.$.gridSize).text('One column mode');
+          } else if (this.isBreakpoint('sm')) {
+              this.grid.setGridWidth(3);
+              $(this.$.gridSize).text(3);
+          } else if (this.isBreakpoint('md')) {
+              this.grid.setGridWidth(6);
+              $(this.$.gridSize).text(6);
+          } else if (this.isBreakpoint('lg')) {
+              this.grid.setGridWidth(12);
+              $(this.$.gridSize).text(12);
+          }
+        }
+      }
+
+      _newGridstack() {
+        var options = {
+            float: true,
+            width: 12,
+            // verticalMargin: 5,
+            draggable: {
+              handle: '.grid-stack-item-content',
+              scroll: false,
+              appendTo: 'parent'
+            }
+        };
+        $(this.$.gridStack).gridstack(options);
+        // var grid = $(this.$.gridStack).data('gridstack');
+        // grid.cellHeight(30);
+        // console.log(grid.cellHeight());
+
+        // var serializeWidgetMap = function(items) {
+        //     console.log(items);
+        //     console.log(items[0].x);
+        // };
+
+        // $(this.$.gridStack).on('change', function(event, items) {
+        //     serializeWidgetMap(items);
+        // });
+        var _this = this;
+        $(this.$.gridStack).on('added', function(event, items) {
+          for (var i = 0; i < items.length; i++) {
+            var element = items[i].el[0];
+            var node = $(element).data('_gridstack_node');
+            var _control = element.firstChild.firstChild;
+            _control.ID = Utils.makeRecID();
+            _control.isFormShown = _this.isFormShown;
+            _control.Position = { x: items[i].x, y: items[i].y };
+            _control.Size = { width: items[i].width, height: items[i].height };
+          }
+        });
+
+        $(this.$.gridStack).on('dragstop', function(event, ui) {
+            var grid = this;
+            var element = event.target;
+            var node = $(element).data('_gridstack_node');
+            var _control = element.firstChild.firstChild;
+            _control.Position = {
+              x: node.x, y: node.y
+            }
+            _control.Size = {
+              width: node.width, height: node.height
+            }
+            // console.log(_control);
+        });
+
+        // console.log(this.grid);
+        // this.addNewWidget = function () {
+        //     var node = this.items.pop() || {
+        //                 x: 12 * Math.random(),
+        //                 y: 5 * Math.random(),
+        //                 width: 1 + 3 * Math.random(),
+        //                 height: 1 + 3 * Math.random()
+        //             };
+        //     // this.grid.addWidget($('<div class="grid-stack-item"><div class="grid-stack-item-content"></div></div>'),
+        //     //     node.x, node.y, node.width, node.height);
+        //     this.grid.addWidget($('<div class="grid-stack-item"><div class="grid-stack-item-content"><add-item></add-item></div></div>'),
+        //         node.x, node.y, node.width, node.height);
+        //     // return false;
+        // }.bind(this);
+
+        // $('#add-new-widget').click(this.addNewWidget);
+        // this.$.addNewWidget.addEventListener('click', function(e){
+        //   this.addNewWidget();
+        // }.bind(this))
+      }
+
+      addNewWidget(e) {
+        var _node = e.detail.node;
+        // console.log(_node);
+        this.items = [
+            {x: 0, y: 0, width: 2, height: 2},
+            {x: 3, y: 1, width: 1, height: 2},
+            {x: 4, y: 1, width: 1, height: 1},
+            {x: 2, y: 3, width: 3, height: 1},
+            {x: 2, y: 5, width: 1, height: 1}
+        ];
+        this.grid = $(this.$.gridStack).data('gridstack');
+        var node = this.items.pop() || {
+                    x: 12 * Math.random(),
+                    y: 5 * Math.random(),
+                    width: 1 + 3 * Math.random(),
+                    height: 1 + 3 * Math.random()
+                };
+        var {html, width} = this._getWidget(_node.name);
+        // this.grid.addWidget($('<div class="grid-stack-item"><div class="grid-stack-item-content"></div></div>'),
+        //     node.x, node.y, node.width, node.height);
+        // this.grid.addWidget($('<div class="grid-stack-item"><div class="grid-stack-item-content"><add-item></add-item></div></div>'),
+        //     node.x, node.y, node.width, node.height);
+        // this.grid.addWidget($('<div class="grid-stack-item"><div class="grid-stack-item-content"><add-item></add-item></div></div>'),
+        //     1, 1, 2, 1);
+
+        if (html) {
+          this.isFormShown = false;
+          this.grid.addWidget($('<div class="grid-stack-item"><div class="grid-stack-item-content"><remove-widget-link></remove-widget-link>'+ html +'</div></div>'),
+              1, 1, width, 1);
+        }
+
+      }
+
+      _getWidget(type) {
+        type = type.toLowerCase();
+        var html = '', width = 1;
+        switch (type) {
+          case 'label':
+            html = '<control-label></control-label>';
+            width = 1;
+            break;
+          case 'input':
+            html = '<control-input></control-input>';
+            width = 2;
+            break;
+          case 'button':
+            html = '<control-button></control-button>';
+            width = 1;
+            break;
+          case 'select':
+            html = '<control-select></control-select>';
+            width = 2;
+            break;
+          case 'labelinput':
+            html = '<control-label-input></control-label-input>';
+            width = 3;
+            break;
+          case 'checkbox':
+            html = '<control-checkbox></control-checkbox>';
+            width = 1;
+            break;
+          case 'radio':
+            html = '<control-radio></control-radio>';
+            width = 1;
+            break;
+          default:
+
+        }
+        return {
+          html, width
+        }
+      }
+
+      _removeWidget(e) {
+        // console.log(e.target);
+        // var els = this.$.gridStack.querySelectorAll('.grid-stack-item');
+        // console.log(els);
+        // this.grid.remove_widget(els[1]);
+        var _item = e.detail;
+        this.grid.removeWidget(_item);
+      }
+
+      _saveGrid() {
+        var _grid = this.$.gridStack;
+        this.serializedData = _.map(_grid.querySelectorAll('.grid-stack-item'), function (el) {
+            // el = $(el);
+            var node = $(el).data('_gridstack_node');
+            var _control = el.firstChild.lastChild;
+            _control.Position = {
+              x: node.x, y: node.y
+            }
+            _control.Size = {
+              width: node.width, height: node.height
+            }
+            var _properties = _control.constructor.properties;
+            // console.log(_properties);
+            var activeProperties = {};
+            for (var key in _properties) {
+              activeProperties[key] = _control[key];
+            }
+            return activeProperties;
+        }, this);
+        // console.log(this.serializedData);
+        // console.log(JSON.stringify(this.serializedData));
+      }
+
+      _generateGrid() {
+        // this.grid = $(this.$.gridStack).data('gridstack');
+        this.isFormShown = true;
+        if (this.serializedData && this.serializedData.length) {
+          this._serializedGrid(this.serializedData);
+          return;
+        }
+        // $.getJSON('/src/lib/controlDef.json', function(data){
+        //   this._serializedGrid(data);
+        // }.bind(this));
+      }
+
+      _serializedGrid(data) {
+        console.log(data);
+        var options = {
+            float: true,
+            width: 12,
+            // verticalMargin: 5,
+            draggable: {
+              handle: '.grid-stack-item-content',
+              scroll: false,
+              appendTo: 'parent'
+            }
+        };
+        $(this.$.generateGrid).gridstack(options);
+        this.generateGrid = $(this.$.generateGrid).data('gridstack');
+        this.generateGrid.removeAll();
+        for (var i = 0; i < data.length; i++) {
+          var _item = data[i];
+          var {html, width} = this._getWidget(data[i].Category);
+
+          if (html) {
+            var start = html.indexOf('<'), end = html.indexOf('>');
+            var el1 = document.createElement(html.substring(start + 1, end));
+            console.log(_item);
+            for (var key in _item) {
+              el1[key] = _item[key];
+            }
+            el1.isFormShown = true;
+            var _gridItem = $('<div class="grid-stack-item"></div>'), _itemContent = $('<div class="grid-stack-item-content"></div>');
+            _itemContent.append(el1);
+            _gridItem.append(_itemContent);
+            this.generateGrid.addWidget(_gridItem, _item.Position.x, _item.Position.y, _item.Size.width, _item.Size.height);
+            // this.generateGrid.addWidget($('<div class="grid-stack-item"><div class="grid-stack-item-content">'+ _el1 +'</div></div>'),
+            //     _item.Position.x, _item.Position.y, _item.Size.width, _item.Size.height);
+          }
+        }
+        this.generateGrid.disable();
+      }
+
+      _viewTypeChanged(viewType) {
+        if (viewType) {
+          this._saveGrid();
+          this._generateGrid();
+        }
+      }
+
+      _computeDrawerFieldShown(category) {
+        this.controlDrawerType = 0;
+        return category !== 'Label';
+      }
+    }
+
+    window.customElements.define(FormDesignPage.is, FormDesignPage);
+  </script>
+</dom-module>

@@ -1,0 +1,117 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/vaadin-icons/vaadin-icons.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<script src="../../../bower_components/jquery/dist/jQueryRotate.js"></script>
+<!-- 编辑字段 -->
+<dom-module id="expansion-panel">
+
+  <template>
+  <style>
+    :host {
+      width: 100%;
+    }
+
+    .header {
+      background-color: #ccc;
+      display: flex;
+      height: 50px;
+      align-items: center;
+      cursor: pointer;
+      color: black;
+    }
+
+    .header:hover{
+        background-color: #333833;
+        color: #fff;
+    }
+
+    .header h5 {
+      margin-left: 5px;
+    }
+
+    iron-icon {
+      --iron-icon-height: 16px;
+      --iron-icon-width: 16px;
+      margin-left: 5px;
+    }
+
+    .content {
+      margin: 16px;
+    }
+
+
+  </style>
+
+  <div class="container">
+    <div class="header">
+      <iron-icon id="icon" icon="vaadin:angle-right"></iron-icon>
+      <h5>[[header]]</h5>
+    </div>
+    <div class="content">
+      <slot></slot>
+    </div>
+  </div>
+
+</template>
+
+  <script>
+
+    class ExpansionPanel extends Polymer.Element {
+
+      static get is() { return 'expansion-panel'; }
+
+      static get properties() { return {
+        header : String,
+        opened: Boolean
+      }}
+
+      static get observers() { return [
+      ]}
+
+      ready() {
+        super.ready();
+        this._addEventListen();
+      }
+
+      _toggleContent(e){
+        console.log(e);
+        console.log('test' + $('.content'));
+        $('.content').css('display', 'none');
+      }
+
+      _addEventListen(){
+        var value = 90;
+        var content = this.root.querySelector('.content');
+        var header = this.root.querySelector(".header");
+        var icon = this.root.querySelector("#icon");
+        if (!this.opened) {
+          content.style.display = 'none';
+        } else {
+          $(icon).rotate(90);
+          value = 0;
+        }
+        $(header).bind("click", function(){
+          $(icon).rotate({animateTo: value});
+          value = value == 90?0:90;
+          $(content).slideToggle();
+        });
+      }
+
+
+    }
+
+    customElements.define(ExpansionPanel.is, ExpansionPanel);
+
+  </script>
+
+</dom-module>

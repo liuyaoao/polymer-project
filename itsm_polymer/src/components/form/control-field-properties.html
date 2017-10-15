@@ -1,0 +1,249 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../../bower_components/paper-swatch-picker/paper-swatch-picker.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../../bower_components/vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../../css/form/form-style.html">
+
+<link rel="import" href="./propertites/field-propertites-basic.html">
+<link rel="import" href="./propertites/field-propertites-advanced.html">
+<link rel="import" href="./propertites/field-propertites-validate.html">
+<link rel="import" href="./propertites/field-propertites-autofill.html">
+<link rel="import" href="./propertites/field-propertites-lifecycle.html">
+<link rel="import" href="./propertites/field-propertites-annotation.html">
+
+<dom-module id="control-field-properties">
+  <template>
+    <style include="form-style iron-flex">
+      :host {
+        display: block;
+        text-align: left;
+      }
+
+      paper-swatch-picker {
+        margin-top: -16px;
+        margin-bottom: -16px;
+      }
+      paper-checkbox {
+        line-height: 34px;
+        font-size: 12px;
+        /*padding-left: 16px;*/
+      }
+
+      paper-tabs {
+        /*--paper-tabs-selection-bar-color: #01b1f8;*/
+        font-size: 12px;
+        background: #009688;
+        color: white;
+      }
+    </style>
+
+    <div class="config-form">
+      <form class="form form2">
+        <paper-tabs selected="{{propertiesType}}">
+          <paper-tab>字段基础</paper-tab>
+          <paper-tab>高级</paper-tab>
+          <paper-tab>验证</paper-tab>
+          <paper-tab>自动填写</paper-tab>
+          <paper-tab>生命周期</paper-tab>
+          <paper-tab>注解</paper-tab>
+        </paper-tabs>
+        <iron-pages selected="{{propertiesType}}">
+          <section>
+            <field-propertites-basic></field-propertites-basic>
+          </section>
+          <section>
+            <field-propertites-advanced></field-propertites-advanced>
+          </section>
+          <section>
+            <field-propertites-validate></field-propertites-validate>
+          </section>
+          <section>
+            <field-propertites-autofill></field-propertites-autofill>
+          </section>
+          <section>
+            <field-propertites-lifecycle></field-propertites-lifecycle>
+          </section>
+          <section>
+            <field-propertites-annotation></field-propertites-annotation>
+          </section>
+        </iron-pages>
+
+      </form>
+      <div class="form-group text-right" style="margin-right: 10px;">
+        <paper-button raised class="pbtn pbtn-primary" on-tap="_saveConfig">应用</paper-button>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ControlFieldProperties extends Polymer.Element {
+      static get is() { return 'control-field-properties'; }
+      static get properties() {
+        return {
+          activeControl: {
+            type: Object,
+          },
+
+          activeProperties: {
+            type: Object,
+            notify: true,
+          },
+
+          propertiesType: {
+            type: String,
+            value: '0'
+          },
+
+          textDetails: {
+            type: Object,
+            value: {},
+          }
+
+        };
+      }
+
+      static get observers() { return [
+        '_activePropertiesChanged(activeProperties)'
+      ]}
+
+      ready(){
+        this.addEventListener('form-shrink', this._shrink.bind(this));
+        super.ready();
+      }
+
+      _activePropertiesChanged(activeProperties) {
+        // console.log(activeProperties);
+        if (activeProperties) {
+          if (activeProperties.Category === 'Select') {
+            this.textDetails = activeProperties.AssociatedSelectorDetails;
+          } else {
+            this.textDetails = activeProperties.TextDetails;
+          }
+        }
+      }
+
+      _shrink(e){
+        var _target = e.detail.target;
+        var _form = _target.parentNode.parentNode;
+        var _content = _form.querySelector('iron-collapse');
+        _content.toggle();
+        var _opened = _content.opened;
+        if (_opened) {
+          _target.icon = 'expand-more';
+        } else {
+          _target.icon = 'chevron-right';
+        }
+      }
+
+      _saveConfig() {
+        var _activeControl = this.activeControl;
+        var _category = _activeControl.Category;
+        var _label = this.$.controlLabel.value;
+        // console.log(_label);
+        if (_label) {
+          _activeControl.Label = _label;
+        }
+        var _boderItem = this.$.borderStyle.selectedItem;
+        var _borderStyle = '';
+        if (_boderItem) {
+          _borderStyle = _boderItem.getAttribute('name');
+        }
+        var _borderColor = this.$.borderColor.color,
+            _borderWidth = this.$.borderWidth.value;
+        var _border = {
+          Style: _borderStyle,
+          Width: _borderWidth && _borderWidth >=0 ? _borderWidth : 0,
+          BorderColor: {Value: _borderColor, text: ''}
+        }
+        var _backgroundColor = this.$.backgroundColor.color,
+            _foregroundColor = this.$.foregroundColor.color;
+        var _background = {
+          Color: {
+            Value: _backgroundColor,
+            text: ""
+          },
+        }
+        var _alignItem = this.$.alignText.selectedItem;
+        var _alignText = '';
+        if (_alignItem) {
+          _alignText = _alignItem.getAttribute('name');
+        }
+        var _visable = this.$.showVisable.checked;
+        var _fieldItem = this.$.associatedFieldName.selectedItem;
+        var _fieldName = _fieldItem && _fieldItem.getAttribute('name') || '';
+        // console.log(_fieldName);
+        var _checkboxs = this.$.configActions.querySelectorAll('paper-checkbox');
+        // console.log(_checkboxs);
+        var _details = {};
+        _checkboxs.forEach(function(item){
+          var _name = item.getAttribute('name'), _check = item.checked;
+          if (_name === 'ComboBoxSortField') {
+            _details[_name] = { Ascending: _check};
+          } else {
+            _details[_name] = { Value: _check};
+          }
+        });
+        // console.log(_details);
+
+        _activeControl.Border = _border;
+        _activeControl.Alignment = {Value: _alignText};
+        _activeControl.Visible = { Value: _visable };
+        _activeControl.Foreground = { Value: _foregroundColor };
+        _activeControl.Background = _background;
+        _activeControl.Background = _background;
+        _activeControl.FieldRef = { Field: _fieldName};
+        if (_category === 'Select') {
+          _activeControl.AssociatedSelectorDetails = _details;
+        } else {
+          _activeControl.TextDetails = _details;
+        }
+
+
+        this.dispatchEvent(new CustomEvent('close-drawer', { bubbles: true, composed: true }));
+        // _activeControl.styles = {
+        //   Border: _border,
+        //   Alignment: {Value: _alignText},
+        //   Visible: { Value: _visable },
+        //   Foreground: { Value: _foregroundColor },
+        //   Background: _background,
+        // }
+      }
+
+      _computeBorderColor(border) {
+        if (border && border.BorderColor) {
+          return border.BorderColor.Value || null;
+        }
+        return null;
+      }
+
+      _computeBackgroundColor(background) {
+        if (background && background.Color) {
+          return background.Color.Value || null;
+        }
+        return null;
+      }
+
+      _computeForegroundColor(foreground) {
+        if (foreground && foreground.Value) {
+          return foreground.Value || null;
+        }
+        return null;
+      }
+
+      _computeDetail(detail) {
+        return detail && (detail.Value || detail.Ascending);
+      }
+
+    }
+
+    customElements.define(ControlFieldProperties.is, ControlFieldProperties);
+  </script>
+</dom-module>

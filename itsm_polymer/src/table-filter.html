@@ -1,0 +1,423 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-sorter.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-filter.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-column-group.html">
+<link rel="import" href="../bower_components/vaadin-icons/vaadin-icons.html">
+<link rel="import" href="../bower_components/vaadin-combo-box/vaadin-combo-box.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="components/plugin/itsm-pagination.html">
+<link rel="import" href="../bower_components/vaadin-icons/vaadin-icons.html">
+
+<dom-module id="table-filter">
+
+  <template>
+    <style>
+    ol, ul, li {
+    	margin: 0;
+    	padding: 0;
+    	border: 0;
+    	font-size: 100%;
+    	font: inherit;
+    	vertical-align: baseline;
+    }
+
+      .selectBox {
+        display: flex;
+        /*align-items: center;*/
+      }
+      .selectBox vaadin-combo-box {
+        margin-left: 20px;
+      }
+      .pagination {
+        display: flex;
+      }
+      .pagi {
+        margin: auto;
+        margin-top: 10px;
+      }
+
+      .toolbar {
+        display: flex;
+      }
+      .rightbar {
+        display: flex;
+        margin-left: auto;
+        margin-right: 10px;
+        align-items: center;
+      }
+
+      iron-icon {
+        display: inline-block;
+        transition: all 200ms;
+        cursor: pointer;
+      }
+
+      .menu li a:hover iron-icon,
+      .menu li:hover iron-icon,
+      paper-button:hover iron-icon{
+        fill: #00b4f0;
+      }
+
+      paper-button:hover{
+        background: rgb(235, 238, 246);
+      }
+
+      .small-icon {
+        height: 18px;
+      }
+
+      .selectHeader {
+        position: absolute;
+        padding: 20px;
+        z-index: 999;
+        background: rgb(168, 192, 221);
+        border-radius: 4px;
+      }
+
+      .menu li {
+      	float: left;
+      	position: relative;
+      }
+
+      ol, ul {
+      	list-style: none;
+      }
+
+      .menu li a {
+      	color: #444;
+      	display: block;
+      	font-size: 14px;
+      	line-height: 20px;
+      	padding: 6px 12px;
+      	margin: 8px 8px;
+      	vertical-align: middle;
+      	text-decoration: none;
+        border-radius: 12px;
+        background: #fce5cd;
+      }
+
+      .menu li a:hover {
+      	background: -webkit-gradient(linear, center top, center bottom, from(#ededed), to(#fff));
+      	background-image: linear-gradient(#ededed, #fff);
+      	border-radius: 12px;
+      	box-shadow: inset 0px 0px 1px 1px rgba(0,0,0,0.1);
+      	color: #222;
+      }
+
+
+      /* Dropdown styles */
+
+      .menu ul {
+      	position: absolute;
+      	left: -9999px;
+      	list-style: none;
+        z-index: 999;
+      	opacity: 0;
+      	transition: opacity 1s ease;
+      }
+
+      .menu ul li {
+      	float: none;
+      }
+
+      .menu ul a {
+      	white-space: nowrap;
+      }
+
+      /* Displays the dropdown on hover and moves back into position */
+      .menu li:hover ul {
+      	background: rgba(255,255,255,0.7);
+      	border-radius: 0 0 6px 6px;
+      	box-shadow: inset 0px 2px 4px rgba(0,0,0,0.4);
+      	left: 5px;
+      	opacity: 1;
+      }
+
+      /* Persistant Hover State */
+      .menu li:hover a {
+      	background: -webkit-gradient(linear, center top, center bottom, from(#ccc), to(#ededed));
+      	background-image: linear-gradient(#ccc, #ededed);
+      	border-radius: 12px;
+      	box-shadow: inset 0px 0px 1px 1px rgba(0,0,0,0.1);
+      	color: #222;
+      }
+
+      .menu li:hover ul a {
+      	background: none;
+      	border-radius: 0;
+      	box-shadow: none;
+      }
+
+      .menu li:hover ul li a:hover {
+      	background: -webkit-gradient(linear, center top, center bottom, from(#eee), to(#fff));
+      	background-image: linear-gradient(#ededed, #fff);
+      	border-radius: 12px;
+      	box-shadow: inset 0px 0px 4px 2px rgba(0,0,0,0.3);
+      }
+
+    </style>
+    <custom-style>
+      <style is="custom-style">
+        vaadin-grid#grid {
+          font: 500 13px "Open Sans", sans-serif;
+          /*color: rgb(148, 154, 171);*/
+          --divider-color: rgb(223, 232, 239);
+
+          --vaadin-grid-cell: {
+            padding: 0 13px;
+          };
+
+          --vaadin-grid-body-cell: {
+            height: 35px;
+          };
+
+          --vaadin-grid-header-cell: {
+            background: rgba(235, 238, 246, 0.9);
+            border-bottom: 1px solid rgba(208, 217, 225, 0.9);
+            border-top: 1px solid rgba(248, 250, 252, 0.9);
+            min-height: 35px;
+
+            background-image: linear-gradient(rgba(108, 160, 218, 0), rgba(108, 160, 218, 0.15));
+            background-size: 1px 100%;
+            background-position: 100% 0%;
+            background-repeat: no-repeat;
+          };
+
+          --vaadin-grid-body-row-selected-cell: {
+            background-color: rgb(131, 183, 236);
+            color: #fff;
+            border-bottom-color: rgb(108, 160, 218);
+          };
+
+          --vaadin-grid-body-row-odd-cell: {
+            background-color: rgb(251, 252, 254);
+          };
+
+          --vaadin-grid-body-row-hover-cell: {
+            background-color: rgb(235, 238, 246);
+            color: #000;
+          };
+
+          --vaadin-grid-column-resize-handle: {
+            opacity: 0;
+          };
+        }
+      </style>
+    </custom-style>
+    <div class="container">
+      <div class="toolbar">
+        <div class="selectBox">
+          <vaadin-combo-box id="show" label="显示"></vaadin-combo-box>
+          <vaadin-combo-box id="dateround" label="日期范围" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+        </div>
+        <div class="rightbar">
+          <ul class="menu">
+      			<li><a><iron-icon class="small-icon" icon="vaadin:list"></iron-icon>表头</a>
+      				<ul>
+                <template is="dom-repeat" items="{{headers}}" as="head">
+                  <li><a><paper-checkbox checked="{{!head.isHidden}}">[[head.displayName]]</paper-checkbox></a></li>
+                </template>
+      					<li style="visibility:hidden;height:1px;"><a href="#">Crazy Products</a></li>
+      				</ul>
+      			</li>
+      		</ul>
+          <paper-button raised on-click="_refreshTable"><iron-icon class="small-icon" icon="vaadin:refresh"></iron-icon>刷新</paper-button>
+          <paper-button raised on-click="_removeRow"><iron-icon class="small-icon" icon="vaadin:trash"></iron-icon>删除</paper-button>
+        </div>
+      </div>
+      <vaadin-grid id="grid" items="{{items}}">
+        <vaadin-grid-column width="40px" flex-grow="0">
+          <template class="header">
+            <input id="selectAll" aria-label="Select All" type="checkbox" on-click="_invert" checked="[[_isChecked(inverted, indeterminate)]]" indeterminate="[[indeterminate]]">
+          </template>
+          <template>
+            <input aria-label="Select Row" type="checkbox" on-change="_selectItem" checked="[[_isSelected(inverted, selected)]]">
+          </template>
+        </vaadin-grid-column>
+        <template is="dom-repeat" items="{{headers}}" as="column">
+          <vaadin-grid-column hidden="{{column.isHidden}}" resizable>
+            <template class="header">
+              <vaadin-grid-sorter path="[[column.name]]">[[column.displayName]]</vaadin-grid-sorter>
+            </template>
+            <template>
+              [[get(column.name, item)]]
+            </template>
+          </vaadin-grid-column>
+        </template>
+      </vaadin-grid>
+
+    <div class="pagination">
+      <itsm-pagination class="pagi" total="200" current-page="{{currentPage}}"></itsm-pagination>
+    </div>
+    </div>
+
+  </template>
+
+  <script>
+
+    class TableFilter extends Polymer.Element {
+
+      static get is() { return 'table-filter'; }
+
+      static get properties() { return {
+        items: Array,
+        headers: Array,
+        inverted: {
+          type: Boolean,
+          value: false
+        },
+        indeterminate: {
+          type: Boolean,
+          value: false
+        },
+        currentPage: {
+          type: Number
+        },
+        pageSize: {
+          type: Number,
+          value: 10
+        }
+      }}
+
+      static get observers() { return [
+        '_resetSelection(inverted)', '_toPage(currentPage)'
+      ]}
+
+      ready() {
+        super.ready();
+        this._toPage(this.currentPage);
+        this._addEventListen();
+      }
+
+      _initData(page, pageSize){
+        var _this = this;
+        this.items = [];
+        var headers = [
+          {name: 'firstName', isHidden: false, displayName: '第一列'},
+          {name: 'lastName', isHidden: false, displayName: '第二列'},
+          {name: 'address.city', isHidden: false, displayName: '地址'},
+          {name: 'email', isHidden: false, displayName: '邮件'}
+        ];
+
+        $.ajax({
+          type: "GET",
+          url: 'https://demo.vaadin.com/demo-data/1.0/people?index='+ (page-1) +'&count=' + pageSize,
+          async : true,
+          success: function(data){
+            _this.headers = headers;
+            _this.items = data.result;
+          },
+          error: function(error){
+            console.log("errorMsg",error);
+          }
+        });
+    }
+
+    _addEventListen(){
+      var show = this.root.querySelector('#show');
+      show.items = [
+        {label: '要评估的变更请求', value: 1},
+        {label: '紧急变更请求', value: 2},
+        {label: '活动变更请求', value: 3},
+        {label: '我的活动变更请求记录', value: 4}
+      ];
+      show.value = 1;
+
+      var dateround = this.root.querySelector('#dateround');
+      dateround.items = [
+        {label: '本周', value: 1},
+        {label: '当前季度', value: 2},
+        {label: '当月', value: 3},
+        {label: '今年', value: 4},
+        {label: '今天', value: 5},
+        {label: '上个星期', value: 6},
+        {label: '所有', value: 7},
+        {label: '昨天', value: 8},
+        {label: '自定义', value: 9}
+      ];
+      dateround.value = 7;
+
+    }
+
+    _fideToggle(e){
+      var selectHeader = this.root.querySelector("#selectHeader");
+      $(selectHeader).fadeToggle();
+      // $(selectHeader).css({"top":e.clientY+30, "left":e.clientX-80});
+    }
+
+    _resetSelection(inverted) {
+      this.$.grid.selectedItems = [];
+      this.updateStyles();
+      this.indeterminate = false;
+    }
+
+    _toPage(currentPage){
+      this._initData(currentPage, this.pageSize);
+    }
+
+    _refreshTable(){
+      this._initData(this.currentPage, this.pageSize);
+    }
+
+    _invert(e) {
+      this.inverted = !this.inverted;
+    }
+
+      // iOS needs indeterminated + checked at the same time
+    _isChecked(inverted, indeterminate) {
+      return indeterminate || inverted;
+    }
+
+    _selectItem(e) {
+      if (e.target.checked === this.inverted) {
+        this.$.grid.deselectItem(e.model.item);
+      } else {
+        this.$.grid.selectItem(e.model.item);
+      }
+      this.indeterminate = this.$.grid.selectedItems.length > 0;
+    }
+
+    _isSelected(inverted, selected) {
+      return inverted != selected;
+    }
+
+    _removeRow(e){
+        var selectedItems = this.$.grid.selectedItems;
+        if (selectedItems.length > 0) {
+          if(confirm("确定删除所选项?")){
+            var index = 0;
+            for(var i=0;i<selectedItems.length;i++){
+              index = this.items.indexOf(selectedItems[i]);
+              this.items.splice(index, 1);
+            }
+            this.$.grid.clearCache();
+            this.$.grid.selectedItems = [];
+          }
+        } else if(this.root.querySelector("#selectAll").checked){
+          if(confirm("确定删除所选项?")){
+            this.items = [];
+          }
+        } else {
+          alert("至少勾选一条数据");
+        }
+
+    }
+
+  }
+
+  customElements.define(TableFilter.is, TableFilter);
+
+  </script>
+
+</dom-module>

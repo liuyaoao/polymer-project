@@ -1,0 +1,296 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../../bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="../../../css/form/form-style.html">
+
+<script src="../../../../js/tree-js/jquery.ztree.core.min.js"></script>
+<script src="../../../../js/tree-js/jquery.ztree.excheck.min.js"></script>
+<script src="../../../../js/tree-js/jquery.ztree.exedit.min.js"></script>
+
+<dom-module id="control-tree">
+  <template>
+    <link rel="stylesheet" href="./../css/tree-css/zTreeStyle/zTreeStyle.css" />
+    <style include="iron-flex">
+      :host {
+        display: block;
+      }
+      .left-tree {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        width: 200px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04),0 1px 4px rgba(0,0,0,0.12);
+        height: calc(100vh - 80px);
+        background-color: #fff;
+        overflow-y: auto;
+      }
+      .left-tree .tree-header {
+        height: 40px;
+        line-height: 40px;
+        font-size: 12px;
+        text-align: left;
+        padding-left: 5px;
+        background-color: #3b3b3b;
+        color: #fff;
+      }
+      .left-tree .ztree {
+        width: 150px;
+        float: left;
+        /*height: calc(100vh - 50px);*/
+      }
+      .left-tree .hdr-text {
+        display: none;
+      }
+      :host(.collapsed) .left-tree {
+        width: 30px;
+        background-color: #3b3b3b;
+      }
+      :host(.collapsed) .left-tree .ztree {
+        display: none;
+      }
+      :host(.collapsed) .left-tree .tree-header {
+        padding-left: 0;
+      }
+      :host(.collapsed) .left-tree .tree-header .flex {
+        display: none;
+      }
+      :host(.collapsed) .left-tree .tree-header paper-icon-button {
+        padding: 4px;
+      }
+      :host(.collapsed) .hdr-text {
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transform: rotate(270deg);
+        -ms-transform: rotate(270deg);
+        transform-origin: left center;
+        font-weight: normal;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: default;
+        margin: 0 39px 0 14px;
+        color: #fff;
+        font-size: 12px;
+        letter-spacing: 2px;
+      }
+
+    </style>
+
+    <div class="left-tree">
+      <div class="tree-header layout horizontal">
+        <div class="flex">控件树</div>
+        <paper-icon-button icon="chevron-left" on-tap="_collapsedTree"></paper-icon-button>
+      </div>
+      <ul id="treeLeft" class="ztree"></ul>
+      <div class="hdr-text">控件树</div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ControlTree extends Polymer.Element {
+      static get is() { return 'control-tree'; }
+      static get properties() {
+        return {
+          zTree: {
+            type: Object,
+          }
+        }
+      }
+
+      ready(){
+        super.ready();
+        this.zTree = $.fn.zTree;
+      }
+
+      _initTree() {
+        // dropRoot:false
+        var zNodes =[
+    			{ name:"Controls", open:true,
+    				children: [
+              { name:"Button"},
+              { name:"Checkbox"},
+              { name:"Input"},
+              { name:"Label"},
+              { name:"Radio"},
+              { name:"Select"},
+              // { name:"LabelInput"}
+            ]
+          },
+
+    		];
+        var setting = {
+          edit: {
+    				drag: {
+    					autoExpandTrigger: true,
+              isCopy: false,
+			        isMove: true,
+    					prev: dropPrev,
+              inner: dropInner,
+    					next: dropNext
+    				},
+    				// enable: true,
+    				showRemoveBtn: false,
+    				showRenameBtn: false
+    			},
+          callback: {
+    				// beforeClick: beforeClick,
+    				onClick: onClick,
+            // beforeDrag: beforeDrag,
+    			}
+        };
+        var _this = this;
+        function onClick(event, treeId, treeNode, clickFlag) {
+          _this.addNewWidget(treeNode);
+    		}
+        function dropPrev(treeId, nodes, targetNode) {
+    			var pNode = targetNode.getParentNode();
+    			if (pNode && pNode.dropInner === false) {
+    				return false;
+    			} else {
+    				for (var i=0,l=curDragNodes.length; i<l; i++) {
+    					var curPNode = curDragNodes[i].getParentNode();
+    					if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+    						return false;
+    					}
+    				}
+    			}
+    			return true;
+    		}
+        function dropNext(treeId, nodes, targetNode) {
+    			var pNode = targetNode.getParentNode();
+    			if (pNode && pNode.dropInner === false) {
+    				return false;
+    			} else {
+    				for (var i=0,l=curDragNodes.length; i<l; i++) {
+    					var curPNode = curDragNodes[i].getParentNode();
+    					if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+    						return false;
+    					}
+    				}
+    			}
+    			return true;
+    		}
+        function dropInner(treeId, nodes, targetNode) {
+    			if (targetNode && targetNode.dropInner === false) {
+    				return false;
+    			} else {
+    				for (var i=0,l=curDragNodes.length; i<l; i++) {
+    					if (!targetNode && curDragNodes[i].dropRoot === false) {
+    						return false;
+    					} else if (curDragNodes[i].parentTId && curDragNodes[i].getParentNode() !== targetNode && curDragNodes[i].getParentNode().childOuter === false) {
+    						return false;
+    					}
+    				}
+    			}
+    			return true;
+    		}
+
+        var log, className = "dark", curDragNodes, autoExpandNode;
+    		function beforeDrag(treeId, treeNodes) {
+    			for (var i=0,l=treeNodes.length; i<l; i++) {
+    				if (treeNodes[i].drag === false) {
+    					curDragNodes = null;
+    					return false;
+    				} else if (treeNodes[i].parentTId && treeNodes[i].getParentNode().childDrag === false) {
+    					curDragNodes = null;
+    					return false;
+    				}
+    			}
+    			curDragNodes = treeNodes;
+    			return true;
+    		}
+
+        this.zTree.init($(this.$.treeLeft), setting, zNodes);
+        return;
+
+        var _this = this;
+        $.ajax({
+          type: "GET",
+          url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/getById?token=adadf&id=6C7CEA7BAA2344A09ADBF14D3A74F3F0",
+          // dataType: 'json',
+          async : true,
+          success: function(data){
+            var zNode = JSON.parse(data);
+            var zNodes = [];
+            zNode.isParent = true, zNode.open = true;
+            var children = [];
+            var field = { name:"字段", isParent:true};
+            var relate = { name:"关系", isParent:true};
+            var show = { name:"显示", isParent:true};
+            children.push(field);
+            children.push(relate);
+            children.push(show);
+
+            var fields = zNode.fields;
+            field.children = fields;
+            show.children = [
+              {name: '窗体', children: [
+                { name:"Button"},
+                { name:"Checkbox"},
+                { name:"Input"},
+                { name:"Label"},
+                { name:"Radio"},
+                { name:"Select"},
+              ]},
+              {name: '网格'}, {name: '布局'}
+            ]
+            zNode.children = children;
+            zNodes.push(zNode);
+
+            console.log(zNodes);
+
+            $.fn.zTree.init($(_this.$.treeLeft), setting, zNodes);
+          },
+          error: function(error){
+            console.log("errorMsg",error);
+          }
+        });
+      }
+
+      addNewWidget(node) {
+        this.dispatchEvent(new CustomEvent('add-widget', {
+          detail: { node: node},
+          bubbles: true, composed: true
+        }));
+      }
+
+      _collapsedTree() {
+        var _class = this.parentNode.classList;
+        var _icon = this.root.querySelector('paper-icon-button');
+        if (_class.contains('collapsed')) {
+          _icon.icon = 'chevron-left';
+        } else {
+          _icon.icon = 'chevron-right';
+        }
+        this.classList.toggle('collapsed');
+        _class.toggle('collapsed');
+      }
+
+      _selectControlNode(category) {
+        var treeObj = this.zTree && this.zTree.getZTreeObj('treeLeft');
+        if (treeObj) {
+          var parentNodes = treeObj.getNodes();
+          var nodes = parentNodes.length && treeObj.getNodesByParam("name", category, parentNodes[0]);
+          nodes.length && treeObj.selectNode(nodes[0]);
+        }
+      }
+
+      _cancelSelectControlNode(category) {
+        var treeObj = this.zTree && this.zTree.getZTreeObj('treeLeft');
+        if (treeObj) {
+          var selectedNodes = treeObj.getSelectedNodes();
+          selectedNodes.length && treeObj.cancelSelectedNode(selectedNodes[0]);
+        }
+      }
+
+    }
+
+    customElements.define(ControlTree.is, ControlTree);
+  </script>
+</dom-module>

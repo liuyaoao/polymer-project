@@ -1,0 +1,113 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-input/paper-dropdown-input.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../css/page-styles.html">
+
+<link rel="import" href="../../news-vaadin.html">
+
+<dom-module id="center-dashboard">
+
+  <template>
+    <style include="page-styles">
+    .add-content .pink .btn{
+      margin: 0 !important;
+      margin-right: 15px !important;
+    }
+    .add-content .btns{
+      font-size: 0.83em;
+      display: inline-block;
+      margin: 0 ;
+      margin-left: 15px;
+      color: #fff;
+      padding: 5px 15px;
+      background-color: #333833;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    paper-dropdown-menu{
+      margin-right: 25px;
+    }
+    </style>
+    <app-toolbar class="add-header">
+      <div class="flex">仪表板 中心</div>
+      <paper-icon-button icon="chevron-right" on-tap="_closeDrawer"></paper-icon-button>
+    </app-toolbar>
+
+    <div class="add-content">
+
+      <div class="item">
+        <h5>搜索条件</h5>
+        <paper-dropdown-menu label="业务对象类别:">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item>所有类别</paper-item>
+            <paper-item>IT资源监测</paper-item>
+            <paper-item>其他</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-input always-float-label label="业务对象类型:"></paper-input>
+        <paper-dropdown-menu label="范 围:">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item> </paper-item>
+            <paper-item>个人</paper-item>
+            <paper-item>角色</paper-item>
+            <paper-item>全局</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-dropdown-menu label="负责人:">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item> </paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+      </div>
+
+      <div class="item pink">
+        <paper-input always-float-label label="按名称全文搜索:"></paper-input>
+        <paper-button class="btn" on-click="">搜索</paper-button>
+        <paper-button class="btn" on-click="">关闭</paper-button>
+      </div>
+
+      <div  class="item">
+        <h5 style="display:inline-block;">仪表板列</h5>
+        <paper-button class="btns" on-click="">添加</paper-button>
+        <news-vaadin id="tableN"></news-vaadin>
+      </div>
+
+    </div>
+
+
+  </template>
+
+  <script>
+
+    class centerDashboard extends Polymer.Element {
+
+      static get is() { return 'center-dashboard'; }
+
+      static get properties() { return {
+
+
+      }}
+
+      ready() {
+        super.ready();
+
+      }
+
+      _closeDrawer() {
+        this.dispatchEvent(new CustomEvent('addWidget-close', {bubbles: true, composed: true}));
+      }
+
+      _onClickOk() {
+        this.dispatchEvent(new CustomEvent('onclick-ok', {bubbles: true, composed: true}));
+      }
+
+    }
+
+    customElements.define(centerDashboard.is, centerDashboard);
+
+  </script>
+
+</dom-module>

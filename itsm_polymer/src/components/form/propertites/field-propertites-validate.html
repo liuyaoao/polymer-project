@@ -1,0 +1,113 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../../bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../../../../bower_components/vaadin-grid/vaadin-grid-sorter.html">
+<link rel="import" href="../../../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../../../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../../../css/form/form-style.html">
+
+<dom-module id="field-propertites-validate">
+  <template>
+    <style include="form-style iron-flex iron-flex-factors iron-flex-alignment">
+      :host {
+        width: 100%;
+      }
+      paper-checkbox {
+        line-height: 34px;
+        font-size: 12px;
+      }
+      .radio-group paper-radio-button {
+        /*margin-right: 25px;*/
+        display: inline-block;
+      }
+
+      .radio-group .radio-combo {
+        padding: 0 8px;
+      }
+      .radio-group .col-1 {
+        width: 40%;
+        display: inline-block;
+      }
+
+      /* mobile */
+      @media (max-width: 767px) {
+      }
+
+    </style>
+
+    <form class="form form2">
+      <div class="form-group">
+        <paper-icon-button icon="expand-more" on-click="_shrink"></paper-icon-button>
+        <label>验证选项</label>
+      </div>
+      <iron-collapse opened class="form-content">
+        <div class="form-group">
+          <paper-radio-group class="radio-group" selected="3" allow-empty-selection>
+            <paper-radio-button name="1" class="flex-6">不验证</paper-radio-button>
+            <paper-radio-button name="2" class="flex-3">值范围</paper-radio-button>
+            <paper-radio-button name="3" class="flex-3">值列表</paper-radio-button>
+            <paper-radio-button name="4">其他业务对象</paper-radio-button>
+            <paper-radio-button name="5">操作时的数日程表</paper-radio-button>
+            <paper-radio-button name="6">正则表达式</paper-radio-button>
+            <div class="col-1"></div>
+            <paper-radio-button name="7">指定的表达式</paper-radio-button>
+            <vaadin-combo-box id="selectExpression" no-label-float class="radio-combo"></vaadin-combo-box>
+          </paper-radio-group>
+        </div>
+      </iron-collapse>
+    </form>
+    <form class="form form2">
+      <div class="form-group">
+        <paper-icon-button icon="expand-more" on-click="_shrink"></paper-icon-button>
+        <label>列表属性</label>
+      </div>
+      <iron-collapse opened class="form-content">
+        <vaadin-grid id="grid" class="custom" items="{{valueList}}" column-reordering-allowed>
+
+          <vaadin-grid-column width="10px">
+            <template class="header">
+              <vaadin-grid-sorter path="index">序列</vaadin-grid-sorter>
+            </template>
+            <template>[[_computeIndex(index)]]</template>
+          </vaadin-grid-column>
+
+          <vaadin-grid-column>
+            <template class="header">
+              <vaadin-grid-sorter path="value">值列表</vaadin-grid-sorter>
+            </template>
+            <template>[[item.value]]</template>
+          </vaadin-grid-column>
+        </vaadin-grid>
+      </iron-collapse>
+    </form>
+  </template>
+  <script>
+    class FieldPropertitesValidate extends Polymer.Element {
+      static get is() { return "field-propertites-validate"; }
+      static get properties() { return {
+        valueList: {
+          type: Array,
+          value: []
+        }
+      }}
+
+      ready() {
+        super.ready();
+        this.valueList = [
+          {value: '标准'}, {value: '次要'}, {value: '主要'}, {value: '重大'}
+        ]
+      }
+
+      _computeIndex(index) {
+        return index + 1;
+      }
+
+      _shrink(e){
+        this.dispatchEvent(new CustomEvent('form-shrink', {
+          detail: { target: e.target},
+          bubbles: true, composed: true
+        }));
+      }
+    }
+    customElements.define(FieldPropertitesValidate.is, FieldPropertitesValidate);
+  </script>
+</dom-module>

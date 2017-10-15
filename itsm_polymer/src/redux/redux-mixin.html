@@ -1,0 +1,28 @@
+<link rel="import" href="../../bower_components/polymer-redux/polymer-redux.html">
+<script src="./reducerUtilities.js"></script>
+<script src="./reducers/form-reducer.js"></script>
+
+<script>
+    const initial = {
+        message: 'Hello from PolymerRedux'
+    };
+
+    const messageReducer = (state = initial, action) => {
+        switch (action.type) {
+            case 'UPDATE_MESSAGE':
+                return Object.assign({}, state, {
+                    message: action.message
+                });
+            default:
+                return state;
+        }
+    }
+
+    var reducer = Redux.combineReducers({
+        message: messageReducer,
+        formReducer,
+    });
+
+    const store = Redux.createStore(reducer, {}, Redux.applyMiddleware(ReduxThunk.default));
+    ReduxMixin = PolymerRedux(store);
+</script>

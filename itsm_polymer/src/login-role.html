@@ -1,0 +1,60 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-dropdown-input/paper-dropdown-input.html">
+<link rel="import" href="css/page-styles.html">
+
+<dom-module id="login-role">
+
+  <template>
+    <style include="page-styles">
+    </style>
+    <div class="login_bg">
+      <h1 title="SiteView ITOSS IT运营支持平台"><img src="../images/slogo.svg" alt=""></h1>
+      <div class="content">
+        <div class="role-select">
+          <paper-dropdown-input label="可用角色"
+            items='["变更经理","发布经理","服务级别经理"]'>
+          </paper-dropdown-input>
+        </div>
+        <p class="copyRight">版权所有 北京游龙网网络科技有限公司</p>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    class LoginRole extends Polymer.Element {
+      static get is() { return 'login-role'; }
+      static get properties() {
+        return {
+          label: {
+            type: String,
+          }
+        };
+      }
+
+      ready(){
+        this.addEventListener('click', this._focusInput.bind(this));
+        super.ready();
+      }
+
+      _focusInput() {
+        var _input = this.root.querySelector('input');
+        // console.log(_input);
+        if (_input) {
+          _input.focus();
+        }
+      }
+
+      _removeWidget(e) {
+        var gridItem = this.parentNode.parentNode;
+        // console.log(gridItem);
+        if (gridItem.classList.contains('grid-stack-item')) {
+          this.dispatchEvent(new CustomEvent('remove-widget', {detail: gridItem, bubbles: true, composed: true}));
+        }
+
+      }
+
+    }
+
+    window.customElements.define(LoginRole.is, LoginRole);
+  </script>
+</dom-module>

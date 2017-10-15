@@ -1,0 +1,118 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="lazy-library.html">
+
+<dom-module id="graph-pipeline">
+
+  <template>
+    <div id="pipeline" style="min-width:400px;min-height:400px;"></div>
+  </template>
+  <script>
+
+  class graphPipeline extends Polymer.Element {
+
+  static get is() { return 'graph-pipeline'; }
+
+  static get properties() { return {
+
+      appTitle: String,
+
+      page: {
+        type: String,
+        reflectToAttribute: true
+      },
+
+      categories: Array,
+
+      category: {
+        type:Object
+      },
+
+      smallScreen: Boolean,
+
+      drawerOpened: {
+        type: Boolean,
+        notify: true
+      }
+
+    }}
+
+    ready(){
+      super.ready();
+
+
+      var _this = this;
+      $(function () {
+        var chart = new Highcharts.Chart(_this.$.pipeline, {
+        // $(_this.$.pipeline).highcharts({
+          credits: {
+              enabled: false
+              // text: 'Example.com',
+              // href: 'http://www.example.com'
+          },
+          chart: {
+            type: 'bar'
+          },
+          title: {
+            text: '堆叠条形图'
+          },
+          xAxis: {
+            categories: ['苹果', '橘子', '梨', '葡萄', '香蕉']
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: '水果消费总量'
+            }
+          },
+          legend: {
+            reversed: true
+          },
+          plotOptions: {
+            series: {
+              stacking: 'normal',
+              cursor: 'pointer',
+              events: {
+                  click: function(e) {
+                      location.href = this.options.url;
+                  }
+              }
+            }
+          },
+          series: [
+            {
+              name: '小张',
+              data: [5, 3, 4, 7, 2],
+              url:'http://www.baidu.com'
+            }, {
+              name: '小彭',
+              data: [2, 2, 3, 2, 1]
+            }, {
+              name: '小潘',
+              data: [3, 4, 4, 2, 5]
+            }
+          ]
+        });
+      });
+    }
+
+
+  }
+
+  customElements.define(graphPipeline.is, graphPipeline);
+
+  </script>
+
+  </dom-module>

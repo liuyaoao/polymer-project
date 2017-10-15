@@ -1,0 +1,132 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/vaadin-icons/vaadin-icons.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html">
+
+<link rel="import" href="table-new.html">
+<link rel="import" href="graph-cake.html">
+<link rel="import" href="graph-columnar.html">
+
+<dom-module id="table-dialog">
+
+  <template>
+
+    <style>
+      paper-dialog {
+        border: 5px solid #f52727;
+        border-radius: 6px;
+        width: 93%;
+        min-height: 500px;
+      }
+      paper-dialog-scrollable {
+        /*border: 1px solid green;*/
+        margin: 0px;
+        padding: 0px;
+      }
+      .diaheader {
+        color: white;
+        display: flex;
+        align-items: center;
+        height: 40px;
+        background: #f52727;
+        margin-top: 0px;
+      }
+      iron-icon {
+        display: inline-block;
+        fill: white;
+        transition: all 200ms;
+        cursor: pointer;
+      }
+      iron-icon:hover{
+        fill: #00b4f0;
+      }
+      .small-icon {
+        height: 18px;
+      }
+      .maxoptions {
+        margin-left: auto;
+        margin-right: 0px;
+      }
+      .dialog-container{
+        position: relative;
+      }
+    </style>
+    <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" modal>
+
+        <div class="diaheader">
+          <h4 class="lighttitle">这是一个弹出标题</h4>
+          <div class="maxoptions">
+            <iron-icon class="small-icon" icon="vaadin:refresh" title="Refresh" on-click="_addContent"></iron-icon>
+            <iron-icon class="small-icon" icon="vaadin:external-link" title="Export"></iron-icon>
+            <iron-icon icon="vaadin:close-small" title="Close" dialog-dismiss></iron-icon>
+          </div>
+        </div>
+        <paper-dialog-scrollable>
+          <div subobj="{{subobj}}" id="a" style="margin-right:-24px;margin-left:-24px;">
+            <!-- <table-new id="tableN"></table-new> -->
+            <!-- <graph-cake></graph-cake> -->
+          </div>
+        </paper-dialog-scrollable>
+    </paper-dialog>
+
+  </template>
+
+  <script>
+
+    class TableDialog extends Polymer.Element {
+
+      static get is() { return 'table-dialog'; }
+
+      static get properties() { return {
+        subobj: String
+      }}
+
+      static get observers() { return [
+
+      ]}
+
+      ready(){
+        super.ready();
+        // this._addContent(this.subobjs);
+      }
+
+      _addContent(){
+        var table = document.createElement(this.subobj);
+        var contain = this.$.a;
+        while(contain.hasChildNodes()) {
+          contain.removeChild(contain.lastChild);
+        }
+        contain.appendChild(table);
+      }
+
+      _openDialog(){
+        var _this = this;
+        _this.$.dialog.open();
+        setTimeout(function(){
+          _this._addContent();
+        },50);
+
+      }
+
+    }
+
+    customElements.define(TableDialog.is, TableDialog);
+
+  </script>
+
+</dom-module>

@@ -1,0 +1,29 @@
+<script>
+  ControlMixin = (superClass) => class extends superClass {
+    connectedCallback() {
+      super.connectedCallback();
+    }
+
+    ready() {
+      super.ready();
+      this._checkFormStatus();
+    }
+
+    static get properties() {
+      return {
+        isFormShown: {
+          type: Boolean
+        },
+      };
+    }
+
+    _checkFormStatus() {
+      if (!this.isFormShown) {
+        this.classList.add('nopoint');
+      } else {
+        this.classList.remove('nopoint');
+      }
+    }
+
+  }
+</script>

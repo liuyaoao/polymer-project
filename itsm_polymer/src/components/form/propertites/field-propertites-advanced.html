@@ -1,0 +1,134 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../../../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../../../css/form/form-style.html">
+
+<dom-module id="field-propertites-advanced">
+  <template>
+    <style include="form-style iron-flex iron-flex-factors iron-flex-alignment">
+      :host {
+        width: 100%;
+      }
+      paper-checkbox {
+        line-height: 34px;
+        font-size: 12px;
+      }
+      .radio-group paper-radio-button {
+        /*margin-right: 25px;*/
+      }
+
+      /* mobile */
+      @media (max-width: 767px) {
+      }
+
+    </style>
+
+    <form class="form form2">
+      <div class="form-group">
+        <paper-icon-button icon="expand-more" on-click="_shrink"></paper-icon-button>
+        <label>高级</label>
+      </div>
+      <iron-collapse opened class="form-content">
+        <div class="form-group layout horizontal">
+          <paper-checkbox id="showVisable">计算字段中的值</paper-checkbox>
+        </div>
+        <div>
+          <span>计算:</span>
+          <paper-menu-button>
+            <paper-button slot="dropdown-trigger"><iron-icon icon="expand-more"></iron-icon>选择一个表达式...</paper-button>
+            <paper-listbox slot="dropdown-content">
+              <paper-item>选择一个表达式</paper-item>
+            </paper-listbox>
+          </paper-menu-button>
+        </div>
+        <p>载入字段时重新计算其值的时间:</p>
+        <paper-radio-group class="radio-group" selected="" allow-empty-selection>
+          <paper-radio-button name="1">始终</paper-radio-button>
+          <paper-radio-button name="2">从不</paper-radio-button>
+          <paper-radio-button name="3">仅在值为空时</paper-radio-button>
+        </paper-radio-group>
+        <div>
+          <span>保存值前:</span>
+          <paper-menu-button>
+            <paper-button slot="dropdown-trigger"><iron-icon icon="expand-more"></iron-icon>(没有值)</paper-button>
+            <paper-listbox slot="dropdown-content">
+              <paper-item>(没有值)</paper-item>
+            </paper-listbox>
+          </paper-menu-button>
+        </div>
+        <div class="form-group layout horizontal">
+          <div class="flex-6">
+            <paper-checkbox>这是加密字段</paper-checkbox>
+            <paper-checkbox>窗体上允许字段</paper-checkbox>
+            <paper-checkbox>网格上允许字段</paper-checkbox>
+          </div>
+          <div class="flex-6">
+            <paper-checkbox>普通搜索的字段</paper-checkbox>
+            <paper-checkbox disabled>清空字段值</paper-checkbox>
+          </div>
+        </div>
+        <div class="layout horizontal end-justified">
+          <paper-button raised class="pbtn pbtn-default">XML...</paper-button>
+          <paper-button raised class="pbtn pbtn-default" style="margin-right: 0">许可</paper-button>
+        </div>
+      </iron-collapse>
+    </form>
+    <form class="form form2">
+      <div class="form-group">
+        <paper-icon-button icon="expand-more" on-click="_shrink"></paper-icon-button>
+        <label>数据库</label>
+      </div>
+      <iron-collapse opened class="form-content">
+        <div class="form-group layout horizontal">
+          <div class="flex-5">
+            <paper-checkbox>索引字段</paper-checkbox>
+            <paper-checkbox>不同的储存名称</paper-checkbox>
+          </div>
+          <div class="flex-7">
+            <div class="layout horizontal">
+              <div class="flex-6"><paper-checkbox>储存字段</paper-checkbox></div>
+              <div class="flex-6"><paper-checkbox>支持全文搜索</paper-checkbox></div>
+            </div>
+            <div class="layout horizontal">
+              <paper-input class="flex" no-label-float></paper-input>
+            </div>
+          </div>
+        </div>
+      </iron-collapse>
+    </form>
+    <form class="form form2">
+      <div class="form-group">
+        <paper-icon-button icon="expand-more" on-click="_shrink"></paper-icon-button>
+        <label>BPE引擎</label>
+      </div>
+      <iron-collapse opened class="form-content">
+        <div class="form-group layout horizontal">
+          <paper-checkbox>事件发送到业务流程引擎</paper-checkbox>
+        </div>
+      </iron-collapse>
+    </form>
+  </template>
+  <script>
+    class FieldPropertitesAdvanced extends Polymer.Element {
+      static get is() { return "field-propertites-advanced"; }
+      static get properties() { return {
+        annotationList: {
+          type: Array,
+          value: []
+        }
+      }}
+
+      ready() {
+        super.ready();
+      }
+
+      _shrink(e){
+        this.dispatchEvent(new CustomEvent('form-shrink', {
+          detail: { target: e.target},
+          bubbles: true, composed: true
+        }));
+      }
+    }
+    customElements.define(FieldPropertitesAdvanced.is, FieldPropertitesAdvanced);
+  </script>
+</dom-module>

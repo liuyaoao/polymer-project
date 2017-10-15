@@ -1,0 +1,157 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-input/paper-dropdown-input.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../css/page-styles.html">
+
+<dom-module id="add-widget">
+
+  <template>
+    <style include="page-styles">
+    </style>
+    <app-toolbar class="add-header">
+      <div class="flex">新建仪表板</div>
+      <paper-icon-button icon="chevron-right" on-tap="_closeDrawer"></paper-icon-button>
+    </app-toolbar>
+
+    <div class="add-content">
+      <div class="item">
+        <h5>一般</h5>
+        <paper-input always-float-label label="名称(N):"></paper-input>
+        <paper-input always-float-label label="别名(A):"></paper-input>
+        <paper-input always-float-label label="说明(D):"></paper-input>
+        <paper-dropdown-menu label="范围(S):">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item>个人</paper-item>
+            <paper-item>角色</paper-item>
+            <paper-item>全局</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-dropdown-menu label="负责人(O):">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item>个人</paper-item>
+            <paper-item>角色</paper-item>
+            <paper-item>全局</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-dropdown-menu label="类别(C):">
+          <paper-listbox slot="dropdown-content" selected="1">
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-dropdown-menu label="关联(A):">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item>未关联</paper-item>
+            <paper-item>告警</paper-item>
+            <paper-item>可用性</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <div class="checkboxs">
+          <paper-checkbox class="styled">
+            作为菜单项显示
+          </paper-checkbox>
+          <paper-checkbox class="styled">
+            在导航器中显示
+          </paper-checkbox>
+        </div>
+      </div>
+
+      <div class="item gray">
+        <h5>外观</h5>
+        <paper-input always-float-label label="文本:"></paper-input>
+
+      </div>
+
+      <div class="item pink">
+        <h5>布局</h5>
+        <paper-dropdown-menu label="范围(S):">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item>个人</paper-item>
+            <paper-item>角色</paper-item>
+            <paper-item>全局</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-dropdown-menu label="负责人(O):">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item>个人</paper-item>
+            <paper-item>角色</paper-item>
+            <paper-item>全局</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-dropdown-menu label="范围(S):">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item>个人</paper-item>
+            <paper-item>角色</paper-item>
+            <paper-item>全局</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-dropdown-menu label="负责人(O):">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item>个人</paper-item>
+            <paper-item>角色</paper-item>
+            <paper-item>全局</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-dropdown-input id="widget" label="选择仪表板部件" style="margin-bottom:400px"
+        items="[[widgetCategory]]">
+        </paper-dropdown-input>
+      </div>
+
+      <paper-button class="btn" on-click="_onClickOk">确定</paper-button>
+    </div>
+
+  </template>
+
+  <script>
+
+    class AddWidget extends Polymer.Element {
+
+      static get is() { return 'add-widget'; }
+
+      static get properties() { return {
+
+        widget: {
+          type: String,
+          notify: true
+        },
+
+        widgetCategory: Array
+      }}
+
+      ready() {
+        super.ready();
+        this._getWidgetCategories();
+      }
+
+      _getWidgetCategories(){
+        var _this = this;
+        $.ajax({
+          type: "GET",
+          url: Window.AppConfig.serverUrl+"/foundation/api/v1/dashboardpart/getCategorys?token=BD53EDB579544BAEB2B07448C7890D5F",
+          async : true,
+          success: function(data){
+            var arr = JSON.parse(data);
+            _this.widgetCategory = arr;
+          },
+          error: function(error){
+            console.log("errorMsg",error);
+          }
+        });
+      }
+      _closeDrawer() {
+        this.dispatchEvent(new CustomEvent('addWidget-close', {bubbles: true, composed: true}));
+      }
+
+      _onClickOk() {
+        this.widget = this.$.widget.value;
+        this.dispatchEvent(new CustomEvent('onclick-ok', {bubbles: true, composed: true}));
+      }
+
+    }
+
+    customElements.define(AddWidget.is, AddWidget);
+
+  </script>
+
+</dom-module>

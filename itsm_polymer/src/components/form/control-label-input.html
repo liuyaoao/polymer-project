@@ -1,0 +1,63 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../css/form/form-style.html">
+
+<dom-module id="control-label-input">
+  <template>
+    <style include="form-style">
+      :host {
+        display: block;
+        text-align: left;
+      }
+    </style>
+
+    <div class="form-inline">
+      <div class="form-group">
+        <label>[[label]]</label>
+        <input type="text" class="form-control" />
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ControlLabelInput extends Polymer.Element {
+      static get is() { return 'control-label-input'; }
+      static get properties() {
+        return {
+          label: {
+            type: String,
+            value: 'Label'
+          }
+        };
+      }
+
+      ready(){
+        this.addEventListener('click', this._activeControl.bind(this));
+        super.ready();
+      }
+
+      _activeControl() {
+        this._setAvtiveControl();
+        this._openDrawer();
+      }
+
+      _setAvtiveControl() {
+        this.dispatchEvent(new CustomEvent('set-active-control', {
+          detail: { control: this},
+          bubbles: true, composed: true
+        }));
+      }
+
+      _openDrawer() {
+        this.dispatchEvent(new CustomEvent('open-drawer', { bubbles: true, composed: true }));
+      }
+
+    }
+
+    customElements.define(ControlLabelInput.is, ControlLabelInput);
+  </script>
+</dom-module>

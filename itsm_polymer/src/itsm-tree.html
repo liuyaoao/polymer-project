@@ -1,0 +1,390 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+
+<!-- <script src="../js/tree-js/jquery-1.4.4.min.js"></script> -->
+<script src="../js/tree-js/jquery.ztree.core.js"></script>
+<script src="../js/tree-js/jquery.ztree.excheck.js"></script>
+<script src="../js/tree-js/jquery.ztree.exedit.js"></script>
+<link rel="import" href="./components/home/field-drawer-content.html">
+<link rel="import" href="./components/home/relate-drawer-content.html">
+<link rel="import" href="./components/home/layout-drawer-content.html">
+<link rel="import" href="./components/home/grid-drawer-content.html">
+<link rel="import" href="./components/home/business-drawer-content.html">
+<dom-module id="itsm-tree">
+
+  <template>
+    <link rel="stylesheet" href="../css/tree-css/demo.css" type="text/css">
+  	<link rel="stylesheet" href="../css/tree-css/zTreeStyle/zTreeStyle.css" type="text/css">
+
+    <style>
+      :host {
+        --app-drawer-width: 400px;
+      }
+      .ztree li span.button.pIcon01_ico_open{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/1_open.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+      .ztree li span.button.pIcon01_ico_close{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/1_close.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+      .ztree li span.button.pIcon02_ico_open,.ztree li span.button.pIcon02_ico_close{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/2.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+      .ztree li span.button.icon01_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/3.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+      .ztree li span.button.icon02_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/4.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+      .ztree li span.button.icon03_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/5.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+      .ztree li span.button.icon04_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/6.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+      .ztree li span.button.icon05_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/7.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+      .ztree li span.button.icon06_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/8.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+
+    </style>
+
+    <div>
+      <!-- <input type="checkbox" id="editable" class="checkbox first" checked /><span>编辑树</span> -->
+    </div>
+    <div class="content_wrap">
+    	<div class="zTreeDemoBackground left">
+    		<div id="treeDemo" class="ztree"></div>
+    	</div>
+    </div>
+    <!-- 业务对象树编辑 -->
+    <!-- 业务对象 -->
+    <app-drawer id="editDrawer0" align="right" class="map-add">
+      <div class="drawer-contents">
+        <business-drawer-content current-tree-node={{currentTreeNode}}></business-drawer-content>
+      </div>
+    </app-drawer>
+    <!-- 字段 -->
+    <app-drawer id="editDrawer1" align="right" class="map-add">
+      <div class="drawer-contents">
+        <field-drawer-content current-tree-node={{currentTreeNode}}></field-drawer-content>
+      </div>
+    </app-drawer>
+    <!-- 关系 -->
+    <app-drawer id="editDrawer2" align="right" class="map-add">
+      <div class="drawer-contents">
+        <relate-drawer-content current-tree-node={{currentTreeNode}}></relate-drawer-content>
+      </div>
+    </app-drawer>
+    <!-- 布局 -->
+    <app-drawer id="editDrawer3" align="right" class="map-add">
+      <div class="drawer-contents">
+        <layout-drawer-content current-tree-node={{currentTreeNode}}></layout-drawer-content>
+      </div>
+    </app-drawer>
+    <!-- 网格 -->
+    <app-drawer id="editDrawer4" align="right" class="map-add">
+      <div class="drawer-contents">
+        <grid-drawer-content current-tree-node={{currentTreeNode}}></grid-drawer-content>
+      </div>
+    </app-drawer>
+  </template>
+
+  <script>
+
+    class ItsmTree extends Polymer.Element {
+
+      static get is() { return 'itsm-tree'; }
+
+      static get properties() { return {
+        currentTreeNode: {
+          type: Object,
+          observer: '_targetChanged',
+          notify: true
+        },
+        currentTreeNodeParent: Object,
+        serverData: Object
+      }}
+
+      static get observers() { return [
+
+      ]}
+
+      ready(){
+        this.addEventListener('drawer-close', this._editPanelDrawerClose.bind(this));
+        this.addEventListener('add-tree-node', this._addTreeNode.bind(this));
+        this.addEventListener('remove-tree-node', this._removeTreeNode.bind(this));
+        this.addEventListener('update-tree-node', this._updateNode.bind(this));
+        super.ready();
+        this._init(this);
+      }
+
+      _init(_this){
+        var setting = {
+          view: {
+            addHoverDom: addHoverDom,
+				    removeHoverDom: removeHoverDom
+    				// showLine: false
+    			},
+          edit: {
+    				enable: true,
+    				showRemoveBtn: false,
+    				showRenameBtn: false
+    			},
+          data: {
+    				simpleData: {
+    					enable: true
+    				}
+    			},
+          callback: {
+    				beforeClick: beforeClick,
+    				onClick: onClick,
+            beforeDrag: beforeDrag,
+				    beforeDrop: beforeDrop,
+            onRemove: onRemove,
+				    onRename: onRename
+			    }
+        };
+
+        function beforeClick(treeId, treeNode, clickFlag) {
+    			// className = (className === "dark" ? "":"dark");
+    			//console.log("[ "+getTime()+" beforeClick ]&nbsp;&nbsp;" + treeNode.name );
+    			return (treeNode.click != false);
+    		}
+
+    		function onClick(event, treeId, treeNode, clickFlag) {
+          var parent = treeNode.getParentNode();
+          if(parent){
+            _this.selectedparent = parent.name;
+            switch (parent.name) {
+              case '字段':
+                _this._editPanelDrawerOpen('editDrawer1');
+                break;
+              case '关系':
+                _this._editPanelDrawerOpen('editDrawer2');
+                break;
+              case '显示':
+                var type = treeNode.name;
+                var type2 = treeNode.otype;
+                if (type2 == 'l') {
+                  _this._editPanelDrawerOpen('editDrawer3');
+                }
+                if (type2 == 'g') {
+                  _this._editPanelDrawerOpen('editDrawer4');
+                }
+                break;
+              default:
+            }
+            _this.currentTreeNode = treeNode;
+            _this.currentTreeNodeParent = parent;
+          } else {
+            _this._editPanelDrawerOpen('editDrawer0');
+          }
+
+    		}
+
+        function beforeDrag(treeId, treeNodes) {
+    			for (var i=0,l=treeNodes.length; i<l; i++) {
+    				if (treeNodes[i].drag === false) {
+    					return false;
+    				}
+    			}
+    			return true;
+    		}
+
+    		function beforeDrop(treeId, treeNodes, targetNode, moveType) {
+    			return targetNode ? targetNode.drop !== false : true;
+    		}
+
+        function onRemove(e, treeId, treeNode) {
+    			console.log("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+    		}
+
+    		function onRename(e, treeId, treeNode, isCancel) {
+    			console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
+    		}
+
+        var newCount = 1;
+        function addHoverDom(treeId, treeNode) {
+          var editable = $(_this.root.querySelector('#editable')).attr("checked");
+          if (editable) {
+            var sObj = $(_this.root.querySelector("#" + treeNode.tId + "_span"));
+      			if (treeNode.editNameFlag || $(_this.root.querySelector("#addBtn_"+treeNode.tId)).length>0) return;
+      			var addStr = "<span style='margin-left:2px;background-position:-145px 0px' class='button add roots_docu' id='addBtn_" + treeNode.tId
+      				+ "' title='add node' onfocus='this.blur();'></span>";
+      			sObj.after(addStr);
+      			var btn = $(_this.root.querySelector("#addBtn_"+treeNode.tId));
+      			if (btn) btn.bind("click", function(){
+      				var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+      				zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+      				return false;
+      			});
+          }
+    		}
+
+    		function removeHoverDom(treeId, treeNode) {
+    			$(_this.root.querySelector("#addBtn_"+treeNode.tId)).unbind().remove();
+    		}
+
+        function removeHoverDomSelected(){
+          var ztree = $.fn.zTree.getZTreeObj("treeDemo");
+          var nodes = ztree.getSelectedNodes();
+          $.each(nodes, function(){
+      			var addBtn = $(_this.root.querySelector("#addBtn_"+this.tId));
+      			addBtn.nextAll("span").unbind().remove();
+            addBtn.unbind().remove();
+          });
+        }
+
+    		function setCheck() {
+    			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+          // editable = $(_this.root.querySelector('#editable')).attr("checked");
+          editable = true;
+
+    			zTree.setting.edit.drag.isCopy = editable;
+    			zTree.setting.edit.drag.isMove = editable;
+    			zTree.setting.edit.drag.prev = editable;
+    			zTree.setting.edit.drag.inner = editable;
+    			zTree.setting.edit.drag.next = editable;
+          zTree.setting.edit.showRemoveBtn = false;
+          zTree.setting.edit.showRenameBtn = false;
+          removeHoverDomSelected();
+    		}
+
+    		function getTime() {
+    			var now= new Date(),
+    			h=now.getHours(),
+    			m=now.getMinutes(),
+    			s=now.getSeconds();
+    			return (h+":"+m+":"+s);
+    		}
+
+        //
+        function selectAll() {
+          var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+          zTree.setting.edit.editNameSelectAll =  true;
+        }
+
+        $(document).ready(function(){
+          $.ajax({
+            type: "GET",
+            // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/list?token=12",
+            // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/getById?token=adadf&id=6C7CEA7BAA2344A09ADBF14D3A74F3F0",
+            url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/getById?token=adadf&id=6C7CEA7BAA2344A09ADBF14D3A74F3F0",
+            async : true,
+            success: function(data){
+              // console.log(data);
+              var jsonData = JSON.parse(data);
+              _this.serverData = jsonData;
+              var zNodes = [];
+              //业务对象
+              var business = jsonData.BusinessObjectDef;
+              business.isParent = true;
+              business.children = [];
+              //字段
+              var field = { name:"字段", isParent:true};
+              field.children = business.fields;
+              business.fields = [];//清除业务对象上字段数据
+              //关系
+              var relate = { name:"关系", isParent:true};
+              relate.children = jsonData.RelationshipDef;
+              //显示
+              var show = { name:"显示", isParent:true};
+              show.children = [];
+              //窗体
+              var panel = jsonData.PanelDef;
+              //布局
+              var layout = jsonData.LayoutDef;
+              //网格
+              var grid = jsonData.GridDef;
+
+              for(var i=0;i<panel.length;i++){
+                panel[i].name += '(窗体)';
+                panel[i].otype = 'w';
+                show.children.push(panel[i]);
+              }
+              for(var i=0;i<layout.length;i++){
+                layout[i].name += '(布局)';
+                layout[i].otype = 'l';
+                show.children.push(layout[i]);
+              }
+              for(var i=0;i<grid.length;i++){
+                grid[i].name += '(网格)';
+                grid[i].otype = 'g';
+                show.children.push(grid[i]);
+              }
+
+              business.children.push(field);
+              business.children.push(relate);
+              business.children.push(show);
+
+              zNodes.push(business);
+
+              $.fn.zTree.init($(_this.root.querySelector('#treeDemo')), setting, zNodes);
+              // selectAll();
+              // setCheck();
+              // $(_this.root.querySelector('#editable')).bind('change', setCheck);
+            },
+            error: function(xhr,status,error){
+              console.log("错误提示： " + xhr.status + " " + xhr.statusText);
+            }
+          });
+        });
+      }
+
+      _editPanelDrawerOpen(drawerType){
+        this.root.querySelector('#'+drawerType).open();
+      }
+
+      _editPanelDrawerClose (e) {
+        var id = e.detail;
+        this.root.querySelector("#"+id).close();
+      }
+
+      _targetChanged(){
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.updateNode(this.currentTreeNode);
+      }
+
+      _addTreeNode(e){
+        var node = e.detail;
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        treeObj.addNodes(this.currentTreeNodeParent, node);
+        treeObj.selectNode(node);
+      }
+
+      _updateNode(e){
+        var node = e.detail;
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        treeObj.updateNode(node);
+        var treeData = treeObj.getNodes();
+        console.log(treeData[0].children[0]);
+        delete treeData[0].children[0]['children'];
+        console.log(treeData[0].children[0]);
+        this.serverData.BusinessObjectDef.fields = treeData[0].children[0];
+
+        // $.ajax({
+        //   type: "POST",
+        //   url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/createOrUpdate?token=adadf",
+        //   data: '[' + JSON.stringify(this.serverData) + ']',
+        //   contentType: 'text',
+        //   async : true,
+        //   success: function(data){
+        //     console.log(data);
+        //   },
+        //   error: function(xhr,status,error){
+        //     console.log("错误提示： " + xhr.status + " " + xhr.statusText);
+        //   }
+        // });
+      }
+
+      _removeTreeNode(e){
+     　　//点击确定后操作
+         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+         var nodes = treeObj.getSelectedNodes();
+         for (var i=0, l=nodes.length; i < l; i++) {
+           treeObj.removeNode(nodes[i]);
+         }
+      }
+
+    }
+
+    customElements.define(ItsmTree.is, ItsmTree);
+
+  </script>
+
+</dom-module>

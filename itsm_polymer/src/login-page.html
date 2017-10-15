@@ -1,0 +1,79 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-container.html">
+<link rel="import" href="../bower_components/vaadin-text-field/vaadin-text-field.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="css/page-styles.html">
+
+<dom-module id="login-page">
+
+  <template>
+    <style include="page-styles">
+    </style>
+    <div class="login_bg">
+      <h1 title="SiteView ITOSS IT运营支持平台"><img src="../images/slogo.svg" alt=""></h1>
+      <div class="content">
+        <div class="login_form">
+          <h2><img src="../images/text.png" alt=""></h2>
+          <paper-input placeholder="请输入用户名">
+            <paper-icon-button slot="prefix" src="../images/icon-user.png">
+            </paper-icon-button>
+          </paper-input>
+          <paper-input placeholder="请输入密码">
+            <paper-icon-button slot="prefix" src="../images/icon-pw.png">
+            </paper-icon-button>
+          </paper-input>
+          <div class="checkboxs">
+            <paper-checkbox>记住密码</paper-checkbox>
+            <paper-checkbox>显示密码</paper-checkbox>
+          </div>
+          <paper-button class="login_btn">
+            <div class="bg1"></div>
+            <div class="bg2"></div>
+            <div class="text">
+              登录
+            </div>
+            </paper-button>
+        </div>
+      </div>
+      <p class="copyRight">版权所有 北京游龙网网络科技有限公司</p>
+    </div>
+  </template>
+
+  <script>
+    class LoginPage extends Polymer.Element {
+      static get is() { return 'login-page'; }
+      static get properties() {
+        return {
+          label: {
+            type: String,
+          }
+        };
+      }
+
+      ready(){
+        this.addEventListener('click', this._focusInput.bind(this));
+        super.ready();
+      }
+
+      _focusInput() {
+        var _input = this.root.querySelector('input');
+        // console.log(_input);
+        if (_input) {
+          _input.focus();
+        }
+      }
+
+      _removeWidget(e) {
+        var gridItem = this.parentNode.parentNode;
+        // console.log(gridItem);
+        if (gridItem.classList.contains('grid-stack-item')) {
+          this.dispatchEvent(new CustomEvent('remove-widget', {detail: gridItem, bubbles: true, composed: true}));
+        }
+
+      }
+
+    }
+
+    window.customElements.define(LoginPage.is, LoginPage);
+  </script>
+</dom-module>
