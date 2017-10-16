@@ -34,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .editContent {
       position: absolute;
       left: 0;
-      top: 208px;
+      top: 226px;
       right: 0;
       bottom: 120px;
       overflow-y: scroll;
@@ -102,15 +102,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="item">
       <h5>名称、说明和字段类型</h5>
       <h6>输入字段的名称和说明，然后从提供的选项中选择字段类型</h6>
-      <paper-input id="fieldName" always-float-label label="字段名称"></paper-input>
-      <paper-textarea always-float-label label="字段说明"></paper-textarea>
-      <vaadin-combo-box id="fieldType" always-float-label label="字段类型" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+      <paper-input id="fieldName" always-float-label label="字段名称" value="{{fieldDemo.name}}"></paper-input>
+      <paper-textarea always-float-label label="字段说明" value="{{fieldDemo.description}}"></paper-textarea>
+      <vaadin-combo-box id="fieldType" always-float-label label="字段类型" class="style-scope combo-box-basic-demos" value="{{fieldDemo.fieldCategory}}"></vaadin-combo-box>
       <h6>它指定字段的名称。名称必须以字母开头，并且只能包含字母、数字、下划线字符，不能包含空格。名称最多可以包含30个字符。</h6>
       <h5>文本字段属性</h5>
       <h6>为要创建的文本字段指定属性</h6>
       <label id="label1">字段长度</label>
       <paper-radio-group id="fieldset" selected="a" aria-labelledby="label1">
-          <paper-radio-button  name="a">
+          <paper-radio-button name="a">
             <paper-input always-float-label label="指定长度" value="25" type="number">
               <div slot="prefix"></div>
             </paper-input>
@@ -128,13 +128,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h5>通用字段属性</h5>
       <h6>为要创建的字段指定通用属性</h6>
       <div class="checkboxs">
-        <paper-checkbox  class="styled">必填字段</paper-checkbox><br>
-        <paper-checkbox  class="styled">只读字段</paper-checkbox><br>
-        <paper-checkbox  class="styled">默认值</paper-checkbox>
+        <paper-checkbox class="styled">必填字段</paper-checkbox><br>
+        <paper-checkbox class="styled">只读字段</paper-checkbox><br>
+        <paper-checkbox class="styled">默认值</paper-checkbox>
         <vaadin-combo-box disabled id="defaultvalue" always-float-label label="默认值" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <paper-checkbox disabled  class="styled">创建此字段的索引</paper-checkbox>
+        <paper-checkbox disabled class="styled">创建此字段的索引</paper-checkbox>
         <h6>如果要用默认值自动填写字段(例如国家)，请选择此复选框。然后输入默认值</h6>
-        <paper-checkbox  class="styled">是否要启动字段编辑器</paper-checkbox>
+        <paper-checkbox class="styled">是否要启动字段编辑器</paper-checkbox>
       </div>
       <div class="footbtn">
         <paper-button on-click="_comfirmSubmit" raised>确定</paper-button>
@@ -155,6 +155,163 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get properties() { return {
         items: Array,
+        fieldDemo: {
+          type: Object,
+          value:{
+            "alias": "",
+            "allowEndOfLine": false,
+            "calculated": false,
+            "clearIfReadOnly": false,
+            "commonlySearched": false,
+            "description": "",
+            "dirty": false,
+            "doNotTranslate": false,
+            "editMode": false,
+            "encoding": "",
+            "encrypted": false,
+            "excludeFromForm": false,
+            "excludeFromGrid": false,
+            "fieldCategory": 4,
+            "folder": "",
+            "formatDef": {
+                "alias": "",
+                "characterFormat": {},
+                "cultureInfo": {},
+                "customFormat": "",
+                "description": "",
+                "dirty": false,
+                "editMode": false,
+                "folder": "",
+                "generatesEvents": false,
+                "id": "",
+                "isInLine": false,
+                "linkedTo": "",
+                "name": "",
+                "perspective": "(Base)",
+                "pushFormat": false,
+                "scope": 16,
+                "scopeOwner": "GLOBAL",
+                "trimStart": false,
+                "version": 1,
+                "xmlCategory": ""
+            },
+            "generatesEvents": true,
+            "htSubFields": [],
+            "id": "",
+            "inLineFormat": true,
+            "isLinkField": false,
+            "isStateField": false,
+            "isUnicode": 0,
+            "length": 25,
+            "linkedTo": "",
+            "name": "",
+            "namedFormat": "",
+            "namedFormatId": "",
+            "perspective": "(Base)",
+            "ruleAutoFill": {},
+            "ruleBeforeSave": {},
+            "ruleBeforeStateChange": {},
+            "ruleCalculation": {},
+            "ruleDefaultValue": {
+                "alias": "",
+                "description": "",
+                "dictBehaviors": {},
+                "dirty": false,
+                "editMode": false,
+                "folder": "",
+                "generatesEvents": false,
+                "id": "",
+                "instant": true,
+                "isInLine": false,
+                "linkedTo": "",
+                "name": "",
+                "noNameString": "__NoName__",
+                "perspective": "(Base)",
+                "relFor": "None",
+                "requiresNameId": false,
+                "ruleCatalogString": "AlwaysBlank",
+                "ruleCategory": {},
+                "scope": 16,
+                "scopeOwner": "GLOBAL",
+                "strKey": "",
+                "strPurpose": "",
+                "strRuleUser": "",
+                "version": 1,
+                "which": true,
+                "xmlCategory": ""
+            },
+            "ruleReadOnly": {
+                "alias": "",
+                "description": "",
+                "dictBehaviors": {},
+                "dirty": false,
+                "editMode": false,
+                "folder": "",
+                "generatesEvents": false,
+                "id": "",
+                "instant": true,
+                "isInLine": false,
+                "linkedTo": "",
+                "name": "",
+                "noNameString": "__NoName__",
+                "perspective": "(Base)",
+                "relFor": "None",
+                "requiresNameId": false,
+                "ruleCatalogString": "AlwaysFalse",
+                "ruleCategory": {},
+                "scope": 16,
+                "scopeOwner": "GLOBAL",
+                "strKey": "",
+                "strPurpose": "",
+                "strRuleUser": "",
+                "version": 1,
+                "which": true,
+                "xmlCategory": ""
+            },
+            "ruleRequired": {
+                "alias": "",
+                "description": "",
+                "dictBehaviors": {},
+                "dirty": false,
+                "editMode": false,
+                "folder": "",
+                "generatesEvents": false,
+                "id": "",
+                "instant": true,
+                "isInLine": false,
+                "linkedTo": "",
+                "name": "",
+                "noNameString": "__NoName__",
+                "perspective": "(Base)",
+                "relFor": "None",
+                "requiresNameId": false,
+                "ruleCatalogString": "AlwaysFalse",
+                "ruleCategory": {},
+                "scope": 16,
+                "scopeOwner": "GLOBAL",
+                "strKey": "",
+                "strPurpose": "",
+                "strRuleUser": "",
+                "version": 1,
+                "which": true,
+                "xmlCategory": ""
+            },
+            "ruleValidation": {},
+            "scope": 16,
+            "scopeOwner": "GLOBAL",
+            "sendEventsToBPE": false,
+            "strDefaultValue": "",
+            "strRecalcOnLoad": "",
+            "strSubFieldPurpose": "",
+            "subField": false,
+            "supportFullTextSearch": false,
+            "updateExistingFormattedData": false,
+            "validationField": true,
+            "version": 1,
+            "virtual": false,
+            "xmlCategory": ""
+          }
+        }
       }}
 
       static get observers() { return [
@@ -171,11 +328,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _comfirmSubmit(){
-        var node = this.$.fieldName.value;
-        if (node=='' || node == undefined) {
+        // var node = this.$.fieldName.value;
+        if (this.fieldDemo.name == '' || this.fieldDemo.name == undefined) {
           alert('字段名称不能为空！');
         } else {
-          this.dispatchEvent(new CustomEvent('add-tree-node', {detail: {name: node, iconSkin:"icon01"}, bubbles: true, composed: true}));
+          this.fieldDemo.alias = this.fieldDemo.name;
+          this.dispatchEvent(new CustomEvent('add-tree-node', {detail: this.fieldDemo, bubbles: true, composed: true}));
         }
       }
 
@@ -183,13 +341,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // 字段类型
         var combobox1 = this.root.querySelector('#fieldType');
         combobox1.items = [
-          {label: '文本', value: 1},
-          {label: '数值', value: 2},
-          {label: '逻辑', value: 3},
-          {label: '时间', value: 4},
-          {label: '链接', value: 5}
+          {label: '链接', value: 0},
+          {label: '数值', value: 1},
+          {label: '逻辑', value: 2},
+          {label: '时间', value: 3},
+          {label: '文本', value: 4}
         ];
-        combobox1.value = 1;
+        // combobox1.value = 1;
 
       }
 

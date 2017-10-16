@@ -93,11 +93,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get properties() { return {
         currentTreeNode: {
           type: Object,
-          observer: '_targetChanged',
+          // observer: '_targetChanged',
           notify: true
         },
         currentTreeNodeParent: Object,
-        serverData: Object
+        serverData: Object,
+        treeObjCopy: Object
       }}
 
       static get observers() { return [
@@ -147,9 +148,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     		}
 
     		function onClick(event, treeId, treeNode, clickFlag) {
+          _this.currentTreeNode = treeNode;
+          _this.treeObjCopy = _this._clone(treeNode);
+          // console.log(_this.currentTreeNode);
           var parent = treeNode.getParentNode();
           if(parent){
-            _this.selectedparent = parent.name;
             switch (parent.name) {
               case '字段':
                 _this._editPanelDrawerOpen('editDrawer1');
@@ -169,7 +172,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 break;
               default:
             }
-            _this.currentTreeNode = treeNode;
             _this.currentTreeNodeParent = parent;
           } else {
             _this._editPanelDrawerOpen('editDrawer0');
@@ -262,9 +264,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         $(document).ready(function(){
           $.ajax({
             type: "GET",
-            // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/list?token=12",
-            // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/getById?token=adadf&id=6C7CEA7BAA2344A09ADBF14D3A74F3F0",
-            url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/getById?token=adadf&id=6C7CEA7BAA2344A09ADBF14D3A74F3F0",
+            // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/list?token=12",CD241021FB7646428021AD547CDB2F6C
+            // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/getById?token=adadf&id=E3A48E9C8ACA4E688BD49368DC80691E",
+            url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/getById?token=adadf&id=E3A48E9C8ACA4E688BD49368DC80691E",
             async : true,
             success: function(data){
               // console.log(data);
@@ -272,12 +274,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               _this.serverData = jsonData;
               var zNodes = [];
               //业务对象
-              var business = jsonData.BusinessObjectDef;
+              var business = _this._clone(jsonData.BusinessObjectDef);
               business.isParent = true;
               business.children = [];
               //字段
               var field = { name:"字段", isParent:true};
               field.children = business.fields;
+
+              // console.log(JSON.stringify(business.fields));
               business.fields = [];//清除业务对象上字段数据
               //关系
               var relate = { name:"关系", isParent:true};
@@ -335,43 +339,77 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.root.querySelector("#"+id).close();
       }
 
-      _targetChanged(){
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-        zTree.updateNode(this.currentTreeNode);
+      _clearTreeField(treeObj){
+        if (this.currentTreeNode.getParentNode().name == '字段') {
+          var businessObjectDef = this._clone(treeObj.getNodes()[0]);
+          businessObjectDef.fields = businessObjectDef.children[0].children;
+          for(var i in businessObjectDef){ //业务对象
+            if (!(i in this.serverData.BusinessObjectDef)) {
+              delete businessObjectDef[i];
+            }
+          }
+          for(var i in businessObjectDef.fields){ //字段
+            var field = businessObjectDef.fields[i];
+            if(this.serverData.BusinessObjectDef.id == businessObjectDef.id){
+              for(var k in this.serverData.BusinessObjectDef.fields){
+                var old_field = this.serverData.BusinessObjectDef.fields[k];
+                if (old_field.id == field.id) {
+                  for(var m in field){
+                    if(!(m in old_field)){
+                      delete field[m];
+                    }
+                  }
+                  break;
+                }
+              }
+            }
+          }
+        }
+        return businessObjectDef;
       }
 
       _addTreeNode(e){
         var node = e.detail;
         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-        treeObj.addNodes(this.currentTreeNodeParent, node);
-        treeObj.selectNode(node);
+        var busobj = this._clearTreeField(treeObj);
+        busobj.fields.push(node);
+        this._createOrUpdateBusinessObject(this, treeObj, busobj, true, node);
       }
 
       _updateNode(e){
-        var node = e.detail;
         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-        treeObj.updateNode(node);
-        var treeData = treeObj.getNodes();
-        console.log(treeData[0].children[0]);
-        delete treeData[0].children[0]['children'];
-        console.log(treeData[0].children[0]);
-        this.serverData.BusinessObjectDef.fields = treeData[0].children[0];
-
-        // $.ajax({
-        //   type: "POST",
-        //   url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/createOrUpdate?token=adadf",
-        //   data: '[' + JSON.stringify(this.serverData) + ']',
-        //   contentType: 'text',
-        //   async : true,
-        //   success: function(data){
-        //     console.log(data);
-        //   },
-        //   error: function(xhr,status,error){
-        //     console.log("错误提示： " + xhr.status + " " + xhr.statusText);
-        //   }
-        // });
+        this._createOrUpdateBusinessObject(this, treeObj, this._clearTreeField(treeObj), false, null);
       }
 
+      _createOrUpdateBusinessObject(_this, treeObj, edata, isCreate, node){
+        $.ajax({
+          type: "POST",
+          // url: Window.AppConfig.serverUrl + "/foundation/api/v1/businessobject/createOrUpdate?token=adadf",
+          url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/createOrUpdate?token=adadf",
+          data: JSON.stringify(edata),
+          contentType: 'text',
+          async : true,
+          success: function(data){
+            if (isCreate) {
+              treeObj.addNodes(_this.currentTreeNodeParent, node);
+              treeObj.selectNode(node);
+            } else {
+              treeObj.updateNode(_this.currentTreeNode);
+            }
+            console.log(data);
+
+          },
+          error: function(xhr,status,error){
+            console.log("错误提示： " + xhr.status + " " + xhr.statusText);
+            if (!isCreate) {
+              _this.currentTreeNode = _this.treeObjCopy;
+              treeObj.updateNode(_this.treeObjCopy);
+            }
+          }
+        });
+      }
+
+      //删除节点
       _removeTreeNode(e){
      　　//点击确定后操作
          var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
@@ -379,6 +417,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          for (var i=0, l=nodes.length; i < l; i++) {
            treeObj.removeNode(nodes[i]);
          }
+      }
+
+      //克隆对象
+      _clone(obj){
+        var newObj = {};
+        if (obj instanceof Array) {
+            newObj = [];
+        }
+        for (var key in obj) {
+            var val = obj[key];
+            newObj[key] = typeof val === 'object' ? this._clone(val): val;
+        }
+        return newObj;
       }
 
     }

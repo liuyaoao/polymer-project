@@ -106,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <h6>它是主业务对象</h6>
         <paper-input id="fieldname" label="名称" value="{{currentTreeNode.name}}" char-counter></paper-input>
         <paper-input label="显示别名" value="{{currentTreeNode.alias}}"></paper-input>
-        <vaadin-combo-box id="fieldType" label="关联的图像" class="style-scope combo-box-basic-demos" value="{{currentTreeNode.fieldCategory}}"></vaadin-combo-box>
+        <vaadin-combo-box id="fieldType" label="关联的图像" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
         <paper-textarea label="说明" always-float-label value="{{currentTreeNode.description}}"></paper-textarea>
       </expansion-panel>
     </div>
@@ -281,7 +281,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         items: Array,
         currentTreeNode: {
           type: Object,
-          observer: '_targetChanged',
           notify: true
         },
       }}
@@ -313,12 +312,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           {label: '时间', value: 3}
         ];
         // combobox1.value = 0;
-
-
-      }
-
-      _targetChanged(){
-        //console.log('changesss' + this.currentTreeNode);
       }
 
       _setCheck(){

@@ -34,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .editContent {
       position: absolute;
       left: 0;
-      top: 208px;
+      top: 226px;
       right: 0;
       bottom: 120px;
       overflow-y: auto;
@@ -109,7 +109,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <vaadin-combo-box id="fieldType" label="字段类型" class="style-scope combo-box-basic-demos" value="{{currentTreeNode.fieldCategory}}"></vaadin-combo-box>
         <div class="checkboxs">
           <paper-checkbox  class="styled" checked="{{currentTreeNode.ruleRequired.which}}">必要的</paper-checkbox><br>
-          <paper-checkbox  class="styled" checked="{{currentTreeNode.ruleReadOnly.which}}">只读的</paper-checkbox>
+          <paper-checkbox  class="styled" checked="{{currentTreeNode.clearIfReadOnly}}">只读的</paper-checkbox>
         </div>
         <vaadin-combo-box id="defaultvalue" label="默认值" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
         <h6>文本字段属性</h6>
@@ -258,13 +258,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _initConboBox_fieldType(){
         // 字段类型
-        var combobox1 = this.root.querySelector('#fieldType');
-        combobox1.items = [
-          {label: '文本', value: 0},
-          {label: '数值', value: 1},
-          {label: '逻辑', value: 2},
-          {label: '时间', value: 3}
-        ];
+        // var combobox1 = this.root.querySelector('#fieldType');
+        // combobox1.items = [
+        //   {label: '文本', value: 4},
+        //   {label: '数值', value: 8},
+        //   {label: '逻辑', value: 0x10},
+        //   {label: '时间', value: 0x40}
+        // ];
         // combobox1.value = 0;
 
         //默认值
