@@ -487,10 +487,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       <a name="[[it.alias]]" href="/list/[[it.alias]]"><img src="[[it.associatedImage]]" alt="" class="img"><paper-ripple></paper-ripple>[[it.alias]]</a>
                     </template> -->
                   </div>
-                  <a href="/business"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>业务对象设计</a>
-                  <a href="/form"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>表单设计</a>
-                  <a href="/bats"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>多网格部件</a>
-                  <a href="/organization"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>运维团队</a>
+                  <a href="/app/business"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>业务对象设计</a>
+                  <a href="/app/form"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>表单设计</a>
+                  <a href="/app/bats"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>多网格部件</a>
+                  <a href="/app/organization"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>运维团队</a>
+                  <a href="/cms"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>系统控制台</a>
                 </div>
 
               </div>
@@ -611,7 +612,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               // }
               for(var i=0; i<arr.length; i++){
                 var item = arr[i];
-                var a = '<a name="'+ item.alias +'" href="/list/'+ item.alias +'"><img src="'+ item.associatedImage +'" alt="" class="img"><paper-ripple></paper-ripple>'+ item.alias +'</a>';
+                var a = '<a name="'+ item.alias +'" href="/app/list/'+ item.alias +'"><img src="'+ item.associatedImage +'" alt="" class="img"><paper-ripple></paper-ripple>'+ item.alias +'</a>';
 
                 if(i<Nu){
                   $(_this.root.querySelector('#normalnav')).append(a);
@@ -631,7 +632,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             // }
             for(var i=0; i<arr.length; i++){
               var item = arr[i];
-              var a = '<a name="'+ item.alias +'" href="/list/'+ item.alias +'"><img src="'+ item.associatedImage +'" alt="" class="img"><paper-ripple></paper-ripple>'+ item.alias +'</a>';
+              var a = '<a name="'+ item.alias +'" href="/app/list/'+ item.alias +'"><img src="'+ item.associatedImage +'" alt="" class="img"><paper-ripple></paper-ripple>'+ item.alias +'</a>';
 
               if(i<Nu){
                 $(_this.root.querySelector('#normalnav')).append(a);

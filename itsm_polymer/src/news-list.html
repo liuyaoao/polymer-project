@@ -152,8 +152,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     -->
     <app-route
         route="[[route]]"
-        pattern="/:category"
-        data="{{routeData}}"></app-route>
+        pattern="/:listtype"
+        data="{{subRouteData}}"></app-route>
 
     <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
       <div class="content">
@@ -201,7 +201,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_nameChanged'
         },
 
-        route: Object,
+        route: {
+          type:Object
+        },
+        listtype: {
+          type: String
+        },
 
         category: Object,
 
@@ -211,11 +216,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         categoryName: {
           type: Boolean,
-          computed: '_return(routeData.category)',
+          computed: '_return(subRouteData.listtype)',
           notify: true
         },
 
-        routeData: Object,
+        subRouteData: Object,
 
         loading: Boolean,
 
@@ -224,7 +229,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         menuList: Array
 
       }}
+      static get observers() { return [
+        '_routePageChanged(subRouteData.listtype)'
+      ]}
 
+      ready() {
+        super.ready();
+      }
+      _routePageChanged(listtype) {
+        this.listtype = listtype || '事件';
+      }
       _nameChanged(){
         console.log(this.conname);
         this.subobjs = this.conname;

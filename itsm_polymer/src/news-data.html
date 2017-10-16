@@ -17,10 +17,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   (function() {
 
     let categoryList = [
-      {name: 'top_stories', title: 'Top Stories'},
-      {name: 'doodles', title: 'Doodles'},
-      {name: 'chrome', title: 'Chrome'},
-      {name: 'search', title: 'Search'},
+      {name: '事件', title: '事件',nameEn:"events"},
+      {name: '问题', title: '问题',nameEn:"questions"},
+      {name: '服务级别管理', title: '服务级别管理',nameEn:"serviceLevel"},
+      {name: '变更', title: '变更',nameEn:"modify"},
+      {name: '发布', title: '发布',nameEn:"publish"},
       {name: 'shopping_payments', title: 'Shopping & Payments'},
       {name: 'nonprofits', title: 'Nonprofits'}
     ];
@@ -108,17 +109,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return c;
           }
         }
-        return null;
+        return {};
       }
 
       _fetchCategory(category, offline, attempts) {
         // Don't fail if we become offline but already have a cached version, or if there's
         // nothing to fetch, or if already loading.
-        if ((offline && category && category.items) || !category || this.loading) {
+        if ((offline && category && category.items) || !category || !category.name || this.loading) {
           this._setFailure(false);
           return;
         }
-        this._fetch('/data/' + category.name + '.json',
+        this._fetch('/data/' + category.nameEn + '.json',
           (response) => { this.set('category.items', this._parseCategoryItems(response)); },
           attempts || 1 /* attempts */);
       }

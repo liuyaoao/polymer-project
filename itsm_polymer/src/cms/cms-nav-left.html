@@ -1,0 +1,80 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../lazy-library.html">
+
+<dom-module id="cms-nav-left">
+  <template>
+    <style>
+      :host{
+        display: block;
+        height:100%;
+        float:left;
+        position:relative;
+      }
+      .siderbar_left{
+        width:240px;
+        min-height:500px;
+        border-right: 1px solid gray;
+        transition: width 0.5s ease-in-out;
+      }
+      .siderbar_left_small{
+        width:40px;
+        transition: width 0.5s ease-in-out;
+      }
+    </style>
+
+    <aside class="xxx siderbar_left" id="siderbarLeft">
+      <button on-click="_clickSpreadFold">&lt;&lt;</button>
+        <div>左侧导航栏1</div>
+        <div>左侧导航栏2</div>
+
+    </aside>
+
+  </template>
+
+  <script>
+
+    class CmsNavLeft extends Polymer.Element {
+
+      static get is() { return 'cms-nav-left'; }
+
+      static get properties() { return {
+
+        appTitle: String,
+
+        smallScreen: Boolean,
+
+      }}
+
+      ready(){
+        super.ready();
+        let siderbarLeft = this.$.siderbarLeft;
+        siderbarLeft.style.height = document.body.clientHeight+"px";
+      }
+      _clickSpreadFold(evt){
+        let siderbarLeft = this.$.siderbarLeft;
+        console.log("点击了展开折叠的事件：",evt);
+        this._toggleClass("siderbar_left_small",siderbarLeft);
+      }
+
+      _toggleClass(name,node){
+        let className = node.className;
+        let classNameArr = className.split(' ');
+        if(classNameArr.indexOf(name) == -1){
+          classNameArr.push(name);
+        }else{
+          classNameArr.splice(classNameArr.indexOf(name), 1);
+        }
+        node.className = classNameArr.join(' ');
+      }
+
+
+    }
+
+    customElements.define(CmsNavLeft.is, CmsNavLeft);
+
+  </script>
+
+</dom-module>

@@ -8,31 +8,14 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/app-route/app-route.html">
-<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
 
-<link rel="import" href="news-iframe.html">
-<link rel="import" href="news-list-featured-item.html">
-<link rel="import" href="news-list-item.html">
-<link rel="import" href="news-side-list.html">
-<link rel="import" href="table-new-panel.html">
-<link rel="import" href="table-dialog.html">
-<link rel="import" href="graph-cake.html">
-<link rel="import" href="graph-columnar.html">
-<link rel="import" href="graph-pipeline.html">
-<link rel="import" href="graph-thread.html">
-<link rel="import" href="speed-indicator.html">
-<link rel="import" href="table-layout.html">
-<link rel="import" href="graph-verticalcolum.html">
-<link rel="import" href="graph-link.html">
-<link rel="import" href="css/page-styles.html">
-
-<dom-module id="news-list">
+<dom-module id="cms-modules">
 
   <template>
 
-    <style include="app-grid-style page-styles">
+    <style include="">
 
       :host {
         display: block;
@@ -55,17 +38,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply --layout-flex;
       }
 
-      .article-grid,
-      .opinions-grid {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .article-grid {
-        margin-top: 32px;
-      }
-
       li {
         display: block;
       }
@@ -84,29 +56,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 250px;
       }
 
-      .ad-container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 24px;
-      }
-
       /* mobile */
       @media (max-width: 767px) {
         aside {
           display: none;
         }
 
-        .article-grid li,
-        .opinions-grid li{
-          border-bottom: var(--app-border-style);
-          margin: 0px 24px 24px 24px;
-          padding-bottom: 24px;
-        }
-
-        .article-grid li:last-of-type,
-        .opinions-grid li:last-of-type {
-          border-bottom: none;
-        }
       }
 
       /* desktop */
@@ -115,21 +70,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           --app-grid-columns: 4;
           --app-grid-gutter: 32px;
         }
-
-        .opinions-grid {
-          @apply --layout-horizontal;
-          @apply --layout-wrap;
-        }
-
-        .opinions-grid li {
-          width: calc(50% - 32px);
-          margin-right: 32px;
-        }
-
-        .article-grid,
-        .opinions-grid {
-          margin-right: -32px;
-        }
       }
 
       /* desktop large */
@@ -137,7 +77,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .container {
           @apply --layout-horizontal;
         }
-
 
         aside {
           width: 300px;
@@ -152,33 +91,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     -->
     <app-route
         route="[[route]]"
-        pattern="/:category"
-        data="{{routeData}}"></app-route>
+        pattern="/:listtype"
+        data="{{subRouteData}}"></app-route>
 
     <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
       <div class="content">
-        <!--<table-new-panel subobj="table-new"></table-new-panel>
-        <table-new-panel subobj="graph-cake"></table-new-panel>
-        <table-new-panel subobj="graph-columnar"></table-new-panel>
-        <table-new-panel subobj="graph-pipeline"></table-new-panel>
-        <table-new-panel subobj="graph-thread"></table-new-panel>
-        <table-new-panel subobj="speed-indicator"></table-new-panel>
-        <table-new-panel subobj="graph-verticalcolum"></table-new-panel> -->
-        <!-- <table-new-panel subobj="graph-link"></table-new-panel> -->
-        <table-layout category-name="{{categoryName}}" category-id="{{categoryId}}" menu-list="{{menuList}}"></table-layout>
+        应用模块列表。。。。。。
       </div>
 
-      <!-- <aside>
-        <div class="ad-container">
-          <news-iframe src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=12&l=ur1&f=ifr"></news-iframe>
-        </div>
-        <news-side-list class="fade-in" items="[[_slice(category.items, 0, 3)]]">
-          Most Read
-        </news-side-list>
-        <news-side-list class="fade-in" featured items="[[_slice(category.items, 3, 9)]]">
-          More Top Stories
-        </news-side-list>
-      </aside> -->
     </div>
 
     <news-network-warning
@@ -190,9 +110,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
 
-    class NewsList extends Polymer.Element {
+    class CmsModules extends Polymer.Element {
 
-      static get is() { return 'news-list'; }
+      static get is() { return 'cms-modules'; }
 
       static get properties() { return {
 
@@ -201,7 +121,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_nameChanged'
         },
 
-        route: Object,
+        route: {
+          type:Object
+        },
+        listtype: {
+          type: String
+        },
 
         category: Object,
 
@@ -211,11 +136,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         categoryName: {
           type: Boolean,
-          computed: '_return(routeData.category)',
+          computed: '_return(subRouteData.listtype)',
           notify: true
         },
 
-        routeData: Object,
+        subRouteData: Object,
 
         loading: Boolean,
 
@@ -224,7 +149,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         menuList: Array
 
       }}
+      static get observers() { return [
+        '_routePageChanged(subRouteData.listtype)'
+      ]}
 
+      ready() {
+        super.ready();
+      }
+      _routePageChanged(listtype) {
+        this.listtype = listtype || '';
+      }
       _nameChanged(){
         console.log(this.conname);
         this.subobjs = this.conname;
@@ -266,7 +200,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     }
 
-    customElements.define(NewsList.is, NewsList);
+    customElements.define(CmsModules.is, CmsModules);
 
   </script>
 

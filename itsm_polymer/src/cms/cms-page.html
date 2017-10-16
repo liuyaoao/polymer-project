@@ -8,19 +8,17 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/app-layout/helpers/helpers.html">
-<link rel="import" href="../bower_components/app-route/app-location.html">
-<link rel="import" href="../bower_components/app-route/app-route.html">
-<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/helpers/helpers.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
-<link rel="import" href="news-data.html">
-<link rel="import" href="news-nav.html">
-<link rel="import" href="login-page.html">
-<link rel="import" href="login-role.html">
-<link rel="import" href="pages/form-design-page.html">
+<link rel="import" href="../news-data.html">
+<link rel="import" href="cms-header.html">
+<link rel="import" href="cms-nav-left.html">
 
-<dom-module id="news-app">
+<dom-module id="cms-page">
 
   <template>
 
@@ -91,7 +89,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!--
       app-location and app-route elements provide the state of the URL for the app.
     -->
-    <app-location route="{{route}}"></app-location>
+    <app-location route="{{location}}"></app-location>
     <app-route
         route="{{route}}"
         pattern="/:page"
@@ -112,85 +110,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         offline="[[offline]]"
         failure="{{failure}}"></news-data>
 
-    <news-nav
-        id="nav"
-        app-title="[[appTitle]]"
-        page="[[page]]"
-        categories="[[categories]]"
-        category-name="[[categoryName]]"
-        category="[[category]]"
-        category-id="{{categoryId}}"
-        menu-list="{{menuList}}"
-        load-complete="[[loadComplete]]">
-      [[articleHeadline]]
-    </news-nav>
+    <cms-header id="cmsHeader"
+        app-title="[[appTitle]]">
+    </cms-header>
+    <cms-nav-left
+        id="navbarLeft"
+        app-title="[[appTitle]]">
+    </cms-nav-left>
     <!-- <login-role></login-role> -->
-    <iron-pages role="main" selected="[[page]]" attr-for-selected="name" fallback-selection="path-warning">
+    <iron-pages role="cms_main" selected="[[page]]" attr-for-selected="name" fallback-selection="path-warning">
       <!-- list view of articles in a category -->
-      <news-list
-          id="list"
-          name="list"
+      <cms-modules
+          id="modules"
+          name="modules"
           route="[[subroute]]"
           category-name="{{categoryName}}"
           category-id="{{categoryId}}"
-          menu-list="{{menuList}}"
           category="[[category]]"
           loading="[[loading]]"
           offline="[[offline]]"
-          failure="[[failure]]"></news-list>
-      <!-- article view -->
-      <news-article
-          name="article"
-          route="{{subroute}}"
-          category-name="{{categoryName}}"
-          category="[[category]]"
-          article-id="{{articleId}}"
-          article="[[article]]"
-          loading="[[loading]]"
-          offline="[[offline]]"
-          failure="[[failure]]"></news-article>
-      <news-business
-          name="business"
-          route="{{subroute}}"
-          category-name="{{categoryName}}"
-          category="[[category]]"
-          article-id="{{articleId}}"
-          article="[[article]]"
-          loading="[[loading]]"
-          offline="[[offline]]"
-          failure="[[failure]]"></news-business>
-        <news-bats
-            name="bats"
-            route="{{subroute}}"
-            category-name="{{categoryName}}"
-            category="[[category]]"
-            article-id="{{articleId}}"
-            article="[[article]]"
-            loading="[[loading]]"
-            offline="[[offline]]"
-            failure="[[failure]]"></news-bats>
-      <form-design-page
-          name="form"
-          route="{{subroute}}"
-          page="{{page}}"
-          category-name="{{categoryName}}"
-          category="[[category]]"
-          article-id="{{articleId}}"
-          article="[[article]]"
-          loading="[[loading]]"
-          offline="[[offline]]"
-          failure="[[failure]]"></form-design-page>
-      <organization-form
-          name="organization"
-          route="{{subroute}}"
-          page="{{page}}"
-          category-name="{{categoryName}}"
-          category="[[category]]"
-          article-id="{{articleId}}"
-          article="[[article]]"
-          loading="[[loading]]"
-          offline="[[offline]]"
-          failure="[[failure]]"></organization-form>
+          failure="[[failure]]">
+      </cms-modules>
+
       <!-- invalid top level paths -->
       <news-path-warning name="path-warning"></news-path-warning>
 
@@ -204,9 +145,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
 
-    class NewsApp extends Polymer.Element {
+    class CmsPage extends Polymer.Element {
 
-      static get is() { return 'news-app'; }
+      static get is() { return 'cms-page'; }
 
       static get properties() { return {
 
@@ -229,11 +170,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         article: Object,
 
-        articleHeadline: {
-          type: String,
-          value: ''
-        },
-
         offline: {
           type: Boolean,
           value: false,
@@ -244,16 +180,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         loadComplete: Boolean,
 
-        categoryId: String,
-
-        menuList: Array
+        categoryId: String
 
       }}
 
-      static get observers() { return [  
-        '_routePageChanged(routeData.page, isAttached)',
-        '_updateArticleHeadline(article.headline)',
-        '_updateDocumentTitle(page, category.title, articleHeadline, appTitle)'
+      static get observers() { return [
+        '_routePageChanged(routeData.page, isAttached,subroute)',
+        '_updateDocumentTitle(page, category.title, appTitle)'
       ]}
 
       ready() {
@@ -261,22 +194,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Custom elements polyfill safe way to indicate an element has been upgraded.
         this.removeAttribute('unresolved');
 
-        // Chrome on iOS recomputes "vh" unit when URL bar goes off screen. Since we use "vh" unit
-        // to size the cover image and the title, those items will resize in response to the URL
-        // bar being shown or hidden. FWIW, this is not an issue in Chrome 56 on Android or iOS
-        // Safari. To workaround this on Chrome on iOS, we will use a
-        // fixed viewport height in places where normally relying on "vh" unit and replace them with
-        // custom property "--viewport-height".
-        let ua = navigator.userAgent;
-        let cMatch = navigator.userAgent.match(/Android.*Chrome[\/\s](\d+\.\d+)/);
-        if (ua.match('CriOS') || (cMatch && cMatch[0] && cMatch[1] < 56)) {
-          document.body.classList.add('fixed-viewport-height');
-        }
-
         Polymer.RenderStatus.afterNextRender(this, () => {
           window.addEventListener('online', (e)=>this._notifyNetworkStatus(e));
           window.addEventListener('offline', (e)=>this._notifyNetworkStatus(e));
-          this.addEventListener('refresh-data', (e)=>this._refreshData(e));
         });
       }
 
@@ -285,55 +205,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.isAttached = true;
       }
 
-      _routePageChanged(page, isAttached) {
+      _routePageChanged(page, isAttached,subroute) {
         if (!isAttached) {
           return;
         }
         if (!page) {
           // set default route if route path is empty
-          this.set('route.path', 'list/事件');
+          this.set('location.path', 'cms/modules');
           return;
         }
         this.page = page;
         // Scroll to the top of the page on every *route* change. Use `Polymer.AppLayout.scroll`
         // with `behavior: 'silent'` to disable header scroll effects during the scroll.
         Polymer.AppLayout.scroll({ top: 0, behavior: 'silent' });
-        // Close the drawer - in case the *route* change came from a link in the drawer.
-        this.$.nav.closeDrawer();
       }
 
       _pageChanged(page, oldPage) {
         let href;
 
         switch(page) {
-          case 'list':
-            href = 'news-list.html';
-          break;
-          case 'article':
-            href = 'news-article.html';
-          break;
-          case 'form':
-            href = 'pages/form-design-page.html';
-          break;
-          case 'organization':
-            href = 'organization-form.html';
-          break;
-          case 'business':
-            href = 'news-business.html';
-          break;
-          case 'bats':
-            href = 'news-bats.html';
+          case 'modules':
+            href = 'cms-modules.html';
           break;
           default:
-            href = 'news-path-warning.html';
+            href = '../news-path-warning.html';
           break;
         }
         let cb = this._pageLoaded.bind(this, Boolean(oldPage));
-        Polymer.importHref(
-            this.resolveUrl(href),
-            cb,
-            cb,
-            true);
+        Polymer.importHref(this.resolveUrl(href), cb, cb, true);
       }
 
       _pageLoaded(shouldResetLayout) {
@@ -373,23 +272,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
-      _updateArticleHeadline(articleHeadline) {
-        this.articleHeadline = articleHeadline;
-      }
-
       // Elements in the app can notify section changes.
       // Response by a11y announcing the section and syncronizing the category.
-      _updateDocumentTitle(page, categoryTitle, articleHeadline, appTitle) {
-        document.title = (page === 'list' ? categoryTitle : articleHeadline) + ' - ' + appTitle;
-      }
-
-      _refreshData() {
-        this.$.data.refresh();
+      _updateDocumentTitle(page, categoryTitle, appTitle) {
+        document.title = (page === 'list' ? categoryTitle :'') + ' - ' + appTitle;
       }
 
     }
 
-    customElements.define(NewsApp.is, NewsApp);
+    customElements.define(CmsPage.is, CmsPage);
 
   </script>
 

@@ -1,0 +1,185 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../lazy-library.html">
+
+<dom-module id="cms-header">
+  <template>
+    <style>
+      paper-icon-button {
+        --paper-icon-button-ink-color: var(--app-nav-text-color);
+        width: 40px;
+      }
+
+      header {
+        z-index: 10;
+      }
+
+      .logodesk {
+        margin-top: 5px;
+      }
+
+      /* mobile */
+      @media (max-width: 767px) {
+      }
+
+      /* desktop */
+      @media (min-width: 768px) {
+
+        .logo-toolbar {
+          display: flex;
+          height: 60px;
+          border-bottom: var(--app-border-style);
+          background: url(../images/header-tab.png) repeat transparent;
+          background-position: 0 -50px;
+        }
+
+        .header-right {
+          display:inline-block;
+          display: -webkit-flex;
+          align-items:center;
+          /*width: 427px;*/
+          height: 60px;
+          border-right: 1px solid #ccc;
+          /*position: absolute;
+          right: 18px;
+          top: 0px;*/
+          margin-left: auto;
+          margin-right: 10px;
+        }
+        .header-right ul{
+          display: flex;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-right .admindiv {
+          margin-top: 8px;
+          display: block !important;
+          width: 100%;
+        }
+
+        .header-right .profile:hover {
+          text-decoration: underline;
+        }
+
+        .header-right .admindivs {
+          background-image: url(/images/icons-other.png);
+          background-repeat: no-repeat;
+          background-position: 0 -805px;
+          padding-left: 25px;
+          font-size: 13px;
+          text-align: left;
+        }
+        .header-right .profile {
+          padding-left: 25px;
+          padding-right: 25px;
+          font-size: 13px;
+        }
+
+        .header-right .downarrow {
+          width: 20px;
+          height: 20px;
+        }
+
+        .header-right li {
+          float: right;
+          font-size: 15px;
+          list-style: none;
+          height: 48px;
+          padding: 0 5px;
+          display: inline-block;
+          text-align: center;
+          text-decoration: none;
+        }
+
+        .header-right .longline {
+          width: 2px;
+          height: 50px;
+          background-image: url(/images/header-tab.png);
+          background-position: 0 -250px;
+        }
+
+        .header-right .logout {
+          width: 37px;
+          height:37px;
+          margin-top: 8px;
+          margin-right: 5px;
+          background-image:url(/images/header-tab.png);
+          background-position: 0 -168px;
+          cursor:pointer;
+        }
+
+        .header-right .logout:hover {
+          background-image: url(/images/header-tab.png);
+          background-position: 0 -205px;
+        }
+
+        .full-screen {
+          width: 8px;
+          height:8px;
+          margin: 26px 5px;
+          background-image: url(/images/header-tab.png);
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          cursor:pointer;
+        }
+
+        .header-right .profileimage {
+          width: 61px;
+          height: 48px;
+          background-image: url(/images/employee.png);
+        }
+      }
+
+    </style>
+
+    <!--
+      Header at the scroll top of the page.
+    -->
+    <header>
+      <app-toolbar class="logo-toolbar">
+        <div class="logodesk">
+          <a href="/"><img style="width:150px" src="/images/logo.svg" alt="siteview" /></a>
+        </div>
+        <div class="header-right">
+            <ul>
+              <li><div class="profileimage"></div></li>
+              <li><div class="admindiv"><div class="profile">admin</div><div class="admindivs">管理员</div></div></li>
+              <li><div class="longline"></div></li>
+              <li><div title="logout" class="logout"></div></li>
+            </ul>
+        </div>
+        <div title="Full Screen" class="full-screen"></div>
+      </app-toolbar>
+    </header>
+
+  </template>
+
+  <script>
+
+    class CmsHeader extends Polymer.Element {
+
+      static get is() { return 'cms-header'; }
+
+      static get properties() { return {
+
+        appTitle: String,
+
+        smallScreen: Boolean,
+
+      }}
+
+      ready(){
+        super.ready();
+      }
+
+    }
+
+    customElements.define(CmsHeader.is, CmsHeader);
+
+  </script>
+
+</dom-module>
