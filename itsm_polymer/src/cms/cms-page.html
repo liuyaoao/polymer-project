@@ -18,6 +18,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="cms-header.html">
 <link rel="import" href="cms-nav-left.html">
 
+<link rel="import" href="../news-icons.html">
+<link rel="import" href="../news-analytics.html">
+<link rel="import" href="../news-drawer.html">
+<link rel="import" href="../news-network-warning.html">
+<link rel="import" href="../news-snackbar.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-box/app-box.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
 <dom-module id="cms-page">
 
   <template>
@@ -91,7 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     -->
     <app-location route="{{location}}"></app-location>
     <app-route
-        route="{{route}}"
+        route="[[route]]"
         pattern="/:page"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
@@ -152,7 +161,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get properties() { return {
 
         appTitle: String,
-
+        route:Object,
         page: {
           type: String,
           observer: '_pageChanged'
@@ -185,7 +194,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }}
 
       static get observers() { return [
-        '_routePageChanged(routeData.page, isAttached,subroute)',
+        '_routePageChanged(routeData.page, subroute)',
         '_updateDocumentTitle(page, category.title, appTitle)'
       ]}
 
@@ -202,14 +211,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       connectedCallback() {
         super.connectedCallback();
-        this.isAttached = true;
+        // this.isAttached = true;
       }
 
-      _routePageChanged(page, isAttached,subroute) {
-        if (!isAttached) {
-          return;
-        }
-        if (!page) {
+      _routePageChanged(page,subroute) {
+        let pathName = this.location.path;
+        if (!page && pathName.indexOf("/cms") == 0) {
           // set default route if route path is empty
           this.set('location.path', 'cms/modules');
           return;
@@ -236,14 +243,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _pageLoaded(shouldResetLayout) {
-        this._ensureLazyLoaded();
+        console.log("cms-page-----_ensureLazyLoaded");
+        // this._ensureLazyLoaded();
       }
 
       _ensureLazyLoaded() {
         // load lazy resources after render and set `loadComplete` when done.
         if (!this.loadComplete) {
           Polymer.RenderStatus.afterNextRender(this, () => {
-            Polymer.importHref(this.resolveUrl('lazy-resources.html'), () => {
+            Polymer.importHref(this.resolveUrl('../lazy-resources.html'), () => {
               this._notifyNetworkStatus();
               this.loadComplete = true;
 
