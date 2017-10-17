@@ -42,8 +42,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     .item {
-      margin-left: 16px;
-      margin-right: 16px;
+      margin-left: 12px;
+      margin-right: 12px;
     }
 
     .checkboxs {
@@ -106,25 +106,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-textarea always-float-label label="字段说明" value="{{fieldDemo.description}}"></paper-textarea>
       <vaadin-combo-box id="fieldType" always-float-label label="字段类型" class="style-scope combo-box-basic-demos" value="{{fieldDemo.fieldCategory}}"></vaadin-combo-box>
       <h6>它指定字段的名称。名称必须以字母开头，并且只能包含字母、数字、下划线字符，不能包含空格。名称最多可以包含30个字符。</h6>
-      <h5>文本字段属性</h5>
-      <h6>为要创建的文本字段指定属性</h6>
-      <label id="label1">字段长度</label>
-      <paper-radio-group id="fieldset" selected="a" aria-labelledby="label1">
-          <paper-radio-button name="a">
-            <paper-input always-float-label label="指定长度" value="25" type="number">
-              <div slot="prefix"></div>
-            </paper-input>
-          </paper-radio-button>
-        <paper-radio-button  name="b">备忘录长度(最大2GB) - 可能不可搜索</paper-radio-button>
-      </paper-radio-group>
-      <div class="checkboxs">
-        <paper-checkbox  class="styled">允许回车</paper-checkbox><br>
-        <!-- <paper-checkbox  class="styled">多格式文本</paper-checkbox><br>
-        <paper-checkbox id="sumaryr" disabled class="styled">摘要</paper-checkbox><br>
-        <paper-checkbox  class="styled">允许进行区分大小写的搜索</paper-checkbox><br>
-        <paper-checkbox  class="styled">使用Unicod</paper-checkbox> -->
-      </div>
-      <h6>如果要指定可在此字段中输入的最大字符数，请选择此项。然后输入或选择最大数。</h6>
+      <iron-pages selected="{{fieldTypeSelect}}" attr-for-selected="name">
+        <div name="4">
+          <h5>文本字段属性</h5>
+          <h6>为要创建的文本字段指定属性</h6>
+          <label id="label1">字段长度</label>
+          <paper-radio-group id="fieldset" selected="a" aria-labelledby="label1">
+              <paper-radio-button name="a">
+                <paper-input always-float-label label="指定长度" value="{{fieldDemo.length}}" type="number">
+                  <div slot="prefix"></div>
+                </paper-input>
+              </paper-radio-button>
+            <paper-radio-button name="b">备忘录长度(最大2GB) - 可能不可搜索</paper-radio-button>
+          </paper-radio-group>
+          <div class="checkboxs">
+            <paper-checkbox id="allowEnter" class="styled">允许回车</paper-checkbox><br>
+          </div>
+          <h6 id="fieldlengthdesc">如果要指定可在此字段中输入的最大字符数，请选择此项。然后输入或选择最大数。</h6>
+        </div>
+        <div name="3">
+          <h5>日期/时间字段属性</h5>
+          <h6>属性确定哪些类型的值可以存储在日期/时间字段中（日期和时间、仅日期、仅时间）</h6>
+          <label id="label2">你要存储什么信息？</label><br>
+          <paper-radio-group selected="{{dateselect}}" aria-labelledby="label1">
+            <paper-radio-button name="a">日期和时间</paper-radio-button><br>
+            <paper-radio-button name="b">仅日期</paper-radio-button><br>
+            <paper-radio-button name="c">仅时间</paper-radio-button>
+          </paper-radio-group>
+          <iron-pages selected="{{dateselect}}" attr-for-selected="name">
+            <div name="a"><h6>如果要此字段中存储日期和时间，请选择此选项。</h6></div>
+            <div name="b"><h6>如果要此字段只存储日期值，请选择此选项。</h6></div>
+            <div name="c"><h6>如果要此字段只存储时间值，请选择此选项。</h6></div>
+          </iron-pages>
+        </div>
+        <div name="2"><h6>逻辑</h6></div>
+        <div name="8">
+          <h5>数字字段属性</h5>
+          <h6>为要创建的数字字段指定属性</h6>
+          <vaadin-combo-box id="local" always-float-label label="本地" class="style-scope combo-box-basic-demos" items={{numberLocal}}></vaadin-combo-box>
+          <paper-input always-float-label label="全部数字" value="4" type="number"></paper-input>
+          <paper-input always-float-label label="小数位" value="2" type="number" disabled></paper-input>
+          <h6>货币选项</h6>
+          <div class="checkboxs">
+            <paper-checkbox>当做多种货币</paper-checkbox><br>
+            <paper-checkbox disabled>使用自定义货币符号</paper-checkbox><br>
+            <paper-input disabled label="自定义货币符号"></paper-input>
+            <paper-checkbox>允许小数</paper-checkbox><br>
+            <paper-checkbox>允许负数</paper-checkbox>
+          </div>
+        </div>
+        <div name="0">
+          <h5>链接字段属性</h5>
+          <h6>选择要将链接字段连接到的业务对象</h6>
+          <div class="checkboxs">
+            <paper-checkbox disabled>启用嵌入式关系的链接字段</paper-checkbox>
+            <vaadin-combo-box always-float-label label="嵌入式关系" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+            <vaadin-combo-box always-float-label label="子类" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+            <vaadin-combo-box always-float-label label="目的" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          </div>
+        </div>
+      </iron-pages>
+
       <h5>通用字段属性</h5>
       <h6>为要创建的字段指定通用属性</h6>
       <div class="checkboxs">
@@ -154,16 +196,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'field-add'; }
 
       static get properties() { return {
+        dateselect: String,
+        fieldTypeSelect: String,
         items: Array,
+        numberLocal : {
+          type: Array,
+          value: [
+            {label: '系统', value: 0},
+            {label: '中文', value: 1},
+            {label: '中文（中国）', value: 8},
+            {label: '中文（台湾地区）', value: 2},
+            {label: '中文（新加坡）', value: 3},
+            {label: '中文（香港）', value: 4}
+          ]
+        },
         fieldDemo: {
           type: Object,
           value:{
-            "alias": "",
+            "alias": "addone",
             "allowEndOfLine": false,
             "calculated": false,
             "clearIfReadOnly": false,
             "commonlySearched": false,
-            "description": "",
+            "description": "新增字段",
             "dirty": false,
             "doNotTranslate": false,
             "editMode": false,
@@ -175,8 +230,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             "folder": "",
             "formatDef": {
                 "alias": "",
-                "characterFormat": {},
-                "cultureInfo": {},
+                "characterFormat": "None",
+                "cultureInfo": "",
                 "customFormat": "",
                 "description": "",
                 "dirty": false,
@@ -197,25 +252,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             },
             "generatesEvents": true,
             "htSubFields": [],
-            "id": "",
+            "id": "465A88DB9D7743C0A610C2EEEC833992",
             "inLineFormat": true,
             "isLinkField": false,
             "isStateField": false,
             "isUnicode": 0,
             "length": 25,
             "linkedTo": "",
-            "name": "",
+            "name": "addone",
             "namedFormat": "",
             "namedFormatId": "",
             "perspective": "(Base)",
-            "ruleAutoFill": {},
-            "ruleBeforeSave": {},
-            "ruleBeforeStateChange": {},
-            "ruleCalculation": {},
+            "ruleAutoFill": null,
+            "ruleBeforeSave": null,
+            "ruleBeforeStateChange": null,
+            "ruleCalculation": null,
             "ruleDefaultValue": {
                 "alias": "",
                 "description": "",
-                "dictBehaviors": {},
+                "dictBehaviors": null,
                 "dirty": false,
                 "editMode": false,
                 "folder": "",
@@ -230,7 +285,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 "relFor": "None",
                 "requiresNameId": false,
                 "ruleCatalogString": "AlwaysBlank",
-                "ruleCategory": {},
+                "ruleCategory": null,
                 "scope": 16,
                 "scopeOwner": "GLOBAL",
                 "strKey": "",
@@ -240,63 +295,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 "which": true,
                 "xmlCategory": ""
             },
-            "ruleReadOnly": {
-                "alias": "",
-                "description": "",
-                "dictBehaviors": {},
-                "dirty": false,
-                "editMode": false,
-                "folder": "",
-                "generatesEvents": false,
-                "id": "",
-                "instant": true,
-                "isInLine": false,
-                "linkedTo": "",
-                "name": "",
-                "noNameString": "__NoName__",
-                "perspective": "(Base)",
-                "relFor": "None",
-                "requiresNameId": false,
-                "ruleCatalogString": "AlwaysFalse",
-                "ruleCategory": {},
-                "scope": 16,
-                "scopeOwner": "GLOBAL",
-                "strKey": "",
-                "strPurpose": "",
-                "strRuleUser": "",
-                "version": 1,
-                "which": true,
-                "xmlCategory": ""
-            },
-            "ruleRequired": {
-                "alias": "",
-                "description": "",
-                "dictBehaviors": {},
-                "dirty": false,
-                "editMode": false,
-                "folder": "",
-                "generatesEvents": false,
-                "id": "",
-                "instant": true,
-                "isInLine": false,
-                "linkedTo": "",
-                "name": "",
-                "noNameString": "__NoName__",
-                "perspective": "(Base)",
-                "relFor": "None",
-                "requiresNameId": false,
-                "ruleCatalogString": "AlwaysFalse",
-                "ruleCategory": {},
-                "scope": 16,
-                "scopeOwner": "GLOBAL",
-                "strKey": "",
-                "strPurpose": "",
-                "strRuleUser": "",
-                "version": 1,
-                "which": true,
-                "xmlCategory": ""
-            },
-            "ruleValidation": {},
+            "ruleReadOnly": null,
+            "ruleRequired": null,
+            "ruleValidation": null,
             "scope": 16,
             "scopeOwner": "GLOBAL",
             "sendEventsToBPE": false,
@@ -319,8 +320,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready() {
         super.ready();
+        this.dateselect = 'a';
         this._initConboBox_fieldType()
         this._setCheck();
+        this._addEventListen();
       }
 
       _closeDrawer() {
@@ -337,23 +340,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
+
       _initConboBox_fieldType(){
         // 字段类型
         var combobox1 = this.root.querySelector('#fieldType');
         combobox1.items = [
           {label: '链接', value: 0},
-          {label: '数值', value: 1},
+          {label: '数值', value: 8},
           {label: '逻辑', value: 2},
           {label: '时间', value: 3},
           {label: '文本', value: 4}
         ];
-        // combobox1.value = 1;
+        combobox1.value = 4;
+        this.fieldTypeSelect = 4;
+      }
 
+      _addEventListen(){
+        var _this = this;
+        var fieldType = _this.root.querySelector("#fieldType");
+        $(fieldType).bind('change', function(){
+          console.log(fieldType.value);
+          _this.fieldTypeSelect = fieldType.value;
+        });
+
+        var fieldset = _this.root.querySelector("#fieldset");
+        $(fieldset).bind('click',function(){
+          if (fieldset.selected == 'a') {
+            _this._fieldlengthSetDesc("如果要指定可在此字段中输入的最大字符数，请选择此项。然后输入或选择最大数。");
+          } else if(fieldset.selected == 'b') {
+            _this._fieldlengthSetDesc("如果要指定字段可以容纳的最大字符数（最多2GB）， 请选择此选项。");
+          }
+        });
+
+        var allowEnter = _this.root.querySelector("#allowEnter");
+        $(allowEnter).bind('click', function(){
+          _this._fieldlengthSetDesc("如果要允许在字段中输入回车，请选择此复选框。回车（ENTER 键）标志一行文子或一段的结束。");
+        });
+      }
+
+      _fieldlengthSetDesc(args){
+        var lengthdesc = this.root.querySelector("#fieldlengthdesc");
+        $(lengthdesc).text(args);
       }
 
       _setCheck(){
         var _this = this;
-
       }
     }
 

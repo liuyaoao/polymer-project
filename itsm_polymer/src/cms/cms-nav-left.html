@@ -2,7 +2,19 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../lazy-library.html">
+<!-- <link rel="import" href="../lazy-library.html"> -->
+
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
+<link rel='import' href='../../bower_components/paper-item/paper-icon-item.html'>
+
+<!-- <link rel="import" href="../bower_components/paper-button/paper-button.html"> -->
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../themes/change-theme.html">
 
 <dom-module id="cms-nav-left">
   <template>
@@ -12,23 +24,156 @@
         height:100%;
         float:left;
         position:relative;
+        overflow: hidden;
+        /*margin：0 10px;*/
+        --side-item-text: {
+          color: var(--primary-text-color);
+          font-weight: 600;
+          font-size: 16px;
+        };
       }
-      .siderbar_left{
+      :host .spread_fold_btn{
+        position:absolute;
+        right:-15px;
+        top:50%;
+        z-index:29;
+      }
+      :host aside.siderbar_left{
+        padding-top:5px;
         width:240px;
-        min-height:500px;
-        border-right: 1px solid gray;
+        height:100%;
+        transition: width 0.5s ease-in-out;
+        box-shadow:2px 2px 3px  rgba(0, 0, 0, 0.4);
+        position:fixed;
+      }
+      :host aside.siderbar_left_small{
+        width:60px;
         transition: width 0.5s ease-in-out;
       }
-      .siderbar_left_small{
-        width:40px;
-        transition: width 0.5s ease-in-out;
+      paper-menu {
+        height: 98%;
+        overflow: auto;
+        padding-bottom: 0;
+        /*background-color: #fff;*/
       }
+
+      paper-icon-item {
+        --paper-icon-item: {
+          cursor: pointer;
+        };
+
+        --paper-item-icon: {
+          opacity: var(--dark-secondary-opacity);
+        };
+
+        --paper-item-selected: {
+          /*color: var(--default-primary-color);*/
+          background-color: var(--paper-grey-200);
+          opacity: 1;
+        };
+      }
+      paper-menu a {
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-decoration: none;
+      }
+      paper-menu .item-text {
+        display:inline-block;
+        width:100%;
+        height:100%;
+        @apply(--side-item-text);
+      }
+      /*paper-icon-item.iron-selected {
+        opacity: 1;
+      }*/
+      /*paper-icon-item.feedback {
+        margin-top: 16px;
+      }*/
+      paper-icon-item:hover {
+        background-color: var(--dark-primary-color);
+      }
+      paper-icon-item[aria-selected],paper-icon-item.iron-selected {
+        --paper-item-icon: {
+          color: var(--dark-primary-color);
+          opacity: 1;
+        };
+      }
+
+
+
     </style>
 
-    <aside class="xxx siderbar_left" id="siderbarLeft">
-      <button on-click="_clickSpreadFold">&lt;&lt;</button>
-        <div>左侧导航栏1</div>
-        <div>左侧导航栏2</div>
+    <aside class="siderbar_left" id="siderbarLeft">
+      <paper-icon-button icon="[[spreadFoldIcon]]" on-click="_clickSpreadFold" class="spread_fold_btn"></paper-icon-button>
+      <div class="siderbar_container">
+        <paper-menu attr-for-selected='datapanel' selected='[[currentPanel]]' on-iron-select='_onMenuSelect'>
+            <paper-icon-item two-line on-tap='_onMenuItemClicked' datapanel='modules'>
+              <a name="login" href="/cms/modules" class='item-text'>
+                <iron-icon slot="item-icon" icon='home'></iron-icon>应用
+                <paper-ripple></paper-ripple>
+              </a>
+            </paper-icon-item>
+
+            <paper-icon-item two-line on-tap='_onMenuItemClicked' datapanel='perspective'>
+              <a name="company" href="/cms/perspective" class='item-text'>
+                <iron-icon slot="item-icon" icon='room'></iron-icon>透视
+                <paper-ripple></paper-ripple>
+              </a>
+            </paper-icon-item>
+
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='contact' class='contact'>
+              <a name="contact" href="/contact" class='item-text'>
+                <iron-icon slot="item-icon" icon='settings-phone'></iron-icon>Contact Us
+                <paper-ripple></paper-ripple>
+              </a>
+            </paper-icon-item>
+
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='privacy' class='privacy'>
+              <a name="privacy" href="/privacy" class='item-text'>
+                <iron-icon slot="item-icon" icon='account-box'></iron-icon>Privacy
+                <paper-ripple></paper-ripple>
+              </a>
+            </paper-icon-item>
+
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='use' class='use'>
+              <a name="use" href="/use" class='item-text'>
+              <iron-icon slot="item-icon" icon='shop'></iron-icon>Terms of Use
+              <paper-ripple></paper-ripple>
+            </a>
+            </paper-icon-item>
+
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='feedback' class='feedback' >
+              <a name="feedback" href="/feedback"  class='item-text'>
+              <iron-icon slot="item-icon" icon='feedback'></iron-icon>Feedback
+              <paper-ripple></paper-ripple>
+            </a>
+            </paper-icon-item>
+
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='service' class='service'>
+              <a name="service" href="/service" class='item-text'>
+              <iron-icon slot="item-icon" icon='settings'></iron-icon>Service
+            </a>
+            </paper-icon-item>
+
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='reason' class='reason'>
+              <a name="reason" href="/reason" class='item-text'>
+              <iron-icon slot="item-icon" icon='book'></iron-icon>Why use FPW?
+            </a>
+            </paper-icon-item>
+
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='chinese' class='chinese'>
+              <a name="chinese" href="/chinese" class='item-text'>
+                <iron-icon slot="item-icon" icon='work'></iron-icon>中文
+              </a>
+            </paper-icon-item>
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='changetheme' class='changetheme'>
+              <iron-icon slot="item-icon" icon='stars'></iron-icon>
+              <change-theme></change-theme>
+            </paper-icon-item>
+        </paper-menu>
+      </div>
 
     </aside>
 
@@ -37,28 +182,70 @@
   <script>
 
     class CmsNavLeft extends Polymer.Element {
-
       static get is() { return 'cms-nav-left'; }
-
-      static get properties() { return {
-
-        appTitle: String,
-
-        smallScreen: Boolean,
-
-      }}
+      static get properties() {
+        return {
+          appTitle: String,
+          spreadFoldIcon:{
+            type:String,
+            value:'chevron-left'
+          },
+          pageCntMarginLeft:{
+            type:String,
+            value:'240px',
+            notify:true
+          },
+          currentPanel:{
+            type:String,
+            // value:'perspective',
+          },
+          smallScreen: Boolean,
+        }
+      }
 
       ready(){
         super.ready();
-        let siderbarLeft = this.$.siderbarLeft;
-        siderbarLeft.style.height = document.body.clientHeight+"px";
+        setTimeout(()=>{
+          this._updateLeftBarStyle();
+        },100);
+        // this._updateLeftBarStyle();
       }
-      _clickSpreadFold(evt){
+      _clickSpreadFold(evt){ //点击了折叠展开侧边栏按钮。
         let siderbarLeft = this.$.siderbarLeft;
         console.log("点击了展开折叠的事件：",evt);
+        this.spreadFoldIcon = (siderbarLeft.className.indexOf('siderbar_left_small')==-1) ? 'chevron-right' : 'chevron-left';
+        this.pageCntMarginLeft = (siderbarLeft.className.indexOf('siderbar_left_small')==-1) ? '60px' : '240px';
         this._toggleClass("siderbar_left_small",siderbarLeft);
       }
+      _onMenuItemClicked(evt){
+        console.log("_onMenuItemClicked:",evt);
 
+      }
+      _onMenuSelect(item){
+        console.log("_onMenuSelect:",item);
+      }
+      connectedCallback() {
+        super.connectedCallback();
+        this._boundResizeHandler = this._resizeHandler.bind(this);
+        window.addEventListener('resize', this._boundResizeHandler);
+      }
+
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener('resize', this._boundResizeHandler);
+      }
+      _resizeHandler() {
+        this._resizeDebouncer = Polymer.Debouncer.debounce(this._resizeDebouncer,
+          Polymer.Async.timeOut.after(50), () => {
+            this.updateStyles();
+            this._updateLeftBarStyle();
+          }
+        );
+      }
+      _updateLeftBarStyle(){
+        let siderbarLeft = this.$.siderbarLeft;
+        siderbarLeft.style.height = (document.innerHeight-60)+"px";
+      }
       _toggleClass(name,node){
         let className = node.className;
         let classNameArr = className.split(' ');

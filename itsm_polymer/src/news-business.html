@@ -8,16 +8,21 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/iron-swipeable-pages/iron-swipeable-pages.html">
-<link rel="import" href="../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 
 <link rel="import" href="itsm-tree.html">
+<!-- <link rel="import" href="news-iframe.html"> -->
 
 <dom-module id="news-business">
+
   <template>
+    <style>
+      news-iframe {
+        width:100%;
+        height:800px;
+      }
+    </style>
     <itsm-tree></itsm-tree>
+    <!-- <news-iframe src="../src/itsm-trees.html"></news-iframe> -->
   </template>
 
   <script>
@@ -28,10 +33,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get properties() { return {
 
-        category: Object,
-
-        page: String
       }}
+
+      ready(){
+        super.ready();
+      }
+
+      _editPanelDrawerOpen(){
+        alert('hello world');
+      }
     }
     customElements.define(newsBusiness.is, newsBusiness);
 

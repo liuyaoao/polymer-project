@@ -14,6 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="lazy-library.html">
 
+<link rel="import" href="./redux/actions/userLogin-mixin.html">
+
 <dom-module id="news-header">
 
   <template>
@@ -67,7 +69,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .menu-list {
         display: block;
         /*text-align: center;*/
-        font-size: 15px;
+        font-size: 30px;
+        color: #666;
+        font-weight: 300;
+        font-family: Arial;
         /*border-top: var(--app-border-style);
         border-bottom: var(--app-border-style);*/
         padding: 0px 30px;
@@ -87,7 +92,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         white-space: nowrap;
         text-overflow: ellipsis;
         vertical-align:middle;
-        padding: 19px 5px;
+        padding: 9px 5px;
       }
       .menu-list h5 {
         text-align: center;
@@ -103,8 +108,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         vertical-align:middle;
         font-size: 15px;
         font-weight: normal;
-        padding: 20px 5px;
-        color: #8480A5;
+        padding: 12px 5px;
+        font-size: 30px;
+        color: #666;
+        font-weight: 300;
+        font-family: Arial;
       }
       .more {
         display: inline-block;
@@ -245,7 +253,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         .logo-toolbar {
           display: flex;
-          height: 60px;
+          height: 58px;
           border-bottom: var(--app-border-style);
           background: url(../images/header-tab.png) repeat transparent;
           background-position: 0 -50px;
@@ -445,7 +453,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         .navNav .img{
-          height: 17px;
+          height: 30px;
           margin-right: 7px;
           margin-bottom: -2px;
         }
@@ -503,11 +511,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="header-right">
             <ul>
               <li><div class="profileimage"></div></li>
-              <li><div class="admindiv"><div class="profile">admin</div><div class="admindivs">管理员</div></div></li>
+              <li><div class="admindiv"><div class="profile">[[loginId]]</div><div class="admindivs">[[roleName]]</div></div></li>
               <li><div class="longline"></div></li>
               <li><div class="helpdiv"><a>Help</a><div class="downarrow"></div></div></li>
               <li><div class="longline"></div></li>
-              <li><div title="logout" class="logout"></div></li>
+              <li><div title="logout" class="logout" on-click="_logOut"></div></li>
             </ul>
         </div>
         <div title="Full Screen" class="full-screen"></div>
@@ -518,7 +526,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
 
-    class NewsHeader extends Polymer.Element {
+    class NewsHeader extends UserLoginMixin(Polymer.Element) {
 
       static get is() { return 'news-header'; }
 
@@ -544,7 +552,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           notify: true
         },
 
-        categoryName: String,
+        categoryName: {
+          type: String,
+          notify: true
+        },
 
         drawerOpened: {
           type: Boolean,
@@ -556,21 +567,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         menuList: {
           type: Array,
           notify: true
+        },
+
+        loginId: {
+          type: String,
+          statePath: 'userReducer.userId'
+        },
+
+        roleName: {
+          type: String,
+          statePath: 'userReducer.userSelectedRoleName'
+        },
+
+        userToken: {
+          type: String,
+          statePath: 'userReducer.userToken'
+        },
+
+        userSelectedRoleName: {
+          type: String,
+          statePath: 'userReducer.userSelectedRoleName'
         }
       }}
+
+      static get observers() { return [
+        '_userTokenChange(userToken, userSelectedRoleName)'
+      ]}
 
       ready(){
         super.ready();
 
+      }
+
+      _userTokenChange(userToken, userSelectedRoleName){
+        if(userToken && userSelectedRoleName){
+          this._createMenu(userToken);
+        }
+      }
+
+      _createMenu(userToken){
         var _this = this;
+        console.log("获取导航",Window.AppConfig.serverUrl+"/foundation/api/v1/app/listByRole?token=" + userToken);
         $.ajax({
           type: "GET",
-          url: Window.AppConfig.serverUrl+"/foundation/api/v1/app/listByRole?token=12",
+          url: Window.AppConfig.serverUrl+"/foundation/api/v1/app/listByRole?token=" + userToken,
           async : true,
           success: function(data){
             // console.log(data);
             var arr = JSON.parse(data);
-            console.log(arr);
+            console.log("导航列表：",arr);
             _this.dataArray = arr;
             _this.arrleng = arr.length;
             var menuList = [];
@@ -582,15 +627,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               for(var i=0; i<arr.length; i++){
                 if(arr[i].alias === _this.categoryName){
                   _this.categoryId = arr[i].dashboardId;
+                  //根据 选中导航 跳转页面
+                  window.history.pushState({}, null, "/app/list/"+ arr[i].alias);
+                  window.dispatchEvent(new CustomEvent('location-changed'));
                 }
               }
             }else{
+              //导航  设置默认选中
               for(var i=0; i<arr.length; i++){
                 if(arr[i].appendParameters.IS_DEFAULT){
                   _this.categoryId = arr[i].dashboardId;
+                  // _this.categoryName = arr[i].alias;
+                  // _this.dispatch("setDefaultCategoryName", arr[i].alias);
+                  //根据 选中导航 跳转页面
+                  window.history.pushState({}, null, "/app/list/"+ arr[i].alias);
+                  window.dispatchEvent(new CustomEvent('location-changed'));
                   break;
                 }
               }
+
             }
             var navWidth = $(_this.root.querySelector('#normalnav')).css('width');
             console.log(navWidth);
@@ -603,7 +658,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               // console.log('navWidth',navWidth);
               var navNu = parseInt(navWidth);
               // console.log(navNu);
-              var Nu = Math.floor(navNu/130);
+              var Nu = Math.floor(navNu/241);
               // console.log(Nu);
               // if (arr.length<=Nu) {
               //   $(_this.root.querySelector('.more')).css('display','none')
@@ -612,7 +667,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               // }
               for(var i=0; i<arr.length; i++){
                 var item = arr[i];
-                var a = '<a name="'+ item.alias +'" href="/app/list/'+ item.alias +'"><img src="'+ item.associatedImage +'" alt="" class="img"><paper-ripple></paper-ripple>'+ item.alias +'</a>';
+                var a = '<a name="'+ item.name +'" href="/app/list/'+ item.name +'"><img src="'+ item.associatedImage +'" alt="" class="img"><paper-ripple></paper-ripple>'+ item.alias +'</a>';
 
                 if(i<Nu){
                   $(_this.root.querySelector('#normalnav')).append(a);
@@ -623,7 +678,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             });
             var navNu = parseInt(navWidth);
             // console.log(navNu);
-            var Nu = Math.floor(navNu/130);
+            var Nu = Math.floor(navNu/241);
             // console.log(Nu);
             // if (arr.length<=Nu) {
             //   $(_this.root.querySelector('.more')).css('display','none')
@@ -632,7 +687,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             // }
             for(var i=0; i<arr.length; i++){
               var item = arr[i];
-              var a = '<a name="'+ item.alias +'" href="/app/list/'+ item.alias +'"><img src="'+ item.associatedImage +'" alt="" class="img"><paper-ripple></paper-ripple>'+ item.alias +'</a>';
+              var a = '<a name="'+ item.name +'" href="/app/list/'+ item.name +'"><img src="'+ item.associatedImage +'" alt="" class="img"><paper-ripple></paper-ripple>'+ item.alias +'</a>';
 
               if(i<Nu){
                 $(_this.root.querySelector('#normalnav')).append(a);
@@ -649,18 +704,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         });
 
-        // console.log($(_this.root.querySelector('.navNav')).css('width'));
-        // var normalnav = _this.root.querySelector('#normalnav');
-        // $(navNav).bind('resize', function(){
-        //   console.log($(navNav).css('width'));
-        // });
-
-
-        // $(window).resize(function () {
-        //   console.log($(normalnav).css('width'));
-        // });
       }
 
+      _logOut(){
+        var _this = this;
+        var userToken = _this.userToken;
+        $.ajax({
+          type: "GET",
+          url: Window.AppConfig.serverUrl + "/foundation/api/v1/auth/logout?token=" + userToken,
+          async : true,
+          success: function(data){
+            window.history.pushState({}, null, "/app/login");
+            window.dispatchEvent(new CustomEvent('location-changed'));
+          },
+          error: function(error){
+            console.log("errorMsg",error);
+          }
+        });
+      }
       _menuIcon(drawerOpened) {
         return drawerOpened ? 'close' : 'menu';
       }

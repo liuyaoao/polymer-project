@@ -265,13 +265,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           $.ajax({
             type: "GET",
             // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/list?token=12",CD241021FB7646428021AD547CDB2F6C
-            // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/getById?token=adadf&id=E3A48E9C8ACA4E688BD49368DC80691E",
+            // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/getById?token=adadf&id=CD241021FB7646428021AD547CDB2F6C",
             url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/getById?token=adadf&id=E3A48E9C8ACA4E688BD49368DC80691E",
             async : true,
             success: function(data){
               // console.log(data);
               var jsonData = JSON.parse(data);
               _this.serverData = jsonData;
+              // console.log(JSON.stringify(jsonData.BusinessObjectDef.fields[5]));
+              // console.log(JSON.stringify(jsonData.BusinessObjectDef.fields[7]));
               var zNodes = [];
               //业务对象
               var business = _this._clone(jsonData.BusinessObjectDef);
@@ -397,7 +399,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               treeObj.updateNode(_this.currentTreeNode);
             }
             console.log(data);
-
           },
           error: function(xhr,status,error){
             console.log("错误提示： " + xhr.status + " " + xhr.statusText);
@@ -417,19 +418,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          for (var i=0, l=nodes.length; i < l; i++) {
            treeObj.removeNode(nodes[i]);
          }
+         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+         var busobj = this._clearTreeField(treeObj);
+         var tar;
+         for(var i in busobj.fields){
+           if(busobj.fields[i].id == this.currentTreeNode.id){
+             tar = busobj.fields[i];
+           }
+         }
+         console.log(tar);
+        //  this._removeTreeNodes(this, treeObj, busobj);
+      }
+
+      _removeTreeNodes(_this, treeObj, edata){
+        $.ajax({
+          type: "POST",
+          // url: Window.AppConfig.serverUrl + "/foundation/api/v1/businessobject/createOrUpdate?token=adadf",
+          url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/delete?token=adadf",
+          data: JSON.stringify(edata),
+          contentType: 'text',
+          async : true,
+          success: function(data){
+
+            console.log(data);
+          },
+          error: function(xhr,status,error){
+            console.log("错误提示： " + xhr.status + " " + xhr.statusText);
+            }
+        });
       }
 
       //克隆对象
       _clone(obj){
-        var newObj = {};
-        if (obj instanceof Array) {
-            newObj = [];
-        }
-        for (var key in obj) {
-            var val = obj[key];
-            newObj[key] = typeof val === 'object' ? this._clone(val): val;
-        }
-        return newObj;
+        var news = JSON.stringify(obj);
+        var end = JSON.parse(news);
+        return end;
+        // var newObj = {};
+        // if (obj instanceof Array) {
+        //     newObj = [];
+        // }
+        // for (var key in obj) {
+        //     var val = obj[key];
+        //     newObj[key] = typeof val === 'object' ? this._clone(val): val;
+        // }
+        // return newObj;
       }
 
     }

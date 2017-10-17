@@ -12,20 +12,44 @@
 
   <template>
     <style include="page-styles">
+    app-drawer {
+      z-index: 1000;
+      top: 0;
+      left: 0;
+    }
+    .add-header{
+      height: 58px;
+      background-color: #3399cc;
+      color: #ecfsf9;
+    }
+     .flex{
+       font-size: 17px;
+     }
     .add-content .pink .btn{
       margin: 0 !important;
-      margin-right: 15px !important;
+      margin-right: 16px !important;
+      font-size: 14px;
+      height: 34px;
+
     }
     .add-content .btns{
-      font-size: 0.83em;
+      font-size: 14px;
       display: inline-block;
       margin: 0 ;
-      margin-left: 15px;
+      margin-left: 16px;
       color: #fff;
-      padding: 5px 15px;
+      padding: 0 15px;
+      height: 34px;
+      line-height: 34px;
       background-color: #333833;
       text-align: center;
       margin-bottom: 5px;
+    }
+    .add-content .item.pink{
+      padding-bottom: 30px !important;
+    }
+    .add-content .item .htext{
+      line-height: 34px;
     }
     paper-dropdown-menu{
       margin-right: 25px;

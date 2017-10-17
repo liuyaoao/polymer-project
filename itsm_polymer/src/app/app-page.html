@@ -116,7 +116,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         app-title="[[appTitle]]"
         page="[[apppage]]"
         categories="[[categories]]"
-        category-name="[[categoryName]]"
+        category-name="{{categoryName}}"
         category="[[category]]"
         category-id="{{categoryId}}"
         menu-list="{{menuList}}"
@@ -125,7 +125,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </news-nav>
     <!-- <login-role></login-role> -->
     <iron-pages role="sub_main" selected="[[apppage]]" attr-for-selected="pagename" fallback-selection="path-warning">
-      <!-- list view of articles in a category -->
+
+      <login-page pagename="login"></login-page>
+
+      <login-role pagename="loginRole"
+      category-name="[[categoryName]]"></login-role>
+
       <news-list
           id="list"
           pagename="list"
@@ -278,11 +283,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return;
         }
         if((!subroute.path || subroute.path=='/') && apppage == 'list'){
-          this.set('location.path', 'app/list/事件');
+          this.set('location.path', 'app/list');
           return;
         }
         if (!apppage) {
-          this.apppage = 'list';
+          this.apppage = 'login';
           return;
         }else{
           this.apppage = apppage;
@@ -297,6 +302,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _pageChanged(apppage, oldPage) {
         let href;
         switch(apppage) {
+          case 'login':
+            href = '../login-page.html';
+          break;
+          case 'loginRole':
+            href = '../login-role.html';
+          break;
           case 'list':
             href = '../news-list.html';
           break;

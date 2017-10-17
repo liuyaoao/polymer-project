@@ -1,0 +1,205 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+
+<dom-module id="cms-perspective">
+
+  <template>
+
+    <style include="">
+
+      :host {
+        display: block;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      .container .fade-in {
+        opacity: 0;
+      }
+
+      .container[fade-in] .fade-in {
+        opacity: 1;
+        transition: opacity 500ms;
+      }
+
+      .content {
+        @apply --layout-flex;
+      }
+
+      li {
+        display: block;
+      }
+
+      h3 {
+        @apply --app-sub-section-headline;
+        margin: 24px 0;
+      }
+
+      news-side-list {
+        margin-bottom: 32px;
+      }
+
+      news-iframe {
+        width: 300px;
+        height: 250px;
+      }
+
+      /* mobile */
+      @media (max-width: 767px) {
+        aside {
+          display: none;
+        }
+
+      }
+
+      /* desktop */
+      @media (min-width: 768px) {
+        :host {
+          --app-grid-columns: 4;
+          --app-grid-gutter: 32px;
+        }
+      }
+
+      /* desktop large */
+      @media (min-width: 1310px) {
+        .container {
+          @apply --layout-horizontal;
+        }
+
+        aside {
+          width: 300px;
+          min-width: 300px;
+        }
+      }
+
+    </style>
+
+    <!--
+      app-route provides the name of the category.
+    -->
+    <app-route
+        route="[[route]]"
+        pattern="/:listtype"
+        data="{{subRouteData}}"></app-route>
+
+    <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
+      <div class="content">
+        透视模块页面。。。。。。start
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        透视模块页面。。。。。。end
+      </div>
+
+    </div>
+
+  </template>
+
+  <script>
+
+    class CmsPerspective extends Polymer.Element {
+
+      static get is() { return 'cms-perspective'; }
+
+      static get properties() { return {
+
+        conname: {
+          type: String,
+          observer: '_nameChanged'
+        },
+
+        route: {
+          type:Object
+        },
+        listtype: {
+          type: String
+        },
+
+        category: Object,
+
+        offline: Boolean,
+
+        failure: Boolean,
+
+        categoryName: {
+          type: Boolean,
+          computed: '_return(subRouteData.listtype)',
+          notify: true
+        },
+
+        subRouteData: Object,
+
+        loading: Boolean,
+
+        categoryId: String,
+
+        menuList: Array
+
+      }}
+      static get observers() { return [
+        '_routePageChanged(subRouteData.listtype)'
+      ]}
+
+      ready() {
+        super.ready();
+      }
+      _routePageChanged(listtype) {
+        this.listtype = listtype || '';
+      }
+      _nameChanged(){
+        console.log(this.conname);
+        this.subobjs = this.conname;
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        this._boundResizeHandler = this._resizeHandler.bind(this);
+        window.addEventListener('resize', this._boundResizeHandler);
+      }
+
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener('resize', this._boundResizeHandler);
+      }
+
+      _getFeaturedItem(items) {
+        return items ? items[0] : {};
+      }
+
+      _tryReconnect() {
+        this.dispatchEvent(new CustomEvent('refresh-data', {bubbles: true, composed: true}));
+      }
+
+      _resizeHandler() {
+        this._resizeDebouncer = Polymer.Debouncer.debounce(this._resizeDebouncer,
+          Polymer.Async.timeOut.after(50), () => { this.updateStyles(); });
+      }
+
+      _slice(list, begin, end) {
+        if (list) {
+          return list.slice(begin, end);
+        }
+      }
+
+      _return(value) {
+        return value;
+      }
+
+    }
+
+    customElements.define(CmsPerspective.is, CmsPerspective);
+
+  </script>
+
+</dom-module>

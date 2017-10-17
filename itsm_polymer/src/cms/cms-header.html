@@ -1,12 +1,25 @@
 
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
 <link rel="import" href="../lazy-library.html">
 
 <dom-module id="cms-header">
   <template>
     <style>
+    :host{
+      display: block;
+      position:relative;
+      width:100%;
+      height:100%;
+      z-index:9;
+    }
+    :host app-header.logo-header{
+      background-color: var(--paper-toolbar-background);
+      color: var(--paper-toolbar-color);
+      /*z-index:19;*/
+    }
       paper-icon-button {
         --paper-icon-button-ink-color: var(--app-nav-text-color);
         width: 40px;
@@ -28,7 +41,7 @@
       @media (min-width: 768px) {
 
         .logo-toolbar {
-          display: flex;
+          /*display: flex;*/
           height: 60px;
           border-bottom: var(--app-border-style);
           background: url(../images/header-tab.png) repeat transparent;
@@ -139,23 +152,26 @@
     <!--
       Header at the scroll top of the page.
     -->
-    <header>
-      <app-toolbar class="logo-toolbar">
-        <div class="logodesk">
-          <a href="/"><img style="width:150px" src="/images/logo.svg" alt="siteview" /></a>
-        </div>
-        <div class="header-right">
-            <ul>
-              <li><div class="profileimage"></div></li>
-              <li><div class="admindiv"><div class="profile">admin</div><div class="admindivs">管理员</div></div></li>
-              <li><div class="longline"></div></li>
-              <li><div title="logout" class="logout"></div></li>
-            </ul>
-        </div>
-        <div title="Full Screen" class="full-screen"></div>
-      </app-toolbar>
-    </header>
-
+    <app-header-layout fullbleed >
+      <app-header class="logo-header" slot="header" style="width:100%;height:60px;" condenses fixed shadow>
+        <app-toolbar class="logo-toolbar">
+            <div class="logodesk">
+              <a href="/"><img style="width:150px" src="../../images/logo.svg" alt="siteview" /></a>
+            </div>
+            <div class="header-right">
+              <ul>
+                <li><div class="profileimage"></div></li>
+                <li><div class="admindiv"><div class="profile">admin</div><div class="admindivs">管理员</div></div></li>
+                <li><div class="longline"></div></li>
+                <li><div title="logout" class="logout"></div></li>
+              </ul>
+            </div>
+            <div title="Full Screen" class="full-screen"></div>
+            <paper-progress value="10" indeterminate bottom-item></paper-progress>
+        </app-toolbar>
+      </app-header>
+      <slot name="cms_contentContainer"></slot>
+    </app-header-layout>
   </template>
 
   <script>

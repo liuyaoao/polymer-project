@@ -26,6 +26,10 @@
         color: #ecf3f9;
       }
 
+      .small-icon {
+        height: 18px;
+      }
+
       paper-button.custom {
         --paper-button-ink-color: var(--paper-pink-a200);
         /* These could also be individually defined for each of the
@@ -62,6 +66,7 @@
         width: 100%;
         text-transform: uppercase;
         /*margin-bottom: 1px;*/
+        --paper-tabs-selection-bar-color : #FEC90E;
       }
 
       #delete {
@@ -79,7 +84,7 @@
     <div class="container">
       <app-toolbar class="add-header">
         <div class="flex">编辑业务对象树</div>
-        <iron-icon icon="chevron-right"></iron-icon>
+        <iron-icon class="small-icon" icon="vaadin:angle-right"></iron-icon>
         <div class="flex">显示</div>
       </app-toolbar>
       <div class="tabs">

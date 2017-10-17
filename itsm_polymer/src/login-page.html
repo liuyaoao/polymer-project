@@ -1,8 +1,11 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/paper-input/paper-input-container.html">
-<link rel="import" href="../bower_components/vaadin-text-field/vaadin-text-field.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<script src="../node_modules/js-base64/base64.js"></script>
 <link rel="import" href="css/page-styles.html">
+
+<link rel="import" href="./redux/actions/userLogin-mixin.html">
 
 <dom-module id="login-page">
 
@@ -14,19 +17,19 @@
       <div class="content">
         <div class="login_form">
           <h2><img src="../images/text.png" alt=""></h2>
-          <paper-input placeholder="请输入用户名">
+          <paper-input placeholder="请输入用户名" value="{{username}}" error-message="用户名错误!" tabindex="1">
             <paper-icon-button slot="prefix" src="../images/icon-user.png">
             </paper-icon-button>
           </paper-input>
-          <paper-input placeholder="请输入密码">
+          <paper-input placeholder="请输入密码" value="{{pwd}}" type="{{pwdType}}" tabindex="2">
             <paper-icon-button slot="prefix" src="../images/icon-pw.png">
             </paper-icon-button>
           </paper-input>
           <div class="checkboxs">
-            <paper-checkbox>记住密码</paper-checkbox>
-            <paper-checkbox>显示密码</paper-checkbox>
+            <paper-checkbox id="rememberPwd">记住密码</paper-checkbox>
+            <paper-checkbox on-change="_onClickShowPwd" id="isShowPwd">显示密码</paper-checkbox>
           </div>
-          <paper-button class="login_btn">
+          <paper-button class="login_btn" on-click="_submitLogin">
             <div class="bg1"></div>
             <div class="bg2"></div>
             <div class="text">
@@ -40,19 +43,88 @@
   </template>
 
   <script>
-    class LoginPage extends Polymer.Element {
+    class LoginPage extends UserLoginMixin(Polymer.Element) {
       static get is() { return 'login-page'; }
       static get properties() {
         return {
           label: {
+            type: String
+          },
+          username: String,
+          pwd: String,
+          pwdType: {
             type: String,
-          }
+            value: "password"
+          },
         };
       }
 
       ready(){
         this.addEventListener('click', this._focusInput.bind(this));
         super.ready();
+
+        var storage=window.localStorage;
+        if(storage.username){
+          this.username = storage.username;
+        }
+        if(storage.userInfo){
+          var arr = JSON.parse(storage.getItem("userInfo"));
+          this.dispatch("setUserInfo", arr.loginId, arr.token);
+        }
+      }
+
+      _submitLogin(){
+        var _this = this;
+        var storage=window.localStorage;
+        var username = $.trim(_this.username), pwd = $.trim(_this.pwd);
+        console.log("登录接口",Window.AppConfig.serverUrl+"/foundation/api/v1/auth/login");
+        var data = {
+          "user": username,
+          "password": Base64.encode(pwd)
+        };
+        $.ajax({
+          type: "POST",
+          url: Window.AppConfig.serverUrl+"/foundation/api/v1/auth/login",
+          async : true,
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify(data),
+          success: function(data){
+            var arr = data;
+            if(arr.currentRole === null){
+              var userInfo = {userId: arr.loginId, userToken: arr.token};
+              _this.dispatch("setUserInfo", arr.loginId, arr.token);
+              _this.dispatch("getUserRoles", arr.userRoles);
+
+              storage.setItem('userInfo', JSON.stringify(userInfo));
+
+              window.history.pushState({}, null, "/app/loginRole");
+              window.dispatchEvent(new CustomEvent('location-changed'));
+            }
+            //记住密码
+            _this._rememberPwd();
+          },
+          error: function(error){
+            console.log("errorMsg",error);
+          }
+        });
+      }
+
+      _onClickShowPwd(e){
+        if(this.$.isShowPwd.checked){
+          this.pwdType = "";
+        }else{
+          this.pwdType = "password";
+        }
+      }
+
+      _rememberPwd(){
+        var storage=window.localStorage;
+        if(this.$.rememberPwd.checked){
+          storage.username = this.username;
+        }else{
+          storage.clear();
+        }
       }
 
       _focusInput() {

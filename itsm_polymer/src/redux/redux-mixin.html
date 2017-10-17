@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer-redux/polymer-redux.html">
 <script src="./reducerUtilities.js"></script>
 <script src="./reducers/form-reducer.js"></script>
+<script src="./reducers/userLogin-reducer.js"></script>
 
 <script>
     const initial = {
@@ -21,6 +22,7 @@
     var reducer = Redux.combineReducers({
         message: messageReducer,
         formReducer,
+        userReducer
     });
 
     const store = Redux.createStore(reducer, {}, Redux.applyMiddleware(ReduxThunk.default));

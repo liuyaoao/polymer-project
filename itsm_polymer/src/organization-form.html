@@ -19,12 +19,13 @@
 <!-- <script src="../../dist/gridstack.js"></script>
 <script src="../../dist/gridstack.jQueryUI.js"></script>
 <script src="../../js/tree-js/jquery.ztree.all.min.js"></script> -->
-<link rel="import" href="../lazy-library.html">
-<link rel="import" href="../css/form/polymer-gridstack-style.html">
-<link rel="import" href="../components/form/lazy-controls.html">
-<script src="../lib/utils.js"></script>
+<link rel="import" href="lazy-library.html">
+<link rel="import" href="css/form/polymer-gridstack-style.html">
+<link rel="import" href="components/form/lazy-controls.html">
+<script src="lib/utils.js"></script>
 
-<link rel="import" href="../components/form/common/remove-widget-link.html">
+<link rel="import" href="components/form/common/remove-widget-link.html">
+<link rel="import" href="./components/home/organization-team.html">
 
 <dom-module id="organization-form">
   <template>
@@ -239,7 +240,7 @@
           <div class="hdr-text">运维团队结构树</div>
         </div>
         <div class="container-grid">
-          <div style="margin-bottom: 20px" class="container-head">
+          <!-- <div style="margin-bottom: 20px" class="container-head">
               <div class="container-title">运维团队
                 <paper-button class="pbtn pbtn-default" on-click="">删除组</paper-button>
                 <paper-button class="pbtn pbtn-default" on-click="">删除节点</paper-button>
@@ -275,15 +276,14 @@
           </div>
           <div class="container-three">
             <div class="container-title">其他属性</div>
-            <!-- <div class="container-grid"> -->
-        <paper-tabs class="header-tabs" selected="{{viewType}}" scrollable hide-scroll-buttons>
-          <paper-tab>包含的角色</paper-tab>
-          <paper-tab>运维范围资源</paper-tab>
-        </paper-tabs>
-        <iron-pages selected="{{viewType}}">
-          <section class="tab-content">
-            <div style="margin-bottom: 10px">
-              <div class="checkboxs">
+            <paper-tabs class="header-tabs" selected="{{viewType}}" scrollable hide-scroll-buttons>
+              <paper-tab>包含的角色</paper-tab>
+              <paper-tab>运维范围资源</paper-tab>
+            </paper-tabs>
+            <iron-pages selected="{{viewType}}">
+              <section class="tab-content">
+                <div style="margin-bottom: 10px">
+                <div class="checkboxs">
                 <paper-checkbox class="styled">
                   测试
                 </paper-checkbox>
@@ -311,20 +311,20 @@
                 <paper-checkbox class="styled">
                   游客
                 </paper-checkbox>
+                </div>
               </div>
-            </div>
-          </section>
-          <section class="tab-content">
-            <div class="grid-stack generate-grid" id="generateGrid">
-              <div class="checkboxs">
+            </section>
+            <section class="tab-content">
+              <div class="grid-stack generate-grid" id="generateGrid">
+                <div class="checkboxs">
 
-            </div>
-          </section>
-        </iron-pages>
+                </div>
+              </div>
+            </section>
+          </iron-pages>
 
-      <!-- </div> -->
-          </div>
 
+        </div>
         <app-drawer id="controlConfigDrawer" align="right" swipe-open class="map-add">
           <div class="drawer-contents">
             <app-toolbar class="add-header">
@@ -333,8 +333,17 @@
             </app-toolbar>
             <control-properties active-control="[[activeControl]]" active-properties="{{activeProperties}}"></control-properties>
           </div>
+        </app-drawer> -->
+        <!-- 运维团队 -->
+        <app-drawer id="organizationTeam" align="right" swipe-open class="map-add">
+          <div class="drawer-contents">
+            <organization-team>
+            </organization-team>
+          </div>
         </app-drawer>
-    </div>
+
+
+        </div>
     <!-- <h1>Float grid demo</h1>
     <div>
         <a class="btn btn-default" id="addNewWidget" href="#">Add Widget</a>
@@ -588,6 +597,11 @@
         }
       }
 
+
+      _organizationTeam(){
+        this.$.organizationTeam.open();
+      }
+
       _removeWidget(e) {
         // console.log(e.target);
         // var els = this.$.gridStack.querySelectorAll('.grid-stack-item');
@@ -615,7 +629,7 @@
         var setting = {
           callback: {
     				// beforeClick: beforeClick,
-    				onClick: onClick
+    				onClick: this.$.organizationTeam.open()
     			}
         };
         var _this = this;

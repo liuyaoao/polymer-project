@@ -32,7 +32,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         tail="{{subroute}}"></app-route>
 
     <iron-pages role="main" selected="[[page]]" attr-for-selected="name" fallback-selection="path-warning">
-      <!-- list view of articles in a category -->
       <app-page
           id="appPage"
           name="app"
@@ -105,7 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         if (!page) {
           // set default route if route path is empty
-          this.set('route.path', 'app/list/事件');
+          this.set('route.path', 'app');
           return;
         }
         this.page = page;

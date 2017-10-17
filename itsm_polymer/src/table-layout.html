@@ -29,6 +29,8 @@
 <link rel="import" href="./css/form/bootstrap-styles.html">
 <link rel="import" href="./css/page-styles.html">
 
+<link rel="import" href="./redux/actions/userLogin-mixin.html">
+
 <dom-module id="table-layout">
   <template>
     <style include="polymer-gridstack-style bootstrap-styles page-styles">
@@ -118,7 +120,8 @@
      * @customElement
      * @polymer
      */
-    class TableLayout extends Polymer.Element {
+    class TableLayout extends UserLoginMixin(Polymer.Element) {
+
       static get is() { return 'table-layout'; }
       static get properties() {
         return {
@@ -164,7 +167,12 @@
 
           widgetBgStyles: Object,
 
-          menuList: Array
+          menuList: Array,
+
+          userToken: {
+            type: String,
+            statePath: 'userReducer.userToken'
+          }
 
         };
       }
@@ -172,6 +180,7 @@
       ready(){
         this.addEventListener('remove-widget', this._removeWidget.bind(this));
         this.addEventListener('addWidget-close', this.handleCloseMenu.bind(this));
+        this.addEventListener('centerOperating-close', this.handleCloseMenu.bind(this));
         this.addEventListener('editPanel-close', this.handleClosePanelMenu.bind(this));
         this.addEventListener('onclick-ok', this.addNewWidget.bind(this));
         this.addEventListener('open-dialog', this._popup.bind(this));
@@ -197,11 +206,12 @@
 
       _getPanelData(){
         var _this = this;
-        var urla = Window.AppConfig.serverUrl+"/foundation/api/v1/dashboard/getDefById?id="+ _this.categoryId +"&token=BD53EDB579544BAEB2B07448C7890D5F";
+        var userToken = _this.userToken;
+        var urla = Window.AppConfig.serverUrl+"/foundation/api/v1/dashboard/getDefById?id="+ _this.categoryId +"&token=" + userToken;
         console.log(urla);
         $.ajax({
           type: "GET",
-          url: Window.AppConfig.serverUrl+"/foundation/api/v1/dashboard/getDefById?id="+ _this.categoryId +"&token=BD53EDB579544BAEB2B07448C7890D5F",
+          url: Window.AppConfig.serverUrl+"/foundation/api/v1/dashboard/getDefById?id="+ _this.categoryId +"&token=" + userToken,
           async : true,
           success: function(data){
             var arr = JSON.parse(data);

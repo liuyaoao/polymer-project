@@ -1,6 +1,10 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/paper-dropdown-input/paper-dropdown-input.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="css/page-styles.html">
+
+<link rel="import" href="./redux/actions/userLogin-mixin.html">
+
 
 <dom-module id="login-role">
 
@@ -11,9 +15,25 @@
       <h1 title="SiteView ITOSS IT运营支持平台"><img src="../images/slogo.svg" alt=""></h1>
       <div class="content">
         <div class="role-select">
-          <paper-dropdown-input label="可用角色"
-            items='["变更经理","发布经理","服务级别经理"]'>
-          </paper-dropdown-input>
+          <h5>可用角色</h5>
+          <ul>
+            <iron-selector role="navigation" selected="{{roleName}}" attr-for-selected="name">
+              <dom-repeat items="[[roleList]]" as="item">
+                <template>
+                  <li name="[[item.name]]" on-click="_showRoleDes" args="[[item]]">
+                    <img src="" alt="">
+                    [[item.name]]
+                  </li>
+                </template>
+              </dom-repeat>
+            </iron-selector>
+          </ul>
+          <div class="des">
+            角色说明: [[roleDes]]
+          </div>
+          <paper-button raised class="indigo right" on-click="_selectedRole">
+            确定
+          </paper-button>
         </div>
         <p class="copyRight">版权所有 北京游龙网网络科技有限公司</p>
       </div>
@@ -21,19 +41,72 @@
   </template>
 
   <script>
-    class LoginRole extends Polymer.Element {
+      class LoginRole extends UserLoginMixin(Polymer.Element) {
+
       static get is() { return 'login-role'; }
       static get properties() {
         return {
-          label: {
+          categoryName: String,
+
+          roleList:{
+            type: Array,
+            statePath: 'userReducer.userRoles'
+          },
+
+          roleName: String,
+
+          roleDes: String,
+
+          roleObj: Object,
+
+          userToken: {
             type: String,
-          }
+            statePath: 'userReducer.userToken'
+          },
+
+          // defaultCategoryName: {
+          //   type: String,
+          //   statePath: 'userReducer.defaultCategoryName'
+          // }
+
         };
       }
 
       ready(){
         this.addEventListener('click', this._focusInput.bind(this));
         super.ready();
+      }
+
+      _showRoleDes(e){
+        var path = e.composedPath();
+        var args = {};
+        if(path.length >=0 ){
+          args = path[0].args;
+          this.roleDes = args.description;
+          this.roleObj = args;
+        }
+      }
+
+      _selectedRole(){
+        var _this = this;
+        var data = _this.roleObj;
+        var userToken = _this.userToken;
+        $.ajax({
+          type: "POST",
+          url: Window.AppConfig.serverUrl+"/foundation/api/v1/auth/selectRole?token=" + userToken,
+          async : true,
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify(data),
+          success: function(data){
+            _this.dispatch("setUserSelectedRole", _this.roleObj.alias);
+          },
+          error: function(error){
+            console.log("errorMsg",error);
+          }
+        });
+
+
       }
 
       _focusInput() {

@@ -10,7 +10,6 @@
     top:0;
     bottom:0;
     z-index: 1;
-    display: none;
     overflow: hidden;
     background: url(../../images/bg.png) no-repeat;
     background-size: cover;
@@ -116,12 +115,68 @@
     text-align: center;
   }
   .role-select{
-    color: #fff;
-    --paper-dropdown-menu:{background-color: #0072B7};
+    width: 400px;
+    height: auto;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 4px;
+    margin:0 auto;
+    position: relative;
+    padding: 10px 0 80px;
   }
-  .role-select paper-dropdown-input paper-item{
-    color:#fff;
-    background-color: #0072B7
+  .role-select h5{
+    padding-left: 10px;
+    line-height: 30px;
+    margin:0;
+    font-weight: normal;
+    font-size: 14px;
+  }
+  .role-select ul{
+    display: block;
+    width: 390px;
+    border: solid 1px #333;
+    margin:10px auto;
+    height: 300px;
+    padding: 0;
+    overflow-y: scroll;
+  }
+  .role-select ul li{
+    color: #333;
+    font-size: 14px;
+    line-height: 30px;
+    height: 30px;
+    overflow: hidden;
+    display: block;
+    cursor: pointer;
+  }
+  .role-select ul li:nth-child(2n-1){
+    background-color: #fff;
+  }
+  .role-select ul li:nth-child(2n){
+    background-color: #F2F2F2;
+  }
+  .role-select ul li.iron-selected{
+    background-color: #4c8dc5;
+    color: #fff;
+  }
+  .role-select .des{
+    padding-left: 10px;
+    line-height: 25px;
+    height: 75px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  .role-select paper-button{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-color: #596cd6;
+    font-weight: normal;
+    color: #fff;
+  }
+  .role-select paper-button:hover{
+    background-color: #5C6BC0;
+    font-weight: normal;
   }
   .add-header{
     background: #000;

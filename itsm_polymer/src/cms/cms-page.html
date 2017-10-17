@@ -1,15 +1,7 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/app-layout/helpers/helpers.html">
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
@@ -18,13 +10,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="cms-header.html">
 <link rel="import" href="cms-nav-left.html">
 
-<link rel="import" href="../news-icons.html">
-<link rel="import" href="../news-analytics.html">
-<link rel="import" href="../news-drawer.html">
-<link rel="import" href="../news-network-warning.html">
+<link rel="import" href="styles-themes.html" async>
+<!-- <link rel="import" href="../news-analytics.html"> -->
+<!-- <link rel="import" href="../news-drawer.html"> -->
+<!-- <link rel="import" href="../news-network-warning.html"> -->
 <link rel="import" href="../news-snackbar.html">
 
-<link rel="import" href="../../bower_components/app-layout/app-box/app-box.html">
+<!-- <link rel="import" href="../../bower_components/app-layout/app-box/app-box.html"> -->
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
 <dom-module id="cms-page">
@@ -36,65 +28,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
         position: relative;
-        min-height: 100vh;
-        padding-bottom: 64px;
 
-        --app-border-style: 1px solid #CCC;
-        --app-transparent-border-style: 1px solid rgba(255, 255, 255, 0.5);
-        --app-button-border-style: 2px solid #222;
-        --app-cover-text-color: #FFF;
-        --app-nav-background-color: #222;
-        --app-nav-text-color: #FFF;
-        --app-nav-deselected-text-color: #CCC;
-        --app-nav-selected-background-color: #555;
-
-        --app-sub-section-headline: {
-          border-top: var(--app-border-style);
-          border-bottom: var(--app-border-style);
-          font-size: 13px;
-          padding: 8px;
-          text-align: center;
-        };
-
-        /* use this value for the viewport height instead of "vh" unit */
-        --viewport-height: 600px;
-      }
-
-      iron-pages {
-        /*max-width: 1440px;*/
-        margin: 0 auto;
-      }
-
-      footer {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        padding-bottom: 24px;
-        text-align: center;
-      }
-
-      footer a {
-        text-decoration: none;
-        font-size: 13px;
-        color: #757575;
-      }
-
-      footer a:hover {
-        text-decoration: underline;
-      }
-
-      /* desktop */
-      @media (min-width: 768px) {
-        :host {
-          /*margin: 0 40px;*/
+          text-align: left;
         }
-      }
+        :host .page_cnt_container{
+          margin-left:240px;
+          /*width:100%;*/
+          transition: margin-left 0.5s ease-in-out;
+        }
+
+        iron-pages {
+          /*max-width: 1440px;*/
+          margin: 0 auto;
+        }
+
+        footer {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          padding-bottom: 24px;
+          text-align: center;
+        }
+
+        footer a {
+          text-decoration: none;
+          font-size: 13px;
+          color: #757575;
+        }
+
+        footer a:hover {
+          text-decoration: underline;
+        }
+
+        /* desktop */
+        @media (min-width: 768px) {
+          :host {
+            /*margin: 0 40px;*/
+          }
+        }
 
     </style>
 
+    <styles-themes is-app-root></styles-themes>
     <news-analytics key="UA-39334307-18"></news-analytics>
-
+    <iron-media-query query="max-width: 767px" query-matches="{{smallScreen}}"></iron-media-query>
     <!--
       app-location and app-route elements provide the state of the URL for the app.
     -->
@@ -119,32 +97,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         offline="[[offline]]"
         failure="{{failure}}"></news-data>
 
-    <cms-header id="cmsHeader"
-        app-title="[[appTitle]]">
-    </cms-header>
-    <cms-nav-left
-        id="navbarLeft"
-        app-title="[[appTitle]]">
-    </cms-nav-left>
-    <!-- <login-role></login-role> -->
-    <iron-pages role="cms_main" selected="[[page]]" attr-for-selected="name" fallback-selection="path-warning">
-      <!-- list view of articles in a category -->
-      <cms-modules
-          id="modules"
-          name="modules"
-          route="[[subroute]]"
-          category-name="{{categoryName}}"
-          category-id="{{categoryId}}"
-          category="[[category]]"
-          loading="[[loading]]"
-          offline="[[offline]]"
-          failure="[[failure]]">
-      </cms-modules>
+      <cms-header id="cmsHeader" app-title="[[appTitle]]">
+        <div slot="cms_contentContainer" style="height:100%;position:relative;">
+          <cms-nav-left
+          id="navbarLeft"
+          app-title="[[appTitle]]"
+          current-panel="[[page]]"
+          page-cnt-margin-left="{{pageCntMarginLeft}}">
+        </cms-nav-left>
+        <div class="page_cnt_container" style="margin-left:[[pageCntMarginLeft]];">
+          <iron-pages role="cms_main" selected="[[page]]" attr-for-selected="name" fallback-selection="path-warning">
+            <!-- list view of articles in a category -->
+            <cms-modules
+              id="modules"
+              name="modules"
+              route="[[subroute]]"
+              category-name="{{categoryName}}"
+              category-id="{{categoryId}}"
+              category="[[category]]"
+              loading="[[loading]]"
+              offline="[[offline]]"
+              failure="[[failure]]">
+            </cms-modules>
+            <cms-perspective
+              id="perspective"
+              name="perspective"
+              route="[[subroute]]"
+              category-name="{{categoryName}}"
+              category-id="{{categoryId}}"
+              category="[[category]]"
+              loading="[[loading]]"
+              offline="[[offline]]"
+              failure="[[failure]]">
+            </cms-perspective>
+            <!-- invalid top level paths -->
+            <news-path-warning name="path-warning"></news-path-warning>
+          </iron-pages>
+        </div>
+    </div>
+      </cms-header>
 
-      <!-- invalid top level paths -->
-      <news-path-warning name="path-warning"></news-path-warning>
 
-    </iron-pages>
+
+
 
     <footer>
       <a href="https://www.polymer-project.org/1.0/toolbox/">Made by Polymer</a>
@@ -216,7 +211,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _routePageChanged(page,subroute) {
         let pathName = this.location.path;
-        if (!page && pathName.indexOf("/cms") == 0) {
+        if (!page && (pathName == "/cms"||pathName == "/cms/")) {
           // set default route if route path is empty
           this.set('location.path', 'cms/modules');
           return;
@@ -234,6 +229,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           case 'modules':
             href = 'cms-modules.html';
           break;
+          case 'perspective':
+            href = 'cms-perspective.html';
+          break;
+          case 'businessObj': //业务对象
+            href = 'cms-xxxxxxx.html'; //待补充
+          break;
+          case 'ruleDefinition': //规则定义
+            href = 'cms-xxxxxxx.html'; //待补充
+          break;
+          case 'dataDefinition':  //数据结果集定义
+            href = 'cms-xxxxxxx.html'; //待补充
+          break;
           default:
             href = '../news-path-warning.html';
           break;
@@ -243,47 +250,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _pageLoaded(shouldResetLayout) {
-        console.log("cms-page-----_ensureLazyLoaded");
+        // console.log("cms-page-----_ensureLazyLoaded");
         // this._ensureLazyLoaded();
-      }
-
-      _ensureLazyLoaded() {
-        // load lazy resources after render and set `loadComplete` when done.
-        if (!this.loadComplete) {
-          Polymer.RenderStatus.afterNextRender(this, () => {
-            Polymer.importHref(this.resolveUrl('../lazy-resources.html'), () => {
-              this._notifyNetworkStatus();
-              this.loadComplete = true;
-
-              // Load pre-caching Service Worker
-              if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/service-worker.js');
-              }
-            });
-          });
-        }
-      }
-
-      _notifyNetworkStatus() {
-        let oldOffline = this.offline;
-        this._setOffline(!window.navigator.onLine);
-        // Show the snackbar if the user is offline when starting a new session
-        // or if the network status changed.
-        if (this.offline || (!this.offline && oldOffline === true)) {
-          if (!this._networkSnackbar) {
-            this._networkSnackbar = document.createElement('news-snackbar');
-            this.root.appendChild(this._networkSnackbar);
-          }
-          this._networkSnackbar.textContent = this.offline ?
-              'You are offline' : 'You are online';
-          this._networkSnackbar.open();
-        }
       }
 
       // Elements in the app can notify section changes.
       // Response by a11y announcing the section and syncronizing the category.
       _updateDocumentTitle(page, categoryTitle, appTitle) {
-        document.title = (page === 'list' ? categoryTitle :'') + ' - ' + appTitle;
+        let pageNameMap = {"modules":"应用", "perspective":"透视", "businessObj":"业务对象", "":"", "":"", "":""}
+        document.title = pageNameMap[page] + ' - ' + appTitle;
       }
 
     }

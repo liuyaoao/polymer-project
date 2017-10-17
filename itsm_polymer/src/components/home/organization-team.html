@@ -1,0 +1,174 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-input/paper-dropdown-input.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../css/page-styles.html">
+
+<link rel="import" href="../../news-vaadin.html">
+
+<dom-module id="organization-team">
+
+  <template>
+    <style include="page-styles">
+    .add-content .pink .btn{
+      margin: 0 !important;
+      margin-right: 15px !important;
+    }
+    .add-content .btns{
+      font-size: 0.83em;
+      display: inline-block;
+      margin: 0 ;
+      margin-left: 15px;
+      color: #fff;
+      padding: 5px 15px;
+      background-color: #333833;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .add-content .item.pink{
+      padding-bottom: 30px !important;
+    }
+    .head-state{
+      padding: 0 15px;
+      font-size: 12px;
+      color: #737373;
+      line-height: 18px;
+    }
+    .item h4{
+      margin: 0;
+      margin-top: 15px;
+      font-size: 14px;
+      margin-left: 15px;
+      line-height: 24px;
+      border-bottom: 1px solid #737373;
+    }
+    .checkboxs{
+      padding-left: 15px;
+    }
+    paper-dropdown-menu{
+      margin-right: 25px;
+    }
+    paper-checkbox{
+      width: 90px;
+      margin-bottom: 10px;
+    }
+    </style>
+    <app-toolbar class="add-header">
+      <div class="flex">运维团队</div>
+      <paper-icon-button icon="chevron-right" on-tap="_closeDrawer"></paper-icon-button>
+    </app-toolbar>
+
+    <div class="add-content">
+      <div class="head-state">
+        运维团队管理：添加、删除、编辑。并可以在左侧运维团队结构树上右键操作选择节点实现对该节点进行增加子组功能。或者‘删除节点’按钮将删除组织本身，‘删除组’将删除组织本身及所有的子组。
+      </div>
+      <div class="item">
+        <h5>基本属性</h5>
+        <paper-input always-float-label label="组织编码"></paper-input>
+        <paper-input always-float-label label="组织名称"></paper-input>
+        <paper-dropdown-menu always-float-label label="父组织编码">
+          <paper-listbox slot="dropdown-content" selected="1">
+            <paper-item> </paper-item>
+            <paper-item>Administrators</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+      </div>
+
+      <!-- <div class="item">
+        <h5>高级属性</h5>
+        <paper-input always-float-label label="内网地址"></paper-input>
+        <paper-input always-float-label label="外网地址"></paper-input>
+        <paper-dropdown-menu always-float-label label="Gis地图层次">
+          <paper-listbox slot="dropdown-content" selected="0">
+            <paper-item> </paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+        <paper-input always-float-label label="登录账户"></paper-input>
+        <paper-input always-float-label label="登录密码"></paper-input>
+        <paper-input always-float-label label="经纬度"></paper-input>
+      </div> -->
+
+      <div class="item">
+        <h5>其他属性</h5>
+        <h4>包含的角色</h4>
+        <div style="margin-bottom: 10px">
+          <div class="checkboxs">
+            <paper-checkbox class="styled">
+              测试
+            </paper-checkbox>
+            <paper-checkbox class="styled">
+              分服务台
+            </paper-checkbox>
+            <paper-checkbox class="styled">
+              工程师
+            </paper-checkbox>
+            <paper-checkbox class="styled">
+              公用
+            </paper-checkbox>
+            <paper-checkbox class="styled">
+              管理员
+            </paper-checkbox>
+            <paper-checkbox class="styled">
+              甲方
+            </paper-checkbox>
+            <paper-checkbox class="styled">
+              监理
+            </paper-checkbox>
+            <paper-checkbox class="styled">
+              内部账户
+            </paper-checkbox>
+            <paper-checkbox class="styled">
+              游客
+            </paper-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+      <paper-button class="btn" on-click="">保存</paper-button>
+      <paper-button class="btn" on-click="">删除节点</paper-button>
+      <paper-button class="btn" on-click="">删除组</paper-button>
+      </div>
+    </div>
+
+
+  </template>
+
+  <script>
+
+    class organizationTeam extends Polymer.Element {
+
+      static get is() { return 'organization-team'; }
+
+      static get properties() { return {
+
+
+      }}
+
+      ready() {
+        super.ready();
+
+        var combobox1 = document.querySelector('#demo1-1');
+        // combobox1.items = ;
+      }
+
+  //     window.addEventListener('WebComponentsReady', () {
+  //   var combobox1 = document.querySelector('#demo1-1');
+  //   combobox1.items = combobox2.items = combobox3.items = elements;
+  // });
+      _closeDrawer() {
+        this.dispatchEvent(new CustomEvent('addWidget-close', {bubbles: true, composed: true}));
+      }
+
+      _onClickOk() {
+        this.dispatchEvent(new CustomEvent('onclick-ok', {bubbles: true, composed: true}));
+      }
+
+    }
+
+    customElements.define(organizationTeam.is, organizationTeam);
+
+  </script>
+
+</dom-module>
