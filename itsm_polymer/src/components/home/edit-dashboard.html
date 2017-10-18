@@ -10,7 +10,7 @@
 
 <link rel="import" href="../../news-vaadin.html">
 
-<dom-module id="edit-operating">
+<dom-module id="edit-dashboard">
 
   <template>
     <style include="page-styles">
@@ -89,29 +89,26 @@
       color: #ecfsf9;
       background-color: #009688;
     }
-    paper-checkbox{
-      margin: 5px 0;
-    }
     </style>
     <app-toolbar class="add-header">
-      <div class="flex">快速操作</div>
+      <div class="flex">新增搜索对象</div>
       <paper-icon-button icon="chevron-right" on-tap="_closeDrawer"></paper-icon-button>
     </app-toolbar>
 
     <div class="add-content">
 
-
-
       <div class="container">
         <div class="ptabs">
           <paper-tabs selected="{{aa}}">
             <paper-tab>一般</paper-tab>
-            <paper-tab>操作</paper-tab>
+            <paper-tab>外观</paper-tab>
+            <paper-tab>布局</paper-tab>
           </paper-tabs>
         </div>
         <div class="content">
           <iron-pages selected="{{aa}}" attr-for-selected="name">
             <div name="0">
+
               <div class="item">
 
                 <paper-input always-float-label label="名称（N）"></paper-input>
@@ -123,6 +120,7 @@
                 <paper-dropdown-menu label="范 围（S）:">
                   <paper-listbox slot="dropdown-content" selected="0">
                     <paper-item>全局</paper-item>
+                    <paper-item>角色</paper-item>
                     <paper-item>个人</paper-item>
                   </paper-listbox>
                 </paper-dropdown-menu>
@@ -131,37 +129,36 @@
                     <paper-item>全局</paper-item>
                   </paper-listbox>
                 </paper-dropdown-menu>
-                <!-- <paper-dropdown-menu  always-float-label label="类别（C）:">
+                <paper-dropdown-menu  always-float-label label="类别（C）:">
                   <paper-listbox slot="dropdown-content">
 
                   </paper-listbox>
-                </paper-dropdown-menu> -->
-                <vaadin-combo-box  always-float-label id="demo1-1" label="类别（C）:"></vaadin-combo-box>
-                <vaadin-combo-box  always-float-label id="demo1-1" label="关联（A）:"></vaadin-combo-box>
-                <!-- <paper-dropdown-menu  always-float-label label="关联（A）:">
-                  <paper-listbox slot="dropdown-content">
+                </paper-dropdown-menu>
+                <paper-dropdown-menu  always-float-label label="关联（A）:">
+                  <paper-listbox slot="dropdown-content" selected="0">
+                    <paper-item>未关联</paper-item>
                     <paper-item>AaaDontDelete</paper-item>
                     <paper-item>Ecc报警条件</paper-item>
                     <paper-item>报警配置</paper-item>
                   </paper-listbox>
-                </paper-dropdown-menu> -->
+                </paper-dropdown-menu>
                 <paper-checkbox class="styled" style="display:block;">
-                  显示为菜单项
+                  作为菜单项显示
                 </paper-checkbox>
                 <paper-checkbox class="styled" style="display:block;">
-                  显示导航栏中
+                  在导航中显示
                 </paper-checkbox>
-                <paper-checkbox class="styled" style="display:block;">
-                  可以取消动作
-                </paper-checkbox>
-                <paper-input always-float-label label="过滤查找："></paper-input>
-                <paper-button class="btn" on-click=""style="margin-left:0  !important;">浏览（B）...</paper-button>
               </div>
 
             </div>
             <div name="1">
               <div class="item content-item">
-                <h5>准备操作：</h5>
+                <h5>标题（T）</h5>
+              </div>
+            </div>
+            <div name="2">
+              <div class="item content-item">
+                <h5>仪表板布局</h5>
               </div>
             </div>
           </iron-pages>
@@ -169,7 +166,7 @@
       </div>
 
       <div class="item pink">
-        <paper-button class="btn" on-click="">保存</paper-button>
+        <paper-button class="btn" on-click="">搜索</paper-button>
         <paper-button class="btn" on-click="">取消</paper-button>
       </div>
 
@@ -180,9 +177,9 @@
 
   <script>
 
-    class editOperating extends Polymer.Element {
+    class editDashboard extends Polymer.Element {
 
-      static get is() { return 'edit-operating'; }
+      static get is() { return 'edit-dashboard'; }
 
       static get properties() { return {
         aa: {
@@ -212,7 +209,7 @@
 
     }
 
-    customElements.define(editOperating.is, editOperating);
+    customElements.define(editDashboard.is, editDashboard);
 
   </script>
 

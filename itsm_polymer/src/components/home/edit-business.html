@@ -10,7 +10,7 @@
 
 <link rel="import" href="../../news-vaadin.html">
 
-<dom-module id="edit-operating">
+<dom-module id="edit-business">
 
   <template>
     <style include="page-styles">
@@ -84,6 +84,30 @@
       min-height: 260px;
       border: 1px solid #ebebeb;
     }
+    .frame-box{
+      position: relative;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+    .frame-box>div{
+      border: 1px solid #ebebeb;
+      padding: 20px 7px;
+    }
+    .frame-box h5{
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0 3px;
+      background-color: #fff;
+    }
+    .frame-box label{
+      display: block;
+      margin: 7px 0;
+    }
+    .frame-box-div{
+      width: 96%;
+      min-height: 300px;
+    }
     paper-tabs{
       font-size: 14px;
       color: #ecfsf9;
@@ -94,7 +118,7 @@
     }
     </style>
     <app-toolbar class="add-header">
-      <div class="flex">快速操作</div>
+      <div class="flex">业务规则</div>
       <paper-icon-button icon="chevron-right" on-tap="_closeDrawer"></paper-icon-button>
     </app-toolbar>
 
@@ -106,24 +130,20 @@
         <div class="ptabs">
           <paper-tabs selected="{{aa}}">
             <paper-tab>一般</paper-tab>
-            <paper-tab>操作</paper-tab>
+            <paper-tab>触发器选项</paper-tab>
+            <paper-tab>快速操作选项</paper-tab>
           </paper-tabs>
         </div>
         <div class="content">
           <iron-pages selected="{{aa}}" attr-for-selected="name">
             <div name="0">
-              <div class="item">
-
-                <paper-input always-float-label label="名称（N）"></paper-input>
-                <paper-input always-float-label label="别名（A）"></paper-input>
-
-              </div>
               <div class="item content-item">
+                  <paper-input always-float-label label="名称（N）"></paper-input>
+                  <paper-input always-float-label label="别名（A）"></paper-input>
                 <paper-input always-float-label label="说明（D）:"></paper-input>
                 <paper-dropdown-menu label="范 围（S）:">
                   <paper-listbox slot="dropdown-content" selected="0">
                     <paper-item>全局</paper-item>
-                    <paper-item>个人</paper-item>
                   </paper-listbox>
                 </paper-dropdown-menu>
                 <paper-dropdown-menu always-float-label label="负责人（O）:">
@@ -131,37 +151,47 @@
                     <paper-item>全局</paper-item>
                   </paper-listbox>
                 </paper-dropdown-menu>
-                <!-- <paper-dropdown-menu  always-float-label label="类别（C）:">
-                  <paper-listbox slot="dropdown-content">
-
-                  </paper-listbox>
-                </paper-dropdown-menu> -->
                 <vaadin-combo-box  always-float-label id="demo1-1" label="类别（C）:"></vaadin-combo-box>
                 <vaadin-combo-box  always-float-label id="demo1-1" label="关联（A）:"></vaadin-combo-box>
-                <!-- <paper-dropdown-menu  always-float-label label="关联（A）:">
-                  <paper-listbox slot="dropdown-content">
-                    <paper-item>AaaDontDelete</paper-item>
-                    <paper-item>Ecc报警条件</paper-item>
-                    <paper-item>报警配置</paper-item>
-                  </paper-listbox>
-                </paper-dropdown-menu> -->
-                <paper-checkbox class="styled" style="display:block;">
-                  显示为菜单项
-                </paper-checkbox>
-                <paper-checkbox class="styled" style="display:block;">
-                  显示导航栏中
-                </paper-checkbox>
-                <paper-checkbox class="styled" style="display:block;">
-                  可以取消动作
-                </paper-checkbox>
-                <paper-input always-float-label label="过滤查找："></paper-input>
-                <paper-button class="btn" on-click=""style="margin-left:0  !important;">浏览（B）...</paper-button>
+                <div class="frame-box">
+                  <h5>业务规则运行的位置</h5>
+                  <div class="">
+                    <label><input name="place" type="radio" value="" disabled="disabled"/>客户端 </label>
+                    <label><input name="place" type="radio" value="" checked="checked"/>服务端 </label>
+                  </div>
+                </div>
+                <div class="frame-box">
+                  <h5>业务规则运行的时间</h5>
+                  <div class="">
+                    <label><input name="time" type="radio" value="" checked="checked"/>保存前 </label>
+                    <label><input name="time" type="radio" value="" />保存后 </label>
+                  </div>
+                </div>
               </div>
 
             </div>
             <div name="1">
               <div class="item content-item">
-                <h5>准备操作：</h5>
+                <paper-input always-float-label label="名称：" value="开始"></paper-input>
+                <paper-input always-float-label label="描述："></paper-input>
+                <div class="frame-box">
+                  <h5>触发器</h5>
+                  <div class="frame-box-div">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div name="2">
+              <div class="item content-item">
+                <paper-input always-float-label label="名称：" value="活动"></paper-input>
+                <paper-input always-float-label label="描述："></paper-input>
+                <div class="frame-box">
+                  <h5>快速操作</h5>
+                  <div class="frame-box-div">
+
+                  </div>
+                </div>
               </div>
             </div>
           </iron-pages>
@@ -180,9 +210,9 @@
 
   <script>
 
-    class editOperating extends Polymer.Element {
+    class editBusiness extends Polymer.Element {
 
-      static get is() { return 'edit-operating'; }
+      static get is() { return 'edit-business'; }
 
       static get properties() { return {
         aa: {
@@ -212,7 +242,7 @@
 
     }
 
-    customElements.define(editOperating.is, editOperating);
+    customElements.define(editBusiness.is, editBusiness);
 
   </script>
 

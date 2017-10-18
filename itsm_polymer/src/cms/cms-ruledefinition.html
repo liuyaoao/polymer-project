@@ -2,14 +2,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 
-<dom-module id="cms-modules">
+<dom-module id="cms-ruledefinition">
   <template>
     <style include="">
-
       :host {
         display: block;
       }
-
     </style>
     <app-route
         route="[[route]]"
@@ -18,20 +16,18 @@
 
     <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
       <div class="content">
-        应用模块列表页面。。。。。。<br><br><br><br><br><br><br><br><br><br><br><br><br>
-        应用模块列表页面。。。。。。<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        应用模块列表页面。。。。。。<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        应用模块列表页面。。。。。。<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        应用模块列表页面。。。。。。
+        规则定义模块页面。。。。。。start
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        规则定义模块页面。。。。<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
+        规则定义模块页面。。。。<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        规则定义模块页面。。。。。。end
       </div>
     </div>
   </template>
-
   <script>
-
-    class CmsModules extends Polymer.Element {
-
-      static get is() { return 'cms-modules'; }
+    class CmsRuleDefinition extends Polymer.Element {
+      static get is() { return 'cms-ruledefinition'; }
       static get properties() { return {
         route: {
           type:Object
@@ -56,9 +52,10 @@
         super.disconnectedCallback();
         window.removeEventListener('resize', this._boundResizeHandler);
       }
+
     }
 
-    customElements.define(CmsModules.is, CmsModules);
+    customElements.define(CmsRuleDefinition.is, CmsRuleDefinition);
 
   </script>
 

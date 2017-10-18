@@ -99,6 +99,10 @@
         return {
           zTree: {
             type: Object,
+          },
+
+          selectNode: {
+            type: Object,
           }
         }
       }
@@ -213,35 +217,88 @@
         $.ajax({
           type: "GET",
           url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/getById?token=adadf&id=6C7CEA7BAA2344A09ADBF14D3A74F3F0",
-          // dataType: 'json',
+          dataType: 'json',
           async : true,
           success: function(data){
-            var zNode = JSON.parse(data);
+            // var zNode = JSON.parse(data);
             var zNodes = [];
-            zNode.isParent = true, zNode.open = true;
-            var children = [];
+            //业务对象
+            var business = data.BusinessObjectDef;
+            business.isParent = true, business.children = [];
+            //字段
             var field = { name:"字段", isParent:true};
+            var fields = business.fields;
+            var _fields = [];
+            for (var i = 0; i < fields.length; i++) {
+              _fields.push({name: fields[i].name, field: fields[i]});
+            }
+            console.log(_fields);
+            field.children = _fields;
+            business.fields = [];//清除业务对象上字段数据
+            //关系
             var relate = { name:"关系", isParent:true};
+            relate.children = data.RelationshipDef;
+            //显示
             var show = { name:"显示", isParent:true};
-            children.push(field);
-            children.push(relate);
-            children.push(show);
+            show.children = [];
+            //窗体
+            var panel = data.PanelDef;
+            //布局
+            var layout = data.LayoutDef;
+            //网格
+            var grid = data.GridDef;
 
-            var fields = zNode.fields;
-            field.children = fields;
-            show.children = [
-              {name: '窗体', children: [
-                { name:"Button"},
-                { name:"Checkbox"},
-                { name:"Input"},
-                { name:"Label"},
-                { name:"Radio"},
-                { name:"Select"},
-              ]},
-              {name: '网格'}, {name: '布局'}
-            ]
-            zNode.children = children;
-            zNodes.push(zNode);
+            for (var i = 0; i < panel.length; i++){
+              panel[i].name += '(窗体)';
+              panel[i].otype = 'w';
+              show.children.push(panel[i]);
+            }
+            for (var i = 0; i < layout.length; i++){
+              layout[i].name += '(布局)';
+              layout[i].otype = 'l';
+              show.children.push(layout[i]);
+            }
+            for (var i = 0; i < grid.length; i++){
+              grid[i].name += '(网格)';
+              grid[i].otype = 'g';
+              show.children.push(grid[i]);
+            }
+
+            business.children.push(field);
+            business.children.push(relate);
+            business.children.push(show);
+
+            zNodes.push(business);
+
+            // var zNodes = [];
+            // zNode.isParent = true, zNode.open = true;
+            // var children = [];
+            // var field = { name:"字段", isParent:true};
+            // var relate = { name:"关系", isParent:true};
+            // var show = { name:"显示", isParent:true};
+            // children.push(field);
+            // children.push(relate);
+            // children.push(show);
+            //
+            // var fields = zNode.fields;
+            // var _fields = [];
+            // for (var i = 0; i < fields.length; i++) {
+            //   _fields.push({name: fields[i].name, field: fields[i]});
+            // }
+            // field.children = _fields;
+            // show.children = [
+            //   {name: '窗体', children: [
+            //     { name:"Button"},
+            //     { name:"Checkbox"},
+            //     { name:"Input"},
+            //     { name:"Label"},
+            //     { name:"Radio"},
+            //     { name:"Select"},
+            //   ]},
+            //   {name: '网格'}, {name: '布局'}
+            // ]
+            // zNode.children = children;
+            // zNodes.push(zNode);
 
             console.log(zNodes);
 
@@ -277,7 +334,10 @@
         if (treeObj) {
           var parentNodes = treeObj.getNodes();
           var nodes = parentNodes.length && treeObj.getNodesByParam("name", category, parentNodes[0]);
-          nodes.length && treeObj.selectNode(nodes[0]);
+          if (nodes.length) {
+            this.selectNode = nodes[0];
+            treeObj.selectNode(nodes[0]);
+          }
         }
       }
 
@@ -285,7 +345,10 @@
         var treeObj = this.zTree && this.zTree.getZTreeObj('treeLeft');
         if (treeObj) {
           var selectedNodes = treeObj.getSelectedNodes();
-          selectedNodes.length && treeObj.cancelSelectedNode(selectedNodes[0]);
+          if (selectedNodes.length) {
+            this.selectNode = {};
+            treeObj.cancelSelectedNode(selectedNodes[0]);
+          }
         }
       }
 

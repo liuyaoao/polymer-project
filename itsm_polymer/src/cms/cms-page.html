@@ -130,6 +130,11 @@
               offline="[[offline]]"
               failure="[[failure]]">
             </cms-perspective>
+            <cms-businessobj id="businessobj" name="businessobj" route="[[subroute]]"></cms-businessobj>
+            <cms-ruledefinition id="ruledefinition" name="ruledefinition" route="[[subroute]]"></cms-ruledefinition>
+            <cms-datadefinition id="datadefinition" name="datadefinition" route="[[subroute]]"></cms-datadefinition>
+            <cms-modeldefinition id="modeldefinition" name="modeldefinition" route="[[subroute]]"></cms-modeldefinition>
+            <cms-layoutsetting id="layoutsetting" name="layoutsetting" route="[[subroute]]"></cms-layoutsetting>
             <!-- invalid top level paths -->
             <news-path-warning name="path-warning"></news-path-warning>
           </iron-pages>
@@ -232,14 +237,20 @@
           case 'perspective':
             href = 'cms-perspective.html';
           break;
-          case 'businessObj': //业务对象
-            href = 'cms-xxxxxxx.html'; //待补充
+          case 'businessobj': //业务对象
+            href = 'cms-businessobj.html';
           break;
-          case 'ruleDefinition': //规则定义
-            href = 'cms-xxxxxxx.html'; //待补充
+          case 'ruledefinition': //规则定义
+            href = 'cms-ruledefinition.html';
           break;
-          case 'dataDefinition':  //数据结果集定义
-            href = 'cms-xxxxxxx.html'; //待补充
+          case 'datadefinition':  //数据结果集定义
+            href = 'cms-datadefinition.html';
+          break;
+          case 'modeldefinition':  //数据模型定义
+            href = 'cms-modeldefinition.html';
+          break;
+          case 'layoutsetting':  //门户布局
+            href = 'cms-layoutsetting.html';
           break;
           default:
             href = '../news-path-warning.html';

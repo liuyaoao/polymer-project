@@ -31,7 +31,7 @@
           <div class="des">
             角色说明: [[roleDes]]
           </div>
-          <paper-button raised class="indigo right" on-click="_selectedRole">
+          <paper-button raised class="indigo right" on-click="_selectedRole" tabindex="0" id="roleBtn">
             确定
           </paper-button>
         </div>
@@ -73,11 +73,21 @@
       }
 
       ready(){
-        this.addEventListener('click', this._focusInput.bind(this));
         super.ready();
+
+        //回车 -- 确定
+        this.addEventListener('keypress', this._pressEnter.bind(this));
+
+      }
+
+      _pressEnter(e){
+        if(e.keyCode == 13){
+          this._selectedRole();
+        }
       }
 
       _showRoleDes(e){
+        $(this.$.roleBtn).focus();        
         var path = e.composedPath();
         var args = {};
         if(path.length >=0 ){
@@ -99,7 +109,12 @@
           dataType: "json",
           data: JSON.stringify(data),
           success: function(data){
+            var arr = data;
             _this.dispatch("setUserSelectedRole", _this.roleObj.alias);
+            var storage=window.localStorage;
+            storage.setItem('cRoleName', _this.roleObj.alias);
+            storage.setItem('username', arr.loginName);
+
           },
           error: function(error){
             console.log("errorMsg",error);
@@ -107,14 +122,6 @@
         });
 
 
-      }
-
-      _focusInput() {
-        var _input = this.root.querySelector('input');
-        // console.log(_input);
-        if (_input) {
-          _input.focus();
-        }
       }
 
       _removeWidget(e) {

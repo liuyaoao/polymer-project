@@ -1,4 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<!-- <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-container.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html"> -->
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
@@ -16,26 +19,28 @@
       <h1 title="SiteView ITOSS IT运营支持平台"><img src="../images/slogo.svg" alt=""></h1>
       <div class="content">
         <div class="login_form">
-          <h2><img src="../images/text.png" alt=""></h2>
-          <paper-input placeholder="请输入用户名" value="{{username}}" error-message="用户名错误!" tabindex="1">
-            <paper-icon-button slot="prefix" src="../images/icon-user.png">
-            </paper-icon-button>
-          </paper-input>
-          <paper-input placeholder="请输入密码" value="{{pwd}}" type="{{pwdType}}" tabindex="2">
-            <paper-icon-button slot="prefix" src="../images/icon-pw.png">
-            </paper-icon-button>
-          </paper-input>
-          <div class="checkboxs">
-            <paper-checkbox id="rememberPwd">记住密码</paper-checkbox>
-            <paper-checkbox on-change="_onClickShowPwd" id="isShowPwd">显示密码</paper-checkbox>
-          </div>
-          <paper-button class="login_btn" on-click="_submitLogin">
-            <div class="bg1"></div>
-            <div class="bg2"></div>
-            <div class="text">
-              登录
+          <h2>ITOSS IT运营支撑平台</h2>
+          <div class="form-container">
+            <paper-input id="username" label="请输入用户名" value="{{username}}" error-message="用户名错误!" tabindex="1">
+              <paper-icon-button slot="prefix" src="../images/icon-user.png">
+              </paper-icon-button>
+            </paper-input>
+            <paper-input id="pwd" label="请输入密码" value="{{pwd}}" type="{{pwdType}}" tabindex="2">
+              <paper-icon-button slot="prefix" src="../images/icon-pw.png">
+              </paper-icon-button>
+            </paper-input>
+            <div class="msg">默认用户名: [[defaultUserName]] 密码：[[defaultUserPwd]]</div>
+            <div class="checkboxs">
+              <paper-checkbox id="rememberPwd">记住密码</paper-checkbox>
+              <paper-checkbox on-change="_onClickShowPwd" id="isShowPwd">显示密码</paper-checkbox>
             </div>
+            <paper-button class="login_btn" on-click="_submitLogin">
+              <div class="text">
+                登录
+              </div>
             </paper-button>
+          </div>
+
         </div>
       </div>
       <p class="copyRight">版权所有 北京游龙网网络科技有限公司</p>
@@ -47,29 +52,55 @@
       static get is() { return 'login-page'; }
       static get properties() {
         return {
-          label: {
-            type: String
+
+          username: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
           },
-          username: String,
+
           pwd: String,
+
           pwdType: {
             type: String,
             value: "password"
+          },
+
+          defaultUserName: {
+            type: String,
+            value: Window.AppConfig.defaultUserName
+          },
+
+          defaultUserPwd: {
+            type: String,
+            value: Window.AppConfig.defaultPwd
           },
         };
       }
 
       ready(){
-        this.addEventListener('click', this._focusInput.bind(this));
         super.ready();
 
         var storage=window.localStorage;
         if(storage.username){
           this.username = storage.username;
+          // $(this.$.pwd).addAttr("focused",true);
+        }else{
+          // $(this.$.username).addAttr("focused",true);
         }
+
         if(storage.userInfo){
           var arr = JSON.parse(storage.getItem("userInfo"));
           this.dispatch("setUserInfo", arr.loginId, arr.token);
+        }
+        //回车 -- 登录
+        this.addEventListener('keypress', this._pressEnter.bind(this));
+
+      }
+
+      _pressEnter(e){
+        if(e.keyCode == 13){
+          this._submitLogin();
         }
       }
 
@@ -91,18 +122,22 @@
           data: JSON.stringify(data),
           success: function(data){
             var arr = data;
-            if(arr.currentRole === null){
-              var userInfo = {userId: arr.loginId, userToken: arr.token};
-              _this.dispatch("setUserInfo", arr.loginId, arr.token);
-              _this.dispatch("getUserRoles", arr.userRoles);
+            if(arr.code){
+              alert(arr.msg);
+            }else{
+              if(arr.currentRole === null){
+                var userInfo = {userId: arr.loginId, userToken: arr.token};
+                _this.dispatch("setUserInfo", arr.loginId, arr.token);
+                _this.dispatch("getUserRoles", arr.userRoles);
 
-              storage.setItem('userInfo', JSON.stringify(userInfo));
+                storage.setItem('userInfo', JSON.stringify(userInfo));
 
-              window.history.pushState({}, null, "/app/loginRole");
-              window.dispatchEvent(new CustomEvent('location-changed'));
+                window.history.pushState({}, null, "/app/loginRole");
+                window.dispatchEvent(new CustomEvent('location-changed'));
+              }
             }
             //记住密码
-            _this._rememberPwd();
+            // _this._rememberPwd();
           },
           error: function(error){
             console.log("errorMsg",error);

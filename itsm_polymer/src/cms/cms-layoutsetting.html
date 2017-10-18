@@ -2,36 +2,35 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 
-<dom-module id="cms-modules">
+<dom-module id="cms-layoutsetting">
   <template>
     <style include="">
-
       :host {
         display: block;
       }
-
     </style>
     <app-route
         route="[[route]]"
         pattern="/:listtype"
-        data="{{subRouteData}}"></app-route>
-
+        data="{{subRouteData}}">
+    </app-route>
     <div class="container" fade-in$="[[!loading]]" hidden$="[[failure]]">
       <div class="content">
-        应用模块列表页面。。。。。。<br><br><br><br><br><br><br><br><br><br><br><br><br>
-        应用模块列表页面。。。。。。<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        应用模块列表页面。。。。。。<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        应用模块列表页面。。。。。。<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        应用模块列表页面。。。。。。
+        门户布局模块页面。。。。。。start
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        门户布局模块页面。。。。。。
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        门户布局模块页面。。。。。。
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        门户布局模块页面。。。。。。
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        门户布局模块页面。。。。。。end
       </div>
     </div>
   </template>
-
   <script>
-
-    class CmsModules extends Polymer.Element {
-
-      static get is() { return 'cms-modules'; }
+    class CmsLayoutsetting extends Polymer.Element {
+      static get is() { return 'cms-layoutsetting'; }
       static get properties() { return {
         route: {
           type:Object
@@ -56,9 +55,10 @@
         super.disconnectedCallback();
         window.removeEventListener('resize', this._boundResizeHandler);
       }
+
     }
 
-    customElements.define(CmsModules.is, CmsModules);
+    customElements.define(CmsLayoutsetting.is, CmsLayoutsetting);
 
   </script>
 

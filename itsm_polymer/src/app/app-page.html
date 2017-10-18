@@ -20,6 +20,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../login-role.html">
 <link rel="import" href="../pages/form-design-page.html">
 
+<link rel="import" href="../redux/actions/userLogin-mixin.html">
+
 <dom-module id="app-page">
 
   <template>
@@ -208,7 +210,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
 
-    class AppPage extends Polymer.Element {
+    class AppPage extends UserLoginMixin(Polymer.Element) {
 
       static get is() { return 'app-page'; }
 
@@ -254,8 +256,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         categoryId: String,
 
-        menuList: Array
+        menuList: Array,
 
+        logined: Boolean
       }}
 
       static get observers() { return [
@@ -278,7 +281,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         super.connectedCallback();
         this.isAttached = true;
       }
+      _vertifyTokenValiad(){
+        var storage = window.localStorage;
+        var userInfo = JSON.parse(storage.getItem("userInfo"));
+        if(userInfo){
+          if(userInfo.userToken){
+            var cRoleName = storage.getItem("cRoleName");
+            if(cRoleName){
+              
+              this.dispatch("setUserInfo", userInfo.userId, userInfo.userToken);
+              this.dispatch("setUserSelectedRole", cRoleName);
+              this.logined = true;
+
+            }
+          }
+        }else{
+          this.logined = false;
+        }
+      }
       _routePageChanged(apppage, isAttached,subroute) {
+        this._vertifyTokenValiad();
         if (!isAttached) {
           return;
         }
@@ -286,7 +308,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.set('location.path', 'app/list');
           return;
         }
-        if (!apppage) {
+        if (!apppage && !this.logined) {
           this.apppage = 'login';
           return;
         }else{

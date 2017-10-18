@@ -3,8 +3,8 @@
 <link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
 <!-- <link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html"> -->
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="../components/paper-dropdown-menu2/paper-dropdown-menu2.html">
-<link rel="import" href="../components/paper-item-ext/paper-item-ext.html">
+<link rel="import" href="../ext/paper-dropdown-menu2/paper-dropdown-menu2.html">
+<link rel="import" href="../ext/paper-item-ext/paper-item-ext.html">
 <!-- <link rel="import" href="../bower_components/paper-styles/paper-styles.html"> -->
 
 <dom-module id="change-theme">
@@ -17,8 +17,8 @@
     </style>
 
     <!-- <app-localstorage-document key="styles-themes" data={{selectedTheme}}></app-localstorage-document> -->
-    <paper-dropdown-menu
-      label="改变主题："
+    <paper-dropdown-menu2
+      label="[[label]]"
       name="curTheme"
       value="{{selectedValue}}"
       horizontal-align='right'
@@ -29,7 +29,7 @@
             <paper-item-ext label="{{item}}" value="{{item}}">{{item}}<paper-ripple></paper-ripple></paper-item-ext>
         </template>
       </paper-listbox>
-    </paper-dropdown-menu>
+    </paper-dropdown-menu2>
 
   </template>
 
@@ -39,6 +39,10 @@
       static get is() { return 'change-theme'; }
       static get properties() {
         return {
+          label:{
+            type:String,
+            value:''
+          },
           selectedTheme:{
               type:String,
               notify:true,

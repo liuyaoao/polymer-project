@@ -32,15 +32,32 @@
           font-size: 16px;
         };
       }
+      :host aside.siderbar_left paper-menu paper-icon-item iron-icon{
+        --iron-icon-fill-color:var(--help-icon-color);
+      }
       :host .spread_fold_btn{
         position:absolute;
         right:-15px;
         top:50%;
         z-index:29;
       }
+      :host .help_btn{
+        position:absolute;
+        right:-10px;
+        top:60%;
+        color:var(--help-icon-color);
+        z-index:29;
+      }
+      :host .settings_btn{
+        position:absolute;
+        right:-10px;
+        top:64%;
+        color:var(--primary-text-color);
+        z-index:29;
+      }
       :host aside.siderbar_left{
         padding-top:5px;
-        width:240px;
+        width:200px;
         height:100%;
         transition: width 0.5s ease-in-out;
         box-shadow:2px 2px 3px  rgba(0, 0, 0, 0.4);
@@ -79,11 +96,14 @@
         text-overflow: ellipsis;
         text-decoration: none;
       }
-      paper-menu .item-text {
+      paper-menu paper-icon-item .item-text {
         display:inline-block;
         width:100%;
         height:100%;
         @apply(--side-item-text);
+      }
+      paper-menu paper-icon-item .item-text.fold-text{
+        display:none;
       }
       /*paper-icon-item.iron-selected {
         opacity: 1;
@@ -92,85 +112,71 @@
         margin-top: 16px;
       }*/
       paper-icon-item:hover {
-        background-color: var(--dark-primary-color);
+        background-color: var(--light-primary-color);
+        padding-right:0;
+        transition:padding-right 0.3s;
       }
       paper-icon-item[aria-selected],paper-icon-item.iron-selected {
         --paper-item-icon: {
-          color: var(--dark-primary-color);
+          color: var(--secondary-text-color);
           opacity: 1;
         };
+        border-right:4px solid var(--dark-primary-color);
       }
 
-
-
     </style>
-
+    <app-location route="{{location}}"></app-location>
     <aside class="siderbar_left" id="siderbarLeft">
       <paper-icon-button icon="[[spreadFoldIcon]]" on-click="_clickSpreadFold" class="spread_fold_btn"></paper-icon-button>
+      <paper-icon-button icon="help" on-click="_clickHelp" class="help_btn"></paper-icon-button>
+      <paper-icon-button icon="settings" on-click="_clickSettings" class="settings_btn"></paper-icon-button>
       <div class="siderbar_container">
         <paper-menu attr-for-selected='datapanel' selected='[[currentPanel]]' on-iron-select='_onMenuSelect'>
-            <paper-icon-item two-line on-tap='_onMenuItemClicked' datapanel='modules'>
-              <a name="login" href="/cms/modules" class='item-text'>
-                <iron-icon slot="item-icon" icon='home'></iron-icon>应用
-                <paper-ripple></paper-ripple>
-              </a>
-            </paper-icon-item>
-
-            <paper-icon-item two-line on-tap='_onMenuItemClicked' datapanel='perspective'>
-              <a name="company" href="/cms/perspective" class='item-text'>
-                <iron-icon slot="item-icon" icon='room'></iron-icon>透视
-                <paper-ripple></paper-ripple>
-              </a>
-            </paper-icon-item>
-
-            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='contact' class='contact'>
-              <a name="contact" href="/contact" class='item-text'>
-                <iron-icon slot="item-icon" icon='settings-phone'></iron-icon>Contact Us
-                <paper-ripple></paper-ripple>
-              </a>
-            </paper-icon-item>
-
-            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='privacy' class='privacy'>
-              <a name="privacy" href="/privacy" class='item-text'>
-                <iron-icon slot="item-icon" icon='account-box'></iron-icon>Privacy
-                <paper-ripple></paper-ripple>
-              </a>
-            </paper-icon-item>
-
-            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='use' class='use'>
-              <a name="use" href="/use" class='item-text'>
-              <iron-icon slot="item-icon" icon='shop'></iron-icon>Terms of Use
+            <paper-icon-item two-line on-tap='_onMenuItemClicked' datapanel='modules' data-href="cms/modules">
+              <iron-icon slot="item-icon" class="item-icon" icon='home'></iron-icon>
+              <span class='item-text'>应用</span>
               <paper-ripple></paper-ripple>
-            </a>
             </paper-icon-item>
 
-            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='feedback' class='feedback' >
-              <a name="feedback" href="/feedback"  class='item-text'>
-              <iron-icon slot="item-icon" icon='feedback'></iron-icon>Feedback
+            <paper-icon-item two-line on-tap='_onMenuItemClicked' datapanel='perspective' data-href="cms/perspective">
+                <iron-icon slot="item-icon" class="item-icon" icon='view-agenda'></iron-icon>
+                <span class='item-text'>透视</span>
+                <paper-ripple></paper-ripple>
+            </paper-icon-item>
+
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='businessobj'  data-href="cms/businessobj">
+                <iron-icon slot="item-icon" class="item-icon" icon='apps'></iron-icon>
+                <span class='item-text'>业务对象</span>
+                <paper-ripple></paper-ripple>
+            </paper-icon-item>
+
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='ruledefinition' data-href="cms/ruledefinition">
+              <iron-icon slot="item-icon" class="item-icon" icon='build'></iron-icon>
+              <span class='item-text'>规则定义</span>
               <paper-ripple></paper-ripple>
-            </a>
             </paper-icon-item>
 
-            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='service' class='service'>
-              <a name="service" href="/service" class='item-text'>
-              <iron-icon slot="item-icon" icon='settings'></iron-icon>Service
-            </a>
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='datadefinition' data-href="cms/datadefinition">
+              <iron-icon slot="item-icon" class="item-icon" icon='settings-applications'></iron-icon>
+              <span class='item-text'>数据结果集定义</span>
+              <paper-ripple></paper-ripple>
             </paper-icon-item>
 
-            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='reason' class='reason'>
-              <a name="reason" href="/reason" class='item-text'>
-              <iron-icon slot="item-icon" icon='book'></iron-icon>Why use FPW?
-            </a>
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='modeldefinition' data-href="cms/modeldefinition">
+              <iron-icon slot="item-icon" class="item-icon" icon='settings'></iron-icon>
+              <span class='item-text'>数据模型定义</span>
+              <paper-ripple></paper-ripple>
             </paper-icon-item>
 
-            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='chinese' class='chinese'>
-              <a name="chinese" href="/chinese" class='item-text'>
-                <iron-icon slot="item-icon" icon='work'></iron-icon>中文
-              </a>
+            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='layoutsetting' data-href="cms/layoutsetting">
+              <iron-icon slot="item-icon" class="item-icon" icon='view-array'></iron-icon>
+              <span class='item-text'>门户布局</span>
+              <paper-ripple></paper-ripple>
             </paper-icon-item>
-            <paper-icon-item on-tap='_onMenuItemClicked' datapanel='changetheme' class='changetheme'>
-              <iron-icon slot="item-icon" icon='stars'></iron-icon>
-              <change-theme></change-theme>
+
+            <paper-icon-item on-tap='_onMenuItemClicked' class='changetheme'>
+              <iron-icon slot="item-icon" class="item-icon" icon='stars'></iron-icon>
+              <change-theme label="[[themeLabel]]" class="change_theme"></change-theme>
             </paper-icon-item>
         </paper-menu>
       </div>
@@ -186,13 +192,17 @@
       static get properties() {
         return {
           appTitle: String,
+          themeLabel:{
+            type:String,
+            value:'改变主题：',
+          },
           spreadFoldIcon:{
             type:String,
             value:'chevron-left'
           },
           pageCntMarginLeft:{
             type:String,
-            value:'240px',
+            value:'200px',
             notify:true
           },
           currentPanel:{
@@ -213,13 +223,31 @@
       _clickSpreadFold(evt){ //点击了折叠展开侧边栏按钮。
         let siderbarLeft = this.$.siderbarLeft;
         console.log("点击了展开折叠的事件：",evt);
-        this.spreadFoldIcon = (siderbarLeft.className.indexOf('siderbar_left_small')==-1) ? 'chevron-right' : 'chevron-left';
-        this.pageCntMarginLeft = (siderbarLeft.className.indexOf('siderbar_left_small')==-1) ? '60px' : '240px';
         this._toggleClass("siderbar_left_small",siderbarLeft);
+        let itemTextEles = siderbarLeft.querySelectorAll('.item-text');
+        setTimeout(()=>{
+          for(let i=0;i<itemTextEles.length;i++){
+            this._toggleClass("fold-text",itemTextEles[i]);
+          }
+        },200);
+        if(siderbarLeft.className.indexOf('siderbar_left_small') == -1){ //折叠起来，只保留图标。
+          this.spreadFoldIcon = 'chevron-left';
+          this.pageCntMarginLeft = '200px';
+        }else{ //展开来。
+          this.spreadFoldIcon = 'chevron-right';
+          this.pageCntMarginLeft = '60px';
+        }
+      }
+      _clickHelp(evt){ //点击了帮助图标
+
+      }
+      _clickSettings(evt){ //点击了设置图标
+
       }
       _onMenuItemClicked(evt){
         console.log("_onMenuItemClicked:",evt);
-
+        let href = evt.currentTarget.getAttribute("data-href");
+        href?this.set("location.path",href):null;
       }
       _onMenuSelect(item){
         console.log("_onMenuSelect:",item);

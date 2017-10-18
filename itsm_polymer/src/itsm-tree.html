@@ -13,14 +13,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 
 <!-- <script src="../js/tree-js/jquery-1.4.4.min.js"></script> -->
-<script src="../js/tree-js/jquery.ztree.core.js"></script>
+<!-- <script src="../js/tree-js/jquery.ztree.core.js"></script>
 <script src="../js/tree-js/jquery.ztree.excheck.js"></script>
-<script src="../js/tree-js/jquery.ztree.exedit.js"></script>
+<script src="../js/tree-js/jquery.ztree.exedit.js"></script> -->
 <link rel="import" href="./components/home/field-drawer-content.html">
 <link rel="import" href="./components/home/relate-drawer-content.html">
 <link rel="import" href="./components/home/layout-drawer-content.html">
 <link rel="import" href="./components/home/grid-drawer-content.html">
 <link rel="import" href="./components/home/business-drawer-content.html">
+<link rel="import" href="news-iframe.html">
 <dom-module id="itsm-tree">
 
   <template>
@@ -28,10 +29,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   	<link rel="stylesheet" href="../css/tree-css/zTreeStyle/zTreeStyle.css" type="text/css">
 
     <style>
+      news-iframe {
+        width:100%;
+        height:400px;
+      }
       :host {
         --app-drawer-width: 400px;
       }
-      .ztree li span.button.pIcon01_ico_open{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/1_open.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+      /*.ztree li span.button.pIcon01_ico_open{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/1_open.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
       .ztree li span.button.pIcon01_ico_close{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/1_close.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
       .ztree li span.button.pIcon02_ico_open,.ztree li span.button.pIcon02_ico_close{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/2.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
       .ztree li span.button.icon01_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/3.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
@@ -39,16 +44,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .ztree li span.button.icon03_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/5.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
       .ztree li span.button.icon04_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/6.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
       .ztree li span.button.icon05_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/7.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
-      .ztree li span.button.icon06_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/8.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+      .ztree li span.button.icon06_ico_docu{margin-right:2px; background: url(../css/tree-css/zTreeStyle/img/diy/8.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}*/
 
     </style>
-
+    <news-iframe src="../src/itsm-trees.html"></news-iframe>
     <div>
       <!-- <input type="checkbox" id="editable" class="checkbox first" checked /><span>编辑树</span> -->
     </div>
     <div class="content_wrap">
     	<div class="zTreeDemoBackground left">
-    		<div id="treeDemo" class="ztree"></div>
+    		<ul id="treeDemo" class="ztree"></ul>
     	</div>
     </div>
     <!-- 业务对象树编辑 -->
@@ -106,6 +111,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ]}
 
       ready(){
+        this.addEventListener('drawer-oopen', function(){
+          alert('hello world');
+        });
         this.addEventListener('drawer-close', this._editPanelDrawerClose.bind(this));
         this.addEventListener('add-tree-node', this._addTreeNode.bind(this));
         this.addEventListener('remove-tree-node', this._removeTreeNode.bind(this));
@@ -121,12 +129,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				    removeHoverDom: removeHoverDom
     				// showLine: false
     			},
+          // edit: {
+    			// 	enable: true,
+    			// 	showRemoveBtn: false,
+    			// 	showRenameBtn: false
+    			// },
+          // data: {
+    			// 	simpleData: {
+    			// 		enable: true
+    			// 	}
+    			// },
           edit: {
+    				drag: {
+    					autoExpandTrigger: true,
+    					prev: dropPrev,
+    					inner: dropInner,
+    					next: dropNext
+    				},
     				enable: true,
     				showRemoveBtn: false,
     				showRenameBtn: false
     			},
-          data: {
+    			data: {
     				simpleData: {
     					enable: true
     				}
@@ -145,6 +169,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     			// className = (className === "dark" ? "":"dark");
     			//console.log("[ "+getTime()+" beforeClick ]&nbsp;&nbsp;" + treeNode.name );
     			return (treeNode.click != false);
+    		}
+
+        function dropPrev(treeId, nodes, targetNode) {
+    			var pNode = targetNode.getParentNode();
+    			if (pNode && pNode.dropInner === false) {
+    				return false;
+    			} else {
+    				for (var i=0,l=curDragNodes.length; i<l; i++) {
+    					var curPNode = curDragNodes[i].getParentNode();
+    					if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+    						return false;
+    					}
+    				}
+    			}
+    			return true;
+    		}
+    		function dropInner(treeId, nodes, targetNode) {
+    			if (targetNode && targetNode.dropInner === false) {
+    				return false;
+    			} else {
+    				for (var i=0,l=curDragNodes.length; i<l; i++) {
+    					if (!targetNode && curDragNodes[i].dropRoot === false) {
+    						return false;
+    					} else if (curDragNodes[i].parentTId && curDragNodes[i].getParentNode() !== targetNode && curDragNodes[i].getParentNode().childOuter === false) {
+    						return false;
+    					}
+    				}
+    			}
+    			return true;
+    		}
+    		function dropNext(treeId, nodes, targetNode) {
+    			var pNode = targetNode.getParentNode();
+    			if (pNode && pNode.dropInner === false) {
+    				return false;
+    			} else {
+    				for (var i=0,l=curDragNodes.length; i<l; i++) {
+    					var curPNode = curDragNodes[i].getParentNode();
+    					if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+    						return false;
+    					}
+    				}
+    			}
+    			return true;
     		}
 
     		function onClick(event, treeId, treeNode, clickFlag) {

@@ -69,7 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .menu-list {
         display: block;
         /*text-align: center;*/
-        font-size: 30px;
+        font-size: 16px;
         color: #666;
         font-weight: 300;
         font-family: Arial;
@@ -79,20 +79,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         vertical-align:middle;
       }
 
+      .menu-list a img{
+        position: absolute;
+        left:0;
+        top: 9px;
+        display: block;
+      }
       .menu-list a {
+        font-size: 16px;
         position: relative;
         text-align: center;
         display: inline-block;
         color: inherit;
         text-decoration: none;
-        margin: 0;
-        margin-right: 25px;
+        margin: 5px 25px 0 0;
         letter-spacing: 0.08em;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         vertical-align:middle;
-        padding: 9px 5px;
+        padding: 9px 5px 9px 37px;
+        line-height: 30px;
       }
       .menu-list h5 {
         text-align: center;
@@ -620,7 +627,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             _this.arrleng = arr.length;
             var menuList = [];
             for(var i=0; i<arr.length; i++){
-              menuList.push({name: arr[i].alias, id: arr[i].dashboardId});
+              menuList.push({name: arr[i].name, id: arr[i].dashboardId, alias: arr[i].alias});
             }
             _this.menuList = menuList;
             if(_this.categoryName){
@@ -628,7 +635,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 if(arr[i].alias === _this.categoryName){
                   _this.categoryId = arr[i].dashboardId;
                   //根据 选中导航 跳转页面
-                  window.history.pushState({}, null, "/app/list/"+ arr[i].alias);
+                  window.history.pushState({}, null, "/app/list/"+ arr[i].name);
                   window.dispatchEvent(new CustomEvent('location-changed'));
                 }
               }
@@ -640,7 +647,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   // _this.categoryName = arr[i].alias;
                   // _this.dispatch("setDefaultCategoryName", arr[i].alias);
                   //根据 选中导航 跳转页面
-                  window.history.pushState({}, null, "/app/list/"+ arr[i].alias);
+                  window.history.pushState({}, null, "/app/list/"+ arr[i].name);
                   window.dispatchEvent(new CustomEvent('location-changed'));
                   break;
                 }
@@ -716,6 +723,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           success: function(data){
             window.history.pushState({}, null, "/app/login");
             window.dispatchEvent(new CustomEvent('location-changed'));
+            var storage = window.localStorage;
+            storage.clear();
           },
           error: function(error){
             console.log("errorMsg",error);

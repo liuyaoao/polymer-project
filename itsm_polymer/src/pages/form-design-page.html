@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="../../dist/gridstack.css"/>
     <link rel="stylesheet" href="../../dist/gridstack-extra.css"/>
     <link rel="stylesheet" href="../../css/tree-css/zTreeStyle/zTreeStyle.css" />
+
+    <!-- <link rel="stylesheet" type="text/css" href="../../dist/dhtmlx/dhtmlx.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/dhtmlx/dhtmlxfbext.css">
+    <link rel="stylesheet" type="text/css" href="../../dist/dhtmlx/formbuilder.css"> -->
     <style include="polymer-gridstack-style iron-flex">
       :host {
         display: block;
@@ -88,6 +92,9 @@
         left: 5px!important;
         right: 5px!important;
       }
+      .grid-stack > .grid-stack-item {
+        /*min-width: 100px!important;*/
+      }
       .drawer-contents {
         height: 100%;
         overflow: auto;
@@ -153,6 +160,20 @@
           font-weight: normal;
         }
       }*/
+      .lay_column {
+        border-left: 1px solid #ddd;
+        min-height: 100px;
+      }
+      .lay_column:first-child {
+        border-left: none;
+      }
+      .lay_block {
+        padding: 10px;
+      }
+      .lay_column .lay_block.row {
+        margin: 0;
+        border: 1px solid #ddd;
+      }
     </style>
 
     <div class="device-xs visible-xs"></div>
@@ -169,27 +190,17 @@
           </paper-tabs>
           <iron-pages selected="{{viewType}}">
             <section class="tab-content">
-              <!-- <div style="margin-bottom: 10px">
-                  <paper-button class="pbtn pbtn-default" on-click="_saveGrid">保存网格</paper-button>
-                  <paper-button class="pbtn pbtn-default" on-click="_generateGrid">生成网格</paper-button>
-              </div> -->
-              <!-- <div class="tool-menu">
-                <span class="title">控件菜单:</span>
-                <dom-if if="[[activeProperties.Category]]">
-                  <template>
-                    <div class="toolbox">
-                      <a class="tool-btn" title="属性" on-click="showConfigDrawer">
-                        <paper-ripple center class=""></paper-ripple><iron-icon icon="chevron-right"></iron-icon>属性
-                      </a>
-                      <a class="tool-btn" title="字段属性" on-click="_showFieldDrawer">
-                        <paper-ripple center class=""></paper-ripple><iron-icon icon="chevron-right"></iron-icon>字段属性
-                      </a>
-                    </div>
-                  </template>
-                </dom-if>
-              </div> -->
-              <div class="grid-stack" id="gridStack">
+              <div class="lay_block row">
+                <div class="grid-stack" id="gridStack">
+                </div>
+                <!-- <div class="col-md-12 lay_column">
+                  <div class="grid-stack" id="gridStack">
+                  </div>
+                  <div class="lay_block row"><div class="col-md-12 lay_column"><div class="grid-stack" id="gridStack2"></div><operation-menu></operation-menu></div></div>
+                  <operation-menu></operation-menu>
+                </div> -->
               </div>
+              <!-- <div id="formBuilder" style="width:100%;height:400px"></div> -->
             </section>
             <section class="tab-content">
               <div class="grid-stack generate-grid" id="generateGrid">
@@ -296,8 +307,19 @@
         this.addEventListener('set-active-control', this._setAvtiveControl.bind(this));
         this.addEventListener('open-drawer', this.showConfigDrawer.bind(this));
         this.addEventListener('close-drawer', this.hideConfigDrawer.bind(this));
+        this.addEventListener('add-new', this._addNew.bind(this));
         super.ready();
 
+      }
+
+      _initFormBuilder() {
+        var _this = this;
+        dhtmlxEvent(window, "load", function(){
+    			var app = dhtmlxApp.start("formbuilder", _this.$.formBuilder);
+    			dhtmlxEvent(window, "unload", function(){
+    				app.unload();
+    			});
+    		});
       }
 
       _pageChanged(page) {
@@ -307,6 +329,7 @@
             _controlTree._initTree();
           }
           this._newGridstack();
+          // this._initFormBuilder();
         }
       }
 
@@ -331,9 +354,10 @@
           activeProperties[key] = this.activeControl[key];
         }
         this.activeProperties = activeProperties;
-        this.activeFieldProperties = activeProperties.fieldPropertites;
-        console.log(this.activeFieldProperties);
         _controlTree._selectControlNode(activeProperties.Category);
+        console.log(_controlTree.selectNode);
+        this.activeControl.fieldPropertites = _controlTree.selectNode;
+        this.activeFieldProperties = _controlTree.selectNode;
       }
 
       _clearActiveItem() {
@@ -422,10 +446,12 @@
             var element = items[i].el[0];
             var node = $(element).data('_gridstack_node');
             var _control = element.firstChild.firstChild;
-            _control.ID = Utils.makeRecID();
-            _control.isFormShown = _this.isFormShown;
-            _control.Position = { x: items[i].x, y: items[i].y };
-            _control.Size = { width: items[i].width, height: items[i].height };
+            if (_control) {
+              _control.ID = Utils.makeRecID();
+              _control.isFormShown = _this.isFormShown;
+              _control.Position = { x: items[i].x, y: items[i].y };
+              _control.Size = { width: items[i].width, height: items[i].height };
+            }
           }
         });
 
@@ -434,11 +460,13 @@
             var element = event.target;
             var node = $(element).data('_gridstack_node');
             var _control = element.firstChild.firstChild;
-            _control.Position = {
-              x: node.x, y: node.y
-            }
-            _control.Size = {
-              width: node.width, height: node.height
+            if (_control) {
+              _control.Position = {
+                x: node.x, y: node.y
+              }
+              _control.Size = {
+                width: node.width, height: node.height
+              }
             }
             // console.log(_control);
         });
@@ -492,9 +520,54 @@
         if (html) {
           this.isFormShown = false;
           this.grid.addWidget($('<div class="grid-stack-item"><div class="grid-stack-item-content"><remove-widget-link></remove-widget-link>'+ html +'</div></div>'),
-              1, 1, width, 1);
+              1, 1, width, 1, true);
         }
 
+      }
+
+      _addNew(e) {
+        var {self, tag} = e.detail;
+        if (tag == 1) {
+          this._addNewColumn(self);
+        }
+      }
+
+      _addNewColumn(self) {
+        // var {self, tag} = e.detail;
+        var _block = self.parentNode.parentNode;
+        console.log($(_block).find('>.lay_column'));
+        console.log(_block.querySelectorAll('.lay_column'));
+        var _columns = _block && _block.parentNode.querySelectorAll('.lay_block > .lay_column');
+        // var _columns = $(_block).find('>.lay_column');
+        console.log(_columns);
+        var _this = this;
+        var _col = 12;
+        if (_columns.length) {
+          _col = 12 / (_columns.length + 1);
+          _columns.forEach(function(column){
+            var _list = _this._setColumnWidth(column.classList, _col);
+            column.className = _list;
+          });
+        }
+        $(_block).append('<div class="col-md-' + _col + ' lay_column"><div class="grid-stack" id="gridStack"></div><operation-menu></operation-menu></div>');
+
+      }
+
+      _addNewBlock(e) {
+        $(_block).append('<div class="lay_block row"><div class="col-md-12 lay_column"><div class="grid-stack" id="gridStack2"></div><operation-menu></operation-menu></div></div>');
+      }
+
+      _setColumnWidth(list, _col) {
+        var _updateClass = list.value;
+        list.forEach(function(item){
+          if (item.indexOf('col-') > -1) {
+            var _class = list.item(item.indexOf('col-'));
+            var arr = _class.split('-');
+            arr[arr.length - 1] = _col;
+            _updateClass = _updateClass.replace(_class, arr.join('-'));
+          }
+        });
+        return _updateClass;
       }
 
       _getWidget(type) {
@@ -629,7 +702,7 @@
 
       _computeDrawerFieldShown(category) {
         this.controlDrawerType = 0;
-        return category !== 'Label';
+        return category !== 'Label' && category !== 'Button';
       }
     }
 
