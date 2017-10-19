@@ -25,19 +25,17 @@
         float:left;
         position:relative;
         overflow: hidden;
-        /*margin：0 10px;*/
         --side-item-text: {
           color: var(--primary-text-color);
           font-weight: 600;
           font-size: 16px;
         };
       }
-      :host aside.siderbar_left paper-menu paper-icon-item iron-icon{
-        --iron-icon-fill-color:var(--help-icon-color);
-      }
       :host .spread_fold_btn{
         position:absolute;
-        right:-15px;
+        right:-18px;
+        width: 50px;
+        height: 50px;
         top:50%;
         z-index:29;
       }
@@ -57,7 +55,7 @@
       }
       :host aside.siderbar_left{
         padding-top:5px;
-        width:200px;
+        width:190px;
         height:100%;
         transition: width 0.5s ease-in-out;
         box-shadow:2px 2px 3px  rgba(0, 0, 0, 0.4);
@@ -85,8 +83,9 @@
 
         --paper-item-selected: {
           /*color: var(--default-primary-color);*/
-          background-color: var(--paper-grey-200);
+          background-color: var(--paper-item-selected-bg-color);
           opacity: 1;
+          color:var(--text-primary-color);
         };
       }
       paper-menu a {
@@ -102,16 +101,19 @@
         height:100%;
         @apply(--side-item-text);
       }
+      paper-menu paper-icon-item.iron-selected .item-icon, paper-menu paper-icon-item.iron-selected .item-text{
+        color:var(--text-primary-color);
+      }
+      :host aside.siderbar_left paper-menu paper-icon-item iron-icon{
+        --iron-icon-fill-color:var(--help-icon-color);
+      }
+      :host aside.siderbar_left paper-menu paper-icon-item.iron-selected iron-icon{
+        --iron-icon-fill-color:var(--text-primary-color);
+      }
       paper-menu paper-icon-item .item-text.fold-text{
         display:none;
       }
-      /*paper-icon-item.iron-selected {
-        opacity: 1;
-      }*/
-      /*paper-icon-item.feedback {
-        margin-top: 16px;
-      }*/
-      paper-icon-item:hover {
+      paper-icon-item:not([aria-selected]):hover,paper-icon-item:not(.iron-selected):hover {
         background-color: var(--light-primary-color);
         padding-right:0;
         transition:padding-right 0.3s;
@@ -121,7 +123,7 @@
           color: var(--secondary-text-color);
           opacity: 1;
         };
-        border-right:4px solid var(--dark-primary-color);
+        border-right:4px solid var(--light-primary-color);
       }
 
     </style>
@@ -202,7 +204,7 @@
           },
           pageCntMarginLeft:{
             type:String,
-            value:'200px',
+            value:'190px',
             notify:true
           },
           currentPanel:{
@@ -232,7 +234,7 @@
         },200);
         if(siderbarLeft.className.indexOf('siderbar_left_small') == -1){ //折叠起来，只保留图标。
           this.spreadFoldIcon = 'chevron-left';
-          this.pageCntMarginLeft = '200px';
+          this.pageCntMarginLeft = '190px';
         }else{ //展开来。
           this.spreadFoldIcon = 'chevron-right';
           this.pageCntMarginLeft = '60px';

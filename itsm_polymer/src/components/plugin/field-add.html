@@ -321,9 +321,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ready() {
         super.ready();
         this.dateselect = 'a';
-        this._initConboBox_fieldType()
+        this._initConboBox_fieldType();
         this._setCheck();
         this._addEventListen();
+        // this._fetch("/data/chrome.json", (response) => {console.log(response);}, 1, true);
       }
 
       _closeDrawer() {
@@ -339,7 +340,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.dispatchEvent(new CustomEvent('add-tree-node', {detail: this.fieldDemo, bubbles: true, composed: true}));
         }
       }
-
 
       _initConboBox_fieldType(){
         // 字段类型
@@ -385,6 +385,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _setCheck(){
         var _this = this;
+      }
+
+      _fetch(url, callback, attempts) {
+        let xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', (e) => {
+          // this._setLoading(false);
+          if (isRaw) {
+            callback(e.target.responseText);
+          } else {
+            callback(JSON.parse(e.target.responseText));
+          }
+        });
+        xhr.addEventListener('error', (e) => {
+          // Flaky connections might fail fetching resources
+          if (attempts > 1) {
+            this._fetchDebouncer = Polymer.Debouncer.debounce(this._fetchDebouncer,
+              Polymer.Async.timeOut.after(200), this._fetch.bind(this, url, callback, attempts - 1));
+          } else {
+            // this._setLoading(false);
+            // this._setFailure(true);
+          }
+        });
+
+        // this._setLoading(true);
+        // this._setFailure(false);
+        xhr.open('GET', url);
+        xhr.send();
       }
     }
 

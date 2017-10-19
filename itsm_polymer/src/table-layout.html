@@ -46,7 +46,7 @@
       }
     </style>
     <div class="container-fluid">
-      <div class="wrapper-panel">
+      <div class="wrapper-panel" style$="{{wrapperStyle}}">
         <div class="panel-header" style$="{{titleStyle}}">
           <dom-if if="[[hasImage]]">
             <template>
@@ -64,17 +64,6 @@
         </div>
 
         <div class="wrapper-content" style$="{{bgStyle}}">
-          <paper-button class="btn black" on-click="_addWidgetDrawer">
-          新建仪表板
-          </paper-button>
-
-          <paper-button class="btn black" on-click="_saveLayout">
-          保存
-          </paper-button>
-
-          <paper-button class="btn black" on-click="_centerOperating">
-          快速操作
-          </paper-button>
           <div class="grid-stack" id="gridStack">
           </div>
         </div>
@@ -160,6 +149,8 @@
           alias: String,
 
           titleStyle: String,
+
+          wrapperStyle: String,
 
           bgStyle:String,
 
@@ -261,6 +252,7 @@
         _this.textForeColor = titleStyles.textForeColor;
         var titleBg = titleStyles.backgroundDef.isLeftToRight ? "-webkit-linear-gradient(left, "+ titleStyles.backgroundDef.startColor +", "+ titleStyles.backgroundDef.endColor +")" : titleStyles.backgroundDef.startColor;
         _this.titleStyle = "color:"+titleStyles.textForeColor+"; background:"+ titleBg+ ";";
+        _this.wrapperStyle = "border:solid 1px "+ titleStyles.backgroundDef.startColor;
 
         //初始化背景样式
         var bgStyles = _this.backgroundStyles;

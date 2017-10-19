@@ -17,19 +17,25 @@
         width: 30px;
         height: 30px;
       }
+      paper-menu-button {
+        --paper-menu-button-content: {
+          top: 50px!important;
+        }
+      }
+
     </style>
 
-    <div class="grid-stack"></div>
+    <!-- <div class="grid-stack"></div> -->
     <paper-menu-button class="menu">
       <paper-icon-button slot="dropdown-trigger" icon="expand-more" class="menu-btn"></paper-icon-button>
       <paper-listbox slot="dropdown-content">
-        <paper-item name="1" on-click="_addNewItem">Add New Column</paper-item>
-        <paper-item name="2">Add New Block</paper-item>
-        <paper-item name="3">Add New Item</paper-item>
+        <paper-item name="1" on-click="_addNew">Add New Column</paper-item>
+        <paper-item name="2" on-click="_addNew">Add New Block</paper-item>
+        <!-- <paper-item name="3">Add New Item</paper-item> -->
         <paper-item name="4">Add New Field</paper-item>
       </paper-listbox>
     </paper-menu-button>
-    <paper-icon-button icon="close" class="menu-btn" on-click="_removeWidget"></paper-icon-button>
+    <paper-icon-button icon="close" class="menu-btn" on-click="_removeNew"></paper-icon-button>
     <!-- <a class="remove-item" on-click="_removeWidget"><iron-icon icon="close"></iron-icon><paper-ripple></paper-ripple></a> -->
 
   </template>
@@ -48,7 +54,7 @@
         super.ready();
       }
 
-      _addNewItem(e) {
+      _addNew(e) {
         var _val = e.target.getAttribute('name');
         console.log(_val);
         if (_val !== '') {
@@ -60,18 +66,27 @@
 
       }
 
-      _removeWidget(e) {
-        var gridItem = this.parentNode.parentNode;
-        if (gridItem.classList.contains('grid-stack-item')) {
-          if (this.parentNode && this.parentNode.classList.contains('active')) {
-            console.log(this.parentNode.lastChild);
-            this.dispatchEvent(new CustomEvent('set-active-control', {
-              detail: { control: this.parentNode.lastChild, isDelete: true},
-              bubbles: true, composed: true
-            }));
-          }
-          this.dispatchEvent(new CustomEvent('remove-widget', {detail: gridItem, bubbles: true, composed: true}));
-        }
+      _removeNew(e) {
+        this.dispatchEvent(new CustomEvent('remove-new', {
+          detail: { self: this, tag: null},
+          bubbles: true, composed: true
+        }));
+      }
+
+      _initGridstack() {
+        var _grid = Polymer.dom(this.root).querySelector('.grid-stack');
+        console.log(_grid);
+        var options = {
+            float: true,
+            width: 12,
+            // verticalMargin: 5,
+            draggable: {
+              handle: '.grid-stack-item-content',
+              scroll: false,
+              appendTo: 'parent'
+            }
+        };
+        $(_grid).gridstack(options);
       }
 
     }

@@ -66,9 +66,9 @@
       }
       .grid-stack {
         /*background: lightgoldenrodyellow;*/
-        /*min-height: 300px;*/
+        min-height: 50px;
         /*border: 1px solid #ddd;*/
-        /*margin-bottom: 15px;*/
+        margin-bottom: 5px;
       }
       .remove {
         font-size: 12px;
@@ -160,11 +160,11 @@
           font-weight: normal;
         }
       }*/
-      .lay_column {
+      .lay_block > .lay_column {
         border-left: 1px solid #ddd;
         min-height: 100px;
       }
-      .lay_column:first-child {
+      .lay_block > .lay_column:first-child {
         border-left: none;
       }
       .lay_block {
@@ -189,20 +189,28 @@
             <paper-tab>设计预览</paper-tab>
           </paper-tabs>
           <iron-pages selected="{{viewType}}">
-            <section class="tab-content">
+            <section class="tab-content" id="formDesign">
               <div class="lay_block row">
-                <div class="grid-stack" id="gridStack">
+                <!-- <div class="grid-stack" id="gridStack">
+                </div> -->
+                <!-- <div class="col-md-12">
+                    <div class="grid-stack grid-stack-6" id="gridStack">
+                    </div>
                 </div>
-                <!-- <div class="col-md-12 lay_column">
+                <div class="col-md-12">
+                    <div class="grid-stack grid-stack-6" id="gridStack2">
+                    </div>
+                </div> -->
+                <div class="col-md-12 lay_column" width='12'>
                   <div class="grid-stack" id="gridStack">
                   </div>
-                  <div class="lay_block row"><div class="col-md-12 lay_column"><div class="grid-stack" id="gridStack2"></div><operation-menu></operation-menu></div></div>
+                  <!-- <div class="lay_block row"><div class="col-md-12 lay_column"><div class="grid-stack" id="gridStack2"></div><operation-menu></operation-menu></div></div> -->
                   <operation-menu></operation-menu>
-                </div> -->
+                </div>
               </div>
               <!-- <div id="formBuilder" style="width:100%;height:400px"></div> -->
             </section>
-            <section class="tab-content">
+            <section class="tab-content" id="designPreview">
               <div class="grid-stack generate-grid" id="generateGrid">
               </div>
             </section>
@@ -308,6 +316,7 @@
         this.addEventListener('open-drawer', this.showConfigDrawer.bind(this));
         this.addEventListener('close-drawer', this.hideConfigDrawer.bind(this));
         this.addEventListener('add-new', this._addNew.bind(this));
+        this.addEventListener('remove-new', this._removeNew.bind(this));
         super.ready();
 
       }
@@ -418,8 +427,11 @@
 
       _newGridstack() {
         var options = {
-            float: true,
+            float: false,
             width: 12,
+            // removable: '.trash',
+            // removeTimeout: 100,
+            acceptWidgets: '.grid-stack-item',
             // verticalMargin: 5,
             draggable: {
               handle: '.grid-stack-item-content',
@@ -525,51 +537,6 @@
 
       }
 
-      _addNew(e) {
-        var {self, tag} = e.detail;
-        if (tag == 1) {
-          this._addNewColumn(self);
-        }
-      }
-
-      _addNewColumn(self) {
-        // var {self, tag} = e.detail;
-        var _block = self.parentNode.parentNode;
-        console.log($(_block).find('>.lay_column'));
-        console.log(_block.querySelectorAll('.lay_column'));
-        var _columns = _block && _block.parentNode.querySelectorAll('.lay_block > .lay_column');
-        // var _columns = $(_block).find('>.lay_column');
-        console.log(_columns);
-        var _this = this;
-        var _col = 12;
-        if (_columns.length) {
-          _col = 12 / (_columns.length + 1);
-          _columns.forEach(function(column){
-            var _list = _this._setColumnWidth(column.classList, _col);
-            column.className = _list;
-          });
-        }
-        $(_block).append('<div class="col-md-' + _col + ' lay_column"><div class="grid-stack" id="gridStack"></div><operation-menu></operation-menu></div>');
-
-      }
-
-      _addNewBlock(e) {
-        $(_block).append('<div class="lay_block row"><div class="col-md-12 lay_column"><div class="grid-stack" id="gridStack2"></div><operation-menu></operation-menu></div></div>');
-      }
-
-      _setColumnWidth(list, _col) {
-        var _updateClass = list.value;
-        list.forEach(function(item){
-          if (item.indexOf('col-') > -1) {
-            var _class = list.item(item.indexOf('col-'));
-            var arr = _class.split('-');
-            arr[arr.length - 1] = _col;
-            _updateClass = _updateClass.replace(_class, arr.join('-'));
-          }
-        });
-        return _updateClass;
-      }
-
       _getWidget(type) {
         type = type.toLowerCase();
         var html = '', width = 1;
@@ -641,6 +608,7 @@
         }, this);
         // console.log(this.serializedData);
         // console.log(JSON.stringify(this.serializedData));
+        // this._saveColumn();
       }
 
       _generateGrid() {
@@ -703,6 +671,136 @@
       _computeDrawerFieldShown(category) {
         this.controlDrawerType = 0;
         return category !== 'Label' && category !== 'Button';
+      }
+
+      _addNew(e) {
+        var {self, tag} = e.detail;
+        if (tag == 1) {
+          this._addNewColumn(self);
+        } else if (tag == 2) {
+          this._addNewBlock(self);
+        }
+      }
+
+      _removeNew(e) {
+        var {self, tag} = e.detail;
+        this._removeColumn(self);
+      }
+
+      _addNewColumn(self) {
+        var _block = self.parentNode.parentNode;
+        var _columns = $(_block).find('>.lay_column');
+        // console.log(_columns);
+        var _this = this, _col = 12;
+        if (_columns.length) {
+          _col = 12 / (_columns.length + 1);
+          _columns.each(function(i, column){
+            var _list = _this._setColumnWidth(column.classList, _col);
+            column.className = _list;
+            column.setAttribute('width', _col);
+            // console.log(column.scrollHeight);
+          });
+        }
+        // $(_block).append('<div class="col-md-' + _col + ' lay_column"><div class="grid-stack"></div><operation-menu></operation-menu></div>');
+
+        var _layColumn = $('<div class="col-md-' + _col + ' lay_column" width=' + _col + '><div class="grid-stack"></div><operation-menu></operation-menu></div>');
+        $(_block).append(_layColumn);
+        var _grid = _layColumn[0].querySelector('.grid-stack');
+        this._initGridstack(_grid);
+        var _prev = $(_layColumn).prev();
+        _layColumn[0].style.height = _prev[0].scrollHeight + 'px';
+      }
+
+      _addNewBlock(self) {
+        var _column = self.parentNode;
+        // $(_column).append('<div class="lay_block row"><div class="col-md-12 lay_column"><div class="grid-stack"></div><operation-menu></operation-menu></div></div>');
+        var _layBlock = $('<div class="lay_block row"><div class="col-md-12 lay_column" width="12"><div class="grid-stack"></div><operation-menu></operation-menu></div></div>');
+        $(_column).append(_layBlock);
+        var _grid = _layBlock[0].querySelector('.grid-stack');
+        this._initGridstack(_grid);
+      }
+
+      _initGridstack(grid) {
+        var options = {
+            float: false,
+            width: 12,
+            acceptWidgets: '.grid-stack-item',
+            draggable: {
+              handle: '.grid-stack-item-content',
+              scroll: false,
+              appendTo: 'parent'
+            }
+        };
+        $(grid).gridstack(options);
+        // console.log($(grid).data('gridstack'));
+      }
+
+      _removeColumn(self) {
+        var _column = self.parentNode;
+        var _block = _column.parentNode;
+        var _columns = $(_block).find('>.lay_column');
+        var _this = this, _col = 12;
+        if (_columns.length) {
+          var _isParent = _block.parentNode.classList.contains('tab-content');
+          if (_columns.length > 1) {
+            _column.remove();
+          }
+          if (!_isParent && _columns.length == 1) {
+            _block.remove();
+          }
+          _columns = $(_block).find('>.lay_column');
+          _col = 12 / _columns.length;
+          _columns.each(function(i, column){
+            var _list = _this._setColumnWidth(column.classList, _col);
+            column.className = _list;
+            column.setAttribute('width', _col);
+          });
+        }
+      }
+
+      _setColumnWidth(list, _col) {
+        var _updateClass = list.value;
+        list.forEach(function(item){
+          if (item.indexOf('col-') > -1) {
+            var _class = list.item(item.indexOf('col-'));
+            var arr = _class.split('-');
+            arr[arr.length - 1] = _col;
+            _updateClass = _updateClass.replace(_class, arr.join('-'));
+          }
+        });
+        return _updateClass;
+      }
+
+      _saveColumn() {
+        var _serialize = {columns: []};
+        var _form = this.$.formDesign, _preview = this.$.designPreview;
+        var _outBlock = $(_form).children()[0];
+        var _columns = [];
+        _serialize.columns = this._getSerializeColumns(_outBlock);
+      }
+
+      _getSerializeColumns(outBlock) {
+        var _columns = [];
+        var _this = this;
+        // get columns under block
+        outBlock && $(outBlock).find('>.lay_column').each(function(i, column){
+          var _width = column.getAttribute('width'), _classList = column.classList;
+
+          // get field controls under column
+          var _childControls = _.map($(column).find('>.grid-stack > .grid-stack-item'), function(item, k) {
+            return {filed: k + 1};
+          })
+
+          // get blocks under column
+          var _childBlocks = _.map($(column).find('>.lay_block'), function(block, k) {
+            var childCols = _this._getSerializeColumns(block);  //// get columns under block
+            return {block: k + 1, columns: childCols};
+          });
+
+          _columns.push({width: _width, classList: _classList, blocks:_childBlocks, controls: _childControls});
+        });
+        console.log(_columns);
+        return _columns;
       }
     }
 

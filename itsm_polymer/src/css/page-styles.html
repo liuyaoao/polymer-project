@@ -24,7 +24,7 @@
     text-align: center;
     color:#fff;
     font-size: 16px;
-    font-family: microsoft yahei;
+    font-family: Arial;
   }
   .login_bg h1{
     position: absolute;
@@ -57,17 +57,25 @@
 
   }
   .login_bg .form-container{
-    width: 400px;
+    width: 500px;
     height: auto;
     overflow: hidden;
     margin: 0 auto;
   }
-
+  .form-container paper-input{
+    /*-paper-input-color: #fff;*/
+    --paper-input-container-color: #fff;
+    --paper-input-container-focus-color: #fff;
+    --paper-input-container-input-color: #fff;
+  }
   .login_bg .form-container .msg{
     color: #fff;
     height: auto;
     overflow: hidden;
-    margin: 15px 0 20px;
+    margin: 45px 0 15px;
+  }
+  .login_bg .form-container .msg span{
+      margin-right: 15px;
   }
   .login_bg .checkboxs {
     --paper-checkbox-unchecked-background-color: rgba(255,255,255,0.3);
@@ -76,7 +84,7 @@
     --paper-checkbox-label: {color: #fff};
   }
   .login_bg .checkboxs paper-checkbox {
-    margin-right: 50px;
+    margin-right: 58px;
     --paper-checkbox-label-color:#fff;
   }
   .login_bg .login_btn{
@@ -85,21 +93,14 @@
     height: 50px;
     line-height: 50px;
     color: #fff;
-    letter-spacing: 5px;
-    margin:60px auto 0;
+    margin:45px 0 0;
     background-color:rgba(255,255,255,0.3);
-    text-align: center;
-  }
-  .login_bg .text{
+    padding: 0 9px 0 19px;
+    box-sizing: content-box;
+    float: right;
     font-size: 22px;
     letter-spacing: 10px;
     font-weight: normal;
-    position: absolute;
-    left:0;
-    top:0;
-    width:100%;
-    height: 52px;
-    line-height: 52px;
     text-align: center;
   }
   .role-select{
@@ -166,48 +167,8 @@
     background-color: #5C6BC0;
     font-weight: normal;
   }
-  .add-header{
-    background: #000;
-    color: #fff;
-    line-height: 40px;
-    height: 40px;
-    font-size: 14px;
-  }
-  .add-content{
-    text-align: left;
-    position: absolute;
-    left: 0;
-    top: 168px;
-    right: 0;
-    bottom: 120px;
-    overflow-y: scroll;
-    box-sizing: border-box;
-  }
-  .add-content .item{
-    display: block;
-    padding:15px;
-    height: auto;
-    overflow: hidden;
-  }
-  .add-content .item.pink,
-  .add-content .item.gray{
-    border-top: solid 1px #e8e8e8;
-  }
-  .add-content .item.pink{
-    padding-bottom: 100px;
-  }
-  .add-content .item h5{
-    margin:0;
-    font-size: 14px;
-  }
   [search-bar] iron-icon{
     margin-left: 0 !important;
-  }
-  .checkboxs{
-    margin:10px 0 5px;
-  }
-  .checkboxs .styled{
-    margin-right: 15px;
   }
   .add-content .btn,.btn.black{
     font-size: 14px;
@@ -222,7 +183,6 @@
     height: auto;
     overflow: hidden;
   }
-
   .grid-stack{
     margin:15px 0 0;
     min-height: 1000px !important;
@@ -256,7 +216,6 @@
     }
     .wrapper-panel{
       width: 100%;
-      border:solid 1px #383737;
       border-radius: 6px;
       margin-top:15px;
     }
@@ -271,49 +230,9 @@
       line-height: 40px;
       margin:0 15px;
       display: inline-block;
-      font-family: Microsoft yahei;
+      font-family: Arial;
     }
 
-    .sitem{
-      /*font-size: 0;*/
-      line-height: 24px;
-    }
-    .sitem h6{
-      /*color: #ccc;*/
-      display: inline-block;
-      margin: 0;
-      font-weight: normal;
-      line-height: 24px;
-      font-size: 12px;
-    }
-    .sitem nebula-switch{
-      margin: 5px 5px 0;
-    }
-    .tabs{
-      display: block;
-      margin:0 15px;
-      height: 30px;
-      overflow: hidden;
-    }
-    .tabs paper-tabs{
-      width: 100%;
-    }
-    .tabs paper-tab{
-      float: left;
-      display: block;
-      width: 33%;
-      height: 30px;
-      line-height: 30px;
-      background-color: #000;
-      color: #fff;
-      text-align: center;
-      position: relative;
-      padding: 0;
-    }
-    .tabs paper-tab:nth-child(2){
-      border-left:solid 1px #fff;
-      border-right: solid 1px #fff;
-    }
 </style>
 </template>
 </dom-module>

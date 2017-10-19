@@ -1,6 +1,7 @@
 
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<!-- <link rel="import" href="../../bower_components/paper-progress/paper-progress.html"> -->
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
 <link rel="import" href="../lazy-library.html">
@@ -102,7 +103,7 @@
                 <span>admin@dragonflow.com</span>
               </div>
             </div>
-            <paper-progress value="10" indeterminate bottom-item></paper-progress>
+            <!-- <paper-progress id="paperProgress" value="1" indeterminate bottom-item style="width:100%;"></paper-progress> -->
         </app-toolbar>
       </app-header>
       <slot name="cms_contentContainer"></slot>
@@ -118,7 +119,6 @@
       static get properties() { return {
 
         appTitle: String,
-
         smallScreen: Boolean,
 
       }}

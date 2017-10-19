@@ -29,15 +29,16 @@
               <paper-icon-button slot="prefix" src="../images/icon-pw.png">
               </paper-icon-button>
             </paper-input>
-            <div class="msg">默认用户名: [[defaultUserName]] 密码：[[defaultUserPwd]]</div>
+            <div class="msg">
+              <span>默认用户名: [[defaultUserName]]</span>
+              <span>密码：[[defaultUserPwd]]</span>
+            </div>
             <div class="checkboxs">
               <paper-checkbox id="rememberPwd">记住密码</paper-checkbox>
               <paper-checkbox on-change="_onClickShowPwd" id="isShowPwd">显示密码</paper-checkbox>
             </div>
             <paper-button class="login_btn" on-click="_submitLogin">
-              <div class="text">
                 登录
-              </div>
             </paper-button>
           </div>
 

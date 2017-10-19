@@ -2,178 +2,207 @@
 <link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../../bower_components/paper-swatch-picker/paper-swatch-picker.html">
-<link rel="import" href="../../../bower_components/nebula-switch/nebula-switch.html">
 <link rel="import" href="../../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../../../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../../../bower_components/vaadin-upload/vaadin-upload.html">
 <link rel="import" href="../../css/page-styles.html">
+<link rel="import" href="../../css/appDrawer-styles.html">
 
+
+<link rel="import" href="../../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../../bower_components/app-layout/app-drawer/app-drawer.html">
 
 <dom-module id="edit-panel">
 
   <template>
 
-    <style include="page-styles">
-    paper-listbox{
-      width: 100%;
-    }
+    <style include="page-styles appDrawer-styles">
     </style>
 
-    <app-toolbar class="add-header">
-      <div class="flex">编辑仪表盘</div>
-      <paper-icon-button icon="chevron-right" on-tap="_closeDrawer"></paper-icon-button>
-    </app-toolbar>
-    <div class="add-content">
-      <div class="tabs">
-        <paper-tabs selected="{{tabSelected}}">
-          <paper-tab><paper-ripple></paper-ripple>一般</paper-tab>
-          <paper-tab><paper-ripple></paper-ripple>外观</paper-tab>
-          <paper-tab><paper-ripple></paper-ripple>布局</paper-tab>
-        </paper-tabs>
+    <div>
+
+      <app-toolbar class="drawer-header">
+        <div class="close" on-tap="_closeDrawer">>></div>
+        <div class="flex">编辑仪表盘</div>
+        <div class="btns">
+          <paper-button on-click="_saveLayout">
+          保存
+          </paper-button>
+          <paper-button on-click="_addWidgetDrawer">
+          新建仪表板
+          </paper-button>
+        </div>
+      </app-toolbar>
+      <div class="drawer-con">
+        <div class="tabs">
+          <paper-tabs selected="{{tabSelected}}">
+            <paper-tab><paper-ripple></paper-ripple>一般</paper-tab>
+            <paper-tab><paper-ripple></paper-ripple>外观</paper-tab>
+            <paper-tab><paper-ripple></paper-ripple>布局</paper-tab>
+          </paper-tabs>
+        </div>
+        <div class="tab-con con">
+
+          <iron-pages selected="{{tabSelected}}" attr-for-selected="name">
+            <div name="0">
+              <div class="item">
+                <paper-input always-float-label label="名称(N):" value="{{name}}"></paper-input>
+                <paper-input always-float-label label="别名(A):" value="{{alias}}" on-blur="_onBlurAlias"></paper-input>
+              </div>
+              <div class="item">
+                <paper-input always-float-label label="说明(D):" value="{{description}}"></paper-input>
+                <paper-dropdown-menu label="范围(S):">
+                  <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                    <paper-item>个人</paper-item>
+                    <paper-item>角色</paper-item>
+                    <paper-item>全局</paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-dropdown-menu label="负责人(O):">
+                  <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                    <paper-item>个人</paper-item>
+                    <paper-item>角色</paper-item>
+                    <paper-item>全局</paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-dropdown-menu label="类别(C):">
+                  <paper-listbox slot="dropdown-content" class="dropdown-content" selected="0">
+                    <paper-item>个人</paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-dropdown-menu label="关联(A):">
+                  <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                    <paper-item>未关联</paper-item>
+                    <paper-item>告警</paper-item>
+                    <paper-item>可用性</paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-radio-group selected="a" aria-labelledby="label1">
+                  <paper-radio-button name="a">作为菜单项显示</paper-radio-button>
+                  <paper-radio-button name="b">在导航器中显示</paper-radio-button>
+                </paper-radio-group>
+              </div>
+            </div>
+            <div name="1">
+              <div class="item gray">
+                <h5>标题</h5>
+                <paper-input always-float-label label="文本:"></paper-input>
+                <div class="checkboxs">
+                  <paper-checkbox class="styled">
+                    显示日期
+                  </paper-checkbox>
+                </div>
+                <div class="checkboxs">
+                  <paper-checkbox class="styled">
+                    使用系统颜色
+                  </paper-checkbox>
+                </div>
+                <div class="sitem">
+                  <h6>图标:</h6>
+                  <vaadin-upload  accept="*" title="tubiao">
+                    <span slot="drop-label">拖拽图标到此处上传</span>
+                  </vaadin-upload>
+                </div>
+                <div class="sitem">
+                  <h6>文本颜色:</h6>
+                  <paper-swatch-picker color="{{selectedTextColor}}"></paper-swatch-picker>
+                </div>
+                <div class="sitem">
+                  <h6>背景色:</h6>
+                  <div class="radios">
+                    <paper-radio-group selected="a" aria-labelledby="label2">
+                      <paper-radio-button name="a">单色</paper-radio-button>
+                      <paper-radio-button name="b">渐变色</paper-radio-button>
+                    </paper-radio-group>
+                  </div>
+                  <div class="color-select">
+                    <div class="color">
+                      <paper-swatch-picker color="{{selectedBgStartColor}}"></paper-swatch-picker>
+                      <span>颜色1</span>
+                    </div>
+                    <div class="color">
+                      <paper-swatch-picker color="{{selectedBgEndColor}}"></paper-swatch-picker>
+                      <span>颜色2</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="item gray">
+                <h5>背景</h5>
+                <div class="sitem">
+                  <h6>图像:</h6>
+                  <vaadin-upload  accept="*" title="tubiao">
+                    <span slot="drop-label">拖拽图标到此处上传</span>
+                  </vaadin-upload>
+                </div>
+                <div class="sitem">
+                  <h6>背景色:</h6>
+                  <div class="radios">
+                    <paper-radio-group selected="a" aria-labelledby="label3">
+                      <paper-radio-button name="a">单色</paper-radio-button>
+                      <paper-radio-button name="b">渐变色</paper-radio-button>
+                    </paper-radio-group>
+                  </div>
+                  <div class="color-select">
+                    <div class="color">
+                      <paper-swatch-picker color="{{selectedBgStartColor}}"></paper-swatch-picker>
+                      <span>颜色1</span>
+                    </div>
+                    <div class="color">
+                      <paper-swatch-picker color="{{selectedBgEndColor}}"></paper-swatch-picker>
+                      <span>颜色2</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div name="2">
+              <div class="item pink">
+                <paper-dropdown-menu label="范围(S):">
+                  <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                    <paper-item>个人</paper-item>
+                    <paper-item>角色</paper-item>
+                    <paper-item>全局</paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-dropdown-menu label="负责人(O):">
+                  <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                    <paper-item>个人</paper-item>
+                    <paper-item>角色</paper-item>
+                    <paper-item>全局</paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-dropdown-menu label="范围(S):">
+                  <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                    <paper-item>个人</paper-item>
+                    <paper-item>角色</paper-item>
+                    <paper-item>全局</paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-dropdown-menu label="负责人(O):">
+                  <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                    <paper-item>个人</paper-item>
+                    <paper-item>角色</paper-item>
+                    <paper-item>全局</paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+              </div>
+            </div>
+          </iron-pages>
+        </div>
       </div>
-
-      <iron-pages selected="{{tabSelected}}" attr-for-selected="name">
-        <div name="0">
-          <div class="item">
-            <paper-input always-float-label label="名称(N):" value="{{name}}"></paper-input>
-            <paper-input always-float-label label="别名(A):" value="{{alias}}" on-blur="_onBlurAlias"></paper-input>
-          </div>
-          <div class="item">
-            <paper-input always-float-label label="说明(D):" value="{{description}}"></paper-input>
-            <paper-dropdown-menu label="范围(S):">
-              <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
-                <paper-item>个人</paper-item>
-                <paper-item>角色</paper-item>
-                <paper-item>全局</paper-item>
-              </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-dropdown-menu label="负责人(O):">
-              <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
-                <paper-item>个人</paper-item>
-                <paper-item>角色</paper-item>
-                <paper-item>全局</paper-item>
-              </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-dropdown-menu label="类别(C):">
-              <paper-listbox slot="dropdown-content" class="dropdown-content" selected="0">
-                <paper-item>个人</paper-item>
-              </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-dropdown-menu label="关联(A):">
-              <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
-                <paper-item>未关联</paper-item>
-                <paper-item>告警</paper-item>
-                <paper-item>可用性</paper-item>
-              </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-radio-group selected="a" aria-labelledby="label1">
-              <paper-radio-button name="a">作为菜单项显示</paper-radio-button>
-              <paper-radio-button name="b">在导航器中显示</paper-radio-button>
-            </paper-radio-group>
-          </div>
-        </div>
-        <div name="1">
-          <div class="item gray">
-            <h5>标题</h5>
-            <paper-input always-float-label label="文本:"></paper-input>
-            <div class="checkboxs">
-              <paper-checkbox class="styled">
-                显示日期
-              </paper-checkbox>
-            </div>
-            <div class="sitem">
-              <h6>是否使用系统颜色:</h6>
-              <nebula-switch
-                checked="{{checked}}"
-                on-checked-changed="_onCheckedChanged">
-              </nebula-switch>
-            </div>
-            <div class="sitem">
-              <h6>图标:</h6>
-              <vaadin-upload  accept="*" title="tubiao">
-                <span slot="drop-label">拖拽图标到此处上传</span>
-              </vaadin-upload>
-            </div>
-            <div class="sitem">
-              <h6>文本颜色:</h6>
-              <paper-swatch-picker color="{{selectedTextColor}}"></paper-swatch-picker>
-            </div>
-            <div class="sitem">
-              <label id="label2">背景色:</label>
-              <paper-radio-group selected="a" aria-labelledby="label2">
-                <paper-radio-button name="a">单色</paper-radio-button>
-                <paper-radio-button name="b">渐变色</paper-radio-button>
-              </paper-radio-group>
-            </div>
-            <div class="sitem">
-              <span>颜色1:</span>
-              <paper-swatch-picker color="{{selectedBgStartColor}}"></paper-swatch-picker>
-              <span>颜色2:</span>
-              <paper-swatch-picker color="{{selectedBgEndColor}}"></paper-swatch-picker>
-            </div>
-          </div>
-
-          <div class="item gray">
-            <h5>背景</h5>
-            <div class="sitem">
-              <h6>图像:</h6>
-              <vaadin-upload  accept="*" title="tubiao">
-                <span slot="drop-label">拖拽图标到此处上传</span>
-              </vaadin-upload>
-            </div>
-            <div class="sitem">
-              <label id="label3">背景色:</label>
-              <paper-radio-group selected="a" aria-labelledby="label3">
-                <paper-radio-button name="a">单色</paper-radio-button>
-                <paper-radio-button name="b">渐变色</paper-radio-button>
-              </paper-radio-group>
-            </div>
-            <div class="sitem">
-              <span>颜色1:</span>
-              <paper-swatch-picker color="{{selectedBgStartColor}}"></paper-swatch-picker>
-              <span>颜色2:</span>
-              <paper-swatch-picker color="{{selectedBgEndColor}}"></paper-swatch-picker>
-            </div>
-          </div>
-
-        </div>
-        <div name="2">
-          <div class="item pink">
-            <paper-dropdown-menu label="范围(S):">
-              <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
-                <paper-item>个人</paper-item>
-                <paper-item>角色</paper-item>
-                <paper-item>全局</paper-item>
-              </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-dropdown-menu label="负责人(O):">
-              <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
-                <paper-item>个人</paper-item>
-                <paper-item>角色</paper-item>
-                <paper-item>全局</paper-item>
-              </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-dropdown-menu label="范围(S):">
-              <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
-                <paper-item>个人</paper-item>
-                <paper-item>角色</paper-item>
-                <paper-item>全局</paper-item>
-              </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-dropdown-menu label="负责人(O):">
-              <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
-                <paper-item>个人</paper-item>
-                <paper-item>角色</paper-item>
-                <paper-item>全局</paper-item>
-              </paper-listbox>
-            </paper-dropdown-menu>
-          </div>
-        </div>
-      </iron-pages>
-      <paper-button class="btn" on-click="_onClickOk">确定</paper-button>
     </div>
 
+    <!--固件编辑 -->
+    <app-drawer id="addWidget" align="right" swipe-open class="map-add" style="top:0 !important;">
+      <div class="drawer-contents">
+        <add-widget widget="{{widget}}">
+        </add-widget>
+      </div>
+    </app-drawer>
   </template>
 
   <script>
@@ -215,6 +244,9 @@
 
       }
 
+      _addWidgetDrawer(){
+        this.$.addWidget.open();
+      }
       _onClickOk(){
         var alias = this.alias, name = this.name, description = this.description;
 

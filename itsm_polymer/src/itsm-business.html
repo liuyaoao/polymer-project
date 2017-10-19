@@ -1,0 +1,155 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="./components/home/field-drawer-content.html">
+<link rel="import" href="./components/home/relate-drawer-content.html">
+<link rel="import" href="./components/home/layout-drawer-content.html">
+<link rel="import" href="./components/home/grid-drawer-content.html">
+<link rel="import" href="./components/home/business-drawer-content.html">
+<link rel="import" href="./redux/actions/userLogin-mixin.html">
+<link rel="import" href="news-iframe.html">
+<dom-module id="itsm-business">
+
+  <template>
+
+    <style>
+      news-iframe {
+        width:100%;
+        height:900px;
+      }
+      :host {
+        --app-drawer-width: 400px;
+      }
+    </style>
+    <news-iframe id="iframes" src="../../src/itsm-tree.html"></news-iframe>
+    <!-- 业务对象树编辑 -->
+    <!-- 业务对象 -->
+    <app-drawer id="editDrawer0" align="right" class="map-add">
+      <div class="drawer-contents">
+        <business-drawer-content current-tree-node={{currentTreeNode}}></business-drawer-content>
+      </div>
+    </app-drawer>
+    <!-- 字段 -->
+    <app-drawer id="editDrawer1" align="right" class="map-add">
+      <div class="drawer-contents">
+        <field-drawer-content current-tree-node={{currentTreeNode}}></field-drawer-content>
+      </div>
+    </app-drawer>
+    <!-- 关系 -->
+    <app-drawer id="editDrawer2" align="right" class="map-add">
+      <div class="drawer-contents">
+        <relate-drawer-content current-tree-node={{currentTreeNode}}></relate-drawer-content>
+      </div>
+    </app-drawer>
+    <!-- 布局 -->
+    <app-drawer id="editDrawer3" align="right" class="map-add">
+      <div class="drawer-contents">
+        <layout-drawer-content current-tree-node={{currentTreeNode}}></layout-drawer-content>
+      </div>
+    </app-drawer>
+    <!-- 网格 -->
+    <app-drawer id="editDrawer4" align="right" class="map-add">
+      <div class="drawer-contents">
+        <grid-drawer-content current-tree-node={{currentTreeNode}}></grid-drawer-content>
+      </div>
+    </app-drawer>
+  </template>
+
+  <script>
+
+    class ItsmBusiness extends UserLoginMixin(Polymer.Element) {
+
+      static get is() { return 'itsm-business'; }
+
+      static get properties() { return {
+        currentTreeNode: {
+          type: Object,
+          // observer: '_targetChanged',
+          notify: true
+        },
+        currentTreeNodeParent: Object,
+        serverData: Object,
+        treeObjCopy: Object,
+        userToken: {
+          type: String,
+          statePath : 'userReducer.userToken'
+        }
+      }}
+
+      static get observers() { return [
+
+      ]}
+
+      ready(){
+        this.addEventListener('drawer-close', this._editPanelDrawerClose.bind(this));
+        this.addEventListener('add-tree-node', this._addTreeNode.bind(this));
+        this.addEventListener('remove-tree-node', this._removeTreeNode.bind(this));
+        this.addEventListener('update-tree-node', this._updateNode.bind(this));
+        super.ready();
+      }
+
+      _getSub(){
+        return this.root.querySelector("#iframes").shadowRoot.querySelector("iframe").contentWindow;
+      }
+
+      _getToken(){
+        return this.userToken;
+      }
+
+      _editPanelDrawerOpen(drawerType){
+        this.root.querySelector('#'+drawerType).open();
+      }
+
+      _editPanelDrawerClose (e) {
+        var id = e.detail;
+        this.root.querySelector("#"+id).close();
+      }
+
+      _addTreeNode(e){
+        this._getSub().addTreeNode(e);
+      }
+
+      _updateNode(e){
+        this._getSub().updateNode(e);
+      }
+
+      //删除节点
+      _removeTreeNode(e){
+     　　//点击确定后操作
+        this._getSub().removeTreeNode(e);
+      }
+
+      _removeTreeNodes(_this, treeObj, edata){
+        $.ajax({
+          type: "POST",
+          // url: Window.AppConfig.serverUrl + "/foundation/api/v1/businessobject/createOrUpdate?token=adadf",
+          url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/delete?token=adadf",
+          data: JSON.stringify(edata),
+          contentType: 'text',
+          async : true,
+          success: function(data){
+            console.log(data);
+          },
+          error: function(xhr,status,error){
+            console.log("错误提示： " + xhr.status + " " + xhr.statusText);
+            }
+        });
+      }
+
+    }
+
+    customElements.define(ItsmBusiness.is, ItsmBusiness);
+
+  </script>
+
+</dom-module>

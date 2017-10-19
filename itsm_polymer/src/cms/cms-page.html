@@ -268,7 +268,14 @@
       // Elements in the app can notify section changes.
       // Response by a11y announcing the section and syncronizing the category.
       _updateDocumentTitle(page, categoryTitle, appTitle) {
-        let pageNameMap = {"modules":"应用", "perspective":"透视", "businessObj":"业务对象", "":"", "":"", "":""}
+        let pageNameMap = {
+            "modules":"应用",
+            "perspective":"透视",
+            "businessobj":"业务对象",
+            "ruledefinition":"规则定义",
+            "datadefinition":"数据结果集定义",
+            "modeldefinition":"数据模型定义",
+            "layoutsetting":"门户布局"}
         document.title = pageNameMap[page] + ' - ' + appTitle;
       }
 

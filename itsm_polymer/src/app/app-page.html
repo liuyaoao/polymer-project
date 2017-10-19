@@ -155,7 +155,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           loading="[[loading]]"
           offline="[[offline]]"
           failure="[[failure]]"></news-article>
-      <news-business
+      <itsm-business
           pagename="business"
           route="[[subroute]]"
           category-name="{{categoryName}}"
@@ -164,7 +164,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           article="[[article]]"
           loading="[[loading]]"
           offline="[[offline]]"
-          failure="[[failure]]"></news-business>
+          failure="[[failure]]"></itsm-business>
         <news-bats
             pagename="bats"
             route="{{subroute}}"
@@ -288,7 +288,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           if(userInfo.userToken){
             var cRoleName = storage.getItem("cRoleName");
             if(cRoleName){
-              
+
               this.dispatch("setUserInfo", userInfo.userId, userInfo.userToken);
               this.dispatch("setUserSelectedRole", cRoleName);
               this.logined = true;
@@ -343,7 +343,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             href = '../organization-form.html';
           break;
           case 'business':
-            href = '../news-business.html';
+            href = '../itsm-business.html';
           break;
           case 'bats':
             href = '../news-bats.html';
