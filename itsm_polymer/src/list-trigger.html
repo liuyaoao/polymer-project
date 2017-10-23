@@ -1,0 +1,297 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/vaadin-icons/vaadin-icons.html">
+<link rel="import" href="../bower_components/paper-input-container/paper-input-container.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-sorter.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-filter.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-column-group.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-buttons-group/paper-buttons-group.html">
+
+<link rel="import" href="./components/home/edit-trigger.html">
+<link rel="import" href="../css/page-styles.html">
+<link rel="import" href="../css/appDrawer-styles.html">
+
+<dom-module id="list-trigger">
+
+  <template>
+
+    <style include="page-styles appDrawer-styles">
+    </style>
+    <div class="container-fluid">
+      <div class="wrapper-container">
+        <div class="title">
+          <div class="title-text">
+            <iron-icon class="small-icon" icon="vaadin:search" title="search">
+            </iron-icon>
+            触发器
+          </div>
+          <!-- <div class="title-menu">
+
+            <paper-tabs selected="0" scrollable>
+              <paper-tab>NUMBER ONE ITEM</paper-tab>
+              <paper-tab>ITEM TWO</paper-tab>
+              <paper-tab>THE THIRD ITEM</paper-tab>
+              <paper-tab>THE ITEM FOUR</paper-tab>
+              <paper-tab>FIFTH</paper-tab>
+              <paper-tab>THE SIXTH TAB</paper-tab>
+              <paper-tab>NUMBER SEVEN</paper-tab>
+              <paper-tab>EIGHT</paper-tab>
+              <paper-tab>NUMBER NINE</paper-tab>
+            </paper-tabs>
+          </div> -->
+          <paper-buttons-group class="buttons">
+            <!-- <paper-button on-click="_showMenu" on-blur="_hideMenu">
+              <iron-icon class="small-icon" icon="vaadin:menu" title="menu">
+              </iron-icon>
+              全部导航
+            </paper-button> -->
+            <dom-if if="[[showMenu]]">
+              <template>
+                <div class="menu dropdown">
+                  <ul>
+                    <li>事件</li>
+                    <li>变更</li>
+                  </ul>
+                </div>
+              </template>
+            </dom-if>
+            <paper-button id="filter" on-click="_showFilter" on-blur="_hideFilter">
+              <iron-icon class="small-icon" icon="vaadin:filter" title="filter">
+              </iron-icon>
+              搜索
+            </paper-button>
+            <dom-if if="[[showFilter]]">
+              <template>
+                <div class="filter dropdown">
+                  <paper-dropdown-menu label="范围:">
+                    <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                      <paper-item>个人</paper-item>
+                      <paper-item>全局</paper-item>
+                    </paper-listbox>
+                  </paper-dropdown-menu>
+                  <paper-input label="按名称全文检索" value="{{username}}" tabindex="1">
+                  </paper-input>
+                  <paper-button>搜索</paper-button>
+                </div>
+              </template>
+            </dom-if>
+
+            <paper-button on-click="_editTrigger">
+              <iron-icon class="small-icon" icon="vaadin:plus" title="plus">
+              </iron-icon>
+              添加
+            </paper-button>
+          </paper-buttons-group>
+        </div>
+        <div class="panel-header">
+          <h5>触发器列表</h5>
+          <!-- <div class="opts">
+            <iron-icon class="small-icon pull-right" icon="vaadin:add" title="add" on-click="_editTrigger">
+            </iron-icon>
+              <iron-icon class="small-icon pull-right" icon="vaadin:edit" title="edit" on-click="_editTrigger">
+              </iron-icon>
+          </div> -->
+        </div>
+
+      </div>
+      <div class="wrapper-content">
+
+        <div>
+          <vaadin-grid id="grid" page-size="{{pagesize}}" headers="[[headers]]" items="[[items]]" multi-sort="true">
+            <template is="dom-repeat" items="[[headers]]" as="column">
+              <vaadin-grid-column>
+                <template class="header">
+                  [[column]]
+                </template>
+                <template>[[get(column, item)]]</template>
+              </vaadin-grid-column>
+            </template>
+            <vaadin-grid-column>
+              <template class="header">
+                操作
+              </template>
+              <template>
+                <div class="opts">
+                <iron-icon class="small-icon pull-right" icon="vaadin:edit" title="edit" on-click="_editTrigger">
+                </iron-icon>
+                <iron-icon class="small-icon pull-right" icon="vaadin:copy" title="copy" on-click="">
+                </iron-icon>
+                <iron-icon class="small-icon pull-right" icon="vaadin:trash" title="trash" on-click="">
+                </iron-icon>
+              </div>
+              </template>
+            </vaadin-grid-column>
+          </vaadin-grid>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- 触发器 -->
+    <app-drawer id="editTrigger" align="right" swipe-open class="map-add">
+      <div class="drawer-contents">
+        <edit-trigger>
+        </edit-trigger>
+      </div>
+    </app-drawer>
+  </template>
+
+  <script>
+
+    class listTrigger extends Polymer.Element {
+
+      static get is() { return 'list-trigger'; }
+
+      static get properties() { return {
+        showFilter: {
+          type: Boolean,
+          value: false
+        },
+        showMenu: {
+          type: Boolean,
+          value: false
+        },
+      }}
+      static get observers() { return [
+        '_panelInfoChange(panelInfo)'
+      ]}
+
+      ready() {
+        this.addEventListener('editTrigger-close', this.handleClosePanelMenu.bind(this));
+        super.ready();
+        this._initData();
+        this.queryBuild();
+      }
+
+      handleClosePanelMenu () {
+        this.$.editTrigger.close();
+      }
+      queryBuild(){
+          var rules_basic = {
+          condition: 'AND',
+          rules: [{
+            id: 'price',
+            operator: 'less',
+            value: 10.25
+          }, {
+            condition: 'OR',
+            rules: [{
+              id: 'category',
+              operator: 'equal',
+              value: 2
+            }, {
+              id: 'category',
+              operator: 'equal',
+              value: 1
+            }]
+          }]
+        };
+
+        // $('#builder-basic').queryBuilder({
+        //   plugins: ['bt-tooltip-errors'],
+        //
+        //   filters: [{
+        //     id: 'name',
+        //     label: 'Name',
+        //     type: 'string'
+        //   }, {
+        //     id: 'category',
+        //     label: 'Category',
+        //     type: 'integer',
+        //     input: 'select',
+        //     values: {
+        //       1: 'Books',
+        //       2: 'Movies',
+        //       3: 'Music',
+        //       4: 'Tools',
+        //       5: 'Goodies',
+        //       6: 'Clothes'
+        //     },
+        //     operators: ['equal', 'not_equal', 'in', 'not_in', 'is_null', 'is_not_null']
+        //   }, {
+        //     id: 'in_stock',
+        //     label: 'In stock',
+        //     type: 'integer',
+        //     input: 'radio',
+        //     values: {
+        //       1: 'Yes',
+        //       0: 'No'
+        //     },
+        //     operators: ['equal']
+        //   }, {
+        //     id: 'price',
+        //     label: 'Price',
+        //     type: 'double',
+        //     validation: {
+        //       min: 0,
+        //       step: 0.01
+        //     }
+        //   }, {
+        //     id: 'id',
+        //     label: 'Identifier',
+        //     type: 'string',
+        //     placeholder: '____-____-____',
+        //     operators: ['equal', 'not_equal'],
+        //     validation: {
+        //       format: /^.{4}-.{4}-.{4}$/
+        //     }
+        //   }],
+        //
+        //   rules: rules_basic
+        // });
+
+        $('#btn-reset').on('click', function() {
+          $('#builder-basic').queryBuilder('reset');
+        });
+
+        $('#btn-set').on('click', function() {
+          $('#builder-basic').queryBuilder('setRules', rules_basic);
+        });
+
+        $('#btn-get').on('click', function() {
+          var result = $('#builder-basic').queryBuilder('getRules');
+
+          if (!$.isEmptyObject(result)) {
+            alert(JSON.stringify(result, null, 2));
+          }
+        });
+      }
+      _initData(){
+        var items = [];
+        var headers = ['名称', '描述', '关联对象', '范围', '负责人'];
+        for (var i = 0; i < 30; i++) {
+          items.push({名称: 'Name ' + i, 描述: '描述 ' + i, 关联对象: '关联 ' + i, 范围: '范围 ' + i, 负责人: '负责人 ' + i});
+        }
+        this.headers = headers;
+        this.items = items;
+      }
+      _showFilter(){
+        this.showFilter = !this.showFilter;
+      }
+      _hideFilter(){
+        this.showFilter = false;
+      }
+      _showMenu(){
+        this.showMenu = !this.showMenu;
+      }
+      _hideMenu(){
+        this.showMenu = false;
+      }
+
+      _editTrigger(){
+        this.$.editTrigger.open();
+      }
+
+    }
+
+    customElements.define(listTrigger.is, listTrigger);
+
+  </script>
+
+</dom-module>

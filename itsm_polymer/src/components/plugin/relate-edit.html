@@ -45,8 +45,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     .item {
-      /*margin-left: 16px;*/
-      /*margin-right: 16px;*/
+      margin-left: 16px;
+      margin-right: 16px;
     }
 
     .checkboxs {
@@ -103,123 +103,137 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <div class="editContent" current-tree-node={{currentTreeNode}}>
 
-    <div class="item">
+    <div>
       <expansion-panel header="基础">
-        <h6>关系标识</h6>
-        <paper-input id="fieldname" label="关系名称" value="{{currentTreeNode.name}}" char-counter></paper-input>
-        <paper-checkbox class="styled">显示其他名称</paper-checkbox><br>
-        <paper-input label="显示别名" value="{{currentTreeNode.name}}"></paper-input>
-        <paper-textarea label="说明"></paper-textarea>
-        <span>关系详细资料</span>
-        <vaadin-combo-box id="fieldType" label="子对象" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <span>关系类型： 包含</span>
-        <paper-radio-group id="fieldset" selected="a" aria-labelledby="label1">
-          <paper-radio-button name="a">只允许一个子记录</paper-radio-button><br>
-          <paper-radio-button name="b">允许多个子记录</paper-radio-button>
-        </paper-radio-group>
+        <div class="item">
+          <h6>关系标识</h6>
+          <paper-input id="fieldname" label="关系名称" value="{{currentTreeNode.name}}" char-counter></paper-input>
+          <paper-checkbox class="styled">显示其他名称</paper-checkbox><br>
+          <paper-input label="显示别名" value="{{currentTreeNode.name}}"></paper-input>
+          <paper-textarea label="说明"></paper-textarea>
+          <span>关系详细资料</span>
+          <vaadin-combo-box id="fieldType" label="子对象" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <span>关系类型： 包含</span>
+          <paper-radio-group id="fieldset" selected="a" aria-labelledby="label1">
+            <paper-radio-button name="a">只允许一个子记录</paper-radio-button><br>
+            <paper-radio-button name="b">允许多个子记录</paper-radio-button>
+          </paper-radio-group>
+        </div>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="群组">
-        <h6>群组属性</h6>
-        <vaadin-combo-box id="fieldType" label="默认群组成员" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <paper-checkbox class="styled">允许在以下字段中的值来控制$$(PARENTTYPE)$$在这种关系中包含的对象类型</paper-checkbox><br>
-        <vaadin-combo-box label="请选择一个字段" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+        <div class="item">
+          <h6>群组属性</h6>
+          <vaadin-combo-box id="fieldType" label="默认群组成员" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <paper-checkbox class="styled">允许在以下字段中的值来控制$$(PARENTTYPE)$$在这种关系中包含的对象类型</paper-checkbox><br>
+          <vaadin-combo-box label="请选择一个字段" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+        </div>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="约束">
-        <h6>通过约束将子记录链接到父</h6>
-        <paper-radio-group id="fieldset" selected="a" aria-labelledby="label1">
-          <paper-radio-button name="a">使用标准约束</paper-radio-button><br>
-          <paper-radio-button name="b">特定(一般用于多对多关系)</paper-radio-button><br>
-          <paper-radio-button name="c">指定约束</paper-radio-button><br>
-        </paper-radio-group>
+        <div class="item">
+          <h6>通过约束将子记录链接到父</h6>
+          <paper-radio-group id="fieldset" selected="a" aria-labelledby="label1">
+            <paper-radio-button name="a">使用标准约束</paper-radio-button><br>
+            <paper-radio-button name="b">特定(一般用于多对多关系)</paper-radio-button><br>
+            <paper-radio-button name="c">指定约束</paper-radio-button><br>
+          </paper-radio-group>
 
-        <vaadin-grid aria-label="Two-way Binding Example" items="[[items]]">
+          <vaadin-grid aria-label="Two-way Binding Example" items="[[items]]">
 
-          <vaadin-grid-column width="50px">
-            <template class="header">序列</template>
-            <template>
-              <div>[[item.id]]</div>
-            </template>
-          </vaadin-grid-column>
+            <vaadin-grid-column width="50px">
+              <template class="header">序列</template>
+              <template>
+                <div>[[item.id]]</div>
+              </template>
+            </vaadin-grid-column>
 
-          <vaadin-grid-column>
-            <template class="header">左值</template>
-            <template>
-              <select>
-                <option value="0"></option>
-                <option value="1">DIVCSS5</option>
-                <option value="2">DIVCSS5</option>
-              </select>
-            </template>
-          </vaadin-grid-column>
+            <vaadin-grid-column>
+              <template class="header">左值</template>
+              <template>
+                <select>
+                  <option value="0"></option>
+                  <option value="1">DIVCSS5</option>
+                  <option value="2">DIVCSS5</option>
+                </select>
+              </template>
+            </vaadin-grid-column>
 
-          <vaadin-grid-column>
-            <template class="header">运算符</template>
-            <template>
-              <select name="">
-                <option value="0"></option>
-                <option value="1">DIVCSS5</option>
-                <option value="2">DIVCSS5</option>
-              </select>
-            </template>
-          </vaadin-grid-column>
+            <vaadin-grid-column>
+              <template class="header">运算符</template>
+              <template>
+                <select name="">
+                  <option value="0"></option>
+                  <option value="1">DIVCSS5</option>
+                  <option value="2">DIVCSS5</option>
+                </select>
+              </template>
+            </vaadin-grid-column>
 
-          <vaadin-grid-column>
-            <template class="header">右值</template>
-            <template>
-              <select name="">
-                <option value="0"></option>
-                <option value="1">DIVCSS5</option>
-                <option value="2">DIVCSS5</option>
-              </select>
-            </template>
-          </vaadin-grid-column>
+            <vaadin-grid-column>
+              <template class="header">右值</template>
+              <template>
+                <select name="">
+                  <option value="0"></option>
+                  <option value="1">DIVCSS5</option>
+                  <option value="2">DIVCSS5</option>
+                </select>
+              </template>
+            </vaadin-grid-column>
 
-        </vaadin-grid>
+          </vaadin-grid>
 
-        <paper-checkbox class="styled">不将标准约束推送到新的子记录</paper-checkbox>
+          <paper-checkbox class="styled">不将标准约束推送到新的子记录</paper-checkbox>
+        </div>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="推送数据">
-        <h6>将数据推送到新的子记录</h6>
-        <field-annotation></field-annotation>
-        <paper-checkbox class="styled">只有当链接新的子记录是增加数据</paper-checkbox>
+        <div class="item">
+          <h6>将数据推送到新的子记录</h6>
+          <field-annotation></field-annotation>
+          <paper-checkbox class="styled">只有当链接新的子记录是增加数据</paper-checkbox>
+        </div>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="验证">
-        <h6>验证约束</h6>
-        <field-annotation></field-annotation>
+        <div class="item">
+          <h6>验证约束</h6>
+          <field-annotation></field-annotation>
+        </div>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="高级">
-        <h6>高级属性</h6>
-        <div class="checkboxss">
-          <paper-checkbox class="styled">允许嵌入具有特殊目的子记录</paper-checkbox>
+        <div class="item">
+          <h6>高级属性</h6>
+          <div class="checkboxss">
+            <paper-checkbox class="styled">允许嵌入具有特殊目的子记录</paper-checkbox>
+          </div>
+          <vaadin-combo-box disabled id="calculate" label="类型字段" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <div class="checkboxss">
+            <paper-checkbox  class="styled">只读关系</paper-checkbox><br>
+            <paper-checkbox disabled class="styled">这种关系代表了一个层次结构</paper-checkbox>
+          </div>
+          <h6>高级属性</h6>
+          <paper-textarea label=""></paper-textarea>
+          <paper-button raised>添加</paper-button>
+          <paper-button raised>编辑</paper-button>
+          <paper-button raised>删除</paper-button>
+          <paper-button raised>编辑XML...</paper-button>
+          <paper-button raised>许可</paper-button>
         </div>
-        <vaadin-combo-box disabled id="calculate" label="类型字段" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <div class="checkboxss">
-          <paper-checkbox  class="styled">只读关系</paper-checkbox><br>
-          <paper-checkbox disabled class="styled">这种关系代表了一个层次结构</paper-checkbox>
-        </div>
-        <h6>高级属性</h6>
-        <paper-textarea label=""></paper-textarea>
-        <paper-button raised>添加</paper-button>
-        <paper-button raised>编辑</paper-button>
-        <paper-button raised>删除</paper-button>
-        <paper-button raised>编辑XML...</paper-button>
-        <paper-button raised>许可</paper-button>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="注解">
-        <h6>注解</h6>
-        <field-annotation></field-annotation>
+        <div class="item">
+          <h6>注解</h6>
+          <field-annotation></field-annotation>
+        </div>
       </expansion-panel>
     </div>
     <div class="footbtn">

@@ -9,6 +9,7 @@
 
 <link rel="import" href="../lazy-library.html">
 <link rel="import" href="../css/form/polymer-gridstack-style.html">
+<link rel="import" href="../css/appDrawer-styles.html">
 <link rel="import" href="../components/form/lazy-controls.html">
 <script src="../lib/utils.js"></script>
 
@@ -24,7 +25,7 @@
     <!-- <link rel="stylesheet" type="text/css" href="../../dist/dhtmlx/dhtmlx.css">
     <link rel="stylesheet" type="text/css" href="../../dist/dhtmlx/dhtmlxfbext.css">
     <link rel="stylesheet" type="text/css" href="../../dist/dhtmlx/formbuilder.css"> -->
-    <style include="polymer-gridstack-style iron-flex">
+    <style include="polymer-gridstack-style iron-flex appDrawer-styles">
       :host {
         display: block;
         --background-color:#ff817b;
@@ -45,7 +46,7 @@
       }
 
       .container-grid {
-        margin-left: 210px;
+        /*margin-left: 420px;*/
         margin-top: 10px;
         /*padding: 10px;*/
         box-shadow: 0 2px 4px rgba(0,0,0,0.04),0 1px 4px rgba(0,0,0,0.12);
@@ -53,6 +54,9 @@
         border: 1px solid #ddd;
         /*height: calc(100vh - 80px);
         overflow-y: auto;*/
+      }
+      .form-layout.collapsed .container-grid {
+        /*margin-left: 40px;*/
       }
       .form-layout {
         position: relative;
@@ -72,10 +76,6 @@
       }
       .remove {
         font-size: 12px;
-      }
-
-      .form-layout.collapsed .container-grid {
-        margin-left: 40px;
       }
 
       .grid-stack-item-content {
@@ -128,7 +128,7 @@
       paper-tabs.header-tabs {
         @apply(--paper-tab-background);
 
-        height: 40px;
+        height: 42px;
         border-bottom: 1px solid #ddd;
         padding-left: 5px;
 
@@ -149,7 +149,7 @@
         overflow-y: auto;
       }
       paper-tabs.drawer-tabs {
-        height: 40px;
+        height: 54px;
         font-weight: normal;
 
         --paper-tabs-selection-bar-color: #fff;
@@ -161,8 +161,10 @@
         }
       }*/
       .lay_block > .lay_column {
-        border-left: 1px solid #ddd;
+        border-left: 1px dotted #dfdfdf;
         min-height: 100px;
+        padding-left: 10px;
+        padding-right: 10px;
       }
       .lay_block > .lay_column:first-child {
         border-left: none;
@@ -171,8 +173,12 @@
         padding: 10px;
       }
       .lay_column .lay_block.row {
-        margin: 0;
-        border: 1px solid #ddd;
+        margin: 10px 0 0;
+        border: 1px solid #dfdfdf;
+      }
+
+      .generate-grid .lay_block.row, .generate-grid .lay_block > .lay_column {
+        border: none;
       }
     </style>
 
@@ -181,9 +187,10 @@
     <div class="device-md visible-md"></div>
     <div class="device-lg visible-lg"></div>
     <div class="device-xl visible-xl"></div>
-    <div class="container-fluid form-layout" id="formLayout">
+    <div class="container-fluid form-layout layout horizontal" id="formLayout">
+        <business-tree></business-tree>
         <control-tree></control-tree>
-        <div class="container-grid">
+        <div class="container-grid flex">
           <paper-tabs class="header-tabs" selected="{{viewType}}" scrollable hide-scroll-buttons>
             <paper-tab>表单设计</paper-tab>
             <paper-tab>设计预览</paper-tab>
@@ -201,7 +208,7 @@
                     <div class="grid-stack grid-stack-6" id="gridStack2">
                     </div>
                 </div> -->
-                <div class="col-md-12 lay_column" width='12'>
+                <div class="col-md-12 lay_column" width='12' id="col_treeLeft_1">
                   <div class="grid-stack" id="gridStack">
                   </div>
                   <!-- <div class="lay_block row"><div class="col-md-12 lay_column"><div class="grid-stack" id="gridStack2"></div><operation-menu></operation-menu></div></div> -->
@@ -210,8 +217,12 @@
               </div>
               <!-- <div id="formBuilder" style="width:100%;height:400px"></div> -->
             </section>
-            <section class="tab-content" id="designPreview">
-              <div class="grid-stack generate-grid" id="generateGrid">
+            <section class="tab-content generate-grid" id="designPreview">
+              <div class="lay_block row">
+                <!-- <div class="col-md-12 lay_column" width='12'>
+                  <div class="grid-stack generate-grid" id="generateGrid">
+                  </div>
+                </div> -->
               </div>
             </section>
           </iron-pages>
@@ -221,7 +232,7 @@
 
         <app-drawer id="controlConfigDrawer" align="right" swipe-open class="map-add">
           <div class="drawer-contents">
-            <app-toolbar class="add-header">
+            <app-toolbar class="add-header drawer-header">
               <div class="flex">
                 <!-- [[activeProperties.Category]] 控件属性 -->
                 <paper-tabs class="drawer-tabs" selected="{{controlDrawerType}}" autoselect scrollable hide-scroll-buttons>
@@ -305,6 +316,7 @@
             type: Number,
             value: 0,
           },
+
         };
       }
 
@@ -317,6 +329,7 @@
         this.addEventListener('close-drawer', this.hideConfigDrawer.bind(this));
         this.addEventListener('add-new', this._addNew.bind(this));
         this.addEventListener('remove-new', this._removeNew.bind(this));
+        this.addEventListener('select-control', this._selectControl.bind(this));
         super.ready();
 
       }
@@ -333,6 +346,10 @@
 
       _pageChanged(page) {
         if (page === 'form') {
+          var _businessTree = this.root.querySelector('business-tree');
+          if (_businessTree) {
+            _businessTree._initTree();
+          }
           var _controlTree = this.root.querySelector('control-tree');
           if (_controlTree) {
             _controlTree._initTree();
@@ -344,6 +361,7 @@
 
       _setAvtiveControl(e) {
         var _control = e.detail.control, _isDelete = e.detail.isDelete;
+        var _businessTree = this.root.querySelector('business-tree');
         var _controlTree = this.root.querySelector('control-tree');
         if (_isDelete) {
           _controlTree._cancelSelectControlNode(_control.Category);
@@ -363,14 +381,18 @@
           activeProperties[key] = this.activeControl[key];
         }
         this.activeProperties = activeProperties;
-        _controlTree._selectControlNode(activeProperties.Category);
-        console.log(_controlTree.selectNode);
-        this.activeControl.fieldPropertites = _controlTree.selectNode;
-        this.activeFieldProperties = _controlTree.selectNode;
+        _businessTree._selectControlNode(activeProperties.Category);
+        var _controlItem = _control.parentNode.parentNode;
+        if (_controlItem.id) {
+          _controlTree._selectControlNode(_controlItem.id);
+        }
+        // console.log(_businessTree.selectNode);
+        this.activeControl.fieldPropertites = _businessTree.selectNode;
+        this.activeFieldProperties = _businessTree.selectNode;
       }
 
       _clearActiveItem() {
-        var _activeItem = this.$.gridStack.querySelector('.grid-stack-item-content.active');
+        var _activeItem = this.root.querySelector('.grid-stack-item-content.active');
         if (_activeItem && _activeItem.classList.contains('active')) {
           _activeItem.classList.remove('active');
         }
@@ -452,6 +474,7 @@
         // $(this.$.gridStack).on('change', function(event, items) {
         //     serializeWidgetMap(items);
         // });
+        var _controlTree = this.root.querySelector('control-tree');
         var _this = this;
         $(this.$.gridStack).on('added', function(event, items) {
           for (var i = 0; i < items.length; i++) {
@@ -464,6 +487,9 @@
               _control.Position = { x: items[i].x, y: items[i].y };
               _control.Size = { width: items[i].width, height: items[i].height };
             }
+            var parentEl = element.parentNode.parentNode;
+            // console.log(element.id, parentEl.id);
+            _controlTree.moveTreeNode(parentEl.id, element.id);
           }
         });
 
@@ -471,7 +497,7 @@
             var grid = this;
             var element = event.target;
             var node = $(element).data('_gridstack_node');
-            var _control = element.firstChild.firstChild;
+            var _control = element.firstChild.lastChild;
             if (_control) {
               _control.Position = {
                 x: node.x, y: node.y
@@ -480,7 +506,8 @@
                 width: node.width, height: node.height
               }
             }
-            // console.log(_control);
+            console.log(node);
+            console.log(_control);
         });
 
         // console.log(this.grid);
@@ -530,8 +557,9 @@
         //     1, 1, 2, 1);
 
         if (html) {
+          var _nodeId = this._addTreeNodes({ parentId: 'col_treeLeft_1', name: _node.name });
           this.isFormShown = false;
-          this.grid.addWidget($('<div class="grid-stack-item"><div class="grid-stack-item-content"><remove-widget-link></remove-widget-link>'+ html +'</div></div>'),
+          this.grid.addWidget($('<div class="grid-stack-item" id="item_' + _nodeId + '"><div class="grid-stack-item-content"><remove-widget-link></remove-widget-link>'+ html +'</div></div>'),
               1, 1, width, 1, true);
         }
 
@@ -583,7 +611,10 @@
         // console.log(els);
         // this.grid.remove_widget(els[1]);
         var _item = e.detail;
-        this.grid.removeWidget(_item);
+        var _grid = _item.parentNode;
+        var _newField = $(_grid).data('gridstack');
+        _newField.removeWidget(_item);
+        this._removeTreeNodes(_item.id);
       }
 
       _saveGrid() {
@@ -608,7 +639,7 @@
         }, this);
         // console.log(this.serializedData);
         // console.log(JSON.stringify(this.serializedData));
-        // this._saveColumn();
+        this._saveColumn();
       }
 
       _generateGrid() {
@@ -624,7 +655,10 @@
       }
 
       _serializedGrid(data) {
-        console.log(data);
+        // console.log(data);
+        if (!this.$.generateGrid) {
+          return;
+        }
         var options = {
             float: true,
             width: 12,
@@ -645,7 +679,7 @@
           if (html) {
             var start = html.indexOf('<'), end = html.indexOf('>');
             var el1 = document.createElement(html.substring(start + 1, end));
-            console.log(_item);
+            // console.log(_item);
             for (var key in _item) {
               el1[key] = _item[key];
             }
@@ -674,11 +708,13 @@
       }
 
       _addNew(e) {
-        var {self, tag} = e.detail;
+        var {self, tag, name} = e.detail;
         if (tag == 1) {
           this._addNewColumn(self);
         } else if (tag == 2) {
           this._addNewBlock(self);
+        } else if (tag == 4) {
+          this._addNewField(self, name);
         }
       }
 
@@ -702,25 +738,44 @@
           });
         }
         // $(_block).append('<div class="col-md-' + _col + ' lay_column"><div class="grid-stack"></div><operation-menu></operation-menu></div>');
-
-        var _layColumn = $('<div class="col-md-' + _col + ' lay_column" width=' + _col + '><div class="grid-stack"></div><operation-menu></operation-menu></div>');
+        var _nodeId = this._addTreeNodes({ parentId: _block.id, name: 'column' });
+        var _colId = _nodeId ? 'col_' + _nodeId : '';
+        var _layColumn = $('<div class="col-md-' + _col + ' lay_column" width=' + _col + ' id="' + _colId+ '"><div class="grid-stack"></div><operation-menu></operation-menu></div>');
         $(_block).append(_layColumn);
         var _grid = _layColumn[0].querySelector('.grid-stack');
-        this._initGridstack(_grid);
+        this._initAddGridstack(_grid);
         var _prev = $(_layColumn).prev();
-        _layColumn[0].style.height = _prev[0].scrollHeight + 'px';
+        _layColumn[0].style.height = _prev[0].clientHeight + 'px';
       }
 
       _addNewBlock(self) {
         var _column = self.parentNode;
+        var _nodeId = this._addTreeNodes({ parentId: _column.id, name: 'block' });
+        var _blockId = _nodeId ? 'block_' + _nodeId : '';
+        var _nodeId2 = this._addTreeNodes({ parentId: _blockId, name: 'column' });
+        var _colId = _nodeId2 ? 'col_' + _nodeId2 : '';
         // $(_column).append('<div class="lay_block row"><div class="col-md-12 lay_column"><div class="grid-stack"></div><operation-menu></operation-menu></div></div>');
-        var _layBlock = $('<div class="lay_block row"><div class="col-md-12 lay_column" width="12"><div class="grid-stack"></div><operation-menu></operation-menu></div></div>');
+        var _layBlock = $('<div class="lay_block row" id="' + _blockId+ '"><div class="col-md-12 lay_column" width="12" id="' + _colId+ '"><div class="grid-stack"></div><operation-menu></operation-menu></div></div>');
         $(_column).append(_layBlock);
         var _grid = _layBlock[0].querySelector('.grid-stack');
-        this._initGridstack(_grid);
+        this._initAddGridstack(_grid);
       }
 
-      _initGridstack(grid) {
+      _addNewField(self, name) {
+        var _column = self.parentNode;
+        var _grid = _column.querySelector('.grid-stack');
+        var _newField = $(_grid).data('gridstack');
+        var {html, width} = this._getWidget(name);
+        if (html) {
+          name = Utils.firstUpperCase(name);
+          var _nodeId = this._addTreeNodes({ parentId: _column.id, name: name });
+          this.isFormShown = false;
+          _newField.addWidget($('<div class="grid-stack-item" id="item_' + _nodeId + '"><div class="grid-stack-item-content"><remove-widget-link></remove-widget-link>'+ html +'</div></div>'),
+              1, 1, width, 1, true);
+        }
+      }
+
+      _initAddGridstack(grid) {
         var options = {
             float: false,
             width: 12,
@@ -733,6 +788,20 @@
         };
         $(grid).gridstack(options);
         // console.log($(grid).data('gridstack'));
+        var _controlTree = this.root.querySelector('control-tree');
+        var _this = this;
+        // $(grid).on('dragstart', function(event, ui) {
+        //
+        // });
+        $(grid).on('added', function(event, items) {
+          for (var i = 0; i < items.length; i++) {
+            var element = items[i].el[0];
+            var parentEl = element.parentNode.parentNode;
+            // var node = $(element).data('_gridstack_node');
+            // console.log(element.id, parentEl.id);
+            _controlTree.moveTreeNode(parentEl.id, element.id);
+          }
+        });
       }
 
       _removeColumn(self) {
@@ -744,9 +813,11 @@
           var _isParent = _block.parentNode.classList.contains('tab-content');
           if (_columns.length > 1) {
             _column.remove();
+            this._removeTreeNodes(_column.id, 1);
           }
           if (!_isParent && _columns.length == 1) {
             _block.remove();
+            this._removeTreeNodes(_block.id, 1);
           }
           _columns = $(_block).find('>.lay_column');
           _col = 12 / _columns.length;
@@ -775,8 +846,68 @@
         var _serialize = {columns: []};
         var _form = this.$.formDesign, _preview = this.$.designPreview;
         var _outBlock = $(_form).children()[0];
-        var _columns = [];
-        _serialize.columns = this._getSerializeColumns(_outBlock);
+        var _layBlock = _preview.querySelector('.lay_block');
+        var _columns = this._getSerializeColumns(_outBlock);
+        _layBlock.innerHTML = null;
+        // console.log(JSON.stringify(_columns));
+        // var _colString = '[{"width":"6","classList":{"0":"col-md-6","1":"lay_column"},"blocks":[{"block":1,"columns":[{"width":"6","classList":{"0":"col-md-6","1":"lay_column"},"blocks":[],"controls":[{"Category":"Input","filed":1,"Position":{"x":0,"y":0},"Size":{"width":2,"height":1}}]},{"width":"6","classList":{"0":"col-md-6","1":"lay_column"},"blocks":[],"controls":[{"Category":"Input","filed":1,"Position":{"x":0,"y":0},"Size":{"width":2,"height":1}}]}]}],"controls":[]},{"width":"6","classList":{"0":"col-md-6","1":"lay_column"},"blocks":[],"controls":[{"Category":"Input","filed":1,"Position":{"x":0,"y":0},"Size":{"width":2,"height":1}}]}]';
+        // var _columns = JSON.parse(_colString);
+        // console.log(_columns);
+
+        this._previewColumns(_columns, _layBlock);
+      }
+
+      _previewColumns(columns, _preview) {
+        var _this = this;
+        // generate columns
+        columns.forEach(function(column, i){
+          // console.log(column);
+          var {blocks, controls} = column;
+          // new column grid-stack
+          var _addCol = $('<div class="col-md-' + column.width + ' lay_column" width=' + column.width + ' id="' + ''+ '"><div class="grid-stack"></div></div>');
+          $(_preview).append(_addCol);
+          var _grid = _addCol[0].querySelector('.grid-stack');
+          var options = {
+              float: false,
+              width: 12,
+              draggable: {
+                handle: '.grid-stack-item-content',
+                scroll: false,
+                appendTo: 'parent'
+              }
+          };
+          $(_grid).gridstack(options);
+          var _colGrid = $(_grid).data('gridstack');
+
+          // generate controls
+          controls.forEach(function(control, j){
+            // console.log(control);
+            var {html, width} = _this._getWidget(control.Category);
+
+            if (html) {
+              var start = html.indexOf('<'), end = html.indexOf('>');
+              var el1 = document.createElement(html.substring(start + 1, end));
+              for (var key in control) {
+                el1[key] = control[key];
+              }
+              el1.isFormShown = true;
+              var _gridItem = $('<div class="grid-stack-item"></div>'), _itemContent = $('<div class="grid-stack-item-content"></div>');
+              _itemContent.append(el1);
+              _gridItem.append(_itemContent);
+              _colGrid.addWidget(_gridItem, control.Position.x, control.Position.y, control.Size.width, control.Size.height);
+              _colGrid.disable();
+            }
+          });
+
+          // generate blocks
+          blocks.forEach(function(block, j){
+            var _layBlock = $('<div class="lay_block row"></div>');
+            _addCol.append(_layBlock);
+            if (block.columns) {
+              _this._previewColumns(block.columns, _layBlock[0]); // generate columns
+            }
+          });
+        });
       }
 
       _getSerializeColumns(outBlock) {
@@ -788,7 +919,10 @@
 
           // get field controls under column
           var _childControls = _.map($(column).find('>.grid-stack > .grid-stack-item'), function(item, k) {
-            return {filed: k + 1};
+            var control = item.firstChild.lastChild;
+            // console.log(control);
+            var node = $(item).data('_gridstack_node');
+            return {Category: control.Category, filed: k + 1, Position: {x: node.x, y: node.y}, Size: {width: node.width, height: node.height}};
           })
 
           // get blocks under column
@@ -801,6 +935,27 @@
         });
         console.log(_columns);
         return _columns;
+      }
+
+      _addTreeNodes(param) {
+        var _tree = this.root.querySelector('control-tree');
+        return _tree.addTreeNodes(param);
+      }
+
+      _removeTreeNodes(parentId, flag) {
+        var _tree = this.root.querySelector('control-tree');
+        _tree.removeTreeNodes(parentId, flag);
+      }
+
+      _selectControl(e) {
+        var {treeId} = e.detail;
+        if (treeId) {
+          this._clearActiveItem();
+          var _activeItem = this.root.querySelector('#item_' + treeId + ' .grid-stack-item-content');
+          if (_activeItem) {
+            _activeItem.classList.add('active');
+          }
+        }
       }
     }
 

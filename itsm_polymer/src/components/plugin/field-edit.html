@@ -42,8 +42,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     .item {
-      /*margin-left: 16px;*/
-      /*margin-right: 16px;*/
+      margin-left: 16px;
+      margin-right: 16px;
     }
 
     .checkboxs {
@@ -100,119 +100,129 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <div class="editContent" current-tree-node={{currentTreeNode}}>
 
-    <div class="item">
-      <expansion-panel header="字段基础" opened>
-        <h6>字段标识</h6>
-        <paper-input id="fieldname" label="字段名称" value="{{currentTreeNode.name}}" char-counter></paper-input>
-        <paper-input label="显示别名" value="{{currentTreeNode.alias}}"></paper-input>
-        <paper-textarea label="说明" always-float-label value="{{currentTreeNode.description}}"></paper-textarea>
-        <vaadin-combo-box id="fieldType" label="字段类型" class="style-scope combo-box-basic-demos" value="{{currentTreeNode.fieldCategory}}"></vaadin-combo-box>
-        <div class="checkboxs">
-          <paper-checkbox  class="styled" checked="{{currentTreeNode.ruleRequired.which}}">必要的</paper-checkbox><br>
-          <paper-checkbox  class="styled" checked="{{currentTreeNode.clearIfReadOnly}}">只读的</paper-checkbox>
+    <div>
+      <expansion-panel header="字段基础">
+        <div class="item">
+          <h6>字段标识</h6>
+          <paper-input id="fieldname" label="字段名称" value="{{currentTreeNode.name}}" char-counter></paper-input>
+          <paper-input label="显示别名" value="{{currentTreeNode.alias}}"></paper-input>
+          <paper-textarea label="说明" always-float-label value="{{currentTreeNode.description}}"></paper-textarea>
+          <vaadin-combo-box id="fieldType" label="字段类型" class="style-scope combo-box-basic-demos" value="{{currentTreeNode.fieldCategory}}"></vaadin-combo-box>
+          <div class="checkboxs">
+            <paper-checkbox  class="styled" checked="{{currentTreeNode.ruleRequired.which}}">必要的</paper-checkbox><br>
+            <paper-checkbox  class="styled" checked="{{currentTreeNode.clearIfReadOnly}}">只读的</paper-checkbox>
+          </div>
+          <vaadin-combo-box id="defaultvalue" label="默认值" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <h6>文本字段属性</h6>
+          <label id="label1">字段长度</label>
+          <paper-radio-group id="fieldset" selected="a" aria-labelledby="label1">
+              <paper-radio-button name="a">
+                <paper-input label="指定长度" value="{{currentTreeNode.length}}" type="number">
+                  <div slot="prefix"></div>
+                </paper-input>
+              </paper-radio-button>
+            <paper-radio-button  name="b">备忘录长度(最大2GB) - 可能不可搜索</paper-radio-button>
+          </paper-radio-group>
+          <div class="checkboxs">
+            <paper-checkbox class="styled">允许回车</paper-checkbox><br>
+            <paper-checkbox class="styled">多格式文本</paper-checkbox><br>
+            <paper-checkbox id="sumaryr" disabled class="styled">摘要</paper-checkbox><br>
+            <paper-checkbox class="styled">允许进行区分大小写的搜索</paper-checkbox><br>
+            <paper-checkbox class="styled">使用Unicod</paper-checkbox>
+          </div>
+          <vaadin-combo-box id="fieldFormat" label="格式" value="无" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
         </div>
-        <vaadin-combo-box id="defaultvalue" label="默认值" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <h6>文本字段属性</h6>
-        <label id="label1">字段长度</label>
-        <paper-radio-group id="fieldset" selected="a" aria-labelledby="label1">
-            <paper-radio-button name="a">
-              <paper-input label="指定长度" value="100" type="number">
-                <div slot="prefix"></div>
-              </paper-input>
-            </paper-radio-button>
-          <paper-radio-button  name="b">备忘录长度(最大2GB) - 可能不可搜索</paper-radio-button>
-        </paper-radio-group>
-        <div class="checkboxs">
-          <paper-checkbox  class="styled">允许回车</paper-checkbox><br>
-          <paper-checkbox  class="styled">多格式文本</paper-checkbox><br>
-          <paper-checkbox id="sumaryr" disabled class="styled">摘要</paper-checkbox><br>
-          <paper-checkbox  class="styled">允许进行区分大小写的搜索</paper-checkbox><br>
-          <paper-checkbox  class="styled">使用Unicod</paper-checkbox>
-        </div>
-        <vaadin-combo-box id="fieldFormat" label="格式" value="无" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
       </expansion-panel>
     </div>
 
-    <div class="item">
+    <div>
       <expansion-panel header="高级">
-        <div class="checkboxss">
-          <paper-checkbox id="calculate_ctrl"  class="styled">计算字段中的值</paper-checkbox><br>
+        <div class="item">
+          <div class="checkboxss">
+            <paper-checkbox id="calculate_ctrl"  class="styled">计算字段中的值</paper-checkbox><br>
+          </div>
+          <vaadin-combo-box disabled id="calculate" always-float-label label="计算" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <label id="label2">重载字段时重新计算其值的时间:</label>
+          <paper-radio-group id="calculate_sub" selected="a" aria-labelledby="label2">
+            <paper-radio-button disabled  name="a">始终</paper-radio-button><br>
+            <paper-radio-button disabled  name="b">从不</paper-radio-button><br>
+            <paper-radio-button disabled  name="c">仅在值为空时</paper-radio-button>
+          </paper-radio-group>
+          <vaadin-combo-box label="保存值前" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <div class="checkboxss">
+            <paper-checkbox  class="styled">这是加密字段</paper-checkbox><br>
+            <paper-checkbox  class="styled">普通搜索的字段</paper-checkbox><br>
+            <paper-checkbox  checked class="styled">窗体上允许字段</paper-checkbox><br>
+            <paper-checkbox  class="styled">清空字段值</paper-checkbox><br>
+            <paper-checkbox  checked class="styled">网格上允许字段</paper-checkbox>
+          </div>
+          <div class="btns">
+            <paper-button raised class="custom green">XML</paper-button>
+            <paper-button raised class="custom green">许可</paper-button>
+          </div>
+          <h6>数据库</h6>
+          <div class="checkboxss">
+            <paper-checkbox  class="styled">索引字段</paper-checkbox><br>
+            <paper-checkbox  checked class="styled">存储字段</paper-checkbox><br>
+            <paper-checkbox  class="styled">支持全文搜索</paper-checkbox><br>
+            <paper-checkbox id="savenamectrl"  class="styled">不同存储名称</paper-checkbox><br>
+            <paper-input id="showalias" disabled label="ShowAlias"></paper-input>
+          </div>
+          <h6>DPE引擎</h6>
+          <paper-checkbox  class="styled">事件发送到业务流程引擎</paper-checkbox><br>
         </div>
-        <vaadin-combo-box disabled id="calculate" always-float-label label="计算" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <label id="label2">重载字段时重新计算其值的时间:</label>
-        <paper-radio-group id="calculate_sub" selected="a" aria-labelledby="label2">
-          <paper-radio-button disabled  name="a">始终</paper-radio-button><br>
-          <paper-radio-button disabled  name="b">从不</paper-radio-button><br>
-          <paper-radio-button disabled  name="c">仅在值为空时</paper-radio-button>
-        </paper-radio-group>
-        <vaadin-combo-box label="保存值前" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <div class="checkboxss">
-          <paper-checkbox  class="styled">这是加密字段</paper-checkbox><br>
-          <paper-checkbox  class="styled">普通搜索的字段</paper-checkbox><br>
-          <paper-checkbox  checked class="styled">窗体上允许字段</paper-checkbox><br>
-          <paper-checkbox  class="styled">清空字段值</paper-checkbox><br>
-          <paper-checkbox  checked class="styled">网格上允许字段</paper-checkbox>
-        </div>
-        <div class="btns">
-          <paper-button raised class="custom green">XML</paper-button>
-          <paper-button raised class="custom green">许可</paper-button>
-        </div>
-        <h6>数据库</h6>
-        <div class="checkboxss">
-          <paper-checkbox  class="styled">索引字段</paper-checkbox><br>
-          <paper-checkbox  checked class="styled">存储字段</paper-checkbox><br>
-          <paper-checkbox  class="styled">支持全文搜索</paper-checkbox><br>
-          <paper-checkbox id="savenamectrl"  class="styled">不同存储名称</paper-checkbox><br>
-          <paper-input id="showalias" disabled label="ShowAlias"></paper-input>
-        </div>
-        <h6>DPE引擎</h6>
-        <paper-checkbox  class="styled">事件发送到业务流程引擎</paper-checkbox><br>
       </expansion-panel>
     </div>
 
-    <div class="item">
+    <div>
       <expansion-panel header="验证">
-        <label id="label3">验证选项</label><br>
-        <paper-radio-group id="validatagroup" selected="a" aria-labelledby="label3">
-          <paper-radio-button  name="a">不验证</paper-radio-button><br>
-          <paper-radio-button  name="b">值范围</paper-radio-button><br>
-          <paper-radio-button  name="c">值列表</paper-radio-button><br>
-          <paper-radio-button  name="d">其他业务对象</paper-radio-button><br>
-          <paper-radio-button  name="e">操作时数日程表</paper-radio-button><br>
-          <paper-radio-button  name="f">正则表达式</paper-radio-button><br>
-          <paper-radio-button  name="g">指定的表达式</paper-radio-button>
-        </paper-radio-group>
-        <paper-input id="showempname" disabled label="显示员工名称"></paper-input>
+        <div class="item">
+          <label id="label3">验证选项</label><br>
+          <paper-radio-group id="validatagroup" selected="a" aria-labelledby="label3">
+            <paper-radio-button  name="a">不验证</paper-radio-button><br>
+            <paper-radio-button  name="b">值范围</paper-radio-button><br>
+            <paper-radio-button  name="c">值列表</paper-radio-button><br>
+            <paper-radio-button  name="d">其他业务对象</paper-radio-button><br>
+            <paper-radio-button  name="e">操作时数日程表</paper-radio-button><br>
+            <paper-radio-button  name="f">正则表达式</paper-radio-button><br>
+            <paper-radio-button  name="g">指定的表达式</paper-radio-button>
+          </paper-radio-group>
+          <paper-input id="showempname" disabled label="显示员工名称"></paper-input>
+        </div>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="自动填写">
-        <h6>字段自动填写选项</h6>
-        <paper-checkbox id="autofillctrl"  class="styled">自动填写字段</paper-checkbox><br>
-        <div class="autofill">
-          <h6>自动填充&nbsp;&nbsp;属性</h6>
-          <h6>自动填写触发器</h6>
-          <vaadin-combo-box id="selectObj" always-float-label label="选择一个业务对象" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-          <vaadin-combo-box id="selectfield" always-float-label label="选择字段" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-          <h6>填充值</h6>
-          <vaadin-combo-box id="fillvalue" always-float-label label="填充值" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-          <div class="checkboxss">
-            <paper-checkbox  class="styled">仅在值为空时</paper-checkbox><br>
-            <paper-checkbox  class="styled">允许其他自动填充规则将字段用作触发器</paper-checkbox>
+        <div class="item">
+          <h6>字段自动填写选项</h6>
+          <paper-checkbox id="autofillctrl"  class="styled">自动填写字段</paper-checkbox><br>
+          <div class="autofill">
+            <h6>自动填充&nbsp;&nbsp;属性</h6>
+            <h6>自动填写触发器</h6>
+            <vaadin-combo-box id="selectObj" always-float-label label="选择一个业务对象" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+            <vaadin-combo-box id="selectfield" always-float-label label="选择字段" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+            <h6>填充值</h6>
+            <vaadin-combo-box id="fillvalue" always-float-label label="填充值" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+            <div class="checkboxss">
+              <paper-checkbox  class="styled">仅在值为空时</paper-checkbox><br>
+              <paper-checkbox  class="styled">允许其他自动填充规则将字段用作触发器</paper-checkbox>
+            </div>
           </div>
         </div>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="注解">
-        <field-annotation></field-annotation>
-        <label id="label4">特殊注解</label><br>
-        <paper-radio-group id="annotation" selected="d" aria-labelledby="label4">
-          <paper-radio-button  name="a">它是说明性文字字段</paper-radio-button><br>
-          <paper-radio-button  name="b">它是电子邮件地址</paper-radio-button><br>
-          <paper-radio-button  name="c">它是电话号码</paper-radio-button><br>
-          <paper-radio-button  name="d">无</paper-radio-button>
-        </paper-radio-group>
+        <div class="item">
+          <field-annotation></field-annotation>
+          <label id="label4">特殊注解</label><br>
+          <paper-radio-group id="annotation" selected="d" aria-labelledby="label4">
+            <paper-radio-button  name="a">它是说明性文字字段</paper-radio-button><br>
+            <paper-radio-button  name="b">它是电子邮件地址</paper-radio-button><br>
+            <paper-radio-button  name="c">它是电话号码</paper-radio-button><br>
+            <paper-radio-button  name="d">无</paper-radio-button>
+          </paper-radio-group>
+        </div>
       </expansion-panel>
     </div>
     <div class="footbtn">

@@ -3,6 +3,13 @@
 <template>
 <style>
   @charset "UTF-8";
+  :host{
+    --app-drawer-width: 400px !important;
+    --app-drawer-height: 100% !important;
+  }
+  app-drawer{
+    z-index: 1003;    
+  }
   .drawer-header{
     background: #3399CC;
     color: #fff;
@@ -93,11 +100,14 @@
   .drawer-con{
     --paper-input-container-label: {font-size: 17px; font-weight: bold;};
     --paper-input-container-input: {font-size: 14px !important; color: #666;};
+    --vaadin-combo-box-container-label: {font-size: 17px; font-weight: bold;};
+    --vaadin-combo-box-container-input: {font-size: 14px !important; color: #666;};
     --paper-item: {font-size: 14px; cursor: pointer;}
     --paper-item-min-height: 30px;
     --paper-checkbox-label: {font-size: 14px};
     --paper-radio-button-label: {font-size: 14px;};
     --paper-radio-group-item-padding: 12px 24px 12px 0;
+    --paper-font-subhead:{font-size:14px;};
   }
   .drawer-con paper-swatch-picker{
     --paper-menu-button:{padding:0;};

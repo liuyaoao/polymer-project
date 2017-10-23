@@ -45,7 +45,7 @@
         var gridItem = this.parentNode.parentNode;
         if (gridItem.classList.contains('grid-stack-item')) {
           if (this.parentNode && this.parentNode.classList.contains('active')) {
-            console.log(this.parentNode.lastChild);
+            // console.log(this.parentNode.lastChild);
             this.dispatchEvent(new CustomEvent('set-active-control', {
               detail: { control: this.parentNode.lastChild, isDelete: true},
               bubbles: true, composed: true

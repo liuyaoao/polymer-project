@@ -7,7 +7,7 @@
 <script src="../../../../js/tree-js/jquery.ztree.excheck.min.js"></script>
 <script src="../../../../js/tree-js/jquery.ztree.exedit.min.js"></script>
 
-<dom-module id="control-tree">
+<dom-module id="business-tree">
   <template>
     <link rel="stylesheet" href="../../../css/tree-css/zTreeStyle/zTreeStyle.css" />
     <style include="iron-flex">
@@ -17,7 +17,7 @@
       .left-tree {
         /*position: absolute;
         top: 10px;
-        left: 225px;*/
+        left: 15px;*/
         width: 200px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.04),0 1px 4px rgba(0,0,0,0.12);
         height: calc(100vh - 76px);
@@ -31,7 +31,7 @@
         font-size: 14px;
         text-align: left;
         padding-left: 5px;
-        background-color: #3399cc;
+        background-color: #3b3b3b;
         color: #fff;
       }
       .left-tree .ztree {
@@ -44,7 +44,7 @@
       }
       :host(.collapsed) .left-tree {
         width: 30px;
-        background-color: #3399cc;
+        background-color: #3b3b3b;
         position: relative;
       }
       :host(.collapsed) .left-tree .ztree {
@@ -82,11 +82,11 @@
 
     <div class="left-tree">
       <div class="tree-header layout horizontal">
-        <div class="flex">控件树</div>
+        <div class="flex">定义集</div>
         <paper-icon-button icon="chevron-left" on-tap="_collapsedTree"></paper-icon-button>
       </div>
-      <ul id="treeLeft" class="ztree"></ul>
-      <div class="hdr-text">控件树</div>
+      <ul id="businessTreeLeft" class="ztree"></ul>
+      <div class="hdr-text">定义集</div>
     </div>
 
   </template>
@@ -96,8 +96,8 @@
      * @customElement
      * @polymer
      */
-    class ControlTree extends Polymer.Element {
-      static get is() { return 'control-tree'; }
+    class BusinessTree extends Polymer.Element {
+      static get is() { return 'business-tree'; }
       static get properties() {
         return {
           zTree: {
@@ -118,12 +118,15 @@
       _initTree() {
         // dropRoot:false
         var zNodes =[
-    			{ name:"column", open:true,
+    			{ name:"Controls", open:true,
     				children: [
-              // { name:"block", children: [
-              //   {name: 'column', children: []},
-              //   {name: 'field'},
-              // ]},
+              { name:"Button"},
+              { name:"Checkbox"},
+              { name:"Input"},
+              { name:"Label"},
+              { name:"Radio"},
+              { name:"Select"},
+              // { name:"LabelInput"}
             ]
           },
 
@@ -146,12 +149,11 @@
     				// beforeClick: beforeClick,
     				onClick: onClick,
             // beforeDrag: beforeDrag,
-            // beforeExpand: beforeExpand,
     			}
         };
         var _this = this;
         function onClick(event, treeId, treeNode, clickFlag) {
-          _this._selectControl(treeNode);
+          _this.addNewWidget(treeNode);
     		}
         function dropPrev(treeId, nodes, targetNode) {
     			var pNode = targetNode.getParentNode();
@@ -211,11 +213,7 @@
     			return true;
     		}
 
-        function beforeExpand(treeId, treeNode) {
-    			return (treeNode.expand !== false);
-    		}
-
-        this.zTree.init($(this.$.treeLeft), setting, zNodes);
+        this.zTree.init($(this.$.businessTreeLeft), setting, zNodes);
         return;
 
         var _this = this;
@@ -307,7 +305,7 @@
 
             console.log(zNodes);
 
-            $.fn.zTree.init($(_this.$.treeLeft), setting, zNodes);
+            $.fn.zTree.init($(_this.$.businessTreeLeft), setting, zNodes);
           },
           error: function(error){
             console.log("errorMsg",error);
@@ -315,13 +313,11 @@
         });
       }
 
-      _selectControl(treeNode) {
-        this.dispatchEvent(new CustomEvent('select-control', {
-          detail: { treeId: treeNode.tId},
+      addNewWidget(node) {
+        this.dispatchEvent(new CustomEvent('add-widget', {
+          detail: { node: node},
           bubbles: true, composed: true
         }));
-        var _businessTree = this.parentNode.querySelector('business-tree');
-        _businessTree._selectControlNode(treeNode.name);
       }
 
       _collapsedTree() {
@@ -336,17 +332,20 @@
         // _class.toggle('collapsed');
       }
 
-      _selectControlNode(tId) {
-        var treeObj = this.zTree && this.zTree.getZTreeObj('treeLeft');
+      _selectControlNode(category) {
+        var treeObj = this.zTree && this.zTree.getZTreeObj('businessTreeLeft');
         if (treeObj) {
-          var node = treeObj.getNodeByTId(tId);
-          // console.log(node);
-          treeObj.selectNode(node);
+          var parentNodes = treeObj.getNodes();
+          var nodes = parentNodes.length && treeObj.getNodesByParam("name", category, parentNodes[0]);
+          if (nodes.length) {
+            this.selectNode = nodes[0];
+            treeObj.selectNode(nodes[0]);
+          }
         }
       }
 
       _cancelSelectControlNode(category) {
-        var treeObj = this.zTree && this.zTree.getZTreeObj('treeLeft');
+        var treeObj = this.zTree && this.zTree.getZTreeObj('businessTreeLeft');
         if (treeObj) {
           var selectedNodes = treeObj.getSelectedNodes();
           if (selectedNodes.length) {
@@ -356,41 +355,8 @@
         }
       }
 
-      addTreeNodes(param) {
-        var {parentId, name} = param;
-        var treeObj = this.zTree && this.zTree.getZTreeObj('treeLeft');
-        if (treeObj) {
-          // parentId = parentId && parentId.replace('block_', '').replace('col_', '');
-          var addPnode = parentId ? treeObj.getNodeByTId(parentId) : null;
-          var newNode = {name: name};
-          newNode = treeObj.addNodes(addPnode, newNode);
-          return newNode[0].tId;
-        }
-        return null;
-      }
-
-      removeTreeNodes(parentId, flag) {
-        var treeObj = this.zTree && this.zTree.getZTreeObj('treeLeft');
-        if (treeObj) {
-          // parentId = parentId && parentId.replace('block_', '').replace('col_', '').replace('item_', '');
-          var parentNode = parentId ? treeObj.getNodeByTId(parentId) : null;
-          if (flag) {
-            treeObj.removeChildNodes(parentNode);
-          }
-          treeObj.removeNode(parentNode);
-        }
-      }
-
-      moveTreeNode(parentId, tId) {
-        var treeObj = this.zTree && this.zTree.getZTreeObj('treeLeft');
-        if (treeObj) {
-          var targetNode = treeObj.getNodeByTId(parentId), node = treeObj.getNodeByTId(tId);
-          treeObj.moveNode(targetNode, node, 'inner');
-        }
-      }
-
     }
 
-    customElements.define(ControlTree.is, ControlTree);
+    customElements.define(BusinessTree.is, BusinessTree);
   </script>
 </dom-module>

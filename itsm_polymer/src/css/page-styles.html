@@ -3,6 +3,12 @@
 <template>
 <style>
   @charset "UTF-8";
+  .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
   .login_bg{
     position: fixed;
     left:0;
@@ -225,14 +231,138 @@
     .wrapper-panel .panel-header .small-icon{
       margin:7px 5px 0 0;
     }
-    .wrapper-panel .panel-header h5{
+    .wrapper-container .title{
+      margin: 15px 0;
+      border-bottom: 3px solid #ebebeb;
+      height: auto;
+      overflow: visible;
+      position: relative;
+      z-index: 2;
+    }
+
+    .title-text{
+      display: inline-block;
+      line-height: 39px;
+      margin-bottom: 10px;
+    }
+    .title-text iron-icon{
+      margin-right: 10px;
+    }
+    .filter{
+      width: 200px;
+      height: auto;
+      --paper-dropdown-menu:{float:left; width:200px;margin-right: 20px;};
+      --paper-input-container:{float:left; width:200px; margin-right: 20px;};
+      --paper-input-container-shared-input: {line-height: 30px;};
+      --paper-input-container-label: {font-size: 14px; font-weight: bold;};
+      --paper-input-container-input: {font-size: 14px !important; color: #666;};
+    }
+    .filter paper-input{
+      width: 200px;
+      margin-right: 20px;
+    }
+    .filter .input-wrapper{
+      line-height: 24px;
+      height: 24px;
+    }
+    .filter paper-button{
+      float:right;
+      display: inline-block;
+      --paper-button:{background-color: #61c179;color:#fff;padding:0.6em;min-width:4.6em;text-align: center;font-size: 12px;margin-top:2em};
+    }
+    .title-menu{
+      float: right;
+      width: 300px;
+      margin-top: 7px;
+      --paper-tabs:{
+        background-color: #ddd;
+        color:#333;
+      };
+      --paper-tab:{padding:0 2px};
+      --paper-tabs-selection-bar-color: #333;
+    }
+    .wrapper-container .panel-header h5{
       font-size: 16px;
       line-height: 40px;
       margin:0 15px;
       display: inline-block;
       font-family: Arial;
+      margin:0 15px;
+      color: #fff;
+      font-weight: normal;
+    }
+    .wrapper-container .panel-header{
+      height: 35px;
+      line-height: 35px;
+      border-radius:4px 4px 0 0;
+      background-color: #18BCF2;
+      position: relative;
+      z-index: 1;
+    }
+    .wrapper-container .panel-header .opts{
+      position: absolute;
+      right: 15px;
+      top:0;
+      color: #fff;
+    }
+    .wrapper-container .buttons{
+      float: right;
+      background-color: #e5e5e5;
+      position: relative;
+      overflow: visible;
+      --iron-icon:{width: 18px; height:18px; margin-right: 5px};
+    }
+    .wrapper-container .buttons paper-button{
+      font-size: 14px;
+
+    }
+    .panel-header h5{
+      display: inline-block;
+      margin:0 15px;
+      line-height: 40px;
+    }
+    .title .dropdown{
+      position: absolute;
+      right:0;
+      top:47px;
+      background-color: #fff;
+      width: 217px;
+      height: auto;
+      overflow: hidden;
+      padding: 2px 8px 10px 10px;
+      border: 1px solid #dbdbdb;
+      box-shadow: 3px 3px 7px #999;
     }
 
+    .title .dropdown.menu ul{
+      padding:0;
+      margin:5px 0;
+    }
+    .title .dropdown.menu li{
+      list-style: none;
+      display: block;
+      line-height: 35px;
+      height: 35px;
+      font-weight: normal;
+      padding: 0 10px;
+      border-bottom: dashed 1px #ddd;
+      margin-bottom: 5px;
+    }
+    #grid{
+      /*vaadin-grid-cell-content*/
+      font-size: 15px;
+      padding: 0 0 0 7px;
+    }
+    #grid .opts{
+      width: 120px;
+      --iron-icon:{
+        width: 20px;
+        height: 20px;
+        margin:0 10px;
+        color: #666;
+        cursor: pointer;
+      }
+    }
 </style>
 </template>
 </dom-module>

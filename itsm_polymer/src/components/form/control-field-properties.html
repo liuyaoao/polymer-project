@@ -7,6 +7,7 @@
 <link rel="import" href="../../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../../bower_components/vaadin-combo-box/vaadin-combo-box.html">
 <link rel="import" href="../../css/form/form-style.html">
+<link rel="import" href="../../css/appDrawer-styles.html">
 
 <link rel="import" href="./propertites/field-propertites-basic.html">
 <link rel="import" href="./propertites/field-propertites-advanced.html">
@@ -17,32 +18,39 @@
 
 <dom-module id="control-field-properties">
   <template>
-    <style include="form-style iron-flex">
+    <style include="form-style iron-flex appDrawer-styles">
       :host {
         display: block;
         text-align: left;
       }
 
       paper-swatch-picker {
-        margin-top: -16px;
+        margin-top: -8px;
         margin-bottom: -16px;
       }
       paper-checkbox {
         line-height: 34px;
-        font-size: 12px;
+        font-size: 14px;
         /*padding-left: 16px;*/
       }
 
       paper-tabs {
         /*--paper-tabs-selection-bar-color: #01b1f8;*/
-        font-size: 12px;
+        /*font-size: 12px;
         background: #009688;
-        color: white;
+        color: white;*/
+      }
+      .tabs paper-tab{
+        height: 48px;
+      }
+      .drawer-con>.con {
+        margin: 0;
       }
     </style>
 
     <div class="config-form">
-      <form class="form form2">
+      <form class="form form2 drawer-con">
+        <div class="tabs">
         <paper-tabs selected="{{propertiesType}}">
           <paper-tab>字段基础</paper-tab>
           <paper-tab>高级</paper-tab>
@@ -51,6 +59,8 @@
           <paper-tab>生命周期</paper-tab>
           <paper-tab>注解</paper-tab>
         </paper-tabs>
+        </div>
+        <div class="tab-con con">
         <iron-pages selected="{{propertiesType}}">
           <section>
             <field-propertites-basic></field-propertites-basic>
@@ -71,11 +81,11 @@
             <field-propertites-annotation></field-propertites-annotation>
           </section>
         </iron-pages>
-
+        </div>
       </form>
-      <div class="form-group text-right" style="margin-right: 10px;">
+      <!-- <div class="form-group text-right" style="margin-right: 10px;">
         <paper-button raised class="pbtn pbtn-primary" on-tap="_saveConfig">应用</paper-button>
-      </div>
+      </div> -->
     </div>
   </template>
 

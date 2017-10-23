@@ -9,9 +9,35 @@
 	<script type="text/javascript" src="../js/tree-js/jquery.ztree.core.js"></script>
 	<script type="text/javascript" src="../js/tree-js/jquery.ztree.excheck.js"></script>
 	<script type="text/javascript" src="../js/tree-js/jquery.ztree.exedit.js"></script>
+	<style>
+		.btn {
+			display: flex;
+		}
+		.btns {
+			width: 60px;
+			background-color: #61c179;
+			color: #fff;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			margin-left: 10px;
+			margin-top: 10px;
+			font-size: 14px;
+			padding:0 10px;
+			cursor: pointer;
+			border-radius: 2px;
+		}
+		.btns:active {
+			background-color: #93c47d;
+		}
 
+	</style>
 	<SCRIPT type="text/javascript">
 		var setting = {
+			view: {
+				fontCss: getFont,
+				nameIsHTML: true
+			},
 			edit: {
 				drag: {
 					autoExpandTrigger: true,
@@ -38,6 +64,10 @@
 				onClick: onClick
 			}
 		};
+
+		function getFont(treeId, node) {
+			return node.font ? node.font : {};
+		}
 
 		function dropPrev(treeId, nodes, targetNode) {
 			var pNode = targetNode.getParentNode();
@@ -126,29 +156,37 @@
 		function onClick(event, treeId, treeNode, clickFlag) {
       getParent().currentTreeNode = treeNode;
       getParent().treeObjCopy = _clone(treeNode);
-      console.log(treeNode.id);
+			console.log(JSON.stringify(treeNode));
       var parent = treeNode.getParentNode();
       if(parent){
-        switch (parent.name) {
-          case '字段':
-            getParent()._editPanelDrawerOpen('editDrawer1');
-            break;
-          case '关系':
-            getParent()._editPanelDrawerOpen('editDrawer2');
-            break;
-          case '显示':
-            var type = treeNode.name;
-            var type2 = treeNode.otype;
-            if (type2 == 'l') {
-              getParent()._editPanelDrawerOpen('editDrawer3');
-            }
-            if (type2 == 'g') {
-              getParent()._editPanelDrawerOpen('editDrawer4');
-            }
-            break;
-          default:
-        }
-        getParent().currentTreeNodeParent = parent;
+				if (treeNode.otype == 'field') {
+					getParent()._editPanelDrawerOpen('editDrawer1_1');
+				} else if(parent.otype == 'field'){
+					getParent()._editPanelDrawerOpen('editDrawer1');
+				}
+				if (treeNode.otype == 'relate') {
+					getParent()._editPanelDrawerOpen('editDrawer2_1');
+				} else if(parent.otype == 'relate'){
+					getParent()._editPanelDrawerOpen('editDrawer2');
+				}
+				if(treeNode.otype == 'show'){
+					console.log("show drawer");
+					getParent()._editPanelDrawerOpen('editDrawer4_1');
+				} else if(parent.otype == 'show'){
+					var type = treeNode.name;
+					var type2 = treeNode.otype;
+					if (type2 == 'layout') {
+						getParent()._editPanelDrawerOpen('editDrawer3');
+					}
+					if (type2 == 'grid') {
+						getParent()._editPanelDrawerOpen('editDrawer4');
+					}
+				}
+				if(treeNode.otype == 'field' || treeNode.otype == 'relate' || treeNode.otype == 'show'){
+					getParent().currentTreeNodeParent = treeNode;
+				} else {
+					getParent().currentTreeNodeParent = parent;
+				}
       } else {
         getParent()._editPanelDrawerOpen('editDrawer0');
       }
@@ -176,68 +214,76 @@
 			if (tree) {
 				tree.destroy();
 			}
-			var uri = Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/getById?token=" + getToken() + "&id=CD241021FB7646428021AD547CDB2F6C";
-			// var uri = "http://192.168.9.81:8080/foundation/api/v1/businessobject/getById?token=" + getToken() + "&id=E3A48E9C8ACA4E688BD49368DC80691E";
+			var token = getToken();
+			console.log('token:' + token);
+			// var uri = Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/getById?token=" + token + "&id=CD241021FB7646428021AD547CDB2F6C";
+			var uri = "http://192.168.9.81:8080/foundation/api/v1/businessobject/getById?token=" + token + "&id=CD241021FB7646428021AD547CDB2F6C";
 			$.ajax({
         type: "GET",
-        // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/list?token=12",72501DE33AB9419580D02844A1FBFF5A
+        // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/list?token=12",E3A48E9C8ACA4E688BD49368DC80691E
         // url: Window.AppConfig.serverUrl+"/foundation/api/v1/businessobject/getById?token=adadf&id=CD241021FB7646428021AD547CDB2F6C",
         url: uri,
         async : true,
         success: function(data){
           // console.log(data);
-          var jsonData = JSON.parse(data);
-          getParent().serverData = jsonData;
-          // console.log(JSON.stringify(jsonData.BusinessObjectDef.fields[5]));
-          // console.log(JSON.stringify(jsonData.BusinessObjectDef.fields[7]));
-          var zNodes = [];
-          //涓氬姟瀵硅薄
-          var business = _clone(jsonData.BusinessObjectDef);
-          business.isParent = true;
-          business.children = [];
-          //瀛楁
-          var field = { name:"字段", isParent:true};
-          field.children = business.fields;
+					if(data.msg){
+						console.log(data.msg);
+					} else {
+						var jsonData = JSON.parse(data);
+	          getParent().serverData = jsonData;
+						// console.log(JSON.stringify(getParent().serverData.LayoutDef));
+	          // console.log(JSON.stringify(jsonData.BusinessObjectDef.fields[25]));
+	          // console.log(JSON.stringify(jsonData.BusinessObjectDef.fields[7]));
+	          var zNodes = [];
+	          //涓氬姟瀵硅薄
+	          var business = _clone(jsonData.BusinessObjectDef);
+	          business.isParent = true;
+	          business.children = [];
+						business.otype = 'business';
+	          //瀛楁
+	          var field = { name:"字段", otype:"field", isParent:true};
+	          field.children = business.fields;
 
-          // console.log(JSON.stringify(business.fields));
-          business.fields = [];//娓呴櫎涓氬姟瀵硅薄涓婂瓧娈垫暟鎹�
-          //鍏崇郴
-          var relate = { name:"关系", isParent:true};
-          relate.children = jsonData.RelationshipDef;
-          //鏄剧ず
-          var show = { name:"显示", isParent:true};
-          show.children = [];
-          //绐椾綋
-          var panel = jsonData.PanelDef;
-          //甯冨眬
-          var layout = jsonData.LayoutDef;
-          //缃戞牸
-          var grid = jsonData.GridDef;
+	          // console.log(JSON.stringify(business.fields));
+	          business.fields = [];//娓呴櫎涓氬姟瀵硅薄涓婂瓧娈垫暟鎹�
+	          //鍏崇郴
+	          var relate = { name:"关系", otype:"relate", isParent:true};
+	          relate.children = jsonData.RelationshipDef;
+	          //鏄剧ず
+	          var show = { name:"显示", otype:"show", isParent:true};
+	          show.children = [];
+	          //绐椾綋
+	          var panel = jsonData.PanelDef;
+	          //甯冨眬
+	          var layout = jsonData.LayoutDef;
+	          //缃戞牸
+	          var grid = jsonData.GridDef;
 
-          for(var i=0;i<panel.length;i++){
-            panel[i].name += '(窗体)';
-            panel[i].otype = 'w';
-            show.children.push(panel[i]);
-          }
-          for(var i=0;i<layout.length;i++){
-            layout[i].name += '(布局)';
-            layout[i].otype = 'l';
-            show.children.push(layout[i]);
-          }
-          for(var i=0;i<grid.length;i++){
-            grid[i].name += '(网格)';
-            grid[i].otype = 'g';
-            show.children.push(grid[i]);
-          }
+	          for(var i=0;i<panel.length;i++){
+	            panel[i].name += '(窗体)';
+	            panel[i].otype = 'panel';
+	            show.children.push(panel[i]);
+	          }
+	          for(var i=0;i<layout.length;i++){
+	            layout[i].name += '(布局)';
+	            layout[i].otype = 'layout';
+	            show.children.push(layout[i]);
+	          }
+	          for(var i=0;i<grid.length;i++){
+	            grid[i].name += '(网格)';
+	            grid[i].otype = 'grid';
+	            show.children.push(grid[i]);
+	          }
 
-          business.children.push(field);
-          business.children.push(relate);
-          business.children.push(show);
+	          business.children.push(field);
+	          business.children.push(relate);
+	          business.children.push(show);
 
-          zNodes.push(business);
+	          zNodes.push(business);
 
-          $.fn.zTree.init($('#treeDemo'), setting, zNodes);
-					$("#callbackTrigger").bind("change", {}, setTrigger);
+	          $.fn.zTree.init($('#treeDemo'), setting, zNodes);
+						$("#callbackTrigger").bind("change", {}, setTrigger);
+					}
         },
         error: function(xhr,status,error){
           console.log("错误信息：" + xhr.status + " " + xhr.statusText);
@@ -263,85 +309,127 @@
 		}
 
 		//鍏嬮殕瀵硅薄
-    function _clone(obj){
-      var news = JSON.stringify(obj);
-      var end = JSON.parse(news);
-      return end;
-    }
-
-		function clearTreeField(treeObj){
-			var currentTreeNode = getParent().currentTreeNode;
-			var serverData = getParent().serverData;
-			if (currentTreeNode.getParentNode().name == '字段') {
-				var businessObjectDef = _clone(treeObj.getNodes()[0]);
-				businessObjectDef.fields = businessObjectDef.children[0].children;
-				for(var i in businessObjectDef){ //业务对象
-					if (!(i in serverData.BusinessObjectDef)) {
-						delete businessObjectDef[i];
-					}
+    function _clone(Obj){
+      var buf;
+			if(Obj instanceof Array){
+				buf = [];
+				var i = Obj.length;
+				while(i--){
+					buf[i] = _clone(Obj[i]);
 				}
-				for(var i in businessObjectDef.fields){ //字段
-					var field = businessObjectDef.fields[i];
-					if(serverData.BusinessObjectDef.id == businessObjectDef.id){
-						for(var k in serverData.BusinessObjectDef.fields){
-							var old_field = serverData.BusinessObjectDef.fields[k];
-							if (old_field.id == field.id) {
-								for(var m in field){
-									if(!(m in old_field)){
-										delete field[m];
-									}
-								}
-								break;
-							}
-						}
+				return buf;
+			} else if(Obj instanceof Object){
+				buf = {};
+				var flag = false;
+				for(var k in Obj){
+					if (!flag) {
+						flag = true;
 					}
+					buf[k] = _clone(Obj[k]);
 				}
+				if (!flag) {
+					buf = null;
+				}
+				return buf;
+			} else {
+				return Obj;
 			}
-			return businessObjectDef;
-		}
+    }
 
 		function addTreeNode(e){
 			var node = e.detail;
 			var treeObj = getTreeObj();
-			var busobj = clearTreeField(treeObj);
-			busobj.fields.push(node);
-			createOrUpdateBusinessObject(getParent(), treeObj, busobj, 'add', node);
+			if(treeObj.getNodesByParam("name", node.name, getParent().currentTreeNodeParent).length > 0){
+				alert('字段名称['+node.name+']已存在！');
+			} else {
+				node.font = {'color':'green'};
+				treeObj.addNodes(getParent().currentTreeNodeParent, node);
+				treeObj.selectNode(node);
+				var childarr = getParent().currentTreeNodeParent.children;
+				treeObj.selectNode(childarr[childarr.length-1]);
+				var cnode = childarr[childarr.length-1];
+				setDirty(cnode);
+				if (!getParent().currentTreeNodeParent.font) {
+					getParent().currentTreeNodeParent.font = {'color':'green'};
+					treeObj.updateNode(getParent().currentTreeNodeParent);
+				}
+			}
 		}
 
 		function updateNode(e){
 			var treeObj = getTreeObj();
-			createOrUpdateBusinessObject(getParent(), treeObj, clearTreeField(treeObj), 'update', null);
+			getParent().currentTreeNode.font = {'color':'red'};
+			treeObj.updateNode(getParent().currentTreeNode);
+			setDirty(getParent().currentTreeNode);
+			if (!getParent().currentTreeNodeParent.font || getParent().currentTreeNodeParent.font.color == 'green') {
+				getParent().currentTreeNodeParent.font = {'color':'red'};
+				treeObj.updateNode(getParent().currentTreeNodeParent);
+			}
 		}
 
-		function createOrUpdateBusinessObject(parents, treeObj, edata, type, node){
+		function setDirty(node){
+			var parent = node.getParentNode();
+			node.isDirty = true;
+			if (parent != null) {
+				if(parent.otype == 'field' || parent.otype == 'relate' || parent.otype == 'show'){
+					parent.isDirty = true;
+				}
+				setDirty(parent);
+			} else {
+				if(!node.isDirty){
+					node.isDirty = true;
+				}
+			}
+		}
+
+		//根据深度来获取变脏节点：level 0表示根节点；1表示2级节点
+		function getDirtyNodes(level){
+			function filter(node){
+				return (node.level == level && node.isDirty == true);
+			}
+			var nodes = getTreeObj().getNodesByFilter(filter);
+			return nodes;
+		}
+
+		//获取变脏的关系节点
+		function getDirtyRelateNodes(){
+			function filter(node){
+				return (node.level == 3 && node.isDirty == true && node.getParentNode().otype == 'relate');
+			}
+			return getTreeObj().getNodesByFilter(filter);
+		}
+
+		//根据otype获取变脏的显示节点
+		function getDirtyShowNodes(otype){
+			function filter(node){
+				return (node.level == 3 && node.isDirty == true && node.otype == otype);
+			}
+			return getTreeObj().getNodesByFilter(filter);
+		}
+
+		function createOrUpdateBusinessObject(edata){
 			$.ajax({
 				type: "POST",
-				url: Window.AppConfig.serverUrl + "/foundation/api/v1/businessobject/createOrUpdate?token=" + getToken(),
-				// url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/createOrUpdate?token=" + getToken(),
+				// url: Window.AppConfig.serverUrl + "/foundation/api/v1/businessobject/createOrUpdate?token=" + getToken(),
+				url: "http://192.168.9.81:8080/foundation/api/v1/businessobject/createOrUpdate?token=" + getToken(),
 				data: JSON.stringify(edata),
-				contentType: 'text',
+				contentType: "application/json",
+				dataType: "json",
 				async : true,
 				success: function(data){
-					if (type == 'add') {
-						treeObj.addNodes(parents.currentTreeNodeParent, node);
-						treeObj.selectNode(node);
-					} else if(type == 'update'){
-						treeObj.refresh();
-					} else if(type == 'delete'){
-		 			 	for (var i=0, l=node.length; i < l; i++) {
-		 				 	treeObj.removeNode(node[i]);
-		 			 	}
-					}
 					console.log(data);
 				},
 				error: function(xhr,status,error){
 					console.log("错误提示： " + xhr.status + " " + xhr.statusText);
-					if (type == 'update') {
-						parents.currentTreeNode = parents.treeObjCopy;
-						treeObj.updateNode(parents.treeObjCopy);
-					}
 				}
 			});
+		}
+
+		function getTreeRootNode(node){
+			if (node.getParentNode() != null) {
+				getTreeRootNode(node.getParentNode());
+			}
+			return node;
 		}
 
 		//删除节点
@@ -349,16 +437,78 @@
 	 　　//点击确定后操作
 			var treeObj = getTreeObj();
 			var nodes = treeObj.getSelectedNodes();
-			var busobj = clearTreeField(treeObj);
-			for(var i=0;i<nodes.length;i++){
-				for(var j=0;j<busobj.fields.length;j++){
-					if (nodes[i].id == busobj.fields[j].id) {
-						busobj.fields.splice(j, 1);
-						break;
-					}
-				}
+			for (var i=0, l=nodes.length; i < l; i++) {
+				setDirty(nodes[i]);
+				getTreeRootNode(nodes[i]).isDirty = true;
+				treeObj.removeNode(nodes[i]);
 			}
-			createOrUpdateBusinessObject(getParent(), treeObj, busobj, 'delete', nodes);
+		}
+
+		//清除字段上树属性
+		function clearTreeProp(template, node){
+			var temp = {};
+			for(var n in template){
+				temp[n] = node[n];
+			}
+			return temp;
+		}
+
+		function submit(){
+			var result = {"BusinessObjectDef":[],"LayoutDef":[],"PanelDef":[],"RelationshipDef":[],"GridDef":[],"DelBusinessObjectDef":[],"DelLayoutDef":[],"DelPanelDef":[],"DelRelationshipDef":[],"DelGridDef":[]};
+			var dirtyNodes = getDirtyNodes(0);
+			//字段
+			if(dirtyNodes.length > 0){
+				var treeObj = getTreeObj();
+				var pNode;
+				for(var i=0;i<dirtyNodes.length;i++){
+					var businessDefTemplate = _clone(getParent().serverData.BusinessObjectDef);
+					pNode = dirtyNodes[i];
+					for(var j in businessDefTemplate){
+						if (!j == 'fields') {
+							businessDefTemplate[j] = pNode[j];
+						}
+					}
+					var fields = businessDefTemplate.fields;
+					fields.splice(0,fields.length);
+					$.ajaxSettings.async = false;
+					$.getJSON('/../data/template.json', function(data){
+						var pField = treeObj.getNodesByParam('otype', 'field', pNode);
+						for(var m=0;m<pField.length;m++){
+							var busFields = pField[m].children;
+							for(var k=0;k<busFields.length;k++){
+								var field = busFields[k];
+								switch (field.fieldCategory) {
+									case 4:
+										fields.push(clearTreeProp(data.fieldTemplate.textFieldTemplate, field));
+										break;
+									case 8:
+										fields.push(clearTreeProp(data.fieldTemplate.numberFieldTemplate, field));
+										break;
+									case 32:
+										fields.push(clearTreeProp(data.fieldTemplate.timeFieldTemplate, field));
+										break;
+									default:
+										break;
+								}
+							}
+						}
+					});
+					$.ajaxSettings.async = true;
+					result.BusinessObjectDef.push(businessDefTemplate);
+					// createOrUpdateBusinessObject(businessDefTemplate);
+				}
+			} else {
+				console.log("no change");
+			}
+			//关系
+			var dirtyRalate = getDirtyRelateNodes();
+			//窗体
+			var dirtyPanel = getDirtyShowNodes('panel');
+			//布局
+			var dirtyLayout = getDirtyShowNodes('layout');
+			//网格
+			var gridLayout = getDirtyShowNodes('grid');
+
 		}
 	</SCRIPT>
 </HEAD>
@@ -366,13 +516,10 @@
 <BODY>
 <script src="../config.js"></script>
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-
-<link rel="import" href="./components/home/field-drawer-content.html">
-<link rel="import" href="./components/home/relate-drawer-content.html">
-<link rel="import" href="./components/home/layout-drawer-content.html">
-<link rel="import" href="./components/home/grid-drawer-content.html">
-<link rel="import" href="./components/home/business-drawer-content.html">
-<input onclick="loadTreeObj()" type="button" value="refresh"/>
+<div class="btn">
+	<div class="btns" onclick="loadTreeObj()">refresh</div>
+	<div class="btns" onclick="submit()">submit</div>
+</div>
 <div class="content_wrap">
 	<div class="zTreeDemoBackground left">
 		<ul id="treeDemo" class="ztree"></ul>

@@ -9,60 +9,78 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../../bower_components/vaadin-icons/vaadin-icons.html">
-<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
-<script src="../../../bower_components/jquery/dist/jQueryRotate.js"></script>
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <!-- 编辑字段 -->
 <dom-module id="expansion-panel">
 
   <template>
-  <style>
-    :host {
-      width: 100%;
-    }
 
-    .header {
-      background-color: #ccc;
-      display: flex;
-      height: 50px;
-      align-items: center;
-      cursor: pointer;
-      color: black;
-    }
+		<style>
+			.header {
+				min-height: 48px;
+        background: -webkit-linear-gradient(#c9daf8, #cfe2f3); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(#c9daf8, #cfe2f3); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(#c9daf8, #cfe2f3); /* Firefox 3.6 - 15 */
+        background: linear-gradient(#c9daf8, #cfe2f3); /* 标准的语法（必须放在最后） */
+				color: var(--primary-text-color);
+				@apply --layout-center;
+				@apply --layout-justified;
+				@apply --paper-font-subhead;
+				@apply --paper-expansion-panel-header;
+			}
 
-    .header:hover{
-        background-color: #333833;
-        color: #fff;
-    }
+      .header:selected {
+        background: black;
+      }
 
-    .header h5 {
-      margin-left: 5px;
-    }
+			.toggle {
+				color: var(--disabled-text-color);
+			}
 
-    iron-icon {
-      --iron-icon-height: 16px;
-      --iron-icon-width: 16px;
-      margin-left: 5px;
-    }
+			.content {
+				@apply --paper-font-body1;
+				@apply --paper-expansion-panel-content;
+			}
 
-    .content {
-      margin: 12px;
-    }
+			.summary {
+				@apply --paper-expansion-panel-summary;
+				color: var(--secondary-text-color);
+			}
 
+			.flex {
+				@apply --layout-flex;
+			}
 
-  </style>
+      paper-item:hover {
+        background: rgb(232, 232, 231);
+      }
+		</style>
 
-  <div class="container">
-    <div class="header">
-      <iron-icon id="icon" icon="vaadin:angle-right"></iron-icon>
-      <h5>[[header]]</h5>
-    </div>
-    <div class="content">
-      <slot></slot>
-    </div>
-  </div>
+		<paper-item class="header" on-tap="_toggleOpened">
+			<template is="dom-if" if="[[header]]">
+				<div class="flex">[[header]]</div>
 
-</template>
+				<template is="dom-if" if="[[summary]]">
+					<div hidden$="[[opened]]" class="flex summary">[[summary]]</div>
+				</template>
+			</template>
+
+			<template is="dom-if" if="[[!header]]">
+				<slot name="header"><div class="flex">&nbsp;</div></slot>
+			</template>
+
+			<paper-icon-button class="toggle" icon="[[_toggleIcon]]"></paper-icon-button>
+		</paper-item>
+		<iron-collapse class="content" opened="{{opened}}">
+			<slot></slot>
+		</iron-collapse>
+
+	</template>
 
   <script>
 
@@ -71,8 +89,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'expansion-panel'; }
 
       static get properties() { return {
-        header : String,
-        opened: Boolean
+        /**
+			 * Text in the header row
+			 */
+  			header: {
+  				type: String,
+  				value: '',
+  			},
+
+  			/**
+  			 * Summary of the expandible area
+  			 */
+  			summary: String,
+
+  			/**
+  			 * True if the content section is opened
+  			 */
+  			opened: {
+  				type: Boolean,
+  				reflectToAttribute: true,
+  				notify: true
+  			},
+
+  			_toggleIcon: {
+  				type: String,
+  				computed: '_computeToggleIcon(opened)'
+  			}
       }}
 
       static get observers() { return [
@@ -80,33 +122,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready() {
         super.ready();
-        this._addEventListen();
       }
 
-      _toggleContent(e){
-        console.log(e);
-        console.log('test' + $('.content'));
-        $('.content').css('display', 'none');
-      }
+      // Private methods
+  		/**
+  		 * Fired whenever the status is changed (opened/closed)
+  		 *
+  		 * @event toggle
+  		 */
+  		_toggleOpened(e) {
+  			this.opened = !this.opened;
+  			// this.fire('toggle', this);
+  		}
 
-      _addEventListen(){
-        var value = 90;
-        var content = this.root.querySelector('.content');
-        var header = this.root.querySelector(".header");
-        var icon = this.root.querySelector("#icon");
-        if (!this.opened) {
-          content.style.display = 'none';
-        } else {
-          $(icon).rotate(90);
-          value = 0;
-        }
-        $(header).bind("click", function(){
-          $(icon).rotate({animateTo: value});
-          value = value == 90?0:90;
-          $(content).slideToggle();
-        });
-      }
-
+  		_computeToggleIcon(opened) {
+  			return opened ? 'icons:expand-less' : 'icons:expand-more';
+  		}
 
     }
 

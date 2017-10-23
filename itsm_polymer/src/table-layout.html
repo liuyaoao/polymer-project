@@ -19,7 +19,6 @@
 <!-- custom components -->
 <link rel="import" href="./components/home/add-widget.html">
 <link rel="import" href="./components/home/edit-panel.html">
-<link rel="import" href="./components/home/center-operating.html">
 <link rel="import" href="./components/wait-dialog.html">
 <link rel="import" href="table-new-panel.html">
 <link rel="import" href="table-dialog.html">
@@ -28,18 +27,17 @@
 <link rel="import" href="../bower_components/polymer-gridstack/polymer-gridstack-style.html">
 <link rel="import" href="./css/form/bootstrap-styles.html">
 <link rel="import" href="./css/page-styles.html">
+<link rel="import" href="./css/appDrawer-styles.html">
 
 <link rel="import" href="./redux/actions/userLogin-mixin.html">
 
 <dom-module id="table-layout">
   <template>
-    <style include="polymer-gridstack-style bootstrap-styles page-styles">
+    <style include="polymer-gridstack-style bootstrap-styles page-styles appDrawer-styles">
       :host {
         display: block;
         --app-grid-columns: 1 !important;
         --app-grid-gutter: 0 !important;
-        --app-drawer-width: 400px;
-        --app-drawer-height: 100%;
       }
       .small-icon{
         cursor: pointer;
@@ -81,14 +79,6 @@
           <div class="drawer-contents">
             <add-widget widget="{{widget}}">
             </add-widget>
-          </div>
-        </app-drawer>
-
-        <!-- 快速操作 -->
-        <app-drawer id="centerOperating" align="right" swipe-open class="map-add">
-          <div class="drawer-contents">
-            <center-operating>
-            </center-operating>
           </div>
         </app-drawer>
 
@@ -175,6 +165,7 @@
         this.addEventListener('editPanel-close', this.handleClosePanelMenu.bind(this));
         this.addEventListener('onclick-ok', this.addNewWidget.bind(this));
         this.addEventListener('open-dialog', this._popup.bind(this));
+        this.addEventListener('open-addWidgetDrawer', this._addWidgetDrawer.bind(this));
 
         super.ready();
 

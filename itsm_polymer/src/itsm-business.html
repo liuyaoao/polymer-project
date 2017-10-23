@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="./components/home/field-drawer-content.html">
+<link rel="import" href="./components/home/show-drawer-content.html">
 <link rel="import" href="./components/home/relate-drawer-content.html">
 <link rel="import" href="./components/home/layout-drawer-content.html">
 <link rel="import" href="./components/home/grid-drawer-content.html">
@@ -34,33 +35,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <news-iframe id="iframes" src="../../src/itsm-tree.html"></news-iframe>
     <!-- 业务对象树编辑 -->
     <!-- 业务对象 -->
-    <app-drawer id="editDrawer0" align="right" class="map-add">
+    <app-drawer id="editDrawer0" align="right">
       <div class="drawer-contents">
         <business-drawer-content current-tree-node={{currentTreeNode}}></business-drawer-content>
       </div>
     </app-drawer>
     <!-- 字段 -->
-    <app-drawer id="editDrawer1" align="right" class="map-add">
+    <app-drawer id="editDrawer1" align="right">
+      <div class="drawer-contents">
+        <field-drawer-content leaf-node="true" current-tree-node={{currentTreeNode}}></field-drawer-content>
+      </div>
+    </app-drawer>
+    <app-drawer id="editDrawer1_1" align="right">
       <div class="drawer-contents">
         <field-drawer-content current-tree-node={{currentTreeNode}}></field-drawer-content>
       </div>
     </app-drawer>
     <!-- 关系 -->
-    <app-drawer id="editDrawer2" align="right" class="map-add">
+    <app-drawer id="editDrawer2" align="right">
+      <div class="drawer-contents">
+        <relate-drawer-content leaf-node="true" current-tree-node={{currentTreeNode}}></relate-drawer-content>
+      </div>
+    </app-drawer>
+    <app-drawer id="editDrawer2_1" align="right">
       <div class="drawer-contents">
         <relate-drawer-content current-tree-node={{currentTreeNode}}></relate-drawer-content>
       </div>
     </app-drawer>
     <!-- 布局 -->
-    <app-drawer id="editDrawer3" align="right" class="map-add">
+    <app-drawer id="editDrawer3" align="right">
       <div class="drawer-contents">
         <layout-drawer-content current-tree-node={{currentTreeNode}}></layout-drawer-content>
       </div>
     </app-drawer>
     <!-- 网格 -->
-    <app-drawer id="editDrawer4" align="right" class="map-add">
+    <app-drawer id="editDrawer4" align="right">
       <div class="drawer-contents">
         <grid-drawer-content current-tree-node={{currentTreeNode}}></grid-drawer-content>
+      </div>
+    </app-drawer>
+    <!-- 显示 -->
+    <app-drawer id="editDrawer4_1" align="right">
+      <div class="drawer-contents">
+        <show-drawer-content></show-drawer-content>
       </div>
     </app-drawer>
   </template>

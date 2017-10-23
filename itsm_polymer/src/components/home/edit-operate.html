@@ -12,7 +12,7 @@
 
 <link rel="import" href="../../news-vaadin.html">
 
-<dom-module id="edit-trigger">
+<dom-module id="edit-operate">
 
   <template>
     <style include="page-styles appDrawer-styles">
@@ -27,15 +27,70 @@
       display: inline-block;
       width: 120px;
     }
+    paper-checkbox{
+      margin: 10px 0;
+    }
+    .lookFor{
+      display: inline-block;
+      width: 240px;
+    }
+    .lookFordiv{
+      width: 100%;
+      position: relative;
+    }
+    .btnb{
+      position: absolute;
+      right: 15px;
+      bottom: 8px;
+    }
+    .btnb paper-button {
+    background-color: #61c179;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    float: right;
+    margin: 0 ;
+    font-size: 14px;
+    padding: 0 8px;
+    }
+    .setout{
+      border: 1px solid #DFDFDF;
+      padding: 5px 7px;
+    }
+    .setout h3{
+      display: inline-block;
+      font-size: 14px;
+      font-weight: normal;
+      color: #969696;
+      margin: 0;
+    }
+    .setout input{
+      border: 0px solid #DFDFDF;
+      border-bottom: 1px solid #DFDFDF;
+      width: 95px;
+      color: #969696;
+    }
+    .setout a{
+      font-size: 14px;
+      font-weight: bold;
+      color: #000;
+      text-decoration: none;
+    }
+    .setout a span{
+      display: inline-block;
+      border: 6px solid transparent;
+      border-top: 10px solid #000;
+      margin-bottom: -6px;
+    }
     </style>
 
 
     <app-toolbar class="drawer-header">
       <div class="close" on-tap="_closeDrawer">>></div>
-      <div class="flex">触发器</div>
+      <div class="flex">快速操作</div>
       <div class="btns">
         <paper-button on-click="_saveLayout">
-        确定
+        保存
         </paper-button>
       </div>
     </app-toolbar>
@@ -48,7 +103,7 @@
         <div class="tabs">
           <paper-tabs selected="{{tabSelected}}">
             <paper-tab><paper-ripple></paper-ripple>一般</paper-tab>
-            <paper-tab><paper-ripple></paper-ripple>触发器详细资料</paper-tab>
+            <paper-tab><paper-ripple></paper-ripple>操作</paper-tab>
           </paper-tabs>
         </div>
 
@@ -73,6 +128,7 @@
                   <paper-dropdown-menu label="负责人(O):" disabled>
                     <paper-listbox slot="dropdown-content" class="dropdown-content" selected="0">
                       <paper-item>全局</paper-item>
+                      <paper-item>个人</paper-item>
                     </paper-listbox>
                   </paper-dropdown-menu>
                   <vaadin-combo-box  always-float-label id="demo1-1" label="类别（C）:"></vaadin-combo-box>
@@ -89,52 +145,36 @@
                       <paper-item>可用性</paper-item>
                     </paper-listbox>
                   </paper-dropdown-menu> -->
+                  <paper-checkbox class="styled" style="display:block;">
+                    显示为菜单项
+                  </paper-checkbox>
+                  <paper-checkbox class="styled" style="display:block;">
+                    显示导航栏中
+                  </paper-checkbox>
+                  <paper-checkbox class="styled" style="display:block;">
+                    可以取消动作
+                  </paper-checkbox>
+                  <div class="lookFordiv">
+                    <paper-input always-float-label label="过滤查找:" class="lookFor"></paper-input>
+                    <div class="btnb">
+                      <paper-button on-click="_saveLayout">
+                      浏览（B）...
+                      </paper-button>
+                  </div>
+
+                  </div>
               </div>
             </div>
             </div>
             <div name="1">
               <div class="item content-item">
                 <div class="item">
-                  <!-- <vaadin-combo-box  always-float-label id="demo1-1" label="触发事件的业务对象:"></vaadin-combo-box> -->
-                  <paper-dropdown-menu label="触发事件的业务对象:">
-                    <paper-listbox slot="dropdown-content" class="dropdown-content" selected="">
-                      <paper-item>请选择业务对象</paper-item>
-                      <paper-item>AaaDontDelete</paper-item>
-                      <paper-item>变更</paper-item>
-                      <paper-item>AlarmIssuedREl</paper-item>
-                      <paper-item>Area</paper-item>
-                      <paper-item>AutoTaskScheduler</paper-item>
-                      <paper-item>BadSpareParts</paper-item>
-                    </paper-listbox>
-                  </paper-dropdown-menu>
+                  <h5>准备操作：</h5>
+                  <div class="setout">
+                    <h3>名称：</h3><input type="text" name="" value="修改前台">
+                    <h3>说明：</h3><input type="text" name="" value="修改前台">
+                    <a href="#">操作 <span></span></a>
 
-                  <h5>该事件满足以下</h5>
-                  <paper-radio-group id="eventdemo" selected="a" aria-labelledby="label1">
-                    <paper-radio-button name="a">发生任何事件</paper-radio-button>
-                    <paper-radio-button name="b">添加记录</paper-radio-button>
-                    <paper-radio-button name="c">删除记录</paper-radio-button>
-                    <paper-radio-button name="d">更改了记录</paper-radio-button>
-                    <paper-radio-button name="e">更改记录的状态</paper-radio-button>
-                    <paper-radio-button name="f" id="ischange">更改了记录中的字段</paper-radio-button>
-                  </paper-radio-group>
-                  <!-- <vaadin-combo-box  always-float-label id="demo1_1" label="" disabled></vaadin-combo-box> -->
-                  <paper-dropdown-menu label="" id="demo1_1" disabled style="display:block;width:52%;">
-                    <paper-listbox slot="dropdown-content" class="dropdown-content" selected="">
-                      <paper-item></paper-item>
-                      <paper-item>CPU速度 - MHz</paper-item>
-                      <paper-item>CPU的个数</paper-item>
-                      <paper-item>EccId</paper-item>
-                      <paper-item>IP地址</paper-item>
-                    </paper-listbox>
-                  </paper-dropdown-menu>
-                  <div id="field">
-                    <h5>当字段发生以下：</h5>
-                    <paper-radio-group selected="a" aria-labelledby="label1">
-                      <paper-radio-button name="a">任何更改</paper-radio-button>
-                      <paper-radio-button name="b">从：<input type="text" name="" value=""></paper-radio-button>
-                      <paper-radio-button name="c">至：<input type="text" name="" value=""></paper-radio-button>
-                      <paper-radio-button name="d">从：<input type="text" name="" value=""> 至：<input type="text" name="" value=""></paper-radio-button>
-                    </paper-radio-group>
                   </div>
 
                 </div>
@@ -152,9 +192,9 @@
 
   <script>
 
-    class editTrigger extends Polymer.Element {
+    class editOperate extends Polymer.Element {
 
-      static get is() { return 'edit-trigger'; }
+      static get is() { return 'edit-operate'; }
 
       static get properties() { return {
         panelInfo: Object,
@@ -189,7 +229,7 @@
   //   combobox1.items = combobox2.items = combobox3.items = elements;
   // });
       _closeDrawer() {
-        this.dispatchEvent(new CustomEvent('editTrigger-close', {bubbles: true, composed: true}));
+        this.dispatchEvent(new CustomEvent('editOperate-close', {bubbles: true, composed: true}));
       }
 
       _addEventListen(){
@@ -222,7 +262,7 @@
 
     }
 
-    customElements.define(editTrigger.is, editTrigger);
+    customElements.define(editOperate.is, editOperate);
 
   </script>
 

@@ -37,7 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .editContent {
       position: absolute;
       left: 0;
-      top: 208px;
+      top: 226px;
       right: 0;
       bottom: 120px;
       overflow-y: auto;
@@ -45,8 +45,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     .item {
-      /*margin-left: 16px;*/
-      /*margin-right: 16px;*/
+      margin-left: 16px;
+      margin-right: 16px;
     }
 
     .checkboxs {
@@ -100,165 +100,178 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <div class="editContent" current-tree-node={{currentTreeNode}}>
 
-    <div class="item">
-      <expansion-panel header="基础" opened>
-        <h5>业务对象标识</h5>
-        <h6>它是主业务对象</h6>
-        <paper-input id="fieldname" label="名称" value="{{currentTreeNode.name}}" char-counter></paper-input>
-        <paper-input label="显示别名" value="{{currentTreeNode.alias}}"></paper-input>
-        <vaadin-combo-box id="fieldType" label="关联的图像" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <paper-textarea label="说明" always-float-label value="{{currentTreeNode.description}}"></paper-textarea>
+    <div>
+      <expansion-panel header="基础">
+        <div class="item">
+          <h5>业务对象标识</h5>
+          <h6>它是主业务对象</h6>
+          <paper-input id="fieldname" label="名称" value="{{currentTreeNode.name}}" char-counter></paper-input>
+          <paper-input label="显示别名" value="{{currentTreeNode.alias}}"></paper-input>
+          <vaadin-combo-box id="fieldType" label="关联的图像" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <paper-textarea label="说明" always-float-label value="{{currentTreeNode.description}}"></paper-textarea>
+        </div>
       </expansion-panel>
     </div>
 
-    <div class="item">
+    <div>
       <expansion-panel header="数据库">
-        <div class="checkboxss">
-          <paper-checkbox  class="styled">不同的存储名称</paper-checkbox>
+        <div class="item">
+          <div class="checkboxss">
+            <paper-checkbox  class="styled">不同的存储名称</paper-checkbox>
+          </div>
+          <paper-button raised class="custom green">程序...</paper-button>
+          <h6>字段索引属性</h6>
+          <vaadin-combo-box label="选择的索引" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <div class="btns">
+            <paper-button raised class="custom green">新建</paper-button>
+            <paper-button raised class="custom green">删除</paper-button>
+          </div>
+          <paper-input label=""></paper-input>
+          <vaadin-grid aria-label="Two-way Binding Example" items="[[items]]">
+
+            <vaadin-grid-selection-column auto-select>
+            </vaadin-grid-selection-column>
+
+            <vaadin-grid-column width="30px">
+              <template class="header">序列</template>
+              <template>
+                <div>[[item.first]]</div>
+              </template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column>
+              <template class="header">索引字段</template>
+              <template>
+
+              </template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column>
+              <template class="header">订单</template>
+              <template>
+
+              </template>
+            </vaadin-grid-column>
+
+          </vaadin-grid>
+          <div class="checkboxss">
+            <paper-checkbox  class="styled">唯一</paper-checkbox><br>
+            <paper-checkbox  class="styled">主键</paper-checkbox>
+          </div>
         </div>
-        <paper-button raised class="custom green">程序...</paper-button>
-        <h6>字段索引属性</h6>
-        <vaadin-combo-box label="选择的索引" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <div class="btns">
-          <paper-button raised class="custom green">新建</paper-button>
-          <paper-button raised class="custom green">删除</paper-button>
-        </div>
-        <paper-input label=""></paper-input>
-        <vaadin-grid aria-label="Two-way Binding Example" items="[[items]]">
-
-          <vaadin-grid-selection-column auto-select>
-          </vaadin-grid-selection-column>
-
-          <vaadin-grid-column width="30px">
-            <template class="header">序列</template>
-            <template>
-              <div>[[item.first]]</div>
-            </template>
-          </vaadin-grid-column>
-
-          <vaadin-grid-column>
-            <template class="header">索引字段</template>
-            <template>
-
-            </template>
-          </vaadin-grid-column>
-
-          <vaadin-grid-column>
-            <template class="header">订单</template>
-            <template>
-
-            </template>
-          </vaadin-grid-column>
-
-        </vaadin-grid>
-        <div class="checkboxss">
-          <paper-checkbox  class="styled">唯一</paper-checkbox><br>
-          <paper-checkbox  class="styled">主键</paper-checkbox>
-        </div>
-
       </expansion-panel>
     </div>
 
-    <div class="item">
+    <div>
       <expansion-panel header="高级">
-        <div class="checkboxss">
-          <paper-checkbox checked="true" class="styled">跟踪此业务对象的记录创建信息</paper-checkbox><br>
-          <paper-checkbox disabled class="styled">跟踪此业务对象的负责人信息</paper-checkbox><br>
-          <paper-checkbox checked="true" class="styled">通常使用业务对象</paper-checkbox><br>
-          <paper-checkbox class="styled">业务对象缓存</paper-checkbox><br>
-          <paper-checkbox class="styled">整个表缓存</paper-checkbox><br>
-          <paper-checkbox class="styled">强行并发</paper-checkbox><br>
-          <paper-checkbox class="styled">默认自定义窗体</paper-checkbox>
-        </div>
-        <h6>想业务进程引擎发送事件</h6>
-        <div class="checkboxss">
-          <paper-checkbox class="styled">创建</paper-checkbox><br>
-          <paper-checkbox class="styled">接收</paper-checkbox><br>
-          <paper-checkbox class="styled">更新</paper-checkbox><br>
-          <paper-checkbox class="styled">删除</paper-checkbox>
-        </div>
-        <h6>取消该业务对象所关联中</h6>
-        <div class="checkboxss">
-          <paper-checkbox class="styled">报表中心</paper-checkbox><br>
-          <paper-checkbox class="styled">搜索中心</paper-checkbox><br>
-          <paper-checkbox class="styled">快速操作中心</paper-checkbox><br>
-          <paper-checkbox class="styled">业务规则中心</paper-checkbox><br>
-          <paper-checkbox class="styled">仪表盘中心</paper-checkbox><br>
-          <paper-checkbox class="styled">文档中心</paper-checkbox><br>
-          <paper-checkbox class="styled">对象树视图中心</paper-checkbox>
-        </div>
-        <div class="btns">
-          <paper-button raised class="custom green">业务规则</paper-button>
-          <paper-button raised class="custom green">XML</paper-button>
-          <paper-button raised class="custom green">许可</paper-button>
+        <div class="item">
+          <div class="checkboxss">
+            <paper-checkbox checked="true" class="styled">跟踪此业务对象的记录创建信息</paper-checkbox><br>
+            <paper-checkbox disabled class="styled">跟踪此业务对象的负责人信息</paper-checkbox><br>
+            <paper-checkbox checked="true" class="styled">通常使用业务对象</paper-checkbox><br>
+            <paper-checkbox class="styled">业务对象缓存</paper-checkbox><br>
+            <paper-checkbox class="styled">整个表缓存</paper-checkbox><br>
+            <paper-checkbox class="styled">强行并发</paper-checkbox><br>
+            <paper-checkbox class="styled">默认自定义窗体</paper-checkbox>
+          </div>
+          <h6>想业务进程引擎发送事件</h6>
+          <div class="checkboxss">
+            <paper-checkbox class="styled">创建</paper-checkbox><br>
+            <paper-checkbox class="styled">接收</paper-checkbox><br>
+            <paper-checkbox class="styled">更新</paper-checkbox><br>
+            <paper-checkbox class="styled">删除</paper-checkbox>
+          </div>
+          <h6>取消该业务对象所关联中</h6>
+          <div class="checkboxss">
+            <paper-checkbox class="styled">报表中心</paper-checkbox><br>
+            <paper-checkbox class="styled">搜索中心</paper-checkbox><br>
+            <paper-checkbox class="styled">快速操作中心</paper-checkbox><br>
+            <paper-checkbox class="styled">业务规则中心</paper-checkbox><br>
+            <paper-checkbox class="styled">仪表盘中心</paper-checkbox><br>
+            <paper-checkbox class="styled">文档中心</paper-checkbox><br>
+            <paper-checkbox class="styled">对象树视图中心</paper-checkbox>
+          </div>
+          <div class="btns">
+            <paper-button raised class="custom green">业务规则</paper-button>
+            <paper-button raised class="custom green">XML</paper-button>
+            <paper-button raised class="custom green">许可</paper-button>
+          </div>
         </div>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="注解">
-        <field-annotation></field-annotation>
+        <div class="item">
+          <field-annotation></field-annotation>
+        </div>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="使用寿命">
-        <h6>生命周期</h6>
-        <div class="checkboxss">
-          <paper-checkbox class="styled">业务对象具有生命周期</paper-checkbox>
+        <div class="item">
+          <h6>生命周期</h6>
+          <div class="checkboxss">
+            <paper-checkbox class="styled">业务对象具有生命周期</paper-checkbox>
+          </div>
+          <vaadin-combo-box label="含有当前状态的字段" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <h6>重要状态</h6>
+          <vaadin-grid aria-label="Two-way Binding Example" items="[[items]]">
+
+            <vaadin-grid-column width="30px">
+              <template class="header">序列</template>
+              <template>
+                <div>[[item.first]]</div>
+              </template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column>
+              <template class="header">索引字段</template>
+              <template>
+
+              </template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column>
+              <template class="header">订单</template>
+              <template>
+
+              </template>
+            </vaadin-grid-column>
+
+          </vaadin-grid>
+          <vaadin-combo-box label="最终状态" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <div class="checkboxss">
+            <paper-checkbox class="styled">当业务对象处于最终状态时禁止编辑</paper-checkbox>
+          </div>
+          <vaadin-combo-box label="撤回状态" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
         </div>
-        <vaadin-combo-box label="含有当前状态的字段" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <h6>重要状态</h6>
-        <vaadin-grid aria-label="Two-way Binding Example" items="[[items]]">
-
-          <vaadin-grid-column width="30px">
-            <template class="header">序列</template>
-            <template>
-              <div>[[item.first]]</div>
-            </template>
-          </vaadin-grid-column>
-
-          <vaadin-grid-column>
-            <template class="header">索引字段</template>
-            <template>
-
-            </template>
-          </vaadin-grid-column>
-
-          <vaadin-grid-column>
-            <template class="header">订单</template>
-            <template>
-
-            </template>
-          </vaadin-grid-column>
-
-        </vaadin-grid>
-        <vaadin-combo-box label="最终状态" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <div class="checkboxss">
-          <paper-checkbox class="styled">当业务对象处于最终状态时禁止编辑</paper-checkbox>
-        </div>
-        <vaadin-combo-box label="撤回状态" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="审计">
-        <h6>审计业务规则</h6>
-        <vaadin-combo-box label="用于存储审计数据的业务对象" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
-        <h6>发生以下情况建立审计项目</h6>
-        <div class="checkboxss">
-          <paper-checkbox class="styled">发生任何活动</paper-checkbox><br>
-          <paper-checkbox class="styled">添加记录</paper-checkbox><br>
-          <paper-checkbox class="styled">删除记录</paper-checkbox><br>
-          <paper-checkbox class="styled">更改记录</paper-checkbox>
-        </div>
-        <h6>更改字段</h6>
-        <div class="btns">
-          <paper-button raised class="custom green">高级审计规则</paper-button>
+        <div class="item">
+          <h6>审计业务规则</h6>
+          <vaadin-combo-box label="用于存储审计数据的业务对象" class="style-scope combo-box-basic-demos"></vaadin-combo-box>
+          <h6>发生以下情况建立审计项目</h6>
+          <div class="checkboxss">
+            <paper-checkbox class="styled">发生任何活动</paper-checkbox><br>
+            <paper-checkbox class="styled">添加记录</paper-checkbox><br>
+            <paper-checkbox class="styled">删除记录</paper-checkbox><br>
+            <paper-checkbox class="styled">更改记录</paper-checkbox>
+          </div>
+          <h6>更改字段</h6>
+          <div class="btns">
+            <paper-button raised class="custom green">高级审计规则</paper-button>
+          </div>
         </div>
       </expansion-panel>
     </div>
-    <div class="item">
+    <div>
       <expansion-panel header="重复数据删除">
-        <div class="checkboxss">
-          <paper-checkbox class="styled">检查重复的字段的数据录入</paper-checkbox>
+        <div class="item">
+          <div class="checkboxss">
+            <paper-checkbox class="styled">检查重复的字段的数据录入</paper-checkbox>
+          </div>
         </div>
       </expansion-panel>
     </div>

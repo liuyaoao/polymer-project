@@ -19,6 +19,11 @@
       <app-toolbar class="drawer-header">
         <div class="close" on-tap="_closeDrawer">>></div>
         <div class="flex">新建仪表板</div>
+        <div class="btns">
+          <paper-button on-click="_saveLayout">
+          保存
+          </paper-button>
+        </div>
       </app-toolbar>
 
       <div class="drawer-con">
@@ -65,10 +70,18 @@
                     <paper-item>可用性</paper-item>
                   </paper-listbox>
                 </paper-dropdown-menu>
-                <paper-radio-group selected="a" aria-labelledby="label1">
-                  <paper-radio-button name="a">作为菜单项显示</paper-radio-button>
-                  <paper-radio-button name="b">在导航器中显示</paper-radio-button>
-                </paper-radio-group>
+                <!-- <paper-dropdown-menu label="选择仪表板部件:">
+                  <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+
+                    <paper-item>[[widgetCategory]]</paper-item>
+                  </paper-listbox>
+                </paper-dropdown-menu> -->
+
+                <div class="checkboxs">
+                  <paper-checkbox class="styled">
+                    在导航中显示
+                  </paper-checkbox>
+                </div>
               </div>
             </div>
             <div name="1">

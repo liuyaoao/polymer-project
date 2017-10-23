@@ -54,7 +54,7 @@
         z-index:29;
       }
       :host aside.siderbar_left{
-        padding-top:5px;
+        padding-top:0;
         width:190px;
         height:100%;
         transition: width 0.5s ease-in-out;
@@ -62,13 +62,16 @@
         position:fixed;
       }
       :host aside.siderbar_left_small{
-        width:60px;
+        width:50px;
         transition: width 0.5s ease-in-out;
+      }
+      :host aside.siderbar_left_small paper-icon-item{
+        padding-left:10px;
       }
       paper-menu {
         height: 98%;
         overflow: auto;
-        padding-bottom: 0;
+        padding: 0;
         /*background-color: #fff;*/
       }
 
@@ -237,7 +240,7 @@
           this.pageCntMarginLeft = '190px';
         }else{ //展开来。
           this.spreadFoldIcon = 'chevron-right';
-          this.pageCntMarginLeft = '60px';
+          this.pageCntMarginLeft = '50px';
         }
       }
       _clickHelp(evt){ //点击了帮助图标

@@ -3,90 +3,33 @@
 <link rel="import" href="../../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../plugin/business-edit.html">
 <link rel="import" href="../plugin/business-add.html">
+<link rel="import" href="../../css/appDrawer-styles.html">
 
 <!-- 编辑字段 -->
 <dom-module id="business-drawer-content">
 
   <template>
 
-    <style>
+    <style include="appDrawer-styles">
       :host {
         width: 100%;
-
       }
 
       .container {
         text-align: left;
       }
-
-      .add-header {
-        background: #3b3b3b;
-        height: 40px;
-        font-size: 14px;
-        padding-right: 0px;
-        color: #fff;
-      }
-
-      paper-button.custom {
-        --paper-button-ink-color: var(--paper-pink-a200);
-        /* These could also be individually defined for each of the
-          specific css classes, but we'll just do it once as an example */
-        --paper-button-flat-keyboard-focus: {
-          background-color: var(--paper-pink-a200);
-          color: white !important;
-        };
-        --paper-button-raised-keyboard-focus: {
-          background-color: var(--paper-pink-a200) !important;
-          color: white !important;
-        };
-      }
-      paper-button.custom:hover {
-        background-color: var(--paper-indigo-100);
-      }
-      paper-button.green {
-        background-color: var(--paper-green-500);
-        color: white;
-      }
-
-      .tabs {
-        font-family: 'Roboto', 'Noto', sans-serif;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        background: #009688;
-        color: white;
-      }
-
-      paper-tabs {
-        /*font-family: 'Roboto', 'Noto', sans-serif;*/
-        -webkit-font-smoothing: antialiased;
-        width: 100%;
-        text-transform: uppercase;
-        /*margin-bottom: 1px;*/
-      }
-
-      #delete {
-        font-size: 14px;
-        width: 133px;
-        color: rgb(202, 233, 230);
-      }
-
-      #delete:hover {
-        color: #fff;
-        font-weight: bold;
-      }
-
     </style>
     <div class="container">
-      <app-toolbar class="add-header">
+      <app-toolbar class="drawer-header">
+        <div class="close" on-tap="_closeDrawer">>></div>
         <div class="flex">编辑业务对象树</div>
       </app-toolbar>
       <div class="tabs">
         <paper-tabs selected="0">
           <paper-tab id="add">添加业务对象</paper-tab>
           <paper-tab id="edit">编辑业务对象</paper-tab>
+          <paper-tab id="delete">删除业务对象</paper-tab>
         </paper-tabs>
-        <paper-button id="delete">删除业务对象</paper-button>
       </div>
       <business-add id="fieldadd"></business-add>
       <business-edit id="fieldedit" current-tree-node={{currentTreeNode}}></business-edit>
@@ -131,6 +74,14 @@
             _this.$.fieldadd._closeDrawer();
           }
         });
+      }
+
+      _closeDrawer(){
+        this.$.fieldadd._closeDrawer();
+      }
+
+      _submit(){
+        // this.$.fieldadd
       }
 
     }

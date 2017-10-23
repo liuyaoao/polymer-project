@@ -119,6 +119,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         page="[[apppage]]"
         categories="[[categories]]"
         category-name="{{categoryName}}"
+        sub-category="{{subCategory}}"
         category="[[category]]"
         category-id="{{categoryId}}"
         menu-list="{{menuList}}"
@@ -138,6 +139,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           pagename="list"
           route="[[subroute]]"
           category-name="{{categoryName}}"
+          sub-category="{{subCategory}}"
           category-id="{{categoryId}}"
           menu-list="{{menuList}}"
           category="[[category]]"
@@ -165,6 +167,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           loading="[[loading]]"
           offline="[[offline]]"
           failure="[[failure]]"></itsm-business>
+      <list-trigger
+          pagename="trigger"
+          route="[[subroute]]"
+          category-name="{{categoryName}}"
+          category="[[category]]"
+          article-id="{{articleId}}"
+          article="[[article]]"
+          loading="[[loading]]"
+          offline="[[offline]]"
+          failure="[[failure]]"></list-trigger>
+      <list-operate
+          pagename="operate"
+          route="[[subroute]]"
+          category-name="{{categoryName}}"
+          category="[[category]]"
+          article-id="{{articleId}}"
+          article="[[article]]"
+          loading="[[loading]]"
+          offline="[[offline]]"
+          failure="[[failure]]"></list-operate>
         <news-bats
             pagename="bats"
             route="{{subroute}}"
@@ -197,6 +219,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           loading="[[loading]]"
           offline="[[offline]]"
           failure="[[failure]]"></organization-form>
+
+      <quick-search
+          pagename="quickSearch"
+          route="[[subroute]]"
+          page="{{apppage}}"
+          category-name="{{categoryName}}"
+          category="[[category]]"
+          article-id="{{articleId}}"
+          article="[[article]]"
+          loading="[[loading]]"
+          offline="[[offline]]"
+          failure="[[failure]]"></quick-search>
+
       <!-- invalid top level paths -->
       <news-path-warning pagename="path-warning"></news-path-warning>
 
@@ -232,6 +267,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         categories: Array,
 
         categoryName: String,
+
+        subCategory: String,
 
         category: Object,
 
@@ -345,8 +382,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           case 'business':
             href = '../itsm-business.html';
           break;
+          case 'trigger':
+            href = '../list-trigger.html';
+          break;
+          case 'operate':
+            href = '../list-operate.html';
+          break;
           case 'bats':
             href = '../news-bats.html';
+          break;
+          case 'quickSearch':
+            href = '../quick-search.html';
           break;
           default:
             href = '../news-path-warning.html';

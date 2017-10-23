@@ -1,0 +1,160 @@
+<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../bower_components/paper-swatch-picker/paper-swatch-picker.html">
+<link rel="import" href="../../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../../bower_components/vaadin-upload/vaadin-upload.html">
+<link rel="import" href="../../css/page-styles.html">
+<link rel="import" href="../../css/appDrawer-styles.html">
+
+<dom-module id="edit-search">
+
+  <template>
+
+    <style include="page-styles appDrawer-styles">
+    </style>
+
+    <app-toolbar class="drawer-header">
+      <div class="close" on-tap="_closeDrawer">>></div>
+      <div class="flex">编辑搜索</div>
+      <div class="btns">
+        <paper-button on-click="_saveLayout">
+        保存
+        </paper-button>
+      </div>
+    </app-toolbar>
+    <div class="drawer-con">
+      <div class="tabs">
+        <paper-tabs selected="{{tabSelected}}">
+          <paper-tab><paper-ripple></paper-ripple>一般</paper-tab>
+          <paper-tab><paper-ripple></paper-ripple>标准</paper-tab>
+        </paper-tabs>
+      </div>
+      <div class="tab-con con">
+        <iron-pages selected="{{tabSelected}}" attr-for-selected="name">
+          <div name="0">
+            <div class="item">
+              <paper-input always-float-label label="快速搜索名称:" value="{{name}}"></paper-input>
+              <paper-input always-float-label label="别名(A):" value="{{alias}}" on-blur="_onBlurAlias"></paper-input>
+            </div>
+            <div class="item">
+              <paper-input always-float-label label="说明(D):" value="{{description}}"></paper-input>
+              <paper-dropdown-menu label="范围(S):">
+                <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                  <paper-item>个人</paper-item>
+                  <paper-item>全局</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+              <paper-dropdown-menu label="负责人(O):">
+                <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                  <paper-item>个人</paper-item>
+                  <paper-item>角色</paper-item>
+                  <paper-item>全局</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+              <paper-dropdown-menu label="类别(C):">
+                <paper-listbox slot="dropdown-content" class="dropdown-content" selected="0">
+                  <paper-item>个人</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+              <paper-dropdown-menu label="关联(A):">
+                <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                  <paper-item>未关联</paper-item>
+                  <paper-item>告警</paper-item>
+                  <paper-item>可用性</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+              <div class="checkboxs">
+                <paper-checkbox class="styled">
+                  在导航中显示
+                </paper-checkbox>
+              </div>
+            </div>
+          </div>
+          <div name="1">
+            <paper-dropdown-menu label="默认网格:">
+              <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                <paper-item>主页事件</paper-item>
+                <paper-item>事件</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+            <paper-dropdown-menu label="请选择业务对象:">
+              <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+                <paper-item>主页事件</paper-item>
+                <paper-item>事件</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+            <div class="item">
+              <h5>表达式:</h5>
+
+            </div>
+
+          </div>
+        </iron-pages>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+
+    class EditSearch extends Polymer.Element {
+
+      static get is() { return 'edit-search'; }
+
+      static get properties() { return {
+        panelInfo: Object,
+        alias: String,
+        name: String,
+        description: String,
+        scope: String,
+        scopeOwner: String,
+        selectedTextColor: String,
+        selectedBgStartColor: String,
+        selectedBgEndColor: String,
+        tabSelected: {
+          type: Number,
+          value: 0
+        }
+      }}
+      static get observers() { return [
+        '_panelInfoChange(panelInfo)'
+      ]}
+
+      ready() {
+        super.ready();
+
+      }
+
+      _panelInfoChange(info){
+        this.alias = info.alias;
+        this.name = info.name;
+        this.description = info.description;
+      }
+
+      _addWidgetDrawer(){
+        this.dispatchEvent(new CustomEvent('open-addWidgetDrawer', {bubbles: true, composed: true}));
+      }
+      _onClickOk(){
+        var alias = this.alias, name = this.name, description = this.description;
+
+      }
+
+      _onBlurAlias(){
+        if(this.alias === ""){
+          this.alias = this.name;
+        }
+      }
+
+      _closeDrawer() {
+        this.dispatchEvent(new CustomEvent('editPanel-close', {bubbles: true, composed: true}));
+      }
+    }
+
+    customElements.define(EditSearch.is, EditSearch);
+
+  </script>
+
+</dom-module>

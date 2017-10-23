@@ -102,9 +102,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="item">
       <h5>名称、说明和字段类型</h5>
       <h6>输入字段的名称和说明，然后从提供的选项中选择字段类型</h6>
-      <paper-input id="fieldName" always-float-label label="字段名称" value="{{fieldDemo.name}}"></paper-input>
-      <paper-textarea always-float-label label="字段说明" value="{{fieldDemo.description}}"></paper-textarea>
       <vaadin-combo-box id="fieldType" always-float-label label="字段类型" class="style-scope combo-box-basic-demos" value="{{fieldDemo.fieldCategory}}"></vaadin-combo-box>
+      <paper-input id="fieldName" always-float-label label="字段名称" value="{{fieldDemo.name}}"></paper-input>
+      <paper-textarea id="fieldDesc" always-float-label label="字段说明" value="{{fieldDemo.description}}"></paper-textarea>
       <h6>它指定字段的名称。名称必须以字母开头，并且只能包含字母、数字、下划线字符，不能包含空格。名称最多可以包含30个字符。</h6>
       <iron-pages selected="{{fieldTypeSelect}}" attr-for-selected="name">
         <div name="4">
@@ -124,7 +124,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
           <h6 id="fieldlengthdesc">如果要指定可在此字段中输入的最大字符数，请选择此项。然后输入或选择最大数。</h6>
         </div>
-        <div name="3">
+        <div name="32">
           <h5>日期/时间字段属性</h5>
           <h6>属性确定哪些类型的值可以存储在日期/时间字段中（日期和时间、仅日期、仅时间）</h6>
           <label id="label2">你要存储什么信息？</label><br>
@@ -211,107 +211,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           ]
         },
         fieldDemo: {
-          type: Object,
-          value:{
-            "alias": "addone",
-            "allowEndOfLine": false,
-            "calculated": false,
-            "clearIfReadOnly": false,
-            "commonlySearched": false,
-            "description": "新增字段",
-            "dirty": false,
-            "doNotTranslate": false,
-            "editMode": false,
-            "encoding": "",
-            "encrypted": false,
-            "excludeFromForm": false,
-            "excludeFromGrid": false,
-            "fieldCategory": 4,
-            "folder": "",
-            "formatDef": {
-                "alias": "",
-                "characterFormat": "None",
-                "cultureInfo": "",
-                "customFormat": "",
-                "description": "",
-                "dirty": false,
-                "editMode": false,
-                "folder": "",
-                "generatesEvents": false,
-                "id": "",
-                "isInLine": false,
-                "linkedTo": "",
-                "name": "",
-                "perspective": "(Base)",
-                "pushFormat": false,
-                "scope": 16,
-                "scopeOwner": "GLOBAL",
-                "trimStart": false,
-                "version": 1,
-                "xmlCategory": ""
-            },
-            "generatesEvents": true,
-            "htSubFields": [],
-            "id": "",
-            "inLineFormat": true,
-            "isLinkField": false,
-            "isStateField": false,
-            "isUnicode": 0,
-            "length": 25,
-            "linkedTo": "",
-            "name": "addone",
-            "namedFormat": "",
-            "namedFormatId": "",
-            "perspective": "(Base)",
-            "ruleAutoFill": null,
-            "ruleBeforeSave": null,
-            "ruleBeforeStateChange": null,
-            "ruleCalculation": null,
-            "ruleDefaultValue": {
-                "alias": "",
-                "description": "",
-                "dictBehaviors": null,
-                "dirty": false,
-                "editMode": false,
-                "folder": "",
-                "generatesEvents": false,
-                "id": "",
-                "instant": true,
-                "isInLine": false,
-                "linkedTo": "",
-                "name": "",
-                "noNameString": "__NoName__",
-                "perspective": "(Base)",
-                "relFor": "None",
-                "requiresNameId": false,
-                "ruleCatalogString": "AlwaysBlank",
-                "ruleCategory": null,
-                "scope": 16,
-                "scopeOwner": "GLOBAL",
-                "strKey": "",
-                "strPurpose": "",
-                "strRuleUser": "",
-                "version": 1,
-                "which": true,
-                "xmlCategory": ""
-            },
-            "ruleReadOnly": null,
-            "ruleRequired": null,
-            "ruleValidation": null,
-            "scope": 16,
-            "scopeOwner": "GLOBAL",
-            "sendEventsToBPE": false,
-            "strDefaultValue": "",
-            "strRecalcOnLoad": "",
-            "strSubFieldPurpose": "",
-            "subField": false,
-            "supportFullTextSearch": false,
-            "updateExistingFormattedData": false,
-            "validationField": true,
-            "version": 1,
-            "virtual": false,
-            "xmlCategory": ""
-          }
+          type: Object
         }
       }}
 
@@ -324,7 +224,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._initConboBox_fieldType();
         this._setCheck();
         this._addEventListen();
-        // this._fetch("/data/chrome.json", (response) => {console.log(response);}, 1, true);
+        this._setFieldDemo("textFieldTemplate");
       }
 
       _closeDrawer() {
@@ -348,7 +248,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           {label: '链接', value: 0},
           {label: '数值', value: 8},
           {label: '逻辑', value: 2},
-          {label: '时间', value: 3},
+          {label: '时间', value: 32},
           {label: '文本', value: 4}
         ];
         combobox1.value = 4;
@@ -359,8 +259,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var _this = this;
         var fieldType = _this.root.querySelector("#fieldType");
         $(fieldType).bind('change', function(){
-          console.log(fieldType.value);
-          _this.fieldTypeSelect = fieldType.value;
+          var value = fieldType.value;
+          _this.fieldTypeSelect = value;
+          switch (value) {
+            case 4:
+              _this._setFieldDemo('textFieldTemplate');
+              break;
+            case 8:
+              _this._setFieldDemo('numberFieldTemplate');
+              break;
+            case 32:
+              _this._setFieldDemo('timeFieldTemplate');
+              break;
+            default:
+              break;
+          }
         });
 
         var fieldset = _this.root.querySelector("#fieldset");
@@ -387,31 +300,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var _this = this;
       }
 
-      _fetch(url, callback, attempts) {
-        let xhr = new XMLHttpRequest();
-        xhr.addEventListener('load', (e) => {
-          // this._setLoading(false);
-          if (isRaw) {
-            callback(e.target.responseText);
-          } else {
-            callback(JSON.parse(e.target.responseText));
-          }
+      _setFieldDemo(fieldType){
+        var _this = this;
+        $.getJSON('../../../data/template.json', function(data){
+          _this.fieldDemo = data.fieldTemplate[fieldType];
         });
-        xhr.addEventListener('error', (e) => {
-          // Flaky connections might fail fetching resources
-          if (attempts > 1) {
-            this._fetchDebouncer = Polymer.Debouncer.debounce(this._fetchDebouncer,
-              Polymer.Async.timeOut.after(200), this._fetch.bind(this, url, callback, attempts - 1));
-          } else {
-            // this._setLoading(false);
-            // this._setFailure(true);
-          }
-        });
-
-        // this._setLoading(true);
-        // this._setFailure(false);
-        xhr.open('GET', url);
-        xhr.send();
       }
     }
 

@@ -303,18 +303,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         .header-right .admindivs {
+          width: auto;
+          min-width: 80px;
           background-image: url(/images/icons-other.png);
           background-repeat: no-repeat;
-          background-position: 0 -805px;
+          background-position: 0 -802px;
           padding-left: 25px;
           font-size: 13px;
+          line-height: 24px;
+          height: 24px;
+          overflow: hidden;
           text-align: left;
         }
         .header-right .profile {
           padding-left: 25px;
           /*padding-right: 30px;*/
           font-size: 13px;
-          min-width: 70px;
           text-align: left;
         }
 
@@ -516,6 +520,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <a href="/app/bats"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>多网格部件</a>
                   <a href="/app/organization"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>运维团队</a>
                   <a href="/cms/modules"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>系统控制台</a>
+                  <a href="/app/trigger"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>触发器</a>
+                  <a href="/app/quickSearch"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>快速搜索</a>
+                  <a href="/app/operate"><img src="/sysresources/workorder/servicelevel.png" alt="" class="img"><paper-ripple></paper-ripple>快速操作</a>
                 </div>
 
               </div>
@@ -572,6 +579,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           notify: true
         },
+
+        subCategory: String,
 
         drawerOpened: {
           type: Boolean,
@@ -640,12 +649,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
             _this.menuList = menuList;
             if(_this.categoryName){
+              // console.log(_this.subCategory);
               for(var i=0; i<arr.length; i++){
                 if(arr[i].alias === _this.categoryName){
                   _this.categoryId = arr[i].dashboardId;
                   //根据 选中导航 跳转页面
                   window.history.pushState({}, null, "/app/list/"+ arr[i].name);
                   window.dispatchEvent(new CustomEvent('location-changed'));
+                }else{
+                  if(i === arr.length-1){
+                    _this.categoryId = arr[0].dashboardId;
+                    window.history.pushState({}, null, "/app/list/"+ arr[0].name);
+                    window.dispatchEvent(new CustomEvent('location-changed'));
+                    break;
+                  }
                 }
               }
             }else{
@@ -661,6 +678,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   break;
                 }else{
                   if(i === arr.length-1){
+                    _this.categoryId = arr[0].dashboardId;
+
                     window.history.pushState({}, null, "/app/list/"+ arr[0].name);
                     window.dispatchEvent(new CustomEvent('location-changed'));
                     break;

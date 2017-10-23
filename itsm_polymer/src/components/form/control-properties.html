@@ -5,12 +5,13 @@
 <link rel="import" href="../../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../css/form/form-style.html">
+<link rel="import" href="../../css/appDrawer-styles.html">
 
 <link rel="import" href="./propertites/propertites-annotation.html">
 
 <dom-module id="control-properties">
   <template>
-    <style include="form-style iron-flex">
+    <style include="form-style iron-flex appDrawer-styles">
       :host {
         display: block;
         text-align: left;
@@ -26,17 +27,21 @@
         margin-top: 0px;
         margin-bottom: 0;
       }*/
+      .form-content {
+        font-size: 14px;
+        padding: 0;
+      }
       .form-content .form-label {
         width: 50px;
         line-height: 34px;
         margin-bottom: 0;
-        font-size: 12px;
+        font-size: 14px;
       }
       .form-content .form-link {
         line-height: 34px;
       }
       paper-swatch-picker {
-        margin-top: -16px;
+        margin-top: -8px;
         margin-bottom: -16px;
       }
       paper-checkbox {
@@ -47,19 +52,26 @@
 
       paper-tabs {
         /*--paper-tabs-selection-bar-color: #01b1f8;*/
-        font-size: 12px;
+        /*font-size: 12px;
         background: #009688;
-        color: white;
+        color: white;*/
+
+      }
+      .tabs paper-tab{
+        height: 48px;
       }
     </style>
 
     <div class="config-form">
-      <form class="form form2">
+      <form class="form form2 drawer-con">
+        <div class="tabs">
         <paper-tabs selected="{{propertiesType}}">
           <paper-tab>外观</paper-tab>
           <paper-tab>注解</paper-tab>
           <paper-tab>行为</paper-tab>
         </paper-tabs>
+        </div>
+        <div class="tab-con con">
         <iron-pages selected="{{propertiesType}}">
           <section>
             <div class="form-content">
@@ -152,111 +164,13 @@
             </div>
           </section>
         </iron-pages>
-        <!-- <div class="form-group">
-          <paper-icon-button icon="expand-more" on-click="_shrink"></paper-icon-button>
-          <label>外观</label>
         </div>
-        <iron-collapse opened class="form-content">
-          <paper-input always-float-label label="名称:" id="controlLabel" value="[[activeProperties.Label]]"></paper-input>
-          <paper-dropdown-menu always-float-label label="边框样式:" id="borderStyle">
-            <paper-listbox slot="dropdown-content" selected="[[activeProperties.Border.Style]]" attr-for-selected="name">
-              <paper-item name="dashed">Dashed</paper-item>
-              <paper-item name="dotted">Dotted</paper-item>
-              <paper-item name="solid">Solid</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-          <paper-input type="number" always-float-label label="边框线条:" id="borderWidth" value="[[activeProperties.Border.Width]]"></paper-input>
-          <div class="form-group layout horizontal">
-            <label class="form-label" for="borderColor">边框色:</label>
-            <div class="flex">
-              <paper-swatch-picker id="borderColor" color="[[_computeBorderColor(activeProperties.Border)]]"></paper-swatch-picker>
-            </div>
-          </div>
-          <div class="form-group layout horizontal">
-            <label class="form-label" for="backgroundColor">背景色:</label>
-            <div class="flex">
-              <paper-swatch-picker id="backgroundColor" color="[[_computeBackgroundColor(activeProperties.Background)]]"></paper-swatch-picker>
-            </div>
-          </div>
-          <div class="form-group layout horizontal">
-            <label class="form-label" for="foregroundColor">前景色:</label>
-            <div class="flex">
-              <paper-swatch-picker id="foregroundColor" color="[[_computeForegroundColor(activeProperties.Foreground)]]"></paper-swatch-picker>
-            </div>
-          </div>
-          <div class="form-group layout horizontal">
-            <paper-checkbox id="showVisable" checked="[[activeProperties.Visible.Value]]">可见</paper-checkbox>
-          </div>
-          <paper-dropdown-menu always-float-label label="文本对齐:" id="alignText">
-            <paper-listbox slot="dropdown-content" selected="[[activeProperties.Alignment.Value]]" attr-for-selected="name">
-              <paper-item name="center">Center</paper-item>
-              <paper-item name="left">Left</paper-item>
-              <paper-item name="right">Right</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-          <div class="form-group layout horizontal">
-            <label class="form-label" for="controlFont">字体:</label>
-            <div class="flex">
-              <a class="form-link" href="#">Roboto</a>
-            </div>
-          </div>
-          <paper-dropdown-menu always-float-label label="字体来源:" id="controlSource">
-            <paper-listbox slot="dropdown-content" selected="" attr-for-selected="name">
-              <paper-item name="">指定来源</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-        </iron-collapse> -->
 
       </form>
-      <!-- <form class="form form2">
-        <div class="form-group">
-          <paper-icon-button icon="chevron-right" on-click="_shrink"></paper-icon-button>
-          <label>注解</label>
-        </div>
-        <iron-collapse class="form-content">
-          <propertites-annotation></propertites-annotation>
-        </iron-collapse>
-      </form>
-      <form class="form form2">
-        <div class="form-group">
-          <paper-icon-button icon="chevron-right" on-click="_shrink"></paper-icon-button>
-          <label>行为</label>
-        </div>
-        <iron-collapse class="form-content" id="configActions">
-          <div class="form-group layout horizontal">
-            <paper-checkbox name="UseHtml">HTML支持</paper-checkbox>
-          </div>
-          <div class="form-group layout horizontal">
-            <paper-checkbox name="tabFocus">TAB焦点接收</paper-checkbox>
-          </div>
-          <div class="form-group layout horizontal">
-            <paper-checkbox name="urlSupport">URL支持</paper-checkbox>
-          </div>
-          <div class="form-group layout horizontal">
-            <paper-checkbox name="recovery">回收</paper-checkbox>
-          </div>
-          <paper-input type="number" always-float-label label="标签索引:" id="tagIndex" value=""></paper-input>
-          <paper-dropdown-menu always-float-label label="关联字段名:" id="associatedFieldName">
-            <paper-listbox slot="dropdown-content" selected="" attr-for-selected="name">
-              <dom-repeat items="[[fieldNames]]" as="item">
-                <template>
-                  <paper-item name="[[item.field]]">[[item.name]]</paper-item>
-                </template>
-              </dom-repeat>
-            </paper-listbox>
-          </paper-dropdown-menu>
-          <paper-input always-float-label label="排序字段:" name="sortBy" value=""></paper-input>
-          <div class="form-group layout horizontal">
-            <paper-checkbox name="ComboBoxSortField">升序</paper-checkbox>
-          </div>
-          <div class="form-group layout horizontal">
-            <paper-checkbox name="UseComboBox">下拉组合框</paper-checkbox>
-          </div>
-        </iron-collapse>
-      </form> -->
-      <div class="form-group text-right" style="margin-right: 10px;">
+
+      <!-- <div class="form-group text-right" style="margin-right: 10px;">
         <paper-button raised class="pbtn pbtn-primary" on-tap="_saveConfig">保存</paper-button>
-      </div>
+      </div> -->
     </div>
   </template>
 

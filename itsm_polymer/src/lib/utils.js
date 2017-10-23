@@ -29,5 +29,9 @@ var Utils = {
       xmlDoc.loadXML(txt);
     }
     return xmlDoc;
-  }
+  },
+
+  firstUpperCase(str) {
+    return str.replace(/^\S/,function(s){return s.toUpperCase();});
+  },
 }

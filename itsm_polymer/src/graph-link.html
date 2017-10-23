@@ -10,7 +10,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/vaadin-icons/vaadin-icons.html">
 <link rel="import" href="table-new.html">
 
 <dom-module id="graph-link">
@@ -48,10 +47,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .small-icon:hover {
         fill:#00b4f0;
       }
+      .selector{
+        padding-left: 15px;
+        text-align: left;
+      }
     </style>
-    <div class="toolbar">
-      <iron-icon class="small-icon" icon="vaadin:arrow-backward" title="Backward" on-click="_back"></iron-icon>
-    </div>
     <div id="contain" class="contain">
       <div id="content" class="content">
         <template is="dom-repeat" items="[[tableSource]]">
@@ -78,6 +78,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready() {
         super.ready();
+
+        this.addEventListener('link-back', this._back.bind(this));
+
         var ts = [];
         ts.push({target: 'graph-cake', display: '饼状图的计算机(1)'});
         ts.push({target: 'graph-columnar', display: '条形图的计算机(8)'});
