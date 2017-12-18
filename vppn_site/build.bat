@@ -1,2 +1,0 @@
-polymer build
-stop
